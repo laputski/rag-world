@@ -1,0 +1,72 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "edge_device",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-02",
+  "groups": [
+    "G"
+  ],
+  "id": "edge",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "product",
+      "label": "Google AI Edge RAG library (2026)",
+      "status": "needs_review",
+      "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+      "verified_at": null
+    },
+    {
+      "kind": "preprint",
+      "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2602.13229",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
+      "status": "needs_review",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
+      "verified_at": null
+    },
+    {
+      "kind": "product",
+      "label": "Microsoft Edge RAG (Azure Arc)",
+      "status": "needs_review",
+      "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
+      "verified_at": null
+    }
+  ],
+  "name": "Edge и On-Device RAG",
+  "prose_id": "edge",
+  "residual": []
+}

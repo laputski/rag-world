@@ -1,0 +1,33 @@
+# Публикация портала на Render.
+#
+# Портал статический: сборка выполняет только команды интерфейса, живого сервера
+# в продакшене нет. Отсюда два следствия. Первое: ограничение на засыпание при
+# простое к статике не относится. Второе: данные обязаны лежать в репозитории
+# собранными — сборка не запускает Python и артефакты не породит.
+#
+# Правило переписывания адресов нужно клиентской маршрутизации: без него прямое
+# обращение к /registry или /tech/pathrag вернуло бы отсутствие страницы, а
+# постоянные адреса карточек — обязательное условие цитируемости.
+
+services:
+  - type: web
+    runtime: static
+    name: rag-world
+    plan: free
+    rootDir: ui
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Артефакты данных обновляются ежедневно, поэтому кэшируются ненадолго:
+      # иначе читатель увидит вчерашнее состояние и не поймёт почему.
+      - path: /data/*
+        name: Cache-Control
+        value: public, max-age=300, must-revalidate
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable

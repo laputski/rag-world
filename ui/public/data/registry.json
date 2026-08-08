@@ -1,0 +1,4517 @@
+{
+  "built_at": "2026-08-08T19:23:08+00:00",
+  "count": 54,
+  "technologies": [
+    {
+      "aliases": [],
+      "attention": 5.903,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Выученный роутер выбирает no-retrieval, single-step или multi-step retrieval.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2403.14403",
+          "type": "publication",
+          "value": "arXiv:2403.14403 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042753",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=183; year=2024; citation_velocity=5.903"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "D",
+      "first_published": "2024",
+      "groups": [
+        "B"
+      ],
+      "id": "adaptive_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2403.14403",
+          "verified_at": null
+        }
+      ],
+      "name": "Adaptive RAG",
+      "prose_id": "adaptive_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "agentic_rag",
+      "kind": "architecture",
+      "level": null,
+      "level_reason": null,
+      "links": [],
+      "name": "Agentic RAG",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.6,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Атрибутированные сообщества с индексом C-HNSW и адаптивным спуском.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2502.09891",
+          "type": "publication",
+          "value": "arXiv:2502.09891 (2025)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4407632367",
+          "type": "publication",
+          "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=3; year=2026; citation_velocity=0.6"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "B",
+      "first_published": "2025-02",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "archrag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2502.09891",
+          "verified_at": null
+        }
+      ],
+      "name": "ArchRAG",
+      "prose_id": "archrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [],
+      "id": "bge_m3",
+      "kind": "tool",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://huggingface.co/BAAI/bge-m3",
+          "verified_at": null
+        }
+      ],
+      "name": "BGE-M3",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Chunk-retrieval фреймворк для биомедицинских NLP-задач.",
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": "J",
+      "first_published": null,
+      "groups": [
+        "A"
+      ],
+      "id": "biomedrag",
+      "kind": "architecture",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/39814274/",
+          "verified_at": null
+        }
+      ],
+      "name": "BiomedRAG",
+      "prose_id": "biomedrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "lexical",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "lexical",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "bm25_sparse",
+      "kind": "technique",
+      "level": null,
+      "level_reason": null,
+      "links": [],
+      "name": "BM25 Sparse",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [
+        "causal"
+      ],
+      "attention": 0.579,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "multi_agent",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/hippoley/CausalRAG",
+          "type": "repository",
+          "value": "hippoley/CausalRAG: license=apache-2.0, last_push=2025-05-09, releases=no"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4412887679",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2025",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "causalrag",
+      "kind": "paradigm",
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "CausalRAG (arXiv:2503.19878, ACL 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2503.19878",
+          "verified_at": null
+        },
+        {
+          "kind": "github",
+          "label": "CausalRAG code (GitHub)",
+          "status": "needs_review",
+          "url": "https://github.com/hippoley/CausalRAG",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Multi-Round RAG and Causal Modeling (NAACL Industry, 2025)",
+          "status": "needs_review",
+          "url": "https://aclanthology.org/2025.naacl-industry.42.pdf",
+          "verified_at": null
+        }
+      ],
+      "name": "CausalRAG",
+      "prose_id": "causalrag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "ChatQA 2"
+      ],
+      "attention": 0.226,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2401.10225",
+          "type": "publication",
+          "value": "arXiv:2401.10225 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415798682",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=7; year=2024; citation_velocity=0.226"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024-01",
+      "groups": [
+        "E",
+        "G"
+      ],
+      "id": "chatqa",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2401.10225",
+          "verified_at": null
+        }
+      ],
+      "name": "ChatQA",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 2.513,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Per-token эмбеддинги и MaxSim late-interaction.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2004.12832",
+          "type": "publication",
+          "value": "arXiv:2004.12832 (2020)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W3034439313",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=191; year=2020; citation_velocity=2.513"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://dl.acm.org/doi/10.1145/3397271.3401075",
+          "type": "publication",
+          "value": "venue=ACM SIGIR; peer_reviewed=true"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
+      "family": "H",
+      "first_published": "2021",
+      "groups": [
+        "A"
+      ],
+      "id": "colbert",
+      "kind": "technique",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2004.12832",
+          "verified_at": null
+        }
+      ],
+      "name": "ColBERT",
+      "prose_id": "colbert",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.192,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Vision-language retriever: late-interaction поверх патчей изображения страницы.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2407.01449",
+          "type": "publication",
+          "value": "arXiv:2407.01449 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4400373146",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.192"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "E",
+      "first_published": "2024-07",
+      "groups": [
+        "A"
+      ],
+      "id": "colpali",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2407.01449",
+          "verified_at": null
+        }
+      ],
+      "name": "ColPali",
+      "prose_id": "colpali",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "context_prefix",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "LLM-генерируемый контекст-prepend к каждому чанку перед эмбеддингом.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://www.anthropic.com/news/contextual-retrieval",
+          "type": "industrial_use",
+          "value": "Anthropic: описание приёма и рекомендации по применению"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "H",
+      "first_published": "2024",
+      "groups": [
+        "A"
+      ],
+      "id": "contextual_retrieval",
+      "kind": "technique",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "product",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://www.anthropic.com/news/contextual-retrieval",
+          "verified_at": null
+        }
+      ],
+      "name": "Contextual Retrieval",
+      "prose_id": "contextual_retrieval",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "Corrective RAG"
+      ],
+      "attention": 4.789,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "post_gen_check",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2401.15884",
+          "type": "publication",
+          "value": "arXiv:2401.15884 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=91; year=2025; citation_velocity=4.789"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "A",
+      "first_published": "2024",
+      "groups": [
+        "D",
+        "E"
+      ],
+      "id": "crag",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2401.15884",
+          "verified_at": null
+        }
+      ],
+      "name": "CRAG",
+      "prose_id": "crag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.156,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Атомарные факты как единица retrieval вместо пассажей.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2312.06648",
+          "type": "publication",
+          "value": "arXiv:2312.06648 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4389713732",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2023; citation_velocity=0.156"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "H",
+      "first_published": "2023-12",
+      "groups": [
+        "A"
+      ],
+      "id": "dense_x_retrieval",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2312.06648",
+          "verified_at": null
+        }
+      ],
+      "name": "Dense X",
+      "prose_id": "dense_x_retrieval",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "edge_device",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7129328134",
+          "type": "publication",
+          "value": "venue=Open MIND; peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2026-02",
+      "groups": [
+        "G"
+      ],
+      "id": "edge",
+      "kind": "paradigm",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "product",
+          "label": "Google AI Edge RAG library (2026)",
+          "status": "needs_review",
+          "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2602.13229",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
+          "status": "needs_review",
+          "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
+          "verified_at": null
+        },
+        {
+          "kind": "product",
+          "label": "Microsoft Edge RAG (Azure Arc)",
+          "status": "needs_review",
+          "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
+          "verified_at": null
+        }
+      ],
+      "name": "Edge и On-Device RAG",
+      "prose_id": "edge",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "edge_device",
+        "G3": "frozen"
+      },
+      "core_idea": "RAG на edge-устройствах: прунинг эмбеддингов и on-demand генерация.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2412.21023",
+          "type": "publication",
+          "value": "arXiv:2412.21023 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4405957635",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "F",
+      "first_published": "2024-12",
+      "groups": [
+        "D",
+        "G"
+      ],
+      "id": "edgerag",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2412.21023",
+          "verified_at": null
+        }
+      ],
+      "name": "EdgeRAG",
+      "prose_id": "edgerag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "embodied"
+      ],
+      "attention": 0.043,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "image",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4403853662",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.043"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2024-09",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "embodied_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "Embodied-RAG (CMU, arXiv:2409.18313, 2024)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2409.18313",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Text-to-3D Spatial Retrieval (ICCV, 2025)",
+          "status": "needs_review",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Feng_Partially_Matching_Submap_Helps_Uncertainty_Modeling_and_Propagation_for_Text_ICCV_2025_paper.pdf",
+          "verified_at": null
+        }
+      ],
+      "name": "Embodied RAG",
+      "prose_id": "embodied_rag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "federated"
+      ],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "differential_privacy",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/DocAILab/FedE4RAG",
+          "type": "repository",
+          "value": "DocAILab/FedE4RAG: license=none, last_push=2025-12-15, releases=no"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416981893",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416034993",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=5; year=2025; citation_velocity=0.263"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
+      "family": null,
+      "first_published": "2025-04",
+      "groups": [
+        "C",
+        "G"
+      ],
+      "id": "federated_rag",
+      "kind": "paradigm",
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "links": [
+        {
+          "kind": "other",
+          "label": "Federated RAG: Systematic Mapping Study (EMNLP, 2025)",
+          "status": "needs_review",
+          "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "FedE4RAG (arXiv:2504.19101, 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2504.19101",
+          "verified_at": null
+        },
+        {
+          "kind": "github",
+          "label": "FedE4RAG code (GitHub)",
+          "status": "needs_review",
+          "url": "https://github.com/DocAILab/FedE4RAG",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "Federated RAG survey (arXiv:2505.18906, 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/pdf/2505.18906",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "FD-RAG: Federated Dual-System (OpenReview)",
+          "status": "needs_review",
+          "url": "https://openreview.net/forum?id=kOUMng3ynd",
+          "verified_at": null
+        }
+      ],
+      "name": "Federated RAG",
+      "prose_id": "federated_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 9.256,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "decoding_trigger",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Генерирует tentative-предложение и инициирует поиск при неуверенности модели.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2305.06983",
+          "type": "publication",
+          "value": "arXiv:2305.06983 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4389519118",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=398; year=2023; citation_velocity=9.256"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "A",
+      "first_published": "2023",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "flare",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2305.06983",
+          "verified_at": null
+        }
+      ],
+      "name": "FLARE",
+      "prose_id": "flare",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "HippoRAG 2"
+      ],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Имитация гиппокампа: OpenIE и Personalized PageRank для multi-hop поиска.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+          "type": "repository",
+          "value": "OSU-NLP-Group/HippoRAG: license=mit, last_push=2026-07-29, releases=yes"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "B",
+      "first_published": "2024",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "hipporag",
+      "kind": "architecture",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/OSU-NLP-Group/HippoRAG",
+          "verified_at": null
+        }
+      ],
+      "name": "HippoRAG",
+      "prose_id": "hipporag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 6.349,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "hyde",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "rrf",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2212.10496",
+          "type": "publication",
+          "value": "arXiv:2212.10496 (2022)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385565351",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=273; year=2023; citation_velocity=6.349"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "G",
+      "first_published": "2022",
+      "groups": [
+        "B"
+      ],
+      "id": "hyde",
+      "kind": "technique",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2212.10496",
+          "verified_at": null
+        }
+      ],
+      "name": "HyDE",
+      "prose_id": "hyde",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 5.977,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Чередует каждое предложение chain-of-thought с шагом поиска.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2212.10509",
+          "type": "publication",
+          "value": "arXiv:2212.10509 (2022)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385571271",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=257; year=2023; citation_velocity=5.977"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "C",
+      "first_published": "2023",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "ircot",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2212.10509",
+          "verified_at": null
+        }
+      ],
+      "name": "IRCoT",
+      "prose_id": "ircot",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Эмбеддинг всего документа, затем нарезка.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2409.19773",
+          "type": "publication",
+          "value": "arXiv:2409.19773 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4403814295",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "H",
+      "first_published": "2024",
+      "groups": [
+        "A"
+      ],
+      "id": "late_chunking",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2409.19773",
+          "verified_at": null
+        }
+      ],
+      "name": "Late Chunking",
+      "prose_id": "late_chunking",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Иерархия юридической силы, классификация типов вопросов, маски ответов.",
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": "J",
+      "first_published": null,
+      "groups": [],
+      "id": "legal_pack_belarus",
+      "kind": "artifact",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://en.wikipedia.org/wiki/Law_of_Belarus",
+          "verified_at": null
+        }
+      ],
+      "name": "Legal pack (Belarus)",
+      "prose_id": "legal_pack_belarus",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "Light-RAG"
+      ],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "episodic",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Двухуровневый граф (сущности и темы) с инкрементальным обновлением.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-05, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-08, releases=yes"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "B",
+      "first_published": "2025",
+      "groups": [
+        "A",
+        "C",
+        "F"
+      ],
+      "id": "lightrag",
+      "kind": "architecture",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/HKUDS/LightRAG",
+          "verified_at": null
+        }
+      ],
+      "name": "LightRAG",
+      "prose_id": "lightrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.067,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Декомпозиция RAG-пайплайна по координируемым агентам.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4414588074",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.067"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "C",
+      "first_published": "2025-05",
+      "groups": [
+        "E"
+      ],
+      "id": "ma_rag",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "arXiv:2505.20096 (исправлено: было 2406.18542 → LiDAR)",
+          "status": "verified",
+          "url": "https://arxiv.org/abs/2505.20096",
+          "verified_at": "2026-08-05"
+        }
+      ],
+      "name": "MA-RAG",
+      "prose_id": "ma_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "episodic",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Двойная система: long-range-memory модель и точечное извлечение по подсказкам.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/qhjqhj00/MemoRAG",
+          "type": "repository",
+          "value": "qhjqhj00/MemoRAG: license=apache-2.0, last_push=2025-09-11, releases=yes"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "F",
+      "first_published": null,
+      "groups": [
+        "C",
+        "F"
+      ],
+      "id": "memorag",
+      "kind": "architecture",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/qhjqhj00/MemoRAG",
+          "verified_at": null
+        }
+      ],
+      "name": "MemoRAG",
+      "prose_id": "memorag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "GraphRAG"
+      ],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "summary_node",
+        "A2": "semantic",
+        "A3": "summary",
+        "A4": "graph",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "graph_traversal",
+        "C2": "multi_hop_fixed",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "graph_structural",
+        "D2": "top_k",
+        "D3": "hierarchical",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Глобальный граф знаний с группировкой сообществ и Map-Reduce отчетами.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "repository",
+          "value": "microsoft/graphrag: license=mit, last_push=2026-08-05, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "industrial_use",
+          "value": "Microsoft: выпуски с версионированием и документация поставщика"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "B",
+      "first_published": null,
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "id": "msft_graphrag",
+      "kind": "architecture",
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L2",
+          "L3"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/microsoft/graphrag",
+          "verified_at": null
+        }
+      ],
+      "name": "Microsoft GraphRAG",
+      "prose_id": "msft_graphrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "multi_reformulation",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "rrf",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": "G",
+      "first_published": null,
+      "groups": [
+        "B"
+      ],
+      "id": "multi_query",
+      "kind": "technique",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever",
+          "verified_at": null
+        }
+      ],
+      "name": "Multi-Query Retrieval",
+      "prose_id": "multi_query",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 1.891,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Первый мультимодальный retrieval-augmented transformer с непараметрической памятью.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2210.02928",
+          "type": "publication",
+          "value": "arXiv:2210.02928 (2022)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385573236",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=104; year=2022; citation_velocity=1.891"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "E",
+      "first_published": "2022",
+      "groups": [
+        "A",
+        "E"
+      ],
+      "id": "murag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2210.02928",
+          "verified_at": null
+        }
+      ],
+      "name": "MuRAG",
+      "prose_id": "murag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [
+        "A"
+      ],
+      "id": "naive_dense",
+      "kind": "technique",
+      "level": null,
+      "level_reason": null,
+      "links": [],
+      "name": "Naive Dense",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [
+        "neuro-symbolic"
+      ],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "image",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "multi_agent",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7119757052",
+          "type": "publication",
+          "value": "venue=Maryland Shared Open Access Repository (USMAI Consortium); peer_reviewed=true; cited_by=0; year=2026; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2026-01",
+      "groups": [
+        "A",
+        "E"
+      ],
+      "id": "neuro_symbolic_rag",
+      "kind": "paradigm",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "Neurosymbolic Retrievers for RAG (arXiv:2601.04568, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2601.04568",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Hyper-RAG (Nature Communications, 2026, +12.3% acc.)",
+          "status": "needs_review",
+          "url": "https://www.nature.com/articles/s41467-026-71411-1",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Neurosymbolic AI 2026 (kyield)",
+          "status": "needs_review",
+          "url": "https://kyield.substack.com/p/neurosymbolic-ai-2026",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "NODES 2026 (Neo4j/Kipon)",
+          "status": "needs_review",
+          "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
+          "verified_at": null
+        }
+      ],
+      "name": "Neuro-Symbolic RAG",
+      "prose_id": "neuro_symbolic_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.684,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "lexical",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "lexical",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "set_cover",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Онтологическое заземление: гиперграф с тройками факт и жадный Set Cover.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2412.15235",
+          "type": "publication",
+          "value": "arXiv:2412.15235 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416035296",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=13; year=2025; citation_velocity=0.684"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "B",
+      "first_published": "2025",
+      "groups": [
+        "A",
+        "D"
+      ],
+      "id": "og_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2412.15235",
+          "verified_at": null
+        }
+      ],
+      "name": "OG-RAG",
+      "prose_id": "og_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [],
+      "id": "opensearch",
+      "kind": "tool",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://opensearch.org/",
+          "verified_at": null
+        }
+      ],
+      "name": "OpenSearch",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 1.6,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "graph",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "graph_traversal",
+        "C2": "multi_hop_fixed",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "path_pruning",
+        "D2": "top_k",
+        "D3": "reliability_ascending",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2502.14902",
+          "type": "publication",
+          "value": "arXiv:2502.14902 (2025)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7138333265",
+          "type": "publication",
+          "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=8; year=2026; citation_velocity=1.6"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "B",
+      "first_published": "2025",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "id": "pathrag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2502.14902",
+          "verified_at": null
+        }
+      ],
+      "name": "PathRAG",
+      "prose_id": "pathrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.367,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Атака инъекции вредоносных текстов в базу знаний RAG.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2402.07867",
+          "type": "publication",
+          "value": "arXiv:2402.07867 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4391801218",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=11; year=2024; citation_velocity=0.367"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "K",
+      "first_published": "2024-02",
+      "groups": [
+        "G"
+      ],
+      "id": "poisonedrag",
+      "kind": "artifact",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2402.07867",
+          "verified_at": null
+        }
+      ],
+      "name": "PoisonedRAG",
+      "prose_id": "poisonedrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [],
+      "id": "qdrant",
+      "kind": "tool",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://qdrant.tech/",
+          "verified_at": null
+        }
+      ],
+      "name": "Qdrant",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.644,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=29; year=2022; citation_velocity=0.644"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2022-11",
+      "groups": [
+        "A"
+      ],
+      "id": "ra_cm3",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
+          "status": "verified",
+          "url": "https://arxiv.org/abs/2211.12561",
+          "verified_at": "2026-08-05"
+        }
+      ],
+      "name": "RA-CM3",
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.441,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_retriever"
+      },
+      "core_idea": "Joint fine-tuning LLM-ридера и ретривера.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2310.01352",
+          "type": "publication",
+          "value": "arXiv:2310.01352 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=15; year=2023; citation_velocity=0.441"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "I",
+      "first_published": "2023-10",
+      "groups": [
+        "G"
+      ],
+      "id": "ra_dit",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2310.01352",
+          "verified_at": null
+        }
+      ],
+      "name": "RA-DIT",
+      "prose_id": "ra_dit",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.966,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_retriever"
+      },
+      "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4392930030",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.966"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "I",
+      "first_published": "2024-03",
+      "groups": [
+        "G"
+      ],
+      "id": "raft",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2403.10131",
+          "verified_at": null
+        }
+      ],
+      "name": "RAFT",
+      "prose_id": "raft",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "memory"
+      ],
+      "attention": 0.111,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "episodic",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4407831980",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=2; year=2025; citation_velocity=0.111"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7135244490",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2026; citation_velocity=1.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2025-02",
+      "groups": [
+        "F"
+      ],
+      "id": "rag_as_memory",
+      "kind": "paradigm",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "From RAG to Memory (arXiv:2502.14802, 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2502.14802",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Survey on Memory Mechanism of LLMs (ACM, 2025, 755 cit.)",
+          "status": "needs_review",
+          "url": "https://dl.acm.org/doi/10.1145/3748302",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "ICLR 2026 Workshop on Memory for LLM Agents",
+          "status": "needs_review",
+          "url": "https://iclr.cc/virtual/2026/workshop/10000792",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "Governing Evolving Memory (arXiv:2603.11768, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2603.11768",
+          "verified_at": null
+        }
+      ],
+      "name": "RAG as Memory",
+      "prose_id": "rag_as_memory",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "multi_reformulation",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "N вариантов запроса и слияние через Reciprocal Rank Fusion.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/Raudaschl/rag-fusion",
+          "type": "repository",
+          "value": "Raudaschl/rag-fusion: license=mit, last_push=2026-04-26, releases=no"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "G",
+      "first_published": null,
+      "groups": [
+        "B",
+        "C"
+      ],
+      "id": "rag_fusion",
+      "kind": "technique",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/Raudaschl/rag-fusion",
+          "verified_at": null
+        }
+      ],
+      "name": "RAG-Fusion",
+      "prose_id": "rag_fusion",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.871,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "summary_node",
+        "A2": "semantic",
+        "A3": "summary",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Рекурсивная кластеризация и суммаризация в многоуровневое дерево.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4391463108",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=27; year=2024; citation_velocity=0.871"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://openreview.net/forum?id=GN921JHCRw",
+          "type": "publication",
+          "value": "venue=ICLR; peer_reviewed=true"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "H",
+      "first_published": "2024",
+      "groups": [
+        "A"
+      ],
+      "id": "raptor",
+      "kind": "technique",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2401.18059",
+          "verified_at": null
+        }
+      ],
+      "name": "RAPTOR",
+      "prose_id": "raptor",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 12.457,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Чередование reasoning-traces и tool/action-вызовов.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2210.03629",
+          "type": "publication",
+          "value": "arXiv:2210.03629 (2022)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4304195432",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=573; year=2022; citation_velocity=12.457"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://openreview.net/forum?id=WE_vluYUL-X",
+          "type": "publication",
+          "value": "venue=ICLR; peer_reviewed=true"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
+      "family": "C",
+      "first_published": "2023",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "react",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "verified_at": null
+        }
+      ],
+      "name": "ReAct",
+      "prose_id": "react",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.154,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_retriever"
+      },
+      "core_idea": "Fine-tuning LLM на инструкциях, аугментированных результатами поиска.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4378474184",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2023; citation_velocity=0.154"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "I",
+      "first_published": "2023-05",
+      "groups": [
+        "G"
+      ],
+      "id": "sail",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2305.15225",
+          "verified_at": null
+        }
+      ],
+      "name": "SAIL",
+      "prose_id": "sail",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "llm_router",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "episodic",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": null,
+      "first_published": null,
+      "groups": [
+        "B",
+        "F"
+      ],
+      "id": "self_evolving",
+      "kind": "paradigm",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
+          "status": "needs_review",
+          "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "SERAG: Self-Evolving RAG (ACM, 2025)",
+          "status": "needs_review",
+          "url": "https://dl.acm.org/doi/10.1145/3769826",
+          "verified_at": null
+        }
+      ],
+      "name": "Self-Evolving и Fully Adaptive RAG",
+      "prose_id": "self_evolving",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Обучает генератор предсказывать токены рефлексии, принимая решение о необходимости поиска.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://openreview.net/forum?id=hSyW5go0v8",
+          "type": "publication",
+          "value": "venue=ICLR; peer_reviewed=true"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "A",
+      "first_published": "2023",
+      "groups": [
+        "E"
+      ],
+      "id": "self_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://selfrag.github.io/",
+          "verified_at": null
+        }
+      ],
+      "name": "Self-RAG",
+      "prose_id": "self_rag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "speculative"
+      ],
+      "attention": 0.28,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "multi_agent",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4400611538",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.28"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": "A",
+      "first_published": "2025",
+      "groups": [
+        "E"
+      ],
+      "id": "speculative_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2407.08223",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
+          "status": "needs_review",
+          "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
+          "status": "needs_review",
+          "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
+          "verified_at": null
+        }
+      ],
+      "name": "Speculative RAG",
+      "prose_id": "speculative_rag",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "HybridRAG",
+        "Hybrid RAG"
+      ],
+      "attention": null,
+      "confidence": null,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "rrf",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
+      "evidence": [],
+      "evidence_basis": null,
+      "evidence_count": 0,
+      "family": "D",
+      "first_published": null,
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "id": "standard_hybridrag",
+      "kind": "architecture",
+      "level": null,
+      "level_reason": null,
+      "links": [
+        {
+          "kind": "other",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://atlan.com/know/hybrid-rag/",
+          "verified_at": null
+        }
+      ],
+      "name": "Standard HybridRAG",
+      "prose_id": "standard_hybridrag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.676,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "multi_reformulation",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "LLM задает более абстрактный вопрос, поиск по нему, затем конкретный ответ.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2310.06117",
+          "type": "publication",
+          "value": "arXiv:2310.06117 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=23; year=2023; citation_velocity=0.676"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "G",
+      "first_published": "2023-10",
+      "groups": [
+        "B"
+      ],
+      "id": "step_back",
+      "kind": "technique",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2310.06117",
+          "verified_at": null
+        }
+      ],
+      "name": "Step-Back Prompting",
+      "prose_id": "step_back",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "streaming"
+      ],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "episodic",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4406840604",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2025-01",
+      "groups": [
+        "A",
+        "F"
+      ],
+      "id": "streaming_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "StreamingRAG (arXiv:2501.14101, 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2501.14101",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "StreamRAG for video (CVPR, 2026)",
+          "status": "needs_review",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Xie_StreamRAG_Enhancing_Real-Time_Video_Understanding_with_Retrieval_Augmentation_CVPR_2026_paper.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Confluent: Build vs Buy Real-Time RAG (2026)",
+          "status": "needs_review",
+          "url": "https://www.confluent.io/blog/build-vs-buy-real-time-rag-streaming/",
+          "verified_at": null
+        }
+      ],
+      "name": "Streaming RAG",
+      "prose_id": "streaming_rag",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "multi_agent",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+          "type": "repository",
+          "value": "DavidZWZ/Awesome-RAG-Reasoning: license=mit, last_push=2026-07-23, releases=no"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7077909566",
+          "type": "publication",
+          "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=0; year=2025; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2025-08",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "id": "test_time",
+      "kind": "paradigm",
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "links": [
+        {
+          "kind": "other",
+          "label": "AlignRAG: Test-Time Critique (OpenReview, 2025)",
+          "status": "needs_review",
+          "url": "https://openreview.net/forum?id=cnUq7GkS6d",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "MIRAGE (arXiv:2508.18260, 2025)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2508.18260",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
+          "status": "needs_review",
+          "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Survey of RAG-Reasoning (EMNLP, 2025)",
+          "status": "needs_review",
+          "url": "https://aclanthology.org/2025.findings-emnlp.648.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "github",
+          "label": "Awesome-RAG-Reasoning (GitHub)",
+          "status": "needs_review",
+          "url": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+          "verified_at": null
+        }
+      ],
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "prose_id": "test_time",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "agentic_open_loop",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7140314965",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
+      "family": null,
+      "first_published": "2026-03",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "unified",
+      "kind": "paradigm",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "other",
+          "label": "Graph-based RAG in Unified Framework (VLDB PVLDB v18, 2025)",
+          "status": "needs_review",
+          "url": "https://www.vldb.org/pvldb/vol18/p5623-zhou.pdf",
+          "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": "Graphs RAG at Scale (arXiv:2603.22340, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2603.22340",
+          "verified_at": null
+        },
+        {
+          "kind": "other",
+          "label": "Memgraph SQL2Graph and Unstructured2Graph (2026)",
+          "status": "needs_review",
+          "url": "https://memgraph.com/blog/introducing-ai-toolkit-for-graphrag-sql2graph-unstructured2graph",
+          "verified_at": null
+        }
+      ],
+      "name": "Unified RAG над Structured и Unstructured Data",
+      "prose_id": "unified",
+      "residual": []
+    },
+    {
+      "aliases": [
+        "PageIndex"
+      ],
+      "attention": null,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "structure_aware",
+        "A3": "none",
+        "A4": "tree",
+        "A5": "none",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "tree_navigation",
+        "C2": "iterative_stopping",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-05",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-04, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-08, releases=yes"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "H",
+      "first_published": null,
+      "groups": [
+        "A"
+      ],
+      "id": "vectorless",
+      "kind": "technique",
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
+      "links": [
+        {
+          "kind": "github",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://github.com/VectifyAI/PageIndex",
+          "verified_at": null
+        }
+      ],
+      "name": "Vectorless",
+      "prose_id": "vectorless",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.452,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "cross_encoder",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "core_idea": "Экстремальное сжатие: пассажи компрессируются в пространство представлений модели.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415795887",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=14; year=2024; citation_velocity=0.452"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2405.13792",
+          "type": "publication",
+          "value": "arXiv:2405.13792 (2024)"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": "F",
+      "first_published": "2024",
+      "groups": [
+        "D"
+      ],
+      "id": "xrag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2405.13792",
+          "verified_at": null
+        }
+      ],
+      "name": "xRAG",
+      "prose_id": "xrag",
+      "residual": []
+    }
+  ]
+}

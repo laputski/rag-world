@@ -1,0 +1,111 @@
+import { Box, Link as MuiLink, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { ConfigGlyph } from "./ConfigGlyph";
+import { LevelBadge } from "./LevelBadge";
+import { StratumChip } from "./StratumChip";
+import { VelocityStat } from "./VelocityStat";
+
+/**
+ * Строка ленты технологий.
+ *
+ * Строка, а не карточка: карточки заставляют глаз обходить рамки, а материал
+ * здесь сравнивают по колонкам. Разделяются строки волосяной линией.
+ *
+ * Слева отпечаток конфигурации, по центру содержание, справа величины. Такое
+ * расположение позволяет листать ленту, читая только левый край и правую
+ * колонку, и останавливаться на том, что заинтересовало.
+ */
+
+export interface FeedItem {
+  id: string;
+  name: string;
+  kind: string;
+  groups: string[];
+  configuration: Record<string, string>;
+  core_idea?: string | null;
+  level?: string | null;
+  confidence?: number | null;
+  evidence_basis?: string | null;
+  attention?: number | null;
+  evidence_count?: number | null;
+  first_published?: string | null;
+}
+
+interface Props {
+  item: FeedItem;
+  onOpen?: (id: string) => void;
+}
+
+export function FeedRow({ item, onOpen }: Props) {
+  const { t } = useTranslation();
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 2,
+        py: 1.75,
+        borderBottom: 1,
+        borderColor: "divider",
+      }}
+    >
+      <Box sx={{ pt: 0.5 }}>
+        <ConfigGlyph configuration={item.configuration} size={26} />
+      </Box>
+
+      <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+        <Box sx={{ display: "flex", alignItems: "baseline", gap: 1, flexWrap: "wrap" }}>
+          <MuiLink
+            href={`/tech/${item.id}`}
+            onClick={onOpen ? (e) => { e.preventDefault(); onOpen(item.id); } : undefined}
+            sx={{ fontSize: "1.02rem", fontWeight: 600, color: "text.primary" }}
+          >
+            {item.name}
+          </MuiLink>
+          <Typography variant="caption">
+            {t(`kind.${item.kind}`, { defaultValue: item.kind })}
+          </Typography>
+          {item.first_published && (
+            <Typography variant="caption" className="tabular">
+              · {item.first_published}
+            </Typography>
+          )}
+        </Box>
+
+        {item.core_idea && (
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              mt: 0.35,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {item.core_idea}
+          </Typography>
+        )}
+
+        <Box sx={{ display: "flex", gap: 1, mt: 0.75, flexWrap: "wrap" }}>
+          {item.groups.map((g) => <StratumChip key={g} stratum={g} />)}
+        </Box>
+      </Box>
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2.5, flexShrink: 0 }}>
+        <LevelBadge
+          level={item.level ?? null}
+          confidence={item.confidence}
+          manual={item.evidence_basis === "manual"}
+        />
+        <VelocityStat
+          value={item.attention}
+          unit={t("map.attentionUnit")}
+          origin={item.attention != null ? t("map.attentionOrigin") : undefined}
+        />
+      </Box>
+    </Box>
+  );
+}

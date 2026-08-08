@@ -1,0 +1,196 @@
+{
+  "app": {
+    "title": "RAG World",
+    "subtitle": "Maturity map and registry of RAG technologies"
+  },
+  "nav": {
+    "map": "Maturity map",
+    "registry": "Registry",
+    "changes": "Changelog",
+    "generalized": "Paper",
+    "about": "About"
+  },
+  "common": {
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "keywords": "Keywords",
+    "published": "Published",
+    "updated": "Updated",
+    "builtAt": "data built",
+    "sources": "References",
+    "abstract": "Abstract",
+    "contents": "Contents"
+  },
+  "theme": {
+    "toggle": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "atom": "Atom",
+    "primary": "Primary"
+  },
+  "lang": {
+    "switch": "Language",
+    "ru": "Русский",
+    "en": "English"
+  },
+  "kind": {
+    "paradigm": "paradigm",
+    "architecture": "architecture",
+    "technique": "technique",
+    "tool": "tool",
+    "artifact": "evaluation artifact"
+  },
+  "stratum": {
+    "A": "A. Knowledge representation",
+    "B": "B. Query formulation",
+    "C": "C. Retrieval",
+    "D": "D. Context assembly",
+    "E": "E. Synthesis and control",
+    "F": "F. State evolution",
+    "G": "G. Constraint envelope"
+  },
+  "level": {
+    "L0": "L0 — hypothesis",
+    "L1": "L1 — preprint",
+    "L2": "L2 — corroborated",
+    "L3": "L3 — reference implementation",
+    "L4": "L4 — independent reproduction",
+    "L5": "L5 — production use",
+    "L6": "L6 — industry standard",
+    "unknown": "no data"
+  },
+  "map": {
+    "title": "RAG maturity map",
+    "subtitle": "Position shows evidence-backed maturity and the attention a technology receives. Data is rebuilt automatically.",
+    "howToRead": "How to read this map\n\n• Horizontal position is the maturity level from L0 (hypothesis) to L6 (industry standard). The level is computed by a rule from collected evidence, never assigned by hand.\n• Vertical position is attention: citation velocity normalised within an age cohort. Attention is not evidence that something works.\n• Colour marks the stratum of decisions, shape marks the kind of object.\n• Opacity reflects confidence in the level: fewer fresh verified pieces of evidence, paler point.\n• This is not an adoption recommendation: the map reports confirmed maturity, it does not advise what to pick.\n• Click a point to open the technology card with its evidence and the reasoning behind its level.",
+    "confidence": "confidence",
+    "unavailable": "Map unavailable: data artifact not found",
+    "stale": "data is stale",
+    "count": "technologies",
+    "ruleVersion": "rule version",
+    "openCard": "Open technology card",
+    "noAttention": "no attention data",
+    "attentionUnit": "cit./mo",
+    "attentionOrigin": "Citation velocity from the open index",
+    "axisMaturity": "maturity",
+    "axisAttention": "attention, cit./mo",
+    "projection": {
+      "map": "map",
+      "grid": "strata grid"
+    },
+    "showMovement": "show movement",
+    "openRegistry": "full registry →"
+  },
+  "registry": {
+    "title": "RAG technology registry",
+    "subtitle": "The single source of facts about RAG technologies. Every view on this portal reads from here.",
+    "howToRead": "What this is\n\nEach record carries verifiable facts: source links, kind of object, its configuration in the dimension schema, and the residual — mechanisms the schema does not express. The maturity level is computed from evidence and always comes with that evidence listed.",
+    "unavailable": "Registry unavailable: data artifact not found",
+    "filterKind": "Kind",
+    "filterGroup": "Stratum",
+    "all": "All",
+    "colName": "Technology",
+    "colKind": "Kind",
+    "colGroups": "Strata",
+    "colFamily": "Family",
+    "colLevel": "Level",
+    "total": "records total",
+    "builtAt": "data built",
+    "sort": {
+      "level": "by maturity",
+      "attention": "by attention",
+      "recent": "newest",
+      "name": "by name"
+    }
+  },
+  "techCard": {
+    "notFound": "Technology not found in the registry",
+    "family": "family",
+    "groups": "Dimension strata",
+    "configuration": "Configuration in the dimension schema",
+    "dimension": "Dimension",
+    "value": "Value",
+    "residual": "Residual: not expressed by the schema",
+    "aliases": "Aliases",
+    "whyLevel": "Why this level",
+    "whyLevelPending": "The full derivation will appear together with the maturity journal.",
+    "nextLevel": "What is missing for the next level",
+    "evidence": "Evidence",
+    "proseId": "prose id",
+    "backToRegistry": "← Back to the registry",
+    "problem": "Problem",
+    "barriers": "Barriers",
+    "solutions": "Approaches",
+    "maturityNote": "Maturity note",
+    "manualBasis": "level rests on human-entered evidence",
+    "manualShort": "manual",
+    "satisfied": "levels satisfied",
+    "noEvidence": "No evidence collected yet, so no level was computed. This means missing data, not an immature technology.",
+    "skipped": "Level reached by another path",
+    "skippedText": "Conditions for {{levels}} are not met. This is not an error: the scale allows an industry path — documented production use confirms that something works without a publication. Otherwise a widely used technique would rank below a preprint nobody reproduced."
+  },
+  "changes": {
+    "title": "Changelog",
+    "subtitle": "What changed in the registry, and on what grounds.",
+    "levelUp": "level raised",
+    "levelDown": "level lowered",
+    "added": "new record",
+    "empty": "No changes in the selected period.",
+    "unavailable": "Changelog unavailable: data artifact not found",
+    "all": "full changelog →",
+    "basis": "Grounds:",
+    "more": "and {{count}} more",
+    "window": {
+      "week": "week",
+      "month": "month",
+      "all": "all time"
+    }
+  },
+  "glyph": {
+    "title": "Configuration fingerprint",
+    "of": "of"
+  },
+  "search": {
+    "placeholder": "Search the registry…",
+    "empty": "Nothing found",
+    "hint": "Search the registry"
+  },
+  "footer": {
+    "data": "Data is open under CC BY"
+  },
+  "stats": {
+    "title": "Summary",
+    "coverage": "A level is computed for {{withLevel}} of {{total}} records; attention data exists for {{withAttention}}. Evidence collected: {{evidence}}. Empty spots are honest gaps in data, not gaps in the picture."
+  },
+  "about": {
+    "title": "About",
+    "intro": "RAG World collects verifiable facts about Retrieval-Augmented Generation technologies: what was proposed, what backs it, and how the picture shifts over time. The portal does not advise what to adopt; it reports what is confirmed and by what.",
+    "howLevels": "How the level is computed",
+    "howLevelsText": "Maturity is never assigned by hand. A rule computes it from collected evidence: publications, repository state, framework presence, documented production use. The same evidence always yields the same level, so any value reproduces on a re-run. Where no machine-readable source exists, a human enters the evidence with a link, and such records are marked separately.",
+    "howUpdates": "How data is updated",
+    "howUpdatesText": "Collection runs from open sources on a schedule. The portal never queries them at read time: it reads pre-built files, so a source outage makes data stale rather than breaking the portal. Build date and staleness are always shown on the home page.",
+    "limits": "Limits",
+    "limitsText": "Open indexes do not know everything: some publications live only on venues without digital identifiers, and production use has no machine-readable source at all. A missing level means the data was insufficient, not that the technology is immature. Levels should not be compared across kinds of object: a technique enters a framework with one function, a full architecture has a much harder path.",
+    "data": "Data",
+    "dataText": "The data is open and machine-readable. It can be downloaded in full, cited, and used to check any claim the portal makes.",
+    "fileRegistry": "technology registry with configurations and levels",
+    "fileMap": "maturity map points with level history",
+    "fileChanges": "changelog with supporting evidence",
+    "fileStats": "summary: distribution, coverage, freshness",
+    "fileFeed": "changelog feed",
+    "state": "Current state",
+    "stateTotal": "technologies in the registry",
+    "stateWithLevel": "with a computed level",
+    "stateWithAttention": "with attention data",
+    "stateEvidence": "evidence collected",
+    "stateFreshest": "freshest evidence"
+  },
+  "levelCondition": {
+    "L1": "L1 — needs a preprint or workshop publication",
+    "L2": "L2 — needs a peer-reviewed venue, independent reproduction, or documented production use",
+    "L3": "L3 — needs buildable open source from the authors",
+    "L4": "L4 — needs an independent implementation, framework presence, or package downloads",
+    "L5": "L5 — needs documented production use",
+    "L6": "L6 — needs independent implementations from at least three vendors"
+  }
+}

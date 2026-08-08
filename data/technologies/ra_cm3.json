@@ -1,0 +1,51 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2022-11",
+  "groups": [
+    "A"
+  ],
+  "id": "ra_cm3",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
+      "status": "verified",
+      "url": "https://arxiv.org/abs/2211.12561",
+      "verified_at": "2026-08-05"
+    }
+  ],
+  "name": "RA-CM3",
+  "prose_id": null,
+  "residual": []
+}

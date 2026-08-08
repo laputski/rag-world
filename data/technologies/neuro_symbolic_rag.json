@@ -1,0 +1,75 @@
+{
+  "aliases": [
+    "neuro-symbolic"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "image",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "multi_agent",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-01",
+  "groups": [
+    "A",
+    "E"
+  ],
+  "id": "neuro_symbolic_rag",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "Neurosymbolic Retrievers for RAG (arXiv:2601.04568, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2601.04568",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Hyper-RAG (Nature Communications, 2026, +12.3% acc.)",
+      "status": "needs_review",
+      "url": "https://www.nature.com/articles/s41467-026-71411-1",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Neurosymbolic AI 2026 (kyield)",
+      "status": "needs_review",
+      "url": "https://kyield.substack.com/p/neurosymbolic-ai-2026",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "NODES 2026 (Neo4j/Kipon)",
+      "status": "needs_review",
+      "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
+      "verified_at": null
+    }
+  ],
+  "name": "Neuro-Symbolic RAG",
+  "prose_id": "neuro_symbolic_rag",
+  "residual": []
+}

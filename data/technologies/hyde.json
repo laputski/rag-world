@@ -1,0 +1,51 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "hyde",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "rrf",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
+  "family": "G",
+  "first_published": "2022",
+  "groups": [
+    "B"
+  ],
+  "id": "hyde",
+  "kind": "technique",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2212.10496",
+      "verified_at": null
+    }
+  ],
+  "name": "HyDE",
+  "prose_id": "hyde",
+  "residual": []
+}

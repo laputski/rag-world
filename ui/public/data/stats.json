@@ -1,0 +1,33 @@
+{
+  "built_at": "2026-08-08T19:23:08+00:00",
+  "by_kind": {
+    "architecture": 22,
+    "artifact": 2,
+    "paradigm": 11,
+    "technique": 16,
+    "tool": 3
+  },
+  "by_level": {
+    "L0": 6,
+    "L1": 17,
+    "L2": 16,
+    "L3": 4,
+    "unknown": 11
+  },
+  "by_stratum": {
+    "A": 23,
+    "B": 6,
+    "C": 18,
+    "D": 7,
+    "E": 13,
+    "F": 5,
+    "G": 8
+  },
+  "evidence_total": 74,
+  "freshest_evidence": "2026-08-08",
+  "stale": false,
+  "total": 54,
+  "with_attention": 35,
+  "with_evidence": 43,
+  "with_level": 43
+}

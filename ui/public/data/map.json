@@ -1,0 +1,1266 @@
+{
+  "built_at": "2026-08-08T19:23:08+00:00",
+  "count": 54,
+  "levels": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6"
+  ],
+  "points": [
+    {
+      "attention": 5.903,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "B",
+      "groups": [
+        "B"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "adaptive_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "Adaptive RAG",
+      "prevalence": null,
+      "prose_id": "adaptive_rag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [],
+      "id": "agentic_rag",
+      "kind": "architecture",
+      "level": null,
+      "name": "Agentic RAG",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 0.6,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-02",
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "archrag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "ArchRAG",
+      "prevalence": null,
+      "prose_id": "archrag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": null,
+      "groups": [],
+      "history": [],
+      "id": "bge_m3",
+      "kind": "tool",
+      "level": null,
+      "name": "BGE-M3",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [],
+      "id": "biomedrag",
+      "kind": "architecture",
+      "level": null,
+      "name": "BiomedRAG",
+      "prevalence": null,
+      "prose_id": "biomedrag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [],
+      "id": "bm25_sparse",
+      "kind": "technique",
+      "level": null,
+      "name": "BM25 Sparse",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 0.579,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025",
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L3"
+        }
+      ],
+      "id": "causalrag",
+      "kind": "paradigm",
+      "level": "L3",
+      "name": "CausalRAG",
+      "prevalence": null,
+      "prose_id": "causalrag"
+    },
+    {
+      "attention": 0.226,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-01",
+      "group": "E",
+      "groups": [
+        "E",
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "chatqa",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "ChatQA",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 2.513,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2021",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "colbert",
+      "kind": "technique",
+      "level": "L2",
+      "name": "ColBERT",
+      "prevalence": null,
+      "prose_id": "colbert"
+    },
+    {
+      "attention": 0.192,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-07",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "colpali",
+      "kind": "technique",
+      "level": "L1",
+      "name": "ColPali",
+      "prevalence": null,
+      "prose_id": "colpali"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "contextual_retrieval",
+      "kind": "technique",
+      "level": "L2",
+      "name": "Contextual Retrieval",
+      "prevalence": null,
+      "prose_id": "contextual_retrieval"
+    },
+    {
+      "attention": 4.789,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "D",
+      "groups": [
+        "D",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "crag",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "CRAG",
+      "prevalence": null,
+      "prose_id": "crag"
+    },
+    {
+      "attention": 0.156,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023-12",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "dense_x_retrieval",
+      "kind": "technique",
+      "level": "L1",
+      "name": "Dense X",
+      "prevalence": null,
+      "prose_id": "dense_x_retrieval"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-02",
+      "group": "G",
+      "groups": [
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "edge",
+      "kind": "paradigm",
+      "level": "L0",
+      "name": "Edge и On-Device RAG",
+      "prevalence": null,
+      "prose_id": "edge"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-12",
+      "group": "D",
+      "groups": [
+        "D",
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "edgerag",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "EdgeRAG",
+      "prevalence": null,
+      "prose_id": "edgerag"
+    },
+    {
+      "attention": 0.043,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-09",
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "embodied_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "Embodied RAG",
+      "prevalence": null,
+      "prose_id": "embodied_rag"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-04",
+      "group": "C",
+      "groups": [
+        "C",
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L3"
+        }
+      ],
+      "id": "federated_rag",
+      "kind": "paradigm",
+      "level": "L3",
+      "name": "Federated RAG",
+      "prevalence": null,
+      "prose_id": "federated_rag"
+    },
+    {
+      "attention": 9.256,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023",
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "flare",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "FLARE",
+      "prevalence": null,
+      "prose_id": "flare"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "hipporag",
+      "kind": "architecture",
+      "level": "L0",
+      "name": "HippoRAG",
+      "prevalence": null,
+      "prose_id": "hipporag"
+    },
+    {
+      "attention": 6.349,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2022",
+      "group": "B",
+      "groups": [
+        "B"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "hyde",
+      "kind": "technique",
+      "level": "L2",
+      "name": "HyDE",
+      "prevalence": null,
+      "prose_id": "hyde"
+    },
+    {
+      "attention": 5.977,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023",
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "ircot",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "IRCoT",
+      "prevalence": null,
+      "prose_id": "ircot"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "late_chunking",
+      "kind": "technique",
+      "level": "L1",
+      "name": "Late Chunking",
+      "prevalence": null,
+      "prose_id": "late_chunking"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": null,
+      "groups": [],
+      "history": [],
+      "id": "legal_pack_belarus",
+      "kind": "artifact",
+      "level": null,
+      "name": "Legal pack (Belarus)",
+      "prevalence": null,
+      "prose_id": "legal_pack_belarus"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "lightrag",
+      "kind": "architecture",
+      "level": "L0",
+      "name": "LightRAG",
+      "prevalence": null,
+      "prose_id": "lightrag"
+    },
+    {
+      "attention": 0.067,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-05",
+      "group": "E",
+      "groups": [
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "ma_rag",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "MA-RAG",
+      "prevalence": null,
+      "prose_id": "ma_rag"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": null,
+      "group": "C",
+      "groups": [
+        "C",
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "memorag",
+      "kind": "architecture",
+      "level": "L0",
+      "name": "MemoRAG",
+      "prevalence": null,
+      "prose_id": "memorag"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L3"
+        }
+      ],
+      "id": "msft_graphrag",
+      "kind": "architecture",
+      "level": "L3",
+      "name": "Microsoft GraphRAG",
+      "prevalence": null,
+      "prose_id": "msft_graphrag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "B",
+      "groups": [
+        "B"
+      ],
+      "history": [],
+      "id": "multi_query",
+      "kind": "technique",
+      "level": null,
+      "name": "Multi-Query Retrieval",
+      "prevalence": null,
+      "prose_id": "multi_query"
+    },
+    {
+      "attention": 1.891,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2022",
+      "group": "A",
+      "groups": [
+        "A",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "murag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "MuRAG",
+      "prevalence": null,
+      "prose_id": "murag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [],
+      "id": "naive_dense",
+      "kind": "technique",
+      "level": null,
+      "name": "Naive Dense",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-01",
+      "group": "A",
+      "groups": [
+        "A",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "neuro_symbolic_rag",
+      "kind": "paradigm",
+      "level": "L2",
+      "name": "Neuro-Symbolic RAG",
+      "prevalence": null,
+      "prose_id": "neuro_symbolic_rag"
+    },
+    {
+      "attention": 0.684,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025",
+      "group": "A",
+      "groups": [
+        "A",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "og_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "OG-RAG",
+      "prevalence": null,
+      "prose_id": "og_rag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": null,
+      "groups": [],
+      "history": [],
+      "id": "opensearch",
+      "kind": "tool",
+      "level": null,
+      "name": "OpenSearch",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 1.6,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "pathrag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "PathRAG",
+      "prevalence": null,
+      "prose_id": "pathrag"
+    },
+    {
+      "attention": 0.367,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-02",
+      "group": "G",
+      "groups": [
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "poisonedrag",
+      "kind": "artifact",
+      "level": "L1",
+      "name": "PoisonedRAG",
+      "prevalence": null,
+      "prose_id": "poisonedrag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": null,
+      "groups": [],
+      "history": [],
+      "id": "qdrant",
+      "kind": "tool",
+      "level": null,
+      "name": "Qdrant",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 0.644,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2022-11",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "ra_cm3",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "RA-CM3",
+      "prevalence": null,
+      "prose_id": null
+    },
+    {
+      "attention": 0.441,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023-10",
+      "group": "G",
+      "groups": [
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "ra_dit",
+      "kind": "technique",
+      "level": "L1",
+      "name": "RA-DIT",
+      "prevalence": null,
+      "prose_id": "ra_dit"
+    },
+    {
+      "attention": 0.966,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-03",
+      "group": "G",
+      "groups": [
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "raft",
+      "kind": "technique",
+      "level": "L1",
+      "name": "RAFT",
+      "prevalence": null,
+      "prose_id": "raft"
+    },
+    {
+      "attention": 0.111,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-02",
+      "group": "F",
+      "groups": [
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "rag_as_memory",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "RAG as Memory",
+      "prevalence": null,
+      "prose_id": "rag_as_memory"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": null,
+      "group": "B",
+      "groups": [
+        "B",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "rag_fusion",
+      "kind": "technique",
+      "level": "L0",
+      "name": "RAG-Fusion",
+      "prevalence": null,
+      "prose_id": "rag_fusion"
+    },
+    {
+      "attention": 0.871,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "raptor",
+      "kind": "technique",
+      "level": "L2",
+      "name": "RAPTOR",
+      "prevalence": null,
+      "prose_id": "raptor"
+    },
+    {
+      "attention": 12.457,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023",
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "react",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "ReAct",
+      "prevalence": null,
+      "prose_id": "react"
+    },
+    {
+      "attention": 0.154,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023-05",
+      "group": "G",
+      "groups": [
+        "G"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "sail",
+      "kind": "technique",
+      "level": "L1",
+      "name": "SAIL",
+      "prevalence": null,
+      "prose_id": "sail"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "B",
+      "groups": [
+        "B",
+        "F"
+      ],
+      "history": [],
+      "id": "self_evolving",
+      "kind": "paradigm",
+      "level": null,
+      "name": "Self-Evolving и Fully Adaptive RAG",
+      "prevalence": null,
+      "prose_id": "self_evolving"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023",
+      "group": "E",
+      "groups": [
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "self_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "Self-RAG",
+      "prevalence": null,
+      "prose_id": "self_rag"
+    },
+    {
+      "attention": 0.28,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025",
+      "group": "E",
+      "groups": [
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "speculative_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "Speculative RAG",
+      "prevalence": null,
+      "prose_id": "speculative_rag"
+    },
+    {
+      "attention": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "history": [],
+      "id": "standard_hybridrag",
+      "kind": "architecture",
+      "level": null,
+      "name": "Standard HybridRAG",
+      "prevalence": null,
+      "prose_id": "standard_hybridrag"
+    },
+    {
+      "attention": 0.676,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2023-10",
+      "group": "B",
+      "groups": [
+        "B"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "step_back",
+      "kind": "technique",
+      "level": "L1",
+      "name": "Step-Back Prompting",
+      "prevalence": null,
+      "prose_id": "step_back"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-01",
+      "group": "A",
+      "groups": [
+        "A",
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "streaming_rag",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "Streaming RAG",
+      "prevalence": null,
+      "prose_id": "streaming_rag"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-08",
+      "group": "C",
+      "groups": [
+        "C",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        },
+        {
+          "at": "2026-08-08",
+          "level": "L3"
+        }
+      ],
+      "id": "test_time",
+      "kind": "paradigm",
+      "level": "L3",
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "prevalence": null,
+      "prose_id": "test_time"
+    },
+    {
+      "attention": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-03",
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L1"
+        }
+      ],
+      "id": "unified",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "Unified RAG над Structured и Unstructured Data",
+      "prevalence": null,
+      "prose_id": "unified"
+    },
+    {
+      "attention": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": null,
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L0"
+        }
+      ],
+      "id": "vectorless",
+      "kind": "technique",
+      "level": "L0",
+      "name": "Vectorless",
+      "prevalence": null,
+      "prose_id": "vectorless"
+    },
+    {
+      "attention": 0.452,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024",
+      "group": "D",
+      "groups": [
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-08",
+          "level": "L2"
+        }
+      ],
+      "id": "xrag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "xRAG",
+      "prevalence": null,
+      "prose_id": "xrag"
+    }
+  ],
+  "rule_version": "1.0.0",
+  "stale": false,
+  "strata": [
+    {
+      "code": "A",
+      "name": "Представление знаний"
+    },
+    {
+      "code": "B",
+      "name": "Формулировка и маршрутизация запроса"
+    },
+    {
+      "code": "C",
+      "name": "Извлечение"
+    },
+    {
+      "code": "D",
+      "name": "Формирование контекста"
+    },
+    {
+      "code": "E",
+      "name": "Синтез и контроль"
+    },
+    {
+      "code": "F",
+      "name": "Эволюция состояния"
+    },
+    {
+      "code": "G",
+      "name": "Оболочка ограничений"
+    }
+  ]
+}

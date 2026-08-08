@@ -1,0 +1,915 @@
+{
+  "built_at": "2026-08-08T19:23:08+00:00",
+  "changes": [
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2403.14403",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Adaptive RAG",
+      "technology_id": "adaptive_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2502.09891",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ArchRAG",
+      "technology_id": "archrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2401.15884",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "CRAG",
+      "technology_id": "crag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/hippoley/CausalRAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "CausalRAG",
+      "technology_id": "causalrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2401.10225",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ChatQA",
+      "technology_id": "chatqa"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2004.12832",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ColBERT",
+      "technology_id": "colbert"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2407.01449",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ColPali",
+      "technology_id": "colpali"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2312.06648",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Dense X",
+      "technology_id": "dense_x_retrieval"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2412.21023",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "EdgeRAG",
+      "technology_id": "edgerag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2305.06983",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "FLARE",
+      "technology_id": "flare"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/DocAILab/FedE4RAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Federated RAG",
+      "technology_id": "federated_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "HippoRAG",
+      "technology_id": "hipporag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2212.10496",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "HyDE",
+      "technology_id": "hyde"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2212.10509",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "IRCoT",
+      "technology_id": "ircot"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2409.19773",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Late Chunking",
+      "technology_id": "late_chunking"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "LightRAG",
+      "technology_id": "lightrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/qhjqhj00/MemoRAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "MemoRAG",
+      "technology_id": "memorag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2210.02928",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "MuRAG",
+      "technology_id": "murag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2412.15235",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "OG-RAG",
+      "technology_id": "og_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2502.14902",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "PathRAG",
+      "technology_id": "pathrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2402.07867",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "PoisonedRAG",
+      "technology_id": "poisonedrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.01352",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RA-DIT",
+      "technology_id": "ra_dit"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "technology_id": "test_time"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/Raudaschl/rag-fusion",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "RAG-Fusion",
+      "technology_id": "rag_fusion"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2210.03629",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ReAct",
+      "technology_id": "react"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Vectorless",
+      "technology_id": "vectorless"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2403.14403",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4401042753",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Adaptive RAG",
+      "technology_id": "adaptive_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2502.09891",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4407632367",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ArchRAG",
+      "technology_id": "archrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/hippoley/CausalRAG",
+          "type": "repository"
+        },
+        {
+          "source": "https://openalex.org/W4412887679",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "CausalRAG",
+      "technology_id": "causalrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2401.10225",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415798682",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ChatQA",
+      "technology_id": "chatqa"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W7129328134",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Edge и On-Device RAG",
+      "technology_id": "edge"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4403853662",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Embodied RAG",
+      "technology_id": "embodied_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/DocAILab/FedE4RAG",
+          "type": "repository"
+        },
+        {
+          "source": "https://openalex.org/W4416981893",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4416034993",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "Federated RAG",
+      "technology_id": "federated_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2305.06983",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4389519118",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "FLARE",
+      "technology_id": "flare"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2212.10496",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4385565351",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "HyDE",
+      "technology_id": "hyde"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2212.10509",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4385571271",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "IRCoT",
+      "technology_id": "ircot"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4414588074",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "MA-RAG",
+      "technology_id": "ma_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2210.02928",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4385573236",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "MuRAG",
+      "technology_id": "murag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W7119757052",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Neuro-Symbolic RAG",
+      "technology_id": "neuro_symbolic_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2412.15235",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4416035296",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "OG-RAG",
+      "technology_id": "og_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2502.14902",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7138333265",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "PathRAG",
+      "technology_id": "pathrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RA-CM3",
+      "technology_id": "ra_cm3"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4392930030",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAFT",
+      "technology_id": "raft"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4407831980",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7135244490",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAG as Memory",
+      "technology_id": "rag_as_memory"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4391463108",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAPTOR",
+      "technology_id": "raptor"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4378474184",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "SAIL",
+      "technology_id": "sail"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4400611538",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Speculative RAG",
+      "technology_id": "speculative_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.06117",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Step-Back Prompting",
+      "technology_id": "step_back"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4406840604",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Streaming RAG",
+      "technology_id": "streaming_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+          "type": "repository"
+        },
+        {
+          "source": "https://openalex.org/W7077909566",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "technology_id": "test_time"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W7140314965",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Unified RAG над Structured и Unstructured Data",
+      "technology_id": "unified"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4415795887",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "xRAG",
+      "technology_id": "xrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2004.12832",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W3034439313",
+          "type": "publication"
+        },
+        {
+          "source": "https://dl.acm.org/doi/10.1145/3397271.3401075",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ColBERT",
+      "technology_id": "colbert"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://www.anthropic.com/news/contextual-retrieval",
+          "type": "industrial_use"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Contextual Retrieval",
+      "technology_id": "contextual_retrieval"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "repository"
+        },
+        {
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "industrial_use"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4391463108",
+          "type": "publication"
+        },
+        {
+          "source": "https://openreview.net/forum?id=GN921JHCRw",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RAPTOR",
+      "technology_id": "raptor"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2210.03629",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4304195432",
+          "type": "publication"
+        },
+        {
+          "source": "https://openreview.net/forum?id=WE_vluYUL-X",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ReAct",
+      "technology_id": "react"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://openreview.net/forum?id=hSyW5go0v8",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Self-RAG",
+      "technology_id": "self_rag"
+    }
+  ]
+}

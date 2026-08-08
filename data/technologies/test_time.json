@@ -1,0 +1,80 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "agentic_open_loop",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "multi_agent",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2025-08",
+  "groups": [
+    "C",
+    "E"
+  ],
+  "id": "test_time",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "other",
+      "label": "AlignRAG: Test-Time Critique (OpenReview, 2025)",
+      "status": "needs_review",
+      "url": "https://openreview.net/forum?id=cnUq7GkS6d",
+      "verified_at": null
+    },
+    {
+      "kind": "preprint",
+      "label": "MIRAGE (arXiv:2508.18260, 2025)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2508.18260",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
+      "status": "needs_review",
+      "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Survey of RAG-Reasoning (EMNLP, 2025)",
+      "status": "needs_review",
+      "url": "https://aclanthology.org/2025.findings-emnlp.648.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "github",
+      "label": "Awesome-RAG-Reasoning (GitHub)",
+      "status": "needs_review",
+      "url": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+      "verified_at": null
+    }
+  ],
+  "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+  "prose_id": "test_time",
+  "residual": []
+}

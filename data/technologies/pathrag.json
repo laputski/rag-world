@@ -1,0 +1,53 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "graph",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "graph_traversal",
+    "C2": "multi_hop_fixed",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "path_pruning",
+    "D2": "top_k",
+    "D3": "reliability_ascending",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
+  "family": "B",
+  "first_published": "2025",
+  "groups": [
+    "A",
+    "C",
+    "D"
+  ],
+  "id": "pathrag",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2502.14902",
+      "verified_at": null
+    }
+  ],
+  "name": "PathRAG",
+  "prose_id": "pathrag",
+  "residual": []
+}

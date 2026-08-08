@@ -1,0 +1,67 @@
+{
+  "aliases": [
+    "speculative"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "multi_agent",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": "A",
+  "first_published": "2025",
+  "groups": [
+    "E"
+  ],
+  "id": "speculative_rag",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2407.08223",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
+      "status": "needs_review",
+      "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
+      "status": "needs_review",
+      "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
+      "verified_at": null
+    }
+  ],
+  "name": "Speculative RAG",
+  "prose_id": "speculative_rag",
+  "residual": []
+}

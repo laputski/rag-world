@@ -1,0 +1,59 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "llm_router",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "episodic",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": null,
+  "groups": [
+    "B",
+    "F"
+  ],
+  "id": "self_evolving",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "other",
+      "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
+      "status": "needs_review",
+      "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "SERAG: Self-Evolving RAG (ACM, 2025)",
+      "status": "needs_review",
+      "url": "https://dl.acm.org/doi/10.1145/3769826",
+      "verified_at": null
+    }
+  ],
+  "name": "Self-Evolving и Fully Adaptive RAG",
+  "prose_id": "self_evolving",
+  "residual": []
+}

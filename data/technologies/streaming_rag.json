@@ -1,0 +1,68 @@
+{
+  "aliases": [
+    "streaming"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "episodic",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2025-01",
+  "groups": [
+    "A",
+    "F"
+  ],
+  "id": "streaming_rag",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "StreamingRAG (arXiv:2501.14101, 2025)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2501.14101",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "StreamRAG for video (CVPR, 2026)",
+      "status": "needs_review",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Xie_StreamRAG_Enhancing_Real-Time_Video_Understanding_with_Retrieval_Augmentation_CVPR_2026_paper.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Confluent: Build vs Buy Real-Time RAG (2026)",
+      "status": "needs_review",
+      "url": "https://www.confluent.io/blog/build-vs-buy-real-time-rag-streaming/",
+      "verified_at": null
+    }
+  ],
+  "name": "Streaming RAG",
+  "prose_id": "streaming_rag",
+  "residual": []
+}

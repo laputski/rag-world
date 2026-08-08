@@ -1,0 +1,122 @@
+# Сбор свидетельств по расписанию: то, ради чего портал называется
+# самообновляемым.
+#
+# Файл создан заранее и до переезда репозитория на GitHub не выполняется. Когда
+# переезд состоится, автономный режим включится сам: правки кода для этого не
+# потребуется, потому что вся логика живёт в scripts/ и целях Makefile, а этот
+# файл остаётся обёрткой.
+#
+# Расписание разное для разных источников: поток публикаций высок и задержка
+# нежелательна, а состояние репозиториев меняется в масштабе недель.
+
+name: Сбор свидетельств
+
+on:
+  schedule:
+    # Ежедневно в 04:10 UTC — публикации и препринты.
+    - cron: "10 4 * * *"
+    # По понедельникам в 04:40 UTC — библиометрия и состояние репозиториев.
+    - cron: "40 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Обработать только одну запись (идентификатор)"
+        required: false
+      limit:
+        description: "Ограничить число записей"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  # Два сбора одновременно писали бы в одни и те же файлы.
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Установка
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # Сбор, пересчёт уровней, сборка артефактов и проверка — одной целью.
+      # Ровно её же запускает человек командой `make collect`.
+      - name: Сбор и пересборка
+        env:
+          # Токен выдаётся заданию автоматически; ключи прочих источников не
+          # нужны — arXiv и открытый индекс работают без них.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/collect.py ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.limit && format('--limit {0}', inputs.limit) || '' }}
+          make levels
+          make artifacts
+          make validate
+
+      - name: Есть ли изменения
+        id: diff
+        run: |
+          if git diff --quiet -- data ui/public/data; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Понижение уровня и пересечение границы подтверждённости — те изменения,
+      # которые обязаны проходить через человека (принцип K6). Всё прочее
+      # применяется само: иначе очередь на рассмотрение переполнится и
+      # рассмотрение выродится в формальность.
+      - name: Требуется ли рассмотрение человеком
+        id: gate
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, subprocess
+          order = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
+          diff = subprocess.run(
+              ["git", "diff", "--unified=0", "--", "data/levels/history.jsonl"],
+              capture_output=True, text=True,
+          ).stdout
+          added = [
+              json.loads(line[1:])
+              for line in diff.splitlines()
+              if line.startswith("+") and not line.startswith("+++")
+          ]
+          needs_review = any(
+              entry.get("evidence_basis") == "manual"
+              or order.index(entry["level"]) >= order.index("L4")
+              for entry in added
+          )
+          print(f"review={'true' if needs_review else 'false'}")
+          PY
+
+      - name: Зафиксировать изменения
+        if: steps.diff.outputs.changed == 'true' && steps.gate.outputs.review == 'false'
+        run: |
+          git config user.name "rag-world-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data ui/public/data
+          git commit -m "Данные: обновление реестра $(date -u +%Y-%m-%d) [skip ci]"
+          git push
+
+      - name: Открыть запрос на слияние
+        if: steps.diff.outputs.changed == 'true' && steps.gate.outputs.review == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="data/$(date -u +%Y-%m-%d-%H%M)"
+          git config user.name "rag-world-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data ui/public/data
+          git commit -m "Данные: изменения, требующие рассмотрения"
+          git push -u origin "$branch"
+          gh pr create --fill --title "Данные: изменения, требующие рассмотрения" \
+            --body "Изменение затрагивает подтверждённые уровни либо свидетельства, введённые человеком. Такие изменения применяются только после просмотра."

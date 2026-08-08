@@ -1,0 +1,82 @@
+{
+  "aliases": [
+    "federated"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "agentic_open_loop",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "differential_privacy",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2025-04",
+  "groups": [
+    "C",
+    "G"
+  ],
+  "id": "federated_rag",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "other",
+      "label": "Federated RAG: Systematic Mapping Study (EMNLP, 2025)",
+      "status": "needs_review",
+      "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "preprint",
+      "label": "FedE4RAG (arXiv:2504.19101, 2025)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2504.19101",
+      "verified_at": null
+    },
+    {
+      "kind": "github",
+      "label": "FedE4RAG code (GitHub)",
+      "status": "needs_review",
+      "url": "https://github.com/DocAILab/FedE4RAG",
+      "verified_at": null
+    },
+    {
+      "kind": "preprint",
+      "label": "Federated RAG survey (arXiv:2505.18906, 2025)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/pdf/2505.18906",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "FD-RAG: Federated Dual-System (OpenReview)",
+      "status": "needs_review",
+      "url": "https://openreview.net/forum?id=kOUMng3ynd",
+      "verified_at": null
+    }
+  ],
+  "name": "Federated RAG",
+  "prose_id": "federated_rag",
+  "residual": []
+}

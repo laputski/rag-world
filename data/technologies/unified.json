@@ -1,0 +1,66 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "agentic_open_loop",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "none",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-03",
+  "groups": [
+    "A",
+    "C"
+  ],
+  "id": "unified",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "other",
+      "label": "Graph-based RAG in Unified Framework (VLDB PVLDB v18, 2025)",
+      "status": "needs_review",
+      "url": "https://www.vldb.org/pvldb/vol18/p5623-zhou.pdf",
+      "verified_at": null
+    },
+    {
+      "kind": "preprint",
+      "label": "Graphs RAG at Scale (arXiv:2603.22340, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2603.22340",
+      "verified_at": null
+    },
+    {
+      "kind": "other",
+      "label": "Memgraph SQL2Graph and Unstructured2Graph (2026)",
+      "status": "needs_review",
+      "url": "https://memgraph.com/blog/introducing-ai-toolkit-for-graphrag-sql2graph-unstructured2graph",
+      "verified_at": null
+    }
+  ],
+  "name": "Unified RAG над Structured и Unstructured Data",
+  "prose_id": "unified",
+  "residual": []
+}

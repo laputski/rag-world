@@ -1,0 +1,63 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg-info
+dist/
+build/
+.venv/
+venv/
+
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+*.log
+
+# --- Tooling caches ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# --- Node / frontend ---
+node_modules/
+ui/dist/
+ui/tsconfig.tsbuildinfo
+
+# --- MLflow / experiment tracking ---
+mlruns/
+mlartifacts/
+
+# --- Model weights (large; хранить во внутреннем хранилище) ---
+*.bin
+*.safetensors
+*.gguf
+models/
+
+# --- Vector stores / search backends local data ---
+qdrant_storage/
+opensearch-data/
+neo4j-data/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.iml
+
+# --- AI assistant session caches (не часть репозитория) ---
+.zcode/
+
+# --- OS ---
+*.DS_Store
+Thumbs.db
+
+# --- Eval artifacts with sensitive content ---
+eval/golden/private/
+
+# Собранные артефакты портала версионируются намеренно. Они производны от data/,
+# но именно их публикует статический хостинг: сборка выполняет только команды
+# сборки интерфейса и не запускает Python. Без артефактов в репозитории
+# опубликованный портал остался бы без данных.
+# От расхождения с data/ защищает tests/architecture/test_artifacts_in_sync.py.

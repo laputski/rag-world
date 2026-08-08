@@ -1,0 +1,55 @@
+{
+  "aliases": [
+    "Light-RAG"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "cross_encoder",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "F1": "episodic",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "core_idea": "Двухуровневый граф (сущности и темы) с инкрементальным обновлением.",
+  "family": "B",
+  "first_published": "2025",
+  "groups": [
+    "A",
+    "C",
+    "F"
+  ],
+  "id": "lightrag",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "github",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://github.com/HKUDS/LightRAG",
+      "verified_at": null
+    }
+  ],
+  "name": "LightRAG",
+  "prose_id": "lightrag",
+  "residual": []
+}
