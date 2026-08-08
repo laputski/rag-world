@@ -55,8 +55,25 @@ ATTENTION_METRIC = "citation_velocity"
 PREVALENCE_METRICS = ("package_downloads", "repository_stars")
 
 
-def _now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+def _built_at() -> str:
+    """Момент, на который собраны данные, а не момент запуска скрипта.
+
+    Различие существенно для еженедельного прогона. Если брать часы, артефакты
+    отличаются при каждом запуске даже когда ничего не изменилось, и бот
+    коммитит шум, в котором тонет настоящая хроника. Дата выводится из самих
+    данных: свежайшее свидетельство, изменение уровня либо показатель.
+
+    Ответ на вопрос «когда проверяли в последний раз» даёт журнал прогонов —
+    он для того и заведён.
+    """
+    stamps: list[str] = []
+    stamps += [e.fetched_at.isoformat() for e in store.load_evidence()]
+    stamps += [e.computed_at.isoformat() for e in store.load_levels()]
+    stamps += [m.measured_at.isoformat() for m in store.load_metrics()]
+    if not stamps:
+        # Данных нет вовсе: дата берётся от часов, иначе её неоткуда взять.
+        return datetime.now(timezone.utc).date().isoformat()
+    return max(stamps)
 
 
 def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None:
@@ -87,7 +104,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         level_by_tech[entry.technology_id] = entry  # журнал упорядочен по времени
         history_by_tech[entry.technology_id].append(entry)
 
-    built_at = _now()
+    built_at = _built_at()
     freshest = max((e.fetched_at for e in evidence), default=None)
     stale = freshest is None or (date.today() - freshest) > STALE_AFTER
 

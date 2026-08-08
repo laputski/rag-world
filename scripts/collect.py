@@ -30,6 +30,7 @@ import argparse
 import os
 import re
 import sys
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
@@ -129,7 +130,25 @@ def load_manual_evidence() -> list[store.Evidence]:
     return out
 
 
-def run(*, limit: int = 0, only: str | None = None, dry_run: bool = False) -> int:
+@dataclass
+class CollectSummary:
+    """Итог сбора: что добавлено и что не получилось.
+
+    Возвращается вызывающему, а не печатается: журнал прогонов записывает эти
+    числа, и они же попадают в сводку прохода.
+    """
+
+    sources: list[str] = field(default_factory=list)
+    evidence_added: int = 0
+    metrics_added: int = 0
+    rejected: int = 0
+    errors: list[str] = field(default_factory=list)
+
+
+def gather(
+    *, limit: int = 0, only: str | None = None, dry_run: bool = False
+) -> CollectSummary:
+    """Опросить источники и дописать прошедшие проверку свидетельства."""
     from services.collectors.transport import RequestsTransport
 
     today = date.today()
@@ -140,23 +159,21 @@ def run(*, limit: int = 0, only: str | None = None, dry_run: bool = False) -> in
     if only:
         technologies = [t for t in technologies if t.id == only]
         if not technologies:
-            sys.stderr.write(f"Технология {only!r} не найдена в реестре.\n")
-            return 1
+            raise SystemExit(f"Технология {only!r} не найдена в реестре.")
     if limit:
         technologies = technologies[:limit]
 
+    summary = CollectSummary(sources=["arxiv", "openalex", "github"])
     accepted: list[store.Evidence] = []
-    rejected = 0
-    errors: list[str] = []
 
     for tech in technologies:
         raw, tech_errors = _collect_one(
             tech, http=http, github_token=github_token, today=today
         )
-        errors.extend(tech_errors)
+        summary.errors.extend(tech_errors)
         for item, check in check_many(raw):
             if not check.passed:
-                rejected += 1
+                summary.rejected += 1
                 continue
             accepted.append(store.Evidence(
                 technology_id=item.technology_id,
@@ -169,28 +186,34 @@ def run(*, limit: int = 0, only: str | None = None, dry_run: bool = False) -> in
             ))
 
     manual = load_manual_evidence()
+    if manual:
+        summary.sources.append("manual")
     points = _metrics_from(accepted)
 
     if dry_run:
-        print(
-            f"будет добавлено: свидетельств {len(accepted)} автоматических и "
-            f"{len(manual)} введённых человеком, точек ряда {len(points)}; "
-            f"отклонено проверками {rejected}"
-        )
+        summary.evidence_added = len(accepted) + len(manual)
+        summary.metrics_added = len(points)
     else:
-        added = store.append_evidence(accepted + manual)
-        added_points = store.append_metrics(points)
-        print(
-            f"добавлено: свидетельств {added} (новых из {len(accepted) + len(manual)}), "
-            f"точек ряда {added_points}; отклонено проверками {rejected}"
-        )
+        summary.evidence_added = store.append_evidence(accepted + manual)
+        summary.metrics_added = store.append_metrics(points)
+    return summary
 
-    if errors:
-        print(f"источники без результата: {len(errors)}")
-        for message in errors[:10]:
+
+def run(*, limit: int = 0, only: str | None = None, dry_run: bool = False) -> int:
+    """Отдельный запуск только сбора; полный проход — в scripts/update.py."""
+    summary = gather(limit=limit, only=only, dry_run=dry_run)
+    prefix = "будет добавлено" if dry_run else "добавлено"
+    print(
+        f"{prefix}: свидетельств {summary.evidence_added}, "
+        f"точек ряда {summary.metrics_added}; "
+        f"отклонено проверками {summary.rejected}"
+    )
+    if summary.errors:
+        print(f"источники без результата: {len(summary.errors)}")
+        for message in summary.errors[:10]:
             print(f"  {message[:130]}")
-        if len(errors) > 10:
-            print(f"  ещё {len(errors) - 10}")
+        if len(summary.errors) > 10:
+            print(f"  ещё {len(summary.errors) - 10}")
     return 0
 
 

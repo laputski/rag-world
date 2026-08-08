@@ -6,7 +6,9 @@
 """
 
 from services.registry.store import (
+    COLLECTION_LOG,
     DATA_DIR,
+    CollectionRun,
     Evidence,
     LevelEntry,
     Link,
@@ -15,17 +17,22 @@ from services.registry.store import (
     append_evidence,
     append_level,
     append_metrics,
+    append_run,
     latest_level,
+    latest_run,
     load_evidence,
     load_levels,
     load_metrics,
+    load_runs,
     load_technologies,
     load_technology,
     save_technology,
 )
 
 __all__ = [
+    "COLLECTION_LOG",
     "DATA_DIR",
+    "CollectionRun",
     "Evidence",
     "LevelEntry",
     "Link",
@@ -34,10 +41,13 @@ __all__ = [
     "append_evidence",
     "append_level",
     "append_metrics",
+    "append_run",
     "latest_level",
+    "latest_run",
     "load_evidence",
     "load_levels",
     "load_metrics",
+    "load_runs",
     "load_technologies",
     "load_technology",
     "save_technology",

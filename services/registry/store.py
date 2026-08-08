@@ -33,6 +33,7 @@ TECHNOLOGIES_DIR = DATA_DIR / "technologies"
 EVIDENCE_DIR = DATA_DIR / "evidence"
 METRICS_DIR = DATA_DIR / "metrics"
 LEVELS_FILE = DATA_DIR / "levels" / "history.jsonl"
+COLLECTION_LOG = DATA_DIR / "collection_log.jsonl"
 
 Kind = Literal["paradigm", "architecture", "technique", "tool", "artifact"]
 LinkKind = Literal["paper", "preprint", "github", "product", "venue", "other"]
@@ -107,6 +108,31 @@ class MetricPoint(BaseModel):
     value: float
     measured_at: date
     source: str
+
+
+class CollectionRun(BaseModel):
+    """Запись о прогоне сбора. Появляется всегда, даже когда ничего не изменилось.
+
+    Служит трём целям сразу. Во-первых, различает «данные старые, потому что
+    никто не смотрел» и «данные старые, потому что ничего не происходило» —
+    без этого читатель не может судить о свежести. Во-вторых, даёт площадке
+    признак активности: расписание отключается после шестидесяти дней без
+    коммитов, а строка журнала — это коммит. В-третьих, показывает, какие
+    источники отвечали, а какие нет.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    ran_at: date
+    #: Опрошенные источники: arxiv, openalex, github, pypi, frameworks.
+    sources: list[str] = Field(default_factory=list)
+    evidence_added: int = 0
+    metrics_added: int = 0
+    levels_changed: int = 0
+    #: Сколько обращений к источникам не дали результата.
+    source_errors: int = 0
+    #: Изменились ли данные реестра; если нет, артефакты не пересобираются.
+    data_changed: bool = False
 
 
 class LevelEntry(BaseModel):
@@ -278,6 +304,22 @@ def latest_level(technology_id: str) -> LevelEntry | None:
     """
     entries = load_levels(technology_id)
     return entries[-1] if entries else None
+
+
+def load_runs() -> list[CollectionRun]:
+    """Журнал прогонов сбора, от старых к новым."""
+    return [CollectionRun.model_validate(row) for row in _read_jsonl(COLLECTION_LOG)]
+
+
+def latest_run() -> CollectionRun | None:
+    runs = load_runs()
+    return runs[-1] if runs else None
+
+
+def append_run(run: CollectionRun) -> None:
+    """Дописать запись о прогоне. Выполняется всегда, даже без изменений."""
+    COLLECTION_LOG.parent.mkdir(parents=True, exist_ok=True)
+    _append_jsonl(COLLECTION_LOG, [run])
 
 
 def append_level(entry: LevelEntry) -> bool:

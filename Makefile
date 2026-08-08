@@ -1,6 +1,6 @@
 .PHONY: help install install-dev test test-unit test-arch test-v test-ui \
         dev build lint format clean \
-        collect levels artifacts validate \
+        collect update levels artifacts validate \
         db-migrate db-migrate-pending
 
 PYTHON ?= .venv/bin/python
@@ -49,11 +49,12 @@ build: ## Build the static portal into ui/dist
 # Единая точка входа для человека и для расписания: автономный режим вызывает
 # ровно эти цели, поэтому переход к автоматике не требует правок кода.
 
-collect: ## Collect evidence, recompute levels, rebuild artifacts, validate
-	$(PYTHON) scripts/collect.py
-	$(MAKE) levels
-	$(MAKE) artifacts
-	$(MAKE) validate
+# Одна точка входа: ею пользуется и человек, и расписание, поэтому поведение
+# автономного прогона совпадает с локальным по построению.
+collect: ## Full update pass: collect, recompute, rebuild, validate, log the run
+	$(PYTHON) scripts/update.py
+
+update: collect ## Alias for `collect`
 
 levels: ## Recompute maturity levels from stored evidence
 	$(PYTHON) scripts/compute_levels.py

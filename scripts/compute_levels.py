@@ -29,7 +29,7 @@ from core.maturity import RULE_VERSION, EvidenceIn, compute_level  # noqa: E402
 from services.registry import store  # noqa: E402
 
 
-def run(dry_run: bool = False) -> int:
+def run(dry_run: bool = False, quiet: bool = False) -> int:
     today = date.today()
     technologies = store.load_technologies()
 
@@ -81,24 +81,27 @@ def run(dry_run: bool = False) -> int:
                 ],
             ))
 
-    prefix = "изменится" if dry_run else "изменено"
-    print(f"{prefix} уровней: {len(changes)} из {len(technologies)} записей")
-    for tech_id, before, after in changes[:20]:
-        print(f"  {tech_id:24} {before or 'нет данных':>10} → {after}")
-    if len(changes) > 20:
-        print(f"  ещё {len(changes) - 20}")
+    if not quiet:
+        prefix = "изменится" if dry_run else "изменено"
+        print(f"{prefix} уровней: {len(changes)} из {len(technologies)} записей")
+        for tech_id, before, after in changes[:20]:
+            print(f"  {tech_id:24} {before or 'нет данных':>10} → {after}")
+        if len(changes) > 20:
+            print(f"  ещё {len(changes) - 20}")
 
-    print("распределение: " + ", ".join(
-        f"{level} — {count}" for level, count in sorted(distribution.items())
-    ))
-    return 0
+        print("распределение: " + ", ".join(
+            f"{level} — {count}" for level, count in sorted(distribution.items())
+        ))
+    # Возвращается число изменённых уровней: его записывает журнал прогонов.
+    return len(changes)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
     args = parser.parse_args()
-    return run(dry_run=args.dry_run)
+    run(dry_run=args.dry_run)
+    return 0
 
 
 if __name__ == "__main__":
