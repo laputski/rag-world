@@ -1,21 +1,24 @@
-# Сбор свидетельств по расписанию: то, ради чего портал называется
+# Обновление данных по расписанию: то, ради чего портал называется
 # самообновляемым.
 #
-# Файл создан заранее и до переезда репозитория на GitHub не выполняется. Когда
-# переезд состоится, автономный режим включится сам: правки кода для этого не
-# потребуется, потому что вся логика живёт в scripts/ и целях Makefile, а этот
-# файл остаётся обёрткой.
+# В этом файле нет логики намеренно. Он вызывает те же цели Makefile, которыми
+# пользуется человек, поэтому поведение автономного прогона совпадает с
+# локальным по построению, а всё, что решает вопросы, лежит в scripts/ и
+# покрыто тестами.
 #
-# Расписание разное для разных источников: поток публикаций высок и задержка
-# нежелательна, а состояние репозиториев меняется в масштабе недель.
+# Периодичность недельная. Ежедневный сбор был бы тратой: обходятся ссылки уже
+# известных записей, шага обнаружения новых технологий нет, поэтому ежедневный
+# проход почти всегда возвращает то же самое. Меняется немногое и небыстро:
+# цитирования — медленно, состояние репозиториев — в масштабе недель, переход
+# препринта в конференционную публикацию — месяцев. Последнее и есть то, ради
+# чего стоит опрашивать регулярно.
 
-name: Сбор свидетельств
+name: Обновление данных
 
 on:
   schedule:
-    # Ежедневно в 04:10 UTC — публикации и препринты.
-    - cron: "10 4 * * *"
-    # По понедельникам в 04:40 UTC — библиометрия и состояние репозиториев.
+    # По понедельникам в 04:40 UTC. Время приблизительное: площадка задерживает
+    # запуск на пять–тридцать минут при нагрузке, для недельного шага неважно.
     - cron: "40 4 * * 1"
   workflow_dispatch:
     inputs:
@@ -31,12 +34,12 @@ permissions:
   pull-requests: write
 
 concurrency:
-  # Два сбора одновременно писали бы в одни и те же файлы.
-  group: collect
+  # Два прохода одновременно писали бы в одни и те же файлы.
+  group: update-data
   cancel-in-progress: false
 
 jobs:
-  collect:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,66 +51,41 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # Сбор, пересчёт уровней, сборка артефактов и проверка — одной целью.
-      # Ровно её же запускает человек командой `make collect`.
-      - name: Сбор и пересборка
+      # Сбор, пересчёт уровней, сборка артефактов, проверка и запись прогона —
+      # одной целью. Ровно её же запускает человек командой `make collect`.
+      # Проверка данных выполняется внутри прохода и до фиксации: коммит бота
+      # не запускает другие рабочие процессы, поэтому «проверим потом в CI» не
+      # сработает.
+      - name: Проход обновления
         env:
           # Токен выдаётся заданию автоматически; ключи прочих источников не
-          # нужны — arXiv и открытый индекс работают без них.
+          # нужны — архив препринтов и открытый индекс работают без них.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/collect.py ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.limit && format('--limit {0}', inputs.limit) || '' }}
-          make levels
-          make artifacts
-          make validate
+          python scripts/update.py \
+            ${{ inputs.only && format('--only {0}', inputs.only) || '' }} \
+            ${{ inputs.limit && format('--limit {0}', inputs.limit) || '' }}
 
-      - name: Есть ли изменения
-        id: diff
-        run: |
-          if git diff --quiet -- data ui/public/data; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      # Понижение уровня и пересечение границы подтверждённости — те изменения,
-      # которые обязаны проходить через человека (принцип K6). Всё прочее
-      # применяется само: иначе очередь на рассмотрение переполнится и
-      # рассмотрение выродится в формальность.
+      # Строка журнала прогонов появляется всегда, поэтому изменения есть после
+      # каждого прохода. Это не шум: она отличает «никто не смотрел» от «ничего
+      # не происходило» и служит признаком активности репозитория — расписание
+      # площадки отключается после шестидесяти дней без коммитов.
       - name: Требуется ли рассмотрение человеком
         id: gate
-        run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json, subprocess
-          order = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
-          diff = subprocess.run(
-              ["git", "diff", "--unified=0", "--", "data/levels/history.jsonl"],
-              capture_output=True, text=True,
-          ).stdout
-          added = [
-              json.loads(line[1:])
-              for line in diff.splitlines()
-              if line.startswith("+") and not line.startswith("+++")
-          ]
-          needs_review = any(
-              entry.get("evidence_basis") == "manual"
-              or order.index(entry["level"]) >= order.index("L4")
-              for entry in added
-          )
-          print(f"review={'true' if needs_review else 'false'}")
-          PY
+        run: python scripts/classify_changes.py --github >> "$GITHUB_OUTPUT"
 
       - name: Зафиксировать изменения
-        if: steps.diff.outputs.changed == 'true' && steps.gate.outputs.review == 'false'
+        if: steps.gate.outputs.review == 'false'
         run: |
           git config user.name "rag-world-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data ui/public/data
-          git commit -m "Данные: обновление реестра $(date -u +%Y-%m-%d) [skip ci]"
+          git diff --cached --quiet && echo "изменений нет" && exit 0
+          git commit -m "Данные: проход обновления $(date -u +%Y-%m-%d) [skip ci]"
           git push
 
       - name: Открыть запрос на слияние
-        if: steps.diff.outputs.changed == 'true' && steps.gate.outputs.review == 'true'
+        if: steps.gate.outputs.review == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -118,5 +96,6 @@ jobs:
           git add data ui/public/data
           git commit -m "Данные: изменения, требующие рассмотрения"
           git push -u origin "$branch"
-          gh pr create --fill --title "Данные: изменения, требующие рассмотрения" \
-            --body "Изменение затрагивает подтверждённые уровни либо свидетельства, введённые человеком. Такие изменения применяются только после просмотра."
+          gh pr create --fill \
+            --title "Данные: изменения, требующие рассмотрения" \
+            --body "Изменение затрагивает понижение уровня, переход через границу подтверждённости либо свидетельство, введённое человеком. Такие изменения применяются только после просмотра."
