@@ -81,6 +81,10 @@ class Technology(BaseModel):
     core_idea: str | None = None
     prose_id: str | None = None
     first_published: str | None = None
+    #: Имя пакета в индексе пакетов Python, если он существует. Заполняется
+    #: человеком: вывести его из имени технологии нельзя, а угадывать нельзя
+    #: тем более — чужой пакет с похожим именем даст ложное свидетельство.
+    package: str | None = None
     links: list[Link] = Field(default_factory=list)
 
 

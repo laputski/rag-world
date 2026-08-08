@@ -33,6 +33,8 @@ export interface RegistryTechnology {
   /** `computed` — вычислено правилом, `manual` — введено человеком. */
   evidence_basis: string | null;
   attention: number | null;
+  attention_raw: number | null;
+  attention_cohort: string | null;
   evidence_count: number;
   evidence: EvidenceRecord[];
   /** Вывод правила: какие уровни выполнены и какие нет. */
@@ -80,8 +82,13 @@ export interface MaturityPoint {
   level: string | null;
   confidence: number | null;
   evidence_basis: string | null;
-  /** Внимание: скорость цитирования. null — данных нет. */
+  /** Внимание: скорость цитирования, отнесённая к медиане своего года.
+   *  null — данных нет. */
   attention: number | null;
+  /** Измеренная скорость цитирования до нормировки. */
+  attention_raw: number | null;
+  /** Год подгруппы, по которой нормировано; null — нормировать было нечем. */
+  attention_cohort: string | null;
   /** Распространённость: загрузки пакета либо звёзды репозитория. */
   prevalence: number | null;
   first_published: string | null;

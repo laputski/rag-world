@@ -8,11 +8,12 @@
     "tool": 3
   },
   "by_level": {
-    "L0": 6,
+    "L0": 9,
     "L1": 17,
-    "L2": 16,
-    "L3": 4,
-    "unknown": 11
+    "L2": 18,
+    "L3": 3,
+    "L5": 1,
+    "unknown": 6
   },
   "by_stratum": {
     "A": 23,
@@ -23,11 +24,11 @@
     "F": 5,
     "G": 8
   },
-  "evidence_total": 74,
+  "evidence_total": 92,
   "freshest_evidence": "2026-08-08",
   "stale": false,
   "total": 54,
   "with_attention": 35,
-  "with_evidence": 43,
-  "with_level": 43
+  "with_evidence": 48,
+  "with_level": 48
 }

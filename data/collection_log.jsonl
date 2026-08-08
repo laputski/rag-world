@@ -1,3 +1,5 @@
 {"data_changed": false, "evidence_added": 0, "levels_changed": 0, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}
 {"data_changed": false, "evidence_added": 0, "levels_changed": 0, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}
 {"data_changed": false, "evidence_added": 0, "levels_changed": 0, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}
+{"data_changed": true, "evidence_added": 16, "levels_changed": 6, "metrics_added": 37, "ran_at": "2026-08-08", "source_errors": 2, "sources": ["arxiv", "openalex", "github", "frameworks", "pypi", "manual"]}
+{"data_changed": true, "evidence_added": 0, "levels_changed": 2, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}

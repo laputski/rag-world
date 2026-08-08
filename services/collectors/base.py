@@ -33,6 +33,8 @@ ALLOWED_HOSTS: frozenset[str] = frozenset({
     "api.github.com",
     "github.com",
     "pypi.org",
+    # Индекс пакетов не отдаёт число загрузок; его публикует отдельная служба.
+    "pypistats.org",
     "aclanthology.org",
     "doi.org",
     # Площадки, на которые ссылаются свидетельства, введённые человеком:

@@ -44,6 +44,7 @@
     }
   ],
   "name": "Qdrant",
+  "package": "qdrant-client",
   "prose_id": null,
   "residual": []
 }

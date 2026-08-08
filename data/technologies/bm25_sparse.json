@@ -1,5 +1,7 @@
 {
-  "aliases": [],
+  "aliases": [
+    "BM25"
+  ],
   "configuration": {
     "A1": "passage",
     "A2": "fixed",
@@ -39,6 +41,7 @@
   "kind": "technique",
   "links": [],
   "name": "BM25 Sparse",
+  "package": null,
   "prose_id": null,
   "residual": []
 }

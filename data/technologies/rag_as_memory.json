@@ -1,7 +1,5 @@
 {
-  "aliases": [
-    "memory"
-  ],
+  "aliases": [],
   "configuration": {
     "A1": "passage",
     "A2": "fixed",
@@ -69,6 +67,7 @@
     }
   ],
   "name": "RAG as Memory",
+  "package": null,
   "prose_id": "rag_as_memory",
   "residual": []
 }

@@ -83,6 +83,79 @@ def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None
     return max(relevant, key=lambda p: p.measured_at).value
 
 
+#: Ниже этого размера возрастная подгруппа не нормируется: медиана по трём
+#: значениям неустойчива и сдвигается от появления одной новой работы сильнее,
+#: чем от происходящего в области.
+MIN_COHORT = 5
+
+
+def _median(values: list[float]) -> float:
+    ordered = sorted(values)
+    middle = len(ordered) // 2
+    if len(ordered) % 2:
+        return ordered[middle]
+    return (ordered[middle - 1] + ordered[middle]) / 2
+
+
+def attention_cohorts(
+    technologies: list[store.Technology],
+    metrics_by_tech: dict[str, list[store.MetricPoint]],
+) -> dict[str, float]:
+    """Медиана скорости цитирования по году первой публикации.
+
+    Сравнивать скорости напрямую нельзя: работа двухлетней давности набирает
+    цитирования дольше, чем вышедшая позавчера, и без нормировки старое всегда
+    выглядит популярнее нового. Нормировка внутри возрастной подгруппы этот
+    перекос снимает.
+    """
+    by_year: dict[str, list[float]] = defaultdict(list)
+    for tech in technologies:
+        if not tech.first_published:
+            continue
+        value = _latest_metric(
+            metrics_by_tech.get(tech.id, []), ATTENTION_METRIC
+        )
+        if value is not None:
+            by_year[tech.first_published[:4]].append(value)
+    return {
+        year: _median(values)
+        for year, values in by_year.items()
+        if len(values) >= MIN_COHORT and _median(values) > 0
+    }
+
+
+def normalized_attention(
+    tech: store.Technology,
+    metrics_by_tech: dict[str, list[store.MetricPoint]],
+    cohorts: dict[str, float],
+) -> dict[str, object]:
+    """Внимание в трёх видах: измеренное, нормированное и происхождение.
+
+    Возвращаются все три, потому что каждое отвечает на свой вопрос. Читателю
+    показывается нормированное, но происхождение обязано быть доступно, а без
+    сырого значения его не проверить.
+    """
+    raw = _latest_metric(metrics_by_tech.get(tech.id, []), ATTENTION_METRIC)
+    if raw is None:
+        return {"attention": None, "attention_raw": None, "attention_cohort": None}
+
+    year = (tech.first_published or "")[:4]
+    median = cohorts.get(year)
+    if median is None:
+        # Подгруппа мала либо год неизвестен: нормировать нечем. Показывается
+        # измеренное значение с пометкой, а не выдуманное нормированное.
+        return {
+            "attention": raw,
+            "attention_raw": raw,
+            "attention_cohort": None,
+        }
+    return {
+        "attention": round(raw / median, 3),
+        "attention_raw": raw,
+        "attention_cohort": year,
+    }
+
+
 def build(out_dir: Path | None = None) -> dict[str, int]:
     """Собрать артефакты. `out_dir` подменяется в проверке на расхождение."""
     technologies = store.load_technologies()
@@ -103,6 +176,8 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     for entry in levels:
         level_by_tech[entry.technology_id] = entry  # журнал упорядочен по времени
         history_by_tech[entry.technology_id].append(entry)
+
+    cohorts = attention_cohorts(technologies, metrics_by_tech)
 
     built_at = _built_at()
     freshest = max((e.fetched_at for e in evidence), default=None)
@@ -140,7 +215,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,
             # Внимание нужно и ленте реестра: по нему идёт одна из сортировок.
-            "attention": _latest_metric(tech_metrics, ATTENTION_METRIC),
+            **normalized_attention(tech, metrics_by_tech, cohorts),
             "evidence_count": len(tech_evidence),
             "evidence": [
                 {
@@ -182,7 +257,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "level": entry.level if entry else None,
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,
-            "attention": _latest_metric(tech_metrics, ATTENTION_METRIC),
+            **normalized_attention(tech, metrics_by_tech, cohorts),
             "prevalence": prevalence,
             "first_published": tech.first_published,
             "prose_id": tech.prose_id,

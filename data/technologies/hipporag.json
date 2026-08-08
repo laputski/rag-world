@@ -49,6 +49,7 @@
     }
   ],
   "name": "HippoRAG",
+  "package": "hipporag",
   "prose_id": "hipporag",
   "residual": []
 }

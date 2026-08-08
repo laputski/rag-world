@@ -910,6 +910,150 @@
       "level_before": null,
       "name": "Self-RAG",
       "technology_id": "self_rag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "BGE-M3",
+      "technology_id": "bge_m3"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "BM25 Sparse",
+      "technology_id": "bm25_sparse"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "repository"
+        },
+        {
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "industrial_use"
+        },
+        {
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L5",
+      "level_before": "L3",
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Multi-Query Retrieval",
+      "technology_id": "multi_query"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        },
+        {
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "OpenSearch",
+      "technology_id": "opensearch"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        },
+        {
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Qdrant",
+      "technology_id": "qdrant"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        },
+        {
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads"
+        },
+        {
+          "source": "https://opensearch.org/docs/latest/",
+          "type": "industrial_use"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L0",
+      "name": "OpenSearch",
+      "technology_id": "opensearch"
+    },
+    {
+      "changed_at": "2026-08-08",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        },
+        {
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads"
+        },
+        {
+          "source": "https://qdrant.tech/documentation/",
+          "type": "industrial_use"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L0",
+      "name": "Qdrant",
+      "technology_id": "qdrant"
     }
   ]
 }

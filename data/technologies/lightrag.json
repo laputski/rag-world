@@ -50,6 +50,7 @@
     }
   ],
   "name": "LightRAG",
+  "package": "lightrag-hku",
   "prose_id": "lightrag",
   "residual": []
 }

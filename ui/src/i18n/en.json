@@ -70,16 +70,18 @@
     "ruleVersion": "rule version",
     "openCard": "Open technology card",
     "noAttention": "no attention data",
-    "attentionUnit": "cit./mo",
-    "attentionOrigin": "Citation velocity from the open index",
+    "attentionUnit": "× median",
+    "attentionOrigin": "Citation velocity relative to the median of works from the same year. Above one means more discussed than its peers.",
     "axisMaturity": "maturity",
-    "axisAttention": "attention, cit./mo",
+    "axisAttention": "attention, × year median",
     "projection": {
       "map": "map",
       "grid": "strata grid"
     },
     "showMovement": "show movement",
-    "openRegistry": "full registry →"
+    "openRegistry": "full registry →",
+    "attentionRaw": "measured",
+    "attentionNotNormalized": "cohort too small: measured value shown"
   },
   "registry": {
     "title": "RAG technology registry",

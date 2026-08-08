@@ -1,7 +1,5 @@
 {
-  "aliases": [
-    "federated"
-  ],
+  "aliases": [],
   "configuration": {
     "A1": "passage",
     "A2": "fixed",
@@ -77,6 +75,7 @@
     }
   ],
   "name": "Federated RAG",
+  "package": null,
   "prose_id": "federated_rag",
   "residual": []
 }

@@ -4,7 +4,9 @@
   "technologies": [
     {
       "aliases": [],
-      "attention": 5.903,
+      "attention": 16.084,
+      "attention_cohort": "2024",
+      "attention_raw": 5.903,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -86,12 +88,15 @@
         }
       ],
       "name": "Adaptive RAG",
+      "package": null,
       "prose_id": "adaptive_rag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -137,12 +142,15 @@
       "level_reason": null,
       "links": [],
       "name": "Agentic RAG",
+      "package": null,
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.6,
+      "attention": 3.069,
+      "attention_cohort": "2025",
+      "attention_raw": 0.6,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -225,13 +233,16 @@
         }
       ],
       "name": "ArchRAG",
+      "package": null,
       "prose_id": "archrag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
-      "confidence": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -261,16 +272,38 @@
         "G3": "frozen"
       },
       "core_idea": null,
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads",
+          "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=601549"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
       "family": null,
       "first_published": null,
       "groups": [],
       "id": "bge_m3",
       "kind": "tool",
-      "level": null,
-      "level_reason": null,
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
       "links": [
         {
           "kind": "other",
@@ -281,12 +314,15 @@
         }
       ],
       "name": "BGE-M3",
+      "package": "FlagEmbedding",
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -339,13 +375,18 @@
         }
       ],
       "name": "BiomedRAG",
+      "package": null,
       "prose_id": "biomedrag",
       "residual": []
     },
     {
-      "aliases": [],
+      "aliases": [
+        "BM25"
+      ],
       "attention": null,
-      "confidence": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -375,9 +416,17 @@
         "G3": "frozen"
       },
       "core_idea": null,
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence",
+          "value": "frameworks=LangChain, LlamaIndex"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
       "family": null,
       "first_published": null,
       "groups": [
@@ -386,18 +435,33 @@
       ],
       "id": "bm25_sparse",
       "kind": "technique",
-      "level": null,
-      "level_reason": null,
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
       "links": [],
       "name": "BM25 Sparse",
+      "package": null,
       "prose_id": null,
       "residual": []
     },
     {
-      "aliases": [
-        "causal"
-      ],
-      "attention": 0.579,
+      "aliases": [],
+      "attention": 2.962,
+      "attention_cohort": "2025",
+      "attention_raw": 0.579,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -494,6 +558,7 @@
         }
       ],
       "name": "CausalRAG",
+      "package": null,
       "prose_id": "causalrag",
       "residual": []
     },
@@ -501,7 +566,9 @@
       "aliases": [
         "ChatQA 2"
       ],
-      "attention": 0.226,
+      "attention": 0.616,
+      "attention_cohort": "2024",
+      "attention_raw": 0.226,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -584,12 +651,15 @@
         }
       ],
       "name": "ChatQA",
+      "package": null,
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
       "attention": 2.513,
+      "attention_cohort": null,
+      "attention_raw": 2.513,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -641,10 +711,24 @@
           "source": "https://dl.acm.org/doi/10.1145/3397271.3401075",
           "type": "publication",
           "value": "venue=ACM SIGIR; peer_reviewed=true"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://api.github.com/repos/run-llama/llama_index",
+          "type": "framework_presence",
+          "value": "frameworks=LlamaIndex"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/colbert-ai/",
+          "type": "package_downloads",
+          "value": "package=colbert-ai; version=0.2.22; downloads_last_month=219289"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 5,
       "family": "H",
       "first_published": "2021",
       "groups": [
@@ -678,12 +762,15 @@
         }
       ],
       "name": "ColBERT",
+      "package": "colbert-ai",
       "prose_id": "colbert",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.192,
+      "attention": 0.523,
+      "attention_cohort": "2024",
+      "attention_raw": 0.192,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -765,12 +852,15 @@
         }
       ],
       "name": "ColPali",
+      "package": null,
       "prose_id": "colpali",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -845,6 +935,7 @@
         }
       ],
       "name": "Contextual Retrieval",
+      "package": null,
       "prose_id": "contextual_retrieval",
       "residual": []
     },
@@ -852,7 +943,9 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 4.789,
+      "attention": 13.049,
+      "attention_cohort": "2024",
+      "attention_raw": 4.789,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -935,12 +1028,15 @@
         }
       ],
       "name": "CRAG",
+      "package": null,
       "prose_id": "crag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.156,
+      "attention": 0.231,
+      "attention_cohort": "2023",
+      "attention_raw": 0.156,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1022,12 +1118,15 @@
         }
       ],
       "name": "Dense X",
+      "package": null,
       "prose_id": "dense_x_retrieval",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1123,12 +1222,15 @@
         }
       ],
       "name": "Edge и On-Device RAG",
+      "package": null,
       "prose_id": "edge",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.0,
+      "attention_cohort": "2024",
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1211,14 +1313,15 @@
         }
       ],
       "name": "EdgeRAG",
+      "package": null,
       "prose_id": "edgerag",
       "residual": []
     },
     {
-      "aliases": [
-        "embodied"
-      ],
-      "attention": 0.043,
+      "aliases": [],
+      "attention": 0.117,
+      "attention_cohort": "2024",
+      "attention_raw": 0.043,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1301,14 +1404,15 @@
         }
       ],
       "name": "Embodied RAG",
+      "package": null,
       "prose_id": "embodied_rag",
       "residual": []
     },
     {
-      "aliases": [
-        "federated"
-      ],
+      "aliases": [],
       "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1426,12 +1530,15 @@
         }
       ],
       "name": "Federated RAG",
+      "package": null,
       "prose_id": "federated_rag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 9.256,
+      "attention": 13.692,
+      "attention_cohort": "2023",
+      "attention_raw": 9.256,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1514,6 +1621,7 @@
         }
       ],
       "name": "FLARE",
+      "package": null,
       "prose_id": "flare",
       "residual": []
     },
@@ -1522,6 +1630,8 @@
         "HippoRAG 2"
       ],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1559,10 +1669,17 @@
           "source": "https://github.com/OSU-NLP-Group/HippoRAG",
           "type": "repository",
           "value": "OSU-NLP-Group/HippoRAG: license=mit, last_push=2026-07-29, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads",
+          "value": "package=hipporag; version=2.0.0a4; downloads_last_month=2293"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -1597,12 +1714,15 @@
         }
       ],
       "name": "HippoRAG",
+      "package": "hipporag",
       "prose_id": "hipporag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 6.349,
+      "attention_cohort": null,
+      "attention_raw": 6.349,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1684,12 +1804,15 @@
         }
       ],
       "name": "HyDE",
+      "package": null,
       "prose_id": "hyde",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 5.977,
+      "attention": 8.842,
+      "attention_cohort": "2023",
+      "attention_raw": 5.977,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1772,12 +1895,15 @@
         }
       ],
       "name": "IRCoT",
+      "package": null,
       "prose_id": "ircot",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.0,
+      "attention_cohort": "2024",
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1859,12 +1985,15 @@
         }
       ],
       "name": "Late Chunking",
+      "package": null,
       "prose_id": "late_chunking",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -1915,6 +2044,7 @@
         }
       ],
       "name": "Legal pack (Belarus)",
+      "package": null,
       "prose_id": "legal_pack_belarus",
       "residual": []
     },
@@ -1923,6 +2053,8 @@
         "Light-RAG"
       ],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1967,10 +2099,17 @@
           "source": "https://github.com/HKUDS/LightRAG",
           "type": "repository",
           "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-08, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/lightrag-hku/",
+          "type": "package_downloads",
+          "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=294411"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -2006,12 +2145,15 @@
         }
       ],
       "name": "LightRAG",
+      "package": "lightrag-hku",
       "prose_id": "lightrag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.067,
+      "attention": 0.343,
+      "attention_cohort": "2025",
+      "attention_raw": 0.067,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2086,12 +2228,15 @@
         }
       ],
       "name": "MA-RAG",
+      "package": null,
       "prose_id": "ma_rag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2167,6 +2312,7 @@
         }
       ],
       "name": "MemoRAG",
+      "package": null,
       "prose_id": "memorag",
       "residual": []
     },
@@ -2175,6 +2321,8 @@
         "GraphRAG"
       ],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "summary_node",
@@ -2219,10 +2367,17 @@
           "source": "https://github.com/microsoft/graphrag",
           "type": "industrial_use",
           "value": "Microsoft: выпуски с версионированием и документация поставщика"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads",
+          "value": "package=graphrag; version=3.1.1; downloads_last_month=74263"
         }
       ],
-      "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_basis": "manual",
+      "evidence_count": 3,
       "family": "B",
       "first_published": null,
       "groups": [
@@ -2232,20 +2387,20 @@
       ],
       "id": "msft_graphrag",
       "kind": "architecture",
-      "level": "L3",
+      "level": "L5",
       "level_reason": {
         "confidence": 1.0,
-        "evidence_basis": "computed",
+        "evidence_basis": "manual",
         "missing": [
           "L1",
-          "L4",
-          "L5",
           "L6"
         ],
         "satisfied": [
           "L0",
           "L2",
-          "L3"
+          "L3",
+          "L4",
+          "L5"
         ]
       },
       "links": [
@@ -2258,13 +2413,16 @@
         }
       ],
       "name": "Microsoft GraphRAG",
+      "package": "graphrag",
       "prose_id": "msft_graphrag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
-      "confidence": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -2294,9 +2452,17 @@
         "G3": "frozen"
       },
       "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence",
+          "value": "frameworks=LangChain"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
       "family": "G",
       "first_published": null,
       "groups": [
@@ -2304,8 +2470,22 @@
       ],
       "id": "multi_query",
       "kind": "technique",
-      "level": null,
-      "level_reason": null,
+      "level": "L0",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0"
+        ]
+      },
       "links": [
         {
           "kind": "other",
@@ -2316,12 +2496,15 @@
         }
       ],
       "name": "Multi-Query Retrieval",
+      "package": null,
       "prose_id": "multi_query",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 1.891,
+      "attention_cohort": null,
+      "attention_raw": 1.891,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2404,12 +2587,15 @@
         }
       ],
       "name": "MuRAG",
+      "package": null,
       "prose_id": "murag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -2454,6 +2640,7 @@
       "level_reason": null,
       "links": [],
       "name": "Naive Dense",
+      "package": null,
       "prose_id": null,
       "residual": []
     },
@@ -2462,6 +2649,8 @@
         "neuro-symbolic"
       ],
       "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2558,12 +2747,15 @@
         }
       ],
       "name": "Neuro-Symbolic RAG",
+      "package": null,
       "prose_id": "neuro_symbolic_rag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.684,
+      "attention": 3.499,
+      "attention_cohort": "2025",
+      "attention_raw": 0.684,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2646,13 +2838,16 @@
         }
       ],
       "name": "OG-RAG",
+      "package": null,
       "prose_id": "og_rag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
-      "confidence": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -2682,16 +2877,52 @@
         "G3": "frozen"
       },
       "core_idea": null,
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence",
+          "value": "frameworks=LangChain, LlamaIndex"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads",
+          "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53685538"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://opensearch.org/docs/latest/",
+          "type": "industrial_use",
+          "value": "OpenSearch: документация проекта, версионированные выпуски, управляемые сервисы поставщиков"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
       "family": null,
       "first_published": null,
       "groups": [],
       "id": "opensearch",
       "kind": "tool",
-      "level": null,
-      "level_reason": null,
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L2"
+        ]
+      },
       "links": [
         {
           "kind": "other",
@@ -2702,12 +2933,15 @@
         }
       ],
       "name": "OpenSearch",
+      "package": "opensearch-py",
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 1.6,
+      "attention": 8.184,
+      "attention_cohort": "2025",
+      "attention_raw": 1.6,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2791,12 +3025,15 @@
         }
       ],
       "name": "PathRAG",
+      "package": null,
       "prose_id": "pathrag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.367,
+      "attention": 1.0,
+      "attention_cohort": "2024",
+      "attention_raw": 0.367,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2878,13 +3115,16 @@
         }
       ],
       "name": "PoisonedRAG",
+      "package": null,
       "prose_id": "poisonedrag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
-      "confidence": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -2914,16 +3154,52 @@
         "G3": "frozen"
       },
       "core_idea": null,
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence",
+          "value": "frameworks=LangChain, LlamaIndex"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads",
+          "value": "package=qdrant-client; version=1.19.0; downloads_last_month=20147140"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "manual",
+          "source": "https://qdrant.tech/documentation/",
+          "type": "industrial_use",
+          "value": "Qdrant: документация поставщика, версионированные выпуски, облачный сервис"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
       "family": null,
       "first_published": null,
       "groups": [],
       "id": "qdrant",
       "kind": "tool",
-      "level": null,
-      "level_reason": null,
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L1",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L2"
+        ]
+      },
       "links": [
         {
           "kind": "other",
@@ -2934,12 +3210,15 @@
         }
       ],
       "name": "Qdrant",
+      "package": "qdrant-client",
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.644,
+      "attention_cohort": null,
+      "attention_raw": 0.644,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3014,12 +3293,15 @@
         }
       ],
       "name": "RA-CM3",
+      "package": null,
       "prose_id": null,
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.441,
+      "attention": 0.652,
+      "attention_cohort": "2023",
+      "attention_raw": 0.441,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3101,12 +3383,15 @@
         }
       ],
       "name": "RA-DIT",
+      "package": null,
       "prose_id": "ra_dit",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.966,
+      "attention": 2.632,
+      "attention_cohort": "2024",
+      "attention_raw": 0.966,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3144,10 +3429,17 @@
           "source": "https://openalex.org/W4392930030",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.966"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2403.10131",
+          "type": "publication",
+          "value": "arXiv:2403.10131 (2024)"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": "I",
       "first_published": "2024-03",
       "groups": [
@@ -3181,14 +3473,15 @@
         }
       ],
       "name": "RAFT",
+      "package": null,
       "prose_id": "raft",
       "residual": []
     },
     {
-      "aliases": [
-        "memory"
-      ],
-      "attention": 0.111,
+      "aliases": [],
+      "attention": 0.568,
+      "attention_cohort": "2025",
+      "attention_raw": 0.111,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3291,12 +3584,15 @@
         }
       ],
       "name": "RAG as Memory",
+      "package": null,
       "prose_id": "rag_as_memory",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3372,12 +3668,15 @@
         }
       ],
       "name": "RAG-Fusion",
+      "package": null,
       "prose_id": "rag_fusion",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.871,
+      "attention": 2.373,
+      "attention_cohort": "2024",
+      "attention_raw": 0.871,
       "confidence": 1.0,
       "configuration": {
         "A1": "summary_node",
@@ -3422,10 +3721,17 @@
           "source": "https://openreview.net/forum?id=GN921JHCRw",
           "type": "publication",
           "value": "venue=ICLR; peer_reviewed=true"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2401.18059",
+          "type": "publication",
+          "value": "arXiv:2401.18059 (2024)"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "H",
       "first_published": "2024",
       "groups": [
@@ -3459,12 +3765,15 @@
         }
       ],
       "name": "RAPTOR",
+      "package": null,
       "prose_id": "raptor",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 12.457,
+      "attention": 18.428,
+      "attention_cohort": "2023",
+      "attention_raw": 12.457,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3554,12 +3863,15 @@
         }
       ],
       "name": "ReAct",
+      "package": null,
       "prose_id": "react",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.154,
+      "attention": 0.228,
+      "attention_cohort": "2023",
+      "attention_raw": 0.154,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3597,10 +3909,17 @@
           "source": "https://openalex.org/W4378474184",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2023; citation_velocity=0.154"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2305.15225",
+          "type": "publication",
+          "value": "arXiv:2305.15225 (2023)"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": "I",
       "first_published": "2023-05",
       "groups": [
@@ -3634,12 +3953,15 @@
         }
       ],
       "name": "SAIL",
+      "package": null,
       "prose_id": "sail",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -3700,12 +4022,15 @@
         }
       ],
       "name": "Self-Evolving и Fully Adaptive RAG",
+      "package": null,
       "prose_id": "self_evolving",
       "residual": []
     },
     {
       "aliases": [],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3780,14 +4105,15 @@
         }
       ],
       "name": "Self-RAG",
+      "package": null,
       "prose_id": "self_rag",
       "residual": []
     },
     {
-      "aliases": [
-        "speculative"
-      ],
-      "attention": 0.28,
+      "aliases": [],
+      "attention": 1.432,
+      "attention_cohort": "2025",
+      "attention_raw": 0.28,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3825,10 +4151,17 @@
           "source": "https://openalex.org/W4400611538",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.28"
+        },
+        {
+          "fetched_at": "2026-08-08",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2407.08223",
+          "type": "publication",
+          "value": "arXiv:2407.08223 (2024)"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": "A",
       "first_published": "2025",
       "groups": [
@@ -3876,6 +4209,7 @@
         }
       ],
       "name": "Speculative RAG",
+      "package": null,
       "prose_id": "speculative_rag",
       "residual": []
     },
@@ -3885,6 +4219,8 @@
         "Hybrid RAG"
       ],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": null,
       "configuration": {
         "A1": "passage",
@@ -3939,12 +4275,15 @@
         }
       ],
       "name": "Standard HybridRAG",
+      "package": null,
       "prose_id": "standard_hybridrag",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.676,
+      "attention": 1.0,
+      "attention_cohort": "2023",
+      "attention_raw": 0.676,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4026,14 +4365,15 @@
         }
       ],
       "name": "Step-Back Prompting",
+      "package": null,
       "prose_id": "step_back",
       "residual": []
     },
     {
-      "aliases": [
-        "streaming"
-      ],
+      "aliases": [],
       "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4123,12 +4463,15 @@
         }
       ],
       "name": "Streaming RAG",
+      "package": null,
       "prose_id": "streaming_rag",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4239,12 +4582,15 @@
         }
       ],
       "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "package": null,
       "prose_id": "test_time",
       "residual": []
     },
     {
       "aliases": [],
       "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4334,6 +4680,7 @@
         }
       ],
       "name": "Unified RAG над Structured и Unstructured Data",
+      "package": null,
       "prose_id": "unified",
       "residual": []
     },
@@ -4342,6 +4689,8 @@
         "PageIndex"
       ],
       "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4423,12 +4772,15 @@
         }
       ],
       "name": "Vectorless",
+      "package": null,
       "prose_id": "vectorless",
       "residual": []
     },
     {
       "aliases": [],
-      "attention": 0.452,
+      "attention": 1.232,
+      "attention_cohort": "2024",
+      "attention_raw": 0.452,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4510,6 +4862,7 @@
         }
       ],
       "name": "xRAG",
+      "package": null,
       "prose_id": "xrag",
       "residual": []
     }

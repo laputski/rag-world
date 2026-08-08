@@ -46,6 +46,7 @@
     }
   ],
   "name": "ColBERT",
+  "package": "colbert-ai",
   "prose_id": "colbert",
   "residual": []
 }

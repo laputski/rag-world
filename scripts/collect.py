@@ -165,25 +165,54 @@ def gather(
 
     summary = CollectSummary(sources=["arxiv", "openalex", "github"])
     accepted: list[store.Evidence] = []
+    raw_all: list[RawEvidence] = []
 
     for tech in technologies:
         raw, tech_errors = _collect_one(
             tech, http=http, github_token=github_token, today=today
         )
         summary.errors.extend(tech_errors)
-        for item, check in check_many(raw):
-            if not check.passed:
-                summary.rejected += 1
-                continue
-            accepted.append(store.Evidence(
-                technology_id=item.technology_id,
-                type=item.type,  # type: ignore[arg-type]
-                value=item.value,
-                source=item.source,
-                fetched_at=item.fetched_at,
-                obtained_by="auto",
-                verified=True,
-            ))
+        raw_all.extend(raw)
+
+    # Присутствие во фреймворках опрашивается один раз на весь реестр:
+    # читаются оглавления каталогов, а не запись за записью.
+    from services.collectors.frameworks import collect_frameworks
+
+    framework_evidence, framework_errors = collect_frameworks(
+        technologies, http=http, token=github_token, today=today
+    )
+    raw_all.extend(framework_evidence)
+    summary.errors.extend(framework_errors)
+    if framework_evidence or not framework_errors:
+        summary.sources.append("frameworks")
+
+    # Загрузки пакета — только там, где имя пакета записано человеком.
+    from services.collectors.pypi import collect_pypi
+
+    polled_pypi = False
+    for tech in technologies:
+        if not tech.package:
+            continue
+        polled_pypi = True
+        result = collect_pypi(tech.id, tech.package, http=http, today=today)
+        raw_all.extend(result.evidence)
+        summary.errors.extend(result.errors)
+    if polled_pypi:
+        summary.sources.append("pypi")
+
+    for item, check in check_many(raw_all):
+        if not check.passed:
+            summary.rejected += 1
+            continue
+        accepted.append(store.Evidence(
+            technology_id=item.technology_id,
+            type=item.type,  # type: ignore[arg-type]
+            value=item.value,
+            source=item.source,
+            fetched_at=item.fetched_at,
+            obtained_by="auto",
+            verified=True,
+        ))
 
     manual = load_manual_evidence()
     if manual:

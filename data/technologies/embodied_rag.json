@@ -1,7 +1,5 @@
 {
-  "aliases": [
-    "embodied"
-  ],
+  "aliases": [],
   "configuration": {
     "A1": "passage",
     "A2": "fixed",
@@ -56,6 +54,7 @@
     }
   ],
   "name": "Embodied RAG",
+  "package": null,
   "prose_id": "embodied_rag",
   "residual": []
 }

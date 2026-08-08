@@ -46,6 +46,7 @@
     }
   ],
   "name": "RAPTOR",
+  "package": null,
   "prose_id": "raptor",
   "residual": []
 }

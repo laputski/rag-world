@@ -50,6 +50,7 @@
     }
   ],
   "name": "Microsoft GraphRAG",
+  "package": "graphrag",
   "prose_id": "msft_graphrag",
   "residual": []
 }
