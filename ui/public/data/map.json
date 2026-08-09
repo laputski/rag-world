@@ -724,7 +724,7 @@
       "group": "A",
       "groups": [
         "A",
-        "E"
+        "G"
       ],
       "history": [
         {
@@ -931,7 +931,9 @@
       "first_published": "2022-11",
       "group": "A",
       "groups": [
-        "A"
+        "A",
+        "E",
+        "G"
       ],
       "history": [
         {
@@ -1152,9 +1154,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
-      "group": "E",
+      "group": "B",
       "groups": [
-        "E"
+        "B",
+        "C",
+        "E",
+        "G"
       ],
       "history": [
         {

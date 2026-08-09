@@ -3225,16 +3225,16 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "vision_language",
         "A6": "snapshot",
-        "A7": "text",
+        "A7": "image",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -3246,10 +3246,10 @@
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "joint_training"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Первый мультимодальный retrieval-augmented transformer с непараметрической памятью.",
       "evidence": [
@@ -3274,7 +3274,7 @@
       "first_published": "2022",
       "groups": [
         "A",
-        "E"
+        "G"
       ],
       "id": "murag",
       "kind": "architecture",
@@ -3305,7 +3305,45 @@
       ],
       "name": "MuRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A7",
+          "did": "Внешняя память содержит и изображения, и тексты; прежние работы этого рода умели искать только по тексту.",
+          "residual_term": null,
+          "source": "arXiv:2210.02928, постановка",
+          "technology_id": "murag",
+          "to": "image",
+          "why": "Модальность индексируемого материала перестала быть только текстовой — в этом вклад работы."
+        },
+        {
+          "code": "A5",
+          "did": "Представления памяти строит модель, обученная на парах «изображение — текст» совместной функцией потерь.",
+          "residual_term": null,
+          "source": "arXiv:2210.02928, предобучение",
+          "technology_id": "murag",
+          "to": "vision_language",
+          "why": "Одна модель представляет обе модальности в общем пространстве."
+        },
+        {
+          "code": "G3",
+          "did": "Кодировщик памяти и генератор обучаются вместе, одной смесью задач: сопоставление и порождение.",
+          "instead": "«обучаемый поисковик»: он описал бы обучение только одной стороны.",
+          "residual_term": null,
+          "source": "arXiv:2210.02928, предобучение",
+          "technology_id": "murag",
+          "to": "joint_training",
+          "why": "Обучаются обе стороны сразу, а не одна из них."
+        },
+        {
+          "code": "D1",
+          "did": "Отдельной ступени переранжирования в работе не описано.",
+          "residual_term": null,
+          "source": "arXiv:2210.02928, метод",
+          "technology_id": "murag",
+          "to": "none",
+          "why": "Найденное подаётся генератору напрямую."
+        }
+      ],
       "prose_id": "murag",
       "residual": []
     },
@@ -3971,16 +4009,16 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "vision_language",
         "A6": "snapshot",
-        "A7": "text",
+        "A7": "image",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -3992,10 +4030,10 @@
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -4012,7 +4050,9 @@
       "family": null,
       "first_published": "2022-11",
       "groups": [
-        "A"
+        "A",
+        "E",
+        "G"
       ],
       "id": "ra_cm3",
       "kind": "architecture",
@@ -4043,7 +4083,46 @@
       ],
       "name": "RA-CM3",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A7",
+          "did": "Из памяти извлекаются и текст, и изображения.",
+          "residual_term": null,
+          "source": "arXiv:2211.12561, постановка",
+          "technology_id": "ra_cm3",
+          "to": "image",
+          "why": "Индексируемый материал не только текстовый."
+        },
+        {
+          "code": "A5",
+          "did": "Поиск ведёт готовая модель, кладущая изображения и подписи в общее пространство.",
+          "residual_term": null,
+          "source": "arXiv:2211.12561, устройство поиска",
+          "technology_id": "ra_cm3",
+          "to": "vision_language",
+          "why": "Представление общее для обеих модальностей."
+        },
+        {
+          "code": "G3",
+          "did": "Генератор обучается работать с найденным; поисковая модель берётся готовой.",
+          "instead": "«совместное обучение»: источник совместного обучения двух сторон не описывает.",
+          "question": "Обучались ли поисковик и генератор совместно, из прочитанного не следует. Записано более осторожное значение.",
+          "residual_term": null,
+          "source": "arXiv:2211.12561, обучение",
+          "technology_id": "ra_cm3",
+          "to": "trained_reader",
+          "why": "Обучается читатель, а не поисковик."
+        },
+        {
+          "code": "D1",
+          "did": "Ступени пересмотра порядка найденного в работе не описано.",
+          "residual_term": null,
+          "source": "arXiv:2211.12561, метод",
+          "technology_id": "ra_cm3",
+          "to": "none",
+          "why": "Найденное подаётся генератору напрямую."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -4881,28 +4960,30 @@
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
-        "B2": "static",
+        "B2": "llm_router",
         "C1": "ann",
-        "C2": "single_shot",
+        "C2": "iterative_stopping",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
+        "E1": "draft_verify",
+        "E2": "decoding_reflection",
+        "E3": "fragment_level",
         "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
-      "configuration_variable": [],
+      "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [
+        "C2"
+      ],
       "core_idea": "Обучает генератор предсказывать токены рефлексии, принимая решение о необходимости поиска.",
       "evidence": [
         {
@@ -4918,7 +4999,10 @@
       "family": "A",
       "first_published": "2023",
       "groups": [
-        "E"
+        "B",
+        "C",
+        "E",
+        "G"
       ],
       "id": "self_rag",
       "kind": "architecture",
@@ -4949,9 +5033,86 @@
       ],
       "name": "Self-RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B2",
+          "did": "Модель сама решает на каждом шаге, нужно ли обращаться к поиску, и сообщает это особым служебным словом в порождаемом тексте.",
+          "instead": "«обученный классификатор»: там маршрут выбирает отдельная модель до генерации, здесь — сама генерирующая, по ходу.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "to": "llm_router",
+          "why": "Решение о маршруте принимает та же языковая модель, а не отдельный классификатор снаружи."
+        },
+        {
+          "code": "C2",
+          "did": "Извлечение происходит по требованию и может не происходить вовсе: для простого вопроса модель отвечает без обращения к поиску.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "to": "iterative_stopping",
+          "variable": true,
+          "why": "Число обращений заранее не задано и решается по ходу, поэтому измерение помечено как выбираемое на ходу; записана самая полная ветвь."
+        },
+        {
+          "code": "E1",
+          "did": "Модель порождает продолжение и тут же оценивает его служебными словами: подтверждается ли оно найденным и полезно ли оно.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "to": "draft_verify",
+          "why": "Порождение и проверка разделены внутри одного прохода — это черновик с последующей проверкой, а не однопроходная генерация."
+        },
+        {
+          "code": "E2",
+          "did": "Обоснованность проверяется во время порождения текста: служебные слова говорят, подтверждается ли утверждение найденным отрывком.",
+          "instead": "«проверка после порождения»: она смотрела бы на готовый ответ, а здесь оценка идёт по ходу.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "to": "decoding_reflection",
+          "why": "Контроль встроен в порождение, а не выполняется после него отдельной проверкой."
+        },
+        {
+          "code": "E3",
+          "did": "Утверждения связываются с конкретными найденными отрывками, и работа отдельно измеряет точность таких ссылок.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, оценка",
+          "technology_id": "self_rag",
+          "to": "fragment_level",
+          "why": "Привязка идёт к фрагменту, а не к документу целиком."
+        },
+        {
+          "code": "G3",
+          "did": "Языковая модель дообучается порождать служебные слова; поисковик берётся готовым.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, обучение",
+          "technology_id": "self_rag",
+          "to": "trained_reader",
+          "why": "Обучается читатель, а не поисковик."
+        },
+        {
+          "code": "D1",
+          "did": "Отдельной ступени пересмотра порядка найденного нет: оценку отрывкам даёт сама модель при порождении.",
+          "residual_term": null,
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "to": "none",
+          "why": "Переранжирование — это вторая модель поверх поиска; здесь её роль играет генератор."
+        },
+        {
+          "did": "Обращаться ли к поиску, решается заново на каждый вопрос и даже на каждый шаг ответа.",
+          "residual": "per_query_strategy_choice",
+          "residual_term": "выбор стратегии извлечения на каждый запрос",
+          "source": "arXiv:2310.11511, метод",
+          "technology_id": "self_rag",
+          "why": "Схема приписывает записи одно значение измерения; система, выбирающая его во время работы, описывается ею приблизительно."
+        }
+      ],
       "prose_id": "self_rag",
-      "residual": []
+      "residual": [
+        "выбор стратегии извлечения на каждый запрос"
+      ]
     },
     {
       "aliases": [],
@@ -5662,7 +5823,7 @@
         "C3": "none",
         "C4": "single_store",
         "D1": "cross_encoder",
-        "D2": "top_k",
+        "D2": "latent_compression",
         "D3": "natural_order",
         "E1": "single_pass",
         "E2": "none",
@@ -5676,7 +5837,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Экстремальное сжатие: пассажи компрессируются в пространство представлений модели.",
       "evidence": [
@@ -5731,7 +5892,28 @@
       ],
       "name": "xRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "D2",
+          "did": "Документ подаётся модели не текстом, а одним вектором — тем самым представлением, которое и так вычислено для поиска; переводит его в пространство модели небольшой обучаемый мост.",
+          "instead": "«пересказ»: там контекст сокращается словами, которые можно прочесть, а здесь читаемого текста не остаётся вовсе.",
+          "residual_term": null,
+          "source": "arXiv:2405.13792, метод",
+          "technology_id": "xrag",
+          "to": "latent_compression",
+          "why": "Сжатие происходит в пространстве представлений, а не пересказом текста. Это и есть скрытое сжатие."
+        },
+        {
+          "code": "G3",
+          "did": "Обучается только мост между пространствами; поисковик и языковая модель остаются неизменными.",
+          "instead": "«обучаемый читатель»: модель как раз заморожена, в этом и смысл — сохранить сменяемость частей.",
+          "residual_term": null,
+          "source": "arXiv:2405.13792, метод",
+          "technology_id": "xrag",
+          "to": "frozen",
+          "why": "Измерение описывает обучение поисковика и читателя — ни то, ни другое здесь не обучается."
+        }
+      ],
       "prose_id": "xrag",
       "residual": []
     }

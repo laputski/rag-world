@@ -9,33 +9,38 @@
     "A6": "snapshot",
     "A7": "text",
     "B1": "identity",
-    "B2": "static",
+    "B2": "llm_router",
     "C1": "ann",
-    "C2": "single_shot",
+    "C2": "iterative_stopping",
     "C3": "none",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
-    "E1": "single_pass",
-    "E2": "none",
-    "E3": "none",
+    "E1": "draft_verify",
+    "E2": "decoding_reflection",
+    "E3": "fragment_level",
     "E4": "no_refusal",
     "F1": "none",
     "F2": "none",
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "frozen"
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
-  "configuration_variable": [],
+  "configuration_reviewed": "2026-08-09",
+  "configuration_variable": [
+    "C2"
+  ],
   "core_idea": "Обучает генератор предсказывать токены рефлексии, принимая решение о необходимости поиска.",
   "family": "A",
   "first_published": "2023",
   "groups": [
-    "E"
+    "B",
+    "C",
+    "E",
+    "G"
   ],
   "id": "self_rag",
   "kind": "architecture",
@@ -51,5 +56,7 @@
   "name": "Self-RAG",
   "package": null,
   "prose_id": "self_rag",
-  "residual": []
+  "residual": [
+    "per_query_strategy_choice"
+  ]
 }
