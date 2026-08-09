@@ -27,6 +27,8 @@ export interface FeedItem {
   confidence?: number | null;
   evidence_basis?: string | null;
   attention?: number | null;
+  /** Год подгруппы, по которой нормировано; null — нормировать было нечем. */
+  attention_cohort?: string | null;
   evidence_count?: number | null;
   first_published?: string | null;
 }
@@ -100,10 +102,27 @@ export function FeedRow({ item, onOpen }: Props) {
           confidence={item.confidence}
           manual={item.evidence_basis === "manual"}
         />
+        {/*
+          Нормированное и измеренное значения показываются разными единицами.
+          Подгруппа меньше пяти записей не нормируется, и её величина выражена в
+          цитированиях за месяц, а не в долях медианы. Одна подпись на оба
+          случая означала бы, что читатель сравнивает несравнимое, не зная об
+          этом.
+        */}
         <VelocityStat
           value={item.attention}
-          unit={t("map.attentionUnit")}
-          origin={item.attention != null ? t("map.attentionOrigin") : undefined}
+          unit={
+            item.attention_cohort
+              ? t("map.attentionUnit")
+              : t("map.attentionRaw")
+          }
+          origin={
+            item.attention == null
+              ? undefined
+              : item.attention_cohort
+                ? t("map.attentionOrigin")
+                : t("map.attentionNotNormalized")
+          }
         />
       </Box>
     </Box>

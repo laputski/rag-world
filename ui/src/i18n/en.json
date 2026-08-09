@@ -62,7 +62,7 @@
   "map": {
     "title": "RAG maturity map",
     "subtitle": "Position shows evidence-backed maturity and the attention a technology receives. Data is rebuilt automatically.",
-    "howToRead": "How to read this map\n\n• Horizontal position is the maturity level from L0 (hypothesis) to L6 (industry standard). The level is computed by a rule from collected evidence, never assigned by hand.\n• Vertical position is attention: citation velocity normalised within an age cohort. Attention is not evidence that something works.\n• Colour marks the stratum of decisions, shape marks the kind of object.\n• Opacity reflects confidence in the level: fewer fresh verified pieces of evidence, paler point.\n• This is not an adoption recommendation: the map reports confirmed maturity, it does not advise what to pick.\n• Click a point to open the technology card with its evidence and the reasoning behind its level.",
+    "howToRead": "How to read this map\n\n• Horizontal position is the maturity level from L0 (hypothesis) to L6 (industry standard). The level is computed by a rule from collected evidence, never assigned by hand.\n• Vertical position is attention: citation velocity normalised within the work's age cohort. Where a cohort holds fewer than five works there is nothing to normalise against: the measured velocity is shown, and it is not comparable with normalised values. Attention is not evidence that something works.\n• Colour marks the stratum of decisions, shape marks the kind of object.\n• Opacity reflects confidence in the level: fewer fresh verified pieces of evidence, paler point.\n• This is not an adoption recommendation: the map reports confirmed maturity, it does not advise what to pick.\n• Click a point to open the technology card with its evidence and the reasoning behind its level.",
     "confidence": "confidence",
     "unavailable": "Map unavailable: data artifact not found",
     "stale": "data is stale",
@@ -71,17 +71,17 @@
     "openCard": "Open technology card",
     "noAttention": "no attention data",
     "attentionUnit": "× median",
-    "attentionOrigin": "Citation velocity relative to the median of works from the same year. Above one means more discussed than its peers.",
+    "attentionOrigin": "Citation velocity divided by the median of works of the same year. Above one means the technology is discussed more actively than its peers.",
     "axisMaturity": "maturity",
-    "axisAttention": "attention, × year median",
+    "axisAttention": "attention (× year median or cit./mo.)",
     "projection": {
       "map": "map",
       "grid": "strata grid"
     },
     "showMovement": "show movement",
     "openRegistry": "full registry →",
-    "attentionRaw": "measured",
-    "attentionNotNormalized": "cohort too small: measured value shown"
+    "attentionRaw": "cit./mo.",
+    "attentionNotNormalized": "The age cohort holds fewer than five works, so its median is unstable and no normalisation is applied. The measured citations per month are shown; they are not comparable with normalised values."
   },
   "registry": {
     "title": "RAG technology registry",

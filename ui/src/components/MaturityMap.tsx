@@ -141,8 +141,16 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
           const p = params.data?.point;
           if (!p) return "";
           const level = p.level ? t(`level.${p.level}`) : t("level.unknown");
+          // Единица зависит от того, нормировалась ли величина: у малой
+          // возрастной подгруппы медианы нет, и показывается измеренное
+          // значение. Без различия читатель сравнил бы доли медианы с
+          // цитированиями в месяц.
           const attention = p.attention != null
-            ? `${p.attention.toFixed(1)} ${t("map.attentionUnit")}`
+            ? `${p.attention.toFixed(1)} ${
+                p.attention_cohort
+                  ? t("map.attentionUnit")
+                  : t("map.attentionRaw")
+              }`
             : t("map.noAttention");
           return [
             `<b>${p.name}</b>`,
