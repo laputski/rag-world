@@ -36,6 +36,8 @@ export interface RegistryTechnology {
    * одинаково, а утверждают разное.
    */
   configuration_reviewed: string | null;
+  /** Обоснование разбора: почему у измерения такое значение. */
+  parse_notes: ParseNote[];
   links: RegistryLink[];
   /** Вычисленный уровень зрелости; null — уровень не вычислялся. */
   level: string | null;
@@ -176,4 +178,29 @@ export interface DigestMove {
   name: string;
   level_before: string | null;
   level_after: string;
+}
+
+/**
+ * Обоснование одного решения разбора.
+ *
+ * Разделено намеренно: `did` проверяется по источнику, `why` — по схеме
+ * измерений. Слитые в одну фразу, они читаются как утверждение о технологии,
+ * тогда как половина — утверждение о том, как схема её описывает.
+ */
+export interface ParseNote {
+  code?: string;
+  residual?: string;
+  residual_term?: string | null;
+  to?: string;
+  variable?: boolean;
+  inapplicable?: boolean;
+  /** Что делает система — проверяется по источнику. */
+  did: string;
+  /** Почему из этого следует значение — проверяется по схеме. */
+  why: string;
+  /** Какое значение не подошло и почему. */
+  instead?: string;
+  /** Место, где источник допускает другое прочтение. */
+  question?: string;
+  source: string;
 }

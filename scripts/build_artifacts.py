@@ -99,6 +99,26 @@ def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None
     return max(p.value for p in relevant if p.measured_at == freshest)
 
 
+def _parse_notes() -> dict[str, list[dict]]:
+    """Обоснования разбора по записям.
+
+    Конфигурация — единственная часть портала, где решение принял человек, а не
+    правило. У уровня показан вывод правила, у свидетельства — источник; без
+    обоснования значение измерения остаётся утверждением, которое читателю
+    нечем проверить, и оно же — самое субъективное на карточке.
+    """
+    path = store.DATA_DIR / "parse_notes.jsonl"
+    if not path.exists():
+        return {}
+    notes: dict[str, list[dict]] = defaultdict(list)
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            note = json.loads(line)
+            notes[note["technology_id"]].append(note)
+    return notes
+
+
 def _residual_vocabulary() -> dict[str, dict]:
     path = store.DATA_DIR / "residual_vocabulary.json"
     if not path.exists():
@@ -212,6 +232,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         history_by_tech[entry.technology_id].append(entry)
 
     cohorts = attention_cohorts(technologies, metrics_by_tech)
+    parse_notes = _parse_notes()
 
     built_at = _built_at()
     freshest = max((e.fetched_at for e in evidence), default=None)
@@ -249,6 +270,17 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             # Подстановка на сборке, а не в реестре: тогда перевод словаря не
             # требует переписывать записи технологий.
             "residual": [_residual_term(code) for code in tech.residual],
+            # Обоснование разбора: почему у измерения такое значение. Остаток
+            # получает формулировку из словаря, чтобы карточка не показывала код.
+            "parse_notes": [
+                {
+                    **note,
+                    "residual_term": (
+                        _residual_term(note["residual"]) if note.get("residual") else None
+                    ),
+                }
+                for note in parse_notes.get(tech.id, [])
+            ],
             "level": entry.level if entry else None,
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,

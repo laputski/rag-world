@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Box, Typography, Paper, Chip, Alert, CircularProgress, Divider, Link as MuiLink,
+  Box, Typography, Paper, Chip, Alert, CircularProgress, Collapse, Divider, Link as MuiLink,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,68 @@ import { getTechProse } from "../i18n/index";
 import { LevelBadge } from "../components/LevelBadge";
 import { ConfigGlyph } from "../components/ConfigGlyph";
 import { StratumChip } from "../components/StratumChip";
-import type { RegistryTechnology } from "../api/types";
+import type { ParseNote, RegistryTechnology } from "../api/types";
+
+/**
+ * Обоснование одного решения разбора конфигурации.
+ *
+ * Показывается свёрнутым: читателю, которому нужно значение, обоснование
+ * мешает; читателю, который значению не верит, оно необходимо. Разворот — один
+ * щелчок, и он не уводит со страницы.
+ *
+ * «Что делает система» и «почему из этого следует значение» разнесены
+ * намеренно: первое проверяется по источнику, второе — по схеме измерений.
+ */
+function ParseNoteBlock({ note }: { note: ParseNote }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box sx={{ mt: 0.5, fontFamily: "body" }}>
+      <MuiLink
+        component="button"
+        onClick={() => setOpen((v) => !v)}
+        sx={{ fontSize: "0.75rem", fontFamily: "inherit" }}
+      >
+        {open ? t("techCard.hideBasis") : t("techCard.showBasis")}
+        {note.question && ` · ${t("techCard.readingOpen")}`}
+      </MuiLink>
+      <Collapse in={open}>
+        <Box sx={{ mt: 1, pl: 1.5, borderLeft: 2, borderColor: "divider", maxWidth: "62ch" }}>
+          <NoteLine label={t("techCard.basisDid")} text={note.did} />
+          <NoteLine label={t("techCard.basisWhy")} text={note.why} />
+          {note.instead && <NoteLine label={t("techCard.basisInstead")} text={note.instead} />}
+          {note.question && (
+            <NoteLine label={t("techCard.basisQuestion")} text={note.question} accent />
+          )}
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
+            {note.source}
+          </Typography>
+        </Box>
+      </Collapse>
+    </Box>
+  );
+}
+
+function NoteLine({ label, text, accent }: { label: string; text: string; accent?: boolean }) {
+  return (
+    <Box sx={{ mb: 1 }}>
+      <Typography
+        variant="caption"
+        sx={{
+          display: "block",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+          fontSize: "0.62rem",
+          color: accent ? "warning.main" : "text.secondary",
+        }}
+      >
+        {label}
+      </Typography>
+      <Typography variant="body2" sx={{ fontFamily: "body" }}>{text}</Typography>
+    </Box>
+  );
+}
 
 /**
  * Карточка технологии.
@@ -144,9 +205,10 @@ export function TechCardPage() {
                 */}
                 {Object.entries(tech.configuration).map(([dim, val]) => {
                   const variable = tech.configuration_variable.includes(dim);
+                  const note = tech.parse_notes.find((n) => n.code === dim);
                   return (
-                    <TableRow key={dim}>
-                      <TableCell sx={{ fontFamily: "monospace" }}>{dim}</TableCell>
+                    <TableRow key={dim} sx={{ "& > td": { borderBottom: note ? 0 : undefined } }}>
+                      <TableCell sx={{ fontFamily: "monospace", verticalAlign: "top" }}>{dim}</TableCell>
                       <TableCell sx={{ fontFamily: "monospace" }}>
                         {val}
                         {variable && (
@@ -159,6 +221,14 @@ export function TechCardPage() {
                             {t("techCard.dimensionVariable")}
                           </Typography>
                         )}
+                        {/*
+                          Обоснование прямо под значением, а не в сноске.
+                          Конфигурация — единственное место портала, где решение
+                          принял человек: у уровня показан вывод правила, у
+                          свидетельства — источник, и только здесь значение
+                          появлялось без основания.
+                        */}
+                        {note && <ParseNoteBlock note={note} />}
                       </TableCell>
                     </TableRow>
                   );

@@ -136,7 +136,14 @@
     "dimensionVariable": "chosen at run time",
     "dimensionInapplicable": "dimension does not apply",
     "variableNote": "\"Chosen at run time\" means the system varies this value by query or by mode; the value recorded is the one from the fullest branch.",
-    "inapplicableNote": "\"Does not apply\" means the object has no such stage: a value here would assert something about a thing that does not exist."
+    "inapplicableNote": "\"Does not apply\" means the object has no such stage: a value here would assert something about a thing that does not exist.",
+    "showBasis": "why this value",
+    "hideBasis": "hide the basis",
+    "readingOpen": "another reading is possible",
+    "basisDid": "What the system does",
+    "basisWhy": "Why that yields this value",
+    "basisInstead": "Which value did not fit",
+    "basisQuestion": "Another reading is possible here"
   },
   "changes": {
     "title": "Changelog",
