@@ -1,6 +1,76 @@
 {
-  "built_at": "2026-08-08",
+  "built_at": "2026-08-09",
   "changes": [
+    {
+      "changed_at": "2026-08-09",
+      "evidence": [
+        {
+          "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+          "type": "repository"
+        },
+        {
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads"
+        },
+        {
+          "source": "https://arxiv.org/abs/2405.14831",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415797504",
+          "type": "publication"
+        },
+        {
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L4",
+      "level_before": "L0",
+      "name": "HippoRAG",
+      "technology_id": "hipporag"
+    },
+    {
+      "changed_at": "2026-08-09",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2312.06648",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4389713732",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4404783040",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Dense X",
+      "technology_id": "dense_x_retrieval"
+    },
+    {
+      "changed_at": "2026-08-09",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W7129328134",
+          "type": "publication"
+        },
+        {
+          "source": "https://arxiv.org/abs/2602.13229",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L1",
+      "level_before": "L0",
+      "name": "Edge и On-Device RAG",
+      "technology_id": "edge"
+    },
     {
       "changed_at": "2026-08-08",
       "evidence": [

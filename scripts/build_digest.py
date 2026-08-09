@@ -90,8 +90,19 @@ class Issue:
     """Один выпуск: что произошло за период и как об этом сказано."""
 
     issued_at: date
-    #: Начало периода: день, следующий за прошлым выпуском. None — первый выпуск.
+    #: Начало периода: дата прошлого выпуска. Показывается читателю, но границу
+    #: периода не задаёт — см. отметки ниже.
     since: date | None
+    #: Сколько записей журналов уже охвачено прошлыми выпусками.
+    #:
+    #: Граница по дате теряет данные: изменение, случившееся в день выпуска, но
+    #: после него, не попадает ни в этот выпуск, ни в следующий — оно
+    #: проваливается между ними навсегда. Журналы дописываются и не
+    #: переписываются, поэтому число уже охваченных записей — точная и
+    #: устойчивая отметка, а дата — нет.
+    levels_seen: int = 0
+    evidence_seen: int = 0
+    runs_seen: int = 0
     added: list[dict] = field(default_factory=list)
     promoted: list[dict] = field(default_factory=list)
     demoted: list[dict] = field(default_factory=list)
@@ -115,6 +126,9 @@ class Issue:
         payload = {
             "issued_at": self.issued_at.isoformat(),
             "since": self.since.isoformat() if self.since else None,
+            "levels_seen": self.levels_seen,
+            "evidence_seen": self.evidence_seen,
+            "runs_seen": self.runs_seen,
             "added": self.added,
             "promoted": self.promoted,
             "demoted": self.demoted,
@@ -243,19 +257,27 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
     previous = latest_issue()
     since = date.fromisoformat(previous["issued_at"]) if previous else None
 
+    # Отметки прошлого выпуска: сколько записей журналов он уже охватил.
+    levels_seen = int(previous.get("levels_seen", 0)) if previous else 0
+    evidence_seen = int(previous.get("evidence_seen", 0)) if previous else 0
+    runs_seen = int(previous.get("runs_seen", 0)) if previous else 0
+
     technologies = store.load_technologies()
     names = _names(technologies)
     order = {level: i for i, level in enumerate(LEVELS)}
 
     issue = Issue(issued_at=today, since=since)
 
-    # Изменения уровней: журнал уровней читается целиком, потому что «первое
-    # появление» определяется историей, а не одной строкой.
+    # Изменения уровней: журнал читается целиком, потому что «первое появление»
+    # определяется историей, а не одной строкой. Охваченным считается то, что
+    # уже сосчитано прошлым выпуском.
+    all_levels = store.load_levels()
+    issue.levels_seen = len(all_levels)
     seen: dict[str, str] = {}
-    for entry in store.load_levels():
+    for index, entry in enumerate(all_levels):
         before = seen.get(entry.technology_id)
         seen[entry.technology_id] = entry.level
-        if since is not None and entry.computed_at <= since:
+        if index < levels_seen:
             continue
         if entry.computed_at > today:
             continue
@@ -273,16 +295,17 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
             issue.demoted.append(item)
 
     # Свидетельства за период.
-    fresh = [
-        e for e in store.load_evidence()
-        if (since is None or e.fetched_at > since) and e.fetched_at <= today
-    ]
+    all_evidence = store.load_evidence()
+    issue.evidence_seen = len(all_evidence)
+    fresh = [e for e in all_evidence[evidence_seen:] if e.fetched_at <= today]
     issue.evidence_added = len(fresh)
     issue.evidence_by_type = dict(sorted(Counter(e.type for e in fresh).items()))
 
     # Проверка ссылок за период — из журнала прогонов.
-    for run in store.load_runs():
-        if since is not None and run.ran_at <= since:
+    all_runs = store.load_runs()
+    issue.runs_seen = len(all_runs)
+    for index, run in enumerate(all_runs):
+        if index < runs_seen:
             continue
         if run.ran_at > today:
             continue

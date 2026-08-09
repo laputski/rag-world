@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-08",
+  "built_at": "2026-08-09",
   "count": 53,
   "levels": [
     "L0",
@@ -12,7 +12,7 @@
   ],
   "points": [
     {
-      "attention": 16.084,
+      "attention": 14.415,
       "attention_cohort": "2024",
       "attention_raw": 5.903,
       "confidence": 1.0,
@@ -185,7 +185,7 @@
       "prose_id": "causalrag"
     },
     {
-      "attention": 0.616,
+      "attention": 0.552,
       "attention_cohort": "2024",
       "attention_raw": 0.226,
       "confidence": 1.0,
@@ -244,7 +244,7 @@
       "prose_id": "colbert"
     },
     {
-      "attention": 0.523,
+      "attention": 0.469,
       "attention_cohort": "2024",
       "attention_raw": 0.192,
       "confidence": 1.0,
@@ -293,7 +293,7 @@
       "prose_id": "contextual_retrieval"
     },
     {
-      "attention": 13.049,
+      "attention": 11.695,
       "attention_cohort": "2024",
       "attention_raw": 4.789,
       "confidence": 1.0,
@@ -318,9 +318,9 @@
       "prose_id": "crag"
     },
     {
-      "attention": 0.231,
+      "attention": 1.0,
       "attention_cohort": "2023",
-      "attention_raw": 0.156,
+      "attention_raw": 1.935,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-12",
@@ -332,11 +332,15 @@
         {
           "at": "2026-08-08",
           "level": "L1"
+        },
+        {
+          "at": "2026-08-09",
+          "level": "L2"
         }
       ],
       "id": "dense_x_retrieval",
       "kind": "technique",
-      "level": "L1",
+      "level": "L2",
       "name": "Dense X",
       "prevalence": null,
       "prose_id": "dense_x_retrieval"
@@ -356,11 +360,15 @@
         {
           "at": "2026-08-08",
           "level": "L0"
+        },
+        {
+          "at": "2026-08-09",
+          "level": "L1"
         }
       ],
       "id": "edge",
       "kind": "paradigm",
-      "level": "L0",
+      "level": "L1",
       "name": "Edge и On-Device RAG",
       "prevalence": null,
       "prose_id": "edge"
@@ -391,7 +399,7 @@
       "prose_id": "edgerag"
     },
     {
-      "attention": 0.117,
+      "attention": 0.105,
       "attention_cohort": "2024",
       "attention_raw": 0.043,
       "confidence": 1.0,
@@ -445,7 +453,7 @@
       "prose_id": "federated_rag"
     },
     {
-      "attention": 13.692,
+      "attention": 4.783,
       "attention_cohort": "2023",
       "attention_raw": 9.256,
       "confidence": 1.0,
@@ -474,9 +482,9 @@
       "prose_id": "flare"
     },
     {
-      "attention": null,
-      "attention_cohort": null,
-      "attention_raw": null,
+      "attention": 5.199,
+      "attention_cohort": "2024",
+      "attention_raw": 2.129,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -489,11 +497,15 @@
         {
           "at": "2026-08-08",
           "level": "L0"
+        },
+        {
+          "at": "2026-08-09",
+          "level": "L4"
         }
       ],
       "id": "hipporag",
       "kind": "architecture",
-      "level": "L0",
+      "level": "L4",
       "name": "HippoRAG",
       "prevalence": null,
       "prose_id": "hipporag"
@@ -527,7 +539,7 @@
       "prose_id": "hyde"
     },
     {
-      "attention": 8.842,
+      "attention": 3.089,
       "attention_cohort": "2023",
       "attention_raw": 5.977,
       "confidence": 1.0,
@@ -557,9 +569,9 @@
       "prose_id": "ircot"
     },
     {
-      "attention": 0.0,
+      "attention": 0.53,
       "attention_cohort": "2024",
-      "attention_raw": 0.0,
+      "attention_raw": 0.217,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -873,7 +885,7 @@
       "prose_id": "pathrag"
     },
     {
-      "attention": 1.0,
+      "attention": 0.896,
       "attention_cohort": "2024",
       "attention_raw": 0.367,
       "confidence": 1.0,
@@ -949,7 +961,7 @@
       "prose_id": null
     },
     {
-      "attention": 0.652,
+      "attention": 0.228,
       "attention_cohort": "2023",
       "attention_raw": 0.441,
       "confidence": 1.0,
@@ -973,7 +985,7 @@
       "prose_id": "ra_dit"
     },
     {
-      "attention": 2.632,
+      "attention": 2.359,
       "attention_cohort": "2024",
       "attention_raw": 0.966,
       "confidence": 1.0,
@@ -1046,7 +1058,7 @@
       "prose_id": "rag_fusion"
     },
     {
-      "attention": 2.373,
+      "attention": 2.127,
       "attention_cohort": "2024",
       "attention_raw": 0.871,
       "confidence": 1.0,
@@ -1074,9 +1086,9 @@
       "prose_id": "raptor"
     },
     {
-      "attention": 18.428,
+      "attention": 6.449,
       "attention_cohort": "2023",
-      "attention_raw": 12.457,
+      "attention_raw": 12.478,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1104,7 +1116,7 @@
       "prose_id": "react"
     },
     {
-      "attention": 0.228,
+      "attention": 0.08,
       "attention_cohort": "2023",
       "attention_raw": 0.154,
       "confidence": 1.0,
@@ -1220,7 +1232,7 @@
       "prose_id": "standard_hybridrag"
     },
     {
-      "attention": 1.0,
+      "attention": 0.349,
       "attention_cohort": "2023",
       "attention_raw": 0.676,
       "confidence": 1.0,
@@ -1347,7 +1359,7 @@
       "prose_id": "vectorless"
     },
     {
-      "attention": 1.232,
+      "attention": 1.104,
       "attention_cohort": "2024",
       "attention_raw": 0.452,
       "confidence": 1.0,

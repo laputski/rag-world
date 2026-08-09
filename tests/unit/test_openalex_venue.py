@@ -182,3 +182,24 @@ def test_missing_work_reports_error_without_evidence():
                               http=http, today=TODAY)
     assert result.evidence == []
     assert result.errors
+
+
+def test_title_with_a_question_mark_does_not_break_the_query():
+    """Знаки подстановки в названии работы делают запрос недопустимым.
+
+    Индекс считает `?` и `*` подстановкой и отвечает кодом 400, а работа молча
+    остаётся без сведений о площадке — то есть навсегда препринтом. Названий с
+    вопросительным знаком в области полно: «What Retrieval Granularity Should
+    We Use?» — одно из них.
+    """
+    import re
+
+    for title, expected in [
+        ("Dense X Retrieval: What Granularity Should We Use?",
+         "Dense X Retrieval  What Granularity Should We Use"),
+        ("RAG or Long Context? A Comparison", "RAG or Long Context  A Comparison"),
+        ("Foo * Bar", "Foo   Bar"),
+    ]:
+        cleaned = re.sub(r"[,|:?*]+", " ", title).strip()
+        assert cleaned == expected, cleaned
+        assert not set("?*:,|") & set(cleaned), f"остались разделители: {cleaned!r}"

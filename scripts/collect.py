@@ -74,9 +74,17 @@ def _collect_one(
     for link in tech.links:
         for kind in _collectors_for(link.url):
             if kind == "arxiv":
+                # Подпись ссылки заголовком работы не является: там пометки
+                # вроде «CausalRAG (arXiv:2503.19878, ACL 2025)» и «исправлено:
+                # было 2406.18542». Сравнение их с настоящим заголовком
+                # отклоняло тринадцать законных публикаций каждый прогон.
+                #
+                # Проверять здесь нечего и по существу: у ссылки указан номер
+                # архива, и запрос по номеру возвращает ровно ту работу.
+                # Сверка заголовков нужна там, где работа ищется поиском, —
+                # в открытом индексе, и там она есть.
                 result = collect_arxiv(
-                    tech.id, link.url, http=http,
-                    expected_title=link.label, today=today,
+                    tech.id, link.url, http=http, today=today,
                 )
             elif kind == "github":
                 result = collect_github(

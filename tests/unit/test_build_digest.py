@@ -253,3 +253,62 @@ def test_issue_is_written_as_stable_json(registry):
     assert payload["issued_at"] == TODAY.isoformat()
     assert payload["text"]
     assert path.read_text(encoding="utf-8").endswith("\n")
+
+
+# ─── Граница периода ─────────────────────────────────────────────────────────
+
+
+def test_changes_after_an_issue_on_the_same_day_are_not_lost(registry):
+    """Изменение, случившееся в день выпуска, но после него.
+
+    Граница по дате теряла такие изменения навсегда: в этот выпуск они не
+    попадали, потому что он уже вышел, а в следующий — потому что их дата не
+    была больше даты прошлого выпуска. Отказ молчаливый: портал показывал новое
+    состояние, а дайджест о нём не сообщал никогда.
+
+    Отметка ставится по числу записей журнала, а не по дате: журналы
+    дописываются и не переписываются, поэтому число охваченного точно.
+    """
+    add_tech("alpha", "Alpha")
+    add_level("alpha", "L1", TODAY)
+    build_digest.publish(build_digest.build(today=TODAY))
+
+    # Тот же день, но после выпуска: прогон нашёл повышение и свидетельства.
+    add_level("alpha", "L2", TODAY)
+    add_evidence("alpha", "repository", TODAY, "https://github.com/x/y")
+
+    issue = build_digest.build(today=TODAY)
+
+    assert [i["name"] for i in issue.promoted] == ["Alpha"]
+    assert issue.evidence_added == 1
+    assert issue.has_news(), "изменения дня выпуска обязаны попасть в следующий"
+
+
+def test_watermarks_advance_with_each_issue(registry):
+    """Каждый выпуск отмечает, сколько журналов он охватил."""
+    add_tech("alpha", "Alpha")
+    add_level("alpha", "L1", TODAY)
+    add_evidence("alpha", "publication", TODAY, "https://arxiv.org/abs/1")
+    first = build_digest.build(today=TODAY)
+
+    assert first.levels_seen == 1
+    assert first.evidence_seen == 1
+    build_digest.publish(first)
+
+    add_level("alpha", "L2", TODAY)
+    second = build_digest.build(today=TODAY)
+    assert second.levels_seen == 2
+    assert len(second.promoted) == 1
+
+
+def test_nothing_is_reported_twice(registry):
+    """Охваченное прошлым выпуском не пересказывается следующим."""
+    add_tech("alpha", "Alpha")
+    add_level("alpha", "L1", TODAY)
+    add_evidence("alpha", "publication", TODAY, "https://arxiv.org/abs/1")
+    build_digest.publish(build_digest.build(today=TODAY))
+
+    again = build_digest.build(today=TODAY)
+    assert not again.has_news()
+    assert again.added == []
+    assert again.evidence_added == 0

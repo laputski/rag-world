@@ -27,7 +27,11 @@ from services.collectors.base import is_allowed_host
 HOST_DELAYS: dict[str, float] = {
     "export.arxiv.org": 4.0,
     "arxiv.org": 4.0,
-    "api.openalex.org": 0.2,
+    # Пять обращений в секунду индекс не выдерживает и отвечает отказом по
+    # частоте даже с повторами. Секунда — то, что проходит и в общем потоке;
+    # с назначенной почтой можно было бы чаще, но настройка необязательна, и
+    # прогон должен работать и без неё.
+    "api.openalex.org": 1.0,
     "api.github.com": 1.0,
     "pypi.org": 0.2,
 }

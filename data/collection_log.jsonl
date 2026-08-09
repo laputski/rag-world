@@ -3,3 +3,6 @@
 {"data_changed": false, "evidence_added": 0, "levels_changed": 0, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}
 {"data_changed": true, "evidence_added": 16, "levels_changed": 6, "metrics_added": 37, "ran_at": "2026-08-08", "source_errors": 2, "sources": ["arxiv", "openalex", "github", "frameworks", "pypi", "manual"]}
 {"data_changed": true, "evidence_added": 0, "levels_changed": 2, "metrics_added": 0, "ran_at": "2026-08-08", "source_errors": 0, "sources": []}
+{"data_changed": true, "evidence_added": 16, "levels_changed": 1, "links_broken": 0, "links_checked": 2, "metrics_added": 38, "ran_at": "2026-08-09", "source_errors": 4, "sources": ["arxiv", "openalex", "github", "frameworks", "pypi", "manual"]}
+{"data_changed": true, "evidence_added": 21, "levels_changed": 2, "links_broken": 0, "links_checked": 2, "metrics_added": 6, "ran_at": "2026-08-09", "source_errors": 40, "sources": ["arxiv", "openalex", "github", "pypi", "manual"]}
+{"data_changed": true, "evidence_added": 8, "levels_changed": 0, "links_broken": 0, "links_checked": 2, "metrics_added": 8, "ran_at": "2026-08-09", "source_errors": 59, "sources": ["arxiv", "openalex", "github", "pypi", "manual"]}

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-08",
+  "built_at": "2026-08-09",
   "issues": [
     {
       "added": [
@@ -309,7 +309,9 @@
         "publication": 65,
         "repository": 11
       },
+      "evidence_seen": 92,
       "issued_at": "2026-08-09",
+      "levels_seen": 67,
       "links_broken": 0,
       "links_checked": 0,
       "promoted": [
@@ -428,6 +430,7 @@
           "technology_id": "qdrant"
         }
       ],
+      "runs_seen": 5,
       "since": null,
       "text": "Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.",
       "total": 54

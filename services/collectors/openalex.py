@@ -33,6 +33,26 @@ from services.collectors.base import (
 
 OPENALEX_API = "https://api.openalex.org"
 
+#: Открытый индекс держит два потока обращений: общий и вежливый. Во втором
+#: лимиты заметно выше, и попасть туда можно, назвав почту для связи — так
+#: устроено у них намеренно. Без этого прогон упирается в отказ по частоте, и
+#: половина записей остаётся без сведений о площадке публикации.
+#:
+#: Почта берётся из окружения, а не вписывается в код: репозиторий читают
+#: посторонние, и личный адрес в нём — не то, что стоит публиковать.
+OPENALEX_MAILTO_ENV = "OPENALEX_MAILTO"
+
+
+def _polite(url: str) -> str:
+    """Добавить к адресу почту для связи, если она задана в окружении."""
+    import os
+
+    mailto = os.environ.get(OPENALEX_MAILTO_ENV, "").strip()
+    if not mailto:
+        return url
+    separator = "&" if "?" in url else "?"
+    return f"{url}{separator}mailto={quote(mailto)}"
+
 _ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf)/(?P<id>\d{4}\.\d{4,5})", re.I)
 _DOI_RE = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
 
@@ -173,9 +193,9 @@ def collect_openalex(
     if arxiv_match:
         # У препринтов arXiv есть канонический DOI: это самый надёжный ключ.
         doi = f"10.48550/arXiv.{arxiv_match.group('id')}"
-        work = _get_json(http, f"{OPENALEX_API}/works/doi:{doi}", result)
+        work = _get_json(http, _polite(f"{OPENALEX_API}/works/doi:{doi}"), result)
     elif doi_match:
-        work = _get_json(http, f"{OPENALEX_API}/works/doi:{doi_match.group(0)}", result)
+        work = _get_json(http, _polite(f"{OPENALEX_API}/works/doi:{doi_match.group(0)}"), result)
 
     def _norm(value: str) -> str:
         return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
@@ -193,21 +213,25 @@ def collect_openalex(
     # рецензирование видно только у второй.
     candidates: list[dict] = [work] if work else []
     if search_title:
-        # В фильтре запятая и вертикальная черта разделяют условия, а двоеточие
-        # отделяет имя фильтра от значения. Названия работ содержат их сплошь и
-        # рядом, поэтому разделители заменяются пробелом: поиск от этого не
-        # страдает, а запрос перестаёт ломаться.
-        safe_title = re.sub(r"[,|:]+", " ", search_title).strip()
+        # В фильтре запятая и вертикальная черта разделяют условия, двоеточие
+        # отделяет имя фильтра от значения, а вопросительный знак и звёздочка
+        # означают подстановку. Названия работ содержат их сплошь и рядом —
+        # «What Retrieval Granularity Should We Use?» ломало запрос кодом 400,
+        # и работа молча оставалась без сведений о площадке.
+        #
+        # Разделители заменяются пробелом: поиск по словам от этого не
+        # страдает, а запрос перестаёт быть недопустимым.
+        safe_title = re.sub(r"[,|:?*]+", " ", search_title).strip()
         search = _get_json(
             http,
-            f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25",
+            _polite(f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25"),
             result,
         )
         if search:
             candidates.extend(search.get("results") or [])
     elif not work:
         search = _get_json(
-            http, f"{OPENALEX_API}/works?search={quote(query)}&per_page=25", result
+            http, _polite(f"{OPENALEX_API}/works?search={quote(query)}&per_page=25"), result
         )
         if search:
             candidates.extend(search.get("results") or [])
