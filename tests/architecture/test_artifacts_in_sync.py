@@ -134,3 +134,79 @@ def test_marked_dimensions_survive_into_the_artifact():
             assert code in row["configuration"], (
                 f"{row['id']}: переменное измерение {code} без значения"
             )
+
+
+def test_rejected_names_do_not_return_to_the_registry():
+    """Однажды отклонённое имя не заводится заново молча.
+
+    Через полгода имя всплывает снова, никто не помнит, почему его убрали, и
+    работа повторяется. Файл отклонений отвечает на вопрос «почему нет», а
+    сторож не даёт ответу устареть незаметно: если запись всё-таки нужна, из
+    файла её надо убрать осознанно.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    path = root / "data" / "rejected.jsonl"
+    if not path.exists():
+        return
+
+    rejected = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        row = json.loads(line)
+        assert row.get("reason", "").strip(), (
+            f"{row.get('name')}: отклонение без причины бесполезно"
+        )
+        if row.get("former_id"):
+            rejected[row["former_id"]] = row["reason"]
+
+    present = {p.stem for p in (root / "data" / "technologies").glob("*.json")}
+    returned = sorted(rejected.keys() & present)
+    assert not returned, (
+        "отклонённые записи вернулись в реестр: "
+        + ", ".join(f"{i} ({rejected[i][:60]}…)" for i in returned)
+    )
+
+
+def test_parse_notes_agree_with_the_registry():
+    """Обоснование, разошедшееся с данными, хуже отсутствующего.
+
+    Оно объясняет значение, которого нет, и делает это убедительно: читатель
+    видит связное рассуждение и не догадывается сверить его с реестром.
+    """
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(root / "scripts"))
+    import build_review
+
+    notes = build_review.load_notes()
+    if not notes:
+        return
+    problems = build_review.check(notes)
+    assert not problems, "обоснования разошлись с реестром:\n  " + "\n  ".join(problems)
+
+
+def test_parse_notes_say_both_what_and_why():
+    """Разделение существенно: одно проверяется по источнику, другое по схеме.
+
+    Слитая в одну фразу мысль читается как утверждение о технологии, тогда как
+    половина её — утверждение о том, как схема эту технологию описывает.
+    """
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(root / "scripts"))
+    import build_review
+
+    for note in build_review.load_notes():
+        where = f"{note['technology_id']}.{note.get('code') or note.get('residual')}"
+        assert note.get("did", "").strip(), f"{where}: не сказано, что делает система"
+        assert note.get("why", "").strip(), f"{where}: не сказано, почему следует значение"
+        assert note.get("source", "").strip(), f"{where}: не указан источник"

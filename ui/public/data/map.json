@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-08",
-  "count": 54,
+  "count": 53,
   "levels": [
     "L0",
     "L1",
@@ -578,23 +578,6 @@
       "name": "Late Chunking",
       "prevalence": null,
       "prose_id": "late_chunking"
-    },
-    {
-      "attention": null,
-      "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
-      "evidence_basis": null,
-      "first_published": null,
-      "group": null,
-      "groups": [],
-      "history": [],
-      "id": "legal_pack_belarus",
-      "kind": "artifact",
-      "level": null,
-      "name": "Legal pack (Belarus)",
-      "prevalence": null,
-      "prose_id": "legal_pack_belarus"
     },
     {
       "attention": null,
