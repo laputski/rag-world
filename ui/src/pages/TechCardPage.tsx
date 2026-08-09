@@ -116,6 +116,16 @@ export function TechCardPage() {
       {Object.keys(tech.configuration).length > 0 && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 1 }}>{t("techCard.configuration")}</Typography>
+          {/*
+            Без этой строки читатель не может отличить значение, сверенное с
+            первоисточником, от значения по умолчанию, которое никто не смотрел.
+            Выглядят они одинаково, а утверждают разное.
+          */}
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1 }}>
+            {tech.configuration_reviewed
+              ? t("techCard.configurationReviewed", { date: tech.configuration_reviewed })
+              : t("techCard.configurationUnreviewed")}
+          </Typography>
           <TableContainer>
             <Table size="small">
               <TableHead>

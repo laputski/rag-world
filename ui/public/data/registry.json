@@ -13,16 +13,16 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
-        "B2": "static",
-        "C1": "ann",
-        "C2": "single_shot",
+        "B2": "trained_classifier",
+        "C1": "lexical",
+        "C2": "iterative_stopping",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -36,6 +36,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": "2026-08-09",
       "core_idea": "Выученный роутер выбирает no-retrieval, single-step или multi-step retrieval.",
       "evidence": [
         {
@@ -58,7 +59,8 @@
       "family": "D",
       "first_published": "2024",
       "groups": [
-        "B"
+        "B",
+        "C"
       ],
       "id": "adaptive_rag",
       "kind": "architecture",
@@ -90,7 +92,9 @@
       "name": "Adaptive RAG",
       "package": null,
       "prose_id": "adaptive_rag",
-      "residual": []
+      "residual": [
+        "выбор стратегии извлечения на каждый запрос"
+      ]
     },
     {
       "aliases": [],
@@ -126,6 +130,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -180,6 +185,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Атрибутированные сообщества с индексом C-HNSW и адаптивным спуском.",
       "evidence": [
         {
@@ -271,6 +277,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -352,6 +359,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Chunk-retrieval фреймворк для биомедицинских NLP-задач.",
       "evidence": [],
       "evidence_basis": null,
@@ -415,6 +423,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -491,6 +500,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -598,6 +608,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -666,7 +677,7 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "dense_multi_late_interaction",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
@@ -675,7 +686,7 @@
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -687,8 +698,9 @@
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_retriever"
       },
+      "configuration_reviewed": "2026-08-09",
       "core_idea": "Per-token эмбеддинги и MaxSim late-interaction.",
       "evidence": [
         {
@@ -732,7 +744,9 @@
       "family": "H",
       "first_published": "2021",
       "groups": [
-        "A"
+        "A",
+        "D",
+        "G"
       ],
       "id": "colbert",
       "kind": "technique",
@@ -764,7 +778,10 @@
       "name": "ColBERT",
       "package": "colbert-ai",
       "prose_id": "colbert",
-      "residual": []
+      "residual": [
+        "сравнение по максимуму сходства между представлениями",
+        "приближённый отбор с последующим точным пересчётом"
+      ]
     },
     {
       "aliases": [],
@@ -800,6 +817,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Vision-language retriever: late-interaction поверх патчей изображения страницы.",
       "evidence": [
         {
@@ -890,6 +908,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "LLM-генерируемый контекст-prepend к каждому чанку перед эмбеддингом.",
       "evidence": [
         {
@@ -975,6 +994,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
       "evidence": [
         {
@@ -1066,6 +1086,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Атомарные факты как единица retrieval вместо пассажей.",
       "evidence": [
         {
@@ -1156,6 +1177,7 @@
         "G2": "edge_device",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -1260,6 +1282,7 @@
         "G2": "edge_device",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "RAG на edge-устройствах: прунинг эмбеддингов и on-demand генерация.",
       "evidence": [
         {
@@ -1351,6 +1374,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -1442,6 +1466,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -1568,6 +1593,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Генерирует tentative-предложение и инициирует поиск при неуверенности модели.",
       "evidence": [
         {
@@ -1636,18 +1662,18 @@
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
-        "A3": "none",
-        "A4": "flat",
+        "A3": "extracted_triples",
+        "A4": "graph",
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
         "B2": "static",
-        "C1": "ann",
+        "C1": "graph_traversal",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -1661,6 +1687,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": "2026-08-09",
       "core_idea": "Имитация гиппокампа: OpenIE и Personalized PageRank для multi-hop поиска.",
       "evidence": [
         {
@@ -1711,12 +1738,24 @@
           "status": "needs_review",
           "url": "https://github.com/OSU-NLP-Group/HippoRAG",
           "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2405.14831",
+          "verified_at": null
         }
       ],
       "name": "HippoRAG",
       "package": "hipporag",
       "prose_id": "hipporag",
-      "residual": []
+      "residual": [
+        "рёбра синонимии между узлами индекса",
+        "извлечение именованных сущностей из запроса",
+        "ранжирование случайным блужданием с предпочтением",
+        "перенос оценок узлов на единицы извлечения"
+      ]
     },
     {
       "aliases": [],
@@ -1752,6 +1791,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
       "evidence": [
         {
@@ -1819,17 +1859,17 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
+        "B1": "multi_reformulation",
         "B2": "static",
-        "C1": "ann",
-        "C2": "single_shot",
+        "C1": "lexical",
+        "C2": "iterative_stopping",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
-        "D2": "top_k",
+        "D1": "none",
+        "D2": "budget_aware",
         "D3": "natural_order",
         "E1": "single_pass",
         "E2": "none",
@@ -1842,6 +1882,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": "2026-08-09",
       "core_idea": "Чередует каждое предложение chain-of-thought с шагом поиска.",
       "evidence": [
         {
@@ -1864,8 +1905,9 @@
       "family": "C",
       "first_published": "2023",
       "groups": [
+        "B",
         "C",
-        "E"
+        "D"
       ],
       "id": "ircot",
       "kind": "architecture",
@@ -1897,7 +1939,9 @@
       "name": "IRCoT",
       "package": null,
       "prose_id": "ircot",
-      "residual": []
+      "residual": [
+        "чередование шага рассуждения с шагом извлечения"
+      ]
     },
     {
       "aliases": [],
@@ -1933,6 +1977,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Эмбеддинг всего документа, затем нарезка.",
       "evidence": [
         {
@@ -2023,6 +2068,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Иерархия юридической силы, классификация типов вопросов, маски ответов.",
       "evidence": [],
       "evidence_basis": null,
@@ -2084,6 +2130,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Двухуровневый граф (сущности и темы) с инкрементальным обновлением.",
       "evidence": [
         {
@@ -2183,6 +2230,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Декомпозиция RAG-пайплайна по координируемым агентам.",
       "evidence": [
         {
@@ -2266,6 +2314,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Двойная система: long-range-memory модель и точечное извлечение по подсказкам.",
       "evidence": [
         {
@@ -2326,22 +2375,22 @@
       "confidence": 1.0,
       "configuration": {
         "A1": "summary_node",
-        "A2": "semantic",
+        "A2": "fixed",
         "A3": "summary",
-        "A4": "graph",
+        "A4": "community_hierarchy",
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
-        "C2": "multi_hop_fixed",
+        "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "graph_structural",
-        "D2": "top_k",
+        "D1": "none",
+        "D2": "budget_aware",
         "D3": "hierarchical",
-        "E1": "single_pass",
+        "E1": "ensemble_fragments",
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
@@ -2352,6 +2401,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": "2026-08-09",
       "core_idea": "Глобальный граф знаний с группировкой сообществ и Map-Reduce отчетами.",
       "evidence": [
         {
@@ -2379,11 +2429,12 @@
       "evidence_basis": "manual",
       "evidence_count": 3,
       "family": "B",
-      "first_published": null,
+      "first_published": "2024",
       "groups": [
         "A",
         "C",
-        "D"
+        "D",
+        "E"
       ],
       "id": "msft_graphrag",
       "kind": "architecture",
@@ -2410,12 +2461,23 @@
           "status": "needs_review",
           "url": "https://github.com/microsoft/graphrag",
           "verified_at": null
+        },
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2404.16130",
+          "verified_at": null
         }
       ],
       "name": "Microsoft GraphRAG",
       "package": "graphrag",
       "prose_id": "msft_graphrag",
-      "residual": []
+      "residual": [
+        "несколько режимов работы с разной конфигурацией",
+        "иерархическая кластеризация узлов по сообществам",
+        "оценка полезности частичных ответов моделью"
+      ]
     },
     {
       "aliases": [],
@@ -2451,6 +2513,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
       "evidence": [
         {
@@ -2534,6 +2597,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Первый мультимодальный retrieval-augmented transformer с непараметрической памятью.",
       "evidence": [
         {
@@ -2625,6 +2689,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -2680,6 +2745,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -2785,6 +2851,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Онтологическое заземление: гиперграф с тройками факт и жадный Set Cover.",
       "evidence": [
         {
@@ -2876,6 +2943,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -2971,6 +3039,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
       "evidence": [
         {
@@ -3063,6 +3132,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Атака инъекции вредоносных текстов в базу знаний RAG.",
       "evidence": [
         {
@@ -3153,6 +3223,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -3248,6 +3319,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -3331,6 +3403,7 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_reviewed": null,
       "core_idea": "Joint fine-tuning LLM-ридера и ретривера.",
       "evidence": [
         {
@@ -3421,6 +3494,7 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_reviewed": null,
       "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
       "evidence": [
         {
@@ -3511,6 +3585,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -3622,6 +3697,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "N вариантов запроса и слияние через Reciprocal Rank Fusion.",
       "evidence": [
         {
@@ -3706,6 +3782,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Рекурсивная кластеризация и суммаризация в многоуровневое дерево.",
       "evidence": [
         {
@@ -3803,6 +3880,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Чередование reasoning-traces и tool/action-вызовов.",
       "evidence": [
         {
@@ -3901,6 +3979,7 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_reviewed": null,
       "core_idea": "Fine-tuning LLM на инструкциях, аугментированных результатами поиска.",
       "evidence": [
         {
@@ -3991,6 +4070,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -4060,6 +4140,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Обучает генератор предсказывать токены рефлексии, принимая решение о необходимости поиска.",
       "evidence": [
         {
@@ -4143,6 +4224,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -4250,6 +4332,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
       "evidence": [],
       "evidence_basis": null,
@@ -4313,6 +4396,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "LLM задает более абстрактный вопрос, поиск по нему, затем конкретный ответ.",
       "evidence": [
         {
@@ -4403,6 +4487,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -4501,6 +4586,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -4620,6 +4706,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": null,
       "evidence": [
         {
@@ -4720,6 +4807,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
       "evidence": [
         {
@@ -4810,6 +4898,7 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_reviewed": null,
       "core_idea": "Экстремальное сжатие: пассажи компрессируются в пространство представлений модели.",
       "evidence": [
         {

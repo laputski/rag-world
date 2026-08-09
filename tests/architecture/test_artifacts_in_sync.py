@@ -71,3 +71,33 @@ def test_feed_is_published():
     text = feed.read_text(encoding="utf-8")
     assert text.lstrip().startswith("<?xml"), "лента не является XML-документом"
     assert "<channel>" in text
+
+
+def test_residual_codes_are_resolved_to_wording():
+    """Данные хранят код механизма, читателю показывается формулировка.
+
+    Разделение существует ради перевода: английская локализация меняет словарь,
+    а не пятьдесят четыре записи реестра. Но если подстановка сломается,
+    карточка покажет читателю `synonymy_edges`, и заметить это можно будет
+    только глазами.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    vocabulary = json.loads(
+        (root / "data" / "residual_vocabulary.json").read_text(encoding="utf-8")
+    )
+    codes = {m["id"] for m in vocabulary["mechanisms"]}
+    wording = {m["ru"] for m in vocabulary["mechanisms"]}
+
+    published = json.loads(
+        (root / "ui" / "public" / "data" / "registry.json").read_text(encoding="utf-8")
+    )
+    seen = 0
+    for row in published["technologies"]:
+        for item in row.get("residual", []):
+            seen += 1
+            assert item not in codes, f"в артефакт попал код вместо формулировки: {item}"
+            assert item in wording, f"формулировка вне словаря: {item!r}"
+    assert seen > 0, "ни одного остатка в артефакте — проверка ничего не проверила"

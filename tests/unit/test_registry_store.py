@@ -183,3 +183,64 @@ def test_metrics_are_partitioned_by_year(data_dir):
     ])
     assert (store.METRICS_DIR / "2026.jsonl").exists()
     assert store.load_metrics("demo")[0].value == 12.0
+
+
+# ─── Разбор конфигурации: словарь остатков и дата просмотра ──────────────────
+#
+# Остаток существует ради подсчёта: механизм, встретившийся у трёх записей, —
+# кандидат в измерение схемы. Свободный текст этот подсчёт обесценивает, потому
+# что один механизм получает столько названий, сколько у него описаний.
+
+
+def test_residual_vocabulary_is_readable_and_unique():
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[2] / "data" / "residual_vocabulary.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    mechanisms = payload["mechanisms"]
+
+    codes = [m["id"] for m in mechanisms]
+    assert len(codes) == len(set(codes)), "повторяющиеся коды механизмов"
+    for mechanism in mechanisms:
+        assert mechanism["ru"].strip(), f"{mechanism['id']}: пустая формулировка"
+        assert mechanism["en"].strip(), f"{mechanism['id']}: нет английской формы"
+        assert mechanism["note"].strip(), (
+            f"{mechanism['id']}: не сказано, почему схема этого не выражает"
+        )
+
+
+def test_free_text_residual_is_rejected(tmp_path, monkeypatch):
+    """Формулировка мимо словаря обязана останавливать проход."""
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+    import validate_data
+
+    monkeypatch.setattr(store, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(store, "TECHNOLOGIES_DIR", tmp_path / "technologies")
+    monkeypatch.setattr(store, "EVIDENCE_DIR", tmp_path / "evidence")
+    monkeypatch.setattr(store, "METRICS_DIR", tmp_path / "metrics")
+    monkeypatch.setattr(store, "LEVELS_FILE", tmp_path / "levels" / "history.jsonl")
+
+    store.save_technology(store.Technology(
+        id="freetext", name="Free", kind="tool", groups=["A"],
+        residual=["какой-то свой механизм своими словами"],
+    ))
+    problems = validate_data.check_registry()
+    assert any("residual_vocabulary" in p for p in problems), problems
+
+
+def test_reviewed_date_distinguishes_default_from_unexamined():
+    """«Совпадает с базовой конфигурацией» и «не смотрели» — разные утверждения."""
+    unexamined = store.Technology(id="a", name="A", kind="tool")
+    assert unexamined.configuration_reviewed is None
+
+    from datetime import date
+    examined = store.Technology(
+        id="b", name="B", kind="tool",
+        configuration={"A1": "passage"},
+        configuration_reviewed=date(2026, 8, 9),
+    )
+    assert examined.configuration_reviewed is not None

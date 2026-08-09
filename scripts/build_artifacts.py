@@ -98,6 +98,24 @@ def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None
     return max(p.value for p in relevant if p.measured_at == freshest)
 
 
+def _residual_vocabulary() -> dict[str, dict]:
+    path = store.DATA_DIR / "residual_vocabulary.json"
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {m["id"]: m for m in payload.get("mechanisms", [])}
+
+
+def _residual_term(code: str, lang: str = "ru") -> str:
+    """Формулировка механизма остатка по его коду.
+
+    Неизвестный код возвращается как есть: проверка данных такую запись не
+    пропустит, а сборка не должна молча превращать ошибку в пустое место.
+    """
+    entry = _residual_vocabulary().get(code)
+    return entry.get(lang, code) if entry else code
+
+
 #: Ниже этого размера возрастная подгруппа не нормируется: медиана по трём
 #: значениям неустойчива и сдвигается от появления одной новой работы сильнее,
 #: чем от происходящего в области.
@@ -226,6 +244,10 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
 
         registry_rows.append({
             **tech.model_dump(mode="json"),
+            # Данные хранят код механизма, читателю нужна формулировка.
+            # Подстановка на сборке, а не в реестре: тогда перевод словаря не
+            # требует переписывать записи технологий.
+            "residual": [_residual_term(code) for code in tech.residual],
             "level": entry.level if entry else None,
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,

@@ -39,6 +39,20 @@ ID_RE = re.compile(r"^[a-z0-9_]+$")
 LEVELS = {"L0", "L1", "L2", "L3", "L4", "L5", "L6"}
 
 
+def _residual_vocabulary() -> dict[str, dict]:
+    """Словарь механизмов остатка: код → запись словаря."""
+    path = store.DATA_DIR / "residual_vocabulary.json"
+    if not path.exists():
+        return {}
+    import json
+
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {m["id"]: m for m in payload.get("mechanisms", [])}
+
+
+RESIDUAL_VOCABULARY = _residual_vocabulary()
+
+
 def check_registry() -> list[str]:
     """Проверки, не требующие сети. Возвращает список нарушений."""
     problems: list[str] = []
@@ -82,6 +96,22 @@ def check_registry() -> list[str]:
         if tech.configuration:
             for error in validate(tech.configuration):
                 problems.append(f"{where}: конфигурация недопустима: {error}")
+
+        # Остаток ссылается на словарь кодом. Свободный текст отклоняется:
+        # один и тот же механизм, названный по-разному в двух записях, не
+        # сойдётся при подсчёте, и очередь остатков покажет десять редких
+        # механизмов вместо одного частого.
+        for mechanism in tech.residual:
+            if mechanism not in RESIDUAL_VOCABULARY:
+                problems.append(
+                    f"{where}: остаток {mechanism!r} отсутствует в словаре "
+                    f"data/residual_vocabulary.json"
+                )
+
+        if tech.configuration_reviewed and not tech.configuration:
+            problems.append(
+                f"{where}: конфигурация помечена разобранной, но пуста"
+            )
 
         for link in tech.links:
             if not link.url.strip():

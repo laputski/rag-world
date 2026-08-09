@@ -76,8 +76,16 @@ class Technology(BaseModel):
     groups: list[str] = Field(default_factory=list)
     #: Значения измерений — главное поле для сравнения технологий.
     configuration: dict[str, str] = Field(default_factory=dict)
-    #: Механизмы, не выразимые схемой измерений.
+    #: Механизмы, не выразимые схемой измерений: коды из словаря остатков
+    #: (`data/residual_vocabulary.json`). Свободный текст не допускается —
+    #: подсчёт повторов возможен только при совпадающих формулировках.
     residual: list[str] = Field(default_factory=list)
+    #: Дата разбора конфигурации по источникам. Пусто — запись не разбирали, и
+    #: её значения по умолчанию ничего не утверждают. Проставлено — значения
+    #: сверены с первоисточником, включая совпавшие с базовыми: «совпадает с
+    #: базовой конфигурацией» и «не смотрели» — разные утверждения, и без этой
+    #: даты карта пробелов показывала бы вторые как первые.
+    configuration_reviewed: date | None = None
     core_idea: str | None = None
     prose_id: str | None = None
     first_published: str | None = None

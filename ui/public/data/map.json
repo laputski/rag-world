@@ -20,7 +20,8 @@
       "first_published": "2024",
       "group": "B",
       "groups": [
-        "B"
+        "B",
+        "C"
       ],
       "history": [
         {
@@ -221,7 +222,9 @@
       "first_published": "2021",
       "group": "A",
       "groups": [
-        "A"
+        "A",
+        "D",
+        "G"
       ],
       "history": [
         {
@@ -529,10 +532,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
-      "group": "C",
+      "group": "B",
       "groups": [
+        "B",
         "C",
-        "E"
+        "D"
       ],
       "history": [
         {
@@ -673,12 +677,13 @@
       "attention_raw": null,
       "confidence": 1.0,
       "evidence_basis": "manual",
-      "first_published": null,
+      "first_published": "2024",
       "group": "A",
       "groups": [
         "A",
         "C",
-        "D"
+        "D",
+        "E"
       ],
       "history": [
         {
