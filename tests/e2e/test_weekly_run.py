@@ -482,3 +482,30 @@ def test_rebuild_without_collecting_is_not_logged_as_a_run(registry, artifacts):
     before = len(store.load_runs())
     run_pass(FakeTransport(standard_routes()), skip_collect=True)
     assert len(store.load_runs()) == before
+
+
+def test_level_computation_uses_the_given_date_not_the_clock(registry, artifacts):
+    """Дата прохода задаётся, а не читается с часов.
+
+    Правило зависит от возраста свидетельств, поэтому чтение системных часов
+    означало бы, что один и тот же набор данных даёт разные уровни в разные дни.
+    Проверяется по дате в журнале: она обязана совпасть с датой прохода, а не с
+    сегодняшним числом машины, на которой тест запущен.
+    """
+    run_pass(FakeTransport(standard_routes()))
+    entries = store.load_levels("demo_rag")
+    assert entries, "уровень должен быть вычислен"
+    assert entries[-1].computed_at == TODAY, (
+        f"дата взята не из прохода: {entries[-1].computed_at} вместо {TODAY}"
+    )
+
+
+def test_same_data_gives_same_level_on_a_later_date(registry, artifacts):
+    """Проход неделей позже по тем же данным уровень не двигает."""
+    run_pass(FakeTransport(standard_routes()))
+    first = store.latest_level("demo_rag").level
+
+    later = date(TODAY.year, TODAY.month, TODAY.day + 7)
+    update.run(http=FakeTransport(standard_routes()), today=later)
+
+    assert store.latest_level("demo_rag").level == first
