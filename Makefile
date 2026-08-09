@@ -1,5 +1,5 @@
 .PHONY: help install install-dev test test-unit test-arch test-v test-ui \
-        dev build lint format clean \
+        dev build lint format smoke clean \
         collect update levels artifacts validate \
         db-migrate db-migrate-pending
 
@@ -70,6 +70,9 @@ validate: ## Validate registry data: schema, link resolvability, provenance
 # Форматирование не навязывается: в схеме измерений и в каталогах значений
 # выравнивание сделано вручную и несёт смысл (таблицу видно глазом), а
 # автоформат его разрушает. Проверяются ошибки, а не расстановка пробелов.
+smoke: ## Check the deployed portal (needs network)
+	$(PYTHON) -m pytest tests/smoke -m network -q
+
 lint: ## Run ruff checks
 	.venv/bin/ruff check core services scripts tests
 

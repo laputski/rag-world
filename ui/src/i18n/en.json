@@ -220,5 +220,13 @@
     "evidenceChip": "evidence: {{count}}",
     "linksChip": "sources checked: {{count}}",
     "brokenChip": "no longer resolving: {{count}}"
+  },
+  "notFound": {
+    "title": "No such page",
+    "body": "This address does not match any section of the portal. It may contain a typo, or the record was renamed.",
+    "brokenTitle": "The page did not open",
+    "brokenBody": "Something went wrong while building it. The rest of the portal works — try starting from the map or the registry.",
+    "toMap": "To the maturity map",
+    "toRegistry": "To the registry"
   }
 }

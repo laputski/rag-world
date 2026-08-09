@@ -25,7 +25,13 @@ include = ["core*", "services*", "scripts*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+# Дымовые проверки развёрнутого портала требуют сети и проверяют не код, а
+# результат развёртывания. В основной набор они не входят: тест, падающий
+# из-за чужой сети, перестают читать вместе со всеми остальными.
+addopts = "-q -m 'not network'"
+markers = [
+    "network: требует сети; в основной набор не входит (см. tests/smoke)",
+]
 
 [tool.ruff]
 line-length = 100

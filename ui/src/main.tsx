@@ -17,6 +17,7 @@ import { RegistryPage } from "./pages/RegistryPage";
 import { TechCardPage } from "./pages/TechCardPage";
 import { ChangesPage } from "./pages/ChangesPage";
 import { DigestPage } from "./pages/DigestPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 import { AboutPage } from "./pages/AboutPage";
 import { GeneralizedArticlePage } from "./pages/GeneralizedArticlePage";
 import { CommandPalette } from "./components/CommandPalette";
@@ -86,6 +87,10 @@ function Shell() {
 const router = createBrowserRouter([
   {
     element: <Shell />,
+    // Ошибка внутри любой страницы не должна показывать читателю отладочный
+    // экран маршрутизатора: он обращается к разработчику и читается как
+    // сломанный портал.
+    errorElement: <Shell />,
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/registry", element: <RegistryPage /> },
@@ -94,6 +99,9 @@ const router = createBrowserRouter([
       { path: "/digest", element: <DigestPage /> },
       { path: "/article", element: <GeneralizedArticlePage /> },
       { path: "/about", element: <AboutPage /> },
+      // Правило переписывания отдаёт index.html на любой адрес, поэтому
+      // опечатка доходит сюда и обязана получить внятный ответ.
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);
