@@ -7,6 +7,7 @@
  */
 
 import type {
+  DigestIssue,
   MaturityArtifact,
   RegistryChange,
   RegistryStats,
@@ -48,4 +49,12 @@ export async function getChanges(): Promise<{
 /** Сводка: распределение по уровням, покрытие, свежесть. */
 export async function getStats(): Promise<RegistryStats> {
   return loadJson<RegistryStats>("stats.json");
+}
+
+/** Выпуски дайджеста, свежие впереди. */
+export async function getDigest(): Promise<{
+  built_at: string;
+  issues: DigestIssue[];
+}> {
+  return loadJson("digest.json");
 }

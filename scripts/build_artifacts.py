@@ -12,7 +12,8 @@
     public/data/map.json       точки карты зрелости
     public/data/changes.json   хроника изменений со ссылками на свидетельства
     public/data/stats.json     сводка: распределение, покрытие, свежесть
-    public/data/feed.xml       лента хроники
+    public/data/digest.json    выпуски дайджеста, свежие впереди
+    public/data/feed.xml       лента: выпуски и изменения уровней
 
 Ни одно число не попадает в артефакт без происхождения: внимание и
 распространённость берутся из временных рядов, а если ряда нет, поле остаётся
@@ -376,7 +377,11 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     _write(target / "map.json", map_artifact)
     _write(target / "changes.json", {"built_at": built_at, "changes": changes})
     _write(target / "stats.json", stats)
-    _write_feed(target / "feed.xml", changes, built_at)
+    # Выпуски дайджеста — данные, а не производное: они дозаписываются
+    # отдельным шагом и здесь только перекладываются для чтения порталом,
+    # свежими вперёд.
+    _write(target / "digest.json", {"built_at": built_at, "issues": _issues()})
+    _write_feed(target / "feed.xml", changes, built_at, _issues())
     if out_dir is None:
         SCHEMA_MODULE.write_text(render_schema_module(), encoding="utf-8")
 
@@ -443,9 +448,35 @@ def _write(path: Path, payload: dict) -> None:
     )
 
 
-def _write_feed(path: Path, changes: list[dict], built_at: str) -> None:
-    """Лента хроники: свежесть, видимая снаружи без открытия портала."""
+def _issues() -> list[dict]:
+    """Выпуски дайджеста, свежие впереди."""
+    directory = store.DATA_DIR / "digest"
+    if not directory.exists():
+        return []
+    issues = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted(directory.glob("*.json"))
+    ]
+    return sorted(issues, key=lambda i: i["issued_at"], reverse=True)
+
+
+def _write_feed(
+    path: Path, changes: list[dict], built_at: str, issues: list[dict] | None = None
+) -> None:
+    """Лента: выпуски дайджеста и изменения уровней.
+
+    Выпуски идут первыми: читателю ленты нужно сообщение о происходящем, а
+    отдельные изменения уровня — его подробность.
+    """
     items = []
+    for issue in (issues or [])[:20]:
+        items.append(
+            "    <item>\n"
+            f"      <title>{escape('Дайджест за ' + issue['issued_at'])}</title>\n"
+            f"      <description>{escape(issue.get('text', ''))}</description>\n"
+            f"      <guid isPermaLink=\"false\">digest-{escape(issue['issued_at'])}</guid>\n"
+            "    </item>"
+        )
     for change in changes[:50]:
         title = f"{change['name']}: {change['level_before'] or '—'} → {change['level_after']}"
         body = ", ".join(

@@ -1,0 +1,431 @@
+{
+  "added": [
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Adaptive RAG",
+      "technology_id": "adaptive_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ArchRAG",
+      "technology_id": "archrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "CRAG",
+      "technology_id": "crag"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "CausalRAG",
+      "technology_id": "causalrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ChatQA",
+      "technology_id": "chatqa"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ColBERT",
+      "technology_id": "colbert"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ColPali",
+      "technology_id": "colpali"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Dense X",
+      "technology_id": "dense_x_retrieval"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "EdgeRAG",
+      "technology_id": "edgerag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "FLARE",
+      "technology_id": "flare"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Federated RAG",
+      "technology_id": "federated_rag"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "HippoRAG",
+      "technology_id": "hipporag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "HyDE",
+      "technology_id": "hyde"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "IRCoT",
+      "technology_id": "ircot"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Late Chunking",
+      "technology_id": "late_chunking"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "LightRAG",
+      "technology_id": "lightrag"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "MemoRAG",
+      "technology_id": "memorag"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "MuRAG",
+      "technology_id": "murag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "OG-RAG",
+      "technology_id": "og_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "PathRAG",
+      "technology_id": "pathrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "PoisonedRAG",
+      "technology_id": "poisonedrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RA-DIT",
+      "technology_id": "ra_dit"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "technology_id": "test_time"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "RAG-Fusion",
+      "technology_id": "rag_fusion"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ReAct",
+      "technology_id": "react"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Vectorless",
+      "technology_id": "vectorless"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Edge и On-Device RAG",
+      "technology_id": "edge"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Embodied RAG",
+      "technology_id": "embodied_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "MA-RAG",
+      "technology_id": "ma_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Neuro-Symbolic RAG",
+      "technology_id": "neuro_symbolic_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RA-CM3",
+      "technology_id": "ra_cm3"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAFT",
+      "technology_id": "raft"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAG as Memory",
+      "technology_id": "rag_as_memory"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAPTOR",
+      "technology_id": "raptor"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "SAIL",
+      "technology_id": "sail"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Speculative RAG",
+      "technology_id": "speculative_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Step-Back Prompting",
+      "technology_id": "step_back"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Streaming RAG",
+      "technology_id": "streaming_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Unified RAG над Structured и Unstructured Data",
+      "technology_id": "unified"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "xRAG",
+      "technology_id": "xrag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Contextual Retrieval",
+      "technology_id": "contextual_retrieval"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Self-RAG",
+      "technology_id": "self_rag"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "BGE-M3",
+      "technology_id": "bge_m3"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "BM25 Sparse",
+      "technology_id": "bm25_sparse"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Multi-Query Retrieval",
+      "technology_id": "multi_query"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "OpenSearch",
+      "technology_id": "opensearch"
+    },
+    {
+      "level_after": "L0",
+      "level_before": null,
+      "name": "Qdrant",
+      "technology_id": "qdrant"
+    }
+  ],
+  "by_level": {
+    "L0": 9,
+    "L1": 17,
+    "L2": 18,
+    "L3": 3,
+    "L5": 1,
+    "unknown": 6
+  },
+  "demoted": [],
+  "evidence_added": 92,
+  "evidence_by_type": {
+    "framework_presence": 5,
+    "industrial_use": 4,
+    "package_downloads": 7,
+    "publication": 65,
+    "repository": 11
+  },
+  "issued_at": "2026-08-09",
+  "links_broken": 0,
+  "links_checked": 0,
+  "promoted": [
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Adaptive RAG",
+      "technology_id": "adaptive_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ArchRAG",
+      "technology_id": "archrag"
+    },
+    {
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "CausalRAG",
+      "technology_id": "causalrag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ChatQA",
+      "technology_id": "chatqa"
+    },
+    {
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "Federated RAG",
+      "technology_id": "federated_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "FLARE",
+      "technology_id": "flare"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "HyDE",
+      "technology_id": "hyde"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "IRCoT",
+      "technology_id": "ircot"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "MuRAG",
+      "technology_id": "murag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "OG-RAG",
+      "technology_id": "og_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "PathRAG",
+      "technology_id": "pathrag"
+    },
+    {
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "technology_id": "test_time"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ColBERT",
+      "technology_id": "colbert"
+    },
+    {
+      "level_after": "L3",
+      "level_before": "L0",
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RAPTOR",
+      "technology_id": "raptor"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ReAct",
+      "technology_id": "react"
+    },
+    {
+      "level_after": "L5",
+      "level_before": "L3",
+      "name": "Microsoft GraphRAG",
+      "technology_id": "msft_graphrag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L0",
+      "name": "OpenSearch",
+      "technology_id": "opensearch"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L0",
+      "name": "Qdrant",
+      "technology_id": "qdrant"
+    }
+  ],
+  "since": null,
+  "text": "Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.",
+  "total": 54
+}

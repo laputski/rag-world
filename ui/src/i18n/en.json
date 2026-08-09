@@ -8,7 +8,8 @@
     "registry": "Registry",
     "changes": "Changelog",
     "generalized": "Paper",
-    "about": "About"
+    "about": "About",
+    "digest": "Digest"
   },
   "common": {
     "expand": "Expand",
@@ -200,5 +201,17 @@
     "L4": "L4 — needs an independent implementation, framework presence, or package downloads",
     "L5": "L5 — needs documented production use",
     "L6": "L6 — needs independent implementations from at least three vendors"
+  },
+  "digest": {
+    "title": "Digest",
+    "subtitle": "What changed in the registry since the previous issue. An issue appears only when there is something to report: a week without changes is ordinary, and there is nothing to say about it.",
+    "provenance": "The text is assembled by a template from registry data. No language model is involved: the issue retells what has already been computed, so there is nothing in it to invent. Below each issue are the records and numbers it was assembled from.",
+    "empty": "No issues yet.",
+    "period": "since {{since}}",
+    "firstIssue": "first issue: covers everything accumulated so far",
+    "basis": "What the issue rests on",
+    "evidenceChip": "evidence: {{count}}",
+    "linksChip": "sources checked: {{count}}",
+    "brokenChip": "no longer resolving: {{count}}"
   }
 }

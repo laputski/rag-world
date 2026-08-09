@@ -16,6 +16,7 @@ import { HomePage } from "./pages/HomePage";
 import { RegistryPage } from "./pages/RegistryPage";
 import { TechCardPage } from "./pages/TechCardPage";
 import { ChangesPage } from "./pages/ChangesPage";
+import { DigestPage } from "./pages/DigestPage";
 import { AboutPage } from "./pages/AboutPage";
 import { GeneralizedArticlePage } from "./pages/GeneralizedArticlePage";
 import { CommandPalette } from "./components/CommandPalette";
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
       { path: "/registry", element: <RegistryPage /> },
       { path: "/tech/:id", element: <TechCardPage /> },
       { path: "/changes", element: <ChangesPage /> },
+      { path: "/digest", element: <DigestPage /> },
       { path: "/article", element: <GeneralizedArticlePage /> },
       { path: "/about", element: <AboutPage /> },
     ],

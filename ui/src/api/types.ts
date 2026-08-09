@@ -145,3 +145,35 @@ export interface RegistryStats {
   freshest_evidence: string | null;
   stale: boolean;
 }
+
+/**
+ * Выпуск дайджеста.
+ *
+ * Порождается шаблоном по данным реестра, без языковой модели: выпуск
+ * пересказывает уже вычисленное, и выдумать в нём нечего. Именно поэтому он
+ * публикуется без просмотра человеком, в отличие от аннотаций записей.
+ *
+ * Выпуск не пересобирается: он утверждает, что было верно в день выхода.
+ */
+export interface DigestIssue {
+  issued_at: string;
+  /** Начало периода; null — первый выпуск, он охватывает всё. */
+  since: string | null;
+  text: string;
+  added: DigestMove[];
+  promoted: DigestMove[];
+  demoted: DigestMove[];
+  evidence_added: number;
+  evidence_by_type: Record<string, number>;
+  links_checked: number;
+  links_broken: number;
+  by_level: Record<string, number>;
+  total: number;
+}
+
+export interface DigestMove {
+  technology_id: string;
+  name: string;
+  level_before: string | null;
+  level_after: string;
+}

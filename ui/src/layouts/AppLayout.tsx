@@ -20,6 +20,7 @@ const NAV = [
   { to: "/", key: "nav.map", end: true },
   { to: "/registry", key: "nav.registry", end: false },
   { to: "/changes", key: "nav.changes", end: false },
+  { to: "/digest", key: "nav.digest", end: false },
   { to: "/article", key: "nav.generalized", end: false },
   { to: "/about", key: "nav.about", end: false },
 ];

@@ -552,3 +552,47 @@ def test_publisher_refusal_does_not_mark_a_link_dead(registry, artifacts):
     tech = store.load_technology("demo_rag")
     assert all(link.status != "unresolved" for link in tech.links)
     assert store.latest_run().links_broken == 0
+
+
+# ─── Дайджест ────────────────────────────────────────────────────────────────
+
+
+def test_pass_with_news_publishes_an_issue(registry, artifacts):
+    """Изменения выносятся наружу тем же проходом, что их находит."""
+    run_pass(FakeTransport(standard_routes()))
+
+    issues = list((registry / "digest").glob("*.json"))
+    assert len(issues) == 1, "проход с новостями обязан выпустить дайджест"
+
+    payload = json.loads(issues[0].read_text(encoding="utf-8"))
+    assert payload["issued_at"] == TODAY.isoformat()
+    assert "Demo-RAG" in payload["text"]
+    assert payload["text"], "выпуск без текста читателю бесполезен"
+
+
+def test_quiet_pass_publishes_nothing(registry, artifacts):
+    """Полсотни сообщений «ничего не произошло» — шум, а не дайджест."""
+    run_pass(FakeTransport(standard_routes()))
+    first = len(list((registry / "digest").glob("*.json")))
+    run_pass(FakeTransport(standard_routes()))
+    assert len(list((registry / "digest").glob("*.json"))) == first
+
+
+def test_issue_reaches_the_reader(registry, artifacts):
+    """Выпуск, лежащий в данных и не дошедший до артефактов, никем не прочитан."""
+    run_pass(FakeTransport(standard_routes()))
+
+    payload = json.loads((artifacts / "digest.json").read_text(encoding="utf-8"))
+    assert len(payload["issues"]) == 1
+
+    feed = (artifacts / "feed.xml").read_text(encoding="utf-8")
+    assert "Дайджест за" in feed
+
+
+def test_broken_data_publishes_no_issue(registry, artifacts):
+    """Сообщение по испорченным данным публиковать нельзя."""
+    store.save_technology(store.Technology(
+        id="Bad Id", name="Bad", kind="tool", groups=["A"],
+    ))
+    assert run_pass(FakeTransport(standard_routes())) == 1
+    assert not (registry / "digest").exists()
