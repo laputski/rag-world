@@ -194,10 +194,10 @@ def compose(issue: Issue) -> str:
                 issue.evidence_by_type.items(), key=lambda kv: (-kv[1], kv[0])
             )
         )
-        parts.append(
-            f"Добавлено {counted(issue.evidence_added, 'свидетельство', 'свидетельства', 'свидетельств')}"
-            + (f" ({kinds})." if kinds else ".")
+        amount = counted(
+            issue.evidence_added, "свидетельство", "свидетельства", "свидетельств"
         )
+        parts.append(f"Добавлено {amount}" + (f" ({kinds})." if kinds else "."))
 
     if issue.links_broken:
         parts.append(

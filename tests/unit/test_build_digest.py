@@ -23,6 +23,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_digest  # noqa: E402
+
 from services.registry import store  # noqa: E402
 
 TODAY = date(2026, 8, 9)

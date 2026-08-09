@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import build_artifacts  # noqa: E402
 import collect  # noqa: E402
 import update  # noqa: E402
+
 from services.registry import store  # noqa: E402
 from tests.support import FakeTransport, SourceBehaviour, standard_routes  # noqa: E402
 
@@ -521,7 +522,7 @@ def test_pass_marks_resolvable_links(registry, artifacts):
 
     tech = store.load_technology("demo_rag")
     assert all(link.status == "verified" for link in tech.links), (
-        [(l.url, l.status) for l in tech.links]
+        [(link.url, link.status) for link in tech.links]
     )
     assert store.latest_run().links_checked == len(tech.links)
 
@@ -539,7 +540,7 @@ def test_dead_link_is_recorded_but_does_not_stop_the_pass(registry, artifacts):
     assert code == 0
 
     tech = store.load_technology("demo_rag")
-    arxiv = next(l for l in tech.links if "arxiv" in l.url)
+    arxiv = next(link for link in tech.links if "arxiv" in link.url)
     assert arxiv.status == "unresolved"
     assert store.latest_run().links_broken >= 1
 

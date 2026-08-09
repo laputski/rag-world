@@ -51,7 +51,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from services.registry import store  # noqa: E402
 
-
 #: Насколько часто перепроверять уже подтверждённую ссылку. Месяц — размен
 #: между расходом чужих ресурсов и сроком, за который поломку заметят.
 LINK_RECHECK_DAYS = 30

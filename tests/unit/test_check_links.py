@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import check_links  # noqa: E402
+
 from services.registry import store  # noqa: E402
 from tests.support import FakeTransport, SourceBehaviour  # noqa: E402
 
