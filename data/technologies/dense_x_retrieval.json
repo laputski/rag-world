@@ -1,7 +1,7 @@
 {
   "aliases": [],
   "configuration": {
-    "A1": "passage",
+    "A1": "proposition",
     "A2": "fixed",
     "A3": "none",
     "A4": "flat",
@@ -29,7 +29,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-09",
   "configuration_variable": [],
   "core_idea": "Атомарные факты как единица retrieval вместо пассажей.",
   "family": "H",

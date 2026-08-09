@@ -1005,35 +1005,36 @@
       "attention_raw": 0.192,
       "confidence": 1.0,
       "configuration": {
-        "A1": "passage",
+        "A1": "page_image",
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "vision_language",
         "A6": "snapshot",
-        "A7": "text",
+        "A7": "image",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
-        "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_retriever"
       },
-      "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_inapplicable": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Vision-language retriever: late-interaction поверх патчей изображения страницы.",
       "evidence": [
@@ -1057,7 +1058,8 @@
       "family": "E",
       "first_published": "2024-07",
       "groups": [
-        "A"
+        "A",
+        "G"
       ],
       "id": "colpali",
       "kind": "technique",
@@ -1088,9 +1090,75 @@
       ],
       "name": "ColPali",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A1",
+          "did": "Индексируется изображение страницы целиком; текст из неё не извлекается вовсе.",
+          "instead": "«пассаж»: он предполагает извлечённый текст, а работа как раз устраняет этот хрупкий шаг.",
+          "residual_term": null,
+          "source": "arXiv:2407.01449, постановка",
+          "technology_id": "colpali",
+          "to": "page_image",
+          "why": "Единица извлечения — страница как картинка. Ступени распознавания текста в системе нет."
+        },
+        {
+          "code": "A5",
+          "did": "Представления порождает модель, читающая изображение и текст вместе.",
+          "residual_term": null,
+          "source": "arXiv:2407.01449, модель",
+          "technology_id": "colpali",
+          "to": "vision_language",
+          "why": "Модель представления работает с картинкой, а не с последовательностью слов."
+        },
+        {
+          "code": "A7",
+          "did": "Входные данные — изображения страниц документа.",
+          "residual_term": null,
+          "source": "arXiv:2407.01449, постановка",
+          "technology_id": "colpali",
+          "to": "image",
+          "why": "Модальность индексируемого материала — изображение."
+        },
+        {
+          "code": "D1",
+          "did": "Близость считается поздним сравнением наборов векторов; отдельной модели, пересматривающей порядок, нет.",
+          "residual_term": null,
+          "source": "arXiv:2407.01449, механизм сопоставления",
+          "technology_id": "colpali",
+          "to": "none",
+          "why": "Позднее сравнение — часть самого поиска, а не вторая ступень поверх него."
+        },
+        {
+          "code": "G3",
+          "did": "Модель дообучается порождать представления страниц под задачу поиска.",
+          "residual_term": null,
+          "source": "arXiv:2407.01449, обучение",
+          "technology_id": "colpali",
+          "to": "trained_retriever",
+          "why": "Система обучает свой поисковик, а не берёт готовый."
+        },
+        {
+          "code": "E1",
+          "did": "Система ничего не порождает: она возвращает страницы документа.",
+          "inapplicable": true,
+          "residual_term": null,
+          "source": "arXiv:2407.01449, предмет работы",
+          "technology_id": "colpali",
+          "why": "Значение режима генерации утверждало бы о ступени, которой нет. Снята вся страта синтеза — по тому же правилу, что и у другого поисковика реестра."
+        },
+        {
+          "did": "Наборы векторов страницы и запроса сводятся к одной оценке правилом наибольшей близости.",
+          "residual": "max_similarity_interaction",
+          "residual_term": "сравнение по максимуму сходства между представлениями",
+          "source": "arXiv:2407.01449, механизм сопоставления",
+          "technology_id": "colpali",
+          "why": "Схема называет вид представления, но не правило свёртки двух наборов в число."
+        }
+      ],
       "prose_id": "colpali",
-      "residual": []
+      "residual": [
+        "сравнение по максимуму сходства между представлениями"
+      ]
     },
     {
       "aliases": [],
@@ -1283,7 +1351,7 @@
       "attention_raw": 0.156,
       "confidence": 1.0,
       "configuration": {
-        "A1": "passage",
+        "A1": "proposition",
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
@@ -1311,7 +1379,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Атомарные факты как единица retrieval вместо пассажей.",
       "evidence": [
@@ -1366,7 +1434,18 @@
       ],
       "name": "Dense X",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A1",
+          "did": "Из пассажей выделяются атомарные утверждения — короткие самодостаточные факты, — и индексируется каждое из них по отдельности.",
+          "instead": "«пассаж»: он и был прежней единицей, с которой работа сравнивается и которую превосходит.",
+          "residual_term": null,
+          "source": "arXiv:2312.06648, постановка",
+          "technology_id": "dense_x_retrieval",
+          "to": "proposition",
+          "why": "Единица извлечения — то, что кладётся в индекс и возвращается. Здесь это утверждение, а не пассаж; в этом весь вклад работы."
+        }
+      ],
       "prose_id": "dense_x_retrieval",
       "residual": []
     },
@@ -2402,7 +2481,7 @@
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
-        "A2": "fixed",
+        "A2": "late_chunking",
         "A3": "none",
         "A4": "flat",
         "A5": "dense_single",
@@ -2429,7 +2508,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Эмбеддинг всего документа, затем нарезка.",
       "evidence": [
@@ -2478,13 +2557,24 @@
           "kind": "preprint",
           "label": null,
           "status": "verified",
-          "url": "https://arxiv.org/abs/2409.19773",
+          "url": "https://arxiv.org/abs/2409.04701",
           "verified_at": "2026-08-09"
         }
       ],
       "name": "Late Chunking",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A2",
+          "did": "Документ сперва целиком пропускается через модель с длинным контекстом, и только потом полученные представления слов режутся на куски. Резка идёт после кодирования, а не до него.",
+          "instead": "«семантическая»: там границы ищут по смыслу, но сам текст режется до кодирования, и кусок теряет окружение.",
+          "residual_term": null,
+          "source": "arXiv:2409.04701, метод",
+          "technology_id": "late_chunking",
+          "to": "late_chunking",
+          "why": "Измерение описывает, как получаются куски. Здесь граница проводится по уже вычисленным представлениям, и каждый кусок несёт контекст всего документа — у схемы есть ровно такое значение."
+        }
+      ],
       "prose_id": "late_chunking",
       "residual": []
     },
@@ -4460,16 +4550,16 @@
         "A2": "fixed",
         "A3": "none",
         "A4": "flat",
-        "A5": "dense_single",
+        "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
+        "B1": "multi_reformulation",
         "B2": "static",
-        "C1": "ann",
-        "C2": "single_shot",
+        "C1": "lexical",
+        "C2": "agentic_open_loop",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -4484,7 +4574,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-09",
       "configuration_variable": [],
       "core_idea": "Чередование reasoning-traces и tool/action-вызовов.",
       "evidence": [
@@ -4515,6 +4605,7 @@
       "family": "C",
       "first_published": "2023",
       "groups": [
+        "B",
         "C",
         "E"
       ],
@@ -4547,9 +4638,66 @@
       ],
       "name": "ReAct",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C2",
+          "did": "Извлечение здесь не ступень конвейера, а одно из действий: модель сама решает, искать ли, что искать и когда остановиться, чередуя рассуждение с действиями.",
+          "instead": "«остановка по условию»: там цикл один и условие внешнее, а здесь модель выбирает между разными действиями.",
+          "residual_term": null,
+          "source": "arXiv:2210.03629, метод",
+          "technology_id": "react",
+          "to": "agentic_open_loop",
+          "why": "Число и состав обращений заранее не заданы и не выводятся из условия остановки — их выбирает модель по ходу. Это и есть открытый цикл."
+        },
+        {
+          "code": "B1",
+          "did": "Запрос каждого поискового действия модель формулирует сама, исходя из уже выведенного.",
+          "residual_term": null,
+          "source": "arXiv:2210.03629, метод",
+          "technology_id": "react",
+          "to": "multi_reformulation",
+          "why": "За один заход возникает несколько разных запросов вместо исходного."
+        },
+        {
+          "code": "A5",
+          "did": "Поиск идёт через простой программный доступ к справочнику — по словам, без векторов.",
+          "residual_term": null,
+          "source": "arXiv:2210.03629, постановка опытов",
+          "technology_id": "react",
+          "to": "lexical",
+          "why": "Иных способов извлечения в работе нет."
+        },
+        {
+          "code": "C1",
+          "did": "Оператор поиска — тот же словарный доступ к справочнику.",
+          "residual_term": null,
+          "source": "arXiv:2210.03629, постановка опытов",
+          "technology_id": "react",
+          "to": "lexical",
+          "why": "Действие поиска обращается к внешнему указателю по словам."
+        },
+        {
+          "code": "D1",
+          "did": "Найденное подаётся модели как есть; ступени пересмотра порядка нет.",
+          "residual_term": null,
+          "source": "arXiv:2210.03629, метод",
+          "technology_id": "react",
+          "to": "none",
+          "why": "Переранжирование в работе не описано."
+        },
+        {
+          "did": "Рассуждение и действия чередуются и питают друг друга: рассуждение решает, что делать дальше, результат действия меняет рассуждение.",
+          "residual": "reasoning_retrieval_interleaving",
+          "residual_term": "чередование шага рассуждения с шагом извлечения",
+          "source": "arXiv:2210.03629, метод",
+          "technology_id": "react",
+          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза; связь между ними — суть метода — не выражена ни тем измерением, ни другим."
+        }
+      ],
       "prose_id": "react",
-      "residual": []
+      "residual": [
+        "чередование шага рассуждения с шагом извлечения"
+      ]
     },
     {
       "aliases": [],
