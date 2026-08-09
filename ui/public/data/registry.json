@@ -16,14 +16,14 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
+        "B1": "multi_reformulation",
         "B2": "trained_classifier",
         "C1": "lexical",
         "C2": "iterative_stopping",
         "C3": "none",
         "C4": "single_store",
         "D1": "none",
-        "D2": "top_k",
+        "D2": "budget_aware",
         "D3": "natural_order",
         "E1": "single_pass",
         "E2": "none",
@@ -36,7 +36,13 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [
+        "B1",
+        "C2",
+        "D2"
+      ],
       "core_idea": "Выученный роутер выбирает no-retrieval, single-step или multi-step retrieval.",
       "evidence": [
         {
@@ -130,7 +136,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -185,7 +193,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Атрибутированные сообщества с индексом C-HNSW и адаптивным спуском.",
       "evidence": [
         {
@@ -277,7 +287,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -359,7 +371,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Chunk-retrieval фреймворк для биомедицинских NLP-задач.",
       "evidence": [],
       "evidence_basis": null,
@@ -423,7 +437,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -500,7 +516,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -608,7 +626,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -689,10 +709,6 @@
         "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
-        "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -700,7 +716,14 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_inapplicable": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
       "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [],
       "core_idea": "Per-token эмбеддинги и MaxSim late-interaction.",
       "evidence": [
         {
@@ -817,7 +840,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Vision-language retriever: late-interaction поверх патчей изображения страницы.",
       "evidence": [
         {
@@ -908,7 +933,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "LLM-генерируемый контекст-prepend к каждому чанку перед эмбеддингом.",
       "evidence": [
         {
@@ -994,7 +1021,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
       "evidence": [
         {
@@ -1086,7 +1115,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Атомарные факты как единица retrieval вместо пассажей.",
       "evidence": [
         {
@@ -1177,7 +1208,9 @@
         "G2": "edge_device",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -1282,7 +1315,9 @@
         "G2": "edge_device",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "RAG на edge-устройствах: прунинг эмбеддингов и on-demand генерация.",
       "evidence": [
         {
@@ -1374,7 +1409,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -1466,7 +1503,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -1593,7 +1632,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Генерирует tentative-предложение и инициирует поиск при неуверенности модели.",
       "evidence": [
         {
@@ -1687,7 +1728,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [],
       "core_idea": "Имитация гиппокампа: OpenIE и Personalized PageRank для multi-hop поиска.",
       "evidence": [
         {
@@ -1791,7 +1834,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
       "evidence": [
         {
@@ -1882,7 +1927,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [],
       "core_idea": "Чередует каждое предложение chain-of-thought с шагом поиска.",
       "evidence": [
         {
@@ -1977,7 +2024,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Эмбеддинг всего документа, затем нарезка.",
       "evidence": [
         {
@@ -2068,7 +2117,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Иерархия юридической силы, классификация типов вопросов, маски ответов.",
       "evidence": [],
       "evidence_basis": null,
@@ -2130,7 +2181,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Двухуровневый граф (сущности и темы) с инкрементальным обновлением.",
       "evidence": [
         {
@@ -2230,7 +2283,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Декомпозиция RAG-пайплайна по координируемым агентам.",
       "evidence": [
         {
@@ -2314,7 +2369,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Двойная система: long-range-memory модель и точечное извлечение по подсказкам.",
       "evidence": [
         {
@@ -2401,7 +2458,14 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": "2026-08-09",
+      "configuration_variable": [
+        "A1",
+        "A5",
+        "C1",
+        "E1"
+      ],
       "core_idea": "Глобальный граф знаний с группировкой сообществ и Map-Reduce отчетами.",
       "evidence": [
         {
@@ -2513,7 +2577,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
       "evidence": [
         {
@@ -2597,7 +2663,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Первый мультимодальный retrieval-augmented transformer с непараметрической памятью.",
       "evidence": [
         {
@@ -2689,7 +2757,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -2745,7 +2815,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -2851,7 +2923,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Онтологическое заземление: гиперграф с тройками факт и жадный Set Cover.",
       "evidence": [
         {
@@ -2943,7 +3017,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -3039,7 +3115,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
       "evidence": [
         {
@@ -3132,7 +3210,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Атака инъекции вредоносных текстов в базу знаний RAG.",
       "evidence": [
         {
@@ -3223,7 +3303,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -3319,7 +3401,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -3403,7 +3487,9 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Joint fine-tuning LLM-ридера и ретривера.",
       "evidence": [
         {
@@ -3494,7 +3580,9 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
       "evidence": [
         {
@@ -3585,7 +3673,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -3697,7 +3787,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "N вариантов запроса и слияние через Reciprocal Rank Fusion.",
       "evidence": [
         {
@@ -3782,7 +3874,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Рекурсивная кластеризация и суммаризация в многоуровневое дерево.",
       "evidence": [
         {
@@ -3880,7 +3974,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Чередование reasoning-traces и tool/action-вызовов.",
       "evidence": [
         {
@@ -3979,7 +4075,9 @@
         "G2": "server",
         "G3": "trained_retriever"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Fine-tuning LLM на инструкциях, аугментированных результатами поиска.",
       "evidence": [
         {
@@ -4070,7 +4168,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [],
       "evidence_basis": null,
@@ -4140,7 +4240,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Обучает генератор предсказывать токены рефлексии, принимая решение о необходимости поиска.",
       "evidence": [
         {
@@ -4224,7 +4326,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -4332,7 +4436,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
       "evidence": [],
       "evidence_basis": null,
@@ -4396,7 +4502,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "LLM задает более абстрактный вопрос, поиск по нему, затем конкретный ответ.",
       "evidence": [
         {
@@ -4487,7 +4595,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -4586,7 +4696,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -4706,7 +4818,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": null,
       "evidence": [
         {
@@ -4807,7 +4921,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
       "evidence": [
         {
@@ -4898,7 +5014,9 @@
         "G2": "server",
         "G3": "frozen"
       },
+      "configuration_inapplicable": [],
       "configuration_reviewed": null,
+      "configuration_variable": [],
       "core_idea": "Экстремальное сжатие: пассажи компрессируются в пространство представлений модели.",
       "evidence": [
         {

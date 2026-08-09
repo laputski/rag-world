@@ -17,10 +17,6 @@
     "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
-    "E1": "single_pass",
-    "E2": "none",
-    "E3": "none",
-    "E4": "no_refusal",
     "F1": "none",
     "F2": "none",
     "F3": "none",
@@ -28,7 +24,14 @@
     "G2": "server",
     "G3": "trained_retriever"
   },
+  "configuration_inapplicable": [
+    "E1",
+    "E2",
+    "E3",
+    "E4"
+  ],
   "configuration_reviewed": "2026-08-09",
+  "configuration_variable": [],
   "core_idea": "Per-token эмбеддинги и MaxSim late-interaction.",
   "family": "H",
   "first_published": "2021",

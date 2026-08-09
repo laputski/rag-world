@@ -113,6 +113,30 @@ def check_registry() -> list[str]:
                 f"{where}: конфигурация помечена разобранной, но пуста"
             )
 
+        both = set(tech.configuration_variable) & set(tech.configuration_inapplicable)
+        if both:
+            problems.append(
+                f"{where}: измерения {sorted(both)} помечены и переменными, и "
+                "неприменимыми одновременно"
+            )
+        for code in tech.configuration_variable:
+            if code not in ALL_VALUES:
+                problems.append(f"{where}: переменное измерение {code!r} вне схемы")
+            elif code not in tech.configuration:
+                problems.append(
+                    f"{where}: измерение {code} помечено переменным, но значения "
+                    "не имеет; записывается значение самой полной ветви"
+                )
+        for code in tech.configuration_inapplicable:
+            if code not in ALL_VALUES:
+                problems.append(f"{where}: неприменимое измерение {code!r} вне схемы")
+            elif code in tech.configuration:
+                # Значение у неприменимого измерения утверждает о несуществующем.
+                problems.append(
+                    f"{where}: измерение {code} помечено неприменимым, но несёт "
+                    f"значение {tech.configuration[code]!r}"
+                )
+
         for link in tech.links:
             if not link.url.strip():
                 problems.append(f"{where}: источник без адреса")

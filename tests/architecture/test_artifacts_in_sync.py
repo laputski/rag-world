@@ -101,3 +101,36 @@ def test_residual_codes_are_resolved_to_wording():
             assert item not in codes, f"в артефакт попал код вместо формулировки: {item}"
             assert item in wording, f"формулировка вне словаря: {item!r}"
     assert seen > 0, "ни одного остатка в артефакте — проверка ничего не проверила"
+
+
+def test_marked_dimensions_survive_into_the_artifact():
+    """Пометки бесполезны, если не доходят до читателя.
+
+    Они существуют, чтобы значение не читалось как утверждение, которым оно не
+    является. Потеря их при сборке возвращает ровно ту неправду, ради которой
+    поля заводились.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    published = json.loads(
+        (root / "ui" / "public" / "data" / "registry.json").read_text(encoding="utf-8")
+    )
+    rows = {row["id"]: row for row in published["technologies"]}
+
+    marked = [
+        r for r in rows.values()
+        if r.get("configuration_variable") or r.get("configuration_inapplicable")
+    ]
+    assert marked, "ни одной помеченной записи — проверка ничего не проверяет"
+
+    for row in marked:
+        for code in row.get("configuration_inapplicable", []):
+            assert code not in row["configuration"], (
+                f"{row['id']}: неприменимое измерение {code} несёт значение"
+            )
+        for code in row.get("configuration_variable", []):
+            assert code in row["configuration"], (
+                f"{row['id']}: переменное измерение {code} без значения"
+            )

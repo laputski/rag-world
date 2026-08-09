@@ -135,15 +135,60 @@ export function TechCardPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.entries(tech.configuration).map(([dim, val]) => (
+                {/*
+                  Три разных утверждения об измерении показываются по-разному.
+                  Переменное значение выбирается системой во время работы, и
+                  без пометки читатель принял бы записанное за единственное.
+                  Неприменимое измерение значения не имеет вовсе — строка
+                  остаётся, потому что её отсутствие читалось бы как «забыли».
+                */}
+                {Object.entries(tech.configuration).map(([dim, val]) => {
+                  const variable = tech.configuration_variable.includes(dim);
+                  return (
+                    <TableRow key={dim}>
+                      <TableCell sx={{ fontFamily: "monospace" }}>{dim}</TableCell>
+                      <TableCell sx={{ fontFamily: "monospace" }}>
+                        {val}
+                        {variable && (
+                          <Typography
+                            component="span"
+                            variant="caption"
+                            color="text.secondary"
+                            sx={{ ml: 1, fontFamily: "inherit" }}
+                          >
+                            {t("techCard.dimensionVariable")}
+                          </Typography>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                {tech.configuration_inapplicable.map((dim) => (
                   <TableRow key={dim}>
-                    <TableCell sx={{ fontFamily: "monospace" }}>{dim}</TableCell>
-                    <TableCell sx={{ fontFamily: "monospace" }}>{val}</TableCell>
+                    <TableCell sx={{ fontFamily: "monospace", opacity: 0.6 }}>{dim}</TableCell>
+                    <TableCell>
+                      <Typography variant="caption" color="text.secondary">
+                        {t("techCard.dimensionInapplicable")}
+                      </Typography>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+          {(tech.configuration_variable.length > 0 ||
+            tech.configuration_inapplicable.length > 0) && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ display: "block", mt: 1 }}
+            >
+              {tech.configuration_variable.length > 0 && t("techCard.variableNote")}
+              {tech.configuration_variable.length > 0 &&
+                tech.configuration_inapplicable.length > 0 && " "}
+              {tech.configuration_inapplicable.length > 0 && t("techCard.inapplicableNote")}
+            </Typography>
+          )}
         </Paper>
       )}
 

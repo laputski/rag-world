@@ -244,3 +244,28 @@ def test_reviewed_date_distinguishes_default_from_unexamined():
         configuration_reviewed=date(2026, 8, 9),
     )
     assert examined.configuration_reviewed is not None
+
+
+def test_variable_and_inapplicable_are_separate_statements():
+    """Три разных утверждения об измерении, а не два.
+
+    «Значение такое», «значение выбирается на ходу» и «измерения здесь нет» —
+    разные вещи. Схема хранит одно значение, поэтому две последние выражаются
+    пометками; без них запись занимает одну клетку пространства, хотя система
+    занимает несколько или ни одной.
+    """
+    tech = store.Technology(
+        id="x", name="X", kind="architecture",
+        configuration={"C2": "iterative_stopping"},
+        configuration_variable=["C2"],
+        configuration_inapplicable=["E1"],
+    )
+    assert "C2" in tech.configuration, "у переменного измерения значение есть"
+    assert "E1" not in tech.configuration, "у неприменимого значения нет"
+
+
+def test_plain_record_carries_no_marks():
+    """Пометки — исключение; обычная запись остаётся точкой пространства."""
+    tech = store.Technology(id="y", name="Y", kind="architecture")
+    assert tech.configuration_variable == []
+    assert tech.configuration_inapplicable == []

@@ -131,7 +131,11 @@
     "skipped": "Level reached by another path",
     "skippedText": "Conditions for {{levels}} are not met. This is not an error: the scale allows an industry path — documented production use confirms that something works without a publication. Otherwise a widely used technique would rank below a preprint nobody reproduced.",
     "configurationReviewed": "Values checked against the primary source on {{date}}. A match with the base configuration here is the result of that check, not the absence of one.",
-    "configurationUnreviewed": "The configuration has not been derived from sources: the values shown are the base ones and assert nothing about this technology."
+    "configurationUnreviewed": "The configuration has not been derived from sources: the values shown are the base ones and assert nothing about this technology.",
+    "dimensionVariable": "chosen at run time",
+    "dimensionInapplicable": "dimension does not apply",
+    "variableNote": "\"Chosen at run time\" means the system varies this value by query or by mode; the value recorded is the one from the fullest branch.",
+    "inapplicableNote": "\"Does not apply\" means the object has no such stage: a value here would assert something about a thing that does not exist."
   },
   "changes": {
     "title": "Changelog",

@@ -30,3 +30,42 @@ def test_generated_schema_module_matches_declaration():
         "схема интерфейса разошлась с декларацией; выполните `make artifacts` "
         "и не правьте сгенерированный модуль вручную"
     )
+
+
+def test_locale_files_have_no_broken_characters():
+    """Символ замены в переводе — след испорченной записи файла.
+
+    Отказ тихий: строка отображается почти правильно, и заметить подмену одной
+    буквы можно только вычитыванием. Один такой случай уже был.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    for lang in ("ru", "en"):
+        path = root / "ui" / "src" / "i18n" / f"{lang}.json"
+        text = path.read_text(encoding="utf-8")
+        assert "�" not in text, f"{lang}.json: испорченные символы в переводе"
+        json.loads(text)  # файл обязан оставаться разбираемым
+
+
+def test_locales_declare_the_same_keys():
+    """Ключ, добавленный в один язык и забытый в другом, показывает читателю код."""
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+
+    def flat(node: object, prefix: str = "") -> set[str]:
+        if isinstance(node, dict):
+            out: set[str] = set()
+            for key, value in node.items():
+                out |= flat(value, f"{prefix}.{key}")
+            return out
+        return {prefix}
+
+    ru = flat(json.loads((root / "ui" / "src" / "i18n" / "ru.json").read_text(encoding="utf-8")))
+    en = flat(json.loads((root / "ui" / "src" / "i18n" / "en.json").read_text(encoding="utf-8")))
+    assert ru == en, (
+        f"только в русском: {sorted(ru - en)}; только в английском: {sorted(en - ru)}"
+    )
