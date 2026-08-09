@@ -76,3 +76,25 @@ def test_update_workflow_calls_the_shared_entry_point():
 def test_review_gate_is_delegated_to_the_tested_script():
     text = (WORKFLOWS / "collect.yml").read_text(encoding="utf-8")
     assert "scripts/classify_changes.py" in text
+
+
+def test_node_version_is_pinned_and_matches_ci():
+    """Площадка и непрерывная интеграция должны собирать одним и тем же Node.
+
+    Без закрепления версию выбирает площадка, и её обновление ломает
+    еженедельное развёртывание в момент, когда никто не смотрит. Расхождение с
+    интеграцией опаснее вдвойне: проверки зелёные, а сборка на площадке падает.
+    """
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    pinned = (root / "ui" / ".nvmrc").read_text(encoding="utf-8").strip()
+    assert pinned, "версия Node не закреплена: ui/.nvmrc пуст"
+
+    ci = (root / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    found = re.search(r'node-version:\s*"?(\d+)"?', ci)
+    assert found, "в рабочем процессе не указана версия Node"
+    assert found.group(1) == pinned.lstrip("v").split(".")[0], (
+        f"площадка собирает Node {pinned}, интеграция — {found.group(1)}"
+    )
