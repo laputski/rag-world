@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2022-11",
@@ -42,10 +45,11 @@
       "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
       "status": "verified",
       "url": "https://arxiv.org/abs/2211.12561",
-      "verified_at": "2026-08-05"
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "RA-CM3",
+  "package": null,
   "prose_id": null,
   "residual": []
 }

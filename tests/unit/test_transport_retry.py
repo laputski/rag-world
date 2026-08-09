@@ -133,3 +133,39 @@ def test_polite_delay_is_kept_between_calls(no_sleep, responses):
     http.get("https://export.arxiv.org/api/query?id_list=2")
 
     assert any(w > 0 for w in no_sleep), "второе обращение пошло без паузы"
+
+
+def test_request_identifies_itself(no_sleep, monkeypatch):
+    """Обращение без представления многие площадки отклоняют как роботское.
+
+    Отказ этот неотличим от «страница закрыта», и проверка ссылок из-за него
+    показывала исправной страницу, которой не существует.
+    """
+    seen: list[dict] = []
+
+    def fake_get(url, headers=None, timeout=None):
+        seen.append(headers or {})
+        return FakeResponse(200)
+
+    monkeypatch.setattr(tr.requests, "get", fake_get)
+    tr.RequestsTransport().get(URL)
+
+    assert "User-Agent" in seen[0]
+    assert "rag-world" in seen[0]["User-Agent"]
+
+
+def test_caller_headers_win_over_the_default(no_sleep, monkeypatch):
+    """Сборщик, которому нужно своё представление, не должен его терять."""
+    seen: list[dict] = []
+
+    def fake_get(url, headers=None, timeout=None):
+        seen.append(headers or {})
+        return FakeResponse(200)
+
+    monkeypatch.setattr(tr.requests, "get", fake_get)
+    tr.RequestsTransport().get(
+        URL, headers={"User-Agent": "своё", "Accept": "application/json"}
+    )
+
+    assert seen[0]["User-Agent"] == "своё"
+    assert seen[0]["Accept"] == "application/json"

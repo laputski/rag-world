@@ -30,6 +30,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2026-01",
@@ -43,33 +46,34 @@
     {
       "kind": "preprint",
       "label": "Neurosymbolic Retrievers for RAG (arXiv:2601.04568, 2026)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2601.04568",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
       "label": "Hyper-RAG (Nature Communications, 2026, +12.3% acc.)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://www.nature.com/articles/s41467-026-71411-1",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
       "label": "Neurosymbolic AI 2026 (kyield)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://kyield.substack.com/p/neurosymbolic-ai-2026",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
       "label": "NODES 2026 (Neo4j/Kipon)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Neuro-Symbolic RAG",
+  "package": null,
   "prose_id": "neuro_symbolic_rag",
   "residual": []
 }

@@ -30,6 +30,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
   "family": "H",
   "first_published": null,
@@ -42,12 +45,13 @@
     {
       "kind": "github",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://github.com/VectifyAI/PageIndex",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Vectorless",
+  "package": null,
   "prose_id": "vectorless",
   "residual": []
 }

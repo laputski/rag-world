@@ -31,6 +31,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
   "family": "D",
   "first_published": null,
@@ -45,12 +48,13 @@
     {
       "kind": "other",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://atlan.com/know/hybrid-rag/",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Standard HybridRAG",
+  "package": null,
   "prose_id": "standard_hybridrag",
   "residual": []
 }

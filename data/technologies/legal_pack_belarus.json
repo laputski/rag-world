@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": "Иерархия юридической силы, классификация типов вопросов, маски ответов.",
   "family": "J",
   "first_published": null,
@@ -38,12 +41,13 @@
     {
       "kind": "other",
       "label": null,
-      "status": "needs_review",
+      "status": "unresolved",
       "url": "https://en.wikipedia.org/wiki/Law_of_Belarus",
       "verified_at": null
     }
   ],
   "name": "Legal pack (Belarus)",
+  "package": null,
   "prose_id": "legal_pack_belarus",
   "residual": []
 }

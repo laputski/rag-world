@@ -509,3 +509,46 @@ def test_same_data_gives_same_level_on_a_later_date(registry, artifacts):
     update.run(http=FakeTransport(standard_routes()), today=later)
 
     assert store.latest_level("demo_rag").level == first
+
+
+# ─── Проверка ссылок в составе прогона ───────────────────────────────────────
+
+
+def test_pass_marks_resolvable_links(registry, artifacts):
+    """Ссылки проверяются тем же проходом, что и всё остальное."""
+    run_pass(FakeTransport(standard_routes()),
+             link_http=FakeTransport({"": SourceBehaviour(b"ok")}))
+
+    tech = store.load_technology("demo_rag")
+    assert all(link.status == "verified" for link in tech.links), (
+        [(l.url, l.status) for l in tech.links]
+    )
+    assert store.latest_run().links_checked == len(tech.links)
+
+
+def test_dead_link_is_recorded_but_does_not_stop_the_pass(registry, artifacts):
+    """Исчезнувший источник — повод для правки, а не для остановки прогона.
+
+    Прогон обязан довести остальное до конца: иначе одна протухшая ссылка
+    останавливала бы обновление всего портала.
+    """
+    code = run_pass(
+        FakeTransport(standard_routes()),
+        link_http=FakeTransport({"arxiv.org": SourceBehaviour(b"", status=404)}),
+    )
+    assert code == 0
+
+    tech = store.load_technology("demo_rag")
+    arxiv = next(l for l in tech.links if "arxiv" in l.url)
+    assert arxiv.status == "unresolved"
+    assert store.latest_run().links_broken >= 1
+
+
+def test_publisher_refusal_does_not_mark_a_link_dead(registry, artifacts):
+    """Отказ роботу — не исчезновение источника."""
+    run_pass(FakeTransport(standard_routes()),
+             link_http=FakeTransport({"": SourceBehaviour(b"", status=403)}))
+
+    tech = store.load_technology("demo_rag")
+    assert all(link.status != "unresolved" for link in tech.links)
+    assert store.latest_run().links_broken == 0

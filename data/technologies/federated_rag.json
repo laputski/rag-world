@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2025-04",
@@ -41,37 +44,37 @@
     {
       "kind": "other",
       "label": "Federated RAG: Systematic Mapping Study (EMNLP, 2025)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "preprint",
       "label": "FedE4RAG (arXiv:2504.19101, 2025)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2504.19101",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "github",
       "label": "FedE4RAG code (GitHub)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://github.com/DocAILab/FedE4RAG",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "preprint",
       "label": "Federated RAG survey (arXiv:2505.18906, 2025)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/pdf/2505.18906",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
       "label": "FD-RAG: Federated Dual-System (OpenReview)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://openreview.net/forum?id=kOUMng3ynd",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Federated RAG",

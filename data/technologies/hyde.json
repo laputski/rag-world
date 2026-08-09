@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
   "family": "G",
   "first_published": "2022",
@@ -40,12 +43,13 @@
     {
       "kind": "preprint",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2212.10496",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "HyDE",
+  "package": null,
   "prose_id": "hyde",
   "residual": []
 }

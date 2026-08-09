@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": "A",
   "first_published": "2025",
@@ -40,9 +43,9 @@
     {
       "kind": "preprint",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2407.08223",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
@@ -54,9 +57,9 @@
     {
       "kind": "other",
       "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Speculative RAG",

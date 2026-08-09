@@ -28,6 +28,9 @@
     "G2": "edge_device",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2026-02",
@@ -40,16 +43,16 @@
     {
       "kind": "product",
       "label": "Google AI Edge RAG library (2026)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "preprint",
       "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2602.13229",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     },
     {
       "kind": "other",
@@ -61,12 +64,13 @@
     {
       "kind": "product",
       "label": "Microsoft Edge RAG (Azure Arc)",
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "Edge и On-Device RAG",
+  "package": null,
   "prose_id": "edge",
   "residual": []
 }

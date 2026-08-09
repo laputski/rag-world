@@ -36,12 +36,29 @@ DEFAULT_DELAY = 0.5
 #: Сколько раз повторить запрос при отказе из-за частоты обращений.
 RETRIES_ON_RATE_LIMIT = 3
 
+#: Как обращение представляется площадке.
+#:
+#: Обращение без представления многие площадки отклоняют как роботское, и отказ
+#: этот неотличим от «страница закрыта». Один такой случай уже был: статья
+#: справочника отвечала отказом, и лишь с представлением стало видно, что её не
+#: существует вовсе. Молчание о себе не делает обращение вежливее — оно делает
+#: ответ менее правдивым.
+DEFAULT_USER_AGENT = "rag-world/0.2 (registry; +https://rag-world.onrender.com)"
+
 
 class RequestsTransport:
-    """HTTP-транспорт поверх requests с соблюдением вежливой частоты."""
+    """HTTP-транспорт поверх requests с соблюдением вежливой частоты.
 
-    def __init__(self) -> None:
+    `allow_any_host` снимает перечень доменов и предназначен ровно для одной
+    задачи — проверки разрешимости ссылок самого реестра. Перечень существует,
+    чтобы сбор свидетельств не уходил по адресам, встреченным в содержимом
+    источника; ссылки реестра, наоборот, вписаны нами, и половина из них ведёт
+    на площадки, которых в перечне нет и быть не должно.
+    """
+
+    def __init__(self, allow_any_host: bool = False) -> None:
         self._last_call: dict[str, float] = {}
+        self._allow_any_host = allow_any_host
 
     def _wait(self, host: str) -> None:
         delay = HOST_DELAYS.get(host, DEFAULT_DELAY)
@@ -57,14 +74,17 @@ class RequestsTransport:
     ) -> tuple[int, bytes]:
         # Двойная проверка перечня доменов: сборщики проверяют его сами, но
         # транспорт не должен обращаться к постороннему адресу и при их ошибке.
-        if not is_allowed_host(url):
+        if not self._allow_any_host and not is_allowed_host(url):
             return (403, b"host not in allowlist")
 
         host = (urlparse(url).hostname or "").lower()
         for attempt in range(RETRIES_ON_RATE_LIMIT + 1):
             self._wait(host)
             try:
-                resp = requests.get(url, headers=headers or {}, timeout=timeout)
+                # Представление подставляется, если вызывающий его не задал:
+                # одно место вместо повторения в каждом сборщике.
+                sent = {"User-Agent": DEFAULT_USER_AGENT, **(headers or {})}
+                resp = requests.get(url, headers=sent, timeout=timeout)
             except requests.RequestException as exc:
                 return (0, str(exc).encode())
             if resp.status_code != 429 or attempt == RETRIES_ON_RATE_LIMIT:

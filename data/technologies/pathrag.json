@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
   "family": "B",
   "first_published": "2025",
@@ -42,12 +45,13 @@
     {
       "kind": "preprint",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2502.14902",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "PathRAG",
+  "package": null,
   "prose_id": "pathrag",
   "residual": []
 }

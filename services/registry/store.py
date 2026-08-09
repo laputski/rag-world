@@ -155,6 +155,9 @@ class CollectionRun(BaseModel):
     levels_changed: int = 0
     #: Сколько обращений к источникам не дали результата.
     source_errors: int = 0
+    #: Сколько адресов реестра проверено на разрешимость и сколько исчезло.
+    links_checked: int = 0
+    links_broken: int = 0
     #: Изменились ли данные реестра; если нет, артефакты не пересобираются.
     data_changed: bool = False
 

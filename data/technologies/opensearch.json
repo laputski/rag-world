@@ -28,6 +28,9 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": null,
@@ -38,9 +41,9 @@
     {
       "kind": "other",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://opensearch.org/",
-      "verified_at": null
+      "verified_at": "2026-08-09"
     }
   ],
   "name": "OpenSearch",

@@ -90,9 +90,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2403.14403",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Adaptive RAG",
@@ -243,9 +243,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2502.09891",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "ArchRAG",
@@ -327,9 +327,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://huggingface.co/BAAI/bge-m3",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "BGE-M3",
@@ -391,9 +391,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://pubmed.ncbi.nlm.nih.gov/39814274/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "BiomedRAG",
@@ -566,23 +566,23 @@
         {
           "kind": "preprint",
           "label": "CausalRAG (arXiv:2503.19878, ACL 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2503.19878",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "github",
           "label": "CausalRAG code (GitHub)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/hippoley/CausalRAG",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Multi-Round RAG and Causal Modeling (NAACL Industry, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://aclanthology.org/2025.naacl-industry.42.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "CausalRAG",
@@ -676,9 +676,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2401.10225",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "ChatQA",
@@ -793,9 +793,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2004.12832",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "ColBERT",
@@ -889,9 +889,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2407.01449",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "ColPali",
@@ -975,9 +975,9 @@
         {
           "kind": "product",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://www.anthropic.com/news/contextual-retrieval",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Contextual Retrieval",
@@ -1071,9 +1071,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2401.15884",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "CRAG",
@@ -1164,9 +1164,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2312.06648",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Dense X",
@@ -1250,16 +1250,16 @@
         {
           "kind": "product",
           "label": "Google AI Edge RAG library (2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2602.13229",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
@@ -1271,9 +1271,9 @@
         {
           "kind": "product",
           "label": "Microsoft Edge RAG (Azure Arc)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Edge и On-Device RAG",
@@ -1365,9 +1365,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2412.21023",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "EdgeRAG",
@@ -1452,16 +1452,16 @@
         {
           "kind": "preprint",
           "label": "Embodied-RAG (CMU, arXiv:2409.18313, 2024)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2409.18313",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Text-to-3D Spatial Retrieval (ICCV, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Feng_Partially_Matching_Submap_Helps_Uncertainty_Modeling_and_Propagation_for_Text_ICCV_2025_paper.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Embodied RAG",
@@ -1560,37 +1560,37 @@
         {
           "kind": "other",
           "label": "Federated RAG: Systematic Mapping Study (EMNLP, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "FedE4RAG (arXiv:2504.19101, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2504.19101",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "github",
           "label": "FedE4RAG code (GitHub)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/DocAILab/FedE4RAG",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "Federated RAG survey (arXiv:2505.18906, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/pdf/2505.18906",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "FD-RAG: Federated Dual-System (OpenReview)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://openreview.net/forum?id=kOUMng3ynd",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Federated RAG",
@@ -1682,9 +1682,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2305.06983",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "FLARE",
@@ -1778,16 +1778,16 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/OSU-NLP-Group/HippoRAG",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2405.14831",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "HippoRAG",
@@ -1883,9 +1883,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2212.10496",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "HyDE",
@@ -1978,9 +1978,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2212.10509",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "IRCoT",
@@ -2073,9 +2073,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2409.19773",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Late Chunking",
@@ -2135,7 +2135,7 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "unresolved",
           "url": "https://en.wikipedia.org/wiki/Law_of_Belarus",
           "verified_at": null
         }
@@ -2239,9 +2239,9 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/HKUDS/LightRAG",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "LightRAG",
@@ -2327,7 +2327,7 @@
           "label": "arXiv:2505.20096 (исправлено: было 2406.18542 → LiDAR)",
           "status": "verified",
           "url": "https://arxiv.org/abs/2505.20096",
-          "verified_at": "2026-08-05"
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "MA-RAG",
@@ -2412,9 +2412,9 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/qhjqhj00/MemoRAG",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "MemoRAG",
@@ -2522,16 +2522,16 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/microsoft/graphrag",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2404.16130",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Microsoft GraphRAG",
@@ -2619,9 +2619,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Multi-Query Retrieval",
@@ -2713,9 +2713,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2210.02928",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "MuRAG",
@@ -2858,30 +2858,30 @@
         {
           "kind": "preprint",
           "label": "Neurosymbolic Retrievers for RAG (arXiv:2601.04568, 2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2601.04568",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Hyper-RAG (Nature Communications, 2026, +12.3% acc.)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://www.nature.com/articles/s41467-026-71411-1",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Neurosymbolic AI 2026 (kyield)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://kyield.substack.com/p/neurosymbolic-ai-2026",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "NODES 2026 (Neo4j/Kipon)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Neuro-Symbolic RAG",
@@ -2973,9 +2973,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2412.15235",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "OG-RAG",
@@ -3071,9 +3071,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://opensearch.org/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "OpenSearch",
@@ -3166,9 +3166,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2502.14902",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "PathRAG",
@@ -3259,9 +3259,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2402.07867",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "PoisonedRAG",
@@ -3357,9 +3357,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://qdrant.tech/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Qdrant",
@@ -3445,7 +3445,7 @@
           "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
           "status": "verified",
           "url": "https://arxiv.org/abs/2211.12561",
-          "verified_at": "2026-08-05"
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RA-CM3",
@@ -3536,9 +3536,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2310.01352",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RA-DIT",
@@ -3629,9 +3629,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2403.10131",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RAFT",
@@ -3722,30 +3722,30 @@
         {
           "kind": "preprint",
           "label": "From RAG to Memory (arXiv:2502.14802, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2502.14802",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
-          "kind": "other",
+          "kind": "paper",
           "label": "Survey on Memory Mechanism of LLMs (ACM, 2025, 755 cit.)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://dl.acm.org/doi/10.1145/3748302",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "ICLR 2026 Workshop on Memory for LLM Agents",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://iclr.cc/virtual/2026/workshop/10000792",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "Governing Evolving Memory (arXiv:2603.11768, 2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2603.11768",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RAG as Memory",
@@ -3830,9 +3830,9 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/Raudaschl/rag-fusion",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RAG-Fusion",
@@ -3930,9 +3930,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2401.18059",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RAPTOR",
@@ -4031,9 +4031,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2210.03629",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "ReAct",
@@ -4124,9 +4124,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2305.15225",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "SAIL",
@@ -4189,16 +4189,16 @@
         {
           "kind": "other",
           "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
-          "kind": "other",
+          "kind": "paper",
           "label": "SERAG: Self-Evolving RAG (ACM, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://dl.acm.org/doi/10.1145/3769826",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Self-Evolving и Fully Adaptive RAG",
@@ -4282,9 +4282,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://selfrag.github.io/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Self-RAG",
@@ -4375,9 +4375,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2407.08223",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
@@ -4389,9 +4389,9 @@
         {
           "kind": "other",
           "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Speculative RAG",
@@ -4458,9 +4458,9 @@
         {
           "kind": "other",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://atlan.com/know/hybrid-rag/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Standard HybridRAG",
@@ -4551,9 +4551,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2310.06117",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Step-Back Prompting",
@@ -4638,23 +4638,16 @@
         {
           "kind": "preprint",
           "label": "StreamingRAG (arXiv:2501.14101, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2501.14101",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "StreamRAG for video (CVPR, 2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Xie_StreamRAG_Enhancing_Real-Time_Video_Understanding_with_Retrieval_Augmentation_CVPR_2026_paper.pdf",
-          "verified_at": null
-        },
-        {
-          "kind": "other",
-          "label": "Confluent: Build vs Buy Real-Time RAG (2026)",
-          "status": "needs_review",
-          "url": "https://www.confluent.io/blog/build-vs-buy-real-time-rag-streaming/",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Streaming RAG",
@@ -4746,37 +4739,37 @@
         {
           "kind": "other",
           "label": "AlignRAG: Test-Time Critique (OpenReview, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://openreview.net/forum?id=cnUq7GkS6d",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "MIRAGE (arXiv:2508.18260, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2508.18260",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Survey of RAG-Reasoning (EMNLP, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://aclanthology.org/2025.findings-emnlp.648.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "github",
           "label": "Awesome-RAG-Reasoning (GitHub)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
@@ -4861,23 +4854,23 @@
         {
           "kind": "other",
           "label": "Graph-based RAG in Unified Framework (VLDB PVLDB v18, 2025)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://www.vldb.org/pvldb/vol18/p5623-zhou.pdf",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "preprint",
           "label": "Graphs RAG at Scale (arXiv:2603.22340, 2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2603.22340",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         },
         {
           "kind": "other",
           "label": "Memgraph SQL2Graph and Unstructured2Graph (2026)",
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://memgraph.com/blog/introducing-ai-toolkit-for-graphrag-sql2graph-unstructured2graph",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Unified RAG над Structured и Unstructured Data",
@@ -4970,9 +4963,9 @@
         {
           "kind": "github",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/VectifyAI/PageIndex",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "Vectorless",
@@ -5063,9 +5056,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2405.13792",
-          "verified_at": null
+          "verified_at": "2026-08-09"
         }
       ],
       "name": "xRAG",
