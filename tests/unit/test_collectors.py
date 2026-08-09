@@ -252,7 +252,7 @@ def test_s5_negative_citations_rejected():
     )
     res = s5.check(ev)
     assert not res.passed
-    assert any("cited_by" in r for r in res.reasons)
+    assert any("цитирован" in r for r in res.reasons), res.reasons
 
 
 def test_s5_year_out_of_range_rejected():
@@ -339,3 +339,83 @@ def test_orchestrator_skips_unmatched_urls():
     raws, checks, errors = orchestrator.collect_for_links("x", links, http=http, today=TODAY)
     assert raws == []
     assert checks == []
+
+
+# ─── Диапазоны величин: образцы обязаны совпадать с тем, что пишут сборщики ───
+#
+# Проверка диапазонов однажды уже была мёртвой: она искала `cited_by_count=`,
+# а сборщик писал `cited_by=`. Такая защита выглядит существующей и не работает,
+# поэтому здесь проверяются именно те строки, которые сборщики порождают.
+
+
+def test_s5_future_year_rejected_relative_to_collection_date():
+    """Граница года берётся от даты сбора, а не зашита числом."""
+    ev = RawEvidence(
+        technology_id="x", type="publication",
+        value=f"venue=X; peer_reviewed=false; cited_by=1; year={TODAY.year + 5}",
+        source="https://api.openalex.org/x", fetched_at=TODAY,
+    )
+    assert not s5.check(ev).passed
+
+
+def test_s5_next_year_is_allowed():
+    """Работы, датированные следующим годом, обычны в конце года."""
+    ev = RawEvidence(
+        technology_id="x", type="publication",
+        value=f"venue=X; peer_reviewed=false; cited_by=1; year={TODAY.year + 1}",
+        source="https://api.openalex.org/x", fetched_at=TODAY,
+    )
+    assert s5.check(ev).passed
+
+
+def test_s5_checks_year_in_preprint_format():
+    """Архив препринтов пишет год в скобках, а не через `year=`."""
+    ev = RawEvidence(
+        technology_id="x", type="publication",
+        value=f"arXiv:2403.14403 ({TODAY.year + 5})",
+        source="https://arxiv.org/abs/2403.14403", fetched_at=TODAY,
+    )
+    assert not s5.check(ev).passed
+
+
+def test_s5_rejects_negative_downloads():
+    ev = RawEvidence(
+        technology_id="x", type="package_downloads",
+        value="package=demo; version=1.0; downloads_last_month=-9",
+        source="https://pypi.org/project/demo/", fetched_at=TODAY,
+    )
+    assert not s5.check(ev).passed
+
+
+def test_s5_rejects_negative_velocity():
+    ev = RawEvidence(
+        technology_id="x", type="publication",
+        value="venue=X; cited_by=42; year=2024; citation_velocity=-3.0",
+        source="https://api.openalex.org/x", fetched_at=TODAY,
+    )
+    assert not s5.check(ev).passed
+
+
+def test_s5_accepts_ordinary_values_from_every_collector():
+    """Ложное отклонение хуже пропуска: оно теряет верные данные молча."""
+    ordinary = [
+        ("publication", "venue=ACL; peer_reviewed=true; cited_by=42; "
+                        "year=2024; citation_velocity=1.8",
+         "https://api.openalex.org/works/W1"),
+        ("publication", "arXiv:2403.14403 (2024)",
+         "https://arxiv.org/abs/2403.14403"),
+        ("repository", "demo/demo: license=mit, last_push=2026-01-01, releases=yes",
+         "https://github.com/demo/demo"),
+        ("package_downloads", "package=demo; version=1.2.3; "
+                              "downloads_last_month=20000",
+         "https://pypi.org/project/demo/"),
+        ("framework_presence", "frameworks=haystack, langchain",
+         "https://github.com/langchain-ai/langchain"),
+    ]
+    for kind, value, source in ordinary:
+        ev = RawEvidence(
+            technology_id="x", type=kind, value=value,
+            source=source, fetched_at=TODAY,
+        )
+        result = s5.check(ev)
+        assert result.passed, f"{kind}: {result.reasons}"

@@ -146,13 +146,23 @@ class CollectSummary:
 
 
 def gather(
-    *, limit: int = 0, only: str | None = None, dry_run: bool = False
+    *,
+    limit: int = 0,
+    only: str | None = None,
+    dry_run: bool = False,
+    http=None,
+    today: date | None = None,
 ) -> CollectSummary:
-    """Опросить источники и дописать прошедшие проверку свидетельства."""
-    from services.collectors.transport import RequestsTransport
+    """Опросить источники и дописать прошедшие проверку свидетельства.
 
-    today = date.today()
-    http = RequestsTransport()
+    `http` и `today` внедряются: без этого прогон нельзя проверить без сети, а
+    непроверенный автономный прогон опаснее ручного запуска.
+    """
+    if http is None:
+        from services.collectors.transport import RequestsTransport
+
+        http = RequestsTransport()
+    today = today or date.today()
     github_token = os.environ.get("GITHUB_TOKEN") or None
 
     technologies = store.load_technologies()

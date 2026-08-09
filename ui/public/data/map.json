@@ -60,7 +60,7 @@
       "prose_id": null
     },
     {
-      "attention": 3.069,
+      "attention": 1.397,
       "attention_cohort": "2025",
       "attention_raw": 0.6,
       "confidence": 1.0,
@@ -155,7 +155,7 @@
       "prose_id": null
     },
     {
-      "attention": 2.962,
+      "attention": 1.348,
       "attention_cohort": "2025",
       "attention_raw": 0.579,
       "confidence": 1.0,
@@ -412,9 +412,9 @@
       "prose_id": "embodied_rag"
     },
     {
-      "attention": 0.0,
+      "attention": 0.612,
       "attention_cohort": "2025",
-      "attention_raw": 0.0,
+      "attention_raw": 0.263,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-04",
@@ -619,7 +619,7 @@
       "prose_id": "lightrag"
     },
     {
-      "attention": 0.343,
+      "attention": 0.156,
       "attention_cohort": "2025",
       "attention_raw": 0.067,
       "confidence": 1.0,
@@ -799,7 +799,7 @@
       "prose_id": "neuro_symbolic_rag"
     },
     {
-      "attention": 3.499,
+      "attention": 1.593,
       "attention_cohort": "2025",
       "attention_raw": 0.684,
       "confidence": 1.0,
@@ -854,7 +854,7 @@
       "prose_id": null
     },
     {
-      "attention": 8.184,
+      "attention": 3.725,
       "attention_cohort": "2025",
       "attention_raw": 1.6,
       "confidence": 1.0,
@@ -1006,9 +1006,9 @@
       "prose_id": "raft"
     },
     {
-      "attention": 0.568,
+      "attention": 2.328,
       "attention_cohort": "2025",
-      "attention_raw": 0.111,
+      "attention_raw": 1.0,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
@@ -1180,7 +1180,7 @@
       "prose_id": "self_rag"
     },
     {
-      "attention": 1.432,
+      "attention": 0.652,
       "attention_cohort": "2025",
       "attention_raw": 0.28,
       "confidence": 1.0,

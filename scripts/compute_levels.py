@@ -29,8 +29,13 @@ from core.maturity import RULE_VERSION, EvidenceIn, compute_level  # noqa: E402
 from services.registry import store  # noqa: E402
 
 
-def run(dry_run: bool = False, quiet: bool = False) -> int:
-    today = date.today()
+def run(
+    dry_run: bool = False, quiet: bool = False, today: date | None = None
+) -> int:
+    # Дата внедряется: правило зависит от возраста свидетельств, поэтому при
+    # чтении с часов один и тот же набор данных давал бы разные уровни в разные
+    # дни, и воспроизводимость нельзя было бы проверить.
+    today = today or date.today()
     technologies = store.load_technologies()
 
     by_tech: dict[str, list[store.Evidence]] = defaultdict(list)

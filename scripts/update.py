@@ -50,19 +50,23 @@ def run(
     only: str | None = None,
     skip_collect: bool = False,
     dry_run: bool = False,
+    http=None,
+    today: date | None = None,
 ) -> int:
     import build_artifacts
     import collect
     import compute_levels
     import validate_data
 
-    today = date.today()
+    today = today or date.today()
 
     # ─── 1. Сбор ─────────────────────────────────────────────────────────────
     if skip_collect:
         gathered = collect.CollectSummary()
     else:
-        gathered = collect.gather(limit=limit, only=only, dry_run=dry_run)
+        gathered = collect.gather(
+            limit=limit, only=only, dry_run=dry_run, http=http, today=today
+        )
         print(
             f"собрано: свидетельств {gathered.evidence_added}, "
             f"точек ряда {gathered.metrics_added}; "
@@ -75,7 +79,7 @@ def run(
             print(f"  ещё {len(gathered.errors) - 10}")
 
     # ─── 2. Уровни ───────────────────────────────────────────────────────────
-    levels_changed = compute_levels.run(dry_run=dry_run)
+    levels_changed = compute_levels.run(dry_run=dry_run, today=today)
 
     # ─── 3. Артефакты ────────────────────────────────────────────────────────
     if not dry_run:
@@ -96,7 +100,11 @@ def run(
     print("проверка данных пройдена")
 
     # ─── 5. Журнал прогонов ──────────────────────────────────────────────────
-    if not dry_run:
+    #
+    # Проход без опроса источников в журнал сбора не попадает: строка «проверено
+    # такого-то числа» при пустом перечне источников утверждала бы проверку,
+    # которой не было. Такой проход — пересборка после правки кода, а не сбор.
+    if not dry_run and not skip_collect:
         store.append_run(store.CollectionRun(
             ran_at=today,
             sources=gathered.sources,

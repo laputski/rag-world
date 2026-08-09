@@ -52,6 +52,19 @@ def _title_similarity(a: str, b: str) -> float:
     return len(wa & wb) / len(wa | wb)
 
 
+#: Величины, которые не бывают отрицательными, и как они записаны в свидетельстве.
+#: Перечень задан по тому, что сборщики действительно пишут: образец, не
+#: совпадающий с форматом значения, — это защита, которой нет.
+_NON_NEGATIVE: tuple[tuple[str, str], ...] = (
+    (r"cited_by=(-?\d+)", "число цитирований отрицательно"),
+    (r"citation_velocity=(-?[\d.]+)", "скорость цитирования отрицательна"),
+    (r"downloads_last_month=(-?\d+)", "число загрузок отрицательно"),
+    (r"stars=(-?\d+)", "число звёзд отрицательно"),
+)
+
+#: Нижняя граница года публикации: раньше вычислительной техники работ нет.
+MIN_YEAR = 1900
+
 # Порог сходства заголовков: ниже — считается несовпадением (S5 отклоняет).
 # 0.6 — умеренный порог: ловит явные расхождения (LiDAR vs MA-RAG), но допускает
 # варианты написания (Self-RAG vs Self-RAG: Learning to Retrieve...).
@@ -83,17 +96,29 @@ def check(evidence: RawEvidence) -> CheckResult:
             )
 
     # 3. Численные значения в допустимом диапазоне.
-    #    cited_by_count >= 0; year в [1900, текущий+1].
+    #
+    # Источник может ответить синтаксически исправно и содержательно
+    # бессмысленно. Такой ответ опаснее отказа: отказ виден, а бессмыслица
+    # выглядит как результат и попадает в шкалу.
+    #
+    # Верхняя граница года берётся от даты сбора, а не зашивается числом:
+    # зашитая граница либо отвергает верные данные, когда время до неё дойдёт,
+    # либо, как здесь до исправления, пропускает 2099 год как допустимый.
     val = evidence.value or ""
-    cited_m = re.search(r"cited_by=(-?\d+)", val)
-    if cited_m and int(cited_m.group(1)) < 0:
-        reasons.append("cited_by_count отрицательный (невозможно)")
+    for pattern, message in _NON_NEGATIVE:
+        found = re.search(pattern, val)
+        if found and float(found.group(1)) < 0:
+            reasons.append(f"{message}: {found.group(1)}")
 
-    year_m = re.search(r"year=(\d{4})", val)
-    if year_m:
-        y = int(year_m.group(1))
-        if y < 1900 or y > 2100:
-            reasons.append(f"год публикации {y} вне допустимого диапазона")
+    max_year = evidence.fetched_at.year + 1
+    for year_text in re.findall(r"year=(\d{4})", val) + re.findall(
+        r"\((\d{4})\)", val
+    ):
+        year = int(year_text)
+        if year < MIN_YEAR or year > max_year:
+            reasons.append(
+                f"год публикации {year} вне диапазона {MIN_YEAR}..{max_year}"
+            )
 
     return CheckResult(passed=not reasons, reasons=reasons)
 

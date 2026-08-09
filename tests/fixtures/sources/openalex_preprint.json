@@ -1,0 +1,11 @@
+{
+  "id": "https://openalex.org/W1",
+  "title": "Demo-RAG: A Worked Example For Tests",
+  "type": "preprint",
+  "doi": "https://doi.org/10.48550/arxiv.2403.14403",
+  "cited_by_count": 10,
+  "publication_year": 2024,
+  "publication_date": "2024-03-21",
+  "primary_location": {"source": {"display_name": "arXiv (Cornell University)", "type": "repository"}},
+  "locations": []
+}

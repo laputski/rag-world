@@ -284,8 +284,30 @@ def load_metrics(technology_id: str | None = None) -> list[MetricPoint]:
 
 
 def append_metrics(points: Iterable[MetricPoint]) -> int:
+    """Добавить точки ряда, отбросив повторное измерение того же дня.
+
+    Без этого еженедельный прогон дописывал бы одну и ту же величину при каждом
+    запуске: ряд рос бы, не неся новых сведений, а бот коммитил бы шум.
+
+    Источник входит в ключ, и это существенно. У записи может быть несколько
+    работ, и каждая даёт **свою** скорость цитирования: ключ без источника
+    схлопнул бы разные измерения в одно и потерял бы всё, кроме первого.
+    Значение в ключ, наоборот, не входит — иначе повторное измерение того же
+    источника в тот же день прошло бы как новая точка, а это и есть шум.
+    """
+    points = list(points)
+    if not points:
+        return 0
+
+    def key(m: MetricPoint) -> tuple[str, str, str, str]:
+        return (m.technology_id, m.metric, m.measured_at.isoformat(), m.source)
+
+    known = {key(m) for m in load_metrics()}
     by_year: dict[Path, list[MetricPoint]] = {}
     for point in points:
+        if key(point) in known:
+            continue
+        known.add(key(point))
         by_year.setdefault(metrics_path(point.measured_at), []).append(point)
     return sum(_append_jsonl(path, rows) for path, rows in by_year.items())
 
