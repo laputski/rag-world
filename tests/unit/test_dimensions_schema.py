@@ -106,11 +106,18 @@ def test_validate_accepts_default_configuration():
     assert validate(DEFAULTS) == []
 
 
-def test_phi_tree_topology_excludes_dense_representation():
-    """Древесная навигация без векторов несовместима с плотной моделью."""
+def test_tree_topology_allows_dense_representation():
+    """Дерево и векторы совместимы: запрет обобщал свойство одной системы.
+
+    Схема запрещала это сочетание со ссылкой на то, что «Vectorless не
+    использует векторы». Не использует их Vectorless, а не древовидный индекс
+    вообще: RAPTOR строит дерево рекурсивной кластеризацией представлений и ими
+    же ищет. Свойство самой Vectorless выражается значением A5=none.
+    """
     cfg = {**DEFAULTS, "A4": "tree", "A5": "dense_single",
            "C1": "tree_navigation", "D1": "none"}
-    assert any("Vectorless" in e or "tree" in e for e in validate(cfg))
+    assert validate(cfg) == [], "допустимое сочетание не должно отвергаться"
+
 
 
 def test_phi_cross_encoder_requires_vector_representation():
@@ -167,7 +174,7 @@ def test_phi_multi_hop_requires_graph_topology():
 
 def test_phi_constraint_count_is_pinned():
     """Число ограничений закреплено: новое Φ обязано приходить со своим тестом."""
-    assert len(CONSTRAINTS) == 10, (
+    assert len(CONSTRAINTS) == 8, (
         f"Φ содержит {len(CONSTRAINTS)} ограничений; добавьте тест для нового. "
         "Список: " + ", ".join(
             f"{c.dim_a}={c.val_a} {c.kind} {c.dim_b}={c.val_b}" for c in CONSTRAINTS
@@ -209,7 +216,12 @@ def test_config_hash_ignores_own_field():
 
 
 def test_configuration_validate_uses_phi():
-    cfg = Configuration(A4="tree", A5="dense_single", D1="none", C1="tree_navigation")
+    """Пример берётся из действующих ограничений, а не из отменённого.
+
+    Перекрёстный кодировщик сравнивает представления, поэтому требует, чтобы
+    модель представления существовала.
+    """
+    cfg = Configuration(D1="cross_encoder", A5="none")
     assert cfg.validate() != []
     assert not cfg.is_valid()
 

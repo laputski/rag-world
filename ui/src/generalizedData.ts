@@ -69,7 +69,7 @@ const DIAG_SPACE = `flowchart TB
     DEAD["Мёртвые значения\\n(недостижимые ни в одной\\nдопустимой конфигурации)"]
     FULL -->|Φ вырезает| VALID
     FULL -->|Φ делает недостижимым| DEAD
-    VALID --> INDEP["Степень независимости =\\n|допустимые| / |полные|\\n1.0 = все независимы\\n0.9984 = 0,16% пар запрещены"]`;
+    VALID --> INDEP["Степень независимости =\\n|допустимые| / |полные|\\n1.0 = все независимы\\n0,9989 = 0,11% пар запрещены"]`;
 
 const DIAG_STRATA = `flowchart TD
     subgraph A ["Страт A. Представление знаний (7 измерений)"]
@@ -136,8 +136,8 @@ const DIAG_PATHRAG = `flowchart LR
     classDef residual fill:#ffebee,stroke:#d32f2f,stroke-dasharray: 5 5`;
 
 const DIAG_PIE = `pie title Степень независимости схемы
-    "Допустимые пары значений" : 99.84
-    "Запрещены ограничениями Φ" : 0.16`;
+    "Допустимые пары значений" : 99.89
+    "Запрещены ограничениями Φ" : 0.11`;
 
 const DIAG_MATURITY = `flowchart TD
     subgraph SCALE ["Шкала зрелости L0–L6"]
