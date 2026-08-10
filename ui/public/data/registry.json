@@ -455,10 +455,14 @@
       "attention_raw": 0.048,
       "confidence": 1.0,
       "configuration": {
-        "E5": "mutual_loop"
+        "B1": "multi_reformulation",
+        "C2": "agentic_open_loop",
+        "D1": "none",
+        "E5": "mutual_loop",
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Модель сама ведёт многошаговый диалог с поисковиком до достаточности.",
       "evidence": [
@@ -481,7 +485,12 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "B",
+        "C",
+        "E",
+        "G"
+      ],
       "id": "auto_rag",
       "kind": "architecture",
       "level": "L1",
@@ -520,6 +529,25 @@
           "technology_id": "auto_rag",
           "to": "mutual_loop",
           "why": "Порождение управляет поиском и меняется от найденного."
+        },
+        {
+          "code": "C2",
+          "did": "Модель ведёт многошаговый диалог с поисковиком, сама планируя обращения и уточняя запросы, и сама решает, сколько шагов нужно, исходя из трудности вопроса.",
+          "instead": "«остановка по условию»: там условие задано снаружи, а здесь достаточность оценивает сама модель.",
+          "residual_term": null,
+          "source": "arXiv:2411.19443, метод",
+          "technology_id": "auto_rag",
+          "to": "agentic_open_loop",
+          "why": "Ни числа шагов, ни внешнего условия остановки нет: их выбирает модель."
+        },
+        {
+          "code": "G3",
+          "did": "Модель дообучается на самостоятельно порождённых указаниях о том, как принимать решения при итеративном поиске.",
+          "residual_term": null,
+          "source": "arXiv:2411.19443, метод",
+          "technology_id": "auto_rag",
+          "to": "trained_reader",
+          "why": "Обучается порождающая сторона; поисковик не трогается."
         }
       ],
       "prose_id": null,
@@ -1819,10 +1847,38 @@
       "attention_raw": 1.618,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "B1": "multi_reformulation",
+        "G3": "trained_reader"
       },
-      "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_inapplicable": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "B2",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D1",
+        "D2",
+        "D3",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "F1",
+        "F2",
+        "F3",
+        "G1",
+        "G2"
+      ],
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Объявление конвейера вместо подсказок: шаги компилируются и самонастраиваются.",
       "evidence": [
@@ -1845,7 +1901,10 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2023",
-      "groups": [],
+      "groups": [
+        "B",
+        "G"
+      ],
       "id": "dspy",
       "kind": "tool",
       "level": "L1",
@@ -1875,7 +1934,36 @@
       ],
       "name": "DSPy",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "Конвейер объявляется шагами, а сами подсказки к языковой модели подбираются и уточняются автоматически, вместо того чтобы писаться руками.",
+          "residual_term": null,
+          "source": "arXiv:2310.03714, метод",
+          "technology_id": "dspy",
+          "to": "multi_reformulation",
+          "why": "Единственное измерение, которое инструмент занимает по существу: он меняет то, как формулируется обращение к модели."
+        },
+        {
+          "code": "G3",
+          "did": "Подсказки и веса шагов настраиваются компилятором по размеченным примерам.",
+          "residual_term": null,
+          "source": "arXiv:2310.03714, метод",
+          "technology_id": "dspy",
+          "to": "trained_reader",
+          "why": "Настройка касается порождающей стороны конвейера."
+        },
+        {
+          "code": "A1",
+          "did": "Это способ собрать систему, а не система: у инструмента нет ни своего индекса, ни своего поиска, ни своего синтеза — их приносит тот, кто им пользуется.",
+          "inapplicable": true,
+          "question": "Это третий случай подряд: атаки, хранилища и теперь средства сборки занимают одно-два измерения из двадцати восьми. Возможно, роду «инструмент» нужно правило, как оно сделано для атак, а не пометки у каждой записи.",
+          "residual_term": null,
+          "source": "arXiv:2310.03714, предмет работы",
+          "technology_id": "dspy",
+          "why": "Двадцать шесть измерений описывают собранную систему. У средства сборки своих значений нет, и базовые утверждали бы, что оно сегментирует документы и ищет ближайших соседей."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -2686,10 +2774,16 @@
       "attention_raw": 0.593,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "A1": "node_edge",
+        "A4": "graph",
+        "A8": "given",
+        "C1": "graph_traversal",
+        "D1": "none",
+        "E5": "none",
+        "G3": "trained_retriever"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Графовая нейросеть отбирает подграф, языковая модель рассуждает по нему.",
       "evidence": [
@@ -2712,7 +2806,11 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "A",
+        "C",
+        "G"
+      ],
       "id": "gnn_rag",
       "kind": "architecture",
       "level": "L1",
@@ -2742,7 +2840,36 @@
       ],
       "name": "GNN-RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C1",
+          "did": "Графовая нейросеть отбирает кандидатов по подграфу, а затем извлекаются кратчайшие пути между сущностями вопроса и ответами.",
+          "residual_term": null,
+          "source": "arXiv:2405.20139, метод",
+          "technology_id": "gnn_rag",
+          "to": "graph_traversal",
+          "why": "Отбор идёт по структуре графа."
+        },
+        {
+          "code": "A1",
+          "did": "Языковой модели передаются пути графа, переведённые в текст.",
+          "residual_term": null,
+          "source": "arXiv:2405.20139, метод",
+          "technology_id": "gnn_rag",
+          "to": "node_edge",
+          "why": "Единица извлечения — фрагмент структуры, а не пассаж."
+        },
+        {
+          "code": "G3",
+          "did": "Отбором занимается обученная графовая нейросеть.",
+          "question": "Аннотация не говорит прямо, обучается ли сеть в рамках работы или берётся готовой. Значение выведено из того, что графовая нейросеть без обучения не работает.",
+          "residual_term": null,
+          "source": "arXiv:2405.20139, метод",
+          "technology_id": "gnn_rag",
+          "to": "trained_retriever",
+          "why": "Обучается поисковая сторона; языковая модель работает как есть."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -2753,10 +2880,17 @@
       "attention_raw": 0.29,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "A3": "extracted_triples",
+        "A4": "graph",
+        "A8": "extracted",
+        "C1": "graph_traversal",
+        "C2": "agentic_open_loop",
+        "D1": "none",
+        "D2": "budget_aware",
+        "E5": "mutual_loop"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Агент читает длинный документ, обходя построенный по нему граф.",
       "evidence": [
@@ -2779,7 +2913,11 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "A",
+        "C",
+        "E"
+      ],
       "id": "graphreader",
       "kind": "architecture",
       "level": "L2",
@@ -2809,7 +2947,53 @@
       ],
       "name": "GraphReader",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Длинный документ превращается в граф: узлами становятся куски с выделенными из них фактами.",
+          "residual_term": null,
+          "source": "arXiv:2406.14550, метод",
+          "technology_id": "graphreader",
+          "to": "graph",
+          "why": "Индекс связный, и связность строится по документу."
+        },
+        {
+          "code": "A8",
+          "did": "Узлы и связи выводятся из содержания документа моделью.",
+          "residual_term": null,
+          "source": "arXiv:2406.14550, метод",
+          "technology_id": "graphreader",
+          "to": "extracted",
+          "why": "Структура добыта из текста, а не задана источником и не вычислена группировкой."
+        },
+        {
+          "code": "C2",
+          "did": "Агент сам строит план, вызывает функции чтения узлов и соседей и решает, когда сведений достаточно.",
+          "residual_term": null,
+          "source": "arXiv:2406.14550, метод",
+          "technology_id": "graphreader",
+          "to": "agentic_open_loop",
+          "why": "Ни числа шагов, ни внешнего условия остановки нет — глубину выбирает агент."
+        },
+        {
+          "code": "E5",
+          "did": "Агент ведёт записи, размышляет над ними и по ним решает, куда идти дальше.",
+          "residual_term": null,
+          "source": "arXiv:2406.14550, метод",
+          "technology_id": "graphreader",
+          "to": "mutual_loop",
+          "why": "Порождение управляет обходом, найденное меняет порождение."
+        },
+        {
+          "code": "D2",
+          "did": "Приём существует ради работы в малом окне: четыре тысячи знаков против ста двадцати восьми у сравниваемой модели.",
+          "residual_term": null,
+          "source": "arXiv:2406.14550, постановка",
+          "technology_id": "graphreader",
+          "to": "budget_aware",
+          "why": "Отбор подчинён размеру окна, и в этом смысл работы."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -3406,10 +3590,17 @@
       "attention_raw": 2.8,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "A3": "extracted_triples",
+        "A4": "graph",
+        "A8": "extracted",
+        "C1": "graph_traversal",
+        "C3": "score_normalization",
+        "D1": "none",
+        "E5": "none",
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Знания предметной области и логический вывод поверх графа для профессиональных задач.",
       "evidence": [
@@ -3432,7 +3623,11 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "A",
+        "C",
+        "G"
+      ],
       "id": "kag",
       "kind": "architecture",
       "level": "L2",
@@ -3462,7 +3657,45 @@
       ],
       "name": "KAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Знания предметной области хранятся графом, причём граф и исходные куски текста указывают друг на друга.",
+          "residual_term": null,
+          "source": "arXiv:2409.13731, метод",
+          "technology_id": "kag",
+          "to": "graph",
+          "why": "Индекс связный, и связность двусторонняя: от факта можно вернуться к тексту."
+        },
+        {
+          "code": "A8",
+          "did": "Граф строится по документам предметной области.",
+          "residual_term": null,
+          "source": "arXiv:2409.13731, метод",
+          "technology_id": "kag",
+          "to": "extracted",
+          "why": "Структура добыта из содержания."
+        },
+        {
+          "code": "C3",
+          "did": "Обход графа сочетается с векторным поиском, и результаты сводятся вместе.",
+          "question": "Правило слияния источник не раскрывает; выбрано сведение по величинам оценок как более общее, чем ранговое.",
+          "residual_term": null,
+          "source": "arXiv:2409.13731, метод",
+          "technology_id": "kag",
+          "to": "score_normalization",
+          "why": "Два способа отбора работают одновременно и требуют слияния."
+        },
+        {
+          "code": "G3",
+          "did": "Работа отдельно называет усиление модели под задачи этого подхода.",
+          "residual_term": null,
+          "source": "arXiv:2409.13731, метод",
+          "technology_id": "kag",
+          "to": "trained_reader",
+          "why": "Обучается порождающая сторона."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -5339,7 +5572,7 @@
       "confidence": 1.0,
       "configuration": {},
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Отравление данных рекомендательной системы, построенной на извлечении.",
       "evidence": [
@@ -5392,7 +5625,15 @@
       ],
       "name": "Poison-RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "did": "Атака на данные рекомендательной системы, построенной на извлечении: подготовленные записи подмешиваются в корпус так, чтобы менять выдачу.",
+          "residual_term": null,
+          "source": "arXiv:2501.11759, постановка",
+          "technology_id": "poison_rag",
+          "why": "Род «атака» не занимает места в конфигурационном пространстве: у атаки нет ни индекса, ни извлечения, ни синтеза. Отсутствие конфигурации следует из рода, а не из пометок."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -5862,10 +6103,14 @@
       "attention_raw": 0.968,
       "confidence": 1.0,
       "configuration": {
+        "B1": "subquestion_decomposition",
+        "C2": "iterative_stopping",
+        "D1": "none",
+        "E2": "pre_gen_grounding",
         "E5": "mutual_loop"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Итеративная самооценка: модель разбирает, чего ей не хватает, и уточняет запрос.",
       "evidence": [
@@ -5888,7 +6133,11 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "B",
+        "C",
+        "E"
+      ],
       "id": "ra_isf",
       "kind": "architecture",
       "level": "L2",
@@ -5927,6 +6176,34 @@
           "technology_id": "ra_isf",
           "to": "mutual_loop",
           "why": "Самооценка порождения задаёт следующий поиск."
+        },
+        {
+          "code": "B1",
+          "did": "Задача раскладывается на подзадачи, и разбор идёт по ним.",
+          "question": "Аннотация называет три подмодуля, но не раскрывает их. Значения выведены из общего описания итеративного разложения; полный текст получить не удалось.",
+          "residual_term": null,
+          "source": "arXiv:2403.06840, аннотация",
+          "technology_id": "ra_isf",
+          "to": "subquestion_decomposition",
+          "why": "Запрос делится заранее, а не порождается по ходу рассуждения."
+        },
+        {
+          "code": "C2",
+          "did": "Разбор повторяется, пока задача не решена.",
+          "residual_term": null,
+          "source": "arXiv:2403.06840, аннотация",
+          "technology_id": "ra_isf",
+          "to": "iterative_stopping",
+          "why": "Число обращений определяется достаточностью, а не задано."
+        },
+        {
+          "code": "E2",
+          "did": "Самооценка решает, хватает ли модели собственных знаний и годится ли найденное, до порождения ответа.",
+          "residual_term": null,
+          "source": "arXiv:2403.06840, аннотация",
+          "technology_id": "ra_isf",
+          "to": "pre_gen_grounding",
+          "why": "Обоснованность обеспечивается отбором на входе."
         }
       ],
       "prose_id": null,
@@ -6690,10 +6967,13 @@
       "attention_raw": 5.452,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "C3": "score_normalization",
+        "D1": "none",
+        "E5": "none",
+        "G3": "trained_retriever"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Чёрный ящик языковой модели остаётся неизменным, а поисковик подстраивается под него.",
       "evidence": [
@@ -6716,7 +6996,10 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2023",
-      "groups": [],
+      "groups": [
+        "C",
+        "G"
+      ],
       "id": "replug",
       "kind": "technique",
       "level": "L2",
@@ -6746,7 +7029,27 @@
       ],
       "name": "REPLUG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "G3",
+          "did": "Языковая модель остаётся чёрным ящиком и не меняется; обучается поисковик, причём учителем ему служит сама модель — он ищет то, что улучшает её предсказание.",
+          "instead": "«совместное обучение»: оно требует изменения обеих сторон, а здесь одна неприкосновенна.",
+          "residual_term": null,
+          "source": "arXiv:2301.12652, метод",
+          "technology_id": "replug",
+          "to": "trained_retriever",
+          "why": "Обучается поисковая сторона. Замороженность модели здесь не следствие, а условие: приём тем и ценен, что применим к закрытой модели."
+        },
+        {
+          "code": "C3",
+          "did": "Документы подаются модели по отдельности, а их вклады сводятся по вероятностям её ответа.",
+          "residual_term": null,
+          "source": "arXiv:2301.12652, метод",
+          "technology_id": "replug",
+          "to": "score_normalization",
+          "why": "Результаты нескольких обращений сливаются по величинам оценок, а не по рангам."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -7151,10 +7454,11 @@
       "attention_raw": 0.579,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "E5": "none",
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Самоулучшение: модель порождает себе вопросы по корпусу и учится на них.",
       "evidence": [
@@ -7177,7 +7481,9 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2024",
-      "groups": [],
+      "groups": [
+        "G"
+      ],
       "id": "simrag",
       "kind": "architecture",
       "level": "L2",
@@ -7207,7 +7513,18 @@
       ],
       "name": "SimRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "G3",
+          "did": "Модель сама порождает по корпусу области вопросы и ответы, отбирает удачные и дообучается на них.",
+          "instead": "«обучаемый поисковик»: изменения поиска источник не описывает.",
+          "residual_term": null,
+          "source": "arXiv:2410.17952, метод",
+          "technology_id": "simrag",
+          "to": "trained_reader",
+          "why": "Обучается порождающая сторона на собственных данных; поисковик работа не меняет."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -7934,10 +8251,16 @@
       "attention_raw": 1.459,
       "confidence": 1.0,
       "configuration": {
-        "E5": "none"
+        "A1": "node_edge",
+        "A4": "graph",
+        "A8": "given",
+        "C1": "graph_traversal",
+        "C2": "iterative_stopping",
+        "D1": "none",
+        "E5": "mutual_loop"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Языковая модель шагает по графу знаний, выбирая направление на каждом шаге.",
       "evidence": [
@@ -7960,7 +8283,11 @@
       "evidence_count": 2,
       "family": null,
       "first_published": "2023",
-      "groups": [],
+      "groups": [
+        "A",
+        "C",
+        "E"
+      ],
       "id": "think_on_graph",
       "kind": "architecture",
       "level": "L1",
@@ -7990,7 +8317,36 @@
       ],
       "name": "Think-on-Graph",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C1",
+          "did": "Языковая модель шагает по графу знаний лучевым поиском, на каждом шаге выбирая, за какой связью идти дальше.",
+          "residual_term": null,
+          "source": "arXiv:2307.07697, метод",
+          "technology_id": "think_on_graph",
+          "to": "graph_traversal",
+          "why": "Отбор — движение по структуре, и направление выбирается по ходу."
+        },
+        {
+          "code": "A8",
+          "did": "Граф знаний берётся готовым, а не строится по корпусу.",
+          "instead": "«извлечена из содержания»: это описало бы построение графа по текстам, которого здесь нет.",
+          "residual_term": null,
+          "source": "arXiv:2307.07697, постановка",
+          "technology_id": "think_on_graph",
+          "to": "given",
+          "why": "Структура задана источником: работа подключается к существующему графу и ничего не извлекает."
+        },
+        {
+          "code": "E5",
+          "did": "Рассуждение выбирает следующий шаг обхода, найденное меняет рассуждение.",
+          "residual_term": null,
+          "source": "arXiv:2307.07697, метод",
+          "technology_id": "think_on_graph",
+          "to": "mutual_loop",
+          "why": "Связь двусторонняя и повторяется."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },

@@ -1,15 +1,25 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "A1": "node_edge",
+    "A4": "graph",
+    "A8": "given",
+    "C1": "graph_traversal",
+    "D1": "none",
+    "E5": "none",
+    "G3": "trained_retriever"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Графовая нейросеть отбирает подграф, языковая модель рассуждает по нему.",
   "family": null,
   "first_published": "2024",
-  "groups": [],
+  "groups": [
+    "A",
+    "C",
+    "G"
+  ],
   "id": "gnn_rag",
   "kind": "architecture",
   "links": [

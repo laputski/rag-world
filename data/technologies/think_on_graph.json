@@ -1,15 +1,25 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "A1": "node_edge",
+    "A4": "graph",
+    "A8": "given",
+    "C1": "graph_traversal",
+    "C2": "iterative_stopping",
+    "D1": "none",
+    "E5": "mutual_loop"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Языковая модель шагает по графу знаний, выбирая направление на каждом шаге.",
   "family": null,
   "first_published": "2023",
-  "groups": [],
+  "groups": [
+    "A",
+    "C",
+    "E"
+  ],
   "id": "think_on_graph",
   "kind": "architecture",
   "links": [

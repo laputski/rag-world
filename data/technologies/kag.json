@@ -1,15 +1,26 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "A3": "extracted_triples",
+    "A4": "graph",
+    "A8": "extracted",
+    "C1": "graph_traversal",
+    "C3": "score_normalization",
+    "D1": "none",
+    "E5": "none",
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Знания предметной области и логический вывод поверх графа для профессиональных задач.",
   "family": null,
   "first_published": "2024",
-  "groups": [],
+  "groups": [
+    "A",
+    "C",
+    "G"
+  ],
   "id": "kag",
   "kind": "architecture",
   "links": [

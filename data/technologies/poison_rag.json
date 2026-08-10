@@ -2,7 +2,7 @@
   "aliases": [],
   "configuration": {},
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Отравление данных рекомендательной системы, построенной на извлечении.",
   "family": null,

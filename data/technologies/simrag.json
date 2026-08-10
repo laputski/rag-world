@@ -1,15 +1,18 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "E5": "none",
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Самоулучшение: модель порождает себе вопросы по корпусу и учится на них.",
   "family": null,
   "first_published": "2024",
-  "groups": [],
+  "groups": [
+    "G"
+  ],
   "id": "simrag",
   "kind": "architecture",
   "links": [

@@ -1,15 +1,46 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "B1": "multi_reformulation",
+    "G3": "trained_reader"
   },
-  "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_inapplicable": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "B2",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "F1",
+    "F2",
+    "F3",
+    "G1",
+    "G2"
+  ],
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Объявление конвейера вместо подсказок: шаги компилируются и самонастраиваются.",
   "family": null,
   "first_published": "2023",
-  "groups": [],
+  "groups": [
+    "B",
+    "G"
+  ],
   "id": "dspy",
   "kind": "tool",
   "links": [

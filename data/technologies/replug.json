@@ -1,15 +1,21 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "C3": "score_normalization",
+    "D1": "none",
+    "E5": "none",
+    "G3": "trained_retriever"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Чёрный ящик языковой модели остаётся неизменным, а поисковик подстраивается под него.",
   "family": null,
   "first_published": "2023",
-  "groups": [],
+  "groups": [
+    "C",
+    "G"
+  ],
   "id": "replug",
   "kind": "technique",
   "links": [

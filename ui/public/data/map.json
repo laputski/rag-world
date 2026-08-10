@@ -97,8 +97,13 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "B",
+      "groups": [
+        "B",
+        "C",
+        "E",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -360,8 +365,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
-      "group": null,
-      "groups": [],
+      "group": "B",
+      "groups": [
+        "B",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -523,8 +531,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -545,8 +557,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "E"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -654,8 +670,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -1128,8 +1148,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "B",
+      "groups": [
+        "B",
+        "C",
+        "E"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -1284,8 +1308,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
-      "group": null,
-      "groups": [],
+      "group": "C",
+      "groups": [
+        "C",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -1379,8 +1406,10 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
-      "group": null,
-      "groups": [],
+      "group": "G",
+      "groups": [
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-10",
@@ -1526,8 +1555,12 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "E"
+      ],
       "history": [
         {
           "at": "2026-08-10",

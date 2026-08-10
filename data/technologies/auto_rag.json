@@ -1,15 +1,24 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "mutual_loop"
+    "B1": "multi_reformulation",
+    "C2": "agentic_open_loop",
+    "D1": "none",
+    "E5": "mutual_loop",
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Модель сама ведёт многошаговый диалог с поисковиком до достаточности.",
   "family": null,
   "first_published": "2024",
-  "groups": [],
+  "groups": [
+    "B",
+    "C",
+    "E",
+    "G"
+  ],
   "id": "auto_rag",
   "kind": "architecture",
   "links": [

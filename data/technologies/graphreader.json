@@ -1,15 +1,26 @@
 {
   "aliases": [],
   "configuration": {
-    "E5": "none"
+    "A3": "extracted_triples",
+    "A4": "graph",
+    "A8": "extracted",
+    "C1": "graph_traversal",
+    "C2": "agentic_open_loop",
+    "D1": "none",
+    "D2": "budget_aware",
+    "E5": "mutual_loop"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Агент читает длинный документ, обходя построенный по нему граф.",
   "family": null,
   "first_published": "2024",
-  "groups": [],
+  "groups": [
+    "A",
+    "C",
+    "E"
+  ],
   "id": "graphreader",
   "kind": "architecture",
   "links": [
