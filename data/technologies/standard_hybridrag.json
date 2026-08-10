@@ -32,7 +32,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
   "family": "D",

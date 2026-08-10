@@ -29,13 +29,14 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
   "family": "G",
   "first_published": null,
   "groups": [
-    "B"
+    "B",
+    "C"
   ],
   "id": "multi_query",
   "kind": "technique",

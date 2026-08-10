@@ -28,16 +28,29 @@
     "G2": "server",
     "G3": "frozen"
   },
-  "core_idea": null,
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-08-10",
+  "configuration_variable": [],
+  "core_idea": "Плотный поиск по одному вектору на пассаж: базовая точка отсчёта.",
   "family": null,
   "first_published": null,
   "groups": [
-    "A"
+    "A",
+    "C"
   ],
   "id": "naive_dense",
   "kind": "technique",
-  "links": [],
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2004.04906",
+      "verified_at": null
+    }
+  ],
   "name": "Naive Dense",
+  "package": null,
   "prose_id": null,
   "residual": []
 }

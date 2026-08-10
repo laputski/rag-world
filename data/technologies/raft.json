@@ -19,22 +19,23 @@
     "D3": "natural_order",
     "E1": "single_pass",
     "E2": "none",
-    "E3": "none",
+    "E3": "fragment_level",
     "E4": "no_refusal",
     "F1": "none",
     "F2": "none",
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "trained_retriever"
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
   "family": "I",
   "first_published": "2024-03",
   "groups": [
+    "E",
     "G"
   ],
   "id": "raft",

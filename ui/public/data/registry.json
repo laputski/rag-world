@@ -375,28 +375,29 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
-        "B2": "static",
         "C1": "ann",
-        "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
-        "D2": "top_k",
-        "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
-        "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_retriever"
       },
-      "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_inapplicable": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "B1",
+        "B2",
+        "C2",
+        "D1",
+        "D2",
+        "D3"
+      ],
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -419,7 +420,10 @@
       "evidence_count": 2,
       "family": null,
       "first_published": null,
-      "groups": [],
+      "groups": [
+        "A",
+        "G"
+      ],
       "id": "bge_m3",
       "kind": "tool",
       "level": "L0",
@@ -449,7 +453,36 @@
       ],
       "name": "BGE-M3",
       "package": "FlagEmbedding",
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A5",
+          "did": "Это модель представлений: она превращает текст в вектор, и на этом её роль кончается.",
+          "question": "Модель поддерживает и разреженное, и многовекторное представление помимо плотного. Записано плотное как основное применение; строго говоря, здесь нужна пометка «выбирается на ходу».",
+          "residual_term": null,
+          "source": "карточка модели BAAI/bge-m3",
+          "technology_id": "bge_m3",
+          "to": "dense_single",
+          "why": "Запись занимает ровно одно измерение из двадцати шести — то, которое описывает способ представления."
+        },
+        {
+          "code": "G3",
+          "did": "Модель обучена под задачу поиска.",
+          "residual_term": null,
+          "source": "карточка модели BAAI/bge-m3",
+          "technology_id": "bge_m3",
+          "to": "trained_retriever",
+          "why": "Обучаемость относится к поисковой стороне."
+        },
+        {
+          "code": "E1",
+          "did": "Модель ничего не порождает и запросы не преобразует.",
+          "inapplicable": true,
+          "residual_term": null,
+          "source": "карточка модели BAAI/bge-m3",
+          "technology_id": "bge_m3",
+          "why": "Она часть системы, а не система: измерения синтеза, запроса и извлечения к ней не относятся."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -555,9 +588,9 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
-      "core_idea": null,
+      "core_idea": "Словарный поиск по совпадению слов: базовая точка отсчёта до векторов.",
       "evidence": [
         {
           "fetched_at": "2026-08-08",
@@ -593,10 +626,47 @@
           "L0"
         ]
       },
-      "links": [],
+      "links": [
+        {
+          "kind": "paper",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://doi.org/10.1561/1500000019",
+          "verified_at": null
+        }
+      ],
       "name": "BM25 Sparse",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A5",
+          "did": "Документ представлен словами и их весами, а не вектором смысла.",
+          "instead": "«плотное представление»: приём как раз ему предшествует и служит точкой сравнения.",
+          "residual_term": null,
+          "source": "Robertson & Zaragoza, 2009",
+          "technology_id": "bm25_sparse",
+          "to": "lexical",
+          "why": "Сопоставление идёт по совпадению слов."
+        },
+        {
+          "code": "C1",
+          "did": "Оператор поиска сопоставляет слова запроса словам документа с весами.",
+          "residual_term": null,
+          "source": "Robertson & Zaragoza, 2009",
+          "technology_id": "bm25_sparse",
+          "to": "lexical",
+          "why": "Иного способа отбора в приёме нет."
+        },
+        {
+          "code": "D1",
+          "did": "Порядок задаёт сама функция ранжирования.",
+          "residual_term": null,
+          "source": "Robertson & Zaragoza, 2009",
+          "technology_id": "bm25_sparse",
+          "to": "none",
+          "why": "Отдельной ступени пересмотра нет."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -1237,7 +1307,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "LLM-генерируемый контекст-prepend к каждому чанку перед эмбеддингом.",
       "evidence": [
@@ -1285,7 +1355,18 @@
       ],
       "name": "Contextual Retrieval",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A3",
+          "did": "Перед индексацией к каждому куску приписывается короткое пояснение, откуда он и о чём, порождённое языковой моделью.",
+          "instead": "«пересказ»: там кусок заменяется изложением, а здесь дополняется, оставаясь собой.",
+          "residual_term": null,
+          "source": "Anthropic, Contextual Retrieval",
+          "technology_id": "contextual_retrieval",
+          "to": "context_prefix",
+          "why": "Единица индекса обогащается приписанным контекстом. У схемы есть значение с этим именем."
+        }
+      ],
       "prose_id": "contextual_retrieval",
       "residual": []
     },
@@ -2461,7 +2542,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
       "evidence": [
@@ -2523,7 +2604,27 @@
       ],
       "name": "HyDE",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "Языковая модель сочиняет по вопросу вымышленный документ-ответ, и поиск ведётся уже по нему, а не по самому вопросу.",
+          "instead": "«без преобразования»: оно описало бы обычный поиск по вопросу, от которого приём и отличается.",
+          "residual_term": null,
+          "source": "arXiv:2212.10496, метод",
+          "technology_id": "hyde",
+          "to": "hyde",
+          "why": "Запрос подменяется порождённым текстом до всякого обращения к индексу. У схемы есть значение с этим именем."
+        },
+        {
+          "code": "G3",
+          "did": "Ни модель, сочиняющая документ, ни кодировщик не обучаются: обе берутся готовыми.",
+          "residual_term": null,
+          "source": "arXiv:2212.10496, метод",
+          "technology_id": "hyde",
+          "to": "frozen",
+          "why": "Приём складывает существующие части, ничего не доучивая."
+        }
+      ],
       "prose_id": "hyde",
       "residual": []
     },
@@ -3514,7 +3615,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "N переформулировок запроса, поиск по каждой, объединение.",
       "evidence": [
@@ -3531,7 +3632,8 @@
       "family": "G",
       "first_published": null,
       "groups": [
-        "B"
+        "B",
+        "C"
       ],
       "id": "multi_query",
       "kind": "technique",
@@ -3562,7 +3664,27 @@
       ],
       "name": "Multi-Query Retrieval",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "Из одного вопроса порождается несколько переформулировок, и поиск идёт по каждой.",
+          "residual_term": null,
+          "source": "документация LangChain, MultiQueryRetriever",
+          "technology_id": "multi_query",
+          "to": "multi_reformulation",
+          "why": "Запрос размножается до обращения к индексу."
+        },
+        {
+          "code": "C3",
+          "did": "Найденное по разным переформулировкам сливается в один список.",
+          "question": "Слияние по рангам — распространённая реализация приёма, но не единственная возможная; библиотеки допускают и простое объединение.",
+          "residual_term": null,
+          "source": "документация LangChain, MultiQueryRetriever",
+          "technology_id": "multi_query",
+          "to": "rrf",
+          "why": "Результаты нескольких поисков надо свести, и слияние здесь по рангам."
+        }
+      ],
       "prose_id": "multi_query",
       "residual": []
     },
@@ -3741,25 +3863,53 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
-      "core_idea": null,
+      "core_idea": "Плотный поиск по одному вектору на пассаж: базовая точка отсчёта.",
       "evidence": [],
       "evidence_basis": null,
       "evidence_count": 0,
       "family": null,
       "first_published": null,
       "groups": [
-        "A"
+        "A",
+        "C"
       ],
       "id": "naive_dense",
       "kind": "technique",
       "level": null,
       "level_reason": null,
-      "links": [],
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2004.04906",
+          "verified_at": null
+        }
+      ],
       "name": "Naive Dense",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A5",
+          "did": "Каждый пассаж кодируется одним вектором, вопрос тоже, и поиск идёт по близости этих векторов.",
+          "residual_term": null,
+          "source": "arXiv:2004.04906, метод",
+          "technology_id": "naive_dense",
+          "to": "dense_single",
+          "why": "Это базовая точка отсчёта конфигурационного пространства: запись существует, чтобы остальным было от чего отличаться."
+        },
+        {
+          "code": "C1",
+          "did": "Отбор ведётся приближённым поиском ближайших соседей.",
+          "residual_term": null,
+          "source": "arXiv:2004.04906, метод",
+          "technology_id": "naive_dense",
+          "to": "ann",
+          "why": "Оператор поиска базовый."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -4004,19 +4154,13 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
-        "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
-        "C3": "none",
-        "C4": "single_store",
+        "C3": "rrf",
+        "C4": "multiple_local",
         "D1": "cross_encoder",
         "D2": "top_k",
         "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
-        "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4024,8 +4168,15 @@
         "G2": "server",
         "G3": "frozen"
       },
-      "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_inapplicable": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "B1",
+        "B2"
+      ],
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -4062,7 +4213,10 @@
       "evidence_count": 4,
       "family": null,
       "first_published": null,
-      "groups": [],
+      "groups": [
+        "A",
+        "C"
+      ],
       "id": "opensearch",
       "kind": "tool",
       "level": "L2",
@@ -4092,7 +4246,26 @@
       ],
       "name": "OpenSearch",
       "package": "opensearch-py",
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C3",
+          "did": "Хранилище умеет выполнять словарный и векторный поиск и сливать их результаты по рангам.",
+          "residual_term": null,
+          "source": "документация OpenSearch",
+          "technology_id": "opensearch",
+          "to": "rrf",
+          "why": "Слияние источников встроено в сам продукт."
+        },
+        {
+          "code": "C4",
+          "did": "Данные разносятся по узлам кластера.",
+          "residual_term": null,
+          "source": "документация OpenSearch",
+          "technology_id": "opensearch",
+          "to": "multiple_local",
+          "why": "Продукт работает распределённо."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -4344,19 +4517,13 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
-        "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
-        "C4": "single_store",
+        "C4": "multiple_local",
         "D1": "cross_encoder",
         "D2": "top_k",
         "D3": "natural_order",
-        "E1": "single_pass",
-        "E2": "none",
-        "E3": "none",
-        "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4364,8 +4531,15 @@
         "G2": "server",
         "G3": "frozen"
       },
-      "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_inapplicable": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "B1",
+        "B2"
+      ],
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -4402,7 +4576,10 @@
       "evidence_count": 4,
       "family": null,
       "first_published": null,
-      "groups": [],
+      "groups": [
+        "A",
+        "C"
+      ],
       "id": "qdrant",
       "kind": "tool",
       "level": "L2",
@@ -4432,7 +4609,37 @@
       ],
       "name": "Qdrant",
       "package": "qdrant-client",
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C1",
+          "did": "Хранилище отвечает на запрос поиском ближайших соседей по векторам.",
+          "residual_term": null,
+          "source": "документация Qdrant",
+          "technology_id": "qdrant",
+          "to": "ann",
+          "why": "Это его основная операция."
+        },
+        {
+          "code": "C4",
+          "did": "Данные разносятся по узлам кластера с копиями.",
+          "instead": "«федерация»: она означала бы обращение к чужим независимым хранилищам, а здесь узлы свои.",
+          "residual_term": null,
+          "source": "документация Qdrant",
+          "technology_id": "qdrant",
+          "to": "multiple_local",
+          "why": "Хранилище работает не одним экземпляром."
+        },
+        {
+          "code": "E1",
+          "did": "Хранилище ничего не порождает: оно отдаёт найденное.",
+          "inapplicable": true,
+          "question": "Так же устроены все инструменты реестра: они не системы, а их части, и занимают одно-два измерения из двадцати шести. Возможно, роду «инструмент» нужно правило, а не пометки, — как это сделано для атак.",
+          "residual_term": null,
+          "source": "документация Qdrant",
+          "technology_id": "qdrant",
+          "why": "Ступени синтеза нет, как и преобразования запроса: и то и другое делает система, которая хранилище использует."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -4603,10 +4810,10 @@
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "trained_retriever"
+        "G3": "joint_training"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Joint fine-tuning LLM-ридера и ретривера.",
       "evidence": [
@@ -4661,7 +4868,18 @@
       ],
       "name": "RA-DIT",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "G3",
+          "did": "Обучение идёт в два захода: сперва языковая модель учится пользоваться найденным, затем поисковик учится находить то, что этой модели полезно.",
+          "instead": "«обучаемый читатель»: оно описало бы только первый заход и потеряло бы взаимную подстройку, ради которой работа и сделана.",
+          "residual_term": null,
+          "source": "arXiv:2310.01352, метод",
+          "technology_id": "ra_dit",
+          "to": "joint_training",
+          "why": "Обучаются обе стороны, и вторая подстраивается под первую. Это и есть совместное обучение."
+        }
+      ],
       "prose_id": "ra_dit",
       "residual": []
     },
@@ -4690,17 +4908,17 @@
         "D3": "natural_order",
         "E1": "single_pass",
         "E2": "none",
-        "E3": "none",
+        "E3": "fragment_level",
         "E4": "no_refusal",
         "F1": "none",
         "F2": "none",
         "F3": "none",
         "G1": "open",
         "G2": "server",
-        "G3": "trained_retriever"
+        "G3": "trained_reader"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
       "evidence": [
@@ -4724,6 +4942,7 @@
       "family": "I",
       "first_published": "2024-03",
       "groups": [
+        "E",
         "G"
       ],
       "id": "raft",
@@ -4755,7 +4974,27 @@
       ],
       "name": "RAFT",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "G3",
+          "did": "Модель дообучается отвечать в присутствии отвлекающих документов: узнавать нужные и не поддаваться лишним.",
+          "instead": "«совместное обучение»: источник изменения поисковика не описывает.",
+          "residual_term": null,
+          "source": "arXiv:2403.10131, метод",
+          "technology_id": "raft",
+          "to": "trained_reader",
+          "why": "Обучается читатель; поисковик работа не трогает."
+        },
+        {
+          "code": "E3",
+          "did": "Модель учат приводить дословный отрывок нужного документа вместе с рассуждением.",
+          "residual_term": null,
+          "source": "arXiv:2403.10131, метод",
+          "technology_id": "raft",
+          "to": "fragment_level",
+          "why": "Утверждение связывается с фрагментом, а не с документом целиком."
+        }
+      ],
       "prose_id": "raft",
       "residual": []
     },
@@ -4906,7 +5145,7 @@
         "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
-        "C3": "none",
+        "C3": "rrf",
         "C4": "single_store",
         "D1": "cross_encoder",
         "D2": "top_k",
@@ -4923,7 +5162,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "N вариантов запроса и слияние через Reciprocal Rank Fusion.",
       "evidence": [
@@ -4972,7 +5211,26 @@
       ],
       "name": "RAG-Fusion",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "Порождается несколько вариантов запроса, поиск выполняется по каждому.",
+          "residual_term": null,
+          "source": "репозиторий Raudaschl/rag-fusion",
+          "technology_id": "rag_fusion",
+          "to": "multi_reformulation",
+          "why": "Запрос размножается до обращения к индексу."
+        },
+        {
+          "code": "C3",
+          "did": "Списки результатов сливаются взаимным ранговым слиянием; в этом всё содержание приёма.",
+          "residual_term": null,
+          "source": "репозиторий Raudaschl/rag-fusion",
+          "technology_id": "rag_fusion",
+          "to": "rrf",
+          "why": "Способ слияния и есть то, чем приём отличается от простого размножения запроса."
+        }
+      ],
       "prose_id": "rag_fusion",
       "residual": []
     },
@@ -5784,7 +6042,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
       "evidence": [],
@@ -5812,7 +6070,26 @@
       ],
       "name": "Standard HybridRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C3",
+          "did": "Словарный и векторный поиск выполняются оба, а их списки сливаются по рангам.",
+          "residual_term": null,
+          "source": "обзор гибридного RAG, atlan.com",
+          "technology_id": "standard_hybridrag",
+          "to": "rrf",
+          "why": "Слияние двух источников и есть определяющая черта сочетания."
+        },
+        {
+          "code": "D1",
+          "did": "Поверх слитого списка работает отдельная модель переранжирования.",
+          "residual_term": null,
+          "source": "обзор гибридного RAG, atlan.com",
+          "technology_id": "standard_hybridrag",
+          "to": "cross_encoder",
+          "why": "Ступень пересмотра порядка присутствует и выполняется другой моделью."
+        }
+      ],
       "prose_id": "standard_hybridrag",
       "residual": []
     },
@@ -5830,7 +6107,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "multi_reformulation",
+        "B1": "step_back",
         "B2": "static",
         "C1": "ann",
         "C2": "single_shot",
@@ -5851,7 +6128,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "LLM задает более абстрактный вопрос, поиск по нему, затем конкретный ответ.",
       "evidence": [
@@ -5906,7 +6183,19 @@
       ],
       "name": "Step-Back Prompting",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "По частному вопросу модель выводит более общий и ищет ответ на него, чтобы затем вернуться к исходному.",
+          "instead": "«разложение на подвопросы»: там вопрос дробится вширь, а здесь поднимается на уровень выше.",
+          "question": "Аннотация описывает приём как способ рассуждения и об извлечении говорит вскользь. Значение выведено из названия приёма и его применения в реестре, а не из явного описания поиска.",
+          "residual_term": null,
+          "source": "arXiv:2310.06117, метод",
+          "technology_id": "step_back",
+          "to": "step_back",
+          "why": "Запрос заменяется его обобщением. У схемы есть значение с этим именем."
+        }
+      ],
       "prose_id": "step_back",
       "residual": []
     },
@@ -6295,7 +6584,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
       "evidence": [
@@ -6326,7 +6615,8 @@
       "family": "H",
       "first_published": null,
       "groups": [
-        "A"
+        "A",
+        "C"
       ],
       "id": "vectorless",
       "kind": "technique",
@@ -6357,7 +6647,36 @@
       ],
       "name": "Vectorless",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A5",
+          "did": "Представлений не строится вовсе: навигация идёт по оглавлению документа логическими шагами.",
+          "instead": "«плотное представление»: приём существует именно как отказ от него.",
+          "residual_term": null,
+          "source": "репозиторий VectifyAI/PageIndex",
+          "technology_id": "vectorless",
+          "to": "none",
+          "why": "Модели представления в приёме нет, и это его определяющее свойство."
+        },
+        {
+          "code": "A4",
+          "did": "Индекс — дерево оглавления документа.",
+          "residual_term": null,
+          "source": "репозиторий VectifyAI/PageIndex",
+          "technology_id": "vectorless",
+          "to": "tree",
+          "why": "Структура иерархическая, у каждого узла один родитель."
+        },
+        {
+          "code": "C1",
+          "did": "Нужный раздел находится спуском по дереву оглавления.",
+          "residual_term": null,
+          "source": "репозиторий VectifyAI/PageIndex",
+          "technology_id": "vectorless",
+          "to": "tree_navigation",
+          "why": "Отбор — движение по структуре, а не сравнение представлений."
+        }
+      ],
       "prose_id": "vectorless",
       "residual": []
     },

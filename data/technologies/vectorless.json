@@ -31,13 +31,14 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "TOC-дерево и логическая навигация без эмбеддингов.",
   "family": "H",
   "first_published": null,
   "groups": [
-    "A"
+    "A",
+    "C"
   ],
   "id": "vectorless",
   "kind": "technique",

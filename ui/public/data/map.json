@@ -96,8 +96,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "G"
+      ],
       "history": [
         {
           "at": "2026-08-08",
@@ -716,7 +719,8 @@
       "first_published": null,
       "group": "B",
       "groups": [
-        "B"
+        "B",
+        "C"
       ],
       "history": [
         {
@@ -769,7 +773,8 @@
       "first_published": null,
       "group": "A",
       "groups": [
-        "A"
+        "A",
+        "C"
       ],
       "history": [],
       "id": "naive_dense",
@@ -840,8 +845,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
       "history": [
         {
           "at": "2026-08-08",
@@ -918,8 +926,11 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
-      "group": null,
-      "groups": [],
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
       "history": [
         {
           "at": "2026-08-08",
@@ -994,8 +1005,9 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-03",
-      "group": "G",
+      "group": "E",
       "groups": [
+        "E",
         "G"
       ],
       "history": [
@@ -1347,7 +1359,8 @@
       "first_published": null,
       "group": "A",
       "groups": [
-        "A"
+        "A",
+        "C"
       ],
       "history": [
         {

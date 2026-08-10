@@ -12,7 +12,7 @@
     "B2": "static",
     "C1": "ann",
     "C2": "single_shot",
-    "C3": "none",
+    "C3": "rrf",
     "C4": "single_store",
     "D1": "cross_encoder",
     "D2": "top_k",
@@ -29,7 +29,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "N вариантов запроса и слияние через Reciprocal Rank Fusion.",
   "family": "G",

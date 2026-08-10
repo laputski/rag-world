@@ -17,13 +17,13 @@
     "unknown": 5
   },
   "by_stratum": {
-    "A": 23,
+    "A": 26,
     "B": 12,
-    "C": 23,
+    "C": 28,
     "D": 9,
-    "E": 13,
+    "E": 14,
     "F": 5,
-    "G": 12
+    "G": 13
   },
   "evidence_total": 137,
   "freshest_evidence": "2026-08-09",

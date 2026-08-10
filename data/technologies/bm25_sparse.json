@@ -30,7 +30,10 @@
     "G2": "server",
     "G3": "frozen"
   },
-  "core_idea": null,
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-08-10",
+  "configuration_variable": [],
+  "core_idea": "Словарный поиск по совпадению слов: базовая точка отсчёта до векторов.",
   "family": null,
   "first_published": null,
   "groups": [
@@ -39,7 +42,15 @@
   ],
   "id": "bm25_sparse",
   "kind": "technique",
-  "links": [],
+  "links": [
+    {
+      "kind": "paper",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://doi.org/10.1561/1500000019",
+      "verified_at": null
+    }
+  ],
   "name": "BM25 Sparse",
   "package": null,
   "prose_id": null,

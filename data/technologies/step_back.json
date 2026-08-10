@@ -8,7 +8,7 @@
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
-    "B1": "multi_reformulation",
+    "B1": "step_back",
     "B2": "static",
     "C1": "ann",
     "C2": "single_shot",
@@ -29,7 +29,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "LLM задает более абстрактный вопрос, поиск по нему, затем конкретный ответ.",
   "family": "G",
