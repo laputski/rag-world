@@ -11,13 +11,13 @@
     "A6": "snapshot",
     "A7": "text",
     "B1": "identity",
-    "B2": "static",
+    "B2": "trained_classifier",
     "C1": "ann",
     "C2": "single_shot",
     "C3": "none",
-    "C4": "single_store",
+    "C4": "federation",
     "D1": "none",
-    "D2": "top_k",
+    "D2": "abstractive_compression",
     "D3": "natural_order",
     "E1": "single_pass",
     "E2": "post_gen_check",
@@ -31,12 +31,16 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
-  "configuration_variable": [],
+  "configuration_reviewed": "2026-08-10",
+  "configuration_variable": [
+    "C4"
+  ],
   "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
   "family": "A",
   "first_published": "2024",
   "groups": [
+    "B",
+    "C",
     "D",
     "E"
   ],

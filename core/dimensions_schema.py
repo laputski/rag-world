@@ -184,12 +184,15 @@ DEFAULTS: dict[str, str] = {d.code: d.default for d in DIMENSIONS}
 # обнажающих новую несовместимость.
 
 CONSTRAINTS: tuple[Constraint, ...] = (
-    # 1. toc_tree (Vectorless) не использует векторы → исключает dense/cross_encoder.
-    #    A4=tree + A5 векторная модель несовместимы; D1=cross_encoder требует A5≠none.
-    Constraint("excludes", "A4", "tree", "A5", "dense_single",
-               reason="Vectorless (tree) не использует векторы (lat.md §4)"),
-    Constraint("excludes", "A4", "tree", "A5", "dense_multi_late_interaction",
-               reason="Vectorless (tree) не использует векторы"),
+    # Ограничения «дерево исключает векторы» здесь были и сняты: они обобщали
+    # свойство одной системы на всё значение. Не использует векторы Vectorless,
+    # а не древовидный индекс вообще — RAPTOR строит дерево рекурсивной
+    # кластеризацией представлений и ими же ищет. Свойство самой Vectorless
+    # выражается значением A5=none и отдельного запрета не требует.
+    #
+    # Урок общий: несовместимость записывается сюда, только если она следует из
+    # устройства значений, а не из того, что первая встреченная система такого
+    # сочетания не имела.
     # cross_encoder несовместим с невекторными моделями (none, lexical, symbolic).
     # dense_single/multi/vision_language допустимы — cross_encoder работает по любому
     # векторному входу. Это разрешает graph store + cross_encoder (PathRAG-стиль),

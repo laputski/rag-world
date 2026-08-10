@@ -4,13 +4,13 @@
     "A1": "summary_node",
     "A2": "semantic",
     "A3": "summary",
-    "A4": "flat",
+    "A4": "tree",
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
     "B1": "identity",
     "B2": "static",
-    "C1": "ann",
+    "C1": "tree_navigation",
     "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
@@ -29,13 +29,14 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Рекурсивная кластеризация и суммаризация в многоуровневое дерево.",
   "family": "H",
   "first_published": "2024",
   "groups": [
-    "A"
+    "A",
+    "C"
   ],
   "id": "raptor",
   "kind": "technique",
@@ -51,5 +52,7 @@
   "name": "RAPTOR",
   "package": null,
   "prose_id": "raptor",
-  "residual": []
+  "residual": [
+    "hierarchical_community_clustering"
+  ]
 }

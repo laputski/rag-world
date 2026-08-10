@@ -1,7 +1,7 @@
 {
   "aliases": [],
   "configuration": {
-    "A1": "passage",
+    "A1": "node_edge",
     "A2": "fixed",
     "A3": "none",
     "A4": "graph",
@@ -11,7 +11,7 @@
     "B1": "identity",
     "B2": "static",
     "C1": "graph_traversal",
-    "C2": "multi_hop_fixed",
+    "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
     "D1": "path_pruning",
@@ -29,7 +29,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
   "family": "B",

@@ -1306,13 +1306,13 @@
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
-        "B2": "static",
+        "B2": "trained_classifier",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
-        "C4": "single_store",
+        "C4": "federation",
         "D1": "none",
-        "D2": "top_k",
+        "D2": "abstractive_compression",
         "D3": "natural_order",
         "E1": "single_pass",
         "E2": "post_gen_check",
@@ -1326,8 +1326,10 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
-      "configuration_variable": [],
+      "configuration_reviewed": "2026-08-10",
+      "configuration_variable": [
+        "C4"
+      ],
       "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
       "evidence": [
         {
@@ -1357,6 +1359,8 @@
       "family": "A",
       "first_published": "2024",
       "groups": [
+        "B",
+        "C",
         "D",
         "E"
       ],
@@ -1389,7 +1393,58 @@
       ],
       "name": "CRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B2",
+          "did": "Отдельная лёгкая модель оценивает, годятся ли найденные документы, и выдаёт степень уверенности; по ней выбирается дальнейшее действие.",
+          "instead": "«маршрутизация языковой моделью»: оценщик здесь отдельный и лёгкий, в этом смысл приёма.",
+          "residual_term": null,
+          "source": "arXiv:2401.15884, метод",
+          "technology_id": "crag",
+          "to": "trained_classifier",
+          "why": "Маршрут задаёт отдельная модель-оценщик, а не подсказка языковой модели."
+        },
+        {
+          "code": "C4",
+          "did": "Когда найденное в своём корпусе признано негодным, система идёт в веб-поиск: корпус перестаёт быть единственным хранилищем.",
+          "instead": "«одно хранилище»: оно описало бы только ту ветвь, где найденное признано годным.",
+          "residual_term": null,
+          "source": "arXiv:2401.15884, метод",
+          "technology_id": "crag",
+          "to": "federation",
+          "variable": true,
+          "why": "Извлечение может обращаться к внешнему источнику помимо своего, и решается это по ходу — отсюда пометка."
+        },
+        {
+          "code": "D2",
+          "did": "Найденные документы разбираются на части, ненужное отбрасывается, оставшееся собирается заново.",
+          "residual_term": null,
+          "source": "arXiv:2401.15884, метод",
+          "technology_id": "crag",
+          "to": "abstractive_compression",
+          "why": "Контекст сокращается переработкой содержания, а не отбором первых k."
+        },
+        {
+          "code": "E2",
+          "did": "Годность найденного проверяется до подачи в генератор, отдельным шагом.",
+          "instead": "«проверка во время порождения»: там оценка идёт по ходу генерации, здесь до неё.",
+          "question": "Оценивается пригодность найденного, а не обоснованность ответа. Возможно, это ближе к «предварительной проверке обоснованности», чем к проверке после порождения.",
+          "residual_term": null,
+          "source": "arXiv:2401.15884, метод",
+          "technology_id": "crag",
+          "to": "post_gen_check",
+          "why": "Проверка выполняется вне порождения, а не встроена в него служебными словами."
+        },
+        {
+          "code": "D1",
+          "did": "Порядок документов не пересматривается отдельной моделью; вместо этого они переписываются.",
+          "residual_term": null,
+          "source": "arXiv:2401.15884, метод",
+          "technology_id": "crag",
+          "to": "none",
+          "why": "Ступени переранжирования нет."
+        }
+      ],
       "prose_id": "crag",
       "residual": []
     },
@@ -1982,10 +2037,10 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "B1": "identity",
+        "B1": "multi_reformulation",
         "B2": "static",
         "C1": "ann",
-        "C2": "single_shot",
+        "C2": "iterative_stopping",
         "C3": "none",
         "C4": "single_store",
         "D1": "none",
@@ -2003,7 +2058,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Генерирует tentative-предложение и инициирует поиск при неуверенности модели.",
       "evidence": [
@@ -2034,6 +2089,7 @@
       "family": "A",
       "first_published": "2023",
       "groups": [
+        "B",
         "C",
         "E"
       ],
@@ -2066,9 +2122,58 @@
       ],
       "name": "FLARE",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "B1",
+          "did": "Система предсказывает, каким будет следующее предложение ответа, и этим предсказанием ищет.",
+          "instead": "«без преобразования»: исходный вопрос здесь запросом почти не работает.",
+          "residual_term": null,
+          "source": "arXiv:2305.06983, метод",
+          "technology_id": "flare",
+          "to": "multi_reformulation",
+          "why": "Запросом служит порождённый текст, и за один ответ таких запросов несколько."
+        },
+        {
+          "code": "C2",
+          "did": "Извлечение повторяется по ходу порождения и прекращается вместе с ответом.",
+          "residual_term": null,
+          "source": "arXiv:2305.06983, метод",
+          "technology_id": "flare",
+          "to": "iterative_stopping",
+          "why": "Число обращений заранее неизвестно и определяется течением генерации."
+        },
+        {
+          "code": "E2",
+          "did": "Признаком, что нужно искать, служит низкая уверенность модели в только что порождённых словах.",
+          "instead": "«проверка после порождения»: она смотрела бы на готовый ответ, а здесь решение принимается посреди него.",
+          "residual_term": null,
+          "source": "arXiv:2305.06983, метод",
+          "technology_id": "flare",
+          "to": "decoding_trigger",
+          "why": "Сигнал берётся из самого порождения. У схемы есть ровно такое значение."
+        },
+        {
+          "code": "D1",
+          "did": "Ступени пересмотра порядка найденного в работе не описано.",
+          "residual_term": null,
+          "source": "arXiv:2305.06983, метод",
+          "technology_id": "flare",
+          "to": "none",
+          "why": "Найденное подаётся в продолжение генерации напрямую."
+        },
+        {
+          "did": "Порождение ответа и извлечение чередуются: текст решает, когда искать, найденное меняет текст.",
+          "residual": "reasoning_retrieval_interleaving",
+          "residual_term": "чередование шага рассуждения с шагом извлечения",
+          "source": "arXiv:2305.06983, метод",
+          "technology_id": "flare",
+          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза; связь между ними не выражена ни тем, ни другим."
+        }
+      ],
       "prose_id": "flare",
-      "residual": []
+      "residual": [
+        "чередование шага рассуждения с шагом извлечения"
+      ]
     },
     {
       "aliases": [
@@ -3998,7 +4103,7 @@
       "attention_raw": 1.6,
       "confidence": 1.0,
       "configuration": {
-        "A1": "passage",
+        "A1": "node_edge",
         "A2": "fixed",
         "A3": "none",
         "A4": "graph",
@@ -4008,7 +4113,7 @@
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
-        "C2": "multi_hop_fixed",
+        "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
         "D1": "path_pruning",
@@ -4026,7 +4131,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
       "evidence": [
@@ -4090,7 +4195,64 @@
       ],
       "name": "PathRAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Индекс представляет текст графом сущностей и связей вместо набора кусков.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "graph",
+          "why": "У индекса есть связность, по которой строятся пути."
+        },
+        {
+          "code": "A1",
+          "did": "Возвращаются не куски текста, а пути по графу — цепочки связей, переведённые затем в текст.",
+          "instead": "«пассаж»: он описал бы прежний подход, от которого работа отталкивается.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "node_edge",
+          "why": "Единица извлечения здесь фрагмент структуры, а не пассаж."
+        },
+        {
+          "code": "C1",
+          "did": "Поиск идёт движением по связям графа.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "graph_traversal",
+          "why": "Ответ отбирается обходом структуры."
+        },
+        {
+          "code": "D1",
+          "did": "Лишние пути отсекаются потоковым отсевом: работа считает бедой графовых методов избыток, а не нехватку найденного.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "path_pruning",
+          "why": "У схемы есть значение, описывающее именно отсечение путей; общее «переранжирование» потеряло бы суть приёма."
+        },
+        {
+          "code": "D3",
+          "did": "Пути размещаются в подсказке в заданном порядке, и работа связывает с ним связность ответа.",
+          "question": "Источник называет приём «подсказкой по путям», но точного правила порядка не раскрывает. Значение выбрано как ближайшее из имеющихся.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "reliability_ascending",
+          "why": "Порядок задаётся сознательно, а не совпадает с порядком находки."
+        },
+        {
+          "code": "C2",
+          "did": "Пути отбираются за один заход; повторных обращений к индексу не описано.",
+          "residual_term": null,
+          "source": "arXiv:2502.14902, метод",
+          "technology_id": "pathrag",
+          "to": "single_shot",
+          "why": "Многошаговость обеспечена длиной пути, а не серией запросов."
+        }
+      ],
       "prose_id": "pathrag",
       "residual": []
     },
@@ -4824,13 +4986,13 @@
         "A1": "summary_node",
         "A2": "semantic",
         "A3": "summary",
-        "A4": "flat",
+        "A4": "tree",
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
         "B2": "static",
-        "C1": "ann",
+        "C1": "tree_navigation",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
@@ -4849,7 +5011,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Рекурсивная кластеризация и суммаризация в многоуровневое дерево.",
       "evidence": [
@@ -4880,7 +5042,8 @@
       "family": "H",
       "first_published": "2024",
       "groups": [
-        "A"
+        "A",
+        "C"
       ],
       "id": "raptor",
       "kind": "technique",
@@ -4911,9 +5074,66 @@
       ],
       "name": "RAPTOR",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Куски текста рекурсивно объединяются в группы и пересказываются, и так снизу вверх строится дерево.",
+          "instead": "«иерархия сообществ»: она предполагает разбиение графа, а здесь группируются куски текста.",
+          "residual_term": null,
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "to": "tree",
+          "why": "Индекс имеет уровни, и это дерево, а не граф: у каждого узла один родитель."
+        },
+        {
+          "code": "A1",
+          "did": "На верхних уровнях дерева лежат пересказы групп, и извлекаться могут они, а не только исходные куски.",
+          "residual_term": null,
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "to": "summary_node",
+          "why": "Единицей извлечения становится узел-пересказ."
+        },
+        {
+          "code": "A3",
+          "did": "Пересказы порождаются заранее, при построении дерева.",
+          "residual_term": null,
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "to": "summary",
+          "why": "Единица индекса несёт добавленный к ней пересказ."
+        },
+        {
+          "code": "C1",
+          "did": "Извлечение работает по дереву, собирая сведения с разных уровней обобщения.",
+          "residual_term": null,
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "to": "tree_navigation",
+          "why": "Ответ отбирается движением по уровням, а не сравнением в плоском списке."
+        },
+        {
+          "code": "D1",
+          "did": "Отдельной модели переранжирования в работе не описано.",
+          "residual_term": null,
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "to": "none",
+          "why": "Порядок задаёт сам обход дерева."
+        },
+        {
+          "did": "Группы кусков вычисляются кластеризацией, применяемой рекурсивно, а не заданы структурой документа.",
+          "residual": "hierarchical_community_clustering",
+          "residual_term": "иерархическая кластеризация узлов по сообществам",
+          "source": "arXiv:2401.18059, метод",
+          "technology_id": "raptor",
+          "why": "Топология индекса говорит, что это дерево, но не откуда взялось разбиение."
+        }
+      ],
       "prose_id": "raptor",
-      "residual": []
+      "residual": [
+        "иерархическая кластеризация узлов по сообществам"
+      ]
     },
     {
       "aliases": [],
