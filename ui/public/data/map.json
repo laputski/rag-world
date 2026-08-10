@@ -625,8 +625,10 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-05",
-      "group": "E",
+      "group": "B",
       "groups": [
+        "B",
+        "C",
         "E"
       ],
       "history": [
@@ -891,10 +893,8 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-02",
-      "group": "G",
-      "groups": [
-        "G"
-      ],
+      "group": null,
+      "groups": [],
       "history": [
         {
           "at": "2026-08-08",

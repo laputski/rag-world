@@ -108,9 +108,20 @@ def check_registry() -> list[str]:
                     f"data/residual_vocabulary.json"
                 )
 
-        if tech.configuration_reviewed and not tech.configuration:
+        # Разобранная запись обязана что-то утверждать: либо значения, либо то,
+        # что измерения к ней неприменимы. Второе — не уловка: конфигурационное
+        # пространство описывает системы RAG, а в реестре есть и объекты иного
+        # рода. Атака на хранилище системой не является: у неё нет ни индекса,
+        # ни извлечения, ни синтеза, и значения измерений утверждали бы о
+        # несуществующем целиком, а не в одной страте.
+        if (
+            tech.configuration_reviewed
+            and not tech.configuration
+            and not tech.configuration_inapplicable
+        ):
             problems.append(
-                f"{where}: конфигурация помечена разобранной, но пуста"
+                f"{where}: конфигурация помечена разобранной, но запись не "
+                "утверждает ни значений, ни неприменимости"
             )
 
         both = set(tech.configuration_variable) & set(tech.configuration_inapplicable)
