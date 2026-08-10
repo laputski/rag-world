@@ -28,16 +28,15 @@
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "frozen"
+    "G3": "joint_training"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2024-01",
   "groups": [
-    "E",
     "G"
   ],
   "id": "chatqa",

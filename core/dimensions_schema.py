@@ -207,8 +207,11 @@ CONSTRAINTS: tuple[Constraint, ...] = (
     Constraint("excludes", "A4", "hypergraph", "D1", "path_pruning",
                reason="hypergraph ontology использует set_cover, не path-pruning"),
     # 3. graph store требует graph_traversal как оператор поиска (требует, не исключает).
-    Constraint("requires", "A4", "graph", "C1", "graph_traversal",
-               reason="graph topology требует graph traversal operator"),
+    # Ограничение «граф требует обхода» здесь было и снято: оно тоже обобщало
+    # одну реализацию на всё значение. Граф можно не обходить шаг за шагом, а
+    # запрашивать языком запросов графовой базы — так устроен Unified RAG, и
+    # это обычная практика, а не исключение. Второй раз подряд ограничение
+    # заставляло приписывать записи значение, которого в источнике нет.
     # 4. self_rag_tokens (decoding_reflection) требует fine-tuned модели (G3≠frozen).
     Constraint("requires", "E2", "decoding_reflection", "G3", "trained_reader",
                reason="reflection tokens требуют fine-tuned LLM (lat.md §4)"),

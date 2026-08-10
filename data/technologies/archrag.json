@@ -1,16 +1,16 @@
 {
   "aliases": [],
   "configuration": {
-    "A1": "passage",
+    "A1": "summary_node",
     "A2": "fixed",
-    "A3": "none",
-    "A4": "flat",
+    "A3": "summary",
+    "A4": "community_hierarchy",
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
     "B1": "identity",
     "B2": "static",
-    "C1": "ann",
+    "C1": "tree_navigation",
     "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
@@ -29,7 +29,7 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "Атрибутированные сообщества с индексом C-HNSW и адаптивным спуском.",
   "family": "B",
@@ -52,5 +52,7 @@
   "name": "ArchRAG",
   "package": null,
   "prose_id": "archrag",
-  "residual": []
+  "residual": [
+    "hierarchical_community_clustering"
+  ]
 }

@@ -9,7 +9,7 @@
     "A6": "snapshot",
     "A7": "text",
     "B1": "identity",
-    "B2": "static",
+    "B2": "llm_router",
     "C1": "ann",
     "C2": "agentic_open_loop",
     "C3": "none",
@@ -17,7 +17,7 @@
     "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
-    "E1": "single_pass",
+    "E1": "multi_agent",
     "E2": "none",
     "E3": "none",
     "E4": "no_refusal",
@@ -28,10 +28,17 @@
     "G2": "server",
     "G3": "frozen"
   },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-08-10",
+  "configuration_variable": [
+    "C2",
+    "E1"
+  ],
   "core_idea": null,
   "family": null,
   "first_published": null,
   "groups": [
+    "B",
     "C",
     "E"
   ],
@@ -39,6 +46,10 @@
   "kind": "architecture",
   "links": [],
   "name": "Agentic RAG",
+  "package": null,
   "prose_id": null,
-  "residual": []
+  "residual": [
+    "reasoning_retrieval_interleaving",
+    "per_query_strategy_choice"
+  ]
 }

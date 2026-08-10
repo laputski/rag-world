@@ -4,21 +4,21 @@
     "A1": "passage",
     "A2": "fixed",
     "A3": "none",
-    "A4": "flat",
+    "A4": "graph",
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
-    "B1": "identity",
+    "B1": "subquestion_decomposition",
     "B2": "static",
-    "C1": "ann",
-    "C2": "agentic_open_loop",
+    "C1": "graph_traversal",
+    "C2": "iterative_stopping",
     "C3": "none",
     "C4": "single_store",
     "D1": "cross_encoder",
     "D2": "top_k",
     "D3": "natural_order",
-    "E1": "multi_agent",
-    "E2": "none",
+    "E1": "ensemble_fragments",
+    "E2": "external_judge",
     "E3": "none",
     "E4": "no_refusal",
     "F1": "none",
@@ -29,12 +29,13 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2025-08",
   "groups": [
+    "B",
     "C",
     "E"
   ],
@@ -80,5 +81,7 @@
   "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
   "package": null,
   "prose_id": "test_time",
-  "residual": []
+  "residual": [
+    "reasoning_retrieval_interleaving"
+  ]
 }

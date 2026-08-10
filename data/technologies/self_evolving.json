@@ -11,7 +11,7 @@
     "B1": "identity",
     "B2": "llm_router",
     "C1": "ann",
-    "C2": "single_shot",
+    "C2": "iterative_stopping",
     "C3": "none",
     "C4": "single_store",
     "D1": "cross_encoder",
@@ -21,22 +21,23 @@
     "E2": "none",
     "E3": "none",
     "E4": "no_refusal",
-    "F1": "episodic",
+    "F1": "consolidating",
     "F2": "none",
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "frozen"
+    "G3": "trained_retriever"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": null,
   "groups": [
-    "B",
-    "F"
+    "C",
+    "F",
+    "G"
   ],
   "id": "self_evolving",
   "kind": "paradigm",

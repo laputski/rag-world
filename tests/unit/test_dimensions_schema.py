@@ -151,9 +151,15 @@ def test_phi_hypergraph_excludes_path_pruning():
     assert any("hypergraph" in e for e in validate(cfg))
 
 
-def test_phi_graph_requires_graph_traversal():
-    cfg = {**DEFAULTS, "A4": "graph", "C1": "ann"}
-    assert any("graph traversal" in e for e in validate(cfg))
+def test_graph_topology_allows_a_query_language():
+    """Граф можно не обходить, а запрашивать языком запросов графовой базы.
+
+    Ограничение «граф требует обхода» обобщало одну реализацию на всё значение
+    и дважды заставляло приписывать записи значение, которого в источнике нет.
+    """
+    cfg = {**DEFAULTS, "A4": "graph", "C1": "boolean_query"}
+    assert validate(cfg) == []
+
 
 
 def test_phi_decoding_reflection_requires_trained_reader():
@@ -174,7 +180,7 @@ def test_phi_multi_hop_requires_graph_topology():
 
 def test_phi_constraint_count_is_pinned():
     """Число ограничений закреплено: новое Φ обязано приходить со своим тестом."""
-    assert len(CONSTRAINTS) == 8, (
+    assert len(CONSTRAINTS) == 7, (
         f"Φ содержит {len(CONSTRAINTS)} ограничений; добавьте тест для нового. "
         "Список: " + ", ".join(
             f"{c.dim_a}={c.val_a} {c.kind} {c.dim_b}={c.val_b}" for c in CONSTRAINTS

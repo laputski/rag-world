@@ -12,10 +12,10 @@
     "B2": "static",
     "C1": "ann",
     "C2": "single_shot",
-    "C3": "none",
+    "C3": "rrf",
     "C4": "single_store",
     "D1": "cross_encoder",
-    "D2": "top_k",
+    "D2": "abstractive_compression",
     "D3": "natural_order",
     "E1": "single_pass",
     "E2": "none",
@@ -29,12 +29,14 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2026-02",
   "groups": [
+    "C",
+    "D",
     "G"
   ],
   "id": "edge",

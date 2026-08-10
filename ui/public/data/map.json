@@ -47,8 +47,9 @@
       "confidence": null,
       "evidence_basis": null,
       "first_published": null,
-      "group": "C",
+      "group": "B",
       "groups": [
+        "B",
         "C",
         "E"
       ],
@@ -165,10 +166,10 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
-      "group": "C",
+      "group": "A",
       "groups": [
-        "C",
-        "E"
+        "A",
+        "C"
       ],
       "history": [
         {
@@ -194,9 +195,8 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-01",
-      "group": "E",
+      "group": "G",
       "groups": [
-        "E",
         "G"
       ],
       "history": [
@@ -357,8 +357,10 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2026-02",
-      "group": "G",
+      "group": "C",
       "groups": [
+        "C",
+        "D",
         "G"
       ],
       "history": [
@@ -659,10 +661,13 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
-      "group": "C",
+      "group": "B",
       "groups": [
-        "C",
-        "F"
+        "B",
+        "D",
+        "E",
+        "F",
+        "G"
       ],
       "history": [
         {
@@ -796,7 +801,9 @@
       "group": "A",
       "groups": [
         "A",
-        "E"
+        "C",
+        "D",
+        "G"
       ],
       "history": [
         {
@@ -1142,8 +1149,9 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-05",
-      "group": "G",
+      "group": "E",
       "groups": [
+        "E",
         "G"
       ],
       "history": [
@@ -1166,10 +1174,11 @@
       "confidence": null,
       "evidence_basis": null,
       "first_published": null,
-      "group": "B",
+      "group": "C",
       "groups": [
-        "B",
-        "F"
+        "C",
+        "F",
+        "G"
       ],
       "history": [],
       "id": "self_evolving",
@@ -1308,8 +1317,9 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-08",
-      "group": "C",
+      "group": "B",
       "groups": [
+        "B",
         "C",
         "E"
       ],
