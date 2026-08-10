@@ -204,3 +204,21 @@ export interface ParseNote {
   question?: string;
   source: string;
 }
+
+/**
+ * Механизм, который схема не выражает.
+ *
+ * Очередь остатков — способ растить схему от наблюдений, а не от воображения.
+ * Механизм, который приходится записывать снова и снова, показывает место, где
+ * схема мала; встреченный однажды — частность одной работы.
+ */
+export interface ResidualMechanism {
+  id: string;
+  term: string;
+  /** Почему схема этого не выражает. */
+  note: string;
+  count: number;
+  technologies: { id: string; name: string }[];
+  /** Набрал порог упоминаний и потому предлагается в измерения. */
+  candidate: boolean;
+}

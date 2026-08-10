@@ -1,7 +1,7 @@
 {
   "built_at": "2026-08-09",
   "by_kind": {
-    "architecture": 22,
+    "architecture": 21,
     "attack": 1,
     "paradigm": 11,
     "technique": 16,
@@ -14,10 +14,10 @@
     "L3": 3,
     "L4": 1,
     "L5": 1,
-    "unknown": 5
+    "unknown": 4
   },
   "by_stratum": {
-    "A": 29,
+    "A": 28,
     "B": 14,
     "C": 33,
     "D": 12,
@@ -28,7 +28,7 @@
   "evidence_total": 137,
   "freshest_evidence": "2026-08-09",
   "stale": false,
-  "total": 53,
+  "total": 52,
   "with_attention": 36,
   "with_evidence": 48,
   "with_level": 48

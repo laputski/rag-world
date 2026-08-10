@@ -1,0 +1,201 @@
+{
+  "built_at": "2026-08-09",
+  "candidate_threshold": 3,
+  "mechanisms": [
+    {
+      "candidate": true,
+      "count": 6,
+      "id": "reasoning_retrieval_interleaving",
+      "note": "Управление обходом (C2) фиксирует повторяемость извлечения, режим генерации (E1) — устройство синтеза. Связь между ними, где рассуждение задаёт следующий запрос, не выражена ни тем, ни другим.",
+      "technologies": [
+        {
+          "id": "agentic_rag",
+          "name": "Agentic RAG"
+        },
+        {
+          "id": "flare",
+          "name": "FLARE"
+        },
+        {
+          "id": "ircot",
+          "name": "IRCoT"
+        },
+        {
+          "id": "ma_rag",
+          "name": "MA-RAG"
+        },
+        {
+          "id": "test_time",
+          "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)"
+        },
+        {
+          "id": "react",
+          "name": "ReAct"
+        }
+      ],
+      "term": "чередование шага рассуждения с шагом извлечения"
+    },
+    {
+      "candidate": true,
+      "count": 4,
+      "id": "hierarchical_community_clustering",
+      "note": "Топология индекса (A4) допускает значение «иерархия сообществ», но не выражает, что разбиение вычисляется алгоритмом кластеризации, а не задано источником.",
+      "technologies": [
+        {
+          "id": "archrag",
+          "name": "ArchRAG"
+        },
+        {
+          "id": "embodied_rag",
+          "name": "Embodied RAG"
+        },
+        {
+          "id": "msft_graphrag",
+          "name": "Microsoft GraphRAG"
+        },
+        {
+          "id": "raptor",
+          "name": "RAPTOR"
+        }
+      ],
+      "term": "иерархическая кластеризация узлов по сообществам"
+    },
+    {
+      "candidate": true,
+      "count": 3,
+      "id": "per_query_strategy_choice",
+      "note": "Схема приписывает записи одно значение измерения. Система, выбирающая значение во время работы, описывается ею лишь приблизительно — записывается наибольшая достижимая глубина.",
+      "technologies": [
+        {
+          "id": "adaptive_rag",
+          "name": "Adaptive RAG"
+        },
+        {
+          "id": "agentic_rag",
+          "name": "Agentic RAG"
+        },
+        {
+          "id": "self_rag",
+          "name": "Self-RAG"
+        }
+      ],
+      "term": "выбор стратегии извлечения на каждый запрос"
+    },
+    {
+      "candidate": false,
+      "count": 2,
+      "id": "score_transfer_to_units",
+      "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
+      "technologies": [
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        },
+        {
+          "id": "rag_as_memory",
+          "name": "RAG as Memory"
+        }
+      ],
+      "term": "перенос оценок узлов на единицы извлечения"
+    },
+    {
+      "candidate": false,
+      "count": 2,
+      "id": "random_walk_ranking",
+      "note": "Обход графа (C1) говорит, что структура обходится, но не как распределяется вес по узлам.",
+      "technologies": [
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        },
+        {
+          "id": "rag_as_memory",
+          "name": "RAG as Memory"
+        }
+      ],
+      "term": "ранжирование случайным блужданием с предпочтением"
+    },
+    {
+      "candidate": false,
+      "count": 2,
+      "id": "max_similarity_interaction",
+      "note": "Модель представления (A5) называет вид представления, но не правило, по которому два набора векторов сводятся к одной оценке.",
+      "technologies": [
+        {
+          "id": "colbert",
+          "name": "ColBERT"
+        },
+        {
+          "id": "colpali",
+          "name": "ColPali"
+        }
+      ],
+      "term": "сравнение по максимуму сходства между представлениями"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "query_entity_extraction",
+      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
+      "technologies": [
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        }
+      ],
+      "term": "извлечение именованных сущностей из запроса"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "multiple_modes_one_record",
+      "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
+      "technologies": [
+        {
+          "id": "msft_graphrag",
+          "name": "Microsoft GraphRAG"
+        }
+      ],
+      "term": "несколько режимов работы с разной конфигурацией"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "llm_scored_partial_answers",
+      "note": "Порядок сборки задан оценкой языковой модели, а не структурой индекса и не отдельной моделью переранжирования.",
+      "technologies": [
+        {
+          "id": "msft_graphrag",
+          "name": "Microsoft GraphRAG"
+        }
+      ],
+      "term": "оценка полезности частичных ответов моделью"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "approximate_then_exact",
+      "note": "Две ступени одной модели, а не модель поиска плюс модель переранжирования. Переранжирование (D1) описывает вторую модель, которой здесь нет.",
+      "technologies": [
+        {
+          "id": "colbert",
+          "name": "ColBERT"
+        }
+      ],
+      "term": "приближённый отбор с последующим точным пересчётом"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "synonymy_edges",
+      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
+      "technologies": [
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        }
+      ],
+      "term": "рёбра синонимии между узлами индекса"
+    }
+  ]
+}

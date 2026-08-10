@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-09",
-  "count": 53,
+  "count": 52,
   "levels": [
     "L0",
     "L1",
@@ -114,25 +114,6 @@
       "name": "BGE-M3",
       "prevalence": null,
       "prose_id": null
-    },
-    {
-      "attention": null,
-      "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
-      "evidence_basis": null,
-      "first_published": null,
-      "group": "A",
-      "groups": [
-        "A"
-      ],
-      "history": [],
-      "id": "biomedrag",
-      "kind": "architecture",
-      "level": null,
-      "name": "BiomedRAG",
-      "prevalence": null,
-      "prose_id": "biomedrag"
     },
     {
       "attention": null,

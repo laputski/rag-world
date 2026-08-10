@@ -142,3 +142,23 @@ def test_adjacent_variability_works_are_cited():
     text = _article_text()
     for marker in ("3646548.3672581", "2501.00532", "2602.17697"):
         assert marker in text, f"смежная работа не процитирована: {marker}"
+
+
+def test_coverage_claim_matches_the_registry():
+    """Число покрытия в статье вычисляется, а не пишется от руки.
+
+    Прежде статья утверждала «96 процентов», выведенные из остатков, которых не
+    существовало. Теперь остатки заполнены, и число стало проверяемым — значит,
+    обязано проверяться.
+    """
+    from services.registry import store
+
+    text = _article_text()
+    technologies = store.load_technologies()
+    expressed = [tech for tech in technologies if not tech.residual]
+    share = round(100 * len(expressed) / len(technologies))
+
+    assert f"{share} процентов" in text, (
+        f"в статье нет актуальной доли покрытия ({share} процентов); "
+        "она вычисляется из остатков реестра"
+    )

@@ -8,6 +8,7 @@
 
 import type {
   DigestIssue,
+  ResidualMechanism,
   MaturityArtifact,
   RegistryChange,
   RegistryStats,
@@ -57,4 +58,13 @@ export async function getDigest(): Promise<{
   issues: DigestIssue[];
 }> {
   return loadJson("digest.json");
+}
+
+/** Очередь остатков: механизмы, которых схема не выражает. */
+export async function getResiduals(): Promise<{
+  built_at: string;
+  candidate_threshold: number;
+  mechanisms: ResidualMechanism[];
+}> {
+  return loadJson("residuals.json");
 }

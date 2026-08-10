@@ -9,7 +9,8 @@
     "changes": "Changelog",
     "generalized": "Paper",
     "about": "About",
-    "digest": "Digest"
+    "digest": "Digest",
+    "residuals": "Residuals"
   },
   "common": {
     "expand": "Expand",
@@ -233,5 +234,15 @@
     "brokenBody": "Something went wrong while building it. The rest of the portal works — try starting from the map or the registry.",
     "toMap": "To the maturity map",
     "toRegistry": "To the registry"
+  },
+  "residuals": {
+    "title": "Residual queue",
+    "subtitle": "Mechanisms the dimension schema does not express. They are recorded on each technology in a separate field and gathered here, so it is visible where the schema is too small and where a single work simply had a peculiarity.",
+    "rule": "A mechanism seen in {{threshold}} or more records is proposed as a new dimension. The threshold is not magic: one case happens to any work, two may be coincidence, but three times in a row the schema is not missing by chance.",
+    "candidatesFound": "Candidate dimensions: {{count}}. Extending the schema is decided separately: a new dimension changes the formal model and the article describing it.",
+    "mentions": "mentions: {{count}}",
+    "candidate": "candidate dimension",
+    "seenIn": "seen in:",
+    "empty": "No residuals recorded yet."
   }
 }

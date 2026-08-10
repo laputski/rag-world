@@ -13,6 +13,7 @@
     public/data/changes.json   хроника изменений со ссылками на свидетельства
     public/data/stats.json     сводка: распределение, покрытие, свежесть
     public/data/digest.json    выпуски дайджеста, свежие впереди
+    public/data/residuals.json очередь остатков: чего схема не выражает
     public/data/feed.xml       лента: выпуски и изменения уровней
 
 Ни одно число не попадает в артефакт без происхождения: внимание и
@@ -135,6 +136,41 @@ def _residual_term(code: str, lang: str = "ru") -> str:
     """
     entry = _residual_vocabulary().get(code)
     return entry.get(lang, code) if entry else code
+
+
+#: Со скольких упоминаний механизм остатка считается кандидатом в измерение
+#: схемы. Три — не магия, а разумный минимум: один случай бывает у любой
+#: работы, два могут оказаться совпадением, а три раза подряд схема
+#: промахивается уже не случайно.
+RESIDUAL_CANDIDATE_THRESHOLD = 3
+
+
+def _residual_queue(technologies: list[store.Technology]) -> list[dict]:
+    """Механизмы остатка с числом упоминаний и записями, где они встретились.
+
+    Смысл очереди в том, что схема должна расти от наблюдений, а не от
+    воображения. Механизм, который приходится записывать в остаток снова и
+    снова, — это место, где схема мала; механизм, встреченный однажды, —
+    частность конкретной работы.
+    """
+    vocabulary = _residual_vocabulary()
+    seen: dict[str, list[dict]] = defaultdict(list)
+    for tech in technologies:
+        for code in tech.residual:
+            seen[code].append({"id": tech.id, "name": tech.name})
+
+    rows = []
+    for code, users in seen.items():
+        entry = vocabulary.get(code, {})
+        rows.append({
+            "id": code,
+            "term": entry.get("ru", code),
+            "note": entry.get("note", ""),
+            "count": len(users),
+            "technologies": sorted(users, key=lambda u: u["name"]),
+            "candidate": len(users) >= RESIDUAL_CANDIDATE_THRESHOLD,
+        })
+    return sorted(rows, key=lambda r: (-r["count"], r["term"]))
 
 
 #: Ниже этого размера возрастная подгруппа не нормируется: медиана по трём
@@ -413,6 +449,11 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     # отдельным шагом и здесь только перекладываются для чтения порталом,
     # свежими вперёд.
     _write(target / "digest.json", {"built_at": built_at, "issues": _issues()})
+    _write(target / "residuals.json", {
+        "built_at": built_at,
+        "candidate_threshold": RESIDUAL_CANDIDATE_THRESHOLD,
+        "mechanisms": _residual_queue(technologies),
+    })
     _write_feed(target / "feed.xml", changes, built_at, _issues())
     if out_dir is None:
         SCHEMA_MODULE.write_text(render_schema_module(), encoding="utf-8")
