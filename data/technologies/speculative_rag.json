@@ -15,10 +15,10 @@
     "C3": "none",
     "C4": "single_store",
     "D1": "cross_encoder",
-    "D2": "top_k",
+    "D2": "budget_aware",
     "D3": "natural_order",
-    "E1": "multi_agent",
-    "E2": "none",
+    "E1": "ensemble_fragments",
+    "E2": "external_judge",
     "E3": "none",
     "E4": "no_refusal",
     "F1": "none",
@@ -29,12 +29,13 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": "A",
   "first_published": "2025",
   "groups": [
+    "D",
     "E"
   ],
   "id": "speculative_rag",

@@ -14,7 +14,7 @@
     "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
     "E1": "single_pass",
@@ -29,13 +29,14 @@
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": "RAG на edge-устройствах: прунинг эмбеддингов и on-demand генерация.",
   "family": "F",
   "first_published": "2024-12",
   "groups": [
-    "D",
+    "A",
+    "C",
     "G"
   ],
   "id": "edgerag",
