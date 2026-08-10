@@ -39,7 +39,8 @@
     "architecture": "architecture",
     "technique": "technique",
     "tool": "tool",
-    "artifact": "evaluation artifact"
+    "artifact": "evaluation artifact",
+    "attack": "attack"
   },
   "stratum": {
     "A": "A. Knowledge representation",

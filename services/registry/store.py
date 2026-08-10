@@ -35,7 +35,17 @@ METRICS_DIR = DATA_DIR / "metrics"
 LEVELS_FILE = DATA_DIR / "levels" / "history.jsonl"
 COLLECTION_LOG = DATA_DIR / "collection_log.jsonl"
 
-Kind = Literal["paradigm", "architecture", "technique", "tool", "artifact"]
+#: Род объекта. «Атака» стоит особняком: остальные роды описывают системы RAG
+#: или их части и потому занимают место в конфигурационном пространстве, а
+#: атака действует **на** такую систему извне. Своих значений измерений у неё
+#: нет, и базовые утверждали бы, что она сегментирует документы и ищет
+#: ближайших соседей, чего она не делает.
+Kind = Literal[
+    "paradigm", "architecture", "technique", "tool", "artifact", "attack"
+]
+
+#: Роды, к которым конфигурационное пространство неприменимо целиком.
+KINDS_WITHOUT_CONFIGURATION = frozenset({"attack"})
 LinkKind = Literal["paper", "preprint", "github", "product", "venue", "other"]
 LinkStatus = Literal["verified", "needs_review", "unresolved"]
 EvidenceType = Literal[

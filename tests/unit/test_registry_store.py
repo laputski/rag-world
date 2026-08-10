@@ -269,3 +269,21 @@ def test_plain_record_carries_no_marks():
     tech = store.Technology(id="y", name="Y", kind="architecture")
     assert tech.configuration_variable == []
     assert tech.configuration_inapplicable == []
+
+
+def test_attack_is_a_kind_without_configuration():
+    """Атака действует на систему RAG, а не является ею.
+
+    У неё нет ни индекса, ни извлечения, ни синтеза, и базовые значения
+    утверждали бы, что она сегментирует документы и ищет ближайших соседей.
+    Правило по роду избавляет от пометки неприменимости у каждого из двадцати
+    шести измерений каждой такой записи.
+    """
+    assert "attack" in store.KINDS_WITHOUT_CONFIGURATION
+    tech = store.Technology(id="x", name="X", kind="attack")
+    assert tech.configuration == {}
+
+
+def test_system_kinds_still_occupy_the_space():
+    for kind in ("paradigm", "architecture", "technique", "tool"):
+        assert kind not in store.KINDS_WITHOUT_CONFIGURATION

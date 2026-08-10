@@ -85,6 +85,15 @@ def check_registry() -> list[str]:
             if group not in STRATA:
                 problems.append(f"{where}: неизвестная страта {group!r}")
 
+        # Атака действует на систему RAG, а не является ею: у неё нет ни
+        # индекса, ни извлечения, ни синтеза. Правило избавляет от пометки
+        # неприменимости у каждого измерения каждой такой записи.
+        if tech.kind in store.KINDS_WITHOUT_CONFIGURATION and tech.configuration:
+            problems.append(
+                f"{where}: род {tech.kind!r} не занимает места в конфигурационном "
+                f"пространстве, а запись несёт {len(tech.configuration)} значений"
+            )
+
         for code, value in tech.configuration.items():
             if code not in ALL_VALUES:
                 problems.append(f"{where}: неизвестное измерение {code!r}")
@@ -118,6 +127,7 @@ def check_registry() -> list[str]:
             tech.configuration_reviewed
             and not tech.configuration
             and not tech.configuration_inapplicable
+            and tech.kind not in store.KINDS_WITHOUT_CONFIGURATION
         ):
             problems.append(
                 f"{where}: конфигурация помечена разобранной, но запись не "

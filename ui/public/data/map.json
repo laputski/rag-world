@@ -902,7 +902,7 @@
         }
       ],
       "id": "poisonedrag",
-      "kind": "artifact",
+      "kind": "attack",
       "level": "L1",
       "name": "PoisonedRAG",
       "prevalence": null,

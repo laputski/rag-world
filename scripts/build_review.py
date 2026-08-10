@@ -65,6 +65,15 @@ def check(notes: list[dict]) -> list[str]:
             problems.append(f"{note['technology_id']}: записи нет в реестре")
             continue
 
+        # У записи рода без конфигурации обоснование одно и общее: оно
+        # объясняет сам род, а не отдельное измерение.
+        if not note.get("code") and not note.get("residual"):
+            if tech.kind not in store.KINDS_WITHOUT_CONFIGURATION:
+                problems.append(
+                    f"{tech.id}: обоснование без измерения у записи рода {tech.kind!r}"
+                )
+            continue
+
         if note.get("residual"):
             if note["residual"] not in tech.residual:
                 problems.append(
@@ -98,6 +107,8 @@ def check(notes: list[dict]) -> list[str]:
 
 
 def _kind(note: dict, tech: store.Technology) -> str:
+    if not note.get("code") and not note.get("residual"):
+        return "inapplicable"
     if note.get("residual"):
         return "residual"
     if note.get("inapplicable"):
@@ -139,7 +150,13 @@ def render(notes: list[dict]) -> str:
         rows = []
         for note in by_tech[tech.id]:
             kind = _kind(note, tech)
-            if note.get("residual"):
+            # У записи рода без конфигурации обоснование одно и общее: оно
+            # объясняет сам род, а не отдельное измерение.
+            if not note.get("code") and not note.get("residual"):
+                heading = "род записи"
+                subtitle = tech.kind
+                value = "конфигурации нет"
+            elif note.get("residual"):
                 heading = vocabulary.get(note["residual"], {}).get("ru", note["residual"])
                 subtitle = ""
                 value = ""
