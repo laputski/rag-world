@@ -211,15 +211,19 @@
   },
   "digest": {
     "title": "Digest",
-    "subtitle": "What changed in the registry since the previous issue. An issue appears only when there is something to report: a week without changes is ordinary, and there is nothing to say about it.",
-    "provenance": "The text is assembled by a template from registry data. No language model is involved: the issue retells what has already been computed, so there is nothing in it to invent. Below each issue are the records and numbers it was assembled from.",
+    "subtitle": "What changed in the registry since the previous issue. An issue appears only when there is something to report: a week without changes happens often, and there is nothing to say about it.",
+    "provenance": "The text is assembled by a template from registry data. No language model is involved: the issue retells what has already been computed, so there is nothing in it to invent. Under each issue you can open the records whose change it retells.",
     "empty": "No issues yet.",
-    "period": "since {{since}}",
+    "period": "covers changes since {{since}}",
     "firstIssue": "first issue: covers everything accumulated so far",
     "basis": "What the issue rests on",
     "evidenceChip": "evidence: {{count}}",
     "linksChip": "sources checked: {{count}}",
-    "brokenChip": "no longer resolving: {{count}}"
+    "brokenChip": "no longer resolving: {{count}}",
+    "showBasis": "show what the issue rests on ({{count}})",
+    "hideBasis": "hide the basis",
+    "moved": "rose from {{from}} to {{to}}",
+    "first": "received level {{level}} for the first time"
   },
   "notFound": {
     "title": "No such page",

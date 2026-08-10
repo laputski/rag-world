@@ -1,0 +1,48 @@
+{
+  "added": [],
+  "by_level": {
+    "L0": 7,
+    "L1": 17,
+    "L2": 19,
+    "L3": 3,
+    "L4": 1,
+    "L5": 1,
+    "unknown": 5
+  },
+  "demoted": [],
+  "evidence_added": 45,
+  "evidence_by_type": {
+    "package_downloads": 7,
+    "publication": 35,
+    "repository": 3
+  },
+  "evidence_seen": 137,
+  "issued_at": "2026-08-10",
+  "levels_seen": 70,
+  "links_broken": 0,
+  "links_checked": 6,
+  "promoted": [
+    {
+      "level_after": "L4",
+      "level_before": "L0",
+      "name": "HippoRAG",
+      "technology_id": "hipporag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Dense X",
+      "technology_id": "dense_x_retrieval"
+    },
+    {
+      "level_after": "L1",
+      "level_before": "L0",
+      "name": "Edge и On-Device RAG",
+      "technology_id": "edge"
+    }
+  ],
+  "runs_seen": 8,
+  "since": "2026-08-09",
+  "text": "Поднялись в уровне HippoRAG с L0 до L4, Dense X с L1 до L2, Edge и On-Device RAG с L0 до L1. Собрано 45 свидетельств: 35 о публикациях, 7 о загрузках пакетов, 3 о репозиториях. Сейчас в реестре 53 записи. Уровень L0 у 7 записей, L1 у 17, L2 у 19, L3 у 3, L4 у 1, L5 у 1. У 5 записей уровень не вычислен, потому что свидетельств пока нет.",
+  "total": 53
+}

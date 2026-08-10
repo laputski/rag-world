@@ -174,36 +174,43 @@ def _listing(items: list[dict]) -> str:
 
 
 def compose(issue: Issue) -> str:
-    """Текст выпуска по шаблону. Ничего, кроме уже вычисленного."""
+    """Текст выпуска по шаблону. Ничего, кроме уже вычисленного.
+
+    Связки называются словами, а не тире. Тире прячет отношение между частями
+    фразы: читателю приходится самому достраивать, перечисление это, причина
+    или уточнение. Текст порождается шаблоном и публикуется без просмотра
+    человеком, поэтому догадываться он заставлять не должен.
+    """
     parts: list[str] = []
 
     if issue.added:
         parts.append(
-            f"Впервые получили уровень {_listing(issue.added)} — "
-            f"{counted(len(issue.added), 'запись', 'записи', 'записей')}."
+            f"Впервые получили уровень "
+            f"{counted(len(issue.added), 'запись', 'записи', 'записей')}: "
+            f"{_listing(issue.added)}."
         )
     if issue.promoted:
         moves = ", ".join(
-            f"{item['name']} ({item['level_before']} → {item['level_after']})"
+            f"{item['name']} с {item['level_before']} до {item['level_after']}"
             for item in issue.promoted[:NAMED_LIMIT]
         )
         tail = ""
         if len(issue.promoted) > NAMED_LIMIT:
             rest = len(issue.promoted) - NAMED_LIMIT
-            tail = f" и ещё {counted(rest, 'запись', 'записи', 'записей')}"
-        parts.append(f"Поднялись в уровне: {moves}{tail}.")
+            tail = f", а также ещё {counted(rest, 'запись', 'записи', 'записей')}"
+        parts.append(f"Поднялись в уровне {moves}{tail}.")
     if issue.demoted:
         moves = ", ".join(
-            f"{item['name']} ({item['level_before']} → {item['level_after']})"
+            f"{item['name']} с {item['level_before']} до {item['level_after']}"
             for item in issue.demoted
         )
         # Понижение называется прямо: свидетельство, оказавшееся слабее, чем
         # считалось, — такая же новость, как и подтверждение.
-        parts.append(f"Понизились: {moves}.")
+        parts.append(f"Опустились в уровне {moves}.")
 
     if issue.evidence_added:
         kinds = ", ".join(
-            f"{EVIDENCE_NAMES.get(kind, kind)} — {count}"
+            f"{count} {EVIDENCE_NAMES.get(kind, kind)}"
             for kind, count in sorted(
                 issue.evidence_by_type.items(), key=lambda kv: (-kv[1], kv[0])
             )
@@ -211,27 +218,39 @@ def compose(issue: Issue) -> str:
         amount = counted(
             issue.evidence_added, "свидетельство", "свидетельства", "свидетельств"
         )
-        parts.append(f"Добавлено {amount}" + (f" ({kinds})." if kinds else "."))
+        parts.append(f"Собрано {amount}" + (f": {kinds}." if kinds else "."))
 
     if issue.links_broken:
         parts.append(
-            f"Перестали открываться "
-            f"{counted(issue.links_broken, 'источник', 'источника', 'источников')} — "
-            "записи ждут правки."
+            "Перестали открываться "
+            f"{counted(issue.links_broken, 'источник', 'источника', 'источников')}, "
+            "и эти записи ждут правки."
         )
 
     if issue.by_level:
-        spread = ", ".join(
-            f"{level} — {count}"
+        # Существительное несёт первое число, остальные его подразумевают:
+        # «уровень L0 у 7 записей, L1 у 17» читается, а повтор слова в каждом
+        # члене перечисления — нет.
+        pairs = [
+            (level, count)
             for level, count in sorted(issue.by_level.items())
             if level != "unknown"
-        )
+        ]
+        known = [
+            f"{level} у {counted(count, 'записи', 'записей', 'записей')}"
+            if index == 0 else f"{level} у {count}"
+            for index, (level, count) in enumerate(pairs)
+        ]
         unknown = issue.by_level.get("unknown", 0)
-        state = f"Сейчас в реестре {counted(issue.total, 'запись', 'записи', 'записей')}: {spread}"
+        state = (
+            f"Сейчас в реестре "
+            f"{counted(issue.total, 'запись', 'записи', 'записей')}. "
+            f"Уровень {', '.join(known)}"
+        )
         if unknown:
             state += (
-                f"; у {counted(unknown, 'записи', 'записей', 'записей')} "
-                "уровень не вычислен — свидетельств пока нет"
+                f". У {counted(unknown, 'записи', 'записей', 'записей')} уровень "
+                "не вычислен, потому что свидетельств пока нет"
             )
         parts.append(state + ".")
 
@@ -240,14 +259,14 @@ def compose(issue: Issue) -> str:
 
 #: Названия видов свидетельств для читателя. Ключи — значения `EvidenceType`.
 EVIDENCE_NAMES = {
-    "publication": "публикации",
-    "independent_reproduction": "независимые воспроизведения",
-    "repository": "репозитории",
-    "build_run": "сборки",
-    "framework_presence": "присутствие во фреймворках",
-    "package_downloads": "загрузки пакетов",
-    "industrial_use": "промышленное применение",
-    "provider_count": "поставщики",
+    "publication": "о публикациях",
+    "independent_reproduction": "о независимых воспроизведениях",
+    "repository": "о репозиториях",
+    "build_run": "о сборках",
+    "framework_presence": "о присутствии во фреймворках",
+    "package_downloads": "о загрузках пакетов",
+    "industrial_use": "о промышленном применении",
+    "provider_count": "о поставщиках",
 }
 
 

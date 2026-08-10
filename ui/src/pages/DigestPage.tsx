@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  Alert, Box, Chip, CircularProgress, Divider, Link as MuiLink, Paper, Typography,
+  Alert, Box, Chip, CircularProgress, Collapse, Divider, Link as MuiLink, Paper, Typography,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,7 @@ function LevelMove({ move, onOpen }: {
   move: { technology_id: string; name: string; level_before: string | null; level_after: string };
   onOpen: (id: string) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", alignItems: "baseline", gap: 1, py: 0.4 }}>
       <MuiLink
@@ -35,9 +36,52 @@ function LevelMove({ move, onOpen }: {
       >
         {move.name}
       </MuiLink>
-      <Typography variant="caption" sx={{ fontFamily: MONO, color: "text.secondary" }}>
-        {move.level_before ?? "—"} → {move.level_after}
+      <Typography variant="caption" sx={{ color: "text.secondary" }}>
+        {move.level_before
+          ? t("digest.moved", { from: move.level_before, to: move.level_after })
+          : t("digest.first", { level: move.level_after })}
       </Typography>
+    </Box>
+  );
+}
+
+/**
+ * Основание выпуска: записи, изменение которых он пересказывает.
+ *
+ * Свёрнуто по умолчанию. Выпуск за неделю умещается в абзац, а список записей
+ * за ним может быть на полсотни строк, и тогда сообщение тонет в собственном
+ * доказательстве.
+ */
+function BasisList({ issue, onOpen }: {
+  issue: DigestIssue;
+  onOpen: (id: string) => void;
+}) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const total = issue.added.length + issue.promoted.length + issue.demoted.length;
+
+  return (
+    <Box>
+      <MuiLink
+        component="button"
+        onClick={() => setOpen((v) => !v)}
+        sx={{ fontSize: "0.82rem" }}
+      >
+        {open ? t("digest.hideBasis") : t("digest.showBasis", { count: total })}
+      </MuiLink>
+      <Collapse in={open}>
+        <Box sx={{ mt: 1.5, pl: 1.5, borderLeft: 2, borderColor: "divider" }}>
+          {issue.demoted.map((m) => (
+            <LevelMove key={`d-${m.technology_id}`} move={m} onOpen={onOpen} />
+          ))}
+          {issue.promoted.map((m) => (
+            <LevelMove key={`p-${m.technology_id}`} move={m} onOpen={onOpen} />
+          ))}
+          {issue.added.map((m) => (
+            <LevelMove key={`a-${m.technology_id}`} move={m} onOpen={onOpen} />
+          ))}
+        </Box>
+      </Collapse>
     </Box>
   );
 }
@@ -90,21 +134,15 @@ export function DigestPage() {
             <>
               <Divider sx={{ my: 2 }} />
               {/*
-                Под пересказом — то, из чего он собран. Без этого выпуск
-                оставался бы утверждением, которое читателю нечем проверить.
+                Под пересказом лежит то, из чего он собран, но свёрнутым:
+                читателю выпуска нужен сам выпуск, а список из полусотни записей
+                вытесняет его с экрана. Тому, кто хочет проверить, разворот
+                стоит одного щелчка и со страницы не уводит.
               */}
-              <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1 }}>
-                {t("digest.basis")}
-              </Typography>
-              {issue.demoted.map((m) => (
-                <LevelMove key={`d-${m.technology_id}`} move={m} onOpen={(id) => navigate(`/tech/${id}`)} />
-              ))}
-              {issue.promoted.map((m) => (
-                <LevelMove key={`p-${m.technology_id}`} move={m} onOpen={(id) => navigate(`/tech/${id}`)} />
-              ))}
-              {issue.added.map((m) => (
-                <LevelMove key={`a-${m.technology_id}`} move={m} onOpen={(id) => navigate(`/tech/${id}`)} />
-              ))}
+              <BasisList
+                issue={issue}
+                onOpen={(id) => navigate(`/tech/${id}`)}
+              />
             </>
           )}
 

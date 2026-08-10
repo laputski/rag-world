@@ -107,8 +107,11 @@ def test_promotion_and_demotion_are_named_separately(registry):
 
     assert [i["name"] for i in issue.promoted] == ["Alpha"]
     assert [i["name"] for i in issue.demoted] == ["Beta"]
-    assert "Поднялись" in issue.text
-    assert "Понизились" in issue.text, "понижение называется прямо, а не умалчивается"
+    assert "Поднялись в уровне Alpha с L1 до L2" in issue.text
+    assert "Опустились в уровне Beta с L3 до L1" in issue.text, (
+        "понижение называется прямо, а не умалчивается"
+    )
+    assert "—" not in issue.text, "связки называются словами, а не тире"
 
 
 def test_issue_covers_only_the_period_since_the_previous_one(registry):
@@ -201,8 +204,8 @@ def test_text_reports_the_state_it_reached(registry):
     issue = build_digest.build(today=TODAY)
 
     assert issue.by_level == {"L2": 1, "unknown": 1}
-    assert "L2 — 1" in issue.text
-    assert "уровень не вычислен" in issue.text, (
+    assert "Уровень L2 у 1 записи" in issue.text
+    assert "уровень не вычислен, потому что свидетельств пока нет" in issue.text, (
         "запись без свидетельств не должна выглядеть как L0"
     )
 
@@ -216,7 +219,7 @@ def test_numbers_in_text_match_the_data(registry):
     issue = build_digest.build(today=TODAY)
 
     assert "5 записей" in issue.text
-    assert "5 свидетельств" in issue.text
+    assert "Собрано 5 свидетельств" in issue.text
     assert issue.evidence_by_type == {"publication": 5}
 
 
@@ -312,3 +315,22 @@ def test_nothing_is_reported_twice(registry):
     assert not again.has_news()
     assert again.added == []
     assert again.evidence_added == 0
+
+
+def test_text_uses_words_instead_of_dashes(registry):
+    """Тире прячет отношение между частями фразы.
+
+    Читателю приходится самому достраивать, перечисление это, причина или
+    уточнение. Текст порождается шаблоном и выходит без просмотра человеком,
+    поэтому догадываться он заставлять не должен.
+    """
+    for i in range(3):
+        add_tech(f"t{i}", f"Tech {i}")
+        add_level(f"t{i}", "L1", TODAY)
+        add_evidence(f"t{i}", "publication", TODAY, f"https://arxiv.org/abs/{i}")
+
+    text = build_digest.build(today=TODAY).text
+
+    assert "—" not in text, f"длинное тире вместо связки: {text}"
+    assert "→" not in text, f"стрелка вместо слов: {text}"
+    assert "с L" not in text or "до L" in text, "переход уровня называется словами"
