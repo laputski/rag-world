@@ -414,7 +414,8 @@
       "group": "A",
       "groups": [
         "A",
-        "C"
+        "C",
+        "G"
       ],
       "history": [
         {
@@ -1032,9 +1033,10 @@
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
-      "group": "F",
+      "group": "A",
       "groups": [
-        "F"
+        "A",
+        "C"
       ],
       "history": [
         {

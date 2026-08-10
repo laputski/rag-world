@@ -1,16 +1,16 @@
 {
   "aliases": [],
   "configuration": {
-    "A1": "passage",
+    "A1": "summary_node",
     "A2": "fixed",
-    "A3": "none",
-    "A4": "flat",
-    "A5": "dense_single",
+    "A3": "summary",
+    "A4": "tree",
+    "A5": "vision_language",
     "A6": "snapshot",
-    "A7": "image",
+    "A7": "scene_3d",
     "B1": "identity",
     "B2": "static",
-    "C1": "ann",
+    "C1": "tree_navigation",
     "C2": "agentic_open_loop",
     "C3": "none",
     "C4": "single_store",
@@ -25,18 +25,19 @@
     "F2": "none",
     "F3": "none",
     "G1": "open",
-    "G2": "server",
+    "G2": "edge_device",
     "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": null,
+  "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
   "first_published": "2024-09",
   "groups": [
     "A",
-    "C"
+    "C",
+    "G"
   ],
   "id": "embodied_rag",
   "kind": "paradigm",
@@ -59,5 +60,7 @@
   "name": "Embodied RAG",
   "package": null,
   "prose_id": "embodied_rag",
-  "residual": []
+  "residual": [
+    "hierarchical_community_clustering"
+  ]
 }

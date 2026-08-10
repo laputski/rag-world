@@ -1897,16 +1897,16 @@
       "attention_raw": 0.043,
       "confidence": 1.0,
       "configuration": {
-        "A1": "passage",
+        "A1": "summary_node",
         "A2": "fixed",
-        "A3": "none",
-        "A4": "flat",
-        "A5": "dense_single",
+        "A3": "summary",
+        "A4": "tree",
+        "A5": "vision_language",
         "A6": "snapshot",
-        "A7": "image",
+        "A7": "scene_3d",
         "B1": "identity",
         "B2": "static",
-        "C1": "ann",
+        "C1": "tree_navigation",
         "C2": "agentic_open_loop",
         "C3": "none",
         "C4": "single_store",
@@ -1921,11 +1921,11 @@
         "F2": "none",
         "F3": "none",
         "G1": "open",
-        "G2": "server",
+        "G2": "edge_device",
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -1950,7 +1950,8 @@
       "first_published": "2024-09",
       "groups": [
         "A",
-        "C"
+        "C",
+        "G"
       ],
       "id": "embodied_rag",
       "kind": "paradigm",
@@ -1988,9 +1989,85 @@
       ],
       "name": "Embodied RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Память об окружении хранится семантическим лесом: несколькими деревьями описаний разной степени обобщения.",
+          "instead": "«граф»: он не выразил бы уровней обобщения, ради которых лес и построен.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, метод",
+          "technology_id": "embodied_rag",
+          "to": "tree",
+          "why": "Структура иерархическая, у узла один родитель."
+        },
+        {
+          "code": "A7",
+          "did": "Материал — восприятие агента в физическом окружении километрового масштаба.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, постановка",
+          "technology_id": "embodied_rag",
+          "to": "scene_3d",
+          "why": "Модальность пространственная, а не текстовая."
+        },
+        {
+          "code": "A5",
+          "did": "Восприятие и язык обрабатываются вместе.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, постановка",
+          "technology_id": "embodied_rag",
+          "to": "vision_language",
+          "why": "Представление общее для изображения и описания."
+        },
+        {
+          "code": "A3",
+          "did": "Узлы дерева хранят описания разной степени обобщения, порождённые заранее.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, метод",
+          "technology_id": "embodied_rag",
+          "to": "summary",
+          "why": "Единица индекса несёт добавленный пересказ."
+        },
+        {
+          "code": "A1",
+          "did": "Извлекаются узлы этих деревьев, а не куски текста.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, метод",
+          "technology_id": "embodied_rag",
+          "to": "summary_node",
+          "why": "Единица извлечения — узел обобщения."
+        },
+        {
+          "code": "C1",
+          "did": "Ответ ищется спуском по уровням обобщения к нужному месту.",
+          "question": "Аннотация не описывает оператор поиска прямо; значение выведено из устройства индекса и характера запросов о навигации.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, метод",
+          "technology_id": "embodied_rag",
+          "to": "tree_navigation",
+          "why": "Отбор — движение по иерархии."
+        },
+        {
+          "code": "G2",
+          "did": "Система работает на роботе, действующем в окружении.",
+          "residual_term": null,
+          "source": "arXiv:2409.18313, постановка",
+          "technology_id": "embodied_rag",
+          "to": "edge_device",
+          "why": "Место исполнения — устройство, а не сервер."
+        },
+        {
+          "did": "Уровни обобщения вычисляются из наблюдений, а не заданы структурой источника.",
+          "residual": "hierarchical_community_clustering",
+          "residual_term": "иерархическая кластеризация узлов по сообществам",
+          "source": "arXiv:2409.18313, метод",
+          "technology_id": "embodied_rag",
+          "why": "Топология говорит, что это дерево, но не откуда взялось разбиение."
+        }
+      ],
       "prose_id": "embodied_rag",
-      "residual": []
+      "residual": [
+        "иерархическая кластеризация узлов по сообществам"
+      ]
     },
     {
       "aliases": [],
@@ -2011,7 +2088,7 @@
         "C1": "ann",
         "C2": "agentic_open_loop",
         "C3": "none",
-        "C4": "single_store",
+        "C4": "federation",
         "D1": "cross_encoder",
         "D2": "top_k",
         "D3": "natural_order",
@@ -2022,12 +2099,12 @@
         "F1": "none",
         "F2": "none",
         "F3": "none",
-        "G1": "differential_privacy",
+        "G1": "isolated_circuit",
         "G2": "server",
-        "G3": "frozen"
+        "G3": "trained_retriever"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -2139,7 +2216,37 @@
       ],
       "name": "Federated RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "C4",
+          "did": "Несколько сторон обучают свои поисковые модели совместно, не передавая сырые данные: обмениваются только параметрами через сервер.",
+          "instead": "«несколько своих узлов»: там узлы принадлежат одной системе, а здесь разным владельцам.",
+          "residual_term": null,
+          "source": "arXiv:2504.19101, метод",
+          "technology_id": "federated_rag",
+          "to": "federation",
+          "why": "Хранилища остаются у сторон и независимы. Это федерация, а не кластер одного владельца."
+        },
+        {
+          "code": "G1",
+          "did": "Сырые данные не покидают сторону; параметры защищены гомоморфным шифрованием.",
+          "instead": "«дифференциальная приватность»: она добавляет шум к данным, а здесь данные просто не передаются.",
+          "residual_term": null,
+          "source": "arXiv:2504.19101, метод",
+          "technology_id": "federated_rag",
+          "to": "isolated_circuit",
+          "why": "Приватность обеспечена устройством обмена, а не обещанием."
+        },
+        {
+          "code": "G3",
+          "did": "Обучаются поисковые модели сторон; языковая модель не трогается.",
+          "residual_term": null,
+          "source": "arXiv:2504.19101, метод",
+          "technology_id": "federated_rag",
+          "to": "trained_retriever",
+          "why": "Обучаемость относится к поисковой стороне."
+        }
+      ],
       "prose_id": "federated_rag",
       "residual": []
     },
@@ -5143,18 +5250,18 @@
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
-        "A3": "none",
-        "A4": "flat",
+        "A3": "extracted_triples",
+        "A4": "graph",
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
         "B1": "identity",
         "B2": "static",
-        "C1": "ann",
+        "C1": "graph_traversal",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
-        "D1": "cross_encoder",
+        "D1": "none",
         "D2": "top_k",
         "D3": "natural_order",
         "E1": "single_pass",
@@ -5169,7 +5276,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -5207,7 +5314,8 @@
       "family": null,
       "first_published": "2025-02",
       "groups": [
-        "F"
+        "A",
+        "C"
       ],
       "id": "rag_as_memory",
       "kind": "paradigm",
@@ -5259,9 +5367,74 @@
       ],
       "name": "RAG as Memory",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Работа продолжает подход с графом сущностей поверх пассажей, углубляя связь графа с исходным текстом.",
+          "residual_term": null,
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "to": "graph",
+          "why": "Индекс остаётся графовым."
+        },
+        {
+          "code": "A3",
+          "did": "Из пассажей по-прежнему извлекаются сущности и связи.",
+          "residual_term": null,
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "to": "extracted_triples",
+          "why": "Единица индекса несёт добытые утверждения."
+        },
+        {
+          "code": "C1",
+          "did": "Ранжирование выполняет случайное блуждание с предпочтением, как в предыдущей работе.",
+          "residual_term": null,
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "to": "graph_traversal",
+          "why": "Отбор — движение по связям."
+        },
+        {
+          "code": "A1",
+          "did": "Возвращаются пассажи; граф остаётся устройством индекса.",
+          "residual_term": null,
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "to": "passage",
+          "why": "Единица извлечения — то, что отдаётся наружу."
+        },
+        {
+          "code": "D1",
+          "did": "Отдельной ступени переранжирования не описано.",
+          "residual_term": null,
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "to": "none",
+          "why": "Порядок задаёт блуждание."
+        },
+        {
+          "did": "Вес распределяется случайным блужданием с возвратом к стартовым узлам.",
+          "residual": "random_walk_ranking",
+          "residual_term": "ранжирование случайным блужданием с предпочтением",
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "why": "Обход графа не говорит, по какому правилу распределяется важность."
+        },
+        {
+          "did": "Оценки узлов переводятся в оценки пассажей.",
+          "residual": "score_transfer_to_units",
+          "residual_term": "перенос оценок узлов на единицы извлечения",
+          "source": "arXiv:2502.14802, метод",
+          "technology_id": "rag_as_memory",
+          "why": "Ранжируется одна структура, возвращается другая."
+        }
+      ],
       "prose_id": "rag_as_memory",
-      "residual": []
+      "residual": [
+        "ранжирование случайным блужданием с предпочтением",
+        "перенос оценок узлов на единицы извлечения"
+      ]
     },
     {
       "aliases": [],
@@ -6376,14 +6549,14 @@
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
-        "A3": "none",
-        "A4": "flat",
-        "A5": "dense_single",
-        "A6": "snapshot",
-        "A7": "text",
+        "A3": "extracted_triples",
+        "A4": "graph",
+        "A5": "vision_language",
+        "A6": "append_only",
+        "A7": "image",
         "B1": "identity",
         "B2": "static",
-        "C1": "ann",
+        "C1": "graph_traversal",
         "C2": "single_shot",
         "C3": "none",
         "C4": "single_store",
@@ -6402,7 +6575,7 @@
         "G3": "frozen"
       },
       "configuration_inapplicable": [],
-      "configuration_reviewed": null,
+      "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": null,
       "evidence": [
@@ -6465,7 +6638,73 @@
       ],
       "name": "Streaming RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "A6",
+          "did": "Граф сцены строится по потоку данных и растёт со временем, сохраняя временные отношения.",
+          "instead": "«снимок»: он описал бы неизменный после построения индекс.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод",
+          "technology_id": "streaming_rag",
+          "to": "append_only",
+          "why": "Состояние знаний накапливается, а не заменяется снимком. У схемы есть значение с этим именем."
+        },
+        {
+          "code": "A4",
+          "did": "Отношения между сценой, объектами и сущностями хранятся графом.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод",
+          "technology_id": "streaming_rag",
+          "to": "graph",
+          "why": "У индекса есть связность."
+        },
+        {
+          "code": "C1",
+          "did": "Источник описывает построение графа, но способ поиска по нему не раскрывает.",
+          "question": "Это единственное значение записи, поставленное по схеме, а не по источнику. Если поиск идёт сравнением представлений узлов, значение неверно, а неверным может оказаться и само ограничение.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод; значение выведено из схемы",
+          "technology_id": "streaming_rag",
+          "to": "graph_traversal",
+          "why": "Значение выведено из ограничения схемы: графовая топология требует обхода. Прочитано оно не было."
+        },
+        {
+          "code": "A7",
+          "did": "Обрабатываются потоки разных модальностей, включая видео.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, постановка",
+          "technology_id": "streaming_rag",
+          "to": "image",
+          "why": "Материал не только текстовый."
+        },
+        {
+          "code": "A5",
+          "did": "Представления строит модель, читающая изображение и текст вместе.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод",
+          "technology_id": "streaming_rag",
+          "to": "vision_language",
+          "why": "Модальности сводятся в общее пространство."
+        },
+        {
+          "code": "A3",
+          "did": "Из потока извлекаются сущности и отношения между ними.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод",
+          "technology_id": "streaming_rag",
+          "to": "extracted_triples",
+          "why": "Единица индекса несёт добытые утверждения."
+        },
+        {
+          "code": "F1",
+          "did": "Граф пополняется по мере поступления данных.",
+          "residual_term": null,
+          "source": "arXiv:2501.14101, метод",
+          "technology_id": "streaming_rag",
+          "to": "episodic",
+          "why": "Состояние знаний меняется во время работы, а не только при построении."
+        }
+      ],
       "prose_id": "streaming_rag",
       "residual": []
     },
