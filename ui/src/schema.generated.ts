@@ -10,7 +10,7 @@ export interface DimensionSpec {
   values: string[];
 }
 
-export const SCHEMA_SIZE = 26;
+export const SCHEMA_SIZE = 28;
 
 export const STRATA: { code: string; name: string }[] = [
   { code: "A", name: "Представление знаний" },
@@ -30,6 +30,7 @@ export const DIMENSIONS: DimensionSpec[] = [
   { code: "A5", name: "Модель представления", stratum: "A", core: true, default: "dense_single", values: ["lexical", "dense_single", "dense_multi_late_interaction", "symbolic", "vision_language", "none"] },
   { code: "A6", name: "Темпоральность", stratum: "A", core: false, default: "snapshot", values: ["snapshot", "append_only", "bitemporal"] },
   { code: "A7", name: "Модальность", stratum: "A", core: true, default: "text", values: ["text", "image", "table", "audio", "scene_3d"] },
+  { code: "A8", name: "Происхождение структуры индекса", stratum: "A", core: true, default: "none", values: ["none", "given", "extracted", "computed"] },
   { code: "B1", name: "Преобразование запроса", stratum: "B", core: true, default: "identity", values: ["identity", "hyde", "multi_reformulation", "step_back", "subquestion_decomposition"] },
   { code: "B2", name: "Маршрутизация", stratum: "B", core: true, default: "static", values: ["static", "trained_classifier", "llm_router", "cost_aware_policy"] },
   { code: "C1", name: "Оператор поиска", stratum: "C", core: true, default: "ann", values: ["ann", "lexical", "graph_traversal", "boolean_query", "tree_navigation", "spatial_range"] },
@@ -42,6 +43,7 @@ export const DIMENSIONS: DimensionSpec[] = [
   { code: "E1", name: "Режим генерации", stratum: "E", core: true, default: "single_pass", values: ["single_pass", "draft_verify", "ensemble_fragments", "multi_agent"] },
   { code: "E2", name: "Контроль обоснованности", stratum: "E", core: true, default: "none", values: ["none", "pre_gen_grounding", "post_gen_check", "decoding_reflection", "decoding_trigger", "external_judge"] },
   { code: "E3", name: "Атрибуция", stratum: "E", core: true, default: "none", values: ["none", "document_level", "fragment_level", "claim_level"] },
+  { code: "E5", name: "Связь порождения с извлечением", stratum: "E", core: true, default: "none", values: ["none", "generation_seeds", "mutual_loop"] },
   { code: "E4", name: "Политика отказа", stratum: "E", core: true, default: "no_refusal", values: ["no_refusal", "confidence_threshold", "domain_policy"] },
   { code: "F1", name: "Запись обратно", stratum: "F", core: false, default: "none", values: ["none", "episodic", "consolidating"] },
   { code: "F2", name: "Разрешение противоречий", stratum: "F", core: false, default: "none", values: ["none", "by_time", "by_authority", "explicit_reconciliation"] },

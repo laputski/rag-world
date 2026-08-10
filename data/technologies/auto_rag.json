@@ -1,6 +1,8 @@
 {
   "aliases": [],
-  "configuration": {},
+  "configuration": {
+    "E5": "mutual_loop"
+  },
   "configuration_inapplicable": [],
   "configuration_reviewed": null,
   "configuration_variable": [],

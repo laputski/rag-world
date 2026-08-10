@@ -1,6 +1,8 @@
 {
   "aliases": [],
-  "configuration": {},
+  "configuration": {
+    "E5": "none"
+  },
   "configuration_inapplicable": [],
   "configuration_reviewed": null,
   "configuration_variable": [],

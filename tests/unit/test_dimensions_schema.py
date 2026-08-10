@@ -30,8 +30,8 @@ from core.dimensions_schema import (
 
 
 def test_schema_size_matches_declaration():
-    assert len(DIMENSIONS) == SCHEMA_SIZE == 26
-    assert len(CORE_CODES) == 21
+    assert len(DIMENSIONS) == SCHEMA_SIZE == 28
+    assert len(CORE_CODES) == 23
     assert len(CONDITIONAL_CODES) == 5
 
 
@@ -49,7 +49,7 @@ def test_every_stratum_is_named_and_non_empty():
 
 def test_stratum_sizes():
     sizes = {code: len(dimensions_of(code)) for code in STRATA}
-    assert sizes == {"A": 7, "B": 2, "C": 4, "D": 3, "E": 4, "F": 3, "G": 3}
+    assert sizes == {"A": 8, "B": 2, "C": 4, "D": 3, "E": 5, "F": 3, "G": 3}
 
 
 def test_dimension_codes_are_unique_and_well_formed():
@@ -114,7 +114,9 @@ def test_tree_topology_allows_dense_representation():
     вообще: RAPTOR строит дерево рекурсивной кластеризацией представлений и ими
     же ищет. Свойство самой Vectorless выражается значением A5=none.
     """
-    cfg = {**DEFAULTS, "A4": "tree", "A5": "dense_single",
+    # Происхождение структуры задаётся вместе с топологией: «структуры нет» и
+    # «индекс плоский» — одно и то же, сказанное с двух сторон.
+    cfg = {**DEFAULTS, "A4": "tree", "A5": "dense_single", "A8": "computed",
            "C1": "tree_navigation", "D1": "none"}
     assert validate(cfg) == [], "допустимое сочетание не должно отвергаться"
 
@@ -157,7 +159,7 @@ def test_graph_topology_allows_a_query_language():
     Ограничение «граф требует обхода» обобщало одну реализацию на всё значение
     и дважды заставляло приписывать записи значение, которого в источнике нет.
     """
-    cfg = {**DEFAULTS, "A4": "graph", "C1": "boolean_query"}
+    cfg = {**DEFAULTS, "A4": "graph", "A8": "given", "C1": "boolean_query"}
     assert validate(cfg) == []
 
 
@@ -180,7 +182,7 @@ def test_phi_multi_hop_requires_graph_topology():
 
 def test_phi_constraint_count_is_pinned():
     """Число ограничений закреплено: новое Φ обязано приходить со своим тестом."""
-    assert len(CONSTRAINTS) == 7, (
+    assert len(CONSTRAINTS) == 10, (
         f"Φ содержит {len(CONSTRAINTS)} ограничений; добавьте тест для нового. "
         "Список: " + ", ".join(
             f"{c.dim_a}={c.val_a} {c.kind} {c.dim_b}={c.val_b}" for c in CONSTRAINTS
@@ -250,3 +252,30 @@ def test_dead_values_returns_valid_pairs():
     for code, value in dead_values():
         assert code in BY_CODE
         assert value in ALL_VALUES[code]
+
+
+def test_structure_origin_is_tied_to_topology():
+    """«Структуры нет» и «индекс плоский» — одно и то же с двух сторон.
+
+    Связь двусторонняя: плоский индекс не может иметь происхождения структуры,
+    а отсутствие происхождения означает плоский индекс. Без второй половины
+    запись могла бы утверждать граф без источника его связей.
+    """
+    assert validate({**DEFAULTS, "A4": "flat", "A8": "computed"}) != []
+    assert validate({**DEFAULTS, "A4": "graph", "A8": "none", "C1": "graph_traversal"}) != []
+    assert validate({**DEFAULTS, "A4": "flat", "A8": "none"}) == []
+
+
+def test_loop_between_generation_and_retrieval_needs_repeated_calls():
+    """Цикл невозможен при однократном обращении к индексу.
+
+    Обратного ограничения нет: повторные обращения бывают и без участия
+    порождения — например, фиксированный многошаговый обход.
+    """
+    assert validate({**DEFAULTS, "E5": "mutual_loop", "C2": "single_shot"}) != []
+    assert validate({**DEFAULTS, "E5": "mutual_loop", "C2": "iterative_stopping"}) == []
+    # Многошаговый обход требует графа отдельным ограничением, поэтому в
+    # примере задаётся и топология с её происхождением.
+    assert validate({**DEFAULTS, "E5": "none", "C2": "multi_hop_fixed",
+                     "A4": "graph", "A8": "extracted",
+                     "C1": "graph_traversal"}) == []

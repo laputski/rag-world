@@ -8,6 +8,7 @@
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
+    "A8": "computed",
     "B1": "identity",
     "B2": "static",
     "C1": "tree_navigation",
@@ -21,6 +22,7 @@
     "E2": "none",
     "E3": "none",
     "E4": "no_refusal",
+    "E5": "none",
     "F1": "none",
     "F2": "none",
     "F3": "none",
@@ -52,7 +54,5 @@
   "name": "RAPTOR",
   "package": null,
   "prose_id": "raptor",
-  "residual": [
-    "hierarchical_community_clustering"
-  ]
+  "residual": []
 }

@@ -8,6 +8,7 @@
     "A5": "lexical",
     "A6": "snapshot",
     "A7": "text",
+    "A8": "none",
     "B1": "multi_reformulation",
     "B2": "static",
     "C1": "lexical",
@@ -21,6 +22,7 @@
     "E2": "none",
     "E3": "none",
     "E4": "no_refusal",
+    "E5": "mutual_loop",
     "F1": "none",
     "F2": "none",
     "F3": "none",
@@ -53,7 +55,5 @@
   "name": "ReAct",
   "package": null,
   "prose_id": "react",
-  "residual": [
-    "reasoning_retrieval_interleaving"
-  ]
+  "residual": []
 }

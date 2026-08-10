@@ -8,6 +8,7 @@
     "A5": "dense_multi_late_interaction",
     "A6": "snapshot",
     "A7": "text",
+    "A8": "none",
     "B1": "identity",
     "B2": "static",
     "C1": "ann",

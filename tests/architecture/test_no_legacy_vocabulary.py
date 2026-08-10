@@ -141,4 +141,4 @@ def test_replacement_model_is_declared():
     from core.dimensions_schema import DIMENSIONS, STRATA
 
     assert len(STRATA) == 7, "ожидается семь стратов"
-    assert len(DIMENSIONS) == 26, "ожидается двадцать шесть измерений"
+    assert len(DIMENSIONS) == 28, "ожидается двадцать восемь измерений"

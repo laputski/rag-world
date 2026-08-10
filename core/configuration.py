@@ -48,6 +48,11 @@ class Configuration(BaseModel):
 
     # Поля перечислены явно, чтобы Pydantic знал их типы; значения по умолчанию
     # берутся из dimensions_schema — единственного источника правды о схеме.
+    #
+    # Перечень приходится править вручную при изменении состава схемы, и это
+    # намеренно: молчаливо подхваченное новое измерение появилось бы в хэше
+    # конфигурации, не будучи заполненным ни у одной записи. Проверка состава в
+    # tests/unit/test_dimensions_schema.py не даст забыть.
     A1: str = DEFAULTS["A1"]
     A2: str = DEFAULTS["A2"]
     A3: str = DEFAULTS["A3"]
@@ -55,6 +60,7 @@ class Configuration(BaseModel):
     A5: str = DEFAULTS["A5"]
     A6: str = DEFAULTS["A6"]
     A7: str = DEFAULTS["A7"]
+    A8: str = DEFAULTS["A8"]
     B1: str = DEFAULTS["B1"]
     B2: str = DEFAULTS["B2"]
     C1: str = DEFAULTS["C1"]
@@ -68,6 +74,7 @@ class Configuration(BaseModel):
     E2: str = DEFAULTS["E2"]
     E3: str = DEFAULTS["E3"]
     E4: str = DEFAULTS["E4"]
+    E5: str = DEFAULTS["E5"]
     F1: str = DEFAULTS["F1"]
     F2: str = DEFAULTS["F2"]
     F3: str = DEFAULTS["F3"]

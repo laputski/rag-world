@@ -8,6 +8,7 @@
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
+    "A8": "none",
     "B1": "identity",
     "B2": "llm_router",
     "C1": "ann",
@@ -21,6 +22,7 @@
     "E2": "decoding_reflection",
     "E3": "fragment_level",
     "E4": "no_refusal",
+    "E5": "mutual_loop",
     "F1": "none",
     "F2": "none",
     "F3": "none",
@@ -56,7 +58,5 @@
   "name": "Self-RAG",
   "package": null,
   "prose_id": "self_rag",
-  "residual": [
-    "per_query_strategy_choice"
-  ]
+  "residual": []
 }

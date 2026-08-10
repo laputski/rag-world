@@ -8,6 +8,7 @@
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
+    "A8": "none",
     "C1": "ann",
     "C3": "none",
     "C4": "single_store",

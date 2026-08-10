@@ -16,6 +16,7 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "trained_classifier",
         "C1": "lexical",
@@ -29,6 +30,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -195,18 +197,17 @@
           "why": "Устройство синтеза во всех ветвях одинаково."
         },
         {
-          "did": "Стратегия извлечения выбирается заново на каждый вопрос.",
-          "residual": "per_query_strategy_choice",
-          "residual_term": "выбор стратегии извлечения на каждый запрос",
-          "source": "arXiv:2403.14403, метод",
+          "code": "E5",
+          "did": "В самой полной ветви работает чередование рассуждения с поиском.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "adaptive_rag",
-          "why": "Схема приписывает записи одно значение измерения. Система, выбирающая значение во время работы, описывается ею лишь приблизительно — даже с пометкой."
+          "to": "mutual_loop",
+          "why": "Значение записано по самой полной ветви, как и остальные переменные измерения записи."
         }
       ],
       "prose_id": "adaptive_rag",
-      "residual": [
-        "выбор стратегии извлечения на каждый запрос"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -222,6 +223,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "llm_router",
         "C1": "ann",
@@ -235,6 +237,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -296,29 +299,10 @@
           "to": "multi_agent",
           "variable": true,
           "why": "Обзор прямо делит их по числу агентов, поэтому измерение помечено."
-        },
-        {
-          "did": "Размышление и обращение к источникам чередуются, питая друг друга.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2501.09136, обзор",
-          "technology_id": "agentic_rag",
-          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза."
-        },
-        {
-          "did": "Стратегия выбирается заново на каждый запрос.",
-          "residual": "per_query_strategy_choice",
-          "residual_term": "выбор стратегии извлечения на каждый запрос",
-          "source": "arXiv:2501.09136, обзор",
-          "technology_id": "agentic_rag",
-          "why": "Схема приписывает записи одно значение измерения."
         }
       ],
       "prose_id": null,
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения",
-        "выбор стратегии извлечения на каждый запрос"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -334,6 +318,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "computed",
         "B1": "identity",
         "B2": "static",
         "C1": "tree_navigation",
@@ -347,6 +332,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -448,12 +434,19 @@
           "technology_id": "archrag",
           "to": "tree_navigation",
           "why": "Отбор — движение по уровням."
+        },
+        {
+          "code": "A8",
+          "did": "Иерархия сообществ строится кластеризацией с участием языковой модели.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "archrag",
+          "to": "computed",
+          "why": "Структура вычислена алгоритмом."
         }
       ],
       "prose_id": "archrag",
-      "residual": [
-        "иерархическая кластеризация узлов по сообществам"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -461,7 +454,9 @@
       "attention_cohort": "2024",
       "attention_raw": 0.048,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "mutual_loop"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -516,7 +511,17 @@
       ],
       "name": "Auto-RAG",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "E5",
+          "did": "Модель ведёт многошаговый диалог с поисковиком, решая на каждом шаге, достаточно ли найденного.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "auto_rag",
+          "to": "mutual_loop",
+          "why": "Порождение управляет поиском и меняется от найденного."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -534,6 +539,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "C1": "ann",
         "C3": "none",
         "C4": "single_store",
@@ -661,6 +667,7 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "lexical",
@@ -674,6 +681,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -778,6 +786,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -791,6 +800,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -920,6 +930,15 @@
           "technology_id": "causalrag",
           "to": "none",
           "why": "Порядок задаёт прослеживание связей."
+        },
+        {
+          "code": "A8",
+          "did": "Причинные связи извлекаются из документов.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "causalrag",
+          "to": "extracted",
+          "why": "Структура добыта из содержания."
         }
       ],
       "prose_id": "causalrag",
@@ -941,6 +960,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -954,6 +974,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -1053,6 +1074,7 @@
         "A5": "dense_multi_late_interaction",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -1266,6 +1288,7 @@
         "A5": "vision_language",
         "A6": "snapshot",
         "A7": "image",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -1428,6 +1451,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -1441,6 +1465,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -1528,6 +1553,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "trained_classifier",
         "C1": "ann",
@@ -1541,6 +1567,7 @@
         "E2": "post_gen_check",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -1685,6 +1712,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -1698,6 +1726,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -1789,7 +1818,9 @@
       "attention_cohort": "2023",
       "attention_raw": 1.618,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -1862,6 +1893,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -1875,6 +1907,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -2008,6 +2041,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -2021,6 +2055,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -2142,6 +2177,7 @@
         "A5": "vision_language",
         "A6": "snapshot",
         "A7": "scene_3d",
+        "A8": "computed",
         "B1": "identity",
         "B2": "static",
         "C1": "tree_navigation",
@@ -2155,6 +2191,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -2294,18 +2331,17 @@
           "why": "Место исполнения — устройство, а не сервер."
         },
         {
-          "did": "Уровни обобщения вычисляются из наблюдений, а не заданы структурой источника.",
-          "residual": "hierarchical_community_clustering",
-          "residual_term": "иерархическая кластеризация узлов по сообществам",
-          "source": "arXiv:2409.18313, метод",
+          "code": "A8",
+          "did": "Уровни обобщения выводятся из наблюдений агента.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "embodied_rag",
-          "why": "Топология говорит, что это дерево, но не откуда взялось разбиение."
+          "to": "computed",
+          "why": "Структура вычислена по данным, а не задана источником."
         }
       ],
       "prose_id": "embodied_rag",
-      "residual": [
-        "иерархическая кластеризация узлов по сообществам"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -2321,6 +2357,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -2334,6 +2371,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -2502,6 +2540,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "static",
         "C1": "ann",
@@ -2515,6 +2554,7 @@
         "E2": "decoding_trigger",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -2627,18 +2667,17 @@
           "why": "Найденное подаётся в продолжение генерации напрямую."
         },
         {
-          "did": "Порождение ответа и извлечение чередуются: текст решает, когда искать, найденное меняет текст.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2305.06983, метод",
+          "code": "E5",
+          "did": "Низкая уверенность в порождаемом тексте запускает поиск, а найденное меняет продолжение.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "flare",
-          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза; связь между ними не выражена ни тем, ни другим."
+          "to": "mutual_loop",
+          "why": "Порождение решает, когда искать, найденное меняет порождение."
         }
       ],
       "prose_id": "flare",
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -2646,7 +2685,9 @@
       "attention_cohort": "2024",
       "attention_raw": 0.593,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -2711,7 +2752,9 @@
       "attention_cohort": "2024",
       "attention_raw": 0.29,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -2786,6 +2829,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -2799,6 +2843,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -3011,6 +3056,15 @@
           "source": "arXiv:2405.14831, извлечение",
           "technology_id": "hipporag",
           "why": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска, ни переранжирование этого перехода не описывают."
+        },
+        {
+          "code": "A8",
+          "did": "Узлы и связи графа извлекаются из текста моделью.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "hipporag",
+          "to": "extracted",
+          "why": "Структура добыта из содержания: она не задана источником и не вычислена группировкой, а вычитана."
         }
       ],
       "prose_id": "hipporag",
@@ -3035,6 +3089,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "hyde",
         "B2": "static",
         "C1": "ann",
@@ -3048,6 +3103,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "generation_seeds",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -3137,6 +3193,15 @@
           "technology_id": "hyde",
           "to": "frozen",
           "why": "Приём складывает существующие части, ничего не доучивая."
+        },
+        {
+          "code": "E5",
+          "did": "Модель сочиняет вымышленный документ, и поиск идёт по нему.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "hyde",
+          "to": "generation_seeds",
+          "why": "Порождённый текст служит запросом, но обратной связи нет: найденное на сочинённое уже не влияет. Тем и отличается от цикла."
         }
       ],
       "prose_id": "hyde",
@@ -3156,6 +3221,7 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "static",
         "C1": "lexical",
@@ -3169,6 +3235,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -3320,18 +3387,17 @@
           "why": "Прерывание — это не второй проход по тексту."
         },
         {
-          "did": "Рассуждение и извлечение идут вперемежку и питают друг друга: что искать дальше, зависит от уже выведенного, а что выводить — от уже найденного.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2212.10509, метод",
+          "code": "E5",
+          "did": "Каждое предложение рассуждения становится запросом, а найденное меняет следующее предложение.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "ircot",
-          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза. Связь между ними — то, ради чего метод и придуман, — не выражена ни тем измерением, ни другим."
+          "to": "mutual_loop",
+          "why": "Связь двусторонняя и повторяется: это цикл, а не однократное порождение запроса."
         }
       ],
       "prose_id": "ircot",
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -3339,7 +3405,9 @@
       "attention_cohort": "2024",
       "attention_raw": 2.8,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -3412,6 +3480,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -3425,6 +3494,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -3533,6 +3603,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -3546,6 +3617,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "episodic",
         "F2": "none",
         "F3": "none",
@@ -3679,6 +3751,15 @@
           "technology_id": "lightrag",
           "to": "none",
           "why": "Порядок задаётся самим поиском."
+        },
+        {
+          "code": "A8",
+          "did": "Сущности и отношения извлекаются из текста.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "lightrag",
+          "to": "extracted",
+          "why": "Структура добыта из содержания."
         }
       ],
       "prose_id": "lightrag",
@@ -3698,6 +3779,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "subquestion_decomposition",
         "B2": "static",
         "C1": "ann",
@@ -3711,6 +3793,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -3816,18 +3899,17 @@
           "why": "Ступени пересмотра порядка в работе нет."
         },
         {
-          "did": "Агенты передают друг другу промежуточные рассуждения, и следующий поиск определяется ими.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2505.20096, устройство агентов",
+          "code": "E5",
+          "did": "Агенты передают друг другу рассуждения, и следующий поиск определяется ими.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "ma_rag",
-          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза; связь между ними не выражена ни тем, ни другим."
+          "to": "mutual_loop",
+          "why": "Связь двусторонняя."
         }
       ],
       "prose_id": "ma_rag",
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -3843,6 +3925,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "hyde",
         "B2": "static",
         "C1": "ann",
@@ -3856,6 +3939,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "generation_seeds",
         "F1": "episodic",
         "F2": "none",
         "F3": "none",
@@ -3963,6 +4047,15 @@
           "technology_id": "memorag",
           "to": "episodic",
           "why": "Состояние знаний меняется во время работы."
+        },
+        {
+          "code": "E5",
+          "did": "Лёгкая модель пишет черновик, служащий подсказкой поиску.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "memorag",
+          "to": "generation_seeds",
+          "why": "Порождение задаёт запрос однократно, цикла нет."
         }
       ],
       "prose_id": "memorag",
@@ -3984,6 +4077,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "computed",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -3997,6 +4091,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4235,26 +4330,26 @@
           "why": "Запись — точка конфигурационного пространства. Система с режимами занимает несколько точек, и объединение подтверждённого описывает её приблизительно."
         },
         {
-          "did": "Разбиение на сообщества не задано источником данных, а вычисляется алгоритмом кластеризации, применяемым многократно.",
-          "residual": "hierarchical_community_clustering",
-          "residual_term": "иерархическая кластеризация узлов по сообществам",
-          "source": "arXiv:2404.16130, построение графа",
-          "technology_id": "msft_graphrag",
-          "why": "Схема допускает значение «иерархия сообществ», но не сообщает, откуда взялась иерархия. Заданная человеком и вычисленная — разные вещи."
-        },
-        {
           "did": "Каждому частичному ответу языковая модель сама выставляет оценку полезности, и по этим оценкам ответы выстраиваются перед сведением.",
           "residual": "llm_scored_partial_answers",
           "residual_term": "оценка полезности частичных ответов моделью",
           "source": "arXiv:2404.16130, обзорный поиск",
           "technology_id": "msft_graphrag",
           "why": "Порядок задан суждением модели, а не структурой индекса и не отдельной моделью переранжирования. Ни одно значение переранжирования этого не описывает."
+        },
+        {
+          "code": "A8",
+          "did": "Сообщества выделяются алгоритмом кластеризации, применяемым рекурсивно до неделимых.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "msft_graphrag",
+          "to": "computed",
+          "why": "Структура вычислена, а не задана источником."
         }
       ],
       "prose_id": "msft_graphrag",
       "residual": [
         "несколько режимов работы с разной конфигурацией",
-        "иерархическая кластеризация узлов по сообществам",
         "оценка полезности частичных ответов моделью"
       ]
     },
@@ -4272,6 +4367,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "static",
         "C1": "ann",
@@ -4285,6 +4381,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4380,6 +4477,7 @@
         "A5": "vision_language",
         "A6": "snapshot",
         "A7": "image",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -4393,6 +4491,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4520,6 +4619,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -4533,6 +4633,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4607,6 +4708,7 @@
         "A5": "symbolic",
         "A6": "snapshot",
         "A7": "image",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -4620,6 +4722,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4779,6 +4882,7 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "given",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -4792,6 +4896,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -4911,6 +5016,15 @@
           "technology_id": "og_rag",
           "to": "budget_aware",
           "why": "Отбор идёт от достаточности, а не от числа лучших."
+        },
+        {
+          "code": "A8",
+          "did": "Группы фактов собраны по онтологии предметной области, заданной заранее.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "og_rag",
+          "to": "given",
+          "why": "Структура взята из источника: онтологию не выводили из корпуса, её принесли извне."
         }
       ],
       "prose_id": "og_rag",
@@ -4930,6 +5044,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "rrf",
@@ -5059,6 +5174,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -5072,6 +5188,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -5200,6 +5317,15 @@
           "technology_id": "pathrag",
           "to": "single_shot",
           "why": "Многошаговость обеспечена длиной пути, а не серией запросов."
+        },
+        {
+          "code": "A8",
+          "did": "Граф строится по корпусу извлечением сущностей и связей.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "pathrag",
+          "to": "extracted",
+          "why": "Структура добыта из содержания."
         }
       ],
       "prose_id": "pathrag",
@@ -5358,6 +5484,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "C1": "ann",
         "C2": "single_shot",
         "C3": "none",
@@ -5498,6 +5625,7 @@
         "A5": "vision_language",
         "A6": "snapshot",
         "A7": "image",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -5511,6 +5639,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -5633,6 +5762,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -5646,6 +5776,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -5730,7 +5861,9 @@
       "attention_cohort": "2024",
       "attention_raw": 0.968,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "mutual_loop"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -5785,7 +5918,17 @@
       ],
       "name": "RA-ISF",
       "package": null,
-      "parse_notes": [],
+      "parse_notes": [
+        {
+          "code": "E5",
+          "did": "Модель разбирает, чего ей не хватает, и уточняет запрос.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "ra_isf",
+          "to": "mutual_loop",
+          "why": "Самооценка порождения задаёт следующий поиск."
+        }
+      ],
       "prose_id": null,
       "residual": []
     },
@@ -5803,6 +5946,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -5816,6 +5960,7 @@
         "E2": "none",
         "E3": "fragment_level",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -5918,6 +6063,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "graph_traversal",
@@ -5931,6 +6077,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "episodic",
         "F2": "none",
         "F3": "none",
@@ -6113,6 +6260,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "static",
         "C1": "ann",
@@ -6126,6 +6274,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -6220,6 +6369,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "computed",
         "B1": "identity",
         "B2": "static",
         "C1": "tree_navigation",
@@ -6233,6 +6383,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -6352,18 +6503,17 @@
           "why": "Порядок задаёт сам обход дерева."
         },
         {
-          "did": "Группы кусков вычисляются кластеризацией, применяемой рекурсивно, а не заданы структурой документа.",
-          "residual": "hierarchical_community_clustering",
-          "residual_term": "иерархическая кластеризация узлов по сообществам",
-          "source": "arXiv:2401.18059, метод",
+          "code": "A8",
+          "did": "Группы кусков вычисляются кластеризацией представлений, применяемой рекурсивно.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "raptor",
-          "why": "Топология индекса говорит, что это дерево, но не откуда взялось разбиение."
+          "to": "computed",
+          "why": "Структура вычислена алгоритмом: она зависит от модели представлений и может измениться при переиндексации. Тем и отличается от оглавления, при том же значении топологии."
         }
       ],
       "prose_id": "raptor",
-      "residual": [
-        "иерархическая кластеризация узлов по сообществам"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -6379,6 +6529,7 @@
         "A5": "lexical",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "multi_reformulation",
         "B2": "static",
         "C1": "lexical",
@@ -6392,6 +6543,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -6519,18 +6671,17 @@
           "why": "Переранжирование в работе не описано."
         },
         {
-          "did": "Рассуждение и действия чередуются и питают друг друга: рассуждение решает, что делать дальше, результат действия меняет рассуждение.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2210.03629, метод",
+          "code": "E5",
+          "did": "Рассуждение выбирает действие, результат действия меняет рассуждение.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "react",
-          "why": "Схема описывает повторяемость извлечения отдельно от устройства синтеза; связь между ними — суть метода — не выражена ни тем измерением, ни другим."
+          "to": "mutual_loop",
+          "why": "Связь двусторонняя и повторяется."
         }
       ],
       "prose_id": "react",
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -6538,7 +6689,9 @@
       "attention_cohort": "2023",
       "attention_raw": 5.452,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -6611,6 +6764,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -6624,6 +6778,7 @@
         "E2": "pre_gen_grounding",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -6727,6 +6882,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "llm_router",
         "C1": "ann",
@@ -6740,6 +6896,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "consolidating",
         "F2": "none",
         "F3": "none",
@@ -6831,6 +6988,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "llm_router",
         "C1": "ann",
@@ -6844,6 +7002,7 @@
         "E2": "decoding_reflection",
         "E3": "fragment_level",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -6973,18 +7132,17 @@
           "why": "Переранжирование — это вторая модель поверх поиска; здесь её роль играет генератор."
         },
         {
-          "did": "Обращаться ли к поиску, решается заново на каждый вопрос и даже на каждый шаг ответа.",
-          "residual": "per_query_strategy_choice",
-          "residual_term": "выбор стратегии извлечения на каждый запрос",
-          "source": "arXiv:2310.11511, метод",
+          "code": "E5",
+          "did": "Модель решает служебными словами, обращаться ли к поиску, и оценивает найденное по ходу.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "self_rag",
-          "why": "Схема приписывает записи одно значение измерения; система, выбирающая его во время работы, описывается ею приблизительно."
+          "to": "mutual_loop",
+          "why": "Порождение управляет поиском, а найденное влияет на продолжение."
         }
       ],
       "prose_id": "self_rag",
-      "residual": [
-        "выбор стратегии извлечения на каждый запрос"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -6992,7 +7150,9 @@
       "attention_cohort": "2024",
       "attention_raw": 0.579,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -7065,6 +7225,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -7078,6 +7239,7 @@
         "E2": "external_judge",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -7208,6 +7370,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -7221,6 +7384,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -7294,6 +7458,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "step_back",
         "B2": "static",
         "C1": "ann",
@@ -7307,6 +7472,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -7400,6 +7566,7 @@
         "A5": "vision_language",
         "A6": "append_only",
         "A7": "image",
+        "A8": "extracted",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -7413,6 +7580,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "episodic",
         "F2": "none",
         "F3": "none",
@@ -7568,6 +7736,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "extracted",
         "B1": "subquestion_decomposition",
         "B2": "static",
         "C1": "graph_traversal",
@@ -7581,6 +7750,7 @@
         "E2": "external_judge",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "mutual_loop",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -7745,18 +7915,17 @@
           "why": "Обоснованность проверяется сопоставлением независимых порождений, а не самим порождающим."
         },
         {
-          "did": "Рассуждение решает, куда идти по графу, а найденное меняет рассуждение.",
-          "residual": "reasoning_retrieval_interleaving",
-          "residual_term": "чередование шага рассуждения с шагом извлечения",
-          "source": "arXiv:2508.18260, метод",
+          "code": "E5",
+          "did": "Цепочки рассуждения расширяют обход графа по мере надобности.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
           "technology_id": "test_time",
-          "why": "Схема описывает эти стороны порознь."
+          "to": "mutual_loop",
+          "why": "Порождение задаёт глубину поиска."
         }
       ],
       "prose_id": "test_time",
-      "residual": [
-        "чередование шага рассуждения с шагом извлечения"
-      ]
+      "residual": []
     },
     {
       "aliases": [],
@@ -7764,7 +7933,9 @@
       "attention_cohort": "2023",
       "attention_raw": 1.459,
       "confidence": 1.0,
-      "configuration": {},
+      "configuration": {
+        "E5": "none"
+      },
       "configuration_inapplicable": [],
       "configuration_reviewed": null,
       "configuration_variable": [],
@@ -7837,6 +8008,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "given",
         "B1": "identity",
         "B2": "static",
         "C1": "boolean_query",
@@ -7850,6 +8022,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -7965,6 +8138,15 @@
           "technology_id": "unified",
           "to": "budget_aware",
           "why": "Отбор идёт от достаточности, а не от числа лучших."
+        },
+        {
+          "code": "A8",
+          "did": "Документы переводятся в тройки по ключам исходных данных.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "unified",
+          "to": "given",
+          "why": "Структура задана исходными данными: ключи полуструктурированного документа переносятся в граф как есть."
         }
       ],
       "prose_id": "unified",
@@ -7986,6 +8168,7 @@
         "A5": "none",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "given",
         "B1": "identity",
         "B2": "static",
         "C1": "tree_navigation",
@@ -7999,6 +8182,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",
@@ -8098,6 +8282,15 @@
           "technology_id": "vectorless",
           "to": "tree_navigation",
           "why": "Отбор — движение по структуре, а не сравнение представлений."
+        },
+        {
+          "code": "A8",
+          "did": "Дерево индекса — это оглавление документа, написанное человеком.",
+          "residual_term": null,
+          "source": "выведено из разбора записи",
+          "technology_id": "vectorless",
+          "to": "given",
+          "why": "Структура взята из источника как есть и верна по построению: её не вычисляли, и переиндексация её не изменит."
         }
       ],
       "prose_id": "vectorless",
@@ -8117,6 +8310,7 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
+        "A8": "none",
         "B1": "identity",
         "B2": "static",
         "C1": "ann",
@@ -8130,6 +8324,7 @@
         "E2": "none",
         "E3": "none",
         "E4": "no_refusal",
+        "E5": "none",
         "F1": "none",
         "F2": "none",
         "F3": "none",

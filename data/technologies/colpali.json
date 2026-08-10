@@ -8,6 +8,7 @@
     "A5": "vision_language",
     "A6": "snapshot",
     "A7": "image",
+    "A8": "none",
     "B1": "identity",
     "B2": "static",
     "C1": "ann",
