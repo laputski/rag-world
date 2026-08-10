@@ -10,7 +10,8 @@
     "generalized": "Paper",
     "about": "About",
     "digest": "Digest",
-    "residuals": "Residuals"
+    "residuals": "Residuals",
+    "cite": "How to cite"
   },
   "common": {
     "expand": "Expand",
@@ -244,5 +245,19 @@
     "candidate": "candidate dimension",
     "seenIn": "seen in:",
     "empty": "No residuals recorded yet."
+  },
+  "cite": {
+    "title": "How to cite",
+    "intro": "The portal is citable: registry state is fixed by dated releases, and each release stays unchanged forever.",
+    "warning": "Cite a release, not the current state. The portal changes: a record cited yesterday may hold a different level today, and the link will confirm something other than what it confirmed. Such a link is worse than no link, because it looks reliable.",
+    "noReleases": "No releases yet.",
+    "latest": "Latest release: {{tag}}",
+    "contents": "It fixes {{technologies}} technologies and {{evidence}} pieces of evidence; {{reviewed}} configurations were derived from sources.",
+    "gost": "GOST R 7.0.5",
+    "bibtex": "BibTeX",
+    "recordTitle": "Citing a single record",
+    "recordBody": "A record deliberately has no permanent identifier: records change, and such an identifier would point at a moving target. A citation to a record carries the release tag in which its state is fixed.",
+    "copy": "copy",
+    "copied": "copied"
   }
 }

@@ -23,6 +23,7 @@ const NAV = [
   { to: "/digest", key: "nav.digest", end: false },
   { to: "/residuals", key: "nav.residuals", end: false },
   { to: "/article", key: "nav.generalized", end: false },
+  { to: "/cite", key: "nav.cite", end: false },
   { to: "/about", key: "nav.about", end: false },
 ];
 
