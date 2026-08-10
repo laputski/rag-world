@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-09",
-  "count": 52,
+  "built_at": "2026-08-10",
+  "count": 62,
   "technologies": [
     {
       "aliases": [],
-      "attention": 14.415,
+      "attention": 11.451,
       "attention_cohort": "2024",
       "attention_raw": 5.903,
       "confidence": 1.0,
@@ -322,7 +322,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.397,
+      "attention": 1.036,
       "attention_cohort": "2025",
       "attention_raw": 0.6,
       "confidence": 1.0,
@@ -454,6 +454,71 @@
       "residual": [
         "иерархическая кластеризация узлов по сообществам"
       ]
+    },
+    {
+      "aliases": [],
+      "attention": 0.093,
+      "attention_cohort": "2024",
+      "attention_raw": 0.048,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Модель сама ведёт многошаговый диалог с поисковиком до достаточности.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2411.19443",
+          "type": "publication",
+          "value": "arXiv:2411.19443 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4405030361",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.048"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "auto_rag",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2411.19443",
+          "verified_at": null
+        }
+      ],
+      "name": "Auto-RAG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
     },
     {
       "aliases": [],
@@ -701,7 +766,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.348,
+      "attention": 1.0,
       "attention_cohort": "2025",
       "attention_raw": 0.579,
       "confidence": 1.0,
@@ -864,7 +929,7 @@
       "aliases": [
         "ChatQA 2"
       ],
-      "attention": 0.552,
+      "attention": 0.438,
       "attention_cohort": "2024",
       "attention_raw": 0.226,
       "confidence": 1.0,
@@ -1189,7 +1254,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.469,
+      "attention": 0.372,
       "attention_cohort": "2024",
       "attention_raw": 0.192,
       "confidence": 1.0,
@@ -1451,7 +1516,7 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 11.695,
+      "attention": 9.29,
       "attention_cohort": "2024",
       "attention_raw": 4.789,
       "confidence": 1.0,
@@ -1608,7 +1673,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.0,
+      "attention": 1.089,
       "attention_cohort": "2023",
       "attention_raw": 1.935,
       "confidence": 1.0,
@@ -1716,6 +1781,71 @@
         }
       ],
       "prose_id": "dense_x_retrieval",
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.911,
+      "attention_cohort": "2023",
+      "attention_raw": 1.618,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Объявление конвейера вместо подсказок: шаги компилируются и самонастраиваются.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2310.03714",
+          "type": "publication",
+          "value": "arXiv:2310.03714 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.618"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2023",
+      "groups": [],
+      "id": "dspy",
+      "kind": "tool",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2310.03714",
+          "verified_at": null
+        }
+      ],
+      "name": "DSPy",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
       "residual": []
     },
     {
@@ -2000,7 +2130,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.105,
+      "attention": 0.083,
       "attention_cohort": "2024",
       "attention_raw": 0.043,
       "confidence": 1.0,
@@ -2179,7 +2309,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.612,
+      "attention": 0.454,
       "attention_cohort": "2025",
       "attention_raw": 0.263,
       "confidence": 1.0,
@@ -2360,7 +2490,7 @@
     },
     {
       "aliases": [],
-      "attention": 4.783,
+      "attention": 5.21,
       "attention_cohort": "2023",
       "attention_raw": 9.256,
       "confidence": 1.0,
@@ -2511,10 +2641,140 @@
       ]
     },
     {
+      "aliases": [],
+      "attention": 1.15,
+      "attention_cohort": "2024",
+      "attention_raw": 0.593,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Графовая нейросеть отбирает подграф, языковая модель рассуждает по нему.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2405.20139",
+          "type": "publication",
+          "value": "arXiv:2405.20139 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4399253046",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=16; year=2024; citation_velocity=0.593"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "gnn_rag",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2405.20139",
+          "verified_at": null
+        }
+      ],
+      "name": "GNN-RAG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.563,
+      "attention_cohort": "2024",
+      "attention_raw": 0.29,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Агент читает длинный документ, обходя построенный по нему граф.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2406.14550",
+          "type": "publication",
+          "value": "arXiv:2406.14550 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4404781346",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.29"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "graphreader",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2406.14550",
+          "verified_at": null
+        }
+      ],
+      "name": "GraphReader",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
       "aliases": [
         "HippoRAG 2"
       ],
-      "attention": 5.199,
+      "attention": 4.13,
       "attention_cohort": "2024",
       "attention_raw": 2.129,
       "confidence": 1.0,
@@ -2884,7 +3144,7 @@
     },
     {
       "aliases": [],
-      "attention": 3.089,
+      "attention": 3.364,
       "attention_cohort": "2023",
       "attention_raw": 5.977,
       "confidence": 1.0,
@@ -3075,7 +3335,72 @@
     },
     {
       "aliases": [],
-      "attention": 0.53,
+      "attention": 5.432,
+      "attention_cohort": "2024",
+      "attention_raw": 2.8,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Знания предметной области и логический вывод поверх графа для профессиональных задач.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2409.13731",
+          "type": "publication",
+          "value": "arXiv:2409.13731 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410636953",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=42; year=2025; citation_velocity=2.8"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "kag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2409.13731",
+          "verified_at": null
+        }
+      ],
+      "name": "KAG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.421,
       "attention_cohort": "2024",
       "attention_raw": 0.217,
       "confidence": 1.0,
@@ -3361,7 +3686,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.156,
+      "attention": 0.116,
       "attention_cohort": "2025",
       "attention_raw": 0.067,
       "confidence": 1.0,
@@ -4442,7 +4767,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.593,
+      "attention": 1.181,
       "attention_cohort": "2025",
       "attention_raw": 0.684,
       "confidence": 1.0,
@@ -4722,7 +5047,7 @@
     },
     {
       "aliases": [],
-      "attention": 3.725,
+      "attention": 2.763,
       "attention_cohort": "2025",
       "attention_raw": 1.6,
       "confidence": 1.0,
@@ -4882,7 +5207,72 @@
     },
     {
       "aliases": [],
-      "attention": 0.896,
+      "attention": 1.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.579,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Отравление данных рекомендательной системы, построенной на извлечении.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2501.11759",
+          "type": "publication",
+          "value": "arXiv:2501.11759 (2025)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4409166754",
+          "type": "publication",
+          "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2025",
+      "groups": [],
+      "id": "poison_rag",
+      "kind": "attack",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2501.11759",
+          "verified_at": null
+        }
+      ],
+      "name": "Poison-RAG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.712,
       "attention_cohort": "2024",
       "attention_raw": 0.367,
       "confidence": 1.0,
@@ -5231,7 +5621,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.228,
+      "attention": 0.248,
       "attention_cohort": "2023",
       "attention_raw": 0.441,
       "confidence": 1.0,
@@ -5336,7 +5726,72 @@
     },
     {
       "aliases": [],
-      "attention": 2.359,
+      "attention": 1.878,
+      "attention_cohort": "2024",
+      "attention_raw": 0.968,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Итеративная самооценка: модель разбирает, чего ей не хватает, и уточняет запрос.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2403.06840",
+          "type": "publication",
+          "value": "arXiv:2403.06840 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4402670862",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=30; year=2024; citation_velocity=0.968"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "ra_isf",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2403.06840",
+          "verified_at": null
+        }
+      ],
+      "name": "RA-ISF",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 1.874,
       "attention_cohort": "2024",
       "attention_raw": 0.966,
       "confidence": 1.0,
@@ -5451,7 +5906,7 @@
     },
     {
       "aliases": [],
-      "attention": 2.328,
+      "attention": 1.727,
       "attention_cohort": "2025",
       "attention_raw": 1.0,
       "confidence": 1.0,
@@ -5753,7 +6208,7 @@
     },
     {
       "aliases": [],
-      "attention": 2.127,
+      "attention": 1.69,
       "attention_cohort": "2024",
       "attention_raw": 0.871,
       "confidence": 1.0,
@@ -5912,7 +6367,7 @@
     },
     {
       "aliases": [],
-      "attention": 6.449,
+      "attention": 7.024,
       "attention_cohort": "2023",
       "attention_raw": 12.478,
       "confidence": 1.0,
@@ -6079,7 +6534,72 @@
     },
     {
       "aliases": [],
-      "attention": 0.08,
+      "attention": 3.069,
+      "attention_cohort": "2023",
+      "attention_raw": 5.452,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Чёрный ящик языковой модели остаётся неизменным, а поисковик подстраивается под него.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2301.12652",
+          "type": "publication",
+          "value": "arXiv:2301.12652 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042773",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=169; year=2024; citation_velocity=5.452"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2023",
+      "groups": [],
+      "id": "replug",
+      "kind": "technique",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2301.12652",
+          "verified_at": null
+        }
+      ],
+      "name": "REPLUG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.087,
       "attention_cohort": "2023",
       "attention_raw": 0.154,
       "confidence": 1.0,
@@ -6468,7 +6988,72 @@
     },
     {
       "aliases": [],
-      "attention": 0.652,
+      "attention": 1.123,
+      "attention_cohort": "2024",
+      "attention_raw": 0.579,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Самоулучшение: модель порождает себе вопросы по корпусу и учится на них.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2410.17952",
+          "type": "publication",
+          "value": "arXiv:2410.17952 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4411119264",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024",
+      "groups": [],
+      "id": "simrag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2410.17952",
+          "verified_at": null
+        }
+      ],
+      "name": "SimRAG",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
+      "attention": 0.484,
       "attention_cohort": "2025",
       "attention_raw": 0.28,
       "confidence": 1.0,
@@ -6697,7 +7282,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.349,
+      "attention": 0.381,
       "attention_cohort": "2023",
       "attention_raw": 0.676,
       "confidence": 1.0,
@@ -7175,6 +7760,71 @@
     },
     {
       "aliases": [],
+      "attention": 0.821,
+      "attention_cohort": "2023",
+      "attention_raw": 1.459,
+      "confidence": 1.0,
+      "configuration": {},
+      "configuration_inapplicable": [],
+      "configuration_reviewed": null,
+      "configuration_variable": [],
+      "core_idea": "Языковая модель шагает по графу знаний, выбирая направление на каждом шаге.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2307.07697",
+          "type": "publication",
+          "value": "arXiv:2307.07697 (2023)"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=54; year=2023; citation_velocity=1.459"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2023",
+      "groups": [],
+      "id": "think_on_graph",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2307.07697",
+          "verified_at": null
+        }
+      ],
+      "name": "Think-on-Graph",
+      "package": null,
+      "parse_notes": [],
+      "prose_id": null,
+      "residual": []
+    },
+    {
+      "aliases": [],
       "attention": 0.0,
       "attention_cohort": null,
       "attention_raw": 0.0,
@@ -7455,7 +8105,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.104,
+      "attention": 0.877,
       "attention_cohort": "2024",
       "attention_raw": 0.452,
       "confidence": 1.0,

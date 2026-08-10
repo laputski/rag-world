@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Объявление конвейера вместо подсказок: шаги компилируются и самонастраиваются.",
+  "family": null,
+  "first_published": "2023",
+  "groups": [],
+  "id": "dspy",
+  "kind": "tool",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2310.03714",
+      "verified_at": null
+    }
+  ],
+  "name": "DSPy",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

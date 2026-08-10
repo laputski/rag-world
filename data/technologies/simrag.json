@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Самоулучшение: модель порождает себе вопросы по корпусу и учится на них.",
+  "family": null,
+  "first_published": "2024",
+  "groups": [],
+  "id": "simrag",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2410.17952",
+      "verified_at": null
+    }
+  ],
+  "name": "SimRAG",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

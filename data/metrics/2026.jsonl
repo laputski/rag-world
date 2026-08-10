@@ -163,3 +163,13 @@
 {"measured_at": "2026-08-09", "metric": "citation_velocity", "source": "https://openalex.org/W4376312546", "technology_id": "flare", "value": 0.436}
 {"measured_at": "2026-08-09", "metric": "citation_velocity", "source": "https://openalex.org/W4398886972", "technology_id": "hipporag", "value": 0.778}
 {"measured_at": "2026-08-09", "metric": "citation_velocity", "source": "https://openalex.org/W4312091824", "technology_id": "hyde", "value": 0.455}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4401042773", "technology_id": "replug", "value": 5.452}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4402670862", "technology_id": "ra_isf", "value": 0.968}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4411119264", "technology_id": "simrag", "value": 0.579}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4384643740", "technology_id": "think_on_graph", "value": 1.459}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4399253046", "technology_id": "gnn_rag", "value": 0.593}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4410636953", "technology_id": "kag", "value": 2.8}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4404781346", "technology_id": "graphreader", "value": 0.29}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4405030361", "technology_id": "auto_rag", "value": 0.048}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4409166754", "technology_id": "poison_rag", "value": 0.579}
+{"measured_at": "2026-08-10", "metric": "citation_velocity", "source": "https://openalex.org/W4387430850", "technology_id": "dspy", "value": 1.618}

@@ -158,7 +158,16 @@ def test_coverage_claim_matches_the_registry():
     expressed = [tech for tech in technologies if not tech.residual]
     share = round(100 * len(expressed) / len(technologies))
 
-    assert f"{share} процентов" in text, (
-        f"в статье нет актуальной доли покрытия ({share} процентов); "
+    # Русский счёт: «74 процента», но «69 процентов». Сторож принимает обе
+    # формы — иначе он падал бы на верном числе из-за грамматики.
+    tail = share % 10
+    forms = [f"{share} процентов"]
+    if tail == 1 and share % 100 != 11:
+        forms.append(f"{share} процент")
+    elif tail in (2, 3, 4) and share % 100 not in (12, 13, 14):
+        forms.append(f"{share} процента")
+
+    assert any(form in text for form in forms), (
+        f"в статье нет актуальной доли покрытия ({forms[-1]}); "
         "она вычисляется из остатков реестра"
     )

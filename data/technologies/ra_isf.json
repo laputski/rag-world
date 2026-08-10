@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Итеративная самооценка: модель разбирает, чего ей не хватает, и уточняет запрос.",
+  "family": null,
+  "first_published": "2024",
+  "groups": [],
+  "id": "ra_isf",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2403.06840",
+      "verified_at": null
+    }
+  ],
+  "name": "RA-ISF",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

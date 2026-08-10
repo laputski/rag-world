@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Агент читает длинный документ, обходя построенный по нему граф.",
+  "family": null,
+  "first_published": "2024",
+  "groups": [],
+  "id": "graphreader",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2406.14550",
+      "verified_at": null
+    }
+  ],
+  "name": "GraphReader",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

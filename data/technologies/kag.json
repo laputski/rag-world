@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Знания предметной области и логический вывод поверх графа для профессиональных задач.",
+  "family": null,
+  "first_published": "2024",
+  "groups": [],
+  "id": "kag",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2409.13731",
+      "verified_at": null
+    }
+  ],
+  "name": "KAG",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

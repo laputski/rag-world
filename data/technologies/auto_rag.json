@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Модель сама ведёт многошаговый диалог с поисковиком до достаточности.",
+  "family": null,
+  "first_published": "2024",
+  "groups": [],
+  "id": "auto_rag",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2411.19443",
+      "verified_at": null
+    }
+  ],
+  "name": "Auto-RAG",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

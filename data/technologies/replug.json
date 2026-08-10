@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Чёрный ящик языковой модели остаётся неизменным, а поисковик подстраивается под него.",
+  "family": null,
+  "first_published": "2023",
+  "groups": [],
+  "id": "replug",
+  "kind": "technique",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2301.12652",
+      "verified_at": null
+    }
+  ],
+  "name": "REPLUG",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

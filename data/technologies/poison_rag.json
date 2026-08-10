@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Отравление данных рекомендательной системы, построенной на извлечении.",
+  "family": null,
+  "first_published": "2025",
+  "groups": [],
+  "id": "poison_rag",
+  "kind": "attack",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2501.11759",
+      "verified_at": null
+    }
+  ],
+  "name": "Poison-RAG",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

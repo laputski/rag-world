@@ -1,6 +1,186 @@
 {
-  "built_at": "2026-08-09",
+  "built_at": "2026-08-10",
   "changes": [
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2411.19443",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4405030361",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Auto-RAG",
+      "technology_id": "auto_rag"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.03714",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "DSPy",
+      "technology_id": "dspy"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2405.20139",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4399253046",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "GNN-RAG",
+      "technology_id": "gnn_rag"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2406.14550",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4404781346",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "GraphReader",
+      "technology_id": "graphreader"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2409.13731",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410636953",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "KAG",
+      "technology_id": "kag"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2501.11759",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4409166754",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Poison-RAG",
+      "technology_id": "poison_rag"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2403.06840",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4402670862",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "RA-ISF",
+      "technology_id": "ra_isf"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2301.12652",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4401042773",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "REPLUG",
+      "technology_id": "replug"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2410.17952",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4411119264",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "SimRAG",
+      "technology_id": "simrag"
+    },
+    {
+      "changed_at": "2026-08-10",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2307.07697",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Think-on-Graph",
+      "technology_id": "think_on_graph"
+    },
     {
       "changed_at": "2026-08-09",
       "evidence": [

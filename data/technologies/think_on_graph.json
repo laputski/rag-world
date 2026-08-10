@@ -1,0 +1,26 @@
+{
+  "aliases": [],
+  "configuration": {},
+  "configuration_inapplicable": [],
+  "configuration_reviewed": null,
+  "configuration_variable": [],
+  "core_idea": "Языковая модель шагает по графу знаний, выбирая направление на каждом шаге.",
+  "family": null,
+  "first_published": "2023",
+  "groups": [],
+  "id": "think_on_graph",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2307.07697",
+      "verified_at": null
+    }
+  ],
+  "name": "Think-on-Graph",
+  "package": null,
+  "prose_id": null,
+  "residual": []
+}

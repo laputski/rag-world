@@ -3,7 +3,7 @@
   <channel>
     <title>RAG World: хроника изменений</title>
     <description>Изменения уровней зрелости технологий RAG</description>
-    <lastBuildDate>2026-08-09</lastBuildDate>
+    <lastBuildDate>2026-08-10</lastBuildDate>
     <item>
       <title>Дайджест за 2026-08-10</title>
       <description>Поднялись в уровне HippoRAG с L0 до L4, Dense X с L1 до L2, Edge и On-Device RAG с L0 до L1. Собрано 45 свидетельств: 35 о публикациях, 7 о загрузках пакетов, 3 о репозиториях. Сейчас в реестре 53 записи. Уровень L0 у 7 записей, L1 у 17, L2 у 19, L3 у 3, L4 у 1, L5 у 1. У 5 записей уровень не вычислен, потому что свидетельств пока нет.</description>
@@ -13,6 +13,56 @@
       <title>Дайджест за 2026-08-09</title>
       <description>Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.</description>
       <guid isPermaLink="false">digest-2026-08-09</guid>
+    </item>
+    <item>
+      <title>Auto-RAG: — → L1</title>
+      <description>publication https://arxiv.org/abs/2411.19443, publication https://openalex.org/W4405030361</description>
+      <guid isPermaLink="false">auto_rag-2026-08-10-L1</guid>
+    </item>
+    <item>
+      <title>DSPy: — → L1</title>
+      <description>publication https://arxiv.org/abs/2310.03714, publication https://openalex.org/W4387430850</description>
+      <guid isPermaLink="false">dspy-2026-08-10-L1</guid>
+    </item>
+    <item>
+      <title>GNN-RAG: — → L1</title>
+      <description>publication https://arxiv.org/abs/2405.20139, publication https://openalex.org/W4399253046</description>
+      <guid isPermaLink="false">gnn_rag-2026-08-10-L1</guid>
+    </item>
+    <item>
+      <title>GraphReader: — → L2</title>
+      <description>publication https://arxiv.org/abs/2406.14550, publication https://openalex.org/W4404781346</description>
+      <guid isPermaLink="false">graphreader-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>KAG: — → L2</title>
+      <description>publication https://arxiv.org/abs/2409.13731, publication https://openalex.org/W4410636953</description>
+      <guid isPermaLink="false">kag-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>Poison-RAG: — → L2</title>
+      <description>publication https://arxiv.org/abs/2501.11759, publication https://openalex.org/W4409166754</description>
+      <guid isPermaLink="false">poison_rag-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>RA-ISF: — → L2</title>
+      <description>publication https://arxiv.org/abs/2403.06840, publication https://openalex.org/W4402670862</description>
+      <guid isPermaLink="false">ra_isf-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>REPLUG: — → L2</title>
+      <description>publication https://arxiv.org/abs/2301.12652, publication https://openalex.org/W4401042773</description>
+      <guid isPermaLink="false">replug-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>SimRAG: — → L2</title>
+      <description>publication https://arxiv.org/abs/2410.17952, publication https://openalex.org/W4411119264</description>
+      <guid isPermaLink="false">simrag-2026-08-10-L2</guid>
+    </item>
+    <item>
+      <title>Think-on-Graph: — → L1</title>
+      <description>publication https://arxiv.org/abs/2307.07697, publication https://openalex.org/W4384643740</description>
+      <guid isPermaLink="false">think_on_graph-2026-08-10-L1</guid>
     </item>
     <item>
       <title>HippoRAG: L0 → L4</title>
@@ -213,56 +263,6 @@
       <title>IRCoT: L1 → L2</title>
       <description>publication https://arxiv.org/abs/2212.10509, publication https://openalex.org/W4385571271</description>
       <guid isPermaLink="false">ircot-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>MA-RAG: — → L1</title>
-      <description>publication https://openalex.org/W4414588074</description>
-      <guid isPermaLink="false">ma_rag-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>MuRAG: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2210.02928, publication https://openalex.org/W4385573236</description>
-      <guid isPermaLink="false">murag-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>Neuro-Symbolic RAG: — → L2</title>
-      <description>publication https://openalex.org/W7119757052</description>
-      <guid isPermaLink="false">neuro_symbolic_rag-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>OG-RAG: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2412.15235, publication https://openalex.org/W4416035296</description>
-      <guid isPermaLink="false">og_rag-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>PathRAG: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2502.14902, publication https://openalex.org/W7138333265</description>
-      <guid isPermaLink="false">pathrag-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>RA-CM3: — → L1</title>
-      <description>publication https://openalex.org/W4309953147</description>
-      <guid isPermaLink="false">ra_cm3-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>RAFT: — → L1</title>
-      <description>publication https://openalex.org/W4392930030</description>
-      <guid isPermaLink="false">raft-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>RAG as Memory: — → L1</title>
-      <description>publication https://openalex.org/W4407831980, publication https://openalex.org/W7135244490</description>
-      <guid isPermaLink="false">rag_as_memory-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>RAPTOR: — → L1</title>
-      <description>publication https://openalex.org/W4391463108</description>
-      <guid isPermaLink="false">raptor-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>SAIL: — → L1</title>
-      <description>publication https://openalex.org/W4378474184</description>
-      <guid isPermaLink="false">sail-2026-08-08-L1</guid>
     </item>
   </channel>
 </rss>
