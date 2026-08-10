@@ -93,6 +93,60 @@ def publish(meta: dict) -> Path:
     return target
 
 
+def bundle(meta: dict) -> Path:
+    """Собрать архив выпуска и описание для внешнего архива публикаций.
+
+    Цифровой идентификатор нужен снимку данных, а не исходному коду: ссылаются
+    на состояние реестра, а не на то, каким кодом оно получено. Поэтому
+    закрытость репозитория делу не мешает — внешний архив принимает файлы
+    напрямую, без связи с системой контроля версий.
+
+    Описание пишется рядом в готовом виде: заполнять его руками при каждом
+    выпуске значит однажды ошибиться в числах, а числа здесь и есть содержание.
+    """
+    target = RELEASES / meta["tag"]
+    archive = shutil.make_archive(
+        str(RELEASES / f"rag-world-{meta['tag']}"), "zip", root_dir=target
+    )
+
+    description = (
+        f"Снимок реестра технологий Retrieval-Augmented Generation на "
+        f"{meta['released_at']}. Зафиксировано технологий: {meta['technologies']}, "
+        f"свидетельств: {meta['evidence']}; уровень зрелости вычислен у "
+        f"{meta['with_level']}, конфигурация выведена из первоисточников у "
+        f"{meta['reviewed']}. "
+        "Уровень вычисляется детерминированным правилом из собранных "
+        "свидетельств, без языковой модели. Конфигурация каждой записи выведена "
+        "из раздела метода первоисточника, и обоснование каждого значения "
+        "хранится вместе с данными."
+    )
+    (RELEASES / f"{meta['tag']}-deposit.json").write_text(
+        json.dumps({
+            "metadata": {
+                "title": (
+                    "RAG World: реестр технологий Retrieval-Augmented Generation, "
+                    f"выпуск {meta['tag']}"
+                ),
+                "upload_type": "dataset",
+                "description": description,
+                "creators": [{"name": "Laputski, Alexander"}],
+                "publication_date": meta["released_at"],
+                "version": meta["tag"],
+                "language": "rus",
+                "keywords": [
+                    "retrieval-augmented generation", "RAG", "feature model",
+                    "technology readiness", "configuration space",
+                ],
+                "access_right": "open",
+                "license": "cc-by-4.0",
+            },
+            "files": [Path(archive).name],
+        }, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return Path(archive)
+
+
 def run(*, dry_run: bool = False, today: date | None = None) -> int:
     meta = build(today=today)
     print(
@@ -107,6 +161,11 @@ def run(*, dry_run: bool = False, today: date | None = None) -> int:
         print(f"выпуск {meta['tag']} уже существует, повторный не пишется")
         return 0
     print(f"снимок записан: {publish(meta)}")
+    archive = bundle(meta)
+    print(
+        f"пакет для внешнего архива: {archive.name}, описание "
+        f"{meta['tag']}-deposit.json"
+    )
     return 0
 
 

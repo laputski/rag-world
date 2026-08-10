@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "title": "RAG World: реестр технологий Retrieval-Augmented Generation, выпуск 2026-08-10",
+    "upload_type": "dataset",
+    "description": "Снимок реестра технологий Retrieval-Augmented Generation на 2026-08-10. Зафиксировано технологий: 62, свидетельств: 157; уровень зрелости вычислен у 58, конфигурация выведена из первоисточников у 52. Уровень вычисляется детерминированным правилом из собранных свидетельств, без языковой модели. Конфигурация каждой записи выведена из раздела метода первоисточника, и обоснование каждого значения хранится вместе с данными.",
+    "creators": [
+      {
+        "name": "Laputski, Alexander"
+      }
+    ],
+    "publication_date": "2026-08-10",
+    "version": "2026-08-10",
+    "language": "rus",
+    "keywords": [
+      "retrieval-augmented generation",
+      "RAG",
+      "feature model",
+      "technology readiness",
+      "configuration space"
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0"
+  },
+  "files": [
+    "rag-world-2026-08-10.zip"
+  ]
+}

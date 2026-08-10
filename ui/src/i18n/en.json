@@ -7,7 +7,7 @@
     "map": "Maturity map",
     "registry": "Registry",
     "changes": "Changelog",
-    "generalized": "Paper",
+    "generalized": "Foundations",
     "about": "About",
     "digest": "Digest",
     "residuals": "Residuals",
@@ -259,5 +259,8 @@
     "recordBody": "A record deliberately has no permanent identifier: records change, and such an identifier would point at a moving target. A citation to a record carries the release tag in which its state is fixed.",
     "copy": "copy",
     "copied": "copied"
+  },
+  "article": {
+    "foundationsNote": "This text explains what the rest rests on: why there are twenty-six dimensions, why index topology is separated from the search operator, and what a residual means. The registry and the map report facts about technologies, and those facts are checked by collectors. Here is the model that gives the facts meaning, and no collector can confirm it — it is justified by reasoning. As standalone work the text is published separately; on the portal it serves as the foundation."
   }
 }

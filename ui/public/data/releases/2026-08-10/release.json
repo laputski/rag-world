@@ -1,5 +1,5 @@
 {
-  "evidence": 137,
+  "evidence": 157,
   "files": [
     "registry.json",
     "map.json",
@@ -9,6 +9,6 @@
   "released_at": "2026-08-10",
   "reviewed": 52,
   "tag": "2026-08-10",
-  "technologies": 52,
-  "with_level": 48
+  "technologies": 62,
+  "with_level": 58
 }

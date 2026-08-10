@@ -89,7 +89,7 @@ function MermaidDiagram({ chart, theme }: { chart: string; theme: "light" | "dar
 interface OutletCtx { theme: "light" | "dark" }
 
 export function GeneralizedArticlePage() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { theme } = useOutletContext<OutletCtx>();
   const content = getGeneralizedContent(i18n.language === "ru" ? "ru" : "en");
 
@@ -116,6 +116,15 @@ export function GeneralizedArticlePage() {
       <Box sx={{ flexGrow: 1, minWidth: 0, maxWidth: 800 }}>
         <Box id="abstract" sx={{ scrollMarginTop: 80, mb: 2 }}>
           <Typography variant="h4" sx={{ mb: 1 }}>{content.title}</Typography>
+          {/*
+            Раздел назван «Основания», а не «Статья», и разница существенна.
+            «Статья» обещает читателю новость об области; он же получает модель,
+            на которой держатся реестр и карта. Без этой строки непонятно, зачем
+            в портале о технологиях лежит научный текст.
+          */}
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: "64ch" }}>
+            {t("article.foundationsNote")}
+          </Typography>
         </Box>
 
         <Paper variant="outlined" sx={{ p: 3, mb: 3, scrollMarginTop: 80 }}>
