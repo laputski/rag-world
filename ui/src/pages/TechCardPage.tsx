@@ -22,8 +22,18 @@ import type { ParseNote, RegistryTechnology } from "../api/types";
  * «Что делает система» и «почему из этого следует значение» разнесены
  * намеренно: первое проверяется по источнику, второе — по схеме измерений.
  */
+/**
+ * Обоснование разбора: почему у измерения такое значение.
+ *
+ * Текст обоснований русский на обеих версиях портала, и англоязычному читателю
+ * это сказано прямо. Перевод здесь не делается по той же причине, по которой не
+ * переводится раздел «Основания»: каждое обоснование утверждает, что говорит
+ * первоисточник и что из этого следует, а неверно переведённое утверждение
+ * меняет то, что портал говорит о технологии. Показать русский текст с
+ * пометкой честнее, чем перевести его машиной или спрятать вовсе.
+ */
 function ParseNoteBlock({ note }: { note: ParseNote }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -37,7 +47,24 @@ function ParseNoteBlock({ note }: { note: ParseNote }) {
         {note.question && ` · ${t("techCard.readingOpen")}`}
       </MuiLink>
       <Collapse in={open}>
-        <Box sx={{ mt: 1, pl: 1.5, borderLeft: 2, borderColor: "divider", maxWidth: "62ch" }}>
+        {/*
+          Пометка `data-basis` называет единственное место карточки, где на
+          английской версии законно стоит русский текст. По ней же проверка
+          отличает намеренное от забытого перевода.
+        */}
+        <Box
+          data-basis="ru"
+          sx={{ mt: 1, pl: 1.5, borderLeft: 2, borderColor: "divider", maxWidth: "62ch" }}
+        >
+          {i18n.language !== "ru" && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ display: "block", mb: 1, fontStyle: "italic" }}
+            >
+              {t("techCard.basisRussianOnly")}
+            </Typography>
+          )}
           <NoteLine label={t("techCard.basisDid")} text={note.did} />
           <NoteLine label={t("techCard.basisWhy")} text={note.why} />
           {note.instead && <NoteLine label={t("techCard.basisInstead")} text={note.instead} />}

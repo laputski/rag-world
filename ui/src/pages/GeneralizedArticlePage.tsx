@@ -86,11 +86,17 @@ function MermaidDiagram({ chart, theme }: { chart: string; theme: "light" | "dar
   );
 }
 
-interface OutletCtx { theme: "light" | "dark" }
+/**
+ * То, что кладёт в контекст оболочка. Имя поля обязано совпадать с её `mode`:
+ * поле называлось здесь `theme`, оболочка передавала `mode`, и получалось
+ * `undefined`. Схемы на этой странице рисовались светлыми и в тёмной теме, а
+ * типы молчали: `useOutletContext<T>()` — приведение, а не проверка.
+ */
+interface OutletCtx { mode: "light" | "dark" }
 
 export function GeneralizedArticlePage() {
   const { t, i18n } = useTranslation();
-  const { theme } = useOutletContext<OutletCtx>();
+  const { mode } = useOutletContext<OutletCtx>();
   const content = getGeneralizedContent(i18n.language === "ru" ? "ru" : "en");
 
   return (
@@ -138,7 +144,7 @@ export function GeneralizedArticlePage() {
               {s.intro}
             </Typography>
             <RichText sx={{ lineHeight: 1.8 }}>{s.content}</RichText>
-            {s.diagram && <MermaidDiagram chart={s.diagram} theme={theme} />}
+            {s.diagram && <MermaidDiagram chart={s.diagram} theme={mode} />}
           </Paper>
         ))}
 
