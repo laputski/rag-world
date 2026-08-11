@@ -78,6 +78,65 @@ def test_review_gate_is_delegated_to_the_tested_script():
     assert "scripts/classify_changes.py" in text
 
 
+def _update_steps() -> list[dict]:
+    import yaml
+
+    spec = yaml.safe_load((WORKFLOWS / "collect.yml").read_text(encoding="utf-8"))
+    return spec["jobs"]["update"]["steps"]
+
+
+def _run_log_steps() -> list[dict]:
+    """Шаги, фиксирующие журнал прогонов."""
+    return [
+        step for step in _update_steps()
+        if "collection_log.jsonl" in step.get("run", "")
+    ]
+
+
+def test_run_log_reaches_the_main_branch_on_every_pass():
+    """Отметка о прогоне уходит в основную ветку всегда, без условий.
+
+    Пока она лежала вместе с данными, проход с просмотром не оставлял в
+    основной ветке ничего. Молча ломались две вещи: площадка отключает
+    расписание после шестидесяти дней без коммитов, а читатель по дате
+    последней проверки отличает «никто не смотрел» от «ничего не происходило».
+
+    Условие на этом шаге возвращает обе поломки, поэтому его здесь нет.
+    """
+    steps = _run_log_steps()
+    assert steps, (
+        "ни один шаг не фиксирует data/collection_log.jsonl: "
+        "проход с просмотром не оставит в основной ветке следа"
+    )
+    unconditional = [s for s in steps if "if" not in s]
+    assert unconditional, (
+        "журнал прогонов фиксируется только при условии "
+        f"{[s.get('if') for s in steps]}. Отметка о прогоне не утверждение о "
+        "технологии, а факт: просматривать в ней нечего."
+    )
+    assert any("push" in s["run"] for s in unconditional), (
+        "отметка о прогоне зафиксирована, но не отправлена: "
+        "признаком активности репозитория служит именно отправленный коммит"
+    )
+
+
+def test_review_branch_grows_from_the_recorded_pass():
+    """Ветка на просмотр создаётся после фиксации прогона, а не до неё.
+
+    Иначе строка журнала попадёт и в основную ветку, и в ветку, и слияние
+    упрётся в конфликт на файле, который дописывается только в конец.
+    """
+    steps = _update_steps()
+    log = [i for i, s in enumerate(steps) if "collection_log.jsonl" in s.get("run", "")]
+    branch = [i for i, s in enumerate(steps) if "checkout -b" in s.get("run", "")]
+    assert log, "шаг, фиксирующий журнал прогонов, отсутствует"
+    assert branch, "шаг, создающий ветку на просмотр, отсутствует"
+    log_at, branch_at = min(log), min(branch)
+    assert log_at < branch_at, (
+        "ветка на просмотр отрастает раньше, чем зафиксирован прогон"
+    )
+
+
 def test_node_version_is_pinned_and_matches_ci():
     """Площадка и непрерывная интеграция должны собирать одним и тем же Node.
 

@@ -460,6 +460,43 @@ def test_attention_of_a_record_with_several_works(registry, artifacts):
     assert point["attention_raw"] == 0.263
 
 
+def test_source_that_did_not_answer_keeps_its_last_value(registry, artifacts):
+    """Молчание источника не должно выглядеть как падение внимания.
+
+    У записи две работы. В прошлый прогон измерены обе, в нынешний ответила
+    только одна. Свежесть считается по каждому источнику отдельно, поэтому
+    вторая работа остаётся в расчёте со своим последним значением.
+
+    Пока свежесть считалась по всей записи, промолчавший источник выпадал
+    целиком: внимание Dense X упало с 1,089 до 0,101 не потому, что работу
+    перестали цитировать, а потому, что её вторую работу не удалось опросить.
+    Прогон идёт без человека, и такое число неотличимо от наблюдения.
+    """
+    store.save_technology(store.Technology(
+        id="multi", name="Multi", kind="architecture", groups=["A"],
+        first_published="2024",
+    ))
+    store.append_metrics([
+        store.MetricPoint(
+            technology_id="multi", metric="citation_velocity", value=value,
+            measured_at=when, source=source,
+        )
+        for value, when, source in [
+            (0.156, date(2026, 8, 7), "https://openalex.org/W1"),
+            (1.935, date(2026, 8, 7), "https://openalex.org/W2"),
+            # Во второй прогон ответила только первая работа.
+            (0.156, TODAY, "https://openalex.org/W1"),
+        ]
+    ])
+    run_pass(FakeTransport({}))
+
+    payload = json.loads((artifacts / "map.json").read_text(encoding="utf-8"))
+    point = next(p for p in payload["points"] if p["id"] == "multi")
+    assert point["attention_raw"] == 1.935, (
+        "промолчавший источник выпал из расчёта, и внимание упало на порядок"
+    )
+
+
 def test_metric_points_of_different_works_are_both_kept(registry, artifacts):
     """Отбор повторов не должен схлопывать измерения разных работ."""
     points = [
