@@ -57,12 +57,20 @@ def test_independence_degree_matches_implementation():
 # меняется редко и осознанно, поэтому перечень короткий: важно, чтобы сторож
 # требовал обновить статью, а не сам подстраивался под неё.
 SPELLED = {
-    26: ("двадцати шести", "26"),
-    27: ("двадцати семи", "27"),
-    28: ("двадцати восьми", "28"),
-    29: ("двадцати девяти", "29"),
-    30: ("тридцати", "30"),
+    26: ("двадцати шести", "двадцать шесть", "26"),
+    27: ("двадцати семи", "двадцать семь", "27"),
+    28: ("двадцати восьми", "двадцать восемь", "28"),
+    29: ("двадцати девяти", "двадцать девять", "29"),
+    30: ("тридцати", "тридцать", "30"),
 }
+
+
+def _mentions_size_ru(text: str, form: str) -> bool:
+    """Число рядом со словом «измерение», в любом из двух порядков."""
+    escaped = re.escape(form)
+    return bool(
+        re.search(rf"{escaped}\s+измерен\w*|измерен\w*\s+{escaped}", text)
+    )
 
 
 def test_schema_size_claim_matches_declaration():
@@ -71,16 +79,77 @@ def test_schema_size_claim_matches_declaration():
     Число не зашито: сторож берёт его из схемы. Зашитое устаревает вместе с
     правкой схемы, и тогда падает верный текст — так уже было со степенью
     независимости.
+
+    Проверяется не только присутствие верного числа, но и отсутствие прежних.
+    Сторож, доволен первым верным упоминанием, пропускал устаревшие: аннотация
+    говорила о двадцати восьми измерениях, а состав схемы двумя разделами ниже
+    по-прежнему о двадцати шести.
     """
     text = _article_text()
     size = len(DIMENSIONS)
     assert size in SPELLED, (
         f"в схеме {size} измерений; добавьте написание в SPELLED"
     )
-    forms = [f"{form} измерений" for form in SPELLED[size]]
-    assert any(form in text for form in forms), (
-        f"в статье нет актуального числа измерений ({forms[0]})"
+    assert any(_mentions_size_ru(text, form) for form in SPELLED[size]), (
+        f"в статье нет актуального числа измерений ({SPELLED[size][0]})"
     )
+    stale = [
+        form for value, forms in SPELLED.items() if value != size
+        for form in forms if _mentions_size_ru(text, form)
+    ]
+    assert not stale, f"в статье осталось прежнее число измерений: {stale}"
+
+
+#: Написание числа измерений по-английски. Аннотация переведена, и перевод её
+#: чисел устаревает отдельно от оригинала: пока сторож смотрел только в русский
+#: текст, английский полгода утверждал двадцать шесть измерений при двадцати
+#: восьми объявленных.
+SPELLED_EN = {
+    26: "twenty-six", 27: "twenty-seven", 28: "twenty-eight",
+    29: "twenty-nine", 30: "thirty",
+}
+
+
+def test_english_abstract_states_the_same_schema_size():
+    text = _article_text()
+    size = len(DIMENSIONS)
+    assert size in SPELLED_EN, (
+        f"в схеме {size} измерений; добавьте написание в SPELLED_EN"
+    )
+    assert f"{SPELLED_EN[size]} dimensions" in text, (
+        f"в английской аннотации нет актуального числа измерений "
+        f"({SPELLED_EN[size]})"
+    )
+    stale = [
+        form for value, form in SPELLED_EN.items()
+        if value != size and f"{form} dimensions" in text
+    ]
+    assert not stale, f"в английской аннотации осталось прежнее число: {stale}"
+
+
+def test_locale_strings_state_the_current_schema_size():
+    """Число измерений называется и в подписях интерфейса, не только в статье.
+
+    Подпись к разделу «Основания» на обоих языках объясняла читателю, «почему
+    измерений двадцать шесть», когда их было двадцать восемь. Сторож статьи
+    туда не смотрел, потому что это не статья, а строка перевода.
+    """
+    size = len(DIMENSIONS)
+    locales = ROOT / "ui" / "src" / "i18n"
+
+    ru = (locales / "ru.json").read_text(encoding="utf-8")
+    stale_ru = [
+        form for value, forms in SPELLED.items() if value != size
+        for form in forms if _mentions_size_ru(ru, form)
+    ]
+    assert not stale_ru, f"ru.json называет прежнее число измерений: {stale_ru}"
+
+    en = (locales / "en.json").read_text(encoding="utf-8")
+    stale_en = [
+        form for value, form in SPELLED_EN.items()
+        if value != size and re.search(rf"{form}\s+dimensions?", en)
+    ]
+    assert not stale_en, f"en.json называет прежнее число измерений: {stale_en}"
 
 
 def test_strata_count_claim_matches_declaration():
@@ -167,6 +236,112 @@ def test_adjacent_variability_works_are_cited():
         assert marker in text, f"смежная работа не процитирована: {marker}"
 
 
+# ─── Размер реестра ──────────────────────────────────────────────────────────
+#
+# Реестр растёт, и всякое число, посчитанное по нему руками, устаревает молча.
+# Так и вышло: заключение полгода утверждало пятьдесят четыре записи, тогда как
+# аннотация в той же статье говорила о шестидесяти двух. Читатель видел, как
+# портал спорит сам с собой.
+
+#: Обороты, которыми в статье называется размер реестра.
+REGISTRY_SIZE_PATTERNS = (
+    r"(\S+)\s+(?:запис\w+|технологи\w+|архитектур\w*)\s+(?:из\s+)?реестра",
+    r"(\S+)\s+registry\s+(?:technolog\w*|entr\w*)",
+)
+
+#: Числительные прописью. Перечень закрытый и служит одному: заметить, что
+#: размер реестра написан словами, и потребовать цифр. Значения из него не
+#: вычисляются, поэтому сам он не устаревает вместе с реестром, в отличие от
+#: списка написаний конкретного числа.
+NUMERAL_RU = {
+    "одной", "одна", "двух", "две", "трёх", "три", "четырёх", "четыре",
+    "пяти", "пять", "шести", "шесть", "семи", "семь", "восьми", "восемь",
+    "девяти", "девять", "десяти", "десять", "двадцати", "двадцать",
+    "тридцати", "тридцать", "сорока", "сорок", "пятидесяти", "пятьдесят",
+    "шестидесяти", "шестьдесят", "семидесяти", "семьдесят", "восьмидесяти",
+    "восемьдесят", "девяноста", "девяносто", "ста", "сто",
+}
+NUMERAL_EN = re.compile(
+    r"^(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|"
+    r"(?:twen|thir|for|fif|six|seven|eigh|nine)ty(?:-\w+)?|hundred)$",
+    re.IGNORECASE,
+)
+
+
+def _registry_size_claims(text: str) -> list[tuple[str, str]]:
+    """Пары «числительное, весь оборот» для каждого утверждения о размере."""
+    claims = []
+    for pattern in REGISTRY_SIZE_PATTERNS:
+        for found in re.finditer(pattern, text):
+            claims.append((found.group(1).strip('"«»,;:'), found.group(0)))
+    return claims
+
+
+def test_registry_size_is_written_in_digits():
+    """Размер реестра пишется цифрами, иначе его нечем сверить.
+
+    Прописью число не сверить с данными, а меняется оно при каждом пополнении:
+    правило «раз в год и осознанно», по которому допущен перечень написаний для
+    числа измерений, здесь не работает.
+    """
+    spelled = [
+        whole for word, whole in _registry_size_claims(_article_text())
+        if word.lower() in NUMERAL_RU or NUMERAL_EN.match(word)
+    ]
+    assert not spelled, (
+        f"размер реестра написан прописью: {spelled}. Он меняется при каждом "
+        "пополнении, и прописью его не сверить с данными. Пишите цифрами."
+    )
+
+
+def test_registry_size_claims_match_the_data():
+    """Каждое число записей реестра в тексте совпадает с реестром."""
+    from services.registry import store
+
+    total = len(store.load_technologies())
+    stated = [
+        int(word) for word, _ in _registry_size_claims(_article_text())
+        if word.isdigit()
+    ]
+    assert stated, "в статье не сказано, на скольких записях проверена схема"
+    wrong = sorted(set(stated) - {total})
+    assert not wrong, (
+        f"в статье указан размер реестра {wrong}, а в данных {total} записей"
+    )
+
+
+def test_residual_share_claim_matches_the_registry():
+    """«N записей из M» с остатком проверяется по реестру."""
+    from services.registry import store
+
+    technologies = store.load_technologies()
+    expected = (len([t for t in technologies if t.residual]), len(technologies))
+    stated = [
+        (int(part), int(whole))
+        for part, whole in re.findall(r"(\d+)\s+записей из (\d+)", _article_text())
+    ]
+    assert stated, "в статье не сказано, у скольких записей остаток непуст"
+    wrong = sorted(set(stated) - {expected})
+    assert not wrong, (
+        f"в статье указано {wrong}, а в реестре {expected[0]} записей "
+        f"с непустым остатком из {expected[1]}"
+    )
+
+
+def test_justification_count_matches_the_data():
+    """Число обоснований разбора берётся из журнала, а не из памяти."""
+    notes = ROOT / "data" / "parse_notes.jsonl"
+    expected = len(
+        [line for line in notes.read_text(encoding="utf-8").splitlines() if line.strip()]
+    )
+    stated = [int(n) for n in re.findall(r"обоснований (\d+)", _article_text())]
+    assert stated, "в статье не сказано, сколько обоснований разбора записано"
+    wrong = sorted(set(stated) - {expected})
+    assert not wrong, (
+        f"в статье указано обоснований {wrong}, а в журнале разбора {expected}"
+    )
+
+
 def test_coverage_claim_matches_the_registry():
     """Число покрытия в статье вычисляется, а не пишется от руки.
 
@@ -193,4 +368,7 @@ def test_coverage_claim_matches_the_registry():
     assert any(form in text for form in forms), (
         f"в статье нет актуальной доли покрытия ({forms[-1]}); "
         "она вычисляется из остатков реестра"
+    )
+    assert f"{share} percent" in text, (
+        f"в английской аннотации нет актуальной доли покрытия ({share} percent)"
     )
