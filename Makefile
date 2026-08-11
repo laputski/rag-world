@@ -83,6 +83,17 @@ release-dry: artifacts ## Show what a release would contain, writing nothing
 smoke: ## Check the deployed portal (needs network)
 	$(PYTHON) -m pytest tests/smoke -m network -q
 
+# Мутационный прогон отвечает на вопрос, которого не задаёт покрытие: заметит
+# ли кто-нибудь поломку правила. Идёт около двадцати пяти минут, поэтому в
+# `make test` не входит и запускается отдельно. Годность самого перечня при
+# этом проверяется обычным набором при каждой правке: портится он именно от
+# правок кода, а не от времени.
+mutate: ## Break each rule in turn and check that some test notices
+	$(PYTHON) scripts/mutate.py
+
+mutate-list: ## Show the catalogue of rules the mutation run protects
+	$(PYTHON) scripts/mutate.py --list
+
 lint: ## Run ruff checks
 	.venv/bin/ruff check core services scripts tests
 
