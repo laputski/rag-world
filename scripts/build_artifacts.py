@@ -165,7 +165,9 @@ def _residual_queue(technologies: list[store.Technology]) -> list[dict]:
         rows.append({
             "id": code,
             "term": entry.get("ru", code),
+            "term_en": entry.get("en", code),
             "note": entry.get("note", ""),
+            "note_en": entry.get("note_en", entry.get("note", "")),
             "count": len(users),
             "technologies": sorted(users, key=lambda u: u["name"]),
             "candidate": len(users) >= RESIDUAL_CANDIDATE_THRESHOLD,
@@ -306,6 +308,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             # Подстановка на сборке, а не в реестре: тогда перевод словаря не
             # требует переписывать записи технологий.
             "residual": [_residual_term(code) for code in tech.residual],
+            "residual_en": [_residual_term(code, "en") for code in tech.residual],
             # Обоснование разбора: почему у измерения такое значение. Остаток
             # получает формулировку из словаря, чтобы карточка не показывала код.
             "parse_notes": [

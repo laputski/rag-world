@@ -26,6 +26,7 @@ export interface RegistryTechnology {
   configuration: Record<string, string>;
   /** Механизмы, не выразимые схемой измерений (формулировки из словаря). */
   residual: string[];
+  residual_en: string[];
   /** Измерения, значение которых выбирается во время работы или по режиму. */
   configuration_variable: string[];
   /** Измерения, к объекту неприменимые: значения в конфигурации не имеют. */
@@ -162,6 +163,8 @@ export interface DigestIssue {
   /** Начало периода; null — первый выпуск, он охватывает всё. */
   since: string | null;
   text: string;
+  /** Тот же выпуск по-английски. Пусто у выпусков, вышедших до локализации. */
+  text_en?: string;
   added: DigestMove[];
   promoted: DigestMove[];
   demoted: DigestMove[];
@@ -215,8 +218,10 @@ export interface ParseNote {
 export interface ResidualMechanism {
   id: string;
   term: string;
+  term_en: string;
   /** Почему схема этого не выражает. */
   note: string;
+  note_en: string;
   count: number;
   technologies: { id: string; name: string }[];
   /** Набрал порог упоминаний и потому предлагается в измерения. */

@@ -287,3 +287,27 @@ def test_attack_is_a_kind_without_configuration():
 def test_system_kinds_still_occupy_the_space():
     for kind in ("paradigm", "architecture", "technique", "tool"):
         assert kind not in store.KINDS_WITHOUT_CONFIGURATION
+
+
+def test_residual_vocabulary_is_bilingual():
+    """Очередь остатков показывается читателю, а не только владельцу.
+
+    Механизм, добавленный без английской формулировки или пояснения, выведет на
+    английскую страницу русский абзац. Заметить это на странице можно только
+    глазами, а при сборке — проверкой.
+    """
+    import json
+    import re
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[2] / "data" / "residual_vocabulary.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    cyrillic = re.compile(r"[а-яА-ЯёЁ]{4,}")
+
+    for mechanism in payload["mechanisms"]:
+        for field in ("ru", "en", "note", "note_en"):
+            assert mechanism.get(field, "").strip(), f"{mechanism['id']}: нет поля {field}"
+        for field in ("en", "note_en"):
+            assert not cyrillic.search(mechanism[field]), (
+                f"{mechanism['id']}.{field}: в английском поле остался русский текст"
+            )

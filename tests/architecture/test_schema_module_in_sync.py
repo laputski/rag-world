@@ -69,3 +69,55 @@ def test_locales_declare_the_same_keys():
     assert ru == en, (
         f"только в русском: {sorted(ru - en)}; только в английском: {sorted(en - ru)}"
     )
+
+
+def test_card_prose_is_translated_field_for_field():
+    """Частичный перевод хуже его отсутствия.
+
+    Читатель английской версии, встретив русский абзац посреди страницы, решит,
+    что портал сломан, а не что перевод не доделан. Отказ обязан быть виден
+    разработчику при сборке, а не читателю на странице.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    ru = json.loads((root / "ui" / "src" / "i18n" / "ru" / "tech.json").read_text(encoding="utf-8"))
+    en_path = root / "ui" / "src" / "i18n" / "en" / "tech.json"
+    assert en_path.exists(), "английской прозы нет вовсе"
+    en = json.loads(en_path.read_text(encoding="utf-8"))
+
+    missing_records = sorted(set(ru) - set(en))
+    assert not missing_records, f"записи без английской прозы: {missing_records}"
+
+    missing_fields = sorted(
+        f"{key}.{field}" for key in ru for field in ru[key] if field not in en.get(key, {})
+    )
+    assert not missing_fields, f"поля без перевода: {missing_fields}"
+
+    # Обратное тоже: английский текст без русского оригинала — след опечатки в
+    # ключе, и на русской версии он молча пропадёт.
+    orphans = sorted(set(en) - set(ru))
+    assert not orphans, f"английская проза без русского оригинала: {orphans}"
+
+
+def test_translated_prose_is_not_a_copy_of_the_original():
+    """Скопированный русский текст в английском файле — не перевод.
+
+    Он проходит проверку на полноту и при этом остаётся русским. Отличить одно
+    от другого дешевле всего по алфавиту.
+    """
+    import json
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    en = json.loads(
+        (root / "ui" / "src" / "i18n" / "en" / "tech.json").read_text(encoding="utf-8")
+    )
+    cyrillic = re.compile(r"[а-яА-ЯёЁ]{4,}")
+    untranslated = sorted(
+        f"{key}.{field}" for key, block in en.items() for field, text in block.items()
+        if cyrillic.search(text)
+    )
+    assert not untranslated, f"в английской прозе остался русский текст: {untranslated}"

@@ -20,7 +20,7 @@ import { MONO } from "../theme";
  * описывают многое, но не всё, и честнее показать, что именно не описывают.
  */
 export function ResidualsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [rows, setRows] = useState<ResidualMechanism[]>([]);
   const [threshold, setThreshold] = useState(3);
@@ -70,7 +70,9 @@ export function ResidualsPage() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5, flexWrap: "wrap", mb: 1 }}>
-            <Typography variant="h6" sx={{ fontSize: "1.05rem" }}>{row.term}</Typography>
+            <Typography variant="h6" sx={{ fontSize: "1.05rem" }}>
+              {i18n.language === "en" ? row.term_en : row.term}
+            </Typography>
             <Chip
               size="small"
               variant="outlined"
@@ -86,7 +88,7 @@ export function ResidualsPage() {
 
           {row.note && (
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, maxWidth: "64ch" }}>
-              {row.note}
+              {i18n.language === "en" ? row.note_en : row.note}
             </Typography>
           )}
 

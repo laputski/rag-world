@@ -33,6 +33,6 @@
   ],
   "name": "GNN-RAG",
   "package": null,
-  "prose_id": null,
+  "prose_id": "gnn_rag",
   "residual": []
 }

@@ -87,7 +87,7 @@ function BasisList({ issue, onOpen }: {
 }
 
 export function DigestPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [issues, setIssues] = useState<DigestIssue[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -128,7 +128,20 @@ export function DigestPage() {
             </Typography>
           </Box>
 
-          <Typography variant="body1" sx={{ mb: 2 }}>{issue.text}</Typography>
+          {/*
+            Выпуск не переписывается, поэтому оба текста рождаются вместе с ним.
+            У выпусков, вышедших до локализации, английского текста нет, и тогда
+            показывается русский с пометкой: пустое место хуже, чем текст не на
+            том языке, потому что пустое место не объясняет себя.
+          */}
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            {i18n.language === "en" ? (issue.text_en || issue.text) : issue.text}
+          </Typography>
+          {i18n.language === "en" && !issue.text_en && (
+            <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 2 }}>
+              {t("digest.noTranslation")}
+            </Typography>
+          )}
 
           {(issue.added.length > 0 || issue.promoted.length > 0 || issue.demoted.length > 0) && (
             <>

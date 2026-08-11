@@ -137,9 +137,15 @@ export function TechCardPage() {
         </Box>
       )}
 
-      {tech.core_idea && (
+      {/*
+        Краткая суть берётся из локализованной прозы, а не из поля реестра:
+        поле хранит русский текст, и на английской версии он был бы русским
+        абзацем посреди страницы. Поле остаётся запасным вариантом — у записи
+        может не быть прозы, и тогда лучше показать русскую строку, чем ничего.
+      */}
+      {(prose.short || tech.core_idea) && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-          <Typography variant="body2">{tech.core_idea}</Typography>
+          <Typography variant="body2">{prose.short ?? tech.core_idea}</Typography>
         </Paper>
       )}
 
@@ -266,7 +272,8 @@ export function TechCardPage() {
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 1 }}>{t("techCard.residual")}</Typography>
           <ul style={{ margin: 0, paddingLeft: 20 }}>
-            {tech.residual.map((r, i) => <li key={i}><Typography variant="body2">{r}</Typography></li>)}
+            {(i18n.language === "en" ? tech.residual_en : tech.residual)
+              .map((r, i) => <li key={i}><Typography variant="body2">{r}</Typography></li>)}
           </ul>
         </Paper>
       )}

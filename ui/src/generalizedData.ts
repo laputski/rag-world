@@ -341,7 +341,16 @@ const en: GeneralizedContent = {
     ...s,
     title: s.title.replace(/^\d+\.\s/, (m) => m),
     intro: s.intro,
-    content: "See Russian version for full text. English translation in progress.",
+    // Прозу карточек допустимо перевести моделью с последующей вычиткой: цена
+    // ошибки там — корявая фраза. Здесь цена другая: неверно переведённое
+    // определение меняет утверждение о предмете, а раздел «Основания» именно
+    // определениями и держится. Поэтому перевод делает человек, и до тех пор
+    // читателю говорится об этом прямо, вместо машинного текста.
+    content:
+      "This section is available in Russian only. It states the model the " +
+      "portal rests on, and its translation is deliberately not machine-made: " +
+      "a mistranslated definition changes what the portal claims about its " +
+      "subject, and this section consists of definitions.",
   })),
   refs: ru.refs,
 };

@@ -115,7 +115,7 @@
       "level": "L1",
       "name": "Auto-RAG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "auto_rag"
     },
     {
       "attention": null,
@@ -165,7 +165,7 @@
       "level": "L0",
       "name": "BM25 Sparse",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "bm25_sparse"
     },
     {
       "attention": 1.0,
@@ -381,7 +381,7 @@
       "level": "L1",
       "name": "DSPy",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "dspy"
     },
     {
       "attention": 0.0,
@@ -548,7 +548,7 @@
       "level": "L1",
       "name": "GNN-RAG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "gnn_rag"
     },
     {
       "attention": 0.563,
@@ -574,7 +574,7 @@
       "level": "L2",
       "name": "GraphReader",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "graphreader"
     },
     {
       "attention": 4.13,
@@ -687,7 +687,7 @@
       "level": "L2",
       "name": "KAG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "kag"
     },
     {
       "attention": 0.421,
@@ -900,7 +900,7 @@
       "level": null,
       "name": "Naive Dense",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "naive_dense"
     },
     {
       "attention": 0.0,
@@ -1038,7 +1038,7 @@
       "level": "L2",
       "name": "Poison-RAG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "poison_rag"
     },
     {
       "attention": 0.712,
@@ -1165,7 +1165,7 @@
       "level": "L2",
       "name": "RA-ISF",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "ra_isf"
     },
     {
       "attention": 1.874,
@@ -1324,7 +1324,7 @@
       "level": "L2",
       "name": "REPLUG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "replug"
     },
     {
       "attention": 0.087,
@@ -1421,7 +1421,7 @@
       "level": "L2",
       "name": "SimRAG",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "simrag"
     },
     {
       "attention": 0.484,
@@ -1572,7 +1572,7 @@
       "level": "L1",
       "name": "Think-on-Graph",
       "prevalence": null,
-      "prose_id": null
+      "prose_id": "think_on_graph"
     },
     {
       "attention": 0.0,

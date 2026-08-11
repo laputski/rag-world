@@ -55,6 +55,6 @@
   ],
   "name": "BM25 Sparse",
   "package": null,
-  "prose_id": null,
+  "prose_id": "bm25_sparse",
   "residual": []
 }

@@ -53,6 +53,6 @@
   ],
   "name": "Naive Dense",
   "package": null,
-  "prose_id": null,
+  "prose_id": "naive_dense",
   "residual": []
 }

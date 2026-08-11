@@ -226,7 +226,8 @@
     "showBasis": "show what the issue rests on ({{count}})",
     "hideBasis": "hide the basis",
     "moved": "rose from {{from}} to {{to}}",
-    "first": "received level {{level}} for the first time"
+    "first": "received level {{level}} for the first time",
+    "noTranslation": "This issue was published before the English localisation and exists in Russian only."
   },
   "notFound": {
     "title": "No such page",

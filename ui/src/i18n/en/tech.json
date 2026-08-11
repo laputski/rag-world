@@ -1,0 +1,236 @@
+{
+  "adaptive_rag": {
+    "full": "Adaptive RAG uses a trained classifier (a router) that picks one of three strategies for each query: no retrieval at all, single-step retrieval, or multi-step retrieval with reasoning. The router is trained on data labelled by query complexity.",
+    "short": "A trained router chooses between no retrieval, single-step, and multi-step retrieval."
+  },
+  "archrag": {
+    "full": "ArchRAG addresses the rigidity of classic graph search through attributed communities. Communities are detected using both connectivity and the semantic similarity of node attributes, with clustering driven by a language model. All communities are organised into a community-based HNSW index for fast approximate search. Adaptive filtering descends through the layers depending on whether the query is broad or narrow.",
+    "short": "Attributed communities in a community-based HNSW index with adaptive descent."
+  },
+  "auto_rag": {
+    "short": "The model conducts a multi-turn dialogue with the retriever until it has enough."
+  },
+  "bm25_sparse": {
+    "short": "Lexical search by word overlap: the reference point that predates vectors."
+  },
+  "causalrag": {
+    "barriers": "The central difficulty is building the causal graph. First, automatic extraction of cause and effect from text is unreliable: even people disagree about causality. Second, counterfactual reasoning — what would have happened without the event — is computationally expensive. Third, there is no standard interface for combining Pearl's do-calculus with language model generation. Fourth, validating a causal graph requires domain expertise.",
+    "maturityNote": "An early paper published at ACL Findings 2025. Thirty-five citations, open code. High potential, low current adoption.",
+    "problem": "Vanilla RAG retrieves correlated passages and propagates spurious correlations and confounders. On questions about causes the system gives shallow or misleading answers, because retrieval does not distinguish correlation from causation.",
+    "solutions": "Building a causal graph alongside the semantic index makes it possible to trace causal paths during retrieval. Instead of top-k by similarity, the system takes top-k along the causal chain. Decomposing multi-round retrieval along the causal structure of the question improves accuracy on questions about causes. A hybrid with human validation of the graph provides reliability. The open-source CausalRAG implementation demonstrates that the approach works."
+  },
+  "colbert": {
+    "full": "ColBERT stores per-token embeddings and computes a late-interaction maximum-similarity score between query and document, instead of one vector per document. This preserves fine-grained information but requires more memory to store every token vector.",
+    "short": "Per-token embeddings with late-interaction maximum similarity."
+  },
+  "colpali": {
+    "full": "ColPali applies the late-interaction strategy to patches of a document page image. Instead of optical character recognition and text extraction, the model works directly with the visual representation of the page, preserving the structure of tables and diagrams. It makes screenshots of documents searchable.",
+    "short": "A vision-language retriever: late interaction over patches of the page image."
+  },
+  "contextual_retrieval": {
+    "full": "Contextual Retrieval prepends a short model-generated context to each chunk before embedding. The context situates the chunk within its document, cutting the retrieval failure rate by 35 to 67 percent. It combines with lexical search and reranking for maximum effect.",
+    "short": "A model-generated context prepended to each chunk before embedding."
+  },
+  "crag": {
+    "full": "Corrective RAG places a lightweight retrieval evaluator between retrieval and generation. The evaluator produces a numeric confidence and triggers one of three paths: on high confidence the documents are decomposed and recomposed; on low confidence the local context is discarded and web search is started; on ambiguity the results are combined. In air-gapped systems the web-search branch is replaced by a refusal.",
+    "short": "A lightweight evaluator classifies context as correct, ambiguous, or incorrect."
+  },
+  "dense_x_retrieval": {
+    "full": "Dense X Retrieval introduces propositions — atomic, self-contained facts — as the unit of retrieval instead of passages. Each proposition is a single factual statement, which allows more precise matching between query and content.",
+    "short": "Atomic facts as the retrieval unit instead of passages."
+  },
+  "dspy": {
+    "short": "Declaring a pipeline instead of writing prompts: the steps compile and tune themselves."
+  },
+  "edge": {
+    "barriers": "The central difficulty is limited resources. First, small language models face memory and compute limits on mobile devices. Second, small on-device vector indexes do not scale to large corpora. Third, on-device RAG must respect user preferences, which means maintaining preference-aligned memory. Fourth, the trade-off between model size and quality is harsher than in cloud deployment.",
+    "maturityNote": "An early product: the Google AI Edge RAG library on Android and Microsoft Edge RAG through Azure Arc are available in preview.",
+    "problem": "Cloud RAG requires a network connection, allows private data to leak, adds latency and cost, and fails in disconnected settings such as field medicine, industry, and defence. The user does not control their own data.",
+    "solutions": "Small language models with INT4 and AWQ quantisation reduce model size. Bluetooth-mesh peer-to-peer retrieval lets devices exchange indexes without a server. The Google AI Edge RAG library implements on-device retrieval on Android. Microsoft Edge RAG through Azure Arc provides a preview for edge scenarios."
+  },
+  "edgerag": {
+    "full": "EdgeRAG adapts retrieval to memory-constrained devices by pruning cluster embeddings and generating embeddings on demand during search, rather than keeping all of them in memory. This makes retrieval possible on mobile and edge devices.",
+    "short": "Retrieval on edge devices: pruned embeddings generated on demand."
+  },
+  "embodied_rag": {
+    "barriers": "The central difficulty is a new modality. First, embedding three-dimensional data and point clouds into a queryable metric space calls for an R-tree rather than a proximity graph. Second, multi-resolution indexing must combine spatial and semantic search. Third, vision, language, and geometry have to be fused in a single retrieval. Fourth, partial observation brings uncertainty: a robot does not see the whole scene.",
+    "maturityNote": "A research-lab prototype. Sixty-one citations, over 250 navigation and explanation tasks. A genuinely undeveloped direction.",
+    "problem": "Text and vector retrieval have no notion of physical space, geometry, or embodiment. Robots and embodied agents cannot retrieve information about a three-dimensional environment for navigation, manipulation, and scene understanding. Queries such as \"where is the nearest object X\" or \"what is to the left of object Y\" cannot be answered.",
+    "solutions": "Embedding point clouds so that Euclidean distance encodes the similarity of spatial relations gives metric search. Hierarchical scene graphs support multi-resolution retrieval. Text-to-3D spatial retrieval, presented at ICCV 2025, models uncertainty under partial observation. The Embodied-RAG system from Carnegie Mellon solved over 250 navigation and explanation tasks."
+  },
+  "federated_rag": {
+    "barriers": "The central difficulty is the trade-off between privacy and usefulness. First, differential privacy adds noise that degrades embedding quality and therefore recall. Second, federated training of large embedding models is expensive in communication. Third, retrieval must be secure without leaking either the query or the returned content, since both can reveal sensitive data. Fourth, data schemas differ between clients.",
+    "maturityNote": "Early work and first prototypes. EMNLP 2025 consolidated the field into a systematic survey.",
+    "problem": "Standard RAG centralises all documents in one vector store. That is impossible under GDPR, HIPAA, data-residency requirements, and intellectual-property constraints: hospitals cannot pool patient data, banks cannot pool transactions, corporations cannot expose internal documents. Retrieval across organisations without disclosing data is blocked.",
+    "solutions": "Federated training of embedding models is implemented in FedE4RAG. Budget-aware differential privacy spends the privacy budget only on sensitive tokens rather than the whole document. Confidential-compute enclaves in the C-FedRAG approach provide secure retrieval. The two-system FD-RAG architecture separates local memory on the client from remote reasoning on the server."
+  },
+  "flare": {
+    "full": "Forward-looking active retrieval generates a tentative next sentence and uses it as a query whenever the model is uncertain, signalled by low token probability or an explicit retrieval trigger. This lets the system dose its retrieval calls: trivial questions need none, while hard ones get support at every step. The approach works well for open-domain question answering but requires access to the model's token probabilities.",
+    "short": "Generates a tentative sentence and triggers retrieval when the model is unsure."
+  },
+  "gnn_rag": {
+    "short": "A graph neural network selects a subgraph, and the language model reasons over it."
+  },
+  "graphreader": {
+    "short": "An agent reads a long document by traversing a graph built from it."
+  },
+  "hipporag": {
+    "full": "HippoRAG draws on the neurobiology of memory, reproducing three regions: the neocortex, where a language model extracts entities and relations through open information extraction; the parahippocampal areas, where retrieval encoders compute vectors for graph nodes; and the hippocampus, where personalised PageRank performs associative search. Multi-hop retrieval completes in a single pass, which is ten to twenty times cheaper in tokens than agentic methods.",
+    "short": "Hippocampus-inspired: open information extraction and personalised PageRank for multi-hop search."
+  },
+  "hyde": {
+    "full": "HyDE generates a hypothetical answer to the query with a language model, then uses that answer to search for real documents. The idea is that the embedding of an answer sits closer to the embeddings of relevant documents than the embedding of the question does. It bridges the semantic gap between question and answer.",
+    "short": "A language model writes a hypothetical answer, and search runs on it."
+  },
+  "ircot": {
+    "full": "IRCoT interleaves each sentence of a chain of thought with a retrieval step. Each reasoning sentence directs the next search, and the facts found direct the next reasoning step. This creates a synergy between reasoning and retrieval, improving quality on multi-step tasks.",
+    "short": "Interleaves each chain-of-thought sentence with a retrieval step."
+  },
+  "kag": {
+    "short": "Domain knowledge and logical inference over a graph, for professional tasks."
+  },
+  "late_chunking": {
+    "full": "Late chunking first embeds the whole document with a long-context embedding model, then slices the resulting embeddings into chunks. This preserves cross-chunk context, which is lost in the traditional chunk-then-embed approach where each chunk is embedded in isolation.",
+    "short": "Embed the whole document first, then slice."
+  },
+  "lightrag": {
+    "full": "LightRAG uses a two-level representation: a low level for pinpoint retrieval of details about entities and relations, and a high level for conceptual coverage of broad themes. Its key advantage is an incremental update algorithm: new documents modify the graph locally without rebuilding the index.",
+    "short": "A two-level graph of entities and themes with incremental updates."
+  },
+  "ma_rag": {
+    "full": "MA-RAG decomposes the retrieval pipeline across several specialised agents to resolve ambiguity and support multi-step reasoning. The agents coordinate through shared memory or a message protocol, which lets them explore different hypotheses in parallel and synthesise an answer from several perspectives.",
+    "short": "The retrieval pipeline decomposed across coordinated agents."
+  },
+  "memorag": {
+    "full": "MemoRAG uses a dual system: a light long-range memory model builds a global memory of the long context and emits query-specific clues in the form of draft answers. These clues direct pinpoint retrieval, which makes it possible to find information in very long documents without scanning the whole context.",
+    "short": "A dual system: a long-range memory model and pinpoint retrieval guided by clues."
+  },
+  "msft_graphrag": {
+    "full": "Microsoft GraphRAG aims at deep understanding of corpus structure by building a global knowledge graph and generating community reports. It offers three modes: local search for pinpoint questions about entities, traversing adjacent edges; global search, a map-reduce over community reports for cross-cutting themes; and DRIFT search, which iteratively expands a local query through the graph. Indexing requires a large number of model calls, which makes it extremely expensive.",
+    "short": "A global knowledge graph with community grouping and map-reduce reports."
+  },
+  "multi_query": {
+    "full": "Multi-query retrieval generates several reformulations of the original query, runs retrieval on each, and unions the results. Unlike RAG-Fusion, the focus is on the union rather than a ranked merge. It is implemented as a primitive in LangChain.",
+    "short": "Several query reformulations, retrieval on each, results unioned."
+  },
+  "murag": {
+    "full": "MuRAG was the first retrieval-augmented transformer with access to a non-parametric multimodal memory holding both images and text. This makes it possible to answer open-domain questions that require visual information.",
+    "short": "The first multimodal retrieval-augmented transformer with non-parametric memory."
+  },
+  "naive_dense": {
+    "short": "Dense search with one vector per passage: the reference point."
+  },
+  "neuro_symbolic_rag": {
+    "barriers": "The central difficulty is bridging continuous neural representations and discrete symbolic reasoning. First, symbolic inference grows exponentially on large graphs. Second, building and aligning an ontology or knowledge graph with an unstructured corpus takes manual work or expensive model-driven extraction. Third, there is no standard interface between neural embeddings, which use cosine similarity, and symbolic queries in SPARQL or Datalog. Fourth, hybrid solutions are hard to debug and interpret.",
+    "maturityNote": "Early work and first prototypes. Academic momentum is rising sharply: Google Scholar results for neurosymbolic AI grew from roughly 112 to roughly 9050 over 2025 and 2026.",
+    "problem": "Standard RAG is opaque and bounded by similarity: the retriever cannot explain why a document was chosen and performs no logical deduction. On \"why\" questions and multi-hop tasks the system hallucinates, because there is no verifiable reasoning.",
+    "solutions": "Interpretable retrievers that emit reasoning traces over a knowledge graph give a logical justification for each selection step. Convergence with graph-based retrieval turns the knowledge graph into a symbolic layer under a neural retriever. Production architectures demonstrated by Kipon and Neo4j at NODES 2026 already run neurosymbolic retrieval in industry. The hypergraph approach Hyper-RAG, published in Nature Communications, showed an accuracy gain of 12.3 percent."
+  },
+  "og_rag": {
+    "full": "OG-RAG offers a mathematically strict way to adapt a language model to critical domains without fine-tuning. The method formally binds unstructured data to a fixed domain ontology. Text documents are projected into factual blocks by filling ontology slots, forming atomic subject-attribute-value triples. At retrieval time it applies set-cover optimisation.",
+    "short": "Ontology grounding: a hypergraph of fact triples with greedy set cover."
+  },
+  "pathrag": {
+    "full": "PathRAG addresses the redundancy crisis of graph-based retrieval by precisely selecting the paths connecting key entities. Flow-based pruning cuts off long and insignificant routes, and what remains is ranked by a reliability index. To counter the loss of information in the middle of the prompt, narratives are supplied in ascending order of reliability.",
+    "short": "Flow-based pruning of connecting paths with decay over distance."
+  },
+  "poison_rag": {
+    "short": "Data poisoning of a recommender system built on retrieval."
+  },
+  "poisonedrag": {
+    "full": "PoisonedRAG demonstrates the first systematic knowledge-corruption attack on retrieval systems: injecting malicious texts into the knowledge base lets an attacker steer the system's answers. It reaches a 90 percent success rate with only a handful of injections, exposing a critical vulnerability of production retrieval to data poisoning.",
+    "short": "An attack that injects malicious texts into the retrieval knowledge base."
+  },
+  "ra_dit": {
+    "full": "RA-DIT jointly fine-tunes both models: the reader, which learns to use retrieved context, and the retriever, which learns to fetch what the reader finds useful. This retrofits any language model with retrieval abilities without architectural changes.",
+    "short": "Joint fine-tuning of reader and retriever."
+  },
+  "ra_isf": {
+    "short": "Iterative self-assessment: the model works out what it lacks and refines the query."
+  },
+  "raft": {
+    "full": "RAFT trains the model on questions mixing gold and distractor documents, forcing the chain of reasoning to cite the gold document explicitly. This makes the model resistant to noise in the retrieved context.",
+    "short": "Fine-tuning on a mix of gold and distractor documents with citation of the gold one."
+  },
+  "rag_as_memory": {
+    "barriers": "The central difficulty is governing how memory evolves. First, consolidation and garbage collection: the system must decide which memories are stale and should be removed. Second, contradictions must be resolved between stored facts that have changed over time. Third, semantic drift: after many updates the meaning of stored memories blurs. Fourth, retrieval over a memory whose semantics itself shifts breaks the assumption of static vectors on which traditional approximate search rests.",
+    "maturityNote": "An early product and active research. The anchor 2025 paper has 313 citations. ICLR 2026 held a dedicated workshop on memory for language-model agents.",
+    "problem": "Today's retrieval is stateless: every query pulls a frozen snapshot of knowledge. The system accumulates no experience, revises no beliefs, and learns from no mistakes. This blocks personalisation, long agent sessions, and continual learning without fine-tuning.",
+    "solutions": "Hierarchical memory splits storage into episodic memory for raw events, semantic memory for consolidated facts, and procedural memory for skills. Reflection cycles, implemented in MemGPT and Generative Agents, let an agent periodically revise and reorganise memory. Write-back policies set explicit rules for updating storage. Memory-governance frameworks provide an audit trail of changes."
+  },
+  "rag_fusion": {
+    "full": "RAG-Fusion generates several query variants with a language model, searches with each, then merges the results through reciprocal rank fusion. This improves recall by covering different phrasings of the same information need.",
+    "short": "Several query variants merged through reciprocal rank fusion."
+  },
+  "raptor": {
+    "full": "RAPTOR recursively clusters chunks, summarises each cluster, then clusters the summaries, building a multi-level tree. This allows retrieval at different granularities, from detailed facts to high-level themes, combining the advantages of pinpoint and global search.",
+    "short": "Recursive clustering and summarisation into a multi-level tree."
+  },
+  "react": {
+    "full": "ReAct alternates reasoning and action, retrieval included, in a single loop. The model generates a reasoning trace, decides which action to take, receives the result, and continues reasoning. This paradigm underlies most agentic retrieval frameworks.",
+    "short": "Alternating reasoning traces and tool calls. The canonical agentic paradigm."
+  },
+  "replug": {
+    "short": "The language model stays a frozen black box while the retriever adapts to it."
+  },
+  "sail": {
+    "full": "SAIL fine-tunes a language model on a corpus of instructions augmented with results from real search interfaces. The model learns to exploit search results when answering, improving its ability to follow retrieved facts.",
+    "short": "Fine-tuning on instructions augmented with search results."
+  },
+  "self_evolving": {
+    "barriers": "The central difficulty is the reward signal. First, a feedback signal for self-optimisation has to be defined: user clicks, explicit ratings, or a model acting as judge. Second, reward hacking, where the system optimises the metric rather than real quality. Third, the stability of online learning, since catastrophic forgetting of the retrieval strategy is possible. Fourth, evaluation in production without ground truth.",
+    "maturityNote": "Early papers. Adaptive-RAG is widely cited with 719 citations; a fully self-evolving variant is only emerging.",
+    "problem": "Today's retrieval pipelines are tuned by hand and stay static. They degrade as data and users drift: a configuration that was optimal a month ago may give poor recall today.",
+    "solutions": "Routing by query complexity in Adaptive-RAG uses a classifier to pick a strategy per query. The self-evolving query optimiser SERAG retrains its own optimiser on feedback. Structured human-feedback cycles in FLARE provide periodic correction by a person."
+  },
+  "self_rag": {
+    "full": "Self-RAG embeds retrieval and context assessment into the decoding logic of the language model. The model predicts four classes of reflection token: whether to retrieve, whether what was found is relevant, whether the answer is grounded in the source, and whether the answer is useful. Generation is iterative: the model produces several continuations in parallel and picks the trajectory with the highest factuality. The approach requires fine-tuning on specialised data, which improves quality but limits reproducibility.",
+    "short": "Trains the generator to emit reflection tokens, deciding for itself whether to retrieve."
+  },
+  "simrag": {
+    "short": "Self-improvement: the model generates its own questions from the corpus and learns from them."
+  },
+  "speculative_rag": {
+    "barriers": "The central difficulty is confidence estimation. First, a reliable confidence estimate is needed for skipping retrieval: a false positive skip leads to hallucination, a false negative loses the optimisation. Second, correctness must not regress when retrieval is skipped. Third, orchestration overhead: racing draft against retrieve in parallel is harder than a simple sequential scheme.",
+    "maturityNote": "A concept and an early architectural pattern. There is no flagship paper yet; the approach is described in architectural surveys of 2026.",
+    "problem": "Retrieval adds a fixed latency to every query, even when the model already knows the answer from its parameters. For trivial questions retrieval is pure overhead.",
+    "solutions": "A probability-thresholded skip omits retrieval when the draft generation is confident enough. Racing draft and retrieve in parallel lets whichever produces a confident answer first win. Architectural surveys of 2026 describe these patterns as emerging practice."
+  },
+  "standard_hybridrag": {
+    "full": "Standard hybrid retrieval combines two parallel streams: lexical search for exact matching of terms and identifiers, and dense vector search for latent meaning. The results are merged through reciprocal rank fusion, then rechecked by a neural reranker. It remains the industrial gold standard thanks to its predictability and speed.",
+    "short": "Lexical and dense search merged by reciprocal rank fusion with a neural reranker."
+  },
+  "step_back": {
+    "full": "Step-back prompting asks the model to formulate a more abstract, parent question first, search on that, and only then answer the original specific question. It helps with questions that need general knowledge to contextualise a specific fact.",
+    "short": "The model asks a broader question, searches on it, then answers the specific one."
+  },
+  "streaming_rag": {
+    "barriers": "The central difficulty is the cost of updating. First, recomputing embeddings on every update is expensive, since a full reindex takes time. Second, temporal consistency must hold: a fact may be true at one moment and false at another. Third, out-of-order events in the stream corrupt the index. Fourth, there is a trade-off between latency and freshness: the fresher the data, the slower the query.",
+    "maturityNote": "An early product: Confluent and Solace stacks are reaching the market. The academic variant with a temporal knowledge graph is still in research.",
+    "problem": "Batch-indexed retrieval is blind to time: it cannot answer what was true at a given moment, and it cannot handle fast-changing context such as news, markets, sensor data, and streaming video. Every corpus update requires reindexing, which blocks real-time uses.",
+    "solutions": "Event-driven change-data-capture pipelines built on Apache Kafka and Confluent provide incremental updates to the vector store. A temporal knowledge graph serves as an index in which facts carry timestamps. StreamRAG, presented at CVPR 2026, implements temporal-causality-preserving retrieval for streaming video."
+  },
+  "test_time": {
+    "barriers": "The central difficulty is the cost of iteration. First, many retrieve-think cycles add latency, since each is a round trip to the retriever plus a generation. Second, deciding when to stop: stopping early loses recall, stopping late burns tokens. Third, reasoning loops must be avoided, where the agent circles one fact. Fourth, orchestrating collaboration between several agents.",
+    "maturityNote": "Early papers moving quickly into frameworks. Adaptive-RAG is widely cited.",
+    "problem": "Single-pass retrieval fails on multi-step tasks, because retrieval and reasoning are disconnected: the system cannot detect its own inconsistency. Hard questions need an iterative retrieve-think-retrieve cycle.",
+    "solutions": "Test-time critique in AlignRAG lets the model assess its own confidence after each retrieve-think step. Parallel scaling of graph retrieval in MIRAGE replaces sequential retrieval paths with parallel ones. Multi-agent collaborative chains of thought in MA-RAG let several agents explore different hypotheses at once. Adaptive routing of queries in Adaptive-RAG remains the most cited approach, with 719 citations."
+  },
+  "think_on_graph": {
+    "short": "The language model walks a knowledge graph, choosing the direction at each step."
+  },
+  "unified": {
+    "barriers": "The central difficulty is schema alignment. First, schemas and ontologies must be aligned across relational storage, knowledge graph, and vector index. Second, cross-store query planning has to decide which store to consult first. Third, ranking must stay consistent across modalities, since text similarity, an exact relational match, and a graph hop are not directly comparable. Fourth, graphification — turning relational data and a knowledge graph into one graph — is costly.",
+    "maturityNote": "An early product: the Memgraph toolkit. Academic work on unification is published at VLDB.",
+    "problem": "Today text retrieval, text-to-query translation, and graph retrieval are built as separate systems that cannot jointly answer questions spanning documents, records, and relations. A query such as \"find the contract with condition X and an amount above Y from table Z\" cannot be answered in one pipeline.",
+    "solutions": "Memgraph's approach of converting both relational and unstructured data to a graph unifies retrieval. Semantic layers provide an abstraction over the stores. Modular unified frameworks with composable operators, described in VLDB volume 18, give a theoretical basis for unification."
+  },
+  "vectorless": {
+    "full": "Vectorless retrieval abandons embeddings entirely. A language model builds a hierarchical index of the document as a table-of-contents tree, and at query time it logically works out the best route, reading section summaries. It reaches 98.7 percent accuracy on FinanceBench while preserving the structure of tables and cross-references.",
+    "short": "A table-of-contents tree with logical navigation, no embeddings."
+  },
+  "xrag": {
+    "full": "xRAG compresses retrieved passages into the language model's own representation space instead of adding them as text tokens. This radically shortens the context while preserving information, cutting cost and latency without a substantial loss of quality.",
+    "short": "Extreme compression: passages folded into the model's representation space."
+  }
+}

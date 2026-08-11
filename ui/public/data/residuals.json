@@ -7,6 +7,7 @@
       "count": 2,
       "id": "score_transfer_to_units",
       "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
+      "note_en": "One structure is ranked and a different one is returned. Neither the search operator (C1) nor reranking (D1) expresses that transition.",
       "technologies": [
         {
           "id": "hipporag",
@@ -17,13 +18,15 @@
           "name": "RAG as Memory"
         }
       ],
-      "term": "перенос оценок узлов на единицы извлечения"
+      "term": "перенос оценок узлов на единицы извлечения",
+      "term_en": "transfer of node scores onto retrieval units"
     },
     {
       "candidate": false,
       "count": 2,
       "id": "random_walk_ranking",
       "note": "Обход графа (C1) говорит, что структура обходится, но не как распределяется вес по узлам.",
+      "note_en": "Graph traversal (C1) says the structure is traversed, but not how weight is distributed across nodes. Different rules give different results on the same graph.",
       "technologies": [
         {
           "id": "hipporag",
@@ -34,13 +37,15 @@
           "name": "RAG as Memory"
         }
       ],
-      "term": "ранжирование случайным блужданием с предпочтением"
+      "term": "ранжирование случайным блужданием с предпочтением",
+      "term_en": "personalized random-walk ranking"
     },
     {
       "candidate": false,
       "count": 2,
       "id": "max_similarity_interaction",
       "note": "Модель представления (A5) называет вид представления, но не правило, по которому два набора векторов сводятся к одной оценке.",
+      "note_en": "The representation model (A5) names the kind of representation but not the rule by which two sets of vectors collapse into a single score.",
       "technologies": [
         {
           "id": "colbert",
@@ -51,72 +56,83 @@
           "name": "ColPali"
         }
       ],
-      "term": "сравнение по максимуму сходства между представлениями"
+      "term": "сравнение по максимуму сходства между представлениями",
+      "term_en": "max-similarity interaction between representations"
     },
     {
       "candidate": false,
       "count": 1,
       "id": "query_entity_extraction",
       "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
+      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing.",
       "technologies": [
         {
           "id": "hipporag",
           "name": "HippoRAG"
         }
       ],
-      "term": "извлечение именованных сущностей из запроса"
+      "term": "извлечение именованных сущностей из запроса",
+      "term_en": "named entity extraction from the query"
     },
     {
       "candidate": false,
       "count": 1,
       "id": "multiple_modes_one_record",
       "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
+      "note_en": "A record is a point in the configuration space, but the system offers several modes differing in their values. The union of what is confirmed is recorded: a value is set if at least one mode has it.",
       "technologies": [
         {
           "id": "msft_graphrag",
           "name": "Microsoft GraphRAG"
         }
       ],
-      "term": "несколько режимов работы с разной конфигурацией"
+      "term": "несколько режимов работы с разной конфигурацией",
+      "term_en": "several operating modes with differing configurations"
     },
     {
       "candidate": false,
       "count": 1,
       "id": "llm_scored_partial_answers",
       "note": "Порядок сборки задан оценкой языковой модели, а не структурой индекса и не отдельной моделью переранжирования.",
+      "note_en": "The assembly order is set by a language model's own judgement, not by index structure and not by a separate reranking model.",
       "technologies": [
         {
           "id": "msft_graphrag",
           "name": "Microsoft GraphRAG"
         }
       ],
-      "term": "оценка полезности частичных ответов моделью"
+      "term": "оценка полезности частичных ответов моделью",
+      "term_en": "model-scored usefulness of partial answers"
     },
     {
       "candidate": false,
       "count": 1,
       "id": "approximate_then_exact",
       "note": "Две ступени одной модели, а не модель поиска плюс модель переранжирования. Переранжирование (D1) описывает вторую модель, которой здесь нет.",
+      "note_en": "Two stages of one model, not a search model plus a reranking model. Reranking (D1) describes a second model, which is absent here.",
       "technologies": [
         {
           "id": "colbert",
           "name": "ColBERT"
         }
       ],
-      "term": "приближённый отбор с последующим точным пересчётом"
+      "term": "приближённый отбор с последующим точным пересчётом",
+      "term_en": "approximate shortlist followed by exact rescoring"
     },
     {
       "candidate": false,
       "count": 1,
       "id": "synonymy_edges",
       "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
+      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts.",
       "technologies": [
         {
           "id": "hipporag",
           "name": "HippoRAG"
         }
       ],
-      "term": "рёбра синонимии между узлами индекса"
+      "term": "рёбра синонимии между узлами индекса",
+      "term_en": "synonymy edges between index nodes"
     }
   ]
 }

@@ -32,6 +32,6 @@
   ],
   "name": "Auto-RAG",
   "package": null,
-  "prose_id": null,
+  "prose_id": "auto_rag",
   "residual": []
 }

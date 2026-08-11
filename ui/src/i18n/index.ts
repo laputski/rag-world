@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import ru from "./ru.json";
 import en from "./en.json";
 import techRu from "./ru/tech.json";
+import techEn from "./en/tech.json";
 
 /** Язык из хранилища браузера. Вне браузера (тесты, сборка) — язык по умолчанию. */
 function savedLanguage(): "ru" | "en" | null {
@@ -13,9 +14,26 @@ function savedLanguage(): "ru" | "en" | null {
   }
 }
 
-// Пока английская локализация неполна, языком по умолчанию остаётся русский:
-// предлагать читателю наполовину переведённый портал хуже, чем один язык.
-const DEFAULT_LANGUAGE: "ru" | "en" = "ru";
+/**
+ * Язык по умолчанию — по языку браузера.
+ *
+ * Русский остаётся для тех, у кого он в настройках; остальным открывается
+ * английский. Первичная литература по этой области английская, и читатель,
+ * который её читает, читает по-английски по определению.
+ *
+ * Выбор читателя, однажды сделанный, важнее догадки: сохранённый язык
+ * перекрывает язык браузера.
+ */
+function browserLanguage(): "ru" | "en" {
+  try {
+    const tags = globalThis.navigator?.languages ?? [];
+    return tags.some((tag) => tag.toLowerCase().startsWith("ru")) ? "ru" : "en";
+  } catch {
+    return "ru";
+  }
+}
+
+const DEFAULT_LANGUAGE: "ru" | "en" = browserLanguage();
 const saved = savedLanguage();
 
 /** Проза карточки технологии. Ключ — идентификатор записи реестра (prose_id). */
@@ -30,9 +48,7 @@ export interface TechProse {
 
 const PROSE: Record<string, Record<string, TechProse>> = {
   ru: techRu as Record<string, TechProse>,
-  // Английская проза добавляется отдельной работой; до тех пор карточка
-  // показывает русский текст, а не пустое место.
-  en: techRu as Record<string, TechProse>,
+  en: techEn as Record<string, TechProse>,
 };
 
 /** Проза для записи реестра; пустой объект, если её нет ни в одном источнике. */

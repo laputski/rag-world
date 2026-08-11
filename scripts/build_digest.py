@@ -114,7 +114,12 @@ class Issue:
     #: изменение, но и состояние, к которому оно привело.
     by_level: dict[str, int] = field(default_factory=dict)
     total: int = 0
+    #: Текст выпуска на каждом языке портала. Выпуск не переписывается, поэтому
+    #: оба текста рождаются сразу: дописать перевод к вышедшему выпуску нельзя,
+    #: а показывать англоязычному читателю русский абзац — то же, что показать
+    #: ему сломанную страницу.
     text: str = ""
+    text_en: str = ""
 
     def has_news(self) -> bool:
         return bool(
@@ -139,6 +144,7 @@ class Issue:
             "by_level": self.by_level,
             "total": self.total,
             "text": self.text,
+            "text_en": self.text_en,
         }
         return payload
 
@@ -257,6 +263,102 @@ def compose(issue: Issue) -> str:
     return " ".join(parts)
 
 
+def _listing_en(items: list[dict]) -> str:
+    names = [item["name"] for item in items]
+    if len(names) <= NAMED_LIMIT:
+        return ", ".join(names)
+    rest = len(names) - NAMED_LIMIT
+    return ", ".join(names[:NAMED_LIMIT]) + f" and {rest} more"
+
+
+def compose_en(issue: Issue) -> str:
+    """Тот же выпуск по-английски.
+
+    Отдельный составитель, а не перевод готовой строки: русский текст склоняет
+    существительные при числах, и переводить его пословно значит переносить в
+    английский чужую грамматику.
+    """
+    def plural_en(count: int, one: str, many: str) -> str:
+        return f"{count} {one if count == 1 else many}"
+
+    parts: list[str] = []
+
+    if issue.added:
+        parts.append(
+            f"Received a level for the first time: "
+            f"{plural_en(len(issue.added), 'record', 'records')}, "
+            f"namely {_listing_en(issue.added)}."
+        )
+    if issue.promoted:
+        moves = ", ".join(
+            f"{item['name']} from {item['level_before']} to {item['level_after']}"
+            for item in issue.promoted[:NAMED_LIMIT]
+        )
+        tail = ""
+        if len(issue.promoted) > NAMED_LIMIT:
+            rest = len(issue.promoted) - NAMED_LIMIT
+            tail = f", plus {plural_en(rest, 'record', 'records')}"
+        parts.append(f"Rose in level: {moves}{tail}.")
+    if issue.demoted:
+        moves = ", ".join(
+            f"{item['name']} from {item['level_before']} to {item['level_after']}"
+            for item in issue.demoted
+        )
+        parts.append(f"Fell in level: {moves}.")
+
+    if issue.evidence_added:
+        kinds = ", ".join(
+            f"{count} {EVIDENCE_NAMES_EN.get(kind, kind)}"
+            for kind, count in sorted(
+                issue.evidence_by_type.items(), key=lambda kv: (-kv[1], kv[0])
+            )
+        )
+        amount = plural_en(issue.evidence_added, "piece of evidence", "pieces of evidence")
+        parts.append(f"Collected {amount}" + (f": {kinds}." if kinds else "."))
+
+    if issue.links_broken:
+        parts.append(
+            f"{plural_en(issue.links_broken, 'source', 'sources')} stopped resolving, "
+            "and those records await a fix."
+        )
+
+    if issue.by_level:
+        pairs = [
+            (level, count) for level, count in sorted(issue.by_level.items())
+            if level != "unknown"
+        ]
+        known = [
+            f"{level} in {plural_en(count, 'record', 'records')}"
+            if index == 0 else f"{level} in {count}"
+            for index, (level, count) in enumerate(pairs)
+        ]
+        unknown = issue.by_level.get("unknown", 0)
+        state = (
+            f"The registry now holds {plural_en(issue.total, 'record', 'records')}. "
+            f"Level {', '.join(known)}"
+        )
+        if unknown:
+            state += (
+                f". For {plural_en(unknown, 'record', 'records')} no level is computed, "
+                "because there is no evidence yet"
+            )
+        parts.append(state + ".")
+
+    return " ".join(parts)
+
+
+#: Названия видов свидетельств для читателя по-английски.
+EVIDENCE_NAMES_EN = {
+    "publication": "about publications",
+    "independent_reproduction": "about independent reproductions",
+    "repository": "about repositories",
+    "build_run": "about builds",
+    "framework_presence": "about presence in frameworks",
+    "package_downloads": "about package downloads",
+    "industrial_use": "about industrial use",
+    "provider_count": "about providers",
+}
+
 #: Названия видов свидетельств для читателя. Ключи — значения `EvidenceType`.
 EVIDENCE_NAMES = {
     "publication": "о публикациях",
@@ -338,7 +440,9 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
         for t in technologies
     ).items()))
 
-    issue.text = compose(issue) if (issue.has_news() or force) else ""
+    if issue.has_news() or force:
+        issue.text = compose(issue)
+        issue.text_en = compose_en(issue)
     return issue
 
 
