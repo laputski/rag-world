@@ -71,6 +71,46 @@ def test_locales_declare_the_same_keys():
     )
 
 
+#: Ключи, где тире отделяет обозначение от расшифровки, а не заменяет связку.
+#: «L0 — гипотеза» это словарная статья, а не предложение.
+DASH_AS_LABEL = ("level.", "levelCondition.")
+
+
+def test_dash_does_not_stand_in_for_a_verb():
+    """В русских текстах для читателя связка называется словом.
+
+    Тире прячет отношение между частями фразы: читателю приходится самому
+    достраивать, перечисление это, причина или определение. Портал объясняет
+    непростые вещи людям, которые видят его впервые, и заставлять их
+    догадываться нельзя.
+
+    Правило про русский текст. Английский оставлен как есть: там тире обычный
+    знак связи, и запрет сделал бы прозу неестественной.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    offenders: list[str] = []
+
+    def walk(node: object, path: str = "") -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                walk(value, f"{path}.{key}" if path else key)
+        elif isinstance(node, str) and "—" in node:
+            if not path.startswith(DASH_AS_LABEL):
+                offenders.append(f"{path}: {node[:70]}")
+
+    for name in ("ru.json", "ru/tech.json"):
+        walk(json.loads((root / "ui" / "src" / "i18n" / name).read_text(encoding="utf-8")))
+
+    assert not offenders, (
+        "тире заменяет связку в текстах для читателя:\n  "
+        + "\n  ".join(offenders)
+        + "\nПоставьте глагол или предлог."
+    )
+
+
 def test_card_prose_is_translated_field_for_field():
     """Частичный перевод хуже его отсутствия.
 
