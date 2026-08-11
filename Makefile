@@ -65,6 +65,9 @@ artifacts: ## Rebuild public/data/*.json and the changes feed
 validate: ## Validate registry data: schema, link resolvability, provenance
 	$(PYTHON) scripts/validate_data.py
 
+sources: ## Regenerate docs/SOURCES.md from the collectors' own constants
+	$(PYTHON) scripts/build_sources.py
+
 # Выпуск фиксирует состояние навсегда: ссылка на него уходит в чужую работу, а
 # описание подаётся во внешний архив и получает постоянный идентификатор.
 # Артефакты пересобираются здесь же, чтобы в снимок не попало вчерашнее: сам
