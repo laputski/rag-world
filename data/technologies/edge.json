@@ -61,9 +61,9 @@
     {
       "kind": "other",
       "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
-      "status": "needs_review",
+      "status": "guarded",
       "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
-      "verified_at": null
+      "verified_at": "2026-08-11"
     },
     {
       "kind": "product",

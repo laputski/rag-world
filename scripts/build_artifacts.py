@@ -52,9 +52,26 @@ LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 #: срока. Признак показывается в интерфейсе всегда.
 STALE_AFTER = timedelta(days=45)
 
-#: Показатели, из которых выводится внимание и распространённость.
+#: Показатель, из которого выводится внимание.
+#:
+#: Распространённости на карте нет, и это решение, а не упущение. Точка карты
+#: несла поле `prevalence`, задававшее её размер, но заполнить его было нечем:
+#: ряд с такими показателями никто не писал, поэтому размер у всех шестидесяти
+#: двух точек был одинаков, а поле молча оставалось пустым.
+#:
+#: Заполнить его честно не выходит. Загрузки пакета есть у семи записей из
+#: шестидесяти двух и различаются в тридцать тысяч раз, от полутора тысяч в
+#: месяц до пятидесяти двух миллионов. По прежней формуле все семь упирались в
+#: наибольший размер, а прочие пятьдесят пять получали размер «нет данных»,
+#: неотличимый от размера «скачивают редко»: величина превращалась в признак
+#: «есть пакет на Python». Вдобавок наибольшие загрузки принадлежат
+#: OpenSearch и Qdrant, то есть общему инструменту, а не приёму RAG, и карта
+#: утверждала бы их первенство в предметной области.
+#:
+#: Звёзд репозитория не собирает никто, поэтому вторая половина правила
+#: описывала источник, которого нет. Складывать же загрузки со звёздами нельзя
+#: и по существу: это разные величины в разных единицах.
 ATTENTION_METRIC = "citation_velocity"
-PREVALENCE_METRICS = ("package_downloads", "repository_stars")
 
 
 def _built_at() -> str:
@@ -296,7 +313,6 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     registry_rows = []
     for tech in technologies:
         entry = level_by_tech.get(tech.id)
-        tech_metrics = metrics_by_tech.get(tech.id, [])
         tech_evidence = evidence_by_tech.get(tech.id, [])
 
         # Вывод правила прилагается к записи, чтобы карточка могла показать,
@@ -359,17 +375,6 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     points = []
     for tech in technologies:
         entry = level_by_tech.get(tech.id)
-        tech_metrics = metrics_by_tech.get(tech.id, [])
-        prevalence = next(
-            (
-                value
-                for value in (
-                    _latest_metric(tech_metrics, m) for m in PREVALENCE_METRICS
-                )
-                if value is not None
-            ),
-            None,
-        )
         points.append({
             "id": tech.id,
             "name": tech.name,
@@ -383,7 +388,6 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,
             **normalized_attention(tech, metrics_by_tech, cohorts),
-            "prevalence": prevalence,
             "first_published": tech.first_published,
             "prose_id": tech.prose_id,
             # История нужна карте для показа движения за период: без неё

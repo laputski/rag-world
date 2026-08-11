@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box, Typography, Paper, Chip, Alert, CircularProgress, Collapse, Divider, Link as MuiLink,
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getRegistry } from "../api/client";
@@ -127,12 +127,33 @@ export function TechCardPage() {
         {tech.groups.map((g) => <StratumChip key={g} stratum={g} withName />)}
       </Box>
 
+      {/*
+        Источник, который портал не смог открыть сам, помечается прямо здесь.
+        Портал стоит на том, что каждое его утверждение проверяемо, и «ссылки
+        проверены еженедельно» — тоже утверждение. У трёх адресов оно неверно:
+        издательства отвечают роботу отказом по правам, и подтвердить их может
+        только человек. Умолчать значило бы выдать непроверенное за
+        проверенное.
+      */}
       {tech.links.length > 0 && (
         <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap", mb: 2 }}>
           {tech.links.map((link, i) => (
-            <MuiLink key={i} href={link.url} target="_blank" rel="noopener" variant="body2">
-              {link.label ?? link.url.replace(/^https?:\/\//, "").slice(0, 42)}
-            </MuiLink>
+            <Box key={i} sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
+              <MuiLink href={link.url} target="_blank" rel="noopener" variant="body2">
+                {link.label ?? link.url.replace(/^https?:\/\//, "").slice(0, 42)}
+              </MuiLink>
+              {link.status === "guarded" && (
+                <Tooltip title={t("link.guardedWhy")}>
+                  <Typography
+                    component="span"
+                    variant="caption"
+                    sx={{ color: "text.secondary", cursor: "help" }}
+                  >
+                    {t("link.guarded")}
+                  </Typography>
+                </Tooltip>
+              )}
+            </Box>
           ))}
         </Box>
       )}

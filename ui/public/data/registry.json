@@ -516,9 +516,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2411.19443",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "Auto-RAG",
@@ -772,9 +772,9 @@
         {
           "kind": "paper",
           "label": null,
-          "status": "needs_review",
+          "status": "guarded",
           "url": "https://doi.org/10.1561/1500000019",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "BM25 Sparse",
@@ -1959,9 +1959,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2310.03714",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "DSPy",
@@ -2101,9 +2101,9 @@
         {
           "kind": "other",
           "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
-          "status": "needs_review",
+          "status": "guarded",
           "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         },
         {
           "kind": "product",
@@ -2871,9 +2871,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2405.20139",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "GNN-RAG",
@@ -2979,9 +2979,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2406.14550",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "GraphReader",
@@ -3705,9 +3705,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2409.13731",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "KAG",
@@ -4982,9 +4982,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2004.04906",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "Naive Dense",
@@ -5717,9 +5717,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2501.11759",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "Poison-RAG",
@@ -6271,9 +6271,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2403.06840",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "RA-ISF",
@@ -7142,9 +7142,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2301.12652",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "REPLUG",
@@ -7630,9 +7630,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2410.17952",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "SimRAG",
@@ -7746,9 +7746,9 @@
         {
           "kind": "other",
           "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
-          "status": "needs_review",
+          "status": "guarded",
           "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         },
         {
           "kind": "other",
@@ -8440,9 +8440,9 @@
         {
           "kind": "preprint",
           "label": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2307.07697",
-          "verified_at": null
+          "verified_at": "2026-08-11"
         }
       ],
       "name": "Think-on-Graph",

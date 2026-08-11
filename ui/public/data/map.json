@@ -37,7 +37,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "Adaptive RAG",
-      "prevalence": null,
       "prose_id": "adaptive_rag"
     },
     {
@@ -58,7 +57,6 @@
       "kind": "architecture",
       "level": null,
       "name": "Agentic RAG",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -87,7 +85,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "ArchRAG",
-      "prevalence": null,
       "prose_id": "archrag"
     },
     {
@@ -114,7 +111,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "Auto-RAG",
-      "prevalence": null,
       "prose_id": "auto_rag"
     },
     {
@@ -139,7 +135,6 @@
       "kind": "tool",
       "level": "L0",
       "name": "BGE-M3",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -164,7 +159,6 @@
       "kind": "technique",
       "level": "L0",
       "name": "BM25 Sparse",
-      "prevalence": null,
       "prose_id": "bm25_sparse"
     },
     {
@@ -193,7 +187,6 @@
       "kind": "paradigm",
       "level": "L3",
       "name": "CausalRAG",
-      "prevalence": null,
       "prose_id": "causalrag"
     },
     {
@@ -221,7 +214,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "ChatQA",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -251,7 +243,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "ColBERT",
-      "prevalence": null,
       "prose_id": "colbert"
     },
     {
@@ -276,7 +267,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "ColPali",
-      "prevalence": null,
       "prose_id": "colpali"
     },
     {
@@ -300,7 +290,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "Contextual Retrieval",
-      "prevalence": null,
       "prose_id": "contextual_retrieval"
     },
     {
@@ -327,7 +316,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "CRAG",
-      "prevalence": null,
       "prose_id": "crag"
     },
     {
@@ -355,7 +343,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "Dense X",
-      "prevalence": null,
       "prose_id": "dense_x_retrieval"
     },
     {
@@ -380,7 +367,6 @@
       "kind": "tool",
       "level": "L1",
       "name": "DSPy",
-      "prevalence": null,
       "prose_id": "dspy"
     },
     {
@@ -410,7 +396,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "Edge и On-Device RAG",
-      "prevalence": null,
       "prose_id": "edge"
     },
     {
@@ -436,7 +421,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "EdgeRAG",
-      "prevalence": null,
       "prose_id": "edgerag"
     },
     {
@@ -462,7 +446,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "Embodied RAG",
-      "prevalence": null,
       "prose_id": "embodied_rag"
     },
     {
@@ -491,7 +474,6 @@
       "kind": "paradigm",
       "level": "L3",
       "name": "Federated RAG",
-      "prevalence": null,
       "prose_id": "federated_rag"
     },
     {
@@ -521,7 +503,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "FLARE",
-      "prevalence": null,
       "prose_id": "flare"
     },
     {
@@ -547,7 +528,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "GNN-RAG",
-      "prevalence": null,
       "prose_id": "gnn_rag"
     },
     {
@@ -573,7 +553,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "GraphReader",
-      "prevalence": null,
       "prose_id": "graphreader"
     },
     {
@@ -602,7 +581,6 @@
       "kind": "architecture",
       "level": "L4",
       "name": "HippoRAG",
-      "prevalence": null,
       "prose_id": "hipporag"
     },
     {
@@ -630,7 +608,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "HyDE",
-      "prevalence": null,
       "prose_id": "hyde"
     },
     {
@@ -660,7 +637,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "IRCoT",
-      "prevalence": null,
       "prose_id": "ircot"
     },
     {
@@ -686,7 +662,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "KAG",
-      "prevalence": null,
       "prose_id": "kag"
     },
     {
@@ -710,7 +685,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "Late Chunking",
-      "prevalence": null,
       "prose_id": "late_chunking"
     },
     {
@@ -736,7 +710,6 @@
       "kind": "architecture",
       "level": "L0",
       "name": "LightRAG",
-      "prevalence": null,
       "prose_id": "lightrag"
     },
     {
@@ -762,7 +735,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "MA-RAG",
-      "prevalence": null,
       "prose_id": "ma_rag"
     },
     {
@@ -790,7 +762,6 @@
       "kind": "architecture",
       "level": "L0",
       "name": "MemoRAG",
-      "prevalence": null,
       "prose_id": "memorag"
     },
     {
@@ -825,7 +796,6 @@
       "kind": "architecture",
       "level": "L5",
       "name": "Microsoft GraphRAG",
-      "prevalence": null,
       "prose_id": "msft_graphrag"
     },
     {
@@ -850,7 +820,6 @@
       "kind": "technique",
       "level": "L0",
       "name": "Multi-Query Retrieval",
-      "prevalence": null,
       "prose_id": "multi_query"
     },
     {
@@ -879,7 +848,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "MuRAG",
-      "prevalence": null,
       "prose_id": "murag"
     },
     {
@@ -899,7 +867,6 @@
       "kind": "technique",
       "level": null,
       "name": "Naive Dense",
-      "prevalence": null,
       "prose_id": "naive_dense"
     },
     {
@@ -926,7 +893,6 @@
       "kind": "paradigm",
       "level": "L2",
       "name": "Neuro-Symbolic RAG",
-      "prevalence": null,
       "prose_id": "neuro_symbolic_rag"
     },
     {
@@ -956,7 +922,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "OG-RAG",
-      "prevalence": null,
       "prose_id": "og_rag"
     },
     {
@@ -985,7 +950,6 @@
       "kind": "tool",
       "level": "L2",
       "name": "OpenSearch",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -1015,7 +979,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "PathRAG",
-      "prevalence": null,
       "prose_id": "pathrag"
     },
     {
@@ -1037,7 +1000,6 @@
       "kind": "attack",
       "level": "L2",
       "name": "Poison-RAG",
-      "prevalence": null,
       "prose_id": "poison_rag"
     },
     {
@@ -1059,7 +1021,6 @@
       "kind": "attack",
       "level": "L1",
       "name": "PoisonedRAG",
-      "prevalence": null,
       "prose_id": "poisonedrag"
     },
     {
@@ -1088,7 +1049,6 @@
       "kind": "tool",
       "level": "L2",
       "name": "Qdrant",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -1114,7 +1074,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "RA-CM3",
-      "prevalence": null,
       "prose_id": null
     },
     {
@@ -1138,7 +1097,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "RA-DIT",
-      "prevalence": null,
       "prose_id": "ra_dit"
     },
     {
@@ -1164,7 +1122,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "RA-ISF",
-      "prevalence": null,
       "prose_id": "ra_isf"
     },
     {
@@ -1189,7 +1146,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "RAFT",
-      "prevalence": null,
       "prose_id": "raft"
     },
     {
@@ -1214,7 +1170,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "RAG as Memory",
-      "prevalence": null,
       "prose_id": "rag_as_memory"
     },
     {
@@ -1239,7 +1194,6 @@
       "kind": "technique",
       "level": "L0",
       "name": "RAG-Fusion",
-      "prevalence": null,
       "prose_id": "rag_fusion"
     },
     {
@@ -1268,7 +1222,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "RAPTOR",
-      "prevalence": null,
       "prose_id": "raptor"
     },
     {
@@ -1298,7 +1251,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "ReAct",
-      "prevalence": null,
       "prose_id": "react"
     },
     {
@@ -1323,7 +1275,6 @@
       "kind": "technique",
       "level": "L2",
       "name": "REPLUG",
-      "prevalence": null,
       "prose_id": "replug"
     },
     {
@@ -1348,7 +1299,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "SAIL",
-      "prevalence": null,
       "prose_id": "sail"
     },
     {
@@ -1369,7 +1319,6 @@
       "kind": "paradigm",
       "level": null,
       "name": "Self-Evolving и Fully Adaptive RAG",
-      "prevalence": null,
       "prose_id": "self_evolving"
     },
     {
@@ -1396,7 +1345,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "Self-RAG",
-      "prevalence": null,
       "prose_id": "self_rag"
     },
     {
@@ -1420,7 +1368,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "SimRAG",
-      "prevalence": null,
       "prose_id": "simrag"
     },
     {
@@ -1445,7 +1392,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "Speculative RAG",
-      "prevalence": null,
       "prose_id": "speculative_rag"
     },
     {
@@ -1466,7 +1412,6 @@
       "kind": "architecture",
       "level": null,
       "name": "Standard HybridRAG",
-      "prevalence": null,
       "prose_id": "standard_hybridrag"
     },
     {
@@ -1490,7 +1435,6 @@
       "kind": "technique",
       "level": "L1",
       "name": "Step-Back Prompting",
-      "prevalence": null,
       "prose_id": "step_back"
     },
     {
@@ -1515,7 +1459,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "Streaming RAG",
-      "prevalence": null,
       "prose_id": "streaming_rag"
     },
     {
@@ -1545,7 +1488,6 @@
       "kind": "paradigm",
       "level": "L3",
       "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
-      "prevalence": null,
       "prose_id": "test_time"
     },
     {
@@ -1571,7 +1513,6 @@
       "kind": "architecture",
       "level": "L1",
       "name": "Think-on-Graph",
-      "prevalence": null,
       "prose_id": "think_on_graph"
     },
     {
@@ -1596,7 +1537,6 @@
       "kind": "paradigm",
       "level": "L1",
       "name": "Unified RAG над Structured и Unstructured Data",
-      "prevalence": null,
       "prose_id": "unified"
     },
     {
@@ -1621,7 +1561,6 @@
       "kind": "technique",
       "level": "L0",
       "name": "Vectorless",
-      "prevalence": null,
       "prose_id": "vectorless"
     },
     {
@@ -1645,7 +1584,6 @@
       "kind": "architecture",
       "level": "L2",
       "name": "xRAG",
-      "prevalence": null,
       "prose_id": "xrag"
     }
   ],

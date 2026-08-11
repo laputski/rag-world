@@ -36,6 +36,10 @@
     "ru": "Русский",
     "en": "English"
   },
+  "link": {
+    "guarded": "closed to robots",
+    "guardedWhy": "The address answers but refuses to show itself to a robot, as publishers and some platforms do. The portal checks its links itself and cannot confirm this one, so it does not present it as checked. Opening it by hand works as usual."
+  },
   "kind": {
     "paradigm": "paradigm",
     "architecture": "architecture",

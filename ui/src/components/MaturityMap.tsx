@@ -80,8 +80,15 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         ? p.attention
         : unknownAttentionY + (stableJitter(p.id) - 0.5) * maxAttention * 0.06;
 
-    const sizeOf = (p: MaturityPoint): number =>
-      p.prevalence != null ? Math.min(26, 9 + Math.sqrt(p.prevalence)) : 11;
+    // Размер точки ничего не кодирует и одинаков у всех.
+    //
+    // Он задавался распространённостью, но величины под ним не было: ряд с
+    // такими показателями не писал никто, поэтому размер и так был у всех
+    // одинаков, только выглядел осмысленным. Хуже того, «нет данных» давало
+    // размер 11, а полторы тысячи загрузок в месяц давали 9 + √1748, то есть
+    // тоже упиралось в потолок: незнание и малую величину нельзя было
+    // различить глазом. Портал обязан показывать это различие, а не прятать.
+    const POINT_SIZE = 11;
 
     const byKind = new Map<string, MaturityPoint[]>();
     for (const point of artifact.points) {
@@ -94,8 +101,7 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       name: t(`kind.${kind}`, { defaultValue: kind }),
       type: "scatter" as const,
       symbol: KIND_SYMBOLS[kind] ?? "circle",
-      symbolSize: (_: unknown, params: { dataIndex: number }) =>
-        sizeOf(points[params.dataIndex]),
+      symbolSize: POINT_SIZE,
       data: points.map((p) => ({
         value: [xOf(p), yOf(p)],
         point: p,

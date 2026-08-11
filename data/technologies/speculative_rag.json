@@ -53,9 +53,9 @@
     {
       "kind": "other",
       "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
-      "status": "needs_review",
+      "status": "guarded",
       "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
-      "verified_at": null
+      "verified_at": "2026-08-11"
     },
     {
       "kind": "other",

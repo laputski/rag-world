@@ -200,10 +200,13 @@ def check_registry() -> list[str]:
         for link in tech.links:
             if not link.url.strip():
                 problems.append(f"{where}: источник без адреса")
-            if link.status == "verified" and link.verified_at is None:
+            # Дату обязаны нести обе отметки, говорящие об осмотре: и
+            # «разрешается», и «закрыт правами». Без даты нельзя узнать, когда
+            # на адрес смотрели, а отметка без этого утверждает бессрочно.
+            if link.status in ("verified", "guarded") and link.verified_at is None:
                 problems.append(
-                    f"{where}: источник {link.url} помечен проверенным, "
-                    "но дата проверки не указана"
+                    f"{where}: источник {link.url} помечен как осмотренный "
+                    f"({link.status}), но дата проверки не указана"
                 )
 
     for item in store.load_evidence():

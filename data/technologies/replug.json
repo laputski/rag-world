@@ -22,9 +22,9 @@
     {
       "kind": "preprint",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2301.12652",
-      "verified_at": null
+      "verified_at": "2026-08-11"
     }
   ],
   "name": "REPLUG",

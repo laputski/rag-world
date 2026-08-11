@@ -68,6 +68,8 @@ def _outcome(status: int) -> str:
         return "verified"
     if status in GONE:
         return "unresolved"
+    if status in GUARDED:
+        return "guarded"
     return "unknown"
 
 
@@ -100,9 +102,12 @@ def run(
         for link in tech.links:
             if not link.url.strip():
                 continue
+            # Недавно осмотренные адреса пропускаются. Закрытые правами тоже:
+            # площадка, отказавшая роботу вчера, откажет и сегодня, а лишнее
+            # обращение — расход чужих ресурсов ради заведомо известного ответа.
             if (
                 stale_after
-                and link.status == "verified"
+                and link.status in ("verified", "guarded")
                 and link.verified_at is not None
                 and today - link.verified_at < timedelta(days=stale_after)
             ):
@@ -134,12 +139,35 @@ def run(
                     link.status = "unresolved"
                     link.verified_at = None
                     touched = True
+            elif verdict == "guarded":
+                # Отказ по правам не понижает подтверждённую ссылку: издательства
+                # отвечают так роботам, и принять это за смерть адреса значит
+                # испортить реестр быстрее, чем время испортит адреса.
+                #
+                # Но и оставлять непроверенную ссылку в прежнем состоянии
+                # нельзя. Она застревала в «не смотрели» навсегда, хотя
+                # смотрели каждую неделю, и отличить её от действительно не
+                # проверявшейся было невозможно. Отметка `guarded` утверждает
+                # ровно наблюдённое: обращение было, адрес ответил, роботу себя
+                # не показал. Подтвердить его может только человек.
+                summary.guarded += 1
+                if link.status == "verified":
+                    summary.problems.append(
+                        f"{tech.id}: {link.url} отвечает кодом {status} "
+                        "(отметка о проверке сохранена)"
+                    )
+                elif link.status != "guarded" or link.verified_at != today:
+                    link.status = "guarded"
+                    link.verified_at = today
+                    touched = True
+                    summary.problems.append(
+                        f"{tech.id}: {link.url} отвечает кодом {status}, "
+                        "подтвердить может только человек"
+                    )
             else:
-                # Отметка не трогается: временный отказ не портит запись.
-                if status in GUARDED:
-                    summary.guarded += 1
-                else:
-                    summary.errored += 1
+                # Обрыв связи, таймаут, неизвестный код: отметка не трогается,
+                # потому что о самом адресе это ничего не говорит.
+                summary.errored += 1
                 if status:
                     summary.problems.append(
                         f"{tech.id}: {link.url} отвечает кодом {status} "

@@ -102,8 +102,10 @@ export interface MaturityPoint {
   attention_raw: number | null;
   /** Год подгруппы, по которой нормировано; null — нормировать было нечем. */
   attention_cohort: string | null;
-  /** Распространённость: загрузки пакета либо звёзды репозитория. */
-  prevalence: number | null;
+  /* Распространённости здесь нет намеренно. Поле существовало и задавало
+     размер точки, но величины под ним не было ни у одной записи. Подробности
+     и причина, по которой заполнить его нечем, — в scripts/build_artifacts.py
+     рядом с ATTENTION_METRIC. */
   first_published: string | null;
   prose_id: string | null;
   history: LevelChangePoint[];

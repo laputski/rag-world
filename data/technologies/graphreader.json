@@ -27,9 +27,9 @@
     {
       "kind": "preprint",
       "label": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2406.14550",
-      "verified_at": null
+      "verified_at": "2026-08-11"
     }
   ],
   "name": "GraphReader",

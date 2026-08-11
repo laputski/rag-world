@@ -64,6 +64,62 @@ def test_published_artifacts_match_registry(tmp_path):
     )
 
 
+# ─── Поля, которых нет ───────────────────────────────────────────────────────
+#
+# Поле, пустое у всех записей сразу, выглядит как данные и данными не является.
+# Так прожило поле распространённости: артефакт его нёс, интерфейс задавал им
+# размер точки, а величины под ним не было ни у одной из шестидесяти двух
+# записей. Все точки были одного размера, и заметить это можно было только
+# глядя на карту с вопросом «почему они одинаковые».
+#
+# Обычным тестом такое не ловится: проверка «нет данных значит null» проходит
+# вхолостую именно тогда, когда данных нет никогда. Ловится это только счётом
+# по всему артефакту, поэтому проверка живёт здесь, рядом со сборкой, и
+# смотрит на настоящие данные, а не на выдуманные.
+
+#: Поля, пустые у всех записей на законных основаниях, с причиной у каждого.
+ALLOWED_ALL_EMPTY = {
+    # Пусто, пока ни одна запись не понижалась и не поднималась: история
+    # появляется только при изменении уровня.
+}
+
+
+def _all_empty_fields(items: list[dict]) -> list[str]:
+    """Поля, пустые у каждой записи набора."""
+    keys: set[str] = set()
+    for item in items:
+        keys |= set(item)
+    empty = []
+    for key in sorted(keys):
+        values = [item.get(key) for item in items]
+        if all(value is None or value == [] or value == {} for value in values):
+            empty.append(key)
+    return empty
+
+
+def test_no_field_is_empty_for_every_record():
+    """Ни одно поле артефакта не пусто у всех записей сразу."""
+    offenders: dict[str, list[str]] = {}
+    for name, path in (
+        ("map.json", "points"),
+        ("registry.json", "technologies"),
+    ):
+        payload = json.loads((OUT_DIR / name).read_text(encoding="utf-8"))
+        items = payload[path] if isinstance(payload, dict) else payload
+        dead = [
+            key for key in _all_empty_fields(items)
+            if key not in ALLOWED_ALL_EMPTY
+        ]
+        if dead:
+            offenders[name] = dead
+
+    assert not offenders, (
+        f"поля пусты у всех записей сразу: {offenders}. "
+        "Либо величину никто не вычисляет, либо поле лишнее. И то и другое "
+        "выглядит на портале как данные, которых нет."
+    )
+
+
 def test_feed_is_published():
     """Лента хроники — единственный способ узнать об изменениях извне портала."""
     feed = OUT_DIR / "feed.xml"

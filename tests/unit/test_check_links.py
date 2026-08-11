@@ -141,8 +141,49 @@ def test_network_error_does_not_spoil_a_verified_link(registry, monkeypatch):
 def test_unknown_outcome_does_not_promote_an_unchecked_link(registry):
     """Непонятный исход не подтверждает ссылку, которую не открыли."""
     make([store.Link(url="https://example.org/x")])
-    run({"example.org": SourceBehaviour(b"", status=403)})
+
+    class Broken:
+        def get(self, url, headers=None, timeout=20):
+            raise OSError("сеть недоступна")
+
+    check_links.run(http=Broken(), today=TODAY)
     assert only_link().status == "needs_review"
+
+
+@pytest.mark.parametrize("status", [401, 402, 403, 429])
+def test_refusal_gives_an_unchecked_link_a_way_out(registry, status):
+    """Закрытый правами адрес перестаёт выглядеть непроверенным.
+
+    Отказ по правам намеренно не считается смертью ссылки. Но пока он не менял
+    и отметку, непроверенный адрес застревал в «не смотрели» навсегда: смотрели
+    на него каждую неделю, отличить его от действительно не проверявшегося было
+    нельзя, и никто об этом не узнавал. Три адреса реестра прожили так всё
+    время его существования.
+
+    Отметка `guarded` утверждает ровно наблюдённое: обращение было, адрес
+    ответил, роботу себя не показал. Подтвердить может только человек.
+    """
+    make([store.Link(url="https://example.org/x")])
+    summary = run({"example.org": SourceBehaviour(b"", status=status)})
+
+    link = only_link()
+    assert link.status == "guarded", "отметка обязана отличаться от «не смотрели»"
+    assert link.verified_at == TODAY, "осмотр был, и его дата известна"
+    assert summary.guarded == 1
+    assert summary.problems, "закрытый адрес обязан попасть в отчёт прохода"
+
+
+def test_guarded_link_is_not_rechecked_while_fresh(registry):
+    """Площадка, отказавшая вчера, откажет и сегодня.
+
+    Лишнее обращение ради заведомо известного ответа — расход чужих ресурсов.
+    """
+    make([store.Link(
+        url="https://example.org/x", status="guarded", verified_at=date(2026, 8, 10),
+    )])
+    http = FakeTransport({"example.org": SourceBehaviour(b"", status=403)})
+    check_links.run(http=http, today=TODAY, stale_after=30)
+    assert http.calls_matching("example.org") == []
 
 
 # ─── Расход и повторы ────────────────────────────────────────────────────────
