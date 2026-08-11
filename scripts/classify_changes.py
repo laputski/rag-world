@@ -45,6 +45,22 @@ LEVEL_ORDER = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 #: независимом воспроизведении, и цена ошибки в них выше.
 REVIEW_THRESHOLD = "L4"
 
+#: Путь журнала уровней относительно корня репозитория. Берётся у хранилища, а
+#: не пишется строкой: переезд журнала иначе оставил бы разбор смотреть в
+#: пустоту, и шлюз молча решил бы, что изменений нет.
+ROOT = Path(__file__).resolve().parent.parent
+LEVELS_PATH = str(store.LEVELS_FILE.relative_to(ROOT))
+
+
+class Undecidable(Exception):
+    """Разобрать изменения не удалось.
+
+    Отличается от «изменений нет» ровно тем, чем незнание отличается от
+    знания. Шлюз, принявший одно за другое, пропускает в основную ветку
+    понижения уровня и переходы через границу подтверждённости, и делает это
+    молча.
+    """
+
 
 @dataclass
 class Decision:
@@ -104,20 +120,53 @@ def classify(
 
 
 def added_entries_from_git(repo: Path | None = None) -> list[dict]:
-    """Записи, дописанные в журнал уровней и ещё не зафиксированные."""
+    """Записи, дописанные в журнал уровней и ещё не зафиксированные.
+
+    Сравнение идёт с `HEAD`, а не с индексом. Разница решающая: `git diff` без
+    указания показывает только непроиндексированное, поэтому любой `git add`,
+    выполненный до шлюза, скрывал бы от него изменения целиком. Шлюз при этом
+    не падал, а отвечал «изменений нет» и пропускал в основную ветку всё, включая
+    понижения уровня.
+
+    Всякая невозможность разобрать различия поднимает `Undecidable`. Прежде она
+    оборачивалась пустым списком, а пустой список означает «изменений нет»:
+    отсутствие репозитория, переезд журнала, оборванная строка и отказ git
+    выглядели для шлюза одинаково безобидно.
+    """
+    # По умолчанию корень репозитория, а не текущий каталог: путь к журналу
+    # задан относительно корня, и запуск из подкаталога иначе давал бы пустой
+    # разбор вместо отказа.
+    base = Path(repo) if repo is not None else ROOT
+
+    # Отсутствие журнала git ошибкой не считает: пустой перечень путей для него
+    # обычное дело, и `git diff` отвечает нулём и пустотой. Для шлюза это
+    # неотличимо от «изменений нет», поэтому существование проверяется прямо.
+    if not (base / LEVELS_PATH).exists():
+        raise Undecidable(f"журнала уровней нет по пути {LEVELS_PATH}")
+
     result = subprocess.run(
-        ["git", "diff", "--unified=0", "--", "data/levels/history.jsonl"],
-        capture_output=True, text=True, cwd=repo,
+        ["git", "diff", "HEAD", "--unified=0", "--", LEVELS_PATH],
+        capture_output=True, text=True, cwd=base,
     )
+    if result.returncode != 0:
+        raise Undecidable(
+            f"git не показал изменения {LEVELS_PATH}: "
+            f"{result.stderr.strip()[:200] or 'код ' + str(result.returncode)}"
+        )
+
     out: list[dict] = []
     for line in result.stdout.splitlines():
         if line.startswith("+") and not line.startswith("+++"):
             payload = line[1:].strip()
-            if payload:
-                try:
-                    out.append(json.loads(payload))
-                except json.JSONDecodeError:
-                    continue
+            if not payload:
+                continue
+            try:
+                out.append(json.loads(payload))
+            except json.JSONDecodeError as exc:
+                raise Undecidable(
+                    f"строка журнала уровней не разбирается ({exc}); "
+                    f"начало: {payload[:60]!r}"
+                ) from exc
     return out
 
 
@@ -147,7 +196,25 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    added = added_entries_from_git()
+    # Не смогли разобрать — значит, показываем человеку. Отказ закрытый: цена
+    # лишнего просмотра равна одному щелчку, цена пропущенного понижения равна
+    # неверному утверждению о технологии в основной ветке.
+    #
+    # Код возврата остаётся нулевым намеренно. Ненулевой остановил бы задание
+    # целиком, и отметка о прогоне не попала бы в основную ветку, а от неё
+    # зависит и признак активности репозитория, и дата последней проверки,
+    # которую видит читатель.
+    try:
+        added = added_entries_from_git()
+    except Undecidable as exc:
+        sys.stderr.write(f"разобрать изменения не удалось: {exc}\n")
+        if args.github:
+            print("review=true")
+            print("changes=0")
+        else:
+            print(f"разобрать изменения не удалось, нужен просмотр: {exc}")
+        return 0
+
     decision = classify(added, previous_levels_before(added))
 
     if args.github:

@@ -10,7 +10,7 @@
   удовлетворяет соглашению;
 * значения измерений существуют в схеме, а конфигурация допустима по
   ограничениям Φ;
-* страты записи принадлежат A–G и не противоречат её конфигурации;
+* страты записи принадлежат A–G;
 * свидетельства и записи журнала уровней ссылаются на существующие технологии;
 * у каждого источника заполнен адрес, а состояние проверки согласовано с датой.
 
@@ -40,7 +40,12 @@ LEVELS = {"L0", "L1", "L2", "L3", "L4", "L5", "L6"}
 
 
 def _residual_vocabulary() -> dict[str, dict]:
-    """Словарь механизмов остатка: код → запись словаря."""
+    """Словарь механизмов остатка: код → запись словаря.
+
+    Читается при каждой проверке, а не один раз при загрузке модуля. Проход
+    обновления правит данные и проверяет их в том же запуске, поэтому словарь,
+    прочитанный при импорте, описывал бы состояние до правок.
+    """
     path = store.DATA_DIR / "residual_vocabulary.json"
     if not path.exists():
         return {}
@@ -50,21 +55,55 @@ def _residual_vocabulary() -> dict[str, dict]:
     return {m["id"]: m for m in payload.get("mechanisms", [])}
 
 
-RESIDUAL_VOCABULARY = _residual_vocabulary()
+def check_filenames() -> list[str]:
+    """Имя файла записи совпадает с идентификатором внутри неё.
+
+    Расхождение не выглядит поломкой и не мешает читать реестр: записи
+    загружаются перебором файлов, а идентификатор берётся из содержимого.
+    Порча наступает при первой же записи обратно, а записывает реестр каждый
+    проход обновления, когда проверка ссылок обновляет их отметки. Сохранение
+    идёт по идентификатору, поэтому появляется второй файл, а прежний остаётся:
+    одна запись становится двумя с одним идентификатором.
+    """
+    import json
+
+    problems: list[str] = []
+    if not store.TECHNOLOGIES_DIR.exists():
+        return problems
+    for path in sorted(store.TECHNOLOGIES_DIR.glob("*.json")):
+        try:
+            declared = json.loads(path.read_text(encoding="utf-8")).get("id")
+        except json.JSONDecodeError as exc:
+            problems.append(f"technologies/{path.name}: файл не разбирается: {exc}")
+            continue
+        if declared != path.stem:
+            problems.append(
+                f"technologies/{path.name}: идентификатор внутри файла "
+                f"{declared!r} не совпадает с именем файла {path.stem!r}; "
+                "при первой записи обратно запись раздвоится"
+            )
+    return problems
 
 
 def check_registry() -> list[str]:
     """Проверки, не требующие сети. Возвращает список нарушений."""
-    problems: list[str] = []
+    # Разбор файлов идёт первым, потому что он один называет виновника. Схема
+    # читает реестр целиком и на испорченном файле сообщает, что не сошлось,
+    # но не в каком файле. Проход идёт без человека, и разбирать его отказ
+    # придётся по журналу задним числом: имя файла там необходимо.
+    problems: list[str] = check_filenames()
 
     try:
         technologies = store.load_technologies()
     except Exception as exc:
-        return [f"реестр не читается схемой: {exc}"]
+        problems.append(f"реестр не читается схемой: {exc}")
+        return problems
 
     if not technologies:
-        return ["реестр пуст: нет ни одной записи в data/technologies/"]
+        problems.append("реестр пуст: нет ни одной записи в data/technologies/")
+        return problems
 
+    vocabulary = _residual_vocabulary()
     known: set[str] = set()
     for tech in technologies:
         where = f"technologies/{tech.id}.json"
@@ -111,7 +150,7 @@ def check_registry() -> list[str]:
         # сойдётся при подсчёте, и очередь остатков покажет десять редких
         # механизмов вместо одного частого.
         for mechanism in tech.residual:
-            if mechanism not in RESIDUAL_VOCABULARY:
+            if mechanism not in vocabulary:
                 problems.append(
                     f"{where}: остаток {mechanism!r} отсутствует в словаре "
                     f"data/residual_vocabulary.json"
