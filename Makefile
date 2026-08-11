@@ -65,6 +65,16 @@ artifacts: ## Rebuild public/data/*.json and the changes feed
 validate: ## Validate registry data: schema, link resolvability, provenance
 	$(PYTHON) scripts/validate_data.py
 
+# Выпуск фиксирует состояние навсегда: ссылка на него уходит в чужую работу, а
+# описание подаётся во внешний архив и получает постоянный идентификатор.
+# Артефакты пересобираются здесь же, чтобы в снимок не попало вчерашнее: сам
+# выпуск это проверит и откажется, но чинить отказ вручную незачем.
+release: artifacts ## Cut a dated, immutable snapshot and the deposit package
+	$(PYTHON) scripts/make_release.py
+
+release-dry: artifacts ## Show what a release would contain, writing nothing
+	$(PYTHON) scripts/make_release.py --dry-run
+
 # ── Quality ──────────────────────────────────────────────────────────────────
 
 # Форматирование не навязывается: в схеме измерений и в каталогах значений

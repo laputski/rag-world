@@ -25,8 +25,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
+import tempfile
 from datetime import date
 from pathlib import Path
 
@@ -40,13 +42,108 @@ RELEASES = ARTIFACTS / "releases"
 #: Что входит в снимок. Лента не входит: она о новостях, а не о состоянии.
 SNAPSHOT_FILES = ("registry.json", "map.json", "stats.json", "residuals.json")
 
+#: Поля, меняющиеся при каждой сборке и потому не значащие расхождения.
+VOLATILE_KEYS = {"built_at"}
+
+
+def artifacts_dir() -> Path:
+    """Каталог артефактов. Читается заново, чтобы тесты могли его подменить."""
+    return ARTIFACTS
+
+
+def releases_dir() -> Path:
+    return RELEASES
+
+
+def _normalize(payload):
+    if isinstance(payload, dict):
+        return {
+            key: _normalize(value)
+            for key, value in payload.items()
+            if key not in VOLATILE_KEYS
+        }
+    if isinstance(payload, list):
+        return [_normalize(item) for item in payload]
+    return payload
+
+
+def readiness() -> list[str]:
+    """Причины, по которым выпускать нельзя. Пусто — можно.
+
+    Выпуск фиксирует состояние навсегда, поэтому проверяется он строже
+    обычного прохода. Проверок три, и каждая закрывает случай, доказанный на
+    этом же коде.
+
+    Первая: данные обязаны быть исправны. Выпуск не звал проверку вовсе, и
+    зафиксировать испорченный реестр навсегда ему ничто не мешало.
+
+    Вторая: артефакты обязаны быть собраны из нынешних данных. Числа выпуска
+    берутся из `data/`, а файлы копируются из `ui/public/data/`, и сверки между
+    ними не было. Расхождение получалось не теоретическое: снимок утверждал
+    шестьдесят две технологии, а лежала в нём одна.
+
+    Третья: все файлы снимка обязаны существовать. Отсутствующий копировался
+    молча, и выпуск обещал в своём перечне файл, которого в нём нет.
+    """
+    import build_artifacts
+    import validate_data
+
+    problems = [f"данные не проходят проверку: {p}" for p in
+                validate_data.check_registry()]
+
+    missing = [name for name in SNAPSHOT_FILES
+               if not (artifacts_dir() / name).exists()]
+    if missing:
+        problems.append(
+            f"артефакты не собраны: нет {', '.join(missing)}; "
+            "выполните `make artifacts`"
+        )
+        return problems
+
+    with tempfile.TemporaryDirectory() as tmp:
+        build_artifacts.build(out_dir=Path(tmp))
+        for name in SNAPSHOT_FILES:
+            fresh = Path(tmp) / name
+            if not fresh.exists():
+                continue
+            expected = _normalize(json.loads(fresh.read_text(encoding="utf-8")))
+            actual = _normalize(
+                json.loads((artifacts_dir() / name).read_text(encoding="utf-8"))
+            )
+            if expected != actual:
+                problems.append(
+                    f"артефакт {name} собран не из нынешних данных; "
+                    "выполните `make artifacts` и зафиксируйте результат"
+                )
+    return problems
+
 
 def releases_index() -> list[dict]:
     """Выпущенные снимки, свежие впереди."""
-    path = RELEASES / "index.json"
+    path = releases_dir() / "index.json"
     if not path.exists():
         return []
     return json.loads(path.read_text(encoding="utf-8")).get("releases", [])
+
+
+def is_complete(tag: str) -> bool:
+    """Выпущен ли снимок целиком.
+
+    Каталог выпуска существовал и после прерывания на середине, а проверялось
+    именно существование. Прерванный выпуск навсегда оставался пустым: повтор
+    видел каталог, сообщал «уже существует» и уходил, а `publish` отказался бы
+    переписывать. Целостность теперь спрашивается у содержимого.
+    """
+    target = releases_dir() / tag
+    if not (target / "release.json").exists():
+        return False
+    if any(not (target / name).exists() for name in SNAPSHOT_FILES):
+        return False
+    if not (releases_dir() / f"rag-world-{tag}.zip").exists():
+        return False
+    if not (releases_dir() / f"{tag}-deposit.json").exists():
+        return False
+    return any(item.get("tag") == tag for item in releases_index())
 
 
 def build(tag: str | None = None, today: date | None = None) -> dict:
@@ -66,28 +163,48 @@ def build(tag: str | None = None, today: date | None = None) -> dict:
 
 
 def publish(meta: dict) -> Path:
-    """Записать снимок. Существующий выпуск не переписывается никогда."""
-    target = RELEASES / meta["tag"]
+    """Записать снимок. Существующий выпуск не переписывается никогда.
+
+    Снимок собирается рядом и переносится в место назначения одним движением.
+    Прерывание на середине оставляет черновик, а не полувыпуск: каталог под
+    меткой появляется уже целым. Это важнее обычного, потому что повторить
+    выпуск нельзя — на него уже могла лечь ссылка.
+    """
+    target = releases_dir() / meta["tag"]
     if target.exists():
         raise FileExistsError(
             f"выпуск {meta['tag']} уже существует: {target}. Выпуск фиксирует "
-            "состояние навсегда, и переписывать его нельзя — ссылка на него уже "
+            "состояние навсегда, и переписывать его нельзя: ссылка на него уже "
             "могла попасть в чужую работу."
         )
-    target.mkdir(parents=True)
-    for name in SNAPSHOT_FILES:
-        source = ARTIFACTS / name
-        if source.exists():
-            shutil.copy2(source, target / name)
-    (target / "release.json").write_text(
-        json.dumps(meta, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+
+    missing = [name for name in SNAPSHOT_FILES
+               if not (artifacts_dir() / name).exists()]
+    if missing:
+        raise FileNotFoundError(
+            f"снимок неполон: нет {', '.join(missing)}. Выпуск перечисляет свои "
+            "файлы, и обещать в нём отсутствующий значит дать ссылку в никуда."
+        )
+
+    releases_dir().mkdir(parents=True, exist_ok=True)
+    draft = Path(tempfile.mkdtemp(prefix=f".{meta['tag']}-", dir=releases_dir()))
+    try:
+        for name in SNAPSHOT_FILES:
+            shutil.copy2(artifacts_dir() / name, draft / name)
+        (draft / "release.json").write_text(
+            json.dumps(meta, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        os.replace(draft, target)
+    except BaseException:
+        shutil.rmtree(draft, ignore_errors=True)
+        raise
 
     index = [r for r in releases_index() if r["tag"] != meta["tag"]] + [meta]
     index.sort(key=lambda r: r["tag"], reverse=True)
-    (RELEASES / "index.json").write_text(
-        json.dumps({"releases": index}, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+    (releases_dir() / "index.json").write_text(
+        json.dumps({"releases": index}, ensure_ascii=False, indent=2, sort_keys=True)
+        + "\n",
         encoding="utf-8",
     )
     return target
@@ -104,9 +221,9 @@ def bundle(meta: dict) -> Path:
     Описание пишется рядом в готовом виде: заполнять его руками при каждом
     выпуске значит однажды ошибиться в числах, а числа здесь и есть содержание.
     """
-    target = RELEASES / meta["tag"]
+    target = releases_dir() / meta["tag"]
     archive = shutil.make_archive(
-        str(RELEASES / f"rag-world-{meta['tag']}"), "zip", root_dir=target
+        str(releases_dir() / f"rag-world-{meta['tag']}"), "zip", root_dir=target
     )
 
     description = (
@@ -120,7 +237,7 @@ def bundle(meta: dict) -> Path:
         "из раздела метода первоисточника, и обоснование каждого значения "
         "хранится вместе с данными."
     )
-    (RELEASES / f"{meta['tag']}-deposit.json").write_text(
+    (releases_dir() / f"{meta['tag']}-deposit.json").write_text(
         json.dumps({
             "metadata": {
                 "title": (
@@ -154,12 +271,35 @@ def run(*, dry_run: bool = False, today: date | None = None) -> int:
         f"свидетельств {meta['evidence']}, с уровнем {meta['with_level']}, "
         f"разобрано {meta['reviewed']}"
     )
+
+    # Проверка идёт и на пробном прогоне: узнать, что выпускать нельзя, лучше
+    # до выпуска, а не вместо него.
+    problems = readiness()
+    if problems:
+        sys.stderr.write(f"выпускать нельзя: препятствий {len(problems)}\n")
+        for problem in problems:
+            sys.stderr.write(f"  {problem}\n")
+        return 1
+
     if dry_run:
+        print("пробный прогон: препятствий нет, записано ничего не будет")
         return 0
-    path = RELEASES / meta["tag"]
+
+    if is_complete(meta["tag"]):
+        print(f"выпуск {meta['tag']} уже существует целиком, повторный не пишется")
+        return 0
+
+    path = releases_dir() / meta["tag"]
     if path.exists():
-        print(f"выпуск {meta['tag']} уже существует, повторный не пишется")
-        return 0
+        # Каталог есть, а выпуска нет: прежде такое состояние сообщало «уже
+        # существует» и оставалось навсегда.
+        sys.stderr.write(
+            f"выпуск {meta['tag']} записан не целиком: каталог {path} есть, а "
+            "снимка, архива, описания или записи в перечне нет. Уберите каталог "
+            "и выпустите заново, если на выпуск ещё никто не ссылался.\n"
+        )
+        return 1
+
     print(f"снимок записан: {publish(meta)}")
     archive = bundle(meta)
     print(
