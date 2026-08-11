@@ -152,6 +152,46 @@ def test_locale_strings_state_the_current_schema_size():
     assert not stale_en, f"en.json называет прежнее число измерений: {stale_en}"
 
 
+#: Живые документы, где число измерений — утверждение о нынешнем состоянии.
+#:
+#: Каталог `research/` сюда не входит намеренно: там лежат планы, писавшиеся до
+#: перестройки, и правка чисел в них превратила бы архив в подделку задним
+#: числом. Он читается как история, а не как описание нынешнего портала.
+DOCUMENTS_STATING_SCHEMA_SIZE = (
+    "README.md",
+    "governance/CONSTITUTION.md",
+    "governance/DECISIONS.md",
+    "specs/stages/STAGE-portal-rebuild.md",
+    "specs/stages/STAGE-compare-and-inverse.md",
+    "core/__init__.py",
+    "core/configuration.py",
+    "core/dimensions_schema.py",
+)
+
+
+def test_documents_state_the_current_schema_size():
+    """Число измерений одинаково во всех живых документах.
+
+    Схема выросла до двадцати восьми, а четырнадцать мест продолжали говорить о
+    двадцати шести: главная страница описания, устав, журнал решений, две
+    спеки и описание самой схемы в её собственном файле. Каждое из них читается
+    как утверждение о нынешнем состоянии, и каждое было неверным.
+    """
+    size = len(DIMENSIONS)
+    stale: dict[str, list[str]] = {}
+    for name in DOCUMENTS_STATING_SCHEMA_SIZE:
+        text = (ROOT / name).read_text(encoding="utf-8")
+        found = [
+            form for value, forms in SPELLED.items() if value != size
+            for form in forms if _mentions_size_ru(text, form)
+        ]
+        if found:
+            stale[name] = found
+    assert not stale, (
+        f"документы называют прежнее число измерений: {stale}; в схеме их {size}"
+    )
+
+
 def test_strata_count_claim_matches_declaration():
     text = _article_text()
     assert len(STRATA) == 7
