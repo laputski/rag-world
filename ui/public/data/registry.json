@@ -611,10 +611,17 @@
           "source": "https://pypi.org/project/FlagEmbedding/",
           "type": "package_downloads",
           "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=593769"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads",
+          "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=584896"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": null,
       "groups": [
@@ -1178,10 +1185,17 @@
           "source": "https://pypi.org/project/colbert-ai/",
           "type": "package_downloads",
           "value": "package=colbert-ai; version=0.2.22; downloads_last_month=216167"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/colbert-ai/",
+          "type": "package_downloads",
+          "value": "package=colbert-ai; version=0.2.22; downloads_last_month=214026"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "H",
       "first_published": "2021",
       "groups": [
@@ -3107,10 +3121,17 @@
           "source": "https://openalex.org/W4398886972",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=21; year=2024; citation_velocity=0.778"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads",
+          "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1748"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -3933,10 +3954,24 @@
           "source": "https://pypi.org/project/lightrag-hku/",
           "type": "package_downloads",
           "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=295206"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-10, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/lightrag-hku/",
+          "type": "package_downloads",
+          "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=297589"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 7,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -4422,10 +4457,17 @@
           "source": "https://pypi.org/project/graphrag/",
           "type": "package_downloads",
           "value": "package=graphrag; version=3.1.1; downloads_last_month=72626"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads",
+          "value": "package=graphrag; version=3.1.1; downloads_last_month=70829"
         }
       ],
       "evidence_basis": "manual",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -5379,10 +5421,17 @@
           "source": "https://pypi.org/project/opensearch-py/",
           "type": "package_downloads",
           "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53087871"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads",
+          "value": "package=opensearch-py; version=3.2.0; downloads_last_month=52514974"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": null,
       "groups": [
@@ -5831,10 +5880,17 @@
           "source": "https://pypi.org/project/qdrant-client/",
           "type": "package_downloads",
           "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19739994"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads",
+          "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19462751"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": null,
       "groups": [
@@ -8647,10 +8703,17 @@
           "source": "https://github.com/VectifyAI/PageIndex",
           "type": "repository",
           "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-09, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-10",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-10, releases=yes"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "H",
       "first_published": null,
       "groups": [
