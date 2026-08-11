@@ -1,7 +1,7 @@
 .PHONY: help install install-dev test test-unit test-arch test-v test-ui \
         dev build lint format smoke clean \
-        collect update levels artifacts validate \
-        db-migrate db-migrate-pending
+        collect update levels artifacts validate sources release \
+        release-dry mutate mutate-list
 
 PYTHON ?= .venv/bin/python
 PIP    ?= .venv/bin/pip
@@ -106,13 +106,3 @@ format: ## Auto-format with ruff (по желанию, не обязательн
 clean: ## Remove build artifacts and caches
 	rm -rf .venv .pytest_cache .ruff_cache ui/node_modules ui/dist *.egg-info
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-
-# ── Registry database (локальная разработка) ─────────────────────────────────
-# Реестр продакшена живёт в data/ под управлением git. PostgreSQL остаётся
-# только для разовой миграции и локальных экспериментов; DATABASE_URL в .env.
-
-db-migrate: ## Apply registry DB migrations (idempotent)
-	$(PYTHON) -m services.db.migrator
-
-db-migrate-pending: ## Show pending migrations without applying
-	$(PYTHON) -m services.db.migrator --pending

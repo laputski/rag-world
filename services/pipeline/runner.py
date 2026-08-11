@@ -212,27 +212,23 @@ def enqueue_change(
     rule_changed: bool,
     payload: dict,
 ) -> int:
-    """S8: классифицировать изменение и поставить в очередь change_queue.
+    """S8: классифицировать изменение и вернуть его класс (1/2/3).
 
-    Возвращает change_class (1/2/3). Реальная запись в БД — здесь (требует
-    DATABASE_URL); в тестах — вызывается с подменой через флаг dry_run в вызывающем.
+    Записи здесь больше нет. Раньше функция вставляла строку в таблицу
+    `change_queue` работавшей рядом базы; база удалена вместе с серверным
+    API, а очередью изменений стал журнал уровней `data/levels/history.jsonl`,
+    который дописывается при изменении уровня и разбирается шлюзом
+    `scripts/classify_changes.py`.
+
+    Классификация оставлена: она чистая, покрыта тестами и нужна ступени
+    независимо от того, куда пишется результат.
     """
-    change_class = classify_change(
+    return classify_change(
         is_new=is_new,
         level_before=level_before,
         level_after=level_after,
         rule_changed=rule_changed,
     )
-    from services.db import connection as db
-
-    db.execute(
-        """
-        INSERT INTO change_queue (technology_id, change_class, payload, status)
-        VALUES (%s, %s, %s, 'pending')
-        """,
-        (technology_id, change_class, json.dumps(payload)),
-    )
-    return change_class
 
 
 def run_pipeline(

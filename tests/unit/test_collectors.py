@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from services.collectors import arxiv, github, openalex, orchestrator, s5
+from services.collectors import arxiv, github, openalex, s5
 from services.collectors.base import HttpGetter, RawEvidence, is_allowed_host
 
 TODAY = date(2026, 8, 5)
@@ -298,47 +298,6 @@ def test_s5_check_many_returns_pairs():
     assert len(pairs) == 2
     assert pairs[0][1].passed  # arxiv ok
     assert not pairs[1][1].passed  # malicious rejected
-
-
-# ─── оркестратор ─────────────────────────────────────────────────────────────
-
-
-def test_orchestrator_selects_collector_by_url():
-    assert orchestrator._select_collector("https://arxiv.org/abs/1234.5678") == "arxiv"
-    assert orchestrator._select_collector("https://github.com/x/y") == "github"
-    assert orchestrator._select_collector("https://api.openalex.org/works/x") == "openalex"
-    assert orchestrator._select_collector("https://atlan.com/know/x") == ""
-
-
-def test_orchestrator_collects_from_multiple_sources():
-    arxiv_body = ARXIV_ATOM_TEMPLATE.format(
-        arxiv_id="2502.14902", title="PathRAG", published="2025-02-20"
-    ).encode()
-    repo_body = b'{"license":{"key":"mit","name":"MIT"},"pushed_at":"2026-01-01T00:00:00Z"}'
-    http = FakeHttp({
-        "id_list=2502.14902": (200, arxiv_body),
-        "/repos/microsoft/graphrag": (200, repo_body),
-        "/repos/microsoft/graphrag/releases": (200, b"[]"),
-    })
-    links = [
-        {"url": "https://arxiv.org/abs/2502.14902", "kind": "preprint", "label": "PathRAG"},
-        {"url": "https://github.com/microsoft/graphrag", "kind": "github", "label": None},
-        {"url": "https://atlan.com/know/hybrid-rag/", "kind": "other", "label": None},
-    ]
-    raws, checks, errors = orchestrator.collect_for_links(
-        "pathrag", links, http=http, today=TODAY
-    )
-    # 2 источника дали evidence (arxiv + github); atlan.com проигнорирован.
-    assert len(raws) == 2
-    assert all(c.passed for _, c in checks)  # оба прошли S5
-
-
-def test_orchestrator_skips_unmatched_urls():
-    http = FakeHttp({})
-    links = [{"url": "https://atlan.com/know/x", "kind": "other"}]
-    raws, checks, errors = orchestrator.collect_for_links("x", links, http=http, today=TODAY)
-    assert raws == []
-    assert checks == []
 
 
 # ─── Диапазоны величин: образцы обязаны совпадать с тем, что пишут сборщики ───

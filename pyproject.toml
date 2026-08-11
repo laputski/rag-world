@@ -17,8 +17,6 @@ dev = [
     "pytest>=8.0",
     "ruff>=0.6",
 ]
-# Нужен только для разовой миграции реестра из локальной базы в файлы data/.
-migration = ["psycopg[binary]>=3.2"]
 
 [tool.setuptools.packages.find]
 include = ["core*", "services*", "scripts*"]
