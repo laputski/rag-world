@@ -220,6 +220,10 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/validate_data.py", "уровень принадлежит шкале",
              "if entry.level not in LEVELS:", "if False:"),
 
+    # ── Объявленные зависимости ─────────────────────────────────────────────
+    Mutation("pyproject.toml", "зависимость разбора рабочих процессов объявлена",
+             '    "pyyaml>=6.0",\n', ""),
+
     # ── Проход обновления ───────────────────────────────────────────────────
     Mutation("scripts/update.py", "проход встаёт на непройденной проверке",
              "if problems:\n        sys.stderr", "if False:\n        sys.stderr"),
