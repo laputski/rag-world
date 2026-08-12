@@ -10,7 +10,7 @@
     "generalized": "Foundations",
     "about": "About",
     "digest": "Digest",
-    "residuals": "Residuals"
+    "residuals": "Gaps"
   },
   "common": {
     "expand": "Expand",
@@ -243,7 +243,7 @@
     "toRegistry": "To the registry"
   },
   "residuals": {
-    "title": "Residual queue",
+    "title": "Residuals: what the schema does not express",
     "subtitle": "A mechanism whose working the dimension schema cannot describe is recorded against a technology as a residual. Here the residuals of every record are brought together and counted.",
     "rule": "A mechanism met in {{threshold}} or more records becomes a candidate for a new dimension of the schema. One met once or twice remains a particularity of individual works.",
     "candidatesFound": "Candidate dimensions: {{count}}. Extending the schema is decided separately, since a new dimension changes the formal model and its description.",
@@ -261,5 +261,15 @@
   },
   "article": {
     "foundationsNote": "This text explains what the rest rests on: why there are twenty-eight dimensions, why index topology is separated from the search operator, and what a residual means. The registry and the map report facts about technologies, and those facts are checked by collectors. Here is the model that gives the facts meaning, and no collector can confirm it — it is justified by reasoning. As standalone work the text is published separately; on the portal it serves as the foundation."
+  },
+  "gaps": {
+    "title": "Gaps of the portal",
+    "subtitle": "Two queues of what the portal knows about its own incompleteness. The first concerns the model: which mechanisms the dimension schema does not express. The second concerns the registry: which works may be worth entering into it."
+  },
+  "candidates": {
+    "title": "Candidates: what is not in the registry",
+    "subtitle": "Works found in the catalogue under the method tag and not yet parsed. A candidate stays a supposition until the owner creates a record for it or rejects it with a reason. What the registry already describes, and what was once rejected, does not appear here.",
+    "empty": "The queue holds no candidates.",
+    "citations": "citations: {{count}}"
   }
 }

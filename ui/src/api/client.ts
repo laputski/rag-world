@@ -7,6 +7,7 @@
  */
 
 import type {
+  Candidate,
   DigestIssue,
   ResidualMechanism,
   MaturityArtifact,
@@ -61,6 +62,14 @@ export async function getDigest(): Promise<{
 }
 
 /** Очередь остатков: механизмы, которых схема не выражает. */
+/** Кандидаты в реестр: работы, найденные каталогом и ждущие решения. */
+export async function getCandidates(): Promise<{
+  built_at: string;
+  candidates: Candidate[];
+}> {
+  return loadJson("candidates.json");
+}
+
 export async function getResiduals(): Promise<{
   built_at: string;
   candidate_threshold: number;

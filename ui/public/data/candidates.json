@@ -1,0 +1,195 @@
+{
+  "built_at": "2026-08-12",
+  "candidates": [
+    {
+      "arxiv_id": "2608.06020",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-08-06",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.06020",
+      "title": "From Economic Agents to Agentic Economies: A Systems Blueprint for Economic World Models",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2608.05138",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-08-05",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.05138",
+      "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2608.02583",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-08-03",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.02583",
+      "title": "UEmbed: Unified Sparse and Dense Multimodal Embeddings",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2608.01862",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-08-03",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.01862",
+      "title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2608.01827",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-08-03",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.01827",
+      "title": "DeepVoyager-VL: Incentivizing Vision-in-the-Loop Search for Long-Horizon Multimodal Agents",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.28618",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28618",
+      "title": "AskChem: Claim-Centered Infrastructure for Chemistry Literature Synthesis",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.28374",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28374",
+      "title": "LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.28229",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28229",
+      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.27652",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.27652",
+      "title": "Harness-G: A Graph-Structured Harness for Search Agents",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.26497",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.26497",
+      "title": "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.26760",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-29",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.26760",
+      "title": "Metis: Memory Foundation Model",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.25614",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-28",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.25614",
+      "title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.25180",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-28",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.25180",
+      "title": "Bekko Embedding: Parameter-Efficient Multilingual Retrieval with Ultra-Compact Encoders",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.24882",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-27",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.24882",
+      "title": "Agent Retrieval Bench: Evaluating Repository Context Retrieval for Coding Agents",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.24368",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-27",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.24368",
+      "title": "Keep It InMind: Benchmarking the Implicit-Association Blind Spot in Agent Memory",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.24223",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-27",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.24223",
+      "title": "A New Role for Relevance: Guiding Corpus Interaction in Agentic Search",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.22042",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-24",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.22042",
+      "title": "LAMAR: An Open Language-Aware Multilingual Alignment Reranker",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.21936",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-24",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.21936",
+      "title": "Leveraging External Knowledge for Historical Document Restoration via Retrieval-Augmented Large Language Models",
+      "verdict": null
+    },
+    {
+      "arxiv_id": "2607.21503",
+      "citations": 0,
+      "found_at": "2026-08-12",
+      "published": "2026-07-23",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.21503",
+      "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
+      "verdict": null
+    }
+  ]
+}

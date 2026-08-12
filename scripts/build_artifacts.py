@@ -13,7 +13,8 @@
     public/data/changes.json   хроника изменений со ссылками на свидетельства
     public/data/stats.json     сводка: распределение, покрытие, свежесть
     public/data/digest.json    выпуски дайджеста, свежие впереди
-    public/data/residuals.json очередь остатков: чего схема не выражает
+    public/data/residuals.json  очередь остатков: чего схема не выражает
+    public/data/candidates.json очередь кандидатов: чего нет в реестре
     public/data/feed.xml       лента: выпуски и изменения уровней
 
 Ни одно число не попадает в артефакт без происхождения: внимание и
@@ -151,6 +152,26 @@ def _parse_notes() -> dict[str, list[dict]]:
             note = json.loads(line)
             notes[note["technology_id"]].append(note)
     return notes
+
+
+def _candidate_queue() -> list[dict]:
+    """Кандидаты, ждущие решения, свежие впереди.
+
+    Решённые в очередь не попадают: принятый кандидат уже стал записью реестра,
+    отклонённый записан в файл отклонений с причиной. Показывать их значило бы
+    выдавать сделанную работу за несделанную.
+    """
+    path = store.DATA_DIR / "candidates.jsonl"
+    if not path.exists():
+        return []
+    rows = [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    pending = [row for row in rows if not row.get("verdict")]
+    return sorted(pending, key=lambda r: (r.get("published") or "", r["arxiv_id"]),
+                  reverse=True)
 
 
 def _residual_vocabulary() -> dict[str, dict]:
@@ -476,6 +497,13 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     # отдельным шагом и здесь только перекладываются для чтения порталом,
     # свежими вперёд.
     _write(target / "digest.json", {"built_at": built_at, "issues": _issues()})
+    # Очередь кандидатов: работы, найденные каталогом и ждущие решения
+    # человека. Обнаружение записей не заводит, поэтому кандидат остаётся
+    # предположением, пока владелец не примет его либо не отклонит.
+    _write(target / "candidates.json", {
+        "built_at": built_at,
+        "candidates": _candidate_queue(),
+    })
     _write(target / "residuals.json", {
         "built_at": built_at,
         "candidate_threshold": RESIDUAL_CANDIDATE_THRESHOLD,

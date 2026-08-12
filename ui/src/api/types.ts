@@ -235,3 +235,22 @@ export interface ResidualMechanism {
   /** Набрал порог упоминаний и потому предлагается в измерения. */
   candidate: boolean;
 }
+
+/**
+ * Работа, найденная каталогом и ждущая решения.
+ *
+ * Кандидат — предположение о технологии, а не технология. Решение «это новая
+ * архитектура, а не приложение существующей» принимает человек: правило здесь
+ * ошибается, и цена ошибки — запись реестра о том, чего нет.
+ */
+export interface Candidate {
+  arxiv_id: string;
+  title: string;
+  published: string | null;
+  source: string;
+  citations: number | null;
+  repositories: string[];
+  found_at: string;
+  /** Пусто, пока решение не принято. */
+  verdict: string | null;
+}
