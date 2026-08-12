@@ -266,3 +266,54 @@ def test_parse_notes_say_both_what_and_why():
         assert note.get("did", "").strip(), f"{where}: не сказано, что делает система"
         assert note.get("why", "").strip(), f"{where}: не сказано, почему следует значение"
         assert note.get("source", "").strip(), f"{where}: не указан источник"
+
+
+# ─── Обоснования разбора на двух языках ──────────────────────────────────────
+
+
+def test_every_justification_is_translated():
+    """У каждого русского поля обоснования есть английское.
+
+    Обоснования были единственным русским текстом на английских карточках: 639
+    полей. Частичный перевод хуже отсутствия: читатель, встретив русский абзац
+    посреди страницы, решит, что портал сломан, а не что перевод не доделан.
+
+    Проверка идёт по данным, а не по артефакту: артефакт производен, и правка
+    в нём потерялась бы при первой пересборке.
+    """
+    import json
+
+    notes = [
+        json.loads(line)
+        for line in (ROOT / "data" / "parse_notes.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert notes, "обоснований разбора нет вовсе"
+
+    missing = sorted(
+        f"{n['technology_id']}.{n.get('code') or n.get('residual')}.{field}"
+        for n in notes
+        for field in ("did", "why", "instead", "question", "source")
+        if n.get(field) and not n.get(field + "_en")
+    )
+    assert not missing, f"обоснования без перевода: {missing[:12]}"
+
+
+def test_translation_is_not_a_copy_of_the_original():
+    """Скопированный русский текст в английском поле переводом не является."""
+    import json
+    import re
+
+    cyrillic = re.compile(r"[а-яА-ЯёЁ]{4,}")
+    notes = [
+        json.loads(line)
+        for line in (ROOT / "data" / "parse_notes.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    untranslated = sorted(
+        f"{n['technology_id']}.{n.get('code') or n.get('residual')}.{field}"
+        for n in notes
+        for field in ("did_en", "why_en", "instead_en", "question_en", "source_en")
+        if n.get(field) and cyrillic.search(n[field])
+    )
+    assert not untranslated, f"в английском поле остался русский текст: {untranslated[:12]}"

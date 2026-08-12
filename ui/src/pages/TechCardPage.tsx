@@ -86,7 +86,7 @@ function ParseNoteBlock({ note }: { note: ParseNote }) {
             />
           )}
           <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
-            {note.source}
+            {pick(note.source, note.source_en)}
           </Typography>
         </Box>
       </Collapse>

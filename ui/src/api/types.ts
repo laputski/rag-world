@@ -213,6 +213,7 @@ export interface ParseNote {
   question?: string;
   question_en?: string;
   source: string;
+  source_en?: string;
 }
 
 /**
