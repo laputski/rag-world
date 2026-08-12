@@ -97,6 +97,33 @@ export function AboutPage() {
         {t("about.limitsText")}
       </Typography>
 
+      {/*
+        Портал утверждает, что каждое его число проверяемо. Из этого следует
+        обязательство перед читателем, который видит ошибку либо знает то, чего
+        портал не знает: сказать ему, что именно принимается и в каком виде.
+        Без такого раздела приглашение проверять остаётся приглашением молчать.
+      */}
+      <Typography variant="h5" sx={{ mb: 1 }}>{t("about.contribute")}</Typography>
+      <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+        {t("about.contributeLevel")}
+      </Typography>
+      <Box component="ul" sx={{ pl: 3, m: 0, mb: 1.5 }}>
+        {["contributeAccepted", "contributeRejected"].map((key) => (
+          <Box component="li" key={key} sx={{ mb: 0.5 }}>
+            <Typography variant="body1" sx={{ lineHeight: 1.75 }}>{t(`about.${key}`)}</Typography>
+          </Box>
+        ))}
+      </Box>
+      <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+        {t("about.contributeNew")}
+      </Typography>
+      <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+        {t("about.contributeManual")}
+      </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.75 }}>
+        {t("about.contributeChannel")}
+      </Typography>
+
       <Typography variant="h5" sx={{ mb: 1 }}>{t("about.data")}</Typography>
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
         {t("about.dataText")}

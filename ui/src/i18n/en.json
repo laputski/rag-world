@@ -207,7 +207,14 @@
     "stateWithAttention": "with attention data",
     "stateEvidence": "evidence collected",
     "stateFreshest": "freshest evidence",
-    "cite": "How to cite"
+    "cite": "How to cite",
+    "contribute": "How to propose a change",
+    "contributeLevel": "The maturity level is computed by a rule, so only evidence can change it. An opinion about a technology changes no level, because the rule reads no opinions.",
+    "contributeAccepted": "Evidence with a resolvable address is accepted: a publication at a peer-reviewed venue, an independent implementation by others, inclusion in a widely used framework, documented use in production.",
+    "contributeRejected": "A judgement of the form «this technology is better», an appeal to popularity and a link to an account without a publication and without code are not accepted. The rule can compute nothing from them.",
+    "contributeNew": "A new technology needs a name, a primary source with a resolvable address and a ground for treating it as a separate technology rather than a use of an existing one. The portal walks the catalogue of works under the method tag every week and puts what it finds into the candidate queue, so a fresh preprint is most likely already there. What is worth reporting is what the queue lacks.",
+    "contributeManual": "Levels L5 and L6 have no machine-readable source and are set by a person, so such evidence goes through review and is marked on the card as human-entered. A dimension value changes together with a justification from the method section of the primary source: without one the value stays a claim the reader has no means to check.",
+    "contributeChannel": "A channel for such reports is being chosen. Until it exists, information is accepted through the contact in the page footer."
   },
   "levelCondition": {
     "L1": "L1 — needs a preprint or workshop publication",
