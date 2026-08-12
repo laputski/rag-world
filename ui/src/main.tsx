@@ -19,7 +19,6 @@ import { ChangesPage } from "./pages/ChangesPage";
 import { DigestPage } from "./pages/DigestPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { ResidualsPage } from "./pages/ResidualsPage";
-import { CitePage } from "./pages/CitePage";
 import { AboutPage } from "./pages/AboutPage";
 import { GeneralizedArticlePage } from "./pages/GeneralizedArticlePage";
 import { CommandPalette } from "./components/CommandPalette";
@@ -100,7 +99,6 @@ const router = createBrowserRouter([
       { path: "/changes", element: <ChangesPage /> },
       { path: "/digest", element: <DigestPage /> },
       { path: "/residuals", element: <ResidualsPage /> },
-      { path: "/cite", element: <CitePage /> },
       { path: "/article", element: <GeneralizedArticlePage /> },
       { path: "/about", element: <AboutPage /> },
       // Правило переписывания отдаёт index.html на любой адрес, поэтому

@@ -2155,7 +2155,7 @@
           "verified_at": "2026-08-09"
         }
       ],
-      "name": "Edge и On-Device RAG",
+      "name": "Edge and On-Device RAG",
       "package": null,
       "parse_notes": [
         {
@@ -7532,7 +7532,7 @@
           "verified_at": "2026-08-09"
         }
       ],
-      "name": "Self-Evolving и Fully Adaptive RAG",
+      "name": "Self-Evolving and Fully Adaptive RAG",
       "package": null,
       "parse_notes": [
         {
@@ -8485,7 +8485,7 @@
           "verified_at": "2026-08-09"
         }
       ],
-      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "name": "RAG with Test-Time Reasoning",
       "package": null,
       "parse_notes": [
         {
@@ -8769,7 +8769,7 @@
           "verified_at": "2026-08-09"
         }
       ],
-      "name": "Unified RAG над Structured и Unstructured Data",
+      "name": "Unified RAG over Structured and Unstructured Data",
       "package": null,
       "parse_notes": [
         {

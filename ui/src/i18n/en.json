@@ -10,8 +10,7 @@
     "generalized": "Foundations",
     "about": "About",
     "digest": "Digest",
-    "residuals": "Residuals",
-    "cite": "How to cite"
+    "residuals": "Residuals"
   },
   "common": {
     "expand": "Expand",
@@ -188,15 +187,15 @@
   },
   "about": {
     "title": "About",
-    "intro": "RAG World collects verifiable facts about Retrieval-Augmented Generation technologies: what was proposed, what backs it, and how the picture shifts over time. The portal does not advise what to adopt; it reports what is confirmed and by what.",
+    "intro": "RAG World collects verifiable information about Retrieval-Augmented Generation technologies. The portal reports what has been proposed, what corroborates it, and how a technology's standing changes over time. Every claim comes with the evidence needed to check it yourself.",
     "howLevels": "How the level is computed",
-    "howLevelsText": "Maturity is never assigned by hand. A rule computes it from collected evidence: publications, repository state, framework presence, documented production use. The same evidence always yields the same level, so any value reproduces on a re-run. Where no machine-readable source exists, a human enters the evidence with a link, and such records are marked separately.",
+    "howLevelsText": "The maturity level is computed by a rule from collected evidence: publications, repository state, presence in frameworks, documented production use. The same evidence always yields the same level, so any value reproduces on a repeat run. Where no machine-readable source exists, a person enters the evidence with a link to its confirmation, and such a record is marked separately.",
     "howUpdates": "How data is updated",
-    "howUpdatesText": "Collection runs from open sources on a schedule. The portal never queries them at read time: it reads pre-built files, so a source outage makes data stale rather than breaking the portal. Build date and staleness are always shown on the home page.",
+    "howUpdatesText": "Collection runs from open sources on a weekly schedule. While serving, the portal reads pre-built files and never contacts those sources, so their failure ages the data while the portal keeps working. The build date and a staleness marker are always shown on the front page.",
     "limits": "Limits",
-    "limitsText": "Open indexes do not know everything: some publications live only on venues without digital identifiers, and production use has no machine-readable source at all. A missing level means the data was insufficient, not that the technology is immature. Levels should not be compared across kinds of object: a technique enters a framework with one function, a full architecture has a much harder path.",
+    "limitsText": "Open indexes do not know everything. Some publications exist only on platforms without digital identifiers, and production use has no machine-readable source at all. A record without a level means the data on it is insufficient. Levels are comparable within one kind of object: a technique enters a framework as a single function, while a full architecture travels the same path with markedly more difficulty.",
     "data": "Data",
-    "dataText": "The data is open and machine-readable. It can be downloaded in full, cited, and used to check any claim the portal makes.",
+    "dataText": "The data is open and machine-readable. It can be downloaded whole, cited, and used to check any claim the portal makes.",
     "fileRegistry": "technology registry with configurations and levels",
     "fileMap": "maturity map points with level history",
     "fileChanges": "changelog with supporting evidence",
@@ -207,7 +206,8 @@
     "stateWithLevel": "with a computed level",
     "stateWithAttention": "with attention data",
     "stateEvidence": "evidence collected",
-    "stateFreshest": "freshest evidence"
+    "stateFreshest": "freshest evidence",
+    "cite": "How to cite"
   },
   "levelCondition": {
     "L1": "L1 — needs a preprint or workshop publication",
@@ -219,8 +219,8 @@
   },
   "digest": {
     "title": "Digest",
-    "subtitle": "What changed in the registry since the previous issue. An issue appears only when there is something to report: a week without changes happens often, and there is nothing to say about it.",
-    "provenance": "The text is assembled by a template from registry data. No language model is involved: the issue retells what has already been computed, so there is nothing in it to invent. Under each issue you can open the records whose change it retells.",
+    "subtitle": "A periodic summary of registry changes. Each issue covers the period since the previous one and lists the records that received a level for the first time, rose and fell, along with the number of evidence items collected and sources checked.",
+    "provenance": "The text of an issue is assembled by a template from registry data, without a language model. An issue never changes after publication. Under each one you can expand the records its changes are drawn from.",
     "empty": "No issues yet.",
     "period": "covers changes since {{since}}",
     "firstIssue": "first issue: covers everything accumulated so far",
@@ -244,25 +244,18 @@
   },
   "residuals": {
     "title": "Residual queue",
-    "subtitle": "Mechanisms the dimension schema does not express. They are recorded on each technology in a separate field and gathered here, so it is visible where the schema is too small and where a single work simply had a peculiarity.",
-    "rule": "A mechanism seen in {{threshold}} or more records is proposed as a new dimension. The threshold is not magic: one case happens to any work, two may be coincidence, but three times in a row the schema is not missing by chance.",
-    "candidatesFound": "Candidate dimensions: {{count}}. Extending the schema is decided separately: a new dimension changes the formal model and the article describing it.",
+    "subtitle": "A mechanism whose working the dimension schema cannot describe is recorded against a technology as a residual. Here the residuals of every record are brought together and counted.",
+    "rule": "A mechanism met in {{threshold}} or more records becomes a candidate for a new dimension of the schema. One met once or twice remains a particularity of individual works.",
+    "candidatesFound": "Candidate dimensions: {{count}}. Extending the schema is decided separately, since a new dimension changes the formal model and its description.",
     "mentions": "mentions: {{count}}",
     "candidate": "candidate dimension",
     "seenIn": "seen in:",
     "empty": "No residuals recorded yet."
   },
   "cite": {
-    "title": "How to cite",
-    "intro": "The portal is citable: registry state is fixed by dated releases, and each release stays unchanged forever.",
-    "warning": "Cite a release, not the current state. The portal changes: a record cited yesterday may hold a different level today, and the link will confirm something other than what it confirmed. Such a link is worse than no link, because it looks reliable.",
-    "noReleases": "No releases yet.",
-    "latest": "Latest release: {{tag}}",
-    "contents": "It fixes {{technologies}} technologies and {{evidence}} pieces of evidence; {{reviewed}} configurations were derived from sources.",
     "gost": "GOST R 7.0.5",
     "bibtex": "BibTeX",
     "recordTitle": "Citing a single record",
-    "recordBody": "A record deliberately has no permanent identifier: records change, and such an identifier would point at a moving target. A citation to a record carries the release tag in which its state is fixed.",
     "copy": "copy",
     "copied": "copied"
   },

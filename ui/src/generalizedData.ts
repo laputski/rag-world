@@ -198,6 +198,242 @@ const DIAG_LIMITS = `flowchart TB
     end
     DOES -.- DOESNT`;
 
+// ─── Диаграммы по-английски ─────────────────────────────────────────────────
+//
+// Схемы переведены целиком, а не подписаны заново: подпись под русской схемой
+// оставляла бы англоязычному читателю картинку, которую он не прочтёт.
+
+const DIAG_GAP_EN = `flowchart TD
+    M["Existing descriptions of RAG"]
+    M --> D1["No formal model of the configuration space"]
+    M --> D2["No measure of decision independence"]
+    M --> D3["No rule for admitting new dimensions"]
+    M --> D4["No notion of mapping residual"]
+    D1 --> SOLVE["This document proposes a formal feature model"]
+    D2 --> SOLVE
+    D3 --> SOLVE
+    D4 --> SOLVE`;
+
+const DIAG_MAP_EN = `flowchart LR
+    subgraph Approaches ["Ways of describing RAG"]
+      direction TB
+      MOD["Modular RAG [6]\\nA vocabulary of modules\\nNo formal model"]
+      DS["Design-Space Prompting [7]\\nPartial axes\\nNo feature model"]
+      FM["Feature Model FODA [2, 3]\\nFeature hierarchy\\nCompatibility constraints"]
+    end
+    MOD -.->|"not formalised"| GAP
+    DS -.->|"partial"| GAP
+    GAP["Gap: no formal model of RAG as a configuration space"]
+    FM ==>|"this document"| THIS
+    THIS["RAG = a point in a stratified space\\n28 dimensions, 7 strata\\nConstraints, independence measure, residual"]`;
+
+const DIAG_QUADRUPLE_EN = `flowchart LR
+    CORPUS["Document corpus"]
+    SIGMA["Knowledge state schema Σ\\n(unit types, attributes, relations)"]
+    K["Knowledge state K"]
+    I["Indexing program I\\nCorpus × Θ_I → K"]
+    Q["Query program Q\\nQuery × K × Θ_Q\\n→ Answer, Evidence, Trace"]
+    U["Evolution program U\\nK × Interaction × Θ_U → K\\n(not in every system)"]
+    ANS["Answer +\\nEvidence +\\nTrace"]
+    CORPUS --> I --> K
+    K --> Q --> ANS
+    K --> U
+    U -.->|"updates"| K`;
+
+const DIAG_SPACE_EN = `flowchart TB
+    FULL["Cartesian product\\n∏ V(D_i)\\nAll combinations of values"]
+    PHI["Constraints Φ\\nrequires / excludes / implies"]
+    VALID["Admissible configurations\\n(strictly narrower than the full product)"]
+    DEAD["Dead values\\n(unreachable in any\\nadmissible configuration)"]
+    FULL -->|Φ carves out| VALID
+    FULL -->|Φ makes unreachable| DEAD
+    VALID --> INDEP["Independence degree =\\n|admissible| / |full|\\n1.0 = all independent\\n0.9988 = 0.12% of pairs forbidden"]`;
+
+const DIAG_STRATA_EN = `flowchart TD
+    subgraph A ["Stratum A. Knowledge representation (8 dimensions)"]
+      A1["A1 Retrieval unit"]:::core
+      A2["A2 Segmentation"]:::core
+      A3["A3 Enrichment"]:::core
+      A4["A4 Index topology"]:::core
+      A5["A5 Representation model"]:::core
+      A6["A6 Temporality"]:::cond
+      A7["A7 Modality"]:::core
+      A8["A8 Origin of index structure"]:::core
+    end
+    subgraph B ["Stratum B. Query and routing (2)"]
+      B1["B1 Query transformation"]:::core
+      B2["B2 Routing"]:::core
+    end
+    subgraph C ["Stratum C. Retrieval (4)"]
+      C1["C1 Search operator"]:::core
+      C2["C2 Traversal control"]:::core
+      C3["C3 Source fusion"]:::core
+      C4["C4 Distribution"]:::cond
+    end
+    subgraph D ["Stratum D. Context (3)"]
+      D1["D1 Reranking"]:::core
+      D2["D2 Selection and compression"]:::core
+      D3["D3 Ordering"]:::core
+    end
+    subgraph E ["Stratum E. Synthesis and control (5)"]
+      E1["E1 Generation mode"]:::core
+      E2["E2 Groundedness control"]:::core
+      E3["E3 Attribution"]:::core
+      E4["E4 Refusal policy"]:::core
+      E5["E5 Generation-retrieval coupling"]:::core
+    end
+    subgraph F ["Stratum F. State evolution (3, conditional)"]
+      F1["F1 Write-back"]:::cond
+      F2["F2 Contradictions"]:::cond
+      F3["F3 Forgetting"]:::cond
+    end
+    subgraph G ["Stratum G. Constraints (3)"]
+      G1["G1 Privacy"]:::core
+      G2["G2 Execution locus"]:::core
+      G3["G3 Trainability"]:::core
+    end
+    classDef core fill:#e3f2fd,stroke:#1976d2
+    classDef cond fill:#fff3e0,stroke:#f57c00,stroke-dasharray: 5 5`;
+
+const DIAG_PATHRAG_EN = `flowchart LR
+    subgraph PR ["[PathRAG](https://arxiv.org/abs/2502.14902) [1]"]
+      P1["Path graph over the corpus"]
+      P2["Path pruning\\nby reliability decay"]
+      P3["Ordering of fragments\\nby ascending reliability"]
+    end
+    P1 ==>|A4 = graph| A4
+    P1 ==>|C1 = graph_traversal| C1
+    P2 ==>|D1 = path_pruning| D1
+    P3 ==>|D3 = reliability_ascending| D3
+    subgraph SCHEMA ["Schema dimensions"]
+      A4["A4 Topology"]
+      C1["C1 Search operator"]
+      D1["D1 Reranking"]
+      D3["D3 Ordering"]
+    end
+    P4["Summarisation strategy\\nwhen indexing the graph"] -.->|residual r| RESID
+    RESID["Residual: a mechanism\\nthe schema cannot express,\\nassigned to a component parameter"]:::residual
+    classDef residual fill:#ffebee,stroke:#d32f2f,stroke-dasharray: 5 5`;
+
+const DIAG_PIE_EN = `pie title Independence degree of the schema
+    "Admissible value pairs" : 99.88
+    "Forbidden by constraints Φ" : 0.12`;
+
+const DIAG_MATURITY_EN = `flowchart TD
+    subgraph SCALE ["Maturity scale L0–L6"]
+      direction TB
+      L0["L0 · Hypothesis\\nBlog, talk, survey\\nNo publication, no code"]:::low
+      L1["L1 · Preprint\\nPreprint or workshop\\nMethod described"]:::low
+      L2A["L2 · Corroborated (scientific path)\\nPeer-reviewed venue\\nor independent reproduction"]:::mid
+      L2B["L2 · Corroborated (industry path)\\nDocumented use\\nin production"]:::mid
+      L3["L3 · Reference implementation\\nAuthors' open code\\nBuilds and runs"]:::mid
+      L4["L4 · Independent reproduction\\nImplementation by others\\nor inclusion in a framework"]:::high
+      L5["L5 · Production use\\nReleases, vendor documentation,\\nstated limits · manual assessment"]:::high
+      L6["L6 · Industry standard\\nThree or more independent vendors,\\ndefault configurations · manual assessment"]:::top
+
+      L0 --> L1
+      L1 --> L2A
+      L1 --> L2B
+      L2A --> L3
+      L2B --> L3
+      L3 --> L4
+      L4 --> L5
+      L5 --> L6
+    end
+
+    subgraph EVIDENCE ["Sources of evidence"]
+      direction LR
+      ARXIV["arXiv\\nPreprints, publications"]:::src
+      OPENALEX["OpenAlex\\nBibliometrics, citations"]:::src
+      GITHUB["GitHub API\\nLicence, releases, activity"]:::src
+      STAND["Test harness\\nBuild, run, metrics"]:::src
+    end
+
+    ARXIV -.->|"L1, L2"| SCALE
+    OPENALEX -.->|"L1, L2"| SCALE
+    GITHUB -.->|"L3"| SCALE
+    STAND -.->|"L3, L4"| SCALE
+
+    classDef low fill:#ffebee,stroke:#d32f2f,color:#333
+    classDef mid fill:#fff3e0,stroke:#f57c00,color:#333
+    classDef high fill:#e3f2fd,stroke:#1976d2,color:#333
+    classDef top fill:#e8f5e9,stroke:#388e3c,color:#333
+    classDef src fill:#f3e5f5,stroke:#7b1fa2,color:#333,stroke-dasharray: 5 5`;
+
+const DIAG_LIMITS_EN = `flowchart TB
+    subgraph DOES ["The model describes"]
+      D1["28 configuration dimensions"]
+      D2["Compatibility constraints Φ"]
+      D3["Independence degree"]
+      D4["Kind of object"]
+      D5["Mapping residual"]
+    end
+    subgraph DOESNT ["The model leaves out"]
+      N1["A particular embedding model\\n(BGE-M3, OpenAI)"]
+      N2["Hyperparameters\\n(chunk size, temperature)"]
+      N3["Infrastructure\\n(Qdrant, OpenSearch)"]
+      N4["Component quality\\n(measured by the harness)"]
+    end
+    DOES -.- DOESNT`;
+
+//: Русская схема и её английский двойник. Пара нужна, чтобы страница выбирала
+//: по языку, а сторож мог потребовать двойника для каждой схемы.
+const DIAGRAM_EN: Record<string, string> = {
+  [DIAG_GAP]: DIAG_GAP_EN,
+  [DIAG_MAP]: DIAG_MAP_EN,
+  [DIAG_QUADRUPLE]: DIAG_QUADRUPLE_EN,
+  [DIAG_SPACE]: DIAG_SPACE_EN,
+  [DIAG_STRATA]: DIAG_STRATA_EN,
+  [DIAG_PATHRAG]: DIAG_PATHRAG_EN,
+  [DIAG_PIE]: DIAG_PIE_EN,
+  [DIAG_MATURITY]: DIAG_MATURITY_EN,
+  [DIAG_LIMITS]: DIAG_LIMITS_EN,
+};
+
+//: Заголовки и вводные разделов по-английски. Содержание разделов остаётся
+//: русским по решению: раздел держится определениями, и неверно переведённое
+//: определение меняет утверждение о предмете. Заголовок и вводная определений
+//: не несут, а без них англоязычный читатель не может даже понять, о чём
+//: раздел, и оглавление для него бесполезно.
+const SECTION_EN: Record<string, { title: string; intro: string }> = {
+  intro: {
+    title: "1. Introduction and problem statement",
+    intro: "The problem this document addresses: how to describe an arbitrary RAG system formally, so that different architectures become comparable and the compatibility of decisions becomes checkable.",
+  },
+  review: {
+    title: "2. Review of existing factorisations",
+    intro: "The review claims completeness only in the part needed to justify the contribution.",
+  },
+  model: {
+    title: "3. Formal model",
+    intro: "A RAG system is described as a quadruple of programs together with a knowledge state schema. The configuration space is built over that description.",
+  },
+  schema: {
+    title: "4. Dimension schema",
+    intro: "The working set: twenty-eight dimensions across seven strata. Twenty-three core and five conditional.",
+  },
+  mapping: {
+    title: "5. Mapping known architectures",
+    intro: "All 62 registry records are mapped into the schema with their residual recorded.",
+  },
+  properties: {
+    title: "6. Properties of the model",
+    intro: "Completeness, minimality, independence degree, dead values.",
+  },
+  maturity: {
+    title: "7. Maturity scale",
+    intro: "Maturity is computed deterministically from a set of verifiable evidence rather than assigned by hand.",
+  },
+  limits: {
+    title: "8. Limits of applicability",
+    intro: "The model describes architectural decisions, leaving out particular implementations, hyperparameters and quality.",
+  },
+  conclusion: {
+    title: "9. Conclusion and directions",
+    intro: "A formalism is proposed that describes a RAG system as a point in a stratified space.",
+  },
+};
+
 const ru: GeneralizedContent = {
   title: "Обобщённый конструктор систем RAG: стратифицированное конфигурационное пространство",
   abstractText:
@@ -339,8 +575,9 @@ const en: GeneralizedContent = {
     "Over fifty named RAG architectures have been published by August 2026 [5]. Comparison is hindered by the lack of a formal model: existing descriptions provide a component vocabulary but do not define a configuration space with compatibility constraints and a measure of decision independence. This document proposes a formalism in which a RAG system is described as a point in a stratified configuration space of twenty-eight dimensions, grouped into seven strata. Decision coupling is expressed through a formal feature model [2, 3] with requires, excludes, and implies constraints. A computable independence degree, an inclusion rule for new dimensions, and the concept of mapping residual are introduced. The schema is validated on 62 registry technologies: the configuration of each is derived from the primary source rather than left at its default. Mapping residuals, that is the mechanisms the schema does not express, are recorded for every entry: the schema describes 92 percent of them in full. Mechanisms met in three or more entries are placed in a queue as candidate dimensions.",
   sections: ru.sections.map((s) => ({
     ...s,
-    title: s.title.replace(/^\d+\.\s/, (m) => m),
-    intro: s.intro,
+    title: SECTION_EN[s.id]?.title ?? s.title,
+    intro: SECTION_EN[s.id]?.intro ?? s.intro,
+    diagram: s.diagram ? (DIAGRAM_EN[s.diagram] ?? s.diagram) : undefined,
     // Прозу карточек допустимо перевести моделью с последующей вычиткой: цена
     // ошибки там — корявая фраза. Здесь цена другая: неверно переведённое
     // определение меняет утверждение о предмете, а раздел «Основания» именно

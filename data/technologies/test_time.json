@@ -80,7 +80,7 @@
       "verified_at": "2026-08-09"
     }
   ],
-  "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+  "name": "RAG with Test-Time Reasoning",
   "package": null,
   "prose_id": "test_time",
   "residual": []

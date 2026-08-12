@@ -17,7 +17,6 @@ import { TechCardPage } from "../pages/TechCardPage";
 import { ChangesPage } from "../pages/ChangesPage";
 import { DigestPage } from "../pages/DigestPage";
 import { ResidualsPage } from "../pages/ResidualsPage";
-import { CitePage } from "../pages/CitePage";
 import { AboutPage } from "../pages/AboutPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { GeneralizedArticlePage } from "../pages/GeneralizedArticlePage";
@@ -135,7 +134,6 @@ describe("страницы открываются на собранных дан
     ["хроника", <ChangesPage />],
     ["дайджест", <DigestPage />],
     ["очередь остатков", <ResidualsPage />],
-    ["как ссылаться", <CitePage />],
     ["о портале", <AboutPage />],
     ["основания", <GeneralizedArticlePage />],
     ["страница не найдена", <NotFoundPage />, "/нет-такого-адреса"],

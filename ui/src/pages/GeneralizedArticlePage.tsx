@@ -105,7 +105,7 @@ export function GeneralizedArticlePage() {
       <Box sx={{ width: 200, flexShrink: 0, position: "sticky", top: 64, alignSelf: "flex-start", display: { xs: "none", md: "block" } }}>
         <List dense sx={{ pr: 1 }}>
           <ListItemButton onClick={() => scrollToId("abstract")} sx={{ py: 0.25 }}>
-            <ListItemText primary="Аннотация" slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
+            <ListItemText primary={t("common.abstract")} slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
           </ListItemButton>
           {content.sections.map((s) => (
             <ListItemButton key={s.id} onClick={() => scrollToId(s.id)} sx={{ py: 0.25 }}>
@@ -113,7 +113,7 @@ export function GeneralizedArticlePage() {
             </ListItemButton>
           ))}
           <ListItemButton onClick={() => scrollToId("refs")} sx={{ py: 0.25 }}>
-            <ListItemText primary="Источники" slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
+            <ListItemText primary={t("common.sources")} slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
           </ListItemButton>
         </List>
       </Box>
@@ -150,7 +150,7 @@ export function GeneralizedArticlePage() {
 
         {/* Источники */}
         <Paper variant="outlined" sx={{ p: 3, mb: 3, scrollMarginTop: 80 }} id="refs">
-          <Typography variant="h5" gutterBottom>Источники</Typography>
+          <Typography variant="h5" gutterBottom>{t("common.sources")}</Typography>
           <Divider sx={{ mb: 2 }} />
           {content.refs.map((r, i) => (
             <Box key={i} id={`ref-${i + 1}`} sx={{ py: 0.3, scrollMarginTop: 80 }}>

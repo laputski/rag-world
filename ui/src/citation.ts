@@ -9,8 +9,11 @@
  * Два формата: BibTeX для систем вёрстки и ГОСТ Р 7.0.5 для русских работ.
  */
 
-const AUTHOR = "Лапутский А.";
-const AUTHOR_LATIN = "Laputski, A.";
+// Автором значится сам портал. Реестр собирается и обновляется без участия
+// человека в каждом отдельном изменении, и подписывать его личным именем
+// значило бы приписывать человеку то, что сделало правило.
+const AUTHOR = "RAG World";
+const AUTHOR_LATIN = "RAG World";
 const TITLE = "RAG World: реестр технологий Retrieval-Augmented Generation";
 const TITLE_LATIN = "RAG World: a registry of Retrieval-Augmented Generation technologies";
 // Собственное имя портала, а не адрес площадки. Ссылка живёт дольше
@@ -60,7 +63,7 @@ export function toGost(target: CitationTarget): string {
     ? `${target.technology.name} // ${TITLE}`
     : TITLE;
   return (
-    `${AUTHOR} ${what} : выпуск ${target.release}. ` +
+    `${AUTHOR}. ${what} : выпуск ${target.release}. ` +
     `URL: ${releaseUrl(target)} (дата обращения: ${today()}).`
   );
 }

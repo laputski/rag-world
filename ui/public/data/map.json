@@ -399,7 +399,7 @@
       "id": "edge",
       "kind": "paradigm",
       "level": "L1",
-      "name": "Edge и On-Device RAG",
+      "name": "Edge and On-Device RAG",
       "prose_id": "edge"
     },
     {
@@ -1331,7 +1331,7 @@
       "id": "self_evolving",
       "kind": "paradigm",
       "level": null,
-      "name": "Self-Evolving и Fully Adaptive RAG",
+      "name": "Self-Evolving and Fully Adaptive RAG",
       "prose_id": "self_evolving"
     },
     {
@@ -1504,7 +1504,7 @@
       "id": "test_time",
       "kind": "paradigm",
       "level": "L3",
-      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "name": "RAG with Test-Time Reasoning",
       "prose_id": "test_time"
     },
     {
@@ -1553,7 +1553,7 @@
       "id": "unified",
       "kind": "paradigm",
       "level": "L1",
-      "name": "Unified RAG над Structured и Unstructured Data",
+      "name": "Unified RAG over Structured and Unstructured Data",
       "prose_id": "unified"
     },
     {

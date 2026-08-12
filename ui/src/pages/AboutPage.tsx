@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, Link as MuiLink, Typography } from "@mui/material";
+import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getStats } from "../api/client";
 import type { RegistryStats } from "../api/types";
+import { toBibTeX, toGost } from "../citation";
 import { MONO } from "../theme";
 
 /**
@@ -22,13 +23,46 @@ const DATA_FILES = [
 ];
 
 /** Источники, из которых сбор действительно идёт сегодня. */
-const SOURCES = ["arXiv", "OpenAlex", "GitHub"];
+const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code"];
+
+interface Release { tag: string }
+
+/** Готовая ссылка с кнопкой копирования. */
+function Snippet({ text }: { text: string }) {
+  const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+  return (
+    <Box sx={{ mt: 1 }}>
+      <Box component="pre" sx={{
+        fontFamily: MONO, fontSize: "0.78rem", lineHeight: 1.6, m: 0,
+        p: 1.5, bgcolor: "action.hover", borderRadius: 1,
+        overflowX: "auto", whiteSpace: "pre-wrap",
+      }}>
+        {text}
+      </Box>
+      <Button size="small" sx={{ mt: 0.5 }} onClick={() => {
+        navigator.clipboard?.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }}>
+        {copied ? t("cite.copied") : t("cite.copy")}
+      </Button>
+    </Box>
+  );
+}
 
 export function AboutPage() {
   const { t } = useTranslation();
   const [stats, setStats] = useState<RegistryStats | null>(null);
+  const [release, setRelease] = useState<string | null>(null);
 
   useEffect(() => { getStats().then(setStats).catch(() => setStats(null)); }, []);
+  useEffect(() => {
+    fetch("/data/releases/index.json")
+      .then((r) => (r.ok ? r.json() : { releases: [] }))
+      .then((d) => setRelease((d.releases as Release[])?.[0]?.tag ?? null))
+      .catch(() => setRelease(null));
+  }, []);
 
   return (
     <Box sx={{ maxWidth: 760 }}>
@@ -77,6 +111,31 @@ export function AboutPage() {
           </Box>
         ))}
       </Box>
+
+      {/*
+        Ссылаться следует на выпуск: состояние записи меняется, и ссылка на
+        текущее состояние подтвердит со временем не то, что подтверждала.
+        Поэтому метка выпуска стоит в каждом примере.
+      */}
+      {release && (
+        <>
+          <Typography variant="h5" sx={{ mb: 1 }}>{t("about.cite")}</Typography>
+          <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+            <Typography variant="subtitle2">{t("cite.gost")}</Typography>
+            <Snippet text={toGost({ release })} />
+          </Paper>
+          <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+            <Typography variant="subtitle2">{t("cite.bibtex")}</Typography>
+            <Snippet text={toBibTeX({ release })} />
+          </Paper>
+          <Paper variant="outlined" sx={{ p: 2, mb: 3 }}>
+            <Typography variant="subtitle2">{t("cite.recordTitle")}</Typography>
+            <Snippet text={toGost({
+              release, technology: { id: "pathrag", name: "PathRAG" },
+            })} />
+          </Paper>
+        </>
+      )}
 
       {stats && (
         <>

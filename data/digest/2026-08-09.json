@@ -430,5 +430,6 @@
   "runs_seen": 5,
   "since": null,
   "text": "Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.",
+  "text_en": "Received a level for the first time: 48 records, namely Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X and 40 more. Rose in level: Adaptive RAG from L1 to L2, ArchRAG from L1 to L2, CausalRAG from L0 to L3, ChatQA from L1 to L2, Federated RAG from L0 to L3, FLARE from L1 to L2, HyDE from L1 to L2, IRCoT from L1 to L2, plus 11 records. Collected 92 pieces of evidence: 65 about publications, 11 about repositories, 7 about package downloads, 5 about presence in frameworks, 4 about industrial use. The registry now holds 54 records. Level L0 in 9 records, L1 in 17, L2 in 18, L3 in 3, L5 in 1. For 6 records no level is computed, because there is no evidence yet.",
   "total": 54
 }

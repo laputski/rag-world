@@ -100,7 +100,7 @@
       <guid isPermaLink="false">dense_x_retrieval-2026-08-09-L2</guid>
     </item>
     <item>
-      <title>Edge и On-Device RAG: L0 → L1</title>
+      <title>Edge and On-Device RAG: L0 → L1</title>
       <description>publication https://openalex.org/W7129328134, publication https://arxiv.org/abs/2602.13229</description>
       <guid isPermaLink="false">edge-2026-08-09-L1</guid>
     </item>
@@ -220,7 +220,7 @@
       <guid isPermaLink="false">ra_dit-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>RAG и Test-Time Reasoning (интерливинг retrieve-think): — → L0</title>
+      <title>RAG with Test-Time Reasoning: — → L0</title>
       <description>repository https://github.com/DavidZWZ/Awesome-RAG-Reasoning</description>
       <guid isPermaLink="false">test_time-2026-08-08-L0</guid>
     </item>
@@ -260,7 +260,7 @@
       <guid isPermaLink="false">chatqa-2026-08-08-L2</guid>
     </item>
     <item>
-      <title>Edge и On-Device RAG: — → L0</title>
+      <title>Edge and On-Device RAG: — → L0</title>
       <description>publication https://openalex.org/W7129328134</description>
       <guid isPermaLink="false">edge-2026-08-08-L0</guid>
     </item>
