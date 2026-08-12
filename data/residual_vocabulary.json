@@ -56,6 +56,34 @@
       "en": "several operating modes with differing configurations",
       "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
       "note_en": "A record is a point in the configuration space, but the system offers several modes differing in their values. The union of what is confirmed is recorded: a value is set if at least one mode has it."
+    },
+    {
+      "id": "sparse_and_dense_one_pass",
+      "ru": "разреженное и плотное представление одной моделью за проход",
+      "en": "sparse and dense representations from one model in a single pass",
+      "note": "Измерение модели представления называет один вид представления. Здесь одна модель за один проход выдаёт оба, и потребитель выбирает, каким пользоваться; схема хранит одно значение и такого выбора не выражает.",
+      "note_en": "The representation-model dimension names one kind of representation. Here one model emits both in a single pass and the consumer chooses which to use; the schema holds one value and does not express that choice."
+    },
+    {
+      "id": "language_coherence_ranking",
+      "ru": "предпочтение языку запроса при ранжировании",
+      "en": "preference for the query's language in ranking",
+      "note": "Переранжирование говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Здесь при равной относимости выше ставится документ на языке запроса, и это свойство схема не выражает.",
+      "note_en": "Reranking says which mechanism revisits the order, and not by what criterion besides relevance. Here, at equal relevance, a document in the query's language ranks higher, and the schema does not express that property."
+    },
+    {
+      "id": "biencoder_rerank",
+      "ru": "переранжирование двухбашенной моделью представлений",
+      "en": "reranking by a bi-encoder representation model",
+      "note": "Среди механизмов переранжирования схема называет перекрёстный кодировщик, то есть модель, читающую запрос и документ вместе. Здесь порядок пересматривает та же двухбашенная модель, что и ищет, и значения для этого нет.",
+      "note_en": "Among reranking mechanisms the schema names the cross-encoder, that is a model reading query and document together. Here the order is revisited by the same bi-encoder that retrieves, and there is no value for that."
+    },
+    {
+      "id": "relevance_ordered_traversal",
+      "ru": "порядок обхода корпуса по оценке относимости",
+      "en": "corpus traversal ordered by a relevance estimate",
+      "note": "Оператор поиска говорит, чем ищут, управление обходом — насколько глубоко, но ни то ни другое не говорит, в каком порядке обходятся документы. Здесь относимость задаёт порядок, не будучи при этом каналом свидетельств.",
+      "note_en": "The search operator says what searches, traversal control says how deep, and neither says in what order documents are visited. Here relevance sets the order without being the evidence channel itself."
     }
   ]
 }

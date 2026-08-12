@@ -1,0 +1,71 @@
+{
+  "aliases": [
+    "Unified Embedding"
+  ],
+  "configuration": {
+    "A5": "vision_language",
+    "A7": "image",
+    "G3": "trained_retriever"
+  },
+  "configuration_inapplicable": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A6",
+    "A8",
+    "B1",
+    "B2",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "F1",
+    "F2",
+    "F3",
+    "G1",
+    "G2"
+  ],
+  "configuration_reviewed": "2026-08-12",
+  "configuration_variable": [
+    "A5"
+  ],
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-08",
+  "groups": [
+    "A"
+  ],
+  "id": "uembed",
+  "kind": "tool",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "UEmbed (arXiv:2608.02583, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2608.02583",
+      "verified_at": null
+    },
+    {
+      "kind": "product",
+      "label": "Страница проекта",
+      "status": "needs_review",
+      "url": "https://alibaba-nlp.github.io/UEmbed",
+      "verified_at": null
+    }
+  ],
+  "name": "UEmbed",
+  "package": null,
+  "prose_id": "uembed",
+  "residual": [
+    "sparse_and_dense_one_pass"
+  ]
+}

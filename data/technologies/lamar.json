@@ -1,0 +1,62 @@
+{
+  "aliases": [
+    "Language-Aware Multilingual Alignment Reranker"
+  ],
+  "configuration": {
+    "D1": "cross_encoder",
+    "G3": "trained_retriever"
+  },
+  "configuration_inapplicable": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "B1",
+    "B2",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "D2",
+    "D3",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "F1",
+    "F2",
+    "F3",
+    "G1",
+    "G2"
+  ],
+  "configuration_reviewed": "2026-08-12",
+  "configuration_variable": [],
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-07",
+  "groups": [
+    "D"
+  ],
+  "id": "lamar",
+  "kind": "tool",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "LAMAR (arXiv:2607.22042, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2607.22042",
+      "verified_at": null
+    }
+  ],
+  "name": "LAMAR",
+  "package": null,
+  "prose_id": "lamar",
+  "residual": [
+    "language_coherence_ranking"
+  ]
+}

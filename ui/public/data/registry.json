@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-12",
-  "count": 62,
+  "count": 65,
   "technologies": [
     {
       "aliases": [],
@@ -4366,6 +4366,164 @@
       "residual_en": []
     },
     {
+      "aliases": [
+        "Language-Aware Multilingual Alignment Reranker"
+      ],
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "D1": "cross_encoder",
+        "G3": "trained_retriever"
+      },
+      "configuration_inapplicable": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "B1",
+        "B2",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D2",
+        "D3",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "F1",
+        "F2",
+        "F3",
+        "G1",
+        "G2"
+      ],
+      "configuration_reviewed": "2026-08-12",
+      "configuration_variable": [],
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2607.22042",
+          "type": "publication",
+          "value": "arXiv:2607.22042 (2026)"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7171352433",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2026-07",
+      "groups": [
+        "D"
+      ],
+      "id": "lamar",
+      "kind": "tool",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "LAMAR (arXiv:2607.22042, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2607.22042",
+          "verified_at": null
+        }
+      ],
+      "name": "LAMAR",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "D1",
+          "did": "Модель читает пару «запрос и документ» вместе и выдаёт одну оценку относимости.",
+          "did_en": "The model reads the query-document pair together and produces a single relevance score.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.22042, метод",
+          "source_en": "arXiv:2607.22042, method",
+          "technology_id": "lamar",
+          "to": "cross_encoder",
+          "why": "Это перекрёстный кодировщик по определению: вторая модель поверх поиска, читающая обе стороны сразу.",
+          "why_en": "That is a cross-encoder by definition: a second model on top of retrieval, reading both sides at once."
+        },
+        {
+          "code": "G3",
+          "did": "Обучение идёт в два захода: перенос оценок учителя с английской пары на многоязычную, затем выравнивание предпочтений по языку.",
+          "did_en": "Training runs in two stages: transfer of teacher scores from an English pair to a multilingual one, then preference alignment for language.",
+          "instead": "«совместное обучение»: оно требует изменения и порождающей стороны, а её здесь нет вовсе.",
+          "instead_en": "«joint training»: it requires the producing side to change as well, and there is none here at all.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.22042, метод",
+          "source_en": "arXiv:2607.22042, method",
+          "technology_id": "lamar",
+          "to": "trained_retriever",
+          "why": "Обучается переранжировщик, то есть поисковая сторона; читателя работа не трогает.",
+          "why_en": "The reranker is trained, that is the retrieval side; the work does not touch the reader."
+        },
+        {
+          "did": "При равной смысловой относимости выше ставится документ, написанный на языке запроса.",
+          "did_en": "At equal semantic relevance, a document written in the query's language ranks higher.",
+          "residual": "language_coherence_ranking",
+          "residual_term": "предпочтение языку запроса при ранжировании",
+          "residual_term_en": "preference for the query's language in ranking",
+          "source": "arXiv:2607.22042, метод",
+          "source_en": "arXiv:2607.22042, method",
+          "technology_id": "lamar",
+          "why": "Схема говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Признак здесь и есть вклад работы.",
+          "why_en": "The schema says which mechanism revisits the order, and not by what criterion besides relevance. That criterion is the contribution of the work."
+        },
+        {
+          "code": "A5",
+          "did": "Своего индекса и своего представления корпуса у переранжировщика нет: он получает кандидатов от первой ступени.",
+          "did_en": "The reranker has no index and no representation of the corpus of its own: it receives candidates from the first stage.",
+          "inapplicable": true,
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "выведено из разбора записи",
+          "source_en": "inferred from the parse of this record",
+          "technology_id": "lamar",
+          "why": "Запись описывает ступень, а не систему. Значения представления знаний утверждали бы о том, чего у неё нет.",
+          "why_en": "The record describes a stage rather than a system. Values of knowledge representation would assert what it does not have."
+        }
+      ],
+      "prose_id": "lamar",
+      "residual": [
+        "предпочтение языку запроса при ранжировании"
+      ],
+      "residual_en": [
+        "preference for the query's language in ranking"
+      ]
+    },
+    {
       "aliases": [],
       "attention": 0.421,
       "attention_cohort": "2024",
@@ -8001,6 +8159,244 @@
       "residual_en": []
     },
     {
+      "aliases": [
+        "Relevance-Aware RipGrep Search Agent"
+      ],
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A4": "flat",
+        "A5": "dense_single",
+        "B1": "multi_reformulation",
+        "C1": "lexical",
+        "C2": "agentic_open_loop",
+        "D1": "none",
+        "E1": "single_pass",
+        "E5": "mutual_loop",
+        "G3": "frozen"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-08-12",
+      "configuration_variable": [],
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2607.24223",
+          "type": "publication",
+          "value": "arXiv:2607.24223 (2026)"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7171505919",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://github.com/LeqsNaN/RARG",
+          "type": "repository",
+          "value": "LeqsNaN/RARG: license=mit, last_push=2026-08-03, releases=no"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
+      "family": null,
+      "first_published": "2026-07",
+      "groups": [
+        "B",
+        "C",
+        "D"
+      ],
+      "id": "rarg",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "RARG (arXiv:2607.24223, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2607.24223",
+          "verified_at": null
+        },
+        {
+          "kind": "github",
+          "label": "LeqsNaN/RARG",
+          "status": "needs_review",
+          "url": "https://github.com/LeqsNaN/RARG",
+          "verified_at": null
+        }
+      ],
+      "name": "RARG",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "C1",
+          "did": "Свидетельства ищутся построчным поиском по файлам корпуса: агенту доступны две команды, оболочка с grep и чтение куска документа.",
+          "did_en": "Evidence is sought by line-wise search over the corpus files: the agent has two commands, a shell running grep and a read of a slice of a document.",
+          "instead": "«поиск ближайших соседей»: векторный поиск в системе есть, но он подсказывает порядок обхода и свидетельств не отдаёт.",
+          "instead_en": "«nearest-neighbour search»: vector retrieval is present in the system, but it suggests the order of traversal and hands over no evidence.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "lexical",
+          "why": "Канал свидетельств словарный: совпадение ищется по буквам, а не по близости представлений.",
+          "why_en": "The evidence channel is lexical: a match is sought by letters rather than by closeness of representations."
+        },
+        {
+          "code": "C2",
+          "did": "Агент сам выбирает, какие команды выполнять и когда остановиться, и повторяет обращения, пока не сочтёт, что готов ответить.",
+          "did_en": "The agent chooses which commands to run and when to stop, repeating calls until it judges itself ready to answer.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "agentic_open_loop",
+          "why": "Ни числа шагов, ни внешнего условия остановки нет: состав обращений выбирается по ходу.",
+          "why_en": "There is neither a step count nor an external stopping condition: the composition of calls is chosen as it goes."
+        },
+        {
+          "code": "A5",
+          "did": "Отдельная модель представлений ранжирует пути документов по относимости к порождённому запросу и записывает их в файл.",
+          "did_en": "A separate representation model ranks document paths by relevance to a produced query and writes them to a file.",
+          "question": "Представление здесь обслуживает порядок обхода, а не отбор ответа. Измерение не различает эти роли, и значение читается сильнее, чем есть на деле.",
+          "question_en": "The representation here serves the order of traversal rather than the selection of the answer. The dimension does not distinguish these roles, and the value reads stronger than it is.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "dense_single",
+          "why": "Модель представления в системе есть, и она одновекторная.",
+          "why_en": "The system does have a representation model, and it is single-vector."
+        },
+        {
+          "code": "A4",
+          "did": "Корпус лежит файлами, и никакой структуры над ним не строится: обход идёт по путям.",
+          "did_en": "The corpus lies as files, and no structure is built over it: traversal goes by paths.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "flat",
+          "why": "Ни дерева, ни графа нет.",
+          "why_en": "There is neither a tree nor a graph."
+        },
+        {
+          "code": "B1",
+          "did": "Языковая модель сама составляет и запросы к модели представлений, и образцы для построчного поиска, и делает это несколько раз за ответ.",
+          "did_en": "The language model composes both the queries to the representation model and the patterns for line-wise search, doing so several times per answer.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "multi_reformulation",
+          "why": "За один заход возникает несколько разных запросов вместо исходного.",
+          "why_en": "Several different queries arise in one visit instead of the original one."
+        },
+        {
+          "code": "D1",
+          "did": "Совпадения построчного поиска пересматриваются той же моделью представлений, которая ранжировала пути.",
+          "did_en": "The matches of the line-wise search are revisited by the same representation model that ranked the paths.",
+          "instead": "«перекрёстный кодировщик»: он читает запрос и документ вместе, а здесь работает та же двухбашенная модель, что и ищет.",
+          "instead_en": "«cross-encoder»: it reads query and document together, whereas here the same bi-encoder that retrieves does the work.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "none",
+          "why": "Перекрёстного кодировщика здесь нет, а других значений для пересмотра порядка моделью схема не даёт. Значение оставлено пустым, а механизм записан остатком.",
+          "why_en": "There is no cross-encoder here, and the schema offers no other value for a model revisiting the order. The value is left empty and the mechanism is recorded as a residual."
+        },
+        {
+          "code": "E5",
+          "did": "Рассуждение задаёт следующую команду, а её вывод меняет рассуждение, и так до ответа.",
+          "did_en": "Reasoning sets the next command, and its output changes the reasoning, and so on until the answer.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "mutual_loop",
+          "why": "Связь двусторонняя и повторяется.",
+          "why_en": "The coupling runs both ways and repeats."
+        },
+        {
+          "code": "G3",
+          "did": "Ни языковая модель, ни модель представлений не обучаются: работа складывает существующие части и меняет порядок их применения.",
+          "did_en": "Neither the language model nor the representation model is trained: the work assembles existing parts and changes the order in which they are applied.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "to": "frozen",
+          "why": "Обучения в системе нет. Работа отдельно упоминает обучаемые агенты как чужой подход.",
+          "why_en": "There is no training in the system. The work separately mentions trained agents as somebody else's approach."
+        },
+        {
+          "did": "Более широкий набор совпадений пересчитывается моделью представлений, и наверх выводятся только лучшие.",
+          "did_en": "A broader pool of matches is rescored by the representation model, and only the best are surfaced.",
+          "residual": "biencoder_rerank",
+          "residual_term": "переранжирование двухбашенной моделью представлений",
+          "residual_term_en": "reranking by a bi-encoder representation model",
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "why": "Среди механизмов переранжирования схема называет перекрёстный кодировщик; двухбашенной модели в этой роли значения нет.",
+          "why_en": "Among reranking mechanisms the schema names the cross-encoder; there is no value for a bi-encoder in that role."
+        },
+        {
+          "did": "Оценка относимости задаёт, какие документы построчный поиск обойдёт первыми, и с каких мест он начнёт.",
+          "did_en": "A relevance estimate sets which documents the line-wise search visits first, and from which places it starts.",
+          "residual": "relevance_ordered_traversal",
+          "residual_term": "порядок обхода корпуса по оценке относимости",
+          "residual_term_en": "corpus traversal ordered by a relevance estimate",
+          "source": "arXiv:2607.24223, метод",
+          "source_en": "arXiv:2607.24223, method",
+          "technology_id": "rarg",
+          "why": "Оператор поиска говорит, чем ищут, управление обходом — насколько глубоко, а порядок обхода не выражает ни одно измерение. В этом порядке и состоит вклад работы.",
+          "why_en": "The search operator says what searches, traversal control says how deep, and no dimension expresses the order of traversal. That order is the contribution of the work."
+        }
+      ],
+      "prose_id": "rarg",
+      "residual": [
+        "переранжирование двухбашенной моделью представлений",
+        "порядок обхода корпуса по оценке относимости"
+      ],
+      "residual_en": [
+        "reranking by a bi-encoder representation model",
+        "corpus traversal ordered by a relevance estimate"
+      ]
+    },
+    {
       "aliases": [],
       "attention": 7.024,
       "attention_cohort": "2023",
@@ -9788,6 +10184,187 @@
       "prose_id": "think_on_graph",
       "residual": [],
       "residual_en": []
+    },
+    {
+      "aliases": [
+        "Unified Embedding"
+      ],
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A5": "vision_language",
+        "A7": "image",
+        "G3": "trained_retriever"
+      },
+      "configuration_inapplicable": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A6",
+        "A8",
+        "B1",
+        "B2",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D1",
+        "D2",
+        "D3",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "F1",
+        "F2",
+        "F3",
+        "G1",
+        "G2"
+      ],
+      "configuration_reviewed": "2026-08-12",
+      "configuration_variable": [
+        "A5"
+      ],
+      "core_idea": null,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2608.02583",
+          "type": "publication",
+          "value": "arXiv:2608.02583 (2026)"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7172392400",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2026-08",
+      "groups": [
+        "A"
+      ],
+      "id": "uembed",
+      "kind": "tool",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "UEmbed (arXiv:2608.02583, 2026)",
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2608.02583",
+          "verified_at": null
+        },
+        {
+          "kind": "product",
+          "label": "Страница проекта",
+          "status": "needs_review",
+          "url": "https://alibaba-nlp.github.io/UEmbed",
+          "verified_at": null
+        }
+      ],
+      "name": "UEmbed",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A5",
+          "did": "Представления строит декодерная мультимодальная модель: к входу приписываются N служебных лексем, словарь делится на N непересекающихся частей, и каждая лексема предсказывает веса по своей части. За тот же проход выдаётся и плотный вектор.",
+          "did_en": "Representations are built by a decoder-only multimodal model: N special tokens are appended to the input, the vocabulary is split into N disjoint subsets, and each token predicts weights over its own subset. The same pass also emits a dense vector.",
+          "instead": "«разреженное»: оно описало бы одну из двух выдач и умолчало бы о второй, тогда как работа существует ради их объединения.",
+          "instead_en": "«lexical»: it would describe one of the two outputs and pass over the second, whereas the work exists for their union.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.02583, метод",
+          "source_en": "arXiv:2608.02583, method",
+          "technology_id": "uembed",
+          "to": "vision_language",
+          "variable": true,
+          "why": "Модель читает изображение и текст вместе, поэтому значение описывает именно совместное представление. Пометка переменного стоит потому, что потребитель выбирает, каким из двух представлений пользоваться.",
+          "why_en": "The model reads image and text together, so the value describes exactly a joint representation. The run-time mark is there because the consumer chooses which of the two representations to use."
+        },
+        {
+          "code": "A7",
+          "did": "На вход принимаются изображения наравне с текстом.",
+          "did_en": "Images are accepted on the input alongside text.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.02583, метод",
+          "source_en": "arXiv:2608.02583, method",
+          "technology_id": "uembed",
+          "to": "image",
+          "why": "Модальность материала перестала быть только текстовой.",
+          "why_en": "The modality of the material has stopped being textual alone."
+        },
+        {
+          "code": "G3",
+          "did": "Модель обучается под задачу поиска на открытых данных, выпущена в трёх размерах.",
+          "did_en": "The model is trained for the retrieval task on public data and released at three sizes.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.02583, метод",
+          "source_en": "arXiv:2608.02583, method",
+          "technology_id": "uembed",
+          "to": "trained_retriever",
+          "why": "Обучаемая часть относится к поисковой стороне.",
+          "why_en": "The trained part belongs to the retrieval side."
+        },
+        {
+          "did": "Разреженное лексическое и плотное представление выдаются одной моделью за один причинный проход.",
+          "did_en": "A sparse lexical representation and a dense one are emitted by one model in a single causal pass.",
+          "residual": "sparse_and_dense_one_pass",
+          "residual_term": "разреженное и плотное представление одной моделью за проход",
+          "residual_term_en": "sparse and dense representations from one model in a single pass",
+          "source": "arXiv:2608.02583, метод",
+          "source_en": "arXiv:2608.02583, method",
+          "technology_id": "uembed",
+          "why": "Схема хранит один вид представления на запись. Здесь их два, и выбор между ними делает потребитель.",
+          "why_en": "The schema holds one kind of representation per record. Here there are two, and the consumer chooses between them."
+        },
+        {
+          "code": "E1",
+          "did": "Модель ничего не порождает и запросов не преобразует: она отдаёт представления.",
+          "did_en": "The model produces nothing and transforms no queries: it hands over representations.",
+          "inapplicable": true,
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "выведено из разбора записи",
+          "source_en": "inferred from the parse of this record",
+          "technology_id": "uembed",
+          "why": "Это часть системы, а не система. Измерения синтеза, запроса и извлечения к ней не относятся, и базовые значения утверждали бы о несуществующем.",
+          "why_en": "It is a part of a system rather than a system. The dimensions of synthesis, query and retrieval do not apply to it, and the defaults would assert something that does not exist."
+        }
+      ],
+      "prose_id": "uembed",
+      "residual": [
+        "разреженное и плотное представление одной моделью за проход"
+      ],
+      "residual_en": [
+        "sparse and dense representations from one model in a single pass"
+      ]
     },
     {
       "aliases": [],

@@ -90,6 +90,64 @@
       "technology_id": "speculative_rag"
     },
     {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2607.22042",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7171352433",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "LAMAR",
+      "technology_id": "lamar"
+    },
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2607.24223",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7171505919",
+          "type": "publication"
+        },
+        {
+          "source": "https://github.com/LeqsNaN/RARG",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RARG",
+      "technology_id": "rarg"
+    },
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2608.02583",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7172392400",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "UEmbed",
+      "technology_id": "uembed"
+    },
+    {
       "changed_at": "2026-08-10",
       "evidence": [
         {

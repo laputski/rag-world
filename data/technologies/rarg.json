@@ -1,0 +1,53 @@
+{
+  "aliases": [
+    "Relevance-Aware RipGrep Search Agent"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A4": "flat",
+    "A5": "dense_single",
+    "B1": "multi_reformulation",
+    "C1": "lexical",
+    "C2": "agentic_open_loop",
+    "D1": "none",
+    "E1": "single_pass",
+    "E5": "mutual_loop",
+    "G3": "frozen"
+  },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-08-12",
+  "configuration_variable": [],
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-07",
+  "groups": [
+    "B",
+    "C",
+    "D"
+  ],
+  "id": "rarg",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "RARG (arXiv:2607.24223, 2026)",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2607.24223",
+      "verified_at": null
+    },
+    {
+      "kind": "github",
+      "label": "LeqsNaN/RARG",
+      "status": "needs_review",
+      "url": "https://github.com/LeqsNaN/RARG",
+      "verified_at": null
+    }
+  ],
+  "name": "RARG",
+  "package": null,
+  "prose_id": "rarg",
+  "residual": [
+    "biencoder_rerank",
+    "relevance_ordered_traversal"
+  ]
+}

@@ -232,5 +232,23 @@
   "xrag": {
     "full": "xRAG compresses retrieved passages into the language model's own representation space instead of adding them as text tokens. This radically shortens the context while preserving information, cutting cost and latency without a substantial loss of quality.",
     "short": "Extreme compression: passages folded into the model's representation space."
+  },
+  "uembed": {
+    "short": "One decoder-only model emits a sparse and a dense representation in a single pass, for text and images alike.",
+    "problem": "Learned sparse retrieval has so far rested on bidirectional encoders, and carrying it over to images required separate bridging parts. Keeping two models, a sparse one and a dense one, is expensive and twice the trouble.",
+    "barriers": "A sparse representation is obtained from the model's vocabulary, and in a decoder-only model with causal attention every token sees only the past. Assigning weights over the whole vocabulary from a single position directly gives poor quality.",
+    "solutions": "Several special tokens are appended to the input and the vocabulary is divided between them into disjoint subsets: every token answers for its own subset, and together they add up to the full sparse vector. The dense representation comes from the same pass."
+  },
+  "lamar": {
+    "short": "A reranker that, at equal relevance, places a document in the query's language higher.",
+    "problem": "In multilingual retrieval the retriever returns documents in several languages, and the reranker orders them by meaning. The language of a document is not taken into account, although it affects the answer produced.",
+    "barriers": "Simply preferring the query's language will not do: the semantic relevance the reranker exists for is then lost. Relevance scores are moreover not comparable across languages.",
+    "solutions": "Training runs in two stages. First the teacher's scores are transferred from an English pair to its semantic twin in another language, which brings the scores onto a common scale. Then preference alignment raises a document in the query's language while relevance is preserved."
+  },
+  "rarg": {
+    "short": "An agent searches the corpus line by line, while a relevance estimate sets the order of traversal without standing in for the evidence.",
+    "problem": "Agents that work with a corpus directly by line-wise search find what they need late: they walk the files blind. Vector retrieval knows where to look, but feeding its output straight to the model works worse than direct traversal.",
+    "barriers": "The relevance of a document allows neither locating the right place in it, nor composing an answer from parts, nor verifying it. Inside a long document a useful excerpt is lost among the rest of the content and does not stand out in the vector space.",
+    "solutions": "Relevance is applied as an order of actions rather than as the evidence channel. Through a separate tool the model receives a list of paths ordered by relevance, starts from promising places and reranks the matches found, surfacing the substantial ones."
   }
 }

@@ -356,9 +356,11 @@ def test_residual_share_claim_matches_the_registry():
 
     technologies = store.load_technologies()
     expected = (len([t for t in technologies if t.residual]), len(technologies))
+    # Оборот встречается и как «5 записей из 62», и как «у остальных 8 записей
+    # из 65»: образец берёт оба.
     stated = [
         (int(part), int(whole))
-        for part, whole in re.findall(r"(\d+)\s+записей из (\d+)", _article_text())
+        for part, whole in re.findall(r"(\d+)\s+запис\w+ из (\d+)", _article_text())
     ]
     assert stated, "в статье не сказано, у скольких записей остаток непуст"
     wrong = sorted(set(stated) - {expected})

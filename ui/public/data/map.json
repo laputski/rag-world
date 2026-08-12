@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-12",
-  "count": 62,
+  "count": 65,
   "levels": [
     "L0",
     "L1",
@@ -669,6 +669,29 @@
       "prose_id": "kag"
     },
     {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-07",
+      "group": "D",
+      "groups": [
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-12",
+          "level": "L1"
+        }
+      ],
+      "id": "lamar",
+      "kind": "tool",
+      "level": "L1",
+      "name": "LAMAR",
+      "prose_id": "lamar"
+    },
+    {
       "attention": 0.421,
       "attention_cohort": "2024",
       "attention_raw": 0.217,
@@ -1238,6 +1261,31 @@
       "prose_id": "raptor"
     },
     {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-07",
+      "group": "B",
+      "groups": [
+        "B",
+        "C",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-12",
+          "level": "L1"
+        }
+      ],
+      "id": "rarg",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "RARG",
+      "prose_id": "rarg"
+    },
+    {
       "attention": 7.024,
       "attention_cohort": "2023",
       "attention_raw": 12.478,
@@ -1531,6 +1579,29 @@
       "level": "L1",
       "name": "Think-on-Graph",
       "prose_id": "think_on_graph"
+    },
+    {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-08",
+      "group": "A",
+      "groups": [
+        "A"
+      ],
+      "history": [
+        {
+          "at": "2026-08-12",
+          "level": "L1"
+        }
+      ],
+      "id": "uembed",
+      "kind": "tool",
+      "level": "L1",
+      "name": "UEmbed",
+      "prose_id": "uembed"
     },
     {
       "attention": 0.0,

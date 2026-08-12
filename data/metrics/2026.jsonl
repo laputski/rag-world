@@ -259,3 +259,6 @@
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W4384643740", "technology_id": "think_on_graph", "value": 1.459}
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7140314965", "technology_id": "unified", "value": 0.0}
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W4415795887", "technology_id": "xrag", "value": 0.452}
+{"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7172392400", "technology_id": "uembed", "value": 0.0}
+{"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7171352433", "technology_id": "lamar", "value": 0.0}
+{"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7171505919", "technology_id": "rarg", "value": 0.0}

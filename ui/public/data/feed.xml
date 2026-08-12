@@ -40,6 +40,21 @@
       <guid isPermaLink="false">speculative_rag-2026-08-12-L2</guid>
     </item>
     <item>
+      <title>LAMAR: — → L1</title>
+      <description>publication https://arxiv.org/abs/2607.22042, publication https://openalex.org/W7171352433</description>
+      <guid isPermaLink="false">lamar-2026-08-12-L1</guid>
+    </item>
+    <item>
+      <title>RARG: — → L1</title>
+      <description>publication https://arxiv.org/abs/2607.24223, publication https://openalex.org/W7171505919, repository https://github.com/LeqsNaN/RARG</description>
+      <guid isPermaLink="false">rarg-2026-08-12-L1</guid>
+    </item>
+    <item>
+      <title>UEmbed: — → L1</title>
+      <description>publication https://arxiv.org/abs/2608.02583, publication https://openalex.org/W7172392400</description>
+      <guid isPermaLink="false">uembed-2026-08-12-L1</guid>
+    </item>
+    <item>
       <title>Auto-RAG: — → L1</title>
       <description>publication https://arxiv.org/abs/2411.19443, publication https://openalex.org/W4405030361</description>
       <guid isPermaLink="false">auto_rag-2026-08-10-L1</guid>
@@ -253,21 +268,6 @@
       <title>CausalRAG: L0 → L3</title>
       <description>repository https://github.com/hippoley/CausalRAG, publication https://openalex.org/W4412887679</description>
       <guid isPermaLink="false">causalrag-2026-08-08-L3</guid>
-    </item>
-    <item>
-      <title>ChatQA: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2401.10225, publication https://openalex.org/W4415798682</description>
-      <guid isPermaLink="false">chatqa-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>Edge and On-Device RAG: — → L0</title>
-      <description>publication https://openalex.org/W7129328134</description>
-      <guid isPermaLink="false">edge-2026-08-08-L0</guid>
-    </item>
-    <item>
-      <title>Embodied RAG: — → L1</title>
-      <description>publication https://openalex.org/W4403853662</description>
-      <guid isPermaLink="false">embodied_rag-2026-08-08-L1</guid>
     </item>
   </channel>
 </rss>
