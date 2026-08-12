@@ -3,7 +3,7 @@ import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getStats } from "../api/client";
 import type { RegistryStats } from "../api/types";
-import { toBibTeX, toGost } from "../citation";
+import { toBibTeX, toGost, toPlain } from "../citation";
 import { MONO } from "../theme";
 
 /**
@@ -52,7 +52,9 @@ function Snippet({ text }: { text: string }) {
 }
 
 export function AboutPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // ГОСТ англоязычному читателю не нужен: это российский стандарт.
+  const style = i18n.language === "ru" ? toGost : toPlain;
   const [stats, setStats] = useState<RegistryStats | null>(null);
   const [release, setRelease] = useState<string | null>(null);
 
@@ -122,7 +124,7 @@ export function AboutPage() {
           <Typography variant="h5" sx={{ mb: 1 }}>{t("about.cite")}</Typography>
           <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle2">{t("cite.gost")}</Typography>
-            <Snippet text={toGost({ release })} />
+            <Snippet text={style({ release })} />
           </Paper>
           <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle2">{t("cite.bibtex")}</Typography>
@@ -130,7 +132,7 @@ export function AboutPage() {
           </Paper>
           <Paper variant="outlined" sx={{ p: 2, mb: 3 }}>
             <Typography variant="subtitle2">{t("cite.recordTitle")}</Typography>
-            <Snippet text={toGost({
+            <Snippet text={style({
               release, technology: { id: "pathrag", name: "PathRAG" },
             })} />
           </Paper>

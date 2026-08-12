@@ -64,12 +64,33 @@ export function toGost(target: CitationTarget): string {
     : TITLE;
   return (
     `${AUTHOR}. ${what} : выпуск ${target.release}. ` +
-    `URL: ${releaseUrl(target)} (дата обращения: ${today()}).`
+    `URL: ${releaseUrl(target)} (дата обращения: ${today("ru")}).`
   );
 }
 
-function today(): string {
+/**
+ * Ссылка в общепринятом англоязычном виде.
+ *
+ * ГОСТ англоязычному читателю не нужен: это российский стандарт, и его
+ * оформление в чужой работе выглядит ошибкой. Взамен даётся привычный порядок
+ * «автор, заглавие, версия, адрес, дата обращения», годный для большинства
+ * стилей.
+ */
+export function toPlain(target: CitationTarget): string {
+  const what = target.technology
+    ? `${target.technology.name}. In ${TITLE_LATIN}`
+    : TITLE_LATIN;
+  return (
+    `${AUTHOR_LATIN}. ${what}. Release ${target.release}. ` +
+    `Available at: ${releaseUrl(target)} (accessed ${today("en")}).`
+  );
+}
+
+function today(lang: "ru" | "en"): string {
   const now = new Date();
   const pad = (n: number) => String(n).padStart(2, "0");
+  if (lang === "en") {
+    return now.toISOString().slice(0, 10);
+  }
   return `${pad(now.getDate())}.${pad(now.getMonth() + 1)}.${now.getFullYear()}`;
 }

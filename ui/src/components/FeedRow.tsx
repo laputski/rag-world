@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ConfigGlyph } from "./ConfigGlyph";
 import { LevelBadge } from "./LevelBadge";
 import { StratumChip } from "./StratumChip";
+import { getTechProse } from "../i18n/index";
 import { VelocityStat } from "./VelocityStat";
 
 /**
@@ -18,6 +19,8 @@ import { VelocityStat } from "./VelocityStat";
 
 export interface FeedItem {
   id: string;
+  /** Идентификатор локализованной прозы: из неё берётся краткая суть. */
+  prose_id?: string | null;
   name: string;
   kind: string;
   groups: string[];
@@ -39,7 +42,9 @@ interface Props {
 }
 
 export function FeedRow({ item, onOpen }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const short = getTechProse(item.prose_id ?? null, i18n.language).short
+    ?? item.core_idea;
 
   return (
     <Box
@@ -75,7 +80,12 @@ export function FeedRow({ item, onOpen }: Props) {
           )}
         </Box>
 
-        {item.core_idea && (
+        {/*
+          Краткая суть приходит из локализованной прозы. Поле реестра остаётся
+          запасным вариантом и хранит русский текст: на английской версии он
+          показывался прямо в перечне записей.
+        */}
+        {short && (
           <Typography
             variant="body2"
             color="text.secondary"
@@ -87,7 +97,7 @@ export function FeedRow({ item, onOpen }: Props) {
               overflow: "hidden",
             }}
           >
-            {item.core_idea}
+            {short}
           </Typography>
         )}
 
