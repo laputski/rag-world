@@ -66,6 +66,10 @@ class Paper:
     citations: int | None
     url: str
     repositories: list[str] = field(default_factory=list)
+    #: Метки задач каталога, проставленные людьми. По ним оценивается
+    #: пригодность кандидата реестру, и они же позволяют пересчитать оценку
+    #: без повторного обращения к каталогу.
+    tasks: list[str] = field(default_factory=list)
 
 
 def _paper_url(arxiv_id: str) -> str:
@@ -132,6 +136,10 @@ def parse_paper(payload: dict) -> Paper | None:
             r.get("url") for r in repos
             if isinstance(r, dict) and isinstance(r.get("url"), str)
         ] if isinstance(repos, list) else [],
+        tasks=[
+            t.get("slug") for t in payload.get("tasks") or []
+            if isinstance(t, dict) and isinstance(t.get("slug"), str)
+        ],
     )
 
 

@@ -34,6 +34,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from core.candidate_fit import assess  # noqa: E402
 from services.collectors.paperswithcode import RAG_METHOD, Paper, discover  # noqa: E402
 from services.registry import store  # noqa: E402
 
@@ -55,6 +56,7 @@ class DiscoverySummary:
     added: int = 0
     known: int = 0
     decided: int = 0
+    rescored: int = 0
     problems: list[str] = field(default_factory=list)
 
 
@@ -158,11 +160,15 @@ def run(
             continue
         if paper.arxiv_id in seen:
             continue  # уже в очереди и ждёт решения
+        fit = assess(title=paper.title, abstract=paper.abstract,
+                     tasks=[{"slug": slug} for slug in paper.tasks])
         fresh.append({
             "found_at": today.isoformat(),
             "arxiv_id": paper.arxiv_id,
             "title": paper.title,
             "abstract": paper.abstract,
+            "tasks": paper.tasks,
+            "fit": fit.as_dict(),
             "published": paper.published.isoformat() if paper.published else None,
             "source": paper.url,
             "citations": paper.citations,
@@ -176,7 +182,43 @@ def run(
         with CANDIDATES.open("a", encoding="utf-8") as fh:
             for row in fresh:
                 fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+
+    summary.rescored = rescore(dry_run=dry_run)
     return summary
+
+
+def rescore(*, dry_run: bool = False) -> int:
+    """Пересчитать оценку у кандидатов, ждущих решения.
+
+    Правило оценки меняется чаще, чем очередь: список меток уточняется по мере
+    того, как видно, что каталог действительно проставляет. Кандидат, лежащий
+    в очереди третью неделю, должен оцениваться нынешним правилом, а не тем,
+    что действовало в день находки, иначе порядок просмотра врёт.
+
+    Сети не требует: метки задач и аннотация хранятся вместе с кандидатом.
+    """
+    rows = load_candidates()
+    if not rows:
+        return 0
+    changed = 0
+    for row in rows:
+        if row.get("verdict"):
+            continue
+        fit = assess(
+            title=row.get("title", ""),
+            abstract=row.get("abstract", ""),
+            tasks=[{"slug": slug} for slug in row.get("tasks", [])],
+        ).as_dict()
+        if row.get("fit") != fit:
+            row["fit"] = fit
+            changed += 1
+    if changed and not dry_run:
+        CANDIDATES.write_text(
+            "\n".join(json.dumps(r, ensure_ascii=False, sort_keys=True) for r in rows)
+            + "\n",
+            encoding="utf-8",
+        )
+    return changed
 
 
 def main() -> int:
@@ -190,7 +232,7 @@ def main() -> int:
     print(
         f"обнаружение: найдено {summary.found}, в очередь добавлено "
         f"{summary.added}, уже в реестре {summary.known}, решено прежде "
-        f"{summary.decided}"
+        f"{summary.decided}, оценка пересчитана у {summary.rescored}"
     )
     for problem in summary.problems[:10]:
         print(f"  {problem[:140]}")

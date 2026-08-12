@@ -243,8 +243,27 @@ export interface ResidualMechanism {
  * архитектура, а не приложение существующей» принимает человек: правило здесь
  * ошибается, и цена ошибки — запись реестра о том, чего нет.
  */
+/**
+ * Оценка пригодности кандидата реестру.
+ *
+ * Порядок просмотра очереди, а не утверждение о работе. Слагаемые показываются
+ * вместе с числом: оценка без них требовала бы веры.
+ */
+export interface CandidateSignal {
+  /** Код признака; фраза собирается локализацией. */
+  code: string;
+  tasks?: string[];
+  count?: number;
+}
+
+export interface CandidateFit {
+  score: number;
+  signals: CandidateSignal[];
+}
+
 export interface Candidate {
   arxiv_id: string;
+  fit: CandidateFit;
   title: string;
   /** Аннотация работы, как её даёт каталог, обрезанная для показа. */
   abstract: string;

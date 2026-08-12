@@ -89,6 +89,19 @@ MUTATIONS: tuple[Mutation, ...] = (
              "by_month.setdefault(evidence_path(item.fetched_at), [])",
              "by_month.setdefault(evidence_path(date(2000, 1, 1)), [])"),
 
+    # ── Пригодность кандидата ───────────────────────────────────────────────
+    Mutation("core/candidate_fit.py", "задача из предмета реестра весит больше",
+             'fit.add(4, "coreTask", tasks=core)', 'fit.add(2, "coreTask", tasks=core)'),
+    Mutation("core/candidate_fit.py", "чужая область снижает оценку",
+             "if off and not core:", "if False:"),
+    Mutation("core/candidate_fit.py", "чужая область не наказывает работу об извлечении",
+             "if off and not core:", "if off:"),
+    Mutation("core/candidate_fit.py", "оценка не опускается ниже нуля",
+             "fit.score = max(0, min(MAX_SCORE, fit.score))",
+             "fit.score = min(MAX_SCORE, fit.score)"),
+    Mutation("core/candidate_fit.py", "признак записывается кодом, а не фразой",
+             'fit.add(2, "named")', 'fit.signals.append("работа названа") or None'),
+
     # ── Каталог работ и кода ────────────────────────────────────────────────
     Mutation("services/collectors/paperswithcode.py",
              "ответ каталога о той ли работе",

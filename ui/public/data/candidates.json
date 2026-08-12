@@ -2,167 +2,72 @@
   "built_at": "2026-08-12",
   "candidates": [
     {
-      "abstract": "Economic World Models (EWMs) are generative economic models that simulate how economies evolve from within by modeling heterogeneous agents, their beliefs and actions, and the market and institutional mechanisms through which their interactions produce aggregate outcomes.",
-      "arxiv_id": "2608.06020",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-08-06",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.06020",
-      "title": "From Economic Agents to Agentic Economies: A Systems Blueprint for Economic World Models",
-      "verdict": null
-    },
-    {
-      "abstract": "Modern Greek is absent from NVIDIA's Nemotron retrieval models and from major multilingual retrieval benchmarks, despite being important for retrieval-augmented generation (RAG) in legal, energy, financial, and medical applications. We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmark called HERA.",
-      "arxiv_id": "2608.05138",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-08-05",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.05138",
-      "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
-      "verdict": null
-    },
-    {
       "abstract": "Sparse retrieval underpins modern search systems, from web search to retrieval-augmented generation. Existing work has introduced Learned Sparse Retrieval (LSR) to push beyond exact lexical matching toward richer semantics. Yet LSR has so far remained tied to encoder-style bidirectional architectures, and its extension to multimodal settings still relies heavily on auxiliary cross-modal modules.",
       "arxiv_id": "2608.02583",
       "citations": 0,
+      "fit": {
+        "score": 7,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "embedding-models",
+              "retrieval"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
       "found_at": "2026-08-12",
       "published": "2026-08-03",
       "repositories": [],
       "source": "https://paperswithcode.co/api/v1/papers/2608.02583",
+      "tasks": [
+        "embedding-models",
+        "retrieval"
+      ],
       "title": "UEmbed: Unified Sparse and Dense Multimodal Embeddings",
-      "verdict": null
-    },
-    {
-      "abstract": "Enterprise question answering requires models to acquire proprietary knowledge without discarding general capabilities. We present Wnuan, a three-stage pipeline that constructs task-oriented supervision from documents, performs supervised fine-tuning with general-data replay, and applies reinforcement learning to residual errors.",
-      "arxiv_id": "2608.01862",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-08-03",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.01862",
-      "title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
-      "verdict": null
-    },
-    {
-      "abstract": "Multimodal large language models (MLLMs) have advanced visual understanding and reasoning, yet their static parametric knowledge limits their ability to address knowledge-intensive and dynamically evolving open-world problems. To move beyond this limitation, multimodal deep search has emerged as a key direction for open-world information access, evolving from single-turn factual retrieval toward long-horizon, multi-turn search guided by visual evidence.",
-      "arxiv_id": "2608.01827",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-08-03",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.01827",
-      "title": "DeepVoyager-VL: Incentivizing Vision-in-the-Loop Search for Long-Horizon Multimodal Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Chemistry literature synthesis often requires assembling specific findings scattered across many publications, yet existing literature-search systems primarily return ranked document lists. As a result, scientists and AI agents need to locate relevant information, verify their provenance, and assemble cross-paper answers manually. We present AskChem, a claim-centered infrastructure for cross-paper chemistry search.",
-      "arxiv_id": "2607.28618",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28618",
-      "title": "AskChem: Claim-Centered Infrastructure for Chemistry Literature Synthesis",
-      "verdict": null
-    },
-    {
-      "abstract": "Multimodal agents for visual question answering increasingly operate as multi-step trajectories that interleave perception, retrieval, and reasoning, yet evaluation still largely reduces to final-answer accuracy. This aggregate signal cannot tell whether a correct answer was reached through grounded evidence, language priors, or accidental error cancellation.",
-      "arxiv_id": "2607.28374",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28374",
-      "title": "LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger",
-      "verdict": null
-    },
-    {
-      "abstract": "The web is increasingly accessed by AI agents rather than humans. Every agent needs knowledge, especially in the life-sciences, where agentic pipelines are growing fast. Access to the literature is a crucial part of that need, and resources such as Europe PMC, with over 40M indexed records, are widely used to meet it.",
-      "arxiv_id": "2607.28229",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28229",
-      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Reinforcement learning (RL) search agents commonly model retrieval as free-form natural-language query generation and optimize multi-turn interactions using final-answer rewards. Current studies mainly improve training with denser or more structured credit signals, but rarely examine whether retrieval is properly formulated at the policy-environment interface.",
-      "arxiv_id": "2607.27652",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.27652",
-      "title": "Harness-G: A Graph-Structured Harness for Search Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Retrieval-augmented generation (RAG) spans lexical and dense retrieval, graph-based indexing, and agentic search, but these paradigms are usually evaluated on different benchmarks at one corpus size, leaving their accuracy-cost scaling unclear. To bridge this gap, we present a controlled study that varies corpus size along 28 strictly nested tiers spanning roughly 450-fold, while holding questions and a fixed bedrock of relevant and adversarial documents unchanged.",
-      "arxiv_id": "2607.26497",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.26497",
-      "title": "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms",
-      "verdict": null
-    },
-    {
-      "abstract": "Recent advances in AI agents have increasingly internalized native capabilities into their underlying foundation models, giving rise to multimodal foundation models and large reasoning models. However, agent memory is still primarily implemented through external modules, leaving the native memory capability largely unexplored.",
-      "arxiv_id": "2607.26760",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-29",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.26760",
-      "title": "Metis: Memory Foundation Model",
-      "verdict": null
-    },
-    {
-      "abstract": "Adapting Large Language Models (LLMs) to specialized domains often incurs an alignment tax, as fine-tuning on domain-specific tasks can cause catastrophic forgetting and substantially degrade performance on general tasks. We propose MemSFT, which mitigates the alignment tax by decoupling domain specialization from backbone parameter updates through a plug-and-play parametric memory.",
-      "arxiv_id": "2607.25614",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-28",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.25614",
-      "title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
-      "verdict": null
-    },
-    {
-      "abstract": "How small can a competitive multilingual retrieval model be? We present Bekko Embedding: its smallest model, bekko-embedding-v1-a8m, has just under 8M Active Parameters (AP) -- the non-embedding parameters that dominate inference compute -- yet on official MMTEB Multilingual v2 Retrieval (nDCG@10) it scores 56.2, above the multilingual-e5 family and BGE-M3 (40x the AP) in our comparison.",
-      "arxiv_id": "2607.25180",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-28",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.25180",
-      "title": "Bekko Embedding: Parameter-Efficient Multilingual Retrieval with Ultra-Compact Encoders",
-      "verdict": null
-    },
-    {
-      "abstract": "Modern coding agents are usually evaluated by whether they eventually produce a correct patch, but patch generation depends on an earlier context-acquisition stage: finding the repository files needed for the task. We introduce Agent Retrieval Bench, a file-level benchmark for this upstream retrieval problem.",
-      "arxiv_id": "2607.24882",
-      "citations": 0,
-      "found_at": "2026-08-12",
-      "published": "2026-07-27",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.24882",
-      "title": "Agent Retrieval Bench: Evaluating Repository Context Retrieval for Coding Agents",
       "verdict": null
     },
     {
       "abstract": "Long-term memory systems store what a user says in an external store and retrieve it when a related query arrives. This interface rests on an assumption so natural that it is rarely stated: a memory that is needed will resemble the query that needs it. World knowledge breaks the assumption. A tree-nut allergy should change the answer to a macaron request through their almond-flour ingredient, yet the two texts share no cue a retriever can see.",
       "arxiv_id": "2607.24368",
       "citations": 0,
+      "fit": {
+        "score": 7,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
       "found_at": "2026-08-12",
       "published": "2026-07-27",
       "repositories": [],
       "source": "https://paperswithcode.co/api/v1/papers/2607.24368",
+      "tasks": [
+        "agents",
+        "retrieval"
+      ],
       "title": "Keep It InMind: Benchmarking the Implicit-Association Blind Spot in Agent Memory",
       "verdict": null
     },
@@ -170,44 +75,520 @@
       "abstract": "Relevance is a query-dependent estimate of whether a document or excerpt contains useful evidence. Existing retrieval agents use relevance to select top-k content, but document relevance alone cannot localize, compose, or verify the evidence required by complex questions. Direct Corpus Interaction (DCI) enables such fine-grained operations through grep-style exploration, but its relevance-agnostic search can expose useful clues late and delay convergence.",
       "arxiv_id": "2607.24223",
       "citations": 0,
+      "fit": {
+        "score": 7,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents",
+              "question-answering"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
       "found_at": "2026-08-12",
       "published": "2026-07-27",
       "repositories": [],
       "source": "https://paperswithcode.co/api/v1/papers/2607.24223",
+      "tasks": [
+        "agents",
+        "question-answering",
+        "reinforcement-learning",
+        "retrieval"
+      ],
       "title": "A New Role for Relevance: Guiding Corpus Interaction in Agentic Search",
+      "verdict": null
+    },
+    {
+      "abstract": "The web is increasingly accessed by AI agents rather than humans. Every agent needs knowledge, especially in the life-sciences, where agentic pipelines are growing fast. Access to the literature is a crucial part of that need, and resources such as Europe PMC, with over 40M indexed records, are widely used to meet it.",
+      "arxiv_id": "2607.28229",
+      "citations": 0,
+      "fit": {
+        "score": 6,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents",
+              "question-answering"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28229",
+      "tasks": [
+        "agents",
+        "question-answering",
+        "retrieval"
+      ],
+      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
       "verdict": null
     },
     {
       "abstract": "In multilingual retrieval augmented generation, a retriever can retrieve relevant documents written in multiple languages, which are subsequently reranked before answer generation. However, it remains unclear whether existing multilingual rerankers consider document language when ordering semantically relevant candidates.",
       "arxiv_id": "2607.22042",
       "citations": 0,
+      "fit": {
+        "score": 6,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
       "found_at": "2026-08-12",
       "published": "2026-07-24",
       "repositories": [],
       "source": "https://paperswithcode.co/api/v1/papers/2607.22042",
+      "tasks": [
+        "retrieval"
+      ],
       "title": "LAMAR: An Open Language-Aware Multilingual Alignment Reranker",
       "verdict": null
     },
     {
-      "abstract": "Historical documents act as invaluable knowledge archives but often suffer from illegibility due to physical deterioration and damage. While existing restoration methods based on masked language modeling effectively utilize local context, they struggle to restore named entities that require external historical knowledge.",
-      "arxiv_id": "2607.21936",
+      "abstract": "Modern Greek is absent from NVIDIA's Nemotron retrieval models and from major multilingual retrieval benchmarks, despite being important for retrieval-augmented generation (RAG) in legal, energy, financial, and medical applications. We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmark called HERA.",
+      "arxiv_id": "2608.05138",
       "citations": 0,
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
       "found_at": "2026-08-12",
-      "published": "2026-07-24",
+      "published": "2026-08-05",
       "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.21936",
-      "title": "Leveraging External Knowledge for Historical Document Restoration via Retrieval-Augmented Large Language Models",
+      "source": "https://paperswithcode.co/api/v1/papers/2608.05138",
+      "tasks": [
+        "retrieval"
+      ],
+      "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
+      "verdict": null
+    },
+    {
+      "abstract": "Chemistry literature synthesis often requires assembling specific findings scattered across many publications, yet existing literature-search systems primarily return ranked document lists. As a result, scientists and AI agents need to locate relevant information, verify their provenance, and assemble cross-paper answers manually. We present AskChem, a claim-centered infrastructure for cross-paper chemistry search.",
+      "arxiv_id": "2607.28618",
+      "citations": 0,
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28618",
+      "tasks": [
+        "agents"
+      ],
+      "title": "AskChem: Claim-Centered Infrastructure for Chemistry Literature Synthesis",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) spans lexical and dense retrieval, graph-based indexing, and agentic search, but these paradigms are usually evaluated on different benchmarks at one corpus size, leaving their accuracy-cost scaling unclear. To bridge this gap, we present a controlled study that varies corpus size along 28 strictly nested tiers spanning roughly 450-fold, while holding questions and a fixed bedrock of relevant and adversarial documents unchanged.",
+      "arxiv_id": "2607.26497",
+      "citations": 0,
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.26497",
+      "tasks": [
+        "reinforcement-learning",
+        "retrieval"
+      ],
+      "title": "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms",
+      "verdict": null
+    },
+    {
+      "abstract": "Recent advances in AI agents have increasingly internalized native capabilities into their underlying foundation models, giving rise to multimodal foundation models and large reasoning models. However, agent memory is still primarily implemented through external modules, leaving the native memory capability largely unexplored.",
+      "arxiv_id": "2607.26760",
+      "citations": 0,
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents",
+              "reasoning"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-29",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.26760",
+      "tasks": [
+        "agents",
+        "reasoning"
+      ],
+      "title": "Metis: Memory Foundation Model",
+      "verdict": null
+    },
+    {
+      "abstract": "How small can a competitive multilingual retrieval model be? We present Bekko Embedding: its smallest model, bekko-embedding-v1-a8m, has just under 8M Active Parameters (AP) -- the non-embedding parameters that dominate inference compute -- yet on official MMTEB Multilingual v2 Retrieval (nDCG@10) it scores 56.2, above the multilingual-e5 family and BGE-M3 (40x the AP) in our comparison.",
+      "arxiv_id": "2607.25180",
+      "citations": 0,
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-28",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.25180",
+      "tasks": [],
+      "title": "Bekko Embedding: Parameter-Efficient Multilingual Retrieval with Ultra-Compact Encoders",
+      "verdict": null
+    },
+    {
+      "abstract": "Adapting Large Language Models (LLMs) to specialized domains often incurs an alignment tax, as fine-tuning on domain-specific tasks can cause catastrophic forgetting and substantially degrade performance on general tasks. We propose MemSFT, which mitigates the alignment tax by decoupling domain specialization from backbone parameter updates through a plug-and-play parametric memory.",
+      "arxiv_id": "2607.25614",
+      "citations": 0,
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-28",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.25614",
+      "tasks": [],
+      "title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
       "verdict": null
     },
     {
       "abstract": "Production AI agents' failures are less often due to an inability to reason well and more often because they cannot manage what is in their reasoning context: conversation histories, large prompts, large tool definitions, and ballooning tool outputs. Agents drown in their own accumulating history while paying a token cost that grows every turn, producing missing recalls within and across conversations. The incumbent response treats this as a storage-and-retrieval problem.",
       "arxiv_id": "2607.21503",
       "citations": 0,
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents",
+              "summarization"
+            ]
+          }
+        ]
+      },
       "found_at": "2026-08-12",
       "published": "2026-07-23",
       "repositories": [],
       "source": "https://paperswithcode.co/api/v1/papers/2607.21503",
+      "tasks": [
+        "agents",
+        "summarization"
+      ],
       "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
+      "verdict": null
+    },
+    {
+      "abstract": "Enterprise question answering requires models to acquire proprietary knowledge without discarding general capabilities. We present Wnuan, a three-stage pipeline that constructs task-oriented supervision from documents, performs supervised fine-tuning with general-data replay, and applies reinforcement learning to residual errors.",
+      "arxiv_id": "2608.01862",
+      "citations": 0,
+      "fit": {
+        "score": 1,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "question-answering"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "instruction-following",
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-08-03",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.01862",
+      "tasks": [
+        "instruction-following",
+        "question-answering",
+        "reinforcement-learning"
+      ],
+      "title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
+      "verdict": null
+    },
+    {
+      "abstract": "Multimodal agents for visual question answering increasingly operate as multi-step trajectories that interleave perception, retrieval, and reasoning, yet evaluation still largely reduces to final-answer accuracy. This aggregate signal cannot tell whether a correct answer was reached through grounded evidence, language priors, or accidental error cancellation.",
+      "arxiv_id": "2607.28374",
+      "citations": 0,
+      "fit": {
+        "score": 1,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "question-answering"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "image-understanding"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.28374",
+      "tasks": [
+        "image-understanding",
+        "question-answering"
+      ],
+      "title": "LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger",
+      "verdict": null
+    },
+    {
+      "abstract": "Economic World Models (EWMs) are generative economic models that simulate how economies evolve from within by modeling heterogeneous agents, their beliefs and actions, and the market and institutional mechanisms through which their interactions produce aggregate outcomes.",
+      "arxiv_id": "2608.06020",
+      "citations": 0,
+      "fit": {
+        "score": 0,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents"
+            ]
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "world-models"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-08-06",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.06020",
+      "tasks": [
+        "agents",
+        "world-models"
+      ],
+      "title": "From Economic Agents to Agentic Economies: A Systems Blueprint for Economic World Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Multimodal large language models (MLLMs) have advanced visual understanding and reasoning, yet their static parametric knowledge limits their ability to address knowledge-intensive and dynamically evolving open-world problems. To move beyond this limitation, multimodal deep search has emerged as a key direction for open-world information access, evolving from single-turn factual retrieval toward long-horizon, multi-turn search guided by visual evidence.",
+      "arxiv_id": "2608.01827",
+      "citations": 0,
+      "fit": {
+        "score": 0,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "image-understanding",
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-08-03",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.01827",
+      "tasks": [
+        "image-understanding",
+        "reinforcement-learning"
+      ],
+      "title": "DeepVoyager-VL: Incentivizing Vision-in-the-Loop Search for Long-Horizon Multimodal Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Reinforcement learning (RL) search agents commonly model retrieval as free-form natural-language query generation and optimize multi-turn interactions using final-answer rewards. Current studies mainly improve training with denser or more structured credit signals, but rarely examine whether retrieval is properly formulated at the policy-environment interface.",
+      "arxiv_id": "2607.27652",
+      "citations": 0,
+      "fit": {
+        "score": 0,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-30",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.27652",
+      "tasks": [
+        "reinforcement-learning"
+      ],
+      "title": "Harness-G: A Graph-Structured Harness for Search Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Modern coding agents are usually evaluated by whether they eventually produce a correct patch, but patch generation depends on an earlier context-acquisition stage: finding the repository files needed for the task. We introduce Agent Retrieval Bench, a file-level benchmark for this upstream retrieval problem.",
+      "arxiv_id": "2607.24882",
+      "citations": 0,
+      "fit": {
+        "score": 0,
+        "signals": [
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "coding-agents",
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-27",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.24882",
+      "tasks": [
+        "coding-agents",
+        "reinforcement-learning"
+      ],
+      "title": "Agent Retrieval Bench: Evaluating Repository Context Retrieval for Coding Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Historical documents act as invaluable knowledge archives but often suffer from illegibility due to physical deterioration and damage. While existing restoration methods based on masked language modeling effectively utilize local context, they struggle to restore named entities that require external historical knowledge.",
+      "arxiv_id": "2607.21936",
+      "citations": 0,
+      "fit": {
+        "score": 0,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "document-understanding",
+              "language-modeling"
+            ]
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "image-restoration"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-12",
+      "published": "2026-07-24",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2607.21936",
+      "tasks": [
+        "document-understanding",
+        "image-restoration",
+        "language-modeling"
+      ],
+      "title": "Leveraging External Knowledge for Historical Document Restoration via Retrieval-Augmented Large Language Models",
       "verdict": null
     }
   ]

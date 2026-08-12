@@ -8,6 +8,9 @@ import { getCandidates, getResiduals } from "../api/client";
 import type { Candidate, ResidualMechanism } from "../api/types";
 import { MONO } from "../theme";
 
+//: Наибольшая оценка пригодности; совпадает с core/candidate_fit.py.
+const FIT_MAX = 10;
+
 /**
  * Пробелы портала: чего он о себе знает.
  *
@@ -152,8 +155,11 @@ export function ResidualsPage() {
       */}
       {tab === 1 && (
         <>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3, maxWidth: "64ch" }}>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, maxWidth: "64ch" }}>
         {t("candidates.subtitle")}
+      </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 3, maxWidth: "64ch" }}>
+        {t("candidates.fitWhat")}
       </Typography>
 
       {candidateRows.length === 0 && (
@@ -163,6 +169,12 @@ export function ResidualsPage() {
       {candidateRows.map((row) => (
         <Paper key={row.arxiv_id} variant="outlined" sx={{ p: 2.5, mb: 1.5 }}>
           <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5, flexWrap: "wrap" }}>
+            <Chip
+              size="small"
+              variant="outlined"
+              color={row.fit.score >= 6 ? "primary" : "default"}
+              label={t("candidates.fit", { score: row.fit.score, max: FIT_MAX })}
+            />
             <MuiLink
               href={`https://arxiv.org/abs/${row.arxiv_id}`}
               target="_blank"
@@ -191,6 +203,22 @@ export function ResidualsPage() {
             Аннотация приводится авторская: пересказывать её своими словами
             значило бы утверждать о работе, которую портал ещё не разбирал.
           */}
+          {/*
+            Слагаемые оценки показываются всегда: число без них означало бы
+            «поверьте», а портал построен на обратном.
+          */}
+          <Box component="ul" sx={{ pl: 2.5, m: 0, mt: 1 }}>
+            {row.fit.signals.map((signal, i) => (
+              <Box component="li" key={i}>
+                <Typography variant="caption" color="text.secondary">
+                  {t(`candidates.signal.${signal.code}`, {
+                    tasks: (signal.tasks ?? []).join(", "),
+                    count: signal.count,
+                  })}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
           {row.abstract && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: "70ch" }}>
               {row.abstract}

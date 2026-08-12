@@ -182,8 +182,15 @@ def _candidate_queue() -> list[dict]:
             stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
             abstract = (cut[: stop + 1] if stop > 200 else cut.rstrip() + "…")
         pending.append({**row, "abstract": abstract})
-    return sorted(pending, key=lambda r: (r.get("published") or "", r["arxiv_id"]),
-                  reverse=True)
+    # Порядок по оценке пригодности: очередь существует ради просмотра, и
+    # смотреть надо сначала на то, что вероятнее подойдёт. При равной оценке
+    # впереди свежее.
+    return sorted(
+        pending,
+        key=lambda r: ((r.get("fit") or {}).get("score", 0),
+                       r.get("published") or "", r["arxiv_id"]),
+        reverse=True,
+    )
 
 
 #: Сколько знаков аннотации показывать. Двух-трёх предложений хватает, чтобы

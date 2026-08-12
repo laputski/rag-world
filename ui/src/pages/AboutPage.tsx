@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Link as MuiLink, Paper, Typography } from "@mui/material";
+import {
+  Box, Button, Collapse, Link as MuiLink, Paper, Typography,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getStats } from "../api/client";
 import type { RegistryStats } from "../api/types";
@@ -57,6 +59,7 @@ export function AboutPage() {
   const style = i18n.language === "ru" ? toGost : toPlain;
   const [stats, setStats] = useState<RegistryStats | null>(null);
   const [release, setRelease] = useState<string | null>(null);
+  const [example, setExample] = useState(false);
 
   useEffect(() => { getStats().then(setStats).catch(() => setStats(null)); }, []);
   useEffect(() => {
@@ -120,6 +123,43 @@ export function AboutPage() {
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
         {t("about.contributeManual")}
       </Typography>
+      {/*
+        Пример свёрнут: он длиннее самого правила, и читателю, которому правила
+        хватило, мешает. Тому, кто собирается писать, разворот стоит щелчка.
+      */}
+      <Box sx={{ mb: 1.5 }}>
+        <MuiLink component="button" onClick={() => setExample((v) => !v)} variant="body2">
+          {example ? t("about.exampleHide") : t("about.exampleShow")}
+        </MuiLink>
+        <Collapse in={example}>
+          <Paper variant="outlined" sx={{ p: 2, mt: 1, maxWidth: "70ch" }}>
+            <Typography variant="body2" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+              {t("about.exampleGoodTitle")}
+            </Typography>
+            <Box component="pre" sx={{
+              fontFamily: MONO, fontSize: "0.78rem", lineHeight: 1.65, m: 0, mb: 2,
+              p: 1.5, bgcolor: "action.hover", borderRadius: 1,
+              overflowX: "auto", whiteSpace: "pre-wrap",
+            }}>
+              {t("about.exampleGood")}
+            </Box>
+            <Typography variant="body2" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+              {t("about.exampleBadTitle")}
+            </Typography>
+            <Box component="pre" sx={{
+              fontFamily: MONO, fontSize: "0.78rem", lineHeight: 1.65, m: 0, mb: 1.5,
+              p: 1.5, bgcolor: "action.hover", borderRadius: 1,
+              overflowX: "auto", whiteSpace: "pre-wrap",
+            }}>
+              {t("about.exampleBad")}
+            </Box>
+            <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.75 }}>
+              {t("about.exampleBadWhy")}
+            </Typography>
+          </Paper>
+        </Collapse>
+      </Box>
+
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.75 }}>
         {t("about.contributeChannel")}
       </Typography>
