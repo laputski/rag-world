@@ -118,6 +118,7 @@ const registry = registryJson as unknown as {
     level: string | null;
     evidence_count: number;
     links: { url: string; status: string }[];
+    parse_notes: { did_en?: string }[];
   }[];
 };
 const stats = statsJson as unknown as { total: number };
@@ -235,24 +236,39 @@ describe("английская версия не показывает русск
     expect(russianPhrases ?? []).toEqual([]);
   });
 
-  it("русское обоснование под английской версией названо русским", async () => {
-    // Обоснования разбора не переводятся: каждое утверждает, что говорит
-    // первоисточник, и машинный перевод изменил бы утверждение портала о
-    // технологии. Умолчать об этом значило бы показать читателю русский абзац
-    // без объяснения, и он решил бы, что портал сломан.
+  it("переведённое обоснование показывается по-английски", async () => {
     await i18n.changeLanguage("en");
-    const tech = registry.technologies.find((t) => t.id === "hipporag")
-      ?? registry.technologies[0];
+    const tech = registry.technologies.find((x) =>
+      x.parse_notes?.some((n) => n.did_en)
+    );
+    expect(tech, "ни одно обоснование не переведено").toBeTruthy();
+    show(<TechCardPage />, `/tech/${tech!.id}`);
+    await waitFor(() => {
+      expect(screen.getAllByText(tech!.name).length).toBeGreaterThan(0);
+    });
+    fireEvent.click(screen.getAllByText(i18n.t("techCard.showBasis"))[0]);
+    const translated = tech!.parse_notes.find((n) => n.did_en)!;
+    await waitFor(() => {
+      expect(screen.getAllByText(translated.did_en!).length).toBeGreaterThan(0);
+    });
+  });
+
+  it("непереведённое обоснование названо непереведённым", async () => {
+    // Пустое место и молчаливый русский абзац одинаково выглядят поломкой,
+    // поэтому читателю сказано, что перевод этой записи ещё не сделан.
+    await i18n.changeLanguage("en");
+    const tech = registry.technologies.find((x) =>
+      x.parse_notes?.length > 0 && x.parse_notes.every((n) => !n.did_en)
+    );
+    if (!tech) return; // перевод закончен целиком, проверять нечего
     show(<TechCardPage />, `/tech/${tech.id}`);
     await waitFor(() => {
       expect(screen.getAllByText(tech.name).length).toBeGreaterThan(0);
     });
-    const openers = screen.getAllByText(i18n.t("techCard.showBasis"));
-    expect(openers.length).toBeGreaterThan(0);
-    fireEvent.click(openers[0]);
+    fireEvent.click(screen.getAllByText(i18n.t("techCard.showBasis"))[0]);
     await waitFor(() => {
       expect(
-        screen.getAllByText(i18n.t("techCard.basisRussianOnly")).length
+        screen.getAllByText(i18n.t("techCard.basisNotYetTranslated")).length
       ).toBeGreaterThan(0);
     });
   });

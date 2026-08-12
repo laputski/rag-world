@@ -150,7 +150,7 @@
     "basisWhy": "Why that yields this value",
     "basisInstead": "Which value did not fit",
     "basisQuestion": "Another reading is possible here",
-    "basisRussianOnly": "This justification is in Russian. It states what the primary source says and what follows from it, and its translation is deliberately not machine-made: a mistranslated claim would change what the portal says about the technology."
+    "basisNotYetTranslated": "This justification is shown in Russian: the translation of this record is not finished yet."
   },
   "changes": {
     "title": "Changelog",

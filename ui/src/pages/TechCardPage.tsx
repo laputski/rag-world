@@ -25,16 +25,21 @@ import type { ParseNote, RegistryTechnology } from "../api/types";
 /**
  * Обоснование разбора: почему у измерения такое значение.
  *
- * Текст обоснований русский на обеих версиях портала, и англоязычному читателю
- * это сказано прямо. Перевод здесь не делается по той же причине, по которой не
- * переводится раздел «Основания»: каждое обоснование утверждает, что говорит
- * первоисточник и что из этого следует, а неверно переведённое утверждение
- * меняет то, что портал говорит о технологии. Показать русский текст с
- * пометкой честнее, чем перевести его машиной или спрятать вовсе.
+ * Перевод идёт записями и хранится рядом с оригиналом, как в словаре остатков:
+ * обоснование бессмысленно в отрыве от измерения, к которому относится. Пока
+ * запись не переведена, показывается русский текст с пометкой об этом: пустое
+ * место и молчаливый русский абзац одинаково выглядят поломкой.
  */
 function ParseNoteBlock({ note }: { note: ParseNote }) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+
+  // Перевод обоснований идёт записями, и пока он не закончен, часть карточек
+  // остаётся русской. Читателю об этом сказано прямо на тех карточках, где так
+  // и есть: пустое место либо молчаливый русский абзац хуже, чем пометка.
+  const english = i18n.language !== "ru";
+  const translated = !english || Boolean(note.did_en && note.why_en);
+  const pick = (ru: string, en?: string) => (english && en ? en : ru);
 
   return (
     <Box sx={{ mt: 0.5, fontFamily: "body" }}>
@@ -56,20 +61,29 @@ function ParseNoteBlock({ note }: { note: ParseNote }) {
           data-basis="ru"
           sx={{ mt: 1, pl: 1.5, borderLeft: 2, borderColor: "divider", maxWidth: "62ch" }}
         >
-          {i18n.language !== "ru" && (
+          {!translated && (
             <Typography
               variant="caption"
               color="text.secondary"
               sx={{ display: "block", mb: 1, fontStyle: "italic" }}
             >
-              {t("techCard.basisRussianOnly")}
+              {t("techCard.basisNotYetTranslated")}
             </Typography>
           )}
-          <NoteLine label={t("techCard.basisDid")} text={note.did} />
-          <NoteLine label={t("techCard.basisWhy")} text={note.why} />
-          {note.instead && <NoteLine label={t("techCard.basisInstead")} text={note.instead} />}
+          <NoteLine label={t("techCard.basisDid")} text={pick(note.did, note.did_en)} />
+          <NoteLine label={t("techCard.basisWhy")} text={pick(note.why, note.why_en)} />
+          {note.instead && (
+            <NoteLine
+              label={t("techCard.basisInstead")}
+              text={pick(note.instead, note.instead_en)}
+            />
+          )}
           {note.question && (
-            <NoteLine label={t("techCard.basisQuestion")} text={note.question} accent />
+            <NoteLine
+              label={t("techCard.basisQuestion")}
+              text={pick(note.question, note.question_en)}
+              accent
+            />
           )}
           <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
             {note.source}

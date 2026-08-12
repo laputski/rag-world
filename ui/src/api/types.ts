@@ -196,17 +196,22 @@ export interface ParseNote {
   code?: string;
   residual?: string;
   residual_term?: string | null;
+  residual_term_en?: string | null;
   to?: string;
   variable?: boolean;
   inapplicable?: boolean;
   /** Что делает система — проверяется по источнику. */
   did: string;
+  did_en?: string;
   /** Почему из этого следует значение — проверяется по схеме. */
   why: string;
+  why_en?: string;
   /** Какое значение не подошло и почему. */
   instead?: string;
+  instead_en?: string;
   /** Место, где источник допускает другое прочтение. */
   question?: string;
+  question_en?: string;
   source: string;
 }
 

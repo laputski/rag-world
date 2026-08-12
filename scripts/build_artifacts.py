@@ -349,6 +349,10 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
                     "residual_term": (
                         _residual_term(note["residual"]) if note.get("residual") else None
                     ),
+                    "residual_term_en": (
+                        _residual_term(note["residual"], "en")
+                        if note.get("residual") else None
+                    ),
                 }
                 for note in parse_notes.get(tech.id, [])
             ],
