@@ -30,6 +30,7 @@ from services.collectors import frameworks, transport  # noqa: E402
 from services.collectors.arxiv import ARXIV_API  # noqa: E402
 from services.collectors.github import GITHUB_API  # noqa: E402
 from services.collectors.openalex import OPENALEX_API, OPENALEX_MAILTO_ENV  # noqa: E402
+from services.collectors.paperswithcode import PWC_API, RAG_METHOD  # noqa: E402
 from services.collectors.pypi import PYPI_API, STATS_API  # noqa: E402
 
 OUT = ROOT / "docs" / "SOURCES.md"
@@ -58,6 +59,14 @@ PURPOSE = {
         "Существование пакета и его версия. Опрашивается только там, где имя "
         "пакета записано человеком: угадывать нельзя, чужой пакет с похожим "
         "именем даст ложное свидетельство.",
+    ),
+    PWC_API: (
+        "Каталог работ и кода",
+        "Площадка публикации вторым источником: пока она приходила только из "
+        "открытого индекса, его ошибка ничем не перекрывалась. Оттуда же лента "
+        f"работ под меткой метода `{RAG_METHOD}` для обнаружения новых. "
+        "Каталог ведёт сообщество при Hugging Face после закрытия "
+        "paperswithcode.com.",
     ),
     STATS_API: (
         "Загрузки пакетов",
@@ -131,12 +140,14 @@ def render() -> str:
         "",
         "## Чего здесь нет",
         "",
-        "Шага обнаружения новых технологий: все сборщики обходят ссылки уже "
-        "известных записей реестра, а каталоги фреймворков проверяют "
-        "присутствие уже известных имён. Технология, опубликованная сегодня, "
-        "попадёт в реестр только тогда, когда её заведут руками. Предложение "
-        "закрыть этот пробел описано в "
-        "`specs/stages/STAGE-discovery.md`.",
+        "Обнаружение новых технологий пока не входит в еженедельный проход. "
+        "Запрос к каталогу написан и проверен "
+        "(`services/collectors/paperswithcode.py`, `discover`), но очереди "
+        "кандидатов ещё нет, поэтому все сборщики по-прежнему обходят ссылки "
+        "уже известных записей, а каталоги фреймворков проверяют присутствие "
+        "уже известных имён. Технология, опубликованная сегодня, попадёт в "
+        "реестр только тогда, когда её заведут руками. Оставшиеся шаги "
+        "описаны в `specs/stages/STAGE-discovery.md`.",
         "",
     ]
     return "\n".join(lines)

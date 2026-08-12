@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-10",
+  "built_at": "2026-08-12",
   "count": 62,
   "levels": [
     "L0",
@@ -12,9 +12,9 @@
   ],
   "points": [
     {
-      "attention": 11.451,
+      "attention": 11.827,
       "attention_cohort": "2024",
-      "attention_raw": 5.903,
+      "attention_raw": 6.097,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -261,11 +261,15 @@
         {
           "at": "2026-08-08",
           "level": "L1"
+        },
+        {
+          "at": "2026-08-12",
+          "level": "L2"
         }
       ],
       "id": "colpali",
       "kind": "technique",
-      "level": "L1",
+      "level": "L2",
       "name": "ColPali",
       "prose_id": "colpali"
     },
@@ -293,9 +297,9 @@
       "prose_id": "contextual_retrieval"
     },
     {
-      "attention": 9.29,
+      "attention": 9.903,
       "attention_cohort": "2024",
-      "attention_raw": 4.789,
+      "attention_raw": 5.105,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -449,9 +453,9 @@
       "prose_id": "embodied_rag"
     },
     {
-      "attention": 0.454,
+      "attention": 0.546,
       "attention_cohort": "2025",
-      "attention_raw": 0.263,
+      "attention_raw": 0.316,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-04",
@@ -477,9 +481,9 @@
       "prose_id": "federated_rag"
     },
     {
-      "attention": 5.21,
+      "attention": 5.328,
       "attention_cohort": "2023",
-      "attention_raw": 9.256,
+      "attention_raw": 9.465,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -556,9 +560,9 @@
       "prose_id": "graphreader"
     },
     {
-      "attention": 4.13,
+      "attention": 4.256,
       "attention_cohort": "2024",
-      "attention_raw": 2.129,
+      "attention_raw": 2.194,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -584,9 +588,9 @@
       "prose_id": "hipporag"
     },
     {
-      "attention": 6.349,
+      "attention": 6.419,
       "attention_cohort": null,
-      "attention_raw": 6.349,
+      "attention_raw": 6.419,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022",
@@ -611,9 +615,9 @@
       "prose_id": "hyde"
     },
     {
-      "attention": 3.364,
+      "attention": 3.417,
       "attention_cohort": "2023",
-      "attention_raw": 5.977,
+      "attention_raw": 6.07,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -854,18 +858,23 @@
       "attention": null,
       "attention_cohort": null,
       "attention_raw": null,
-      "confidence": null,
-      "evidence_basis": null,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
       "first_published": null,
       "group": "A",
       "groups": [
         "A",
         "C"
       ],
-      "history": [],
+      "history": [
+        {
+          "at": "2026-08-12",
+          "level": "L2"
+        }
+      ],
       "id": "naive_dense",
       "kind": "technique",
-      "level": null,
+      "level": "L2",
       "name": "Naive Dense",
       "prose_id": "naive_dense"
     },
@@ -982,9 +991,9 @@
       "prose_id": "pathrag"
     },
     {
-      "attention": 1.0,
+      "attention": 1.092,
       "attention_cohort": "2025",
-      "attention_raw": 0.579,
+      "attention_raw": 0.632,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1164,11 +1173,15 @@
         {
           "at": "2026-08-08",
           "level": "L1"
+        },
+        {
+          "at": "2026-08-12",
+          "level": "L2"
         }
       ],
       "id": "rag_as_memory",
       "kind": "paradigm",
-      "level": "L1",
+      "level": "L2",
       "name": "RAG as Memory",
       "prose_id": "rag_as_memory"
     },
@@ -1254,9 +1267,9 @@
       "prose_id": "react"
     },
     {
-      "attention": 3.069,
+      "attention": 3.123,
       "attention_cohort": "2023",
-      "attention_raw": 5.452,
+      "attention_raw": 5.548,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1386,11 +1399,15 @@
         {
           "at": "2026-08-08",
           "level": "L1"
+        },
+        {
+          "at": "2026-08-12",
+          "level": "L2"
         }
       ],
       "id": "speculative_rag",
       "kind": "paradigm",
-      "level": "L1",
+      "level": "L2",
       "name": "Speculative RAG",
       "prose_id": "speculative_rag"
     },

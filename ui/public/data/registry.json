@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-08-10",
+  "built_at": "2026-08-12",
   "count": 62,
   "technologies": [
     {
       "aliases": [],
-      "attention": 11.451,
+      "attention": 11.827,
       "attention_cohort": "2024",
-      "attention_raw": 5.903,
+      "attention_raw": 6.097,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -67,10 +67,17 @@
           "source": "https://openalex.org/W4393119012",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=10; year=2024; citation_velocity=0.345"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042753",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=189; year=2024; citation_velocity=6.097"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "D",
       "first_published": "2024",
       "groups": [
@@ -360,10 +367,17 @@
           "source": "https://openalex.org/W4407632367",
           "type": "publication",
           "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=3; year=2026; citation_velocity=0.6"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2502.09891",
+          "type": "publication",
+          "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=34; year=2025"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "B",
       "first_published": "2025-02",
       "groups": [
@@ -618,10 +632,17 @@
           "source": "https://pypi.org/project/FlagEmbedding/",
           "type": "package_downloads",
           "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=584896"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads",
+          "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=590199"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": null,
       "first_published": null,
       "groups": [
@@ -1192,10 +1213,17 @@
           "source": "https://pypi.org/project/colbert-ai/",
           "type": "package_downloads",
           "value": "package=colbert-ai; version=0.2.22; downloads_last_month=214026"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/colbert-ai/",
+          "type": "package_downloads",
+          "value": "package=colbert-ai; version=0.2.22; downloads_last_month=215043"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": "H",
       "first_published": "2021",
       "groups": [
@@ -1382,10 +1410,17 @@
           "source": "https://openalex.org/W4400373146",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.192"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+          "type": "publication",
+          "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=189; year=2024"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "E",
       "first_published": "2024-07",
       "groups": [
@@ -1394,12 +1429,11 @@
       ],
       "id": "colpali",
       "kind": "technique",
-      "level": "L1",
+      "level": "L2",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L2",
           "L3",
           "L4",
           "L5",
@@ -1407,7 +1441,8 @@
         ],
         "satisfied": [
           "L0",
-          "L1"
+          "L1",
+          "L2"
         ]
       },
       "links": [
@@ -1599,9 +1634,9 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 9.29,
+      "attention": 9.903,
       "attention_cohort": "2024",
-      "attention_raw": 4.789,
+      "attention_raw": 5.105,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1660,10 +1695,17 @@
           "source": "https://openalex.org/W4391418506",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.903"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=97; year=2025; citation_velocity=5.105"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "A",
       "first_published": "2024",
       "groups": [
@@ -2469,9 +2511,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.454,
+      "attention": 0.546,
       "attention_cohort": "2025",
-      "attention_raw": 0.263,
+      "attention_raw": 0.316,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2549,10 +2591,17 @@
           "source": "https://openalex.org/W4414581785",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416034993",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=6; year=2025; citation_velocity=0.316"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": null,
       "first_published": "2025-04",
       "groups": [
@@ -2653,9 +2702,9 @@
     },
     {
       "aliases": [],
-      "attention": 5.21,
+      "attention": 5.328,
       "attention_cohort": "2023",
-      "attention_raw": 9.256,
+      "attention_raw": 9.465,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2712,10 +2761,17 @@
           "source": "https://openalex.org/W4376312546",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=17; year=2023; citation_velocity=0.436"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4389519118",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=407; year=2023; citation_velocity=9.465"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "A",
       "first_published": "2023",
       "groups": [
@@ -3041,9 +3097,9 @@
       "aliases": [
         "HippoRAG 2"
       ],
-      "attention": 4.13,
+      "attention": 4.256,
       "attention_cohort": "2024",
-      "attention_raw": 2.129,
+      "attention_raw": 2.194,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3128,10 +3184,24 @@
           "source": "https://pypi.org/project/hipporag/",
           "type": "package_downloads",
           "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1748"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415797504",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=68; year=2024; citation_velocity=2.194"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads",
+          "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1641"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 9,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -3314,9 +3384,9 @@
     },
     {
       "aliases": [],
-      "attention": 6.349,
+      "attention": 6.419,
       "attention_cohort": null,
-      "attention_raw": 6.349,
+      "attention_raw": 6.419,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3373,10 +3443,17 @@
           "source": "https://openalex.org/W4312091824",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=20; year=2022; citation_velocity=0.455"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385565351",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=276; year=2023; citation_velocity=6.419"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "G",
       "first_published": "2022",
       "groups": [
@@ -3447,9 +3524,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.364,
+      "attention": 3.417,
       "attention_cohort": "2023",
-      "attention_raw": 5.977,
+      "attention_raw": 6.07,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3506,10 +3583,17 @@
           "source": "https://openalex.org/W4312091845",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=18; year=2022; citation_velocity=0.409"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385571271",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=261; year=2023; citation_velocity=6.07"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "C",
       "first_published": "2023",
       "groups": [
@@ -3968,10 +4052,17 @@
           "source": "https://pypi.org/project/lightrag-hku/",
           "type": "package_downloads",
           "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=297589"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-11, releases=yes"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -4464,10 +4555,24 @@
           "source": "https://pypi.org/project/graphrag/",
           "type": "package_downloads",
           "value": "package=graphrag; version=3.1.1; downloads_last_month=70829"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://github.com/microsoft/graphrag",
+          "type": "repository",
+          "value": "microsoft/graphrag: license=mit, last_push=2026-08-11, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads",
+          "value": "package=graphrag; version=3.1.1; downloads_last_month=70720"
         }
       ],
       "evidence_basis": "manual",
-      "evidence_count": 7,
+      "evidence_count": 9,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -4930,7 +5035,7 @@
       "attention": null,
       "attention_cohort": null,
       "attention_raw": null,
-      "confidence": null,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -4965,9 +5070,17 @@
       "configuration_reviewed": "2026-08-10",
       "configuration_variable": [],
       "core_idea": "Плотный поиск по одному вектору на пассаж: базовая точка отсчёта.",
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+          "type": "publication",
+          "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=6517; year=2020"
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 1,
       "family": null,
       "first_published": null,
       "groups": [
@@ -4976,8 +5089,22 @@
       ],
       "id": "naive_dense",
       "kind": "technique",
-      "level": null,
-      "level_reason": null,
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
       "links": [
         {
           "kind": "preprint",
@@ -5428,10 +5555,17 @@
           "source": "https://pypi.org/project/opensearch-py/",
           "type": "package_downloads",
           "value": "package=opensearch-py; version=3.2.0; downloads_last_month=52514974"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads",
+          "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53332648"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": null,
       "first_published": null,
       "groups": [
@@ -5552,10 +5686,17 @@
           "source": "https://openalex.org/W6948434932",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.056"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2502.14902",
+          "type": "publication",
+          "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=74; year=2025"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -5665,9 +5806,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.0,
+      "attention": 1.092,
       "attention_cohort": "2025",
-      "attention_raw": 0.579,
+      "attention_raw": 0.632,
       "confidence": 1.0,
       "configuration": {},
       "configuration_inapplicable": [],
@@ -5688,10 +5829,17 @@
           "source": "https://openalex.org/W4409166754",
           "type": "publication",
           "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4409166754",
+          "type": "publication",
+          "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.632"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2025",
       "groups": [],
@@ -5887,10 +6035,17 @@
           "source": "https://pypi.org/project/qdrant-client/",
           "type": "package_downloads",
           "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19462751"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads",
+          "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19342980"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": null,
       "first_published": null,
       "groups": [
@@ -6507,10 +6662,17 @@
           "source": "https://arxiv.org/abs/2603.11768",
           "type": "publication",
           "value": "arXiv:2603.11768 (2026)"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2502.14802",
+          "type": "publication",
+          "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=193; year=2025"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": "2025-02",
       "groups": [
@@ -6519,12 +6681,11 @@
       ],
       "id": "rag_as_memory",
       "kind": "paradigm",
-      "level": "L1",
+      "level": "L2",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L2",
           "L3",
           "L4",
           "L5",
@@ -6532,7 +6693,8 @@
         ],
         "satisfied": [
           "L0",
-          "L1"
+          "L1",
+          "L2"
         ]
       },
       "links": [
@@ -7082,9 +7244,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.069,
+      "attention": 3.123,
       "attention_cohort": "2023",
-      "attention_raw": 5.452,
+      "attention_raw": 5.548,
       "confidence": 1.0,
       "configuration": {
         "C3": "score_normalization",
@@ -7110,10 +7272,17 @@
           "source": "https://openalex.org/W4401042773",
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=169; year=2024; citation_velocity=5.452"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042773",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=172; year=2024; citation_velocity=5.548"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2023",
       "groups": [
@@ -7707,10 +7876,17 @@
           "source": "https://arxiv.org/abs/2407.08223",
           "type": "publication",
           "value": "arXiv:2407.08223 (2024)"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2407.08223",
+          "type": "publication",
+          "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=113; year=2024"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "A",
       "first_published": "2025",
       "groups": [
@@ -7719,12 +7895,11 @@
       ],
       "id": "speculative_rag",
       "kind": "paradigm",
-      "level": "L1",
+      "level": "L2",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L2",
           "L3",
           "L4",
           "L5",
@@ -7732,7 +7907,8 @@
         ],
         "satisfied": [
           "L0",
-          "L1"
+          "L1",
+          "L2"
         ]
       },
       "links": [
@@ -8236,10 +8412,17 @@
           "source": "https://openalex.org/W7077909566",
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2508.18260",
+          "type": "publication",
+          "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=7; year=2025"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": "2025-08",
       "groups": [
@@ -8710,10 +8893,17 @@
           "source": "https://github.com/VectifyAI/PageIndex",
           "type": "repository",
           "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-10, releases=yes"
+        },
+        {
+          "fetched_at": "2026-08-12",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-12, releases=yes"
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": "H",
       "first_published": null,
       "groups": [

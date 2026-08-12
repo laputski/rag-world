@@ -1,0 +1,246 @@
+{
+ "id": "3613",
+ "arxiv_id": "2005.11401",
+ "source": "arxiv",
+ "source_url": null,
+ "url_abs": "https://arxiv.org/abs/2005.11401v4",
+ "url_pdf": "https://arxiv.org/pdf/2005.11401v4.pdf",
+ "thumbnail_url": "/api/thumbnails/2005_11401_v4.jpg?fit=fit9",
+ "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+ "abstract": "Large pre-trained language models have been shown to store factual knowledge in their parameters, and achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, their ability to access and precisely manipulate knowledge is still limited, and hence on knowledge-intensive tasks, their performance lags behind task-specific architectures. Additionally, providing provenance for their decisions and updating their world knowledge remain open research problems. Pre-trained models with a differentiable access mechanism to explicit non-parametric memory can overcome this issue, but have so far been only investigated for extractive downstream tasks. We explore a general-purpose fine-tuning recipe for retrieval-augmented generation (RAG) -- models which combine pre-trained parametric and non-parametric memory for language generation. We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever. We compare two RAG formulations, one which conditions on the same retrieved passages across the whole generated sequence, the other can use different passages per token. We fine-tune and evaluate our models on a wide range of knowledge-intensive NLP tasks and set the state-of-the-art on three open domain QA tasks, outperforming parametric seq2seq models and task-specific retrieve-and-extract architectures. For language generation tasks, we find that RAG models generate more specific, diverse and factual language than a state-of-the-art parametric-only seq2seq baseline.",
+ "authors": [
+  "Patrick Lewis",
+  "Ethan Perez",
+  "Aleksandra Piktus",
+  "Fabio Petroni",
+  "Vladimir Karpukhin",
+  "Naman Goyal",
+  "Heinrich Küttler",
+  "Mike Lewis",
+  "Wen-tau Yih",
+  "Tim Rocktäschel",
+  "Sebastian Riedel",
+  "Douwe Kiela"
+ ],
+ "author_links": [
+  {
+   "id": "22123",
+   "name": "Patrick Lewis",
+   "hf_username": null
+  },
+  {
+   "id": "12686",
+   "name": "Ethan Perez",
+   "hf_username": "EthanAraragi"
+  },
+  {
+   "id": "28478",
+   "name": "Aleksandra Piktus",
+   "hf_username": "ola13"
+  },
+  {
+   "id": "23162",
+   "name": "Fabio Petroni",
+   "hf_username": "fabiopetroni"
+  },
+  {
+   "id": "25813",
+   "name": "Vladimir Karpukhin",
+   "hf_username": null
+  },
+  {
+   "id": "18496",
+   "name": "Naman Goyal",
+   "hf_username": "namangoyal"
+  },
+  {
+   "id": "15308",
+   "name": "Heinrich Küttler",
+   "hf_username": null
+  },
+  {
+   "id": "2821",
+   "name": "Mike Lewis",
+   "hf_username": "mikelewis0"
+  },
+  {
+   "id": "888",
+   "name": "Wen-tau Yih",
+   "hf_username": null
+  },
+  {
+   "id": "774",
+   "name": "Tim Rocktäschel",
+   "hf_username": null
+  },
+  {
+   "id": "1479",
+   "name": "Sebastian Riedel",
+   "hf_username": "riedelcastro"
+  },
+  {
+   "id": "1840",
+   "name": "Douwe Kiela",
+   "hf_username": "douwekiela"
+  }
+ ],
+ "published": "2020-05-22",
+ "conference": null,
+ "conference_url_abs": "http://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html",
+ "conference_url_pdf": "http://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
+ "proceeding": "NeurIPS 2020 12",
+ "conference_slug": null,
+ "conference_name": null,
+ "conference_award": null,
+ "version": "v4",
+ "is_latest_version": true,
+ "citation_count": 16723,
+ "semantic_scholar_id": "659bf9ce7175e1ec266ff54359e2bd76e0b7ff31",
+ "citation_updated_at": "2026-08-06T03:46:37.256343Z",
+ "primary_category": null,
+ "all_categories": [],
+ "urls_extracted": false,
+ "tldr": null,
+ "num_pages": null,
+ "hf_models": [],
+ "hf_datasets": [],
+ "hf_spaces": [],
+ "hf_artifact_summary": null,
+ "repositories": null,
+ "project_pages": null,
+ "tasks": [
+  {
+   "id": "5",
+   "name": "Language Modeling",
+   "slug": "language-modeling"
+  }
+ ],
+ "methods": [
+  {
+   "id": "50",
+   "name": "Adam",
+   "slug": "adam",
+   "introduced_year": 2014,
+   "source_paper_id": "143",
+   "source_url": "/paper/1412.6980",
+   "source_title": "Adam: A Method for Stochastic Optimization",
+   "code_snippet_url": null
+  },
+  {
+   "id": "9",
+   "name": "BERT",
+   "slug": "bert",
+   "introduced_year": 2018,
+   "source_paper_id": "1538",
+   "source_url": "/paper/1810.04805",
+   "source_title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+   "code_snippet_url": null
+  },
+  {
+   "id": "6",
+   "name": "BPE",
+   "slug": "bpe",
+   "introduced_year": 2015,
+   "source_paper_id": "233",
+   "source_url": "/paper/1508.07909",
+   "source_title": "Neural Machine Translation of Rare Words with Subword Units",
+   "code_snippet_url": null
+  },
+  {
+   "id": "4",
+   "name": "Dropout",
+   "slug": "dropout",
+   "introduced_year": 2014,
+   "source_paper_id": "17",
+   "source_url": "/paper/1207.0580",
+   "source_title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+   "code_snippet_url": null
+  },
+  {
+   "id": "160",
+   "name": "Fine-tuning",
+   "slug": "fine-tuning",
+   "introduced_year": null,
+   "source_paper_id": null,
+   "source_url": null,
+   "source_title": null,
+   "code_snippet_url": null
+  },
+  {
+   "id": "43",
+   "name": "Layer Normalization",
+   "slug": "layer-normalization",
+   "introduced_year": 2016,
+   "source_paper_id": "429",
+   "source_url": "/paper/1607.06450",
+   "source_title": "Layer Normalization",
+   "code_snippet_url": null
+  },
+  {
+   "id": "13",
+   "name": "LSTM",
+   "slug": "lstm",
+   "introduced_year": 1997,
+   "source_paper_id": null,
+   "source_url": "https://ieeexplore.ieee.org/abstract/document/6795963",
+   "source_title": "Long Short-Term Memory",
+   "code_snippet_url": null
+  },
+  {
+   "id": "1",
+   "name": "Multi-head attention",
+   "slug": "multi-head-attention",
+   "introduced_year": 2017,
+   "source_paper_id": "755",
+   "source_url": "/paper/1706.03762",
+   "source_title": "Attention Is All You Need",
+   "code_snippet_url": null
+  },
+  {
+   "id": "27",
+   "name": "RAG",
+   "slug": "rag",
+   "introduced_year": 2020,
+   "source_paper_id": "3613",
+   "source_url": "/paper/2005.11401",
+   "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+   "code_snippet_url": null
+  },
+  {
+   "id": "53",
+   "name": "Seq2Seq",
+   "slug": "seq2seq",
+   "introduced_year": 2014,
+   "source_paper_id": "110",
+   "source_url": "/paper/1409.3215",
+   "source_title": "Sequence to Sequence Learning with Neural Networks",
+   "code_snippet_url": null
+  },
+  {
+   "id": "148",
+   "name": "Softmax",
+   "slug": "softmax",
+   "introduced_year": null,
+   "source_paper_id": null,
+   "source_url": null,
+   "source_title": null,
+   "code_snippet_url": null
+  },
+  {
+   "id": "54",
+   "name": "T5",
+   "slug": "t5",
+   "introduced_year": 2019,
+   "source_paper_id": "2715",
+   "source_url": "/paper/1910.10683",
+   "source_title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+   "code_snippet_url": null
+  }
+ ],
+ "introduced_benchmarks": null,
+ "introduced_frameworks": null,
+ "predecessor_papers": null,
+ "successor_papers": null,
+ "organizations": null,
+ "leaderboard_ranks": null
+}

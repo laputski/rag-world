@@ -32,7 +32,9 @@ pytestmark = pytest.mark.network
 
 #: Адрес развёрнутого портала. Он же указан в render.yaml и в представлении
 #: транспорта: обращаясь к чужим площадкам, портал называет себя этим адресом.
-BASE_URL = "https://rag-world.onrender.com"
+#: Собственное имя портала. Площадка отвечает и по своему адресу
+#: (rag-world.onrender.com), но проверяется то, что видит читатель.
+BASE_URL = "https://ragworld.org"
 
 HEADERS = {"User-Agent": "rag-world/0.2 (smoke check)"}
 TIMEOUT = 30

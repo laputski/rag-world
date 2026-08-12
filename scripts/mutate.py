@@ -89,6 +89,26 @@ MUTATIONS: tuple[Mutation, ...] = (
              "by_month.setdefault(evidence_path(item.fetched_at), [])",
              "by_month.setdefault(evidence_path(date(2000, 1, 1)), [])"),
 
+    # ── Каталог работ и кода ────────────────────────────────────────────────
+    Mutation("services/collectors/paperswithcode.py",
+             "ответ каталога о той ли работе",
+             "    if paper.arxiv_id != arxiv_id:", "    if False:"),
+    Mutation("services/collectors/paperswithcode.py",
+             "лента не старше запрошенной даты",
+             "        if paper.published < published_after:", "        if False:"),
+    Mutation("services/collectors/paperswithcode.py",
+             "без площадки нет свидетельства о публикации",
+             "    if not paper.venue:\n        # Сведения о площадке нет.",
+             "    if False:\n        # Сведения о площадке нет."),
+    Mutation("services/collectors/paperswithcode.py",
+             "счётчик цитирований назван по имени",
+             'parts.append(f"citations_semantic_scholar={paper.citations}")',
+             'parts.append(f"cited_by={paper.citations}")'),
+    Mutation("services/collectors/paperswithcode.py",
+             "запрос идёт по метке метода и дате",
+             '{"method": method, "published_after": published_after.isoformat()}',
+             '{"q": method}'),
+
     # ── Проверки ступени сбора ──────────────────────────────────────────────
     Mutation("services/collectors/s5.py", "нижняя граница года",
              "MIN_YEAR = 1900", "MIN_YEAR = 0"),

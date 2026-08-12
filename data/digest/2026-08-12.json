@@ -1,0 +1,116 @@
+{
+  "added": [
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Auto-RAG",
+      "technology_id": "auto_rag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "DSPy",
+      "technology_id": "dspy"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "GNN-RAG",
+      "technology_id": "gnn_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "GraphReader",
+      "technology_id": "graphreader"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "KAG",
+      "technology_id": "kag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Poison-RAG",
+      "technology_id": "poison_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "RA-ISF",
+      "technology_id": "ra_isf"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "REPLUG",
+      "technology_id": "replug"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "SimRAG",
+      "technology_id": "simrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Think-on-Graph",
+      "technology_id": "think_on_graph"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Naive Dense",
+      "technology_id": "naive_dense"
+    }
+  ],
+  "by_level": {
+    "L0": 7,
+    "L1": 18,
+    "L2": 29,
+    "L3": 3,
+    "L4": 1,
+    "L5": 1,
+    "unknown": 3
+  },
+  "demoted": [],
+  "evidence_added": 54,
+  "evidence_by_type": {
+    "package_downloads": 13,
+    "publication": 36,
+    "repository": 5
+  },
+  "evidence_seen": 191,
+  "issued_at": "2026-08-12",
+  "levels_seen": 84,
+  "links_broken": 0,
+  "links_checked": 2,
+  "promoted": [
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ColPali",
+      "technology_id": "colpali"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RAG as Memory",
+      "technology_id": "rag_as_memory"
+    },
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Speculative RAG",
+      "technology_id": "speculative_rag"
+    }
+  ],
+  "runs_seen": 10,
+  "since": "2026-08-10",
+  "text": "Впервые получили уровень 11 записей: Auto-RAG, DSPy, GNN-RAG, GraphReader, KAG, Poison-RAG, RA-ISF, REPLUG и ещё 3 записи. Поднялись в уровне ColPali с L1 до L2, RAG as Memory с L1 до L2, Speculative RAG с L1 до L2. Собрано 54 свидетельства: 36 о публикациях, 13 о загрузках пакетов, 5 о репозиториях. Сейчас в реестре 62 записи. Уровень L0 у 7 записей, L1 у 18, L2 у 29, L3 у 3, L4 у 1, L5 у 1. У 3 записей уровень не вычислен, потому что свидетельств пока нет.",
+  "text_en": "Received a level for the first time: 11 records, namely Auto-RAG, DSPy, GNN-RAG, GraphReader, KAG, Poison-RAG, RA-ISF, REPLUG and 3 more. Rose in level: ColPali from L1 to L2, RAG as Memory from L1 to L2, Speculative RAG from L1 to L2. Collected 54 pieces of evidence: 36 about publications, 13 about package downloads, 5 about repositories. The registry now holds 62 records. Level L0 in 7 records, L1 in 18, L2 in 29, L3 in 3, L4 in 1, L5 in 1. For 3 records no level is computed, because there is no evidence yet.",
+  "total": 62
+}

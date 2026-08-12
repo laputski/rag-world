@@ -2,7 +2,8 @@
 """Сбор свидетельств из открытых источников.
 
 Первый шаг цепочки обновления. Обходит источники каждой записи реестра,
-опрашивает arXiv, OpenAlex и GitHub, прогоняет детерминированные проверки и
+опрашивает архив препринтов, открытый индекс, площадку репозиториев и
+каталог работ и кода, прогоняет детерминированные проверки и
 дописывает прошедшие свидетельства в журнал. Языковая модель не участвует.
 
 Проверки принципиально детерминированные: разрешимость идентификатора,
@@ -54,7 +55,10 @@ def _collectors_for(url: str) -> list[str]:
     навсегда осталась бы препринтом, даже если вышла на конференции.
     """
     if _ARXIV_HOST in url:
-        return ["arxiv", "openalex"]
+        # Каталог работ и кода опрашивается по тому же номеру препринта. Он
+        # даёт площадку публикации вторым источником: пока она приходила только
+        # из открытого индекса, ошибка индекса ничем не перекрывалась.
+        return ["arxiv", "openalex", "paperswithcode"]
     if "github.com" in url:
         return ["github"]
     if "openalex.org" in url:
@@ -65,9 +69,10 @@ def _collectors_for(url: str) -> list[str]:
 def _collect_one(
     tech: store.Technology, *, http, github_token: str | None, today: date
 ) -> tuple[list[RawEvidence], list[str]]:
-    from services.collectors.arxiv import collect_arxiv
+    from services.collectors.arxiv import _extract_arxiv_id, collect_arxiv
     from services.collectors.github import collect_github
     from services.collectors.openalex import collect_openalex
+    from services.collectors.paperswithcode import collect_venue
 
     raw: list[RawEvidence] = []
     errors: list[str] = []
@@ -90,6 +95,14 @@ def _collect_one(
                 result = collect_github(
                     tech.id, link.url, http=http, token=github_token, today=today,
                 )
+            elif kind == "paperswithcode":
+                # Каталог спрашивается по номеру препринта, а не по адресу:
+                # он отвечает лентой свежайших работ на всё, чего не понял, и
+                # такой ответ выглядит осмысленным.
+                number = _extract_arxiv_id(link.url)
+                if not number:
+                    continue
+                result = collect_venue(tech.id, number, http=http, today=today)
             else:
                 result = collect_openalex(
                     tech.id, link.url, http=http,
@@ -181,7 +194,7 @@ def gather(
     if limit:
         technologies = technologies[:limit]
 
-    summary = CollectSummary(sources=["arxiv", "openalex", "github"])
+    summary = CollectSummary(sources=["arxiv", "openalex", "github", "paperswithcode"])
     accepted: list[store.Evidence] = []
     raw_all: list[RawEvidence] = []
 

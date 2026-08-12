@@ -3,7 +3,12 @@
   <channel>
     <title>RAG World: хроника изменений</title>
     <description>Изменения уровней зрелости технологий RAG</description>
-    <lastBuildDate>2026-08-10</lastBuildDate>
+    <lastBuildDate>2026-08-12</lastBuildDate>
+    <item>
+      <title>Дайджест за 2026-08-12</title>
+      <description>Впервые получили уровень 11 записей: Auto-RAG, DSPy, GNN-RAG, GraphReader, KAG, Poison-RAG, RA-ISF, REPLUG и ещё 3 записи. Поднялись в уровне ColPali с L1 до L2, RAG as Memory с L1 до L2, Speculative RAG с L1 до L2. Собрано 54 свидетельства: 36 о публикациях, 13 о загрузках пакетов, 5 о репозиториях. Сейчас в реестре 62 записи. Уровень L0 у 7 записей, L1 у 18, L2 у 29, L3 у 3, L4 у 1, L5 у 1. У 3 записей уровень не вычислен, потому что свидетельств пока нет.</description>
+      <guid isPermaLink="false">digest-2026-08-12</guid>
+    </item>
     <item>
       <title>Дайджест за 2026-08-10</title>
       <description>Поднялись в уровне HippoRAG с L0 до L4, Dense X с L1 до L2, Edge и On-Device RAG с L0 до L1. Собрано 45 свидетельств: 35 о публикациях, 7 о загрузках пакетов, 3 о репозиториях. Сейчас в реестре 53 записи. Уровень L0 у 7 записей, L1 у 17, L2 у 19, L3 у 3, L4 у 1, L5 у 1. У 5 записей уровень не вычислен, потому что свидетельств пока нет.</description>
@@ -13,6 +18,26 @@
       <title>Дайджест за 2026-08-09</title>
       <description>Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.</description>
       <guid isPermaLink="false">digest-2026-08-09</guid>
+    </item>
+    <item>
+      <title>ColPali: L1 → L2</title>
+      <description>publication https://arxiv.org/abs/2407.01449, publication https://openalex.org/W4400373146, publication https://paperswithcode.co/api/v1/papers/2407.01449</description>
+      <guid isPermaLink="false">colpali-2026-08-12-L2</guid>
+    </item>
+    <item>
+      <title>Naive Dense: — → L2</title>
+      <description>publication https://paperswithcode.co/api/v1/papers/2004.04906</description>
+      <guid isPermaLink="false">naive_dense-2026-08-12-L2</guid>
+    </item>
+    <item>
+      <title>RAG as Memory: L1 → L2</title>
+      <description>publication https://openalex.org/W4407831980, publication https://openalex.org/W7135244490, publication https://arxiv.org/abs/2502.14802, publication https://arxiv.org/abs/2603.11768, publication https://paperswithcode.co/api/v1/papers/2502.14802</description>
+      <guid isPermaLink="false">rag_as_memory-2026-08-12-L2</guid>
+    </item>
+    <item>
+      <title>Speculative RAG: L1 → L2</title>
+      <description>publication https://openalex.org/W4400611538, publication https://arxiv.org/abs/2407.08223, publication https://paperswithcode.co/api/v1/papers/2407.08223</description>
+      <guid isPermaLink="false">speculative_rag-2026-08-12-L2</guid>
     </item>
     <item>
       <title>Auto-RAG: — → L1</title>
@@ -243,26 +268,6 @@
       <title>Embodied RAG: — → L1</title>
       <description>publication https://openalex.org/W4403853662</description>
       <guid isPermaLink="false">embodied_rag-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>Federated RAG: L0 → L3</title>
-      <description>repository https://github.com/DocAILab/FedE4RAG, publication https://openalex.org/W4416981893, publication https://openalex.org/W4416034993</description>
-      <guid isPermaLink="false">federated_rag-2026-08-08-L3</guid>
-    </item>
-    <item>
-      <title>FLARE: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2305.06983, publication https://openalex.org/W4389519118</description>
-      <guid isPermaLink="false">flare-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>HyDE: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2212.10496, publication https://openalex.org/W4385565351</description>
-      <guid isPermaLink="false">hyde-2026-08-08-L2</guid>
-    </item>
-    <item>
-      <title>IRCoT: L1 → L2</title>
-      <description>publication https://arxiv.org/abs/2212.10509, publication https://openalex.org/W4385571271</description>
-      <guid isPermaLink="false">ircot-2026-08-08-L2</guid>
     </item>
   </channel>
 </rss>

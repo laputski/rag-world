@@ -13,7 +13,10 @@ const AUTHOR = "Лапутский А.";
 const AUTHOR_LATIN = "Laputski, A.";
 const TITLE = "RAG World: реестр технологий Retrieval-Augmented Generation";
 const TITLE_LATIN = "RAG World: a registry of Retrieval-Augmented Generation technologies";
-const BASE = "https://rag-world.onrender.com";
+// Собственное имя портала, а не адрес площадки. Ссылка живёт дольше
+// хостинга: переезд на другую площадку не должен обрывать ссылки в чужих
+// работах, а адрес вида *.onrender.com принадлежит площадке, не порталу.
+const BASE = "https://ragworld.org";
 
 export interface CitationTarget {
   /** Метка выпуска: без неё ссылка указывает на изменяющийся объект. */

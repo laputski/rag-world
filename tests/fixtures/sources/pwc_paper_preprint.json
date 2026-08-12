@@ -1,0 +1,231 @@
+{
+ "id": "31624",
+ "arxiv_id": "2405.14831",
+ "source": "arxiv",
+ "source_url": null,
+ "url_abs": "https://arxiv.org/abs/2405.14831v3",
+ "url_pdf": "https://arxiv.org/pdf/2405.14831v3.pdf",
+ "thumbnail_url": "/api/thumbnails/2405_14831_v3.jpg?fit=fit9",
+ "title": "HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models",
+ "abstract": "In order to thrive in hostile and ever-changing natural environments, mammalian brains evolved to store large amounts of knowledge about the world and continually integrate new information while avoiding catastrophic forgetting. Despite the impressive accomplishments, large language models (LLMs), even with retrieval-augmented generation (RAG), still struggle to efficiently and effectively integrate a large amount of new experiences after pre-training. In this work, we introduce HippoRAG, a novel retrieval framework inspired by the hippocampal indexing theory of human long-term memory to enable deeper and more efficient knowledge integration over new experiences. HippoRAG synergistically orchestrates LLMs, knowledge graphs, and the Personalized PageRank algorithm to mimic the different roles of neocortex and hippocampus in human memory. We compare HippoRAG with existing RAG methods on multi-hop question answering and show that our method outperforms the state-of-the-art methods remarkably, by up to 20%. Single-step retrieval with HippoRAG achieves comparable or better performance than iterative retrieval like IRCoT while being 10-30 times cheaper and 6-13 times faster, and integrating HippoRAG into IRCoT brings further substantial gains. Finally, we show that our method can tackle new types of scenarios that are out of reach of existing methods. Code and data are available at https://github.com/OSU-NLP-Group/HippoRAG.",
+ "authors": [
+  "Bernal Jiménez Gutiérrez",
+  "Yiheng Shu",
+  "Yu Gu",
+  "Michihiro Yasunaga",
+  "Yu Su"
+ ],
+ "author_links": [
+  {
+   "id": "39441",
+   "name": "Bernal Jiménez Gutiérrez",
+   "hf_username": null
+  },
+  {
+   "id": "28022",
+   "name": "Yiheng Shu",
+   "hf_username": "yhshu"
+  },
+  {
+   "id": "16806",
+   "name": "Yu Gu",
+   "hf_username": "aidenygu"
+  },
+  {
+   "id": "5857",
+   "name": "Michihiro Yasunaga",
+   "hf_username": "michiyasunaga"
+  },
+  {
+   "id": "7739",
+   "name": "Yu Su",
+   "hf_username": "ysu-nlp"
+  }
+ ],
+ "published": "2024-05-23",
+ "conference": null,
+ "conference_url_abs": null,
+ "conference_url_pdf": null,
+ "proceeding": null,
+ "conference_slug": null,
+ "conference_name": null,
+ "conference_award": null,
+ "version": "v3",
+ "is_latest_version": true,
+ "citation_count": 298,
+ "semantic_scholar_id": "4308208fac24626e0c927ee728038aadc4e87266",
+ "citation_updated_at": "2026-08-08T12:17:39.712742Z",
+ "primary_category": null,
+ "all_categories": [],
+ "urls_extracted": false,
+ "tldr": "HippoRAG, a retrieval framework inspired by hippocampal indexing theory, enables efficient knowledge integration in large language models by combining LLMs, knowledge graphs, and Personalized PageRank, outperforming existing methods in multi-hop question answering.",
+ "num_pages": null,
+ "hf_models": [],
+ "hf_datasets": [],
+ "hf_spaces": [],
+ "hf_artifact_summary": {
+  "model_count": 1,
+  "dataset_count": 3,
+  "space_count": 0,
+  "best_kind": "dataset",
+  "best_count": 3,
+  "best_url": "https://huggingface.co/datasets?other=arxiv:2405.14831"
+ },
+ "repositories": null,
+ "project_pages": null,
+ "tasks": [
+  {
+   "id": "296",
+   "name": "Question Answering",
+   "slug": "question-answering"
+  }
+ ],
+ "methods": [
+  {
+   "id": "50",
+   "name": "Adam",
+   "slug": "adam",
+   "introduced_year": 2014,
+   "source_paper_id": "143",
+   "source_url": "/paper/1412.6980",
+   "source_title": "Adam: A Method for Stochastic Optimization",
+   "code_snippet_url": null
+  },
+  {
+   "id": "9",
+   "name": "BERT",
+   "slug": "bert",
+   "introduced_year": 2018,
+   "source_paper_id": "1538",
+   "source_url": "/paper/1810.04805",
+   "source_title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+   "code_snippet_url": null
+  },
+  {
+   "id": "6",
+   "name": "BPE",
+   "slug": "bpe",
+   "introduced_year": 2015,
+   "source_paper_id": "233",
+   "source_url": "/paper/1508.07909",
+   "source_title": "Neural Machine Translation of Rare Words with Subword Units",
+   "code_snippet_url": null
+  },
+  {
+   "id": "110",
+   "name": "Chain-of-Thought (CoT)",
+   "slug": "chain-of-thought-cot",
+   "introduced_year": 2022,
+   "source_paper_id": "7789",
+   "source_url": "/paper/2201.11903",
+   "source_title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+   "code_snippet_url": null
+  },
+  {
+   "id": "4",
+   "name": "Dropout",
+   "slug": "dropout",
+   "introduced_year": 2014,
+   "source_paper_id": "17",
+   "source_url": "/paper/1207.0580",
+   "source_title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+   "code_snippet_url": null
+  },
+  {
+   "id": "192",
+   "name": "Gemini 1.5",
+   "slug": "gemini-1-5",
+   "introduced_year": 2024,
+   "source_paper_id": "28597",
+   "source_url": "/paper/2403.05530",
+   "source_title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context",
+   "code_snippet_url": null
+  },
+  {
+   "id": "112",
+   "name": "Large language model (LLM)",
+   "slug": "large-language-model-llm",
+   "introduced_year": null,
+   "source_paper_id": null,
+   "source_url": null,
+   "source_title": null,
+   "code_snippet_url": null
+  },
+  {
+   "id": "43",
+   "name": "Layer Normalization",
+   "slug": "layer-normalization",
+   "introduced_year": 2016,
+   "source_paper_id": "429",
+   "source_url": "/paper/1607.06450",
+   "source_title": "Layer Normalization",
+   "code_snippet_url": null
+  },
+  {
+   "id": "1",
+   "name": "Multi-head attention",
+   "slug": "multi-head-attention",
+   "introduced_year": 2017,
+   "source_paper_id": "755",
+   "source_url": "/paper/1706.03762",
+   "source_title": "Attention Is All You Need",
+   "code_snippet_url": null
+  },
+  {
+   "id": "103",
+   "name": "Pre-training",
+   "slug": "pre-training",
+   "introduced_year": null,
+   "source_paper_id": null,
+   "source_url": null,
+   "source_title": null,
+   "code_snippet_url": null
+  },
+  {
+   "id": "27",
+   "name": "RAG",
+   "slug": "rag",
+   "introduced_year": 2020,
+   "source_paper_id": "3613",
+   "source_url": "/paper/2005.11401",
+   "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+   "code_snippet_url": null
+  },
+  {
+   "id": "187",
+   "name": "ReAct",
+   "slug": "react",
+   "introduced_year": 2022,
+   "source_paper_id": "10630",
+   "source_url": "/paper/2210.03629",
+   "source_title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+   "code_snippet_url": null
+  },
+  {
+   "id": "1013",
+   "name": "Self-Consistency",
+   "slug": "self-consistency",
+   "introduced_year": 2022,
+   "source_paper_id": "8369",
+   "source_url": "/paper/2203.11171",
+   "source_title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+   "code_snippet_url": null
+  },
+  {
+   "id": "148",
+   "name": "Softmax",
+   "slug": "softmax",
+   "introduced_year": null,
+   "source_paper_id": null,
+   "source_url": null,
+   "source_title": null,
+   "code_snippet_url": null
+  }
+ ],
+ "introduced_benchmarks": null,
+ "introduced_frameworks": null,
+ "predecessor_papers": null,
+ "successor_papers": null,
+ "organizations": null,
+ "leaderboard_ranks": null
+}

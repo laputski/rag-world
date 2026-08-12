@@ -50,11 +50,11 @@ def test_every_polled_address_is_listed():
     # Обратная сторона: перечень описывает только то, что существует в коде.
     import re
 
+    # Перебираются все модули сборщиков, а не список имён: список пришлось бы
+    # дополнять при каждом новом сборщике, и его как раз забыли бы.
     declared = set()
-    for module in ("arxiv", "openalex", "github", "pypi", "frameworks"):
-        text = (ROOT / "services" / "collectors" / f"{module}.py").read_text(
-            encoding="utf-8"
-        )
+    for path in sorted((ROOT / "services" / "collectors").glob("*.py")):
+        text = path.read_text(encoding="utf-8")
         declared |= set(re.findall(r'^[A-Z_]+ *= *"(https?://[^"]+)"', text, re.M))
 
     undocumented = sorted(

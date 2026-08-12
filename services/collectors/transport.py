@@ -34,6 +34,7 @@ HOST_DELAYS: dict[str, float] = {
     "api.openalex.org": 1.0,
     "api.github.com": 1.0,
     "pypi.org": 0.2,
+    "paperswithcode.co": 1.0,
 }
 DEFAULT_DELAY = 0.5
 
@@ -47,7 +48,7 @@ RETRIES_ON_RATE_LIMIT = 3
 #: справочника отвечала отказом, и лишь с представлением стало видно, что её не
 #: существует вовсе. Молчание о себе не делает обращение вежливее — оно делает
 #: ответ менее правдивым.
-DEFAULT_USER_AGENT = "rag-world/0.2 (registry; +https://rag-world.onrender.com)"
+DEFAULT_USER_AGENT = "rag-world/0.2 (registry; +https://ragworld.org)"
 
 
 class RequestsTransport:

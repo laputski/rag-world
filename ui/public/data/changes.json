@@ -1,6 +1,94 @@
 {
-  "built_at": "2026-08-10",
+  "built_at": "2026-08-12",
   "changes": [
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2407.01449",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4400373146",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "ColPali",
+      "technology_id": "colpali"
+    },
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Naive Dense",
+      "technology_id": "naive_dense"
+    },
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4407831980",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7135244490",
+          "type": "publication"
+        },
+        {
+          "source": "https://arxiv.org/abs/2502.14802",
+          "type": "publication"
+        },
+        {
+          "source": "https://arxiv.org/abs/2603.11768",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2502.14802",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RAG as Memory",
+      "technology_id": "rag_as_memory"
+    },
+    {
+      "changed_at": "2026-08-12",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4400611538",
+          "type": "publication"
+        },
+        {
+          "source": "https://arxiv.org/abs/2407.08223",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2407.08223",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Speculative RAG",
+      "technology_id": "speculative_rag"
+    },
     {
       "changed_at": "2026-08-10",
       "evidence": [

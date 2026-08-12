@@ -1,0 +1,679 @@
+{
+ "count": 5,
+ "next_page": null,
+ "previous_page": null,
+ "results": [
+  {
+   "id": "106064",
+   "arxiv_id": "2608.02583",
+   "source": "arxiv",
+   "source_url": null,
+   "url_abs": "https://arxiv.org/abs/2608.02583",
+   "url_pdf": "https://arxiv.org/pdf/2608.02583.pdf",
+   "thumbnail_url": "/api/thumbnails/2608_02583_v1.jpg?fit=fit9",
+   "title": "UEmbed: Unified Sparse and Dense Multimodal Embeddings",
+   "abstract": "Sparse retrieval underpins modern search systems, from web search to retrieval-augmented generation. Existing work has introduced Learned Sparse Retrieval (LSR) to push beyond exact lexical matching toward richer semantics. Yet LSR has so far remained tied to encoder-style bidirectional architectures, and its extension to multimodal settings still relies heavily on auxiliary cross-modal modules. To address these limitations, we introduce UEmbed (Unified Embedding), a decoder-only multimodal embedding model that produces both sparse lexical and dense representations in one causal forward pass. UEmbed appends N learnable special tokens to the input and partitions the vocabulary into N disjoint subsets. Each token's causal hidden state predicts sparse weights over its assigned subset, and the N subsets are concatenated into the full sparse vector. Trained on public data, we release UEmbed at 2B, 4B, and 9B scales. UEmbed-9B reaches 71.8 (dense) and 71.0 (sparse) on MMEB-v2, outperforming multimodal embedding models trained on publicly available data (e.g., RzenEmbed). On BEIR, UEmbed also remains competitive with strong dense and sparse baselines. Furthermore, we demonstrate the practical utility of UEmbed across three dimensions: effectiveness, efficiency, and agentic applications. Overall, UEmbed offers a new paradigm: it unifies dense and sparse embeddings in one model, while further extending sparse retrieval to unify text and multimodal inputs.",
+   "authors": [
+    "Tingyu Song",
+    "Mingxin Li",
+    "Yanzhao Zhang",
+    "Dingkun Long",
+    "Pengjun Xie",
+    "Zhijie Nie",
+    "Yilun Zhao",
+    "Shu Wu"
+   ],
+   "author_links": [],
+   "published": "2026-08-03",
+   "conference": null,
+   "conference_url_abs": null,
+   "conference_url_pdf": null,
+   "proceeding": null,
+   "conference_slug": null,
+   "conference_name": null,
+   "conference_award": null,
+   "version": "v1",
+   "is_latest_version": true,
+   "citation_count": 0,
+   "semantic_scholar_id": "da3638f29646bc2c4947a80998d1b899dd319744",
+   "citation_updated_at": "2026-08-11T05:47:08.391154Z",
+   "primary_category": null,
+   "all_categories": [],
+   "urls_extracted": true,
+   "tldr": null,
+   "num_pages": null,
+   "hf_models": [],
+   "hf_datasets": [],
+   "hf_spaces": [],
+   "hf_artifact_summary": {
+    "model_count": 3,
+    "dataset_count": 0,
+    "space_count": 1,
+    "best_kind": "model",
+    "best_count": 3,
+    "best_url": "https://huggingface.co/models?other=arxiv:2608.02583"
+   },
+   "repositories": null,
+   "project_pages": null,
+   "tasks": [
+    {
+     "id": "17",
+     "name": "Embedding models",
+     "slug": "embedding-models"
+    },
+    {
+     "id": "23",
+     "name": "Retrieval",
+     "slug": "retrieval"
+    }
+   ],
+   "methods": [
+    {
+     "id": "9",
+     "name": "BERT",
+     "slug": "bert",
+     "introduced_year": 2018,
+     "source_paper_id": "1538",
+     "source_url": "/paper/1810.04805",
+     "source_title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+     "code_snippet_url": null
+    },
+    {
+     "id": "114",
+     "name": "ColPali",
+     "slug": "colpali",
+     "introduced_year": 2024,
+     "source_paper_id": "33969",
+     "source_url": "/paper/2407.01449",
+     "source_title": "ColPali: Efficient Document Retrieval with Vision Language Models",
+     "code_snippet_url": null
+    },
+    {
+     "id": "97",
+     "name": "Embedding",
+     "slug": "embedding",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "27",
+     "name": "RAG",
+     "slug": "rag",
+     "introduced_year": 2020,
+     "source_paper_id": "3613",
+     "source_url": "/paper/2005.11401",
+     "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+     "code_snippet_url": null
+    }
+   ],
+   "introduced_benchmarks": null,
+   "introduced_frameworks": null,
+   "predecessor_papers": null,
+   "successor_papers": null,
+   "organizations": [
+    {
+     "id": "60",
+     "name": "Alibaba-NLP",
+     "slug": "alibaba-nlp",
+     "logo_url": "/api/v1/organizations/alibaba-nlp/logo/38da3343b1b10f639a94db5818f3713973abdbbb20ad29ade5762c68c3d5af10.webp",
+     "source": "hf_org_papers",
+     "added_by_hf_username": null
+    }
+   ],
+   "leaderboard_ranks": null
+  },
+  {
+   "id": "106075",
+   "arxiv_id": "2608.01827",
+   "source": "arxiv",
+   "source_url": null,
+   "url_abs": "https://arxiv.org/abs/2608.01827",
+   "url_pdf": "https://arxiv.org/pdf/2608.01827.pdf",
+   "thumbnail_url": "/api/thumbnails/2608_01827_v1.jpg?fit=fit9",
+   "title": "DeepVoyager-VL: Incentivizing Vision-in-the-Loop Search for Long-Horizon Multimodal Agents",
+   "abstract": "Multimodal large language models (MLLMs) have advanced visual understanding and reasoning, yet their static parametric knowledge limits their ability to address knowledge-intensive and dynamically evolving open-world problems. To move beyond this limitation, multimodal deep search has emerged as a key direction for open-world information access, evolving from single-turn factual retrieval toward long-horizon, multi-turn search guided by visual evidence. However, existing methods typically confine vision to the input or answer stage, overlooking its role in intermediate reasoning, and lack designs tailored to long-horizon interaction. Consequently, visual evidence rarely drives continued retrieval, constraining both interaction depth and reasoning span. To address these limitations, we propose DeepVoyager-VL, a long-horizon multimodal deep-search framework for vision-in-the-loop search. Specifically, we construct a multimodal event graph to drive data synthesis, yielding problems with intermediate visual dependencies and long reasoning chains. We then design an agent framework for active visual acquisition and on-demand image loading. Finally, we fine-tune models on the synthesized data without reinforcement learning. Extensive experiments across ten multimodal search benchmarks demonstrate the effectiveness of our method.",
+   "authors": [
+    "Huanyao Zhang",
+    "Jiepeng Zhou",
+    "Runhao Zhao",
+    "Yanzhe Shan",
+    "Jiaoyang Chen",
+    "BoWen Zhou",
+    "Bo Li",
+    "Fang Wang",
+    "Jialong Wu",
+    "Zhengwei Tao",
+    "Lang Mei",
+    "Xiaohan Yu",
+    "Liyan Liu",
+    "Chong Chen",
+    "Wentao Zhang"
+   ],
+   "author_links": [],
+   "published": "2026-08-03",
+   "conference": null,
+   "conference_url_abs": null,
+   "conference_url_pdf": null,
+   "proceeding": null,
+   "conference_slug": null,
+   "conference_name": null,
+   "conference_award": null,
+   "version": "v1",
+   "is_latest_version": true,
+   "citation_count": 0,
+   "semantic_scholar_id": "0fb5809b0f62dd02b01e40c55eb19c43bfed913e",
+   "citation_updated_at": "2026-08-11T07:53:27.369639Z",
+   "primary_category": null,
+   "all_categories": [],
+   "urls_extracted": true,
+   "tldr": null,
+   "num_pages": null,
+   "hf_models": [],
+   "hf_datasets": [],
+   "hf_spaces": [],
+   "hf_artifact_summary": null,
+   "repositories": null,
+   "project_pages": null,
+   "tasks": [
+    {
+     "id": "8",
+     "name": "Image Understanding",
+     "slug": "image-understanding"
+    },
+    {
+     "id": "22",
+     "name": "Reinforcement Learning",
+     "slug": "reinforcement-learning"
+    }
+   ],
+   "methods": [
+    {
+     "id": "160",
+     "name": "Fine-tuning",
+     "slug": "fine-tuning",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "193",
+     "name": "Gemini 2.5",
+     "slug": "gemini-2-5",
+     "introduced_year": 2025,
+     "source_paper_id": "51774",
+     "source_url": "/paper/2507.06261",
+     "source_title": "Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities",
+     "code_snippet_url": null
+    },
+    {
+     "id": "32",
+     "name": "GRPO",
+     "slug": "grpo",
+     "introduced_year": null,
+     "source_paper_id": "26841",
+     "source_url": "/paper/2402.03300",
+     "source_title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+     "code_snippet_url": null
+    },
+    {
+     "id": "112",
+     "name": "Large language model (LLM)",
+     "slug": "large-language-model-llm",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "126",
+     "name": "LLaVa",
+     "slug": "llava",
+     "introduced_year": 2023,
+     "source_paper_id": "14752",
+     "source_url": "/paper/2304.08485",
+     "source_title": "Visual Instruction Tuning",
+     "code_snippet_url": null
+    },
+    {
+     "id": "181",
+     "name": "Multi-turn",
+     "slug": "multi-turn",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "27",
+     "name": "RAG",
+     "slug": "rag",
+     "introduced_year": 2020,
+     "source_paper_id": "3613",
+     "source_url": "/paper/2005.11401",
+     "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+     "code_snippet_url": null
+    },
+    {
+     "id": "187",
+     "name": "ReAct",
+     "slug": "react",
+     "introduced_year": 2022,
+     "source_paper_id": "10630",
+     "source_url": "/paper/2210.03629",
+     "source_title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+     "code_snippet_url": null
+    }
+   ],
+   "introduced_benchmarks": null,
+   "introduced_frameworks": null,
+   "predecessor_papers": null,
+   "successor_papers": null,
+   "organizations": [
+    {
+     "id": "484",
+     "name": "Peking University",
+     "slug": "pekinguniversity",
+     "logo_url": "/api/v1/organizations/pekinguniversity/logo/d65ab0a4b5d535dfa0679c2b28a7198a60deeb3873c72d5de7483142be6fc490.webp",
+     "source": "hf_org_papers",
+     "added_by_hf_username": null
+    }
+   ],
+   "leaderboard_ranks": null
+  },
+  {
+   "id": "108935",
+   "arxiv_id": "2608.06020",
+   "source": "arxiv",
+   "source_url": null,
+   "url_abs": "https://arxiv.org/abs/2608.06020",
+   "url_pdf": "https://arxiv.org/pdf/2608.06020.pdf",
+   "thumbnail_url": "/api/thumbnails/2608_06020_v1.jpg?fit=fit9",
+   "title": "From Economic Agents to Agentic Economies: A Systems Blueprint for Economic World Models",
+   "abstract": "Economic World Models (EWMs) are generative economic models that simulate how economies evolve from within by modeling heterogeneous agents, their beliefs and actions, and the market and institutional mechanisms through which their interactions produce aggregate outcomes. This paper develops an implementation roadmap for building economic world models as generative engines in which heterogeneous agents act, interact, adapt, and co-evolve with markets and institutions, thereby producing economic dynamics from the inside. We organize EWM systems into a six-level capability ladder, from fixed rule-based agent worlds to adaptive and LLM-based agent worlds, self-evolving agents, evolving institutional worlds, and sim-to-real economic twins aligned with real observations. A systematic literature survey across these levels reveals that existing work remains concentrated in lower-level agent and simulation environments, while systems with self-evolving agents, endogenous institutions, persistent empirical alignment, and validated economic mechanisms remain rare. By translating the EWM agenda into an implementation blueprint, this paper aims to accelerate the development of the next generation of economic simulation environments that can serve as high-fidelity sandboxes for human decision-makers and as training, planning, evaluation, and safety substrates for AI agents. We release a curated paper list and related resources to support future research.",
+   "authors": [
+    "Jiale Han",
+    "Xiang Li",
+    "Jing Qian",
+    "Wenyuan Gu",
+    "Pin Gao",
+    "Ye Luo",
+    "Hongyuan Zha",
+    "DaCheng Tao",
+    "Benyou Wang",
+    "Lin William Cong"
+   ],
+   "author_links": [],
+   "published": "2026-08-06",
+   "conference": null,
+   "conference_url_abs": null,
+   "conference_url_pdf": null,
+   "proceeding": null,
+   "conference_slug": null,
+   "conference_name": null,
+   "conference_award": null,
+   "version": "v1",
+   "is_latest_version": true,
+   "citation_count": 0,
+   "semantic_scholar_id": null,
+   "citation_updated_at": "2026-08-07T08:46:37.262531Z",
+   "primary_category": null,
+   "all_categories": [],
+   "urls_extracted": true,
+   "tldr": null,
+   "num_pages": null,
+   "hf_models": [],
+   "hf_datasets": [],
+   "hf_spaces": [],
+   "hf_artifact_summary": null,
+   "repositories": null,
+   "project_pages": null,
+   "tasks": [
+    {
+     "id": "14",
+     "name": "Agents",
+     "slug": "agents"
+    },
+    {
+     "id": "26",
+     "name": "World Models",
+     "slug": "world-models"
+    }
+   ],
+   "methods": [
+    {
+     "id": "110",
+     "name": "Chain-of-Thought (CoT)",
+     "slug": "chain-of-thought-cot",
+     "introduced_year": 2022,
+     "source_paper_id": "7789",
+     "source_url": "/paper/2201.11903",
+     "source_title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+     "code_snippet_url": null
+    },
+    {
+     "id": "177",
+     "name": "DeepSeek-R1",
+     "slug": "deepseek-r1",
+     "introduced_year": 2024,
+     "source_paper_id": "43109",
+     "source_url": "/paper/2501.12948",
+     "source_title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+     "code_snippet_url": null
+    },
+    {
+     "id": "185",
+     "name": "Few-shot prompting",
+     "slug": "few-shot-prompting",
+     "introduced_year": 2020,
+     "source_paper_id": "3634",
+     "source_url": "/paper/2005.14165",
+     "source_title": "Language Models are Few-Shot Learners",
+     "code_snippet_url": null
+    },
+    {
+     "id": "186",
+     "name": "GPT-3",
+     "slug": "gpt-3",
+     "introduced_year": 2020,
+     "source_paper_id": "3634",
+     "source_url": "/paper/2005.14165",
+     "source_title": "Language Models are Few-Shot Learners",
+     "code_snippet_url": null
+    },
+    {
+     "id": "112",
+     "name": "Large language model (LLM)",
+     "slug": "large-language-model-llm",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "27",
+     "name": "RAG",
+     "slug": "rag",
+     "introduced_year": 2020,
+     "source_paper_id": "3613",
+     "source_url": "/paper/2005.11401",
+     "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+     "code_snippet_url": null
+    },
+    {
+     "id": "187",
+     "name": "ReAct",
+     "slug": "react",
+     "introduced_year": 2022,
+     "source_paper_id": "10630",
+     "source_url": "/paper/2210.03629",
+     "source_title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+     "code_snippet_url": null
+    }
+   ],
+   "introduced_benchmarks": null,
+   "introduced_frameworks": null,
+   "predecessor_papers": null,
+   "successor_papers": null,
+   "organizations": null,
+   "leaderboard_ranks": null
+  },
+  {
+   "id": "108936",
+   "arxiv_id": "2608.05138",
+   "source": "arxiv",
+   "source_url": null,
+   "url_abs": "https://arxiv.org/abs/2608.05138",
+   "url_pdf": "https://arxiv.org/pdf/2608.05138.pdf",
+   "thumbnail_url": "/api/thumbnails/2608_05138_v1.jpg?fit=fit9",
+   "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
+   "abstract": "Modern Greek is absent from NVIDIA's Nemotron retrieval models and from major multilingual retrieval benchmarks, despite being important for retrieval-augmented generation (RAG) in legal, energy, financial, and medical applications. We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmark called HERA. Our study shows that a parameter-free BM25 baseline outperforms several off-the-shelf multilingual dense retrieval models on specialist Greek corpora. After fine-tuning on 65,773 Greek retrieval pairs, a Nemotron 1B embedder improves nDCG@10 from 0.362 to 0.835 and substantially outperforms its unadapted counterpart. The learned language competence transfers to general-domain Greek, although the advantage over BM25 remains domain-dependent. We further adapt a cross-encoder reranker and demonstrate consistent improvements across specialist domains. Finally, we LoRA-tune a Nemotron 30B-A3B mixture-of-experts reader for grounded generation, increasing judged answer correctness from 29.4% to 66.9% while significantly improving faithfulness and citation quality. We also introduce HERA, the first large-scale Greek benchmark for retrieval-augmented generation, and release our adapted models and benchmark to support future research on Greek-language RAG systems.",
+   "authors": [
+    "Ayoub Kirouane",
+    "Christos Petrocheilos"
+   ],
+   "author_links": [],
+   "published": "2026-08-05",
+   "conference": null,
+   "conference_url_abs": null,
+   "conference_url_pdf": null,
+   "proceeding": null,
+   "conference_slug": null,
+   "conference_name": null,
+   "conference_award": null,
+   "version": "v1",
+   "is_latest_version": true,
+   "citation_count": 0,
+   "semantic_scholar_id": "08262b3d60bd804a95d13aa6f2fa7d8f64cf18fe",
+   "citation_updated_at": "2026-08-07T08:46:37.262531Z",
+   "primary_category": null,
+   "all_categories": [],
+   "urls_extracted": false,
+   "tldr": null,
+   "num_pages": null,
+   "hf_models": [],
+   "hf_datasets": [],
+   "hf_spaces": [],
+   "hf_artifact_summary": null,
+   "repositories": null,
+   "project_pages": null,
+   "tasks": [
+    {
+     "id": "23",
+     "name": "Retrieval",
+     "slug": "retrieval"
+    }
+   ],
+   "methods": [
+    {
+     "id": "160",
+     "name": "Fine-tuning",
+     "slug": "fine-tuning",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "124",
+     "name": "LoRa",
+     "slug": "lora",
+     "introduced_year": 2021,
+     "source_paper_id": "6036",
+     "source_url": "/paper/2106.09685",
+     "source_title": "LoRA: Low-Rank Adaptation of Large Language Models",
+     "code_snippet_url": null
+    },
+    {
+     "id": "199",
+     "name": "Mixture-of-Experts (MoE)",
+     "slug": "mixture-of-experts",
+     "introduced_year": 1991,
+     "source_paper_id": null,
+     "source_url": "https://www.cs.toronto.edu/~fritz/absps/jjnh91.pdf",
+     "source_title": "Adaptive Mixtures of Local Experts",
+     "code_snippet_url": null
+    },
+    {
+     "id": "27",
+     "name": "RAG",
+     "slug": "rag",
+     "introduced_year": 2020,
+     "source_paper_id": "3613",
+     "source_url": "/paper/2005.11401",
+     "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+     "code_snippet_url": null
+    },
+    {
+     "id": "96",
+     "name": "Reranker (cross-encoder)",
+     "slug": "reranker-cross-encoder",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    }
+   ],
+   "introduced_benchmarks": null,
+   "introduced_frameworks": null,
+   "predecessor_papers": null,
+   "successor_papers": null,
+   "organizations": null,
+   "leaderboard_ranks": null
+  },
+  {
+   "id": "108637",
+   "arxiv_id": "2608.01862",
+   "source": "arxiv",
+   "source_url": null,
+   "url_abs": "https://arxiv.org/abs/2608.01862",
+   "url_pdf": "https://arxiv.org/pdf/2608.01862.pdf",
+   "thumbnail_url": "/api/thumbnails/2608_01862_v1.jpg?fit=fit9",
+   "title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
+   "abstract": "Enterprise question answering requires models to acquire proprietary knowledge without discarding general capabilities. We present Wnuan, a three-stage pipeline that constructs task-oriented supervision from documents, performs supervised fine-tuning with general-data replay, and applies reinforcement learning to residual errors. On the 707-question WnuanBench, the primary 32B route raises acceptable-answer rate (AAR) from 52.76% before adaptation to 80.06% after SFT and 91.51% after RL. Under a matched 100-update protocol, residual-error sampling outperforms full-pool and size-matched random sampling by 3.11 and 2.97 points, respectively. Source-cluster bootstrap intervals remain above zero for both contrasts, and a same-domain validation set preserves the ordering. The general-benchmark average decreases by 5.17 points across the route, concentrated in instruction following. The automatic evaluation ensemble agrees with an authoritative domain expert on 90.5% of a stratified Wnuan-Inst response sample. These results characterize both the gains and the general-capability cost of staged enterprise adaptation.",
+   "authors": [
+    "Xiaofeng Shi",
+    "Xiaosong Qiu",
+    "Wenxin Ma",
+    "Qian Kou",
+    "Yiming Pan",
+    "Longbin Yu",
+    "Ying Liu",
+    "Haiping Wang",
+    "Hua Zhou"
+   ],
+   "author_links": [],
+   "published": "2026-08-03",
+   "conference": null,
+   "conference_url_abs": null,
+   "conference_url_pdf": null,
+   "proceeding": null,
+   "conference_slug": null,
+   "conference_name": null,
+   "conference_award": null,
+   "version": "v1",
+   "is_latest_version": true,
+   "citation_count": 0,
+   "semantic_scholar_id": "ad5b63c585bc19eec088f7a7958af5ea3eb375b8",
+   "citation_updated_at": "2026-08-11T18:46:48.340172Z",
+   "primary_category": null,
+   "all_categories": [],
+   "urls_extracted": false,
+   "tldr": null,
+   "num_pages": null,
+   "hf_models": [],
+   "hf_datasets": [],
+   "hf_spaces": [],
+   "hf_artifact_summary": null,
+   "repositories": null,
+   "project_pages": null,
+   "tasks": [
+    {
+     "id": "278",
+     "name": "Instruction Following",
+     "slug": "instruction-following"
+    },
+    {
+     "id": "296",
+     "name": "Question Answering",
+     "slug": "question-answering"
+    },
+    {
+     "id": "22",
+     "name": "Reinforcement Learning",
+     "slug": "reinforcement-learning"
+    }
+   ],
+   "methods": [
+    {
+     "id": "160",
+     "name": "Fine-tuning",
+     "slug": "fine-tuning",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "32",
+     "name": "GRPO",
+     "slug": "grpo",
+     "introduced_year": null,
+     "source_paper_id": "26841",
+     "source_url": "/paper/2402.03300",
+     "source_title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+     "code_snippet_url": null
+    },
+    {
+     "id": "102",
+     "name": "Post-training",
+     "slug": "post-training",
+     "introduced_year": null,
+     "source_paper_id": null,
+     "source_url": null,
+     "source_title": null,
+     "code_snippet_url": null
+    },
+    {
+     "id": "31",
+     "name": "PPO",
+     "slug": "ppo",
+     "introduced_year": null,
+     "source_paper_id": "804",
+     "source_url": "/paper/1707.06347",
+     "source_title": "Proximal Policy Optimization Algorithms",
+     "code_snippet_url": null
+    },
+    {
+     "id": "27",
+     "name": "RAG",
+     "slug": "rag",
+     "introduced_year": 2020,
+     "source_paper_id": "3613",
+     "source_url": "/paper/2005.11401",
+     "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+     "code_snippet_url": null
+    },
+    {
+     "id": "106",
+     "name": "RLHF",
+     "slug": "rlhf",
+     "introduced_year": 2022,
+     "source_paper_id": "8139",
+     "source_url": "/paper/2203.02155",
+     "source_title": "Training language models to follow instructions with human feedback",
+     "code_snippet_url": null
+    }
+   ],
+   "introduced_benchmarks": null,
+   "introduced_frameworks": null,
+   "predecessor_papers": null,
+   "successor_papers": null,
+   "organizations": [
+    {
+     "id": "88",
+     "name": "Beijing Academy of Artificial Intelligence",
+     "slug": "baai",
+     "logo_url": "/api/v1/organizations/baai/logo/d2d367e981a7db51a4ae0576d1db3c10963cecfcfb4b50de36e3dd11e5063db8.webp",
+     "source": "hf_org_papers",
+     "added_by_hf_username": null
+    }
+   ],
+   "leaderboard_ranks": null
+  }
+ ],
+ "scope": null,
+ "applied_filters": {
+  "method": "rag"
+ }
+}

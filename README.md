@@ -1,6 +1,6 @@
 # RAG World
 
-**Портал:** https://rag-world.onrender.com
+**Портал:** https://ragworld.org (площадка: https://rag-world.onrender.com)
 
 Проверить развёрнутое: `make smoke` (требует сети).
 
