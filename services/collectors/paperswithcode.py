@@ -58,6 +58,9 @@ class Paper:
 
     arxiv_id: str
     title: str
+    #: Аннотация работы, как её даёт каталог. Своими словами пересказывать
+    #: нечего: аннотация и есть краткое изложение, написанное авторами.
+    abstract: str
     published: date | None
     venue: str | None
     citations: int | None
@@ -116,6 +119,7 @@ def parse_paper(payload: dict) -> Paper | None:
     return Paper(
         arxiv_id=arxiv_id,
         title=title,
+        abstract=payload.get("abstract") if isinstance(payload.get("abstract"), str) else "",
         published=_as_date(payload.get("published")),
         venue=_venue_of(payload),
         citations=(

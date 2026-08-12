@@ -169,9 +169,26 @@ def _candidate_queue() -> list[dict]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    pending = [row for row in rows if not row.get("verdict")]
+    pending = []
+    for row in rows:
+        if row.get("verdict"):
+            continue
+        # Аннотация обрезается для показа: она нужна читателю, чтобы решить,
+        # стоит ли открывать работу, а целиком остаётся в данных. Обрыв идёт
+        # по границе предложения, иначе фраза ломается на полуслове.
+        abstract = (row.get("abstract") or "").strip()
+        if len(abstract) > CANDIDATE_ABSTRACT_LIMIT:
+            cut = abstract[:CANDIDATE_ABSTRACT_LIMIT]
+            stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+            abstract = (cut[: stop + 1] if stop > 200 else cut.rstrip() + "…")
+        pending.append({**row, "abstract": abstract})
     return sorted(pending, key=lambda r: (r.get("published") or "", r["arxiv_id"]),
                   reverse=True)
+
+
+#: Сколько знаков аннотации показывать. Двух-трёх предложений хватает, чтобы
+#: понять, о чём работа; целиком аннотация открывается по ссылке на источник.
+CANDIDATE_ABSTRACT_LIMIT = 480
 
 
 def _residual_vocabulary() -> dict[str, dict]:

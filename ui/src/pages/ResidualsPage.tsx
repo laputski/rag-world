@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  Alert, Box, Chip, CircularProgress, Link as MuiLink, Paper, Typography,
+  Alert, Box, Chip, CircularProgress, Link as MuiLink, Paper, Tab, Tabs, Typography,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +30,10 @@ export function ResidualsPage() {
   const [threshold, setThreshold] = useState(3);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  // Вкладки, а не два раздела подряд: очереди отвечают на разные вопросы, и
+  // читателю обычно нужна одна из них. Список из восьми механизмов и двух
+  // десятков работ подряд заставлял бы прокручивать мимо ненужного.
+  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     getResiduals()
@@ -58,11 +62,21 @@ export function ResidualsPage() {
   return (
     <Box sx={{ maxWidth: 860, mx: "auto", px: 3, py: 4 }}>
       <Typography variant="h4" sx={{ mb: 1 }}>{t("gaps.title")}</Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 4, maxWidth: "64ch" }}>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2, maxWidth: "64ch" }}>
         {t("gaps.subtitle")}
       </Typography>
 
-      <Typography variant="h5" sx={{ mb: 1 }}>{t("residuals.title")}</Typography>
+      <Tabs
+        value={tab}
+        onChange={(_, value: number) => setTab(value)}
+        sx={{ mb: 3, borderBottom: 1, borderColor: "divider" }}
+      >
+        <Tab label={`${t("residuals.title")} · ${rows.length}`} />
+        <Tab label={`${t("candidates.title")} · ${candidateRows.length}`} />
+      </Tabs>
+
+      {tab === 0 && (
+        <>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1, maxWidth: "64ch" }}>
         {t("residuals.subtitle")}
       </Typography>
@@ -128,13 +142,16 @@ export function ResidualsPage() {
       ))}
 
       {rows.length === 0 && <Alert severity="info">{t("residuals.empty")}</Alert>}
+        </>
+      )}
 
       {/*
         Вторая очередь: что, возможно, следует завести в реестр. Обнаружение
         записей не заводит, поэтому здесь предположения, а не технологии, и
         решение по каждому принимает человек.
       */}
-      <Typography variant="h5" sx={{ mt: 5, mb: 1 }}>{t("candidates.title")}</Typography>
+      {tab === 1 && (
+        <>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3, maxWidth: "64ch" }}>
         {t("candidates.subtitle")}
       </Typography>
@@ -170,8 +187,19 @@ export function ResidualsPage() {
               </Typography>
             )}
           </Box>
+          {/*
+            Аннотация приводится авторская: пересказывать её своими словами
+            значило бы утверждать о работе, которую портал ещё не разбирал.
+          */}
+          {row.abstract && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: "70ch" }}>
+              {row.abstract}
+            </Typography>
+          )}
         </Paper>
       ))}
+        </>
+      )}
     </Box>
   );
 }

@@ -246,6 +246,8 @@ export interface ResidualMechanism {
 export interface Candidate {
   arxiv_id: string;
   title: string;
+  /** Аннотация работы, как её даёт каталог, обрезанная для показа. */
+  abstract: string;
   published: string | null;
   source: string;
   citations: number | null;

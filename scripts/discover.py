@@ -162,6 +162,7 @@ def run(
             "found_at": today.isoformat(),
             "arxiv_id": paper.arxiv_id,
             "title": paper.title,
+            "abstract": paper.abstract,
             "published": paper.published.isoformat() if paper.published else None,
             "source": paper.url,
             "citations": paper.citations,
