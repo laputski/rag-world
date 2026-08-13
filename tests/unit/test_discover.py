@@ -156,3 +156,38 @@ def test_catalogue_refusal_does_not_break_the_pass(workspace):
     assert summary.added == 0
     assert summary.problems, "отказ каталога обязан попасть в отчёт"
     assert discover.load_candidates() == []
+
+
+def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
+    """Пересчёт не должен терять признак, выведенный при находке.
+
+    Оценка пересчитывается по строке очереди, а не по источнику, поэтому всё,
+    что влияет на неё, обязано лежать в самой строке и передаваться обратно.
+    Один раз так и вышло: работы, найденные по курируемым спискам, теряли
+    признак включения в список при первом же пересчёте, и оценка падала на два
+    очка без всякого события. Отказ тихий вдвойне — очередь остаётся на месте,
+    меняется только порядок просмотра.
+    """
+    import json as _json
+
+    queue = tmp_path / "candidates.jsonl"
+    row = {
+        "arxiv_id": "2510.10114",
+        "title": "LinearRAG: Linear Graph Retrieval Augmented Generation",
+        "abstract": "A linear index over entities with graph traversal, reranking and embeddings.",
+        "tasks": [],
+        "curated_by": ["Awesome-GraphRAG"],
+        "fit": {"score": 0, "signals": []},
+        "verdict": None,
+    }
+    queue.write_text(_json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
+    monkeypatch.setattr(discover, "CANDIDATES", queue)
+
+    discover.rescore()
+
+    after = _json.loads(queue.read_text(encoding="utf-8").strip())
+    codes = [signal["code"] for signal in after["fit"]["signals"]]
+    assert "curatedList" in codes, (
+        "признак включения в курируемый список потерян при пересчёте"
+    )
+    assert after["fit"]["score"] >= 4

@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-13",
-  "count": 67,
+  "count": 69,
   "levels": [
     "L0",
     "L1",
@@ -12,7 +12,7 @@
   ],
   "points": [
     {
-      "attention": 11.827,
+      "attention": 10.53,
       "attention_cohort": "2024",
       "attention_raw": 6.097,
       "confidence": 1.0,
@@ -88,7 +88,7 @@
       "prose_id": "archrag"
     },
     {
-      "attention": 0.093,
+      "attention": 0.083,
       "attention_cohort": "2024",
       "attention_raw": 0.048,
       "confidence": 1.0,
@@ -190,7 +190,31 @@
       "prose_id": "causalrag"
     },
     {
-      "attention": 0.438,
+      "attention": 5.627,
+      "attention_cohort": "2024",
+      "attention_raw": 3.258,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2024-04",
+      "group": "A",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "history": [
+        {
+          "at": "2026-08-13",
+          "level": "L2"
+        }
+      ],
+      "id": "cbr_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "name": "CBR-RAG",
+      "prose_id": "cbr_rag"
+    },
+    {
+      "attention": 0.39,
       "attention_cohort": "2024",
       "attention_raw": 0.226,
       "confidence": 1.0,
@@ -246,7 +270,7 @@
       "prose_id": "colbert"
     },
     {
-      "attention": 0.372,
+      "attention": 0.332,
       "attention_cohort": "2024",
       "attention_raw": 0.192,
       "confidence": 1.0,
@@ -297,7 +321,7 @@
       "prose_id": "contextual_retrieval"
     },
     {
-      "attention": 9.903,
+      "attention": 8.817,
       "attention_cohort": "2024",
       "attention_raw": 5.105,
       "confidence": 1.0,
@@ -428,7 +452,7 @@
       "prose_id": "edgerag"
     },
     {
-      "attention": 0.083,
+      "attention": 0.074,
       "attention_cohort": "2024",
       "attention_raw": 0.043,
       "confidence": 1.0,
@@ -510,7 +534,7 @@
       "prose_id": "flare"
     },
     {
-      "attention": 1.15,
+      "attention": 1.024,
       "attention_cohort": "2024",
       "attention_raw": 0.593,
       "confidence": 1.0,
@@ -535,7 +559,7 @@
       "prose_id": "gnn_rag"
     },
     {
-      "attention": 0.563,
+      "attention": 0.501,
       "attention_cohort": "2024",
       "attention_raw": 0.29,
       "confidence": 1.0,
@@ -560,7 +584,7 @@
       "prose_id": "graphreader"
     },
     {
-      "attention": 4.256,
+      "attention": 3.789,
       "attention_cohort": "2024",
       "attention_raw": 2.194,
       "confidence": 1.0,
@@ -644,7 +668,7 @@
       "prose_id": "ircot"
     },
     {
-      "attention": 5.432,
+      "attention": 4.836,
       "attention_cohort": "2024",
       "attention_raw": 2.8,
       "confidence": 1.0,
@@ -692,7 +716,7 @@
       "prose_id": "lamar"
     },
     {
-      "attention": 0.421,
+      "attention": 0.375,
       "attention_cohort": "2024",
       "attention_raw": 0.217,
       "confidence": 1.0,
@@ -1060,7 +1084,7 @@
       "prose_id": "poison_rag"
     },
     {
-      "attention": 0.712,
+      "attention": 0.634,
       "attention_cohort": "2024",
       "attention_raw": 0.367,
       "confidence": 1.0,
@@ -1157,7 +1181,7 @@
       "prose_id": "ra_dit"
     },
     {
-      "attention": 1.878,
+      "attention": 1.672,
       "attention_cohort": "2024",
       "attention_raw": 0.968,
       "confidence": 1.0,
@@ -1182,7 +1206,7 @@
       "prose_id": "ra_isf"
     },
     {
-      "attention": 1.874,
+      "attention": 1.668,
       "attention_cohort": "2024",
       "attention_raw": 0.966,
       "confidence": 1.0,
@@ -1283,7 +1307,7 @@
       "prose_id": "rag_fusion"
     },
     {
-      "attention": 1.69,
+      "attention": 1.504,
       "attention_cohort": "2024",
       "attention_raw": 0.871,
       "confidence": 1.0,
@@ -1389,6 +1413,30 @@
       "prose_id": "replug"
     },
     {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-04",
+      "group": "D",
+      "groups": [
+        "D",
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-08-13",
+          "level": "L1"
+        }
+      ],
+      "id": "roza_graphs",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "ROZA Graphs",
+      "prose_id": "roza_graphs"
+    },
+    {
       "attention": 0.087,
       "attention_cohort": "2023",
       "attention_raw": 0.154,
@@ -1459,7 +1507,7 @@
       "prose_id": "self_rag"
     },
     {
-      "attention": 1.123,
+      "attention": 1.0,
       "attention_cohort": "2024",
       "attention_raw": 0.579,
       "confidence": 1.0,
@@ -1702,7 +1750,7 @@
       "prose_id": "vectorless"
     },
     {
-      "attention": 0.877,
+      "attention": 0.781,
       "attention_cohort": "2024",
       "attention_raw": 0.452,
       "confidence": 1.0,

@@ -2,6 +2,13 @@
   "note": "Словарь механизмов, не выразимых схемой измерений. Остаток записи ссылается сюда кодом, а не свободным текстом: подсчёт повторов возможен только при совпадающих формулировках, а свободный текст даёт десять названий одному механизму. Механизм, набравший три и более упоминания, — кандидат в измерение (см. specs/stages/STAGE-residual-queue.md). Формулировки хранятся отдельно от кодов, поэтому английская локализация не требует переписывать реестр. Механизм, ставший измерением схемы, из словаря убирается: он больше не остаток. Так очередь остаётся списком того, чего схема не выражает, а не историей того, чего она когда-то не выражала. Пояснение хранится на обоих языках: очередь показывается читателю, а не только владельцу.",
   "mechanisms": [
     {
+      "id": "analogical_case_retrieval",
+      "ru": "отбор по подобию прецедента, а не по близости представления",
+      "en": "selection by analogy between cases rather than by closeness of representations",
+      "note": "Прецеденты сопоставляются по разбору на признаки задачи и решения, а не по расстоянию между векторами. Оператор поиска (C1) называет действие над указателем, но не признак подобия, по которому две задачи считаются схожими.",
+      "note_en": "Cases are matched by their decomposition into problem and solution features rather than by distance between vectors. The search operator (C1) names the operation over the index but not the criterion of similarity by which two problems are held to be alike."
+    },
+    {
       "id": "approximate_then_exact",
       "ru": "приближённый отбор с последующим точным пересчётом",
       "en": "approximate shortlist followed by exact rescoring",
@@ -14,6 +21,13 @@
       "en": "reranking by a bi-encoder representation model",
       "note": "Среди механизмов переранжирования схема называет перекрёстный кодировщик, то есть модель, читающую запрос и документ вместе. Здесь порядок пересматривает та же двухбашенная модель, что и ищет, и значения для этого нет.",
       "note_en": "Among reranking mechanisms the schema names the cross-encoder, that is a model reading query and document together. Here the order is revisited by the same bi-encoder that retrieves, and there is no value for that."
+    },
+    {
+      "id": "decisions_as_memory",
+      "ru": "хранение решений об оценке, а не самих сведений",
+      "en": "storing evaluation decisions rather than the facts themselves",
+      "note": "Между запросами сохраняется то, как система оценила свидетельство, а не само свидетельство. Запись обратно (F1) называет род сохраняемого материала, но не различает сведение о мире и суждение системы о нём.",
+      "note_en": "What is kept between queries is how the system judged a piece of evidence, not the evidence itself. Write-back (F1) names the kind of material stored but does not distinguish a fact about the world from the system's judgement about that fact."
     },
     {
       "id": "language_coherence_ranking",
@@ -63,6 +77,13 @@
       "en": "personalized random-walk ranking",
       "note": "Обход графа (C1) говорит, что структура обходится, но не как распределяется вес по узлам.",
       "note_en": "Graph traversal (C1) says the structure is traversed, but not how weight is distributed across nodes. Different rules give different results on the same graph."
+    },
+    {
+      "id": "rejected_candidate_pruning",
+      "ru": "постоянное исключение отвергнутых кандидатов из выдачи",
+      "en": "permanent exclusion of rejected candidates from future results",
+      "note": "Кандидат, отвергнутый однажды, перестаёт возвращаться и в дальнейшем. Забывание (F3) описывает, как сохранённое перестаёт учитываться, тогда как здесь исключается то, что никогда не сохранялось.",
+      "note_en": "A candidate rejected once stops being returned thereafter. Forgetting (F3) describes how stored material ceases to count, whereas what is excluded here was never stored in the first place."
     },
     {
       "id": "relevance_ordered_traversal",

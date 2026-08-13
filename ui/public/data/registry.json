@@ -1,10 +1,10 @@
 {
   "built_at": "2026-08-13",
-  "count": 67,
+  "count": 69,
   "technologies": [
     {
       "aliases": [],
-      "attention": 11.827,
+      "attention": 10.53,
       "attention_cohort": "2024",
       "attention_raw": 6.097,
       "confidence": 1.0,
@@ -564,7 +564,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.093,
+      "attention": 0.083,
       "attention_cohort": "2024",
       "attention_raw": 0.048,
       "confidence": 1.0,
@@ -1201,9 +1201,189 @@
     },
     {
       "aliases": [
+        "CBR-RAG"
+      ],
+      "attention": 5.627,
+      "attention_cohort": "2024",
+      "attention_raw": 3.258,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "metadata",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "A8": "none",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "none",
+        "F1": "none",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-08-13",
+      "configuration_variable": [
+        "A5"
+      ],
+      "description": "CBR-RAG соединяет извлечение с рассуждением по прецедентам, то есть с подходом, который решает новую задачу, отыскивая разобранный прежде похожий случай и перенося его решение с поправками. Подход этот старше извлечения с порождением на десятилетия и в праве применяется естественно: юридическое рассуждение и устроено ссылкой на прецедент.\n\nОтличие от обычного поиска лежит в признаке подобия. Плотный поиск считает похожими тексты, близкие в пространстве представлений, а рассуждение по прецедентам считает похожими случаи, совпадающие по разбору на признаки задачи и признаки решения. Для этого к каждому прецеденту прикладывается указательный словарь: перечень признаков, по которым прецедент отыскивается. Найденные прецеденты дополняют запрос перед порождением ответа.\n\nРабота сопоставляет несколько способов представления прецедента и несколько мер сходства между ними, не назначая одного. Она прошла рецензирование и вышла в Lecture Notes in Computer Science, набрав к августу 2026 года сто одно цитирование. Ценность записи для реестра состоит при этом не только в системе, но и в остатке: отбор по подобию прецедента схема из двадцати восьми измерений не выражает вовсе, и это целая традиция поиска, которой в реестре до сих пор не было ни одной записью.",
+      "description_en": "CBR-RAG joins retrieval to case-based reasoning, that is, to an approach that solves a new problem by finding a similar case worked out before and carrying its solution over with adjustments. The approach is older than retrieval-augmented generation by decades, and in law it applies naturally: legal reasoning is itself built on reference to precedent.\n\nWhat sets it apart from ordinary search is the criterion of likeness. Dense retrieval holds texts to be alike when they are close in the representation space, while case-based reasoning holds cases to be alike when they agree in their decomposition into features of the problem and features of the solution. To that end an indexing vocabulary is attached to every case: a list of the features by which the case is retrieved. The retrieved cases then enrich the query before the answer is generated.\n\nThe work sets several ways of representing a case and several measures of similarity against one another without settling on one. It passed peer review and appeared in Lecture Notes in Computer Science, gathering one hundred and one citations by August 2026. The value of the record for the registry therefore lies not in the system alone but also in its residual: selection by likeness of precedent is not expressed by the 28-dimension schema at all, and it is a whole tradition of retrieval that the registry has until now held no record of.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2404.04302",
+          "type": "publication",
+          "value": "arXiv:2404.04302 (2024)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4399932275",
+          "type": "publication",
+          "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=101; year=2024; citation_velocity=3.258",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2024-04",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "cbr_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "arXiv:2404.04302",
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2404.04302",
+          "verified_at": null
+        }
+      ],
+      "name": "CBR-RAG",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A3",
+          "did": "К прецеденту прикладывается указательный словарь рассуждения по прецедентам: признаки задачи и признаки решения, по которым прецедент отыскивается.",
+          "did_en": "An indexing vocabulary from case-based reasoning is attached to a case: features of the problem and features of the solution by which the case is retrieved.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2404.04302, устройство",
+          "source_en": "arXiv:2404.04302, method",
+          "technology_id": "cbr_rag",
+          "to": "metadata",
+          "why": "Обогащение состоит в описательных полях, добавленных к единице сверх её собственного текста, и они же служат ключом отбора.",
+          "why_en": "The enrichment consists of descriptive fields added to a unit beyond its own text, and those fields also serve as the key for selection."
+        },
+        {
+          "code": "A5",
+          "did": "Сравниваются несколько способов представления прецедента и несколько мер сходства между ними.",
+          "did_en": "Several ways of representing a case and several measures of similarity between them are compared.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2404.04302, проверка",
+          "source_en": "arXiv:2404.04302, evaluation",
+          "technology_id": "cbr_rag",
+          "to": "dense_single",
+          "variable": true,
+          "why": "Записано преобладающее значение, а пометка переменного стоит потому, что работа не назначает одно представление, а сопоставляет их между собой.",
+          "why_en": "The prevailing value is recorded, and the run-time mark is there because the work does not settle on one representation but sets several against each other."
+        },
+        {
+          "code": "A1",
+          "did": "Единицей извлечения служит судебный прецедент либо его часть.",
+          "did_en": "The unit of retrieval is a legal case or a part of one.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2404.04302, устройство",
+          "source_en": "arXiv:2404.04302, method",
+          "technology_id": "cbr_rag",
+          "to": "passage",
+          "why": "Ближайшее значение схемы описывает отрезок текста; отдельного значения для документа целиком в схеме нет.",
+          "why_en": "The nearest value in the schema describes a stretch of text; the schema has no separate value for a whole document."
+        },
+        {
+          "code": "C3",
+          "did": "Способы представления сопоставляются между собой; о совместном использовании их выдач в описании не сказано.",
+          "did_en": "The representations are set against one another; the description does not say their results are used together.",
+          "question": "Возможно прочтение «приведение оценок к одной шкале», если смешанное представление в работе применяется, а не только измеряется.",
+          "question_en": "A reading of «scores brought to one scale» is possible if the hybrid representation is applied in the work rather than merely measured.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2404.04302, проверка",
+          "source_en": "arXiv:2404.04302, evaluation",
+          "technology_id": "cbr_rag",
+          "to": "none",
+          "why": "Записано базовое значение, потому что слияние из источника не следует, а сравнение способов не есть их объединение.",
+          "why_en": "The base value is recorded because fusion does not follow from the source, and comparing methods is not the same as combining them."
+        },
+        {
+          "did": "Прецедент отыскивается по подобию разбора на признаки задачи и решения, а не по расстоянию между представлениями.",
+          "did_en": "A case is retrieved by likeness of its decomposition into problem and solution features rather than by distance between representations.",
+          "residual": "analogical_case_retrieval",
+          "residual_term": "отбор по подобию прецедента, а не по близости представления",
+          "residual_term_en": "selection by analogy between cases rather than by closeness of representations",
+          "source": "arXiv:2404.04302, устройство",
+          "source_en": "arXiv:2404.04302, method",
+          "technology_id": "cbr_rag",
+          "why": "Оператор поиска называет действие над указателем, но признака подобия, по которому две задачи считаются схожими, схема не выражает.",
+          "why_en": "The search operator names the operation over the index, but the schema does not express the criterion of likeness by which two problems are held to be alike."
+        }
+      ],
+      "prose_id": "cbr_rag",
+      "residual": [
+        "отбор по подобию прецедента, а не по близости представления"
+      ],
+      "residual_en": [
+        "selection by analogy between cases rather than by closeness of representations"
+      ],
+      "summary": "Рассуждение по прецедентам поверх извлечения: юридический случай отыскивается по разбору на признаки, а не по близости векторов.",
+      "summary_en": "Case-based reasoning over retrieval: a legal case is found by likeness of features rather than by closeness of vectors."
+    },
+    {
+      "aliases": [
         "ChatQA 2"
       ],
-      "attention": 0.438,
+      "attention": 0.39,
       "attention_cohort": "2024",
       "attention_raw": 0.226,
       "confidence": 1.0,
@@ -1615,7 +1795,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.372,
+      "attention": 0.332,
       "attention_cohort": "2024",
       "attention_raw": 0.192,
       "confidence": 1.0,
@@ -1937,7 +2117,7 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 9.903,
+      "attention": 8.817,
       "attention_cohort": "2024",
       "attention_raw": 5.105,
       "confidence": 1.0,
@@ -2747,7 +2927,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.083,
+      "attention": 0.074,
       "attention_cohort": "2024",
       "attention_raw": 0.043,
       "barriers": "Общее препятствие состоит в том, что пространство представляет собой новую модальность, и приёмы, выработанные для текста, к нему прямо не переносятся.\n\nТрёхмерные данные, то есть облака точек, нужно уложить в пространство представлений так, чтобы расстояние в нём отвечало расстоянию в помещении. Указатель приближённого поиска ближайших соседей для этого не годится, и требуются структуры пространственного поиска. Указатель, кроме того, должен работать на нескольких масштабах сразу, потому что вопрос бывает и о комнате, и о предмете на столе. Зрение, язык и геометрию нужно свести в одно извлечение. Наконец, робот видит обстановку лишь частично, поэтому запись о ней всегда неполна, а неполнота должна учитываться, а не замалчиваться.",
@@ -3392,7 +3572,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.15,
+      "attention": 1.024,
       "attention_cohort": "2024",
       "attention_raw": 0.593,
       "confidence": 1.0,
@@ -3518,7 +3698,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.563,
+      "attention": 0.501,
       "attention_cohort": "2024",
       "attention_raw": 0.29,
       "confidence": 1.0,
@@ -3671,7 +3851,7 @@
       "aliases": [
         "HippoRAG 2"
       ],
-      "attention": 4.256,
+      "attention": 3.789,
       "attention_cohort": "2024",
       "attention_raw": 2.194,
       "confidence": 1.0,
@@ -4443,7 +4623,7 @@
     },
     {
       "aliases": [],
-      "attention": 5.432,
+      "attention": 4.836,
       "attention_cohort": "2024",
       "attention_raw": 2.8,
       "confidence": 1.0,
@@ -4753,7 +4933,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.421,
+      "attention": 0.375,
       "attention_cohort": "2024",
       "attention_raw": 0.217,
       "confidence": 1.0,
@@ -7399,7 +7579,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.712,
+      "attention": 0.634,
       "attention_cohort": "2024",
       "attention_raw": 0.367,
       "confidence": 1.0,
@@ -7946,7 +8126,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.878,
+      "attention": 1.672,
       "attention_cohort": "2024",
       "attention_raw": 0.968,
       "confidence": 1.0,
@@ -8083,7 +8263,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.874,
+      "attention": 1.668,
       "attention_cohort": "2024",
       "attention_raw": 0.966,
       "confidence": 1.0,
@@ -8874,7 +9054,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.69,
+      "attention": 1.504,
       "attention_cohort": "2024",
       "attention_raw": 0.871,
       "confidence": 1.0,
@@ -9637,6 +9817,213 @@
       "summary_en": "The language model stays untouched and acts as the teacher: only the retriever is trained."
     },
     {
+      "aliases": [
+        "ROZA",
+        "ROZA Graphs"
+      ],
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "fixed",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A6": "append_only",
+        "A7": "text",
+        "A8": "none",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "graph_structural",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "none",
+        "F1": "consolidating",
+        "F2": "none",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-08-13",
+      "configuration_variable": [],
+      "description": "ROZA Graphs исходит из наблюдения о расточительности обычной цепочки. Система оценивает найденное при каждом запросе заново: решает, относится ли отрывок к делу, годится ли он в обоснование, стоит ли на него опираться. Как только ответ построен, все эти решения отбрасываются. Тот же самый отрывок при следующем запросе оценивается с нуля, и оценка может выйти другой, отчего один и тот же вопрос получает разные ответы в разные дни.\n\nПредложены два хранилища, переживающие запрос. Первое, названное графом рассуждений, хранит вынесенные оценки: узел отвечает материалу, а накопленные при нём записи говорят, как этот материал оценивался прежде и в каких обстоятельствах. Второе, названное графом извлечения, хранит противоположное: кандидатов, отвергнутых однажды, чтобы они не возвращались впредь. При новом запросе система читает историю по каждому кандидату и упорядочивает выдачу с её учётом.\n\nНи языковая модель, ни модель представлений при этом не дообучаются, и работа заявляет это своим свойством: накопление идёт вне их весов и потому применимо к моделям, доступным только по внешнему обращению. Оценивать работу пока не на чем: это препринт одного автора без цитирований, проверенный на трёх наборах многошаговых вопросов, и независимого воспроизведения у него нет. В реестре она занимает пустовавшее место: направление самонастраивающихся систем до сих пор стояло без единой конкретной системы под собой.",
+      "description_en": "ROZA Graphs starts from an observation about the wastefulness of an ordinary chain. The system judges what it retrieves anew on every query: it decides whether a passage bears on the matter, whether it will serve as grounds, whether it should be relied upon. As soon as the answer is built, all those decisions are discarded. The very same passage is judged from scratch at the next query, the judgement may come out differently, and the same question receives different answers on different days.\n\nTwo stores that outlive a query are proposed. The first, called the reasoning graph, holds the judgements passed: a node stands for a piece of material, and the records accumulated at it say how that material was judged before and under what circumstances. The second, called the retrieval graph, holds the opposite: candidates rejected once, so that they do not return thereafter. On a new query the system reads the history of each candidate and orders the results with it in view.\n\nNeither the language model nor the representation model is fine-tuned, and the work states this as a property of its own: accumulation happens outside their weights and is therefore applicable to models reachable only through an external call. There is as yet nothing on which to judge the work: it is a single-author preprint with no citations, evaluated on three sets of multi-hop questions, with no independent reproduction. In the registry it fills a place that stood empty: the direction of self-improving systems had until now no concrete system under it at all.",
+      "evidence": [
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2604.07595",
+          "type": "publication",
+          "value": "arXiv:2604.07595 (2026)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7154505616",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2026-04",
+      "groups": [
+        "D",
+        "F"
+      ],
+      "id": "roza_graphs",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": "arXiv:2604.07595",
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2604.07595",
+          "verified_at": null
+        }
+      ],
+      "name": "ROZA Graphs",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "D1",
+          "did": "Порядок кандидатов определяется обходом графа рассуждений: для каждого кандидата система читает, как этот же материал оценивался в прежних прогонах, и учитывает накопленные оценки.",
+          "did_en": "The order of candidates is settled by traversing the reasoning graph: for each candidate the system reads how the same material was judged in earlier runs and takes the accumulated judgements into account.",
+          "instead": "«совместный кодировщик»: он пересчитывает пару заново на каждом запросе, тогда как здесь используется уже вынесенная прежде оценка.",
+          "instead_en": "«joint encoder»: it recomputes the pair afresh on every query, whereas here a judgement made earlier is reused.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2604.07595, устройство",
+          "source_en": "arXiv:2604.07595, method",
+          "technology_id": "roza_graphs",
+          "to": "graph_structural",
+          "why": "Переранжирование опирается на положение кандидата в графе накопленных оценок, а не на совместный прогон модели по паре «запрос, кандидат».",
+          "why_en": "Reranking rests on the candidate's position in the graph of accumulated judgements rather than on a joint model pass over the query and candidate pair."
+        },
+        {
+          "code": "F1",
+          "did": "Оценки свидетельств, вынесенные при обработке запросов, сохраняются между прогонами и сводятся в граф, а не остаются отдельными записями о каждом случае.",
+          "did_en": "The judgements of evidence made while serving queries are kept between runs and consolidated into a graph rather than left as separate records of individual cases.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2604.07595, устройство",
+          "source_en": "arXiv:2604.07595, method",
+          "technology_id": "roza_graphs",
+          "to": "consolidating",
+          "why": "Сохраняемое обобщается: узел графа накапливает историю оценок по материалу, а не хранит перечень эпизодов.",
+          "why_en": "What is stored is generalised: a graph node accumulates the history of judgements about a piece of material rather than holding a list of episodes."
+        },
+        {
+          "code": "A6",
+          "did": "Память пополняется дописыванием оценок; прежние записи не переписываются.",
+          "did_en": "Memory grows by appending judgements; earlier records are not overwritten.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2604.07595, устройство",
+          "source_en": "arXiv:2604.07595, method",
+          "technology_id": "roza_graphs",
+          "to": "append_only",
+          "why": "Измерение определено, поскольку запись обратно включена, а отношение хранилища ко времени задаётся способом пополнения.",
+          "why_en": "The dimension is defined because write-back is enabled, and the store's relation to time is settled by the manner of growth."
+        },
+        {
+          "code": "G3",
+          "did": "Ни языковая модель, ни модель представлений не дообучаются: выигрыш достигается накоплением оценок вне их весов.",
+          "did_en": "Neither the language model nor the representation model is fine-tuned: the gain comes from judgements accumulated outside their weights.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2604.07595, аннотация",
+          "source_en": "arXiv:2604.07595, abstract",
+          "technology_id": "roza_graphs",
+          "to": "frozen",
+          "why": "Работа прямо заявляет отсутствие переобучения как своё свойство, и это отличает её от прочих самонастраивающихся систем.",
+          "why_en": "The work states the absence of retraining as a property of its own, and that is what sets it apart from other self-improving systems."
+        },
+        {
+          "code": "C2",
+          "did": "Работа проверена на многошаговых наборах задач, но многошагового обхода указателя в описании не заявлено.",
+          "did_en": "The work is evaluated on multi-hop task sets, but no multi-hop traversal of the index is claimed in the description.",
+          "question": "Возможно прочтение «повторение до условия остановки», если накопленные оценки используются в нескольких кругах одного запроса. Из аннотации это не следует.",
+          "question_en": "A reading of «repetition until a stopping condition» is possible if accumulated judgements are used across several rounds of one query. The abstract does not support it.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2604.07595, проверка",
+          "source_en": "arXiv:2604.07595, evaluation",
+          "technology_id": "roza_graphs",
+          "to": "single_shot",
+          "why": "Записано базовое значение, потому что обратное из источника не следует: набор задач говорит о вопросах, а не об устройстве обхода.",
+          "why_en": "The base value is recorded because the source does not support the alternative: a task set speaks about the questions, not about the manner of traversal."
+        },
+        {
+          "did": "Между запросами сохраняется вынесенная оценка свидетельства, а не сам материал.",
+          "did_en": "What is kept between queries is the judgement passed on a piece of evidence, not the material itself.",
+          "residual": "decisions_as_memory",
+          "residual_term": "хранение решений об оценке, а не самих сведений",
+          "residual_term_en": "storing evaluation decisions rather than the facts themselves",
+          "source": "arXiv:2604.07595, устройство",
+          "source_en": "arXiv:2604.07595, method",
+          "technology_id": "roza_graphs",
+          "why": "Схема различает роды сохраняемого по способу накопления, но не отделяет сведение о мире от суждения системы о нём.",
+          "why_en": "The schema distinguishes kinds of stored material by the manner of accumulation but does not separate a fact about the world from the system's judgement about it."
+        },
+        {
+          "did": "Граф извлечения исключает однажды отвергнутых кандидатов из последующих выдач.",
+          "did_en": "The retrieval graph excludes candidates rejected once from subsequent results.",
+          "residual": "rejected_candidate_pruning",
+          "residual_term": "постоянное исключение отвергнутых кандидатов из выдачи",
+          "residual_term_en": "permanent exclusion of rejected candidates from future results",
+          "source": "arXiv:2604.07595, устройство",
+          "source_en": "arXiv:2604.07595, method",
+          "technology_id": "roza_graphs",
+          "why": "Забывание описывает, как перестаёт учитываться сохранённое, тогда как исключается здесь то, что в память не попадало.",
+          "why_en": "Forgetting describes how stored material ceases to count, whereas what is excluded here never entered memory."
+        }
+      ],
+      "prose_id": "roza_graphs",
+      "residual": [
+        "хранение решений об оценке, а не самих сведений",
+        "постоянное исключение отвергнутых кандидатов из выдачи"
+      ],
+      "residual_en": [
+        "storing evaluation decisions rather than the facts themselves",
+        "permanent exclusion of rejected candidates from future results"
+      ],
+      "summary": "Оценки свидетельств, вынесенные прежде, сохраняются между запросами и задают порядок выдачи.",
+      "summary_en": "Judgements of evidence made earlier are kept between queries and settle the order of results."
+    },
+    {
       "aliases": [],
       "attention": 0.087,
       "attention_cohort": "2023",
@@ -10115,7 +10502,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.123,
+      "attention": 1.0,
       "attention_cohort": "2024",
       "attention_raw": 0.579,
       "confidence": 1.0,
@@ -11789,7 +12176,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.877,
+      "attention": 0.781,
       "attention_cohort": "2024",
       "attention_raw": 0.452,
       "confidence": 1.0,

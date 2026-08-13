@@ -37,7 +37,8 @@ const SITE = "https://ragworld.org";
 const REPOSITORY = "https://github.com/laputski/rag-world";
 
 /** Источники, из которых сбор действительно идёт сегодня. */
-const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code"];
+const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code",
+                 "Awesome-GraphRAG"];
 
 interface Release { tag: string }
 

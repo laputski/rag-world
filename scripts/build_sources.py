@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT))
 
 from services.collectors import frameworks, transport  # noqa: E402
 from services.collectors.arxiv import ARXIV_API  # noqa: E402
+from services.collectors.curated import CURATED_LISTS  # noqa: E402
 from services.collectors.github import GITHUB_API  # noqa: E402
 from services.collectors.openalex import OPENALEX_API, OPENALEX_MAILTO_ENV  # noqa: E402
 from services.collectors.paperswithcode import PWC_API, RAG_METHOD  # noqa: E402
@@ -59,6 +60,14 @@ PURPOSE = {
         "Существование пакета и его версия. Опрашивается только там, где имя "
         "пакета записано человеком: угадывать нельзя, чужой пакет с похожим "
         "именем даст ложное свидетельство.",
+    ),
+    CURATED_LISTS[0].page: (
+        "Курируемый тематический список",
+        "Второй путь обнаружения, устроенный иначе, чем каталог. Каталог знает "
+        "о работе то, что о ней заявил выложивший, а включение в список есть "
+        "решение человека, который в предмете работает. Из разметки берутся "
+        "только обозначения работ; сведения о них даёт архив препринтов, "
+        "потому что список пишут руками и доверять его формулировкам нельзя.",
     ),
     PWC_API: (
         "Каталог работ и кода",

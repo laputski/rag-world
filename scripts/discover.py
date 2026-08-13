@@ -35,6 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from core.candidate_fit import assess  # noqa: E402
+from services.collectors.curated import CURATED_LISTS, discover_from_lists  # noqa: E402
 from services.collectors.paperswithcode import RAG_METHOD, Paper, discover  # noqa: E402
 from services.registry import store  # noqa: E402
 
@@ -44,6 +45,15 @@ REJECTED = store.DATA_DIR / "rejected.jsonl"
 #: За какой срок спрашивать работы по умолчанию. Совпадает с шагом расписания:
 #: сутки нахлёста дешевле пропуска, а повтор отсеется по номеру препринта.
 DEFAULT_WINDOW_DAYS = 8
+
+#: Окно для курируемых списков: два года вместо недели.
+#:
+#: Список пополняется не по расписанию, а когда у ведущего дошли руки, и работа
+#: может попасть в него через полгода после выхода. Недельное окно, годное для
+#: каталога, отсекло бы ровно то, ради чего список и опрашивается. Отсев по
+#: известному при этом идёт до обращения к arXiv, поэтому широкое окно стоит
+#: одного разбора разметки, а не сотни запросов.
+CURATED_WINDOW_DAYS = 730
 
 _ARXIV_ID = re.compile(r"(\d{4}\.\d{4,5})")
 
@@ -141,7 +151,6 @@ def run(
         method=RAG_METHOD,
     )
     summary.problems.extend(problems)
-    summary.found = len(papers)
 
     arxiv_ids = _registry_arxiv_ids()
     names = _registry_names() | _rejected_names()
@@ -149,6 +158,26 @@ def run(
     decided = {
         row.get("arxiv_id") for row in load_candidates() if row.get("verdict")
     }
+
+    # Второй путь обнаружения: курируемые тематические списки.
+    #
+    # Каталог находит работу по метке, проставленной тем, кто её выложил.
+    # Список находит работу по решению человека, который в предмете работает.
+    # Пути дополняют друг друга, и работа, найденная обоими, — не повтор, а
+    # согласие двух независимых отборов.
+    #
+    # Известное отсеивается до обращения к arXiv: в списке сотня с лишним
+    # работ, из которых новых единицы, и спрашивать аннотации по всем значило
+    # бы бить по чужой службе впустую.
+    listed, listed_problems = discover_from_lists(
+        http=http,
+        published_after=today - timedelta(days=CURATED_WINDOW_DAYS),
+        known=arxiv_ids | seen | decided,
+    )
+    summary.problems.extend(listed_problems)
+    curated_source = {paper.arxiv_id for paper in listed}
+    papers = papers + listed
+    summary.found = len(papers)
 
     fresh: list[dict] = []
     for paper in papers:
@@ -160,8 +189,13 @@ def run(
             continue
         if paper.arxiv_id in seen:
             continue  # уже в очереди и ждёт решения
+        curated = sorted(
+            source.name for source in CURATED_LISTS
+            if paper.arxiv_id in curated_source
+        )
         fit = assess(title=paper.title, abstract=paper.abstract,
-                     tasks=[{"slug": slug} for slug in paper.tasks])
+                     tasks=[{"slug": slug} for slug in paper.tasks],
+                     curated_by=curated)
         fresh.append({
             "found_at": today.isoformat(),
             "arxiv_id": paper.arxiv_id,
@@ -173,6 +207,10 @@ def run(
             "source": paper.url,
             "citations": paper.citations,
             "repositories": paper.repositories,
+            # Откуда работа пришла. Нужно при разборе очереди: находка по
+            # списку и находка по каталогу подтверждены разным, и знать это
+            # человеку полезнее, чем видеть одно число пригодности.
+            "curated_by": curated,
             "verdict": None,
         })
 
@@ -195,7 +233,11 @@ def rescore(*, dry_run: bool = False) -> int:
     в очереди третью неделю, должен оцениваться нынешним правилом, а не тем,
     что действовало в день находки, иначе порядок просмотра врёт.
 
-    Сети не требует: метки задач и аннотация хранятся вместе с кандидатом.
+    Сети не требует: метки задач, аннотация и происхождение находки хранятся
+    вместе с кандидатом. Происхождение приходится передавать обратно в оценку
+    явно: пересчёт идёт по строке очереди, и признак, выведенный при находке,
+    но не сохранённый, был бы при пересчёте потерян. Один раз так и вышло —
+    оценки работ, найденных по спискам, обнулялись первым же пересчётом.
     """
     rows = load_candidates()
     if not rows:
@@ -208,6 +250,7 @@ def rescore(*, dry_run: bool = False) -> int:
             title=row.get("title", ""),
             abstract=row.get("abstract", ""),
             tasks=[{"slug": slug} for slug in row.get("tasks", [])],
+            curated_by=row.get("curated_by") or None,
         ).as_dict()
         if row.get("fit") != fit:
             row["fit"] = fit

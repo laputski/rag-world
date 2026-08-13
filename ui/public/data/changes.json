@@ -42,6 +42,42 @@
       "technology_id": "rag_anything"
     },
     {
+      "changed_at": "2026-08-13",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2404.04302",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4399932275",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "CBR-RAG",
+      "technology_id": "cbr_rag"
+    },
+    {
+      "changed_at": "2026-08-13",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2604.07595",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7154505616",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "ROZA Graphs",
+      "technology_id": "roza_graphs"
+    },
+    {
       "changed_at": "2026-08-12",
       "evidence": [
         {

@@ -32,6 +32,16 @@
       <guid isPermaLink="false">rag_anything-2026-08-13-L1</guid>
     </item>
     <item>
+      <title>CBR-RAG: none &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2404.04302, publication https://openalex.org/W4399932275</description>
+      <guid isPermaLink="false">cbr_rag-2026-08-13-L2</guid>
+    </item>
+    <item>
+      <title>ROZA Graphs: none &gt; L1</title>
+      <description>publication https://arxiv.org/abs/2604.07595, publication https://openalex.org/W7154505616</description>
+      <guid isPermaLink="false">roza_graphs-2026-08-13-L1</guid>
+    </item>
+    <item>
       <title>ColPali: L1 &gt; L2</title>
       <description>publication https://arxiv.org/abs/2407.01449, publication https://openalex.org/W4400373146, publication https://paperswithcode.co/api/v1/papers/2407.01449</description>
       <guid isPermaLink="false">colpali-2026-08-12-L2</guid>
@@ -260,16 +270,6 @@
       <title>ReAct: none &gt; L1</title>
       <description>publication https://arxiv.org/abs/2210.03629</description>
       <guid isPermaLink="false">react-2026-08-08-L1</guid>
-    </item>
-    <item>
-      <title>Vectorless: none &gt; L0</title>
-      <description>repository https://github.com/VectifyAI/PageIndex</description>
-      <guid isPermaLink="false">vectorless-2026-08-08-L0</guid>
-    </item>
-    <item>
-      <title>Adaptive RAG: L1 &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2403.14403, publication https://openalex.org/W4401042753</description>
-      <guid isPermaLink="false">adaptive_rag-2026-08-08-L2</guid>
     </item>
   </channel>
 </rss>

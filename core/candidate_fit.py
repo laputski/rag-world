@@ -112,7 +112,13 @@ def _task_slugs(tasks: list[dict] | None) -> set[str]:
     } - {""}
 
 
-def assess(*, title: str, abstract: str, tasks: list[dict] | None = None) -> Fit:
+def assess(
+    *,
+    title: str,
+    abstract: str,
+    tasks: list[dict] | None = None,
+    curated_by: list[str] | None = None,
+) -> Fit:
     """Оценить пригодность работы реестру по её карточке в каталоге.
 
     Возвращает целое от нуля до десяти и перечень сработавших признаков.
@@ -121,6 +127,14 @@ def assess(*, title: str, abstract: str, tasks: list[dict] | None = None) -> Fit
     """
     fit = Fit()
     slugs = _task_slugs(tasks)
+
+    # Включение в тематический список — решение человека, разбирающегося в
+    # предмете, тогда как метка задачи в каталоге проставлена тем, кто работу
+    # выложил. Без этого признака работы, найденные по спискам, получали бы
+    # заведомо низкую оценку не по своим свойствам, а по бедности источника:
+    # меток задач список не несёт вовсе.
+    if curated_by:
+        fit.add(2, "curatedList", lists=sorted(curated_by))
 
     core = sorted(slugs & CORE_TASKS)
     if core:

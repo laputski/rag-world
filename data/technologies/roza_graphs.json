@@ -1,0 +1,64 @@
+{
+  "aliases": [
+    "ROZA",
+    "ROZA Graphs"
+  ],
+  "configuration": {
+    "A1": "passage",
+    "A2": "fixed",
+    "A3": "none",
+    "A4": "flat",
+    "A5": "dense_single",
+    "A6": "append_only",
+    "A7": "text",
+    "A8": "none",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "ann",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "single_store",
+    "D1": "graph_structural",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "E5": "none",
+    "F1": "consolidating",
+    "F2": "none",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-08-13",
+  "configuration_variable": [],
+  "core_idea": null,
+  "family": null,
+  "first_published": "2026-04",
+  "groups": [
+    "D",
+    "F"
+  ],
+  "id": "roza_graphs",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": "arXiv:2604.07595",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2604.07595",
+      "verified_at": null
+    }
+  ],
+  "name": "ROZA Graphs",
+  "package": null,
+  "prose_id": "roza_graphs",
+  "residual": [
+    "decisions_as_memory",
+    "rejected_candidate_pruning"
+  ]
+}

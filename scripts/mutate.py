@@ -264,6 +264,28 @@ MUTATIONS: tuple[Mutation, ...] = (
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+    # ── Обнаружение по курируемым спискам ──────────────────────────────────
+    #
+    # Источник здесь не служба с договором, а файл, который правят руками.
+    # Отсюда отказы, которых у прочих сборщиков нет: список меняет форму
+    # записи, и разбор молча возвращает пустоту, выглядя работающим.
+    Mutation("services/collectors/curated.py", "смена формы списка замечается",
+             'f"{source.name}: разметка получена, но ни одной записи не разобрано; "',
+             'f"{source.name}: "'),
+    Mutation("services/collectors/curated.py", "известное отсеивается до обращения к arXiv",
+             "fresh = [entry for entry in entries if entry.arxiv_id not in known]",
+             "fresh = list(entries)"),
+    Mutation("services/collectors/curated.py", "работа без аннотации не заводится",
+             "            if not detail:", "            if False:"),
+    Mutation("services/collectors/curated.py", "разбор не выдумывает записи из произвольных строк",
+             r'    r"^-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"',
+             r'    r"^.*?(?P<venue>)(?P<title>\S+)"'),
+    Mutation("scripts/discover.py", "пересчёт не теряет признак курируемого списка",
+             'curated_by=row.get("curated_by") or None,', "curated_by=None,"),
+    Mutation("core/candidate_fit.py", "включение в список повышает пригодность",
+             'fit.add(2, "curatedList", lists=sorted(curated_by))',
+             'fit.add(0, "curatedList", lists=sorted(curated_by))'),
+
     # ── Локализация выгрузки ───────────────────────────────────────────────
     #
     # Русский текст без двойника выглядит исправным полем и обнаруживается

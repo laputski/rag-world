@@ -50,7 +50,15 @@ def _parse_atom_entries(xml_bytes: bytes) -> list[dict[str, str]]:
         title = (entry.findtext(f"{ATOM_NS}title", default="") or "").strip()
         title = re.sub(r"\s+", " ", title)
         published = entry.findtext(f"{ATOM_NS}published", default="") or ""
-        entries.append({"id": arxiv_id, "title": title, "published": published[:10]})
+        # Аннотация обещана описанием функции с самого начала, но не
+        # извлекалась: обнаружение по курируемым спискам оценивает пригодность
+        # именно по ней, и без неё оценка вырождается в догадку по заголовку.
+        summary = (entry.findtext(f"{ATOM_NS}summary", default="") or "").strip()
+        summary = re.sub(r"\s+", " ", summary)
+        entries.append({
+            "id": arxiv_id, "title": title,
+            "published": published[:10], "summary": summary,
+        })
     return entries
 
 

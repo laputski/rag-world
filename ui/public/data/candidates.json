@@ -163,6 +163,266 @@
       "verdict": null
     },
     {
+      "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
+      "arxiv_id": "2510.10114",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-10-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2510.10114",
+      "tasks": [],
+      "title": "LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph Retrieval-Augmented Generation (Graph RAG) effectively builds a knowledge graph (KG) to connect disparate facts across a large document corpus. However, this broad-view approach often lacks the deep structured reasoning needed for complex multi-hop question answering (QA), leading to incomplete evidence and error accumulation. To address these limitations, we propose SubQRAG, a sub-question-driven framework that enhances reasoning depth.",
+      "arxiv_id": "2510.07718",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-10-09",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2510.07718",
+      "tasks": [],
+      "title": "SUBQRAG: Sub-Question Driven Dynamic Graph RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) have impressive capabilities in text understanding and zero-shot reasoning. However, delays in knowledge updates may cause them to reason incorrectly or produce harmful results. Knowledge Graphs (KGs) provide rich and reliable contextual information for the reasoning process of LLMs by structurally organizing and connecting a wide range of entities and relations.",
+      "arxiv_id": "2504.03137",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-04-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2504.03137",
+      "tasks": [],
+      "title": "LightPROF: A Lightweight Reasoning Framework for Large Language Model on Knowledge Graph",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-RAG constructs a knowledge graph from text chunks to improve retrieval in Large Language Model (LLM)-based question answering. It is particularly useful in domains such as biomedicine, law, and political science, where retrieval often requires multi-hop reasoning over proprietary documents.",
+      "arxiv_id": "2502.09304",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-02-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2502.09304",
+      "tasks": [],
+      "title": "KET-RAG: A Cost-Efficient Multi-Granular Indexing Framework for Graph-RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Research question answering requires accurate retrieval and contextual understanding of scientific literature. However, current Retrieval-Augmented Generation (RAG) methods often struggle to balance complex document relationships with precise information retrieval.",
+      "arxiv_id": "2501.15067",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-01-25",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.15067",
+      "tasks": [],
+      "title": "CG-RAG: Research Question Answering by Citation Graph Retrieval-Augmented LLMs",
+      "verdict": null
+    },
+    {
+      "abstract": "Efficiently processing and interpreting network data is critical for the operation of increasingly complex networks. Recent advances in Large Language Models (LLM) and Retrieval-Augmented Generation (RAG) techniques have improved data processing in network management. However, existing RAG methods like VectorRAG and GraphRAG struggle with the complexity and implicit nature of semi-structured technical data, leading to inefficiencies in time, cost, and retrieval.",
+      "arxiv_id": "2411.13773",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-11-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2411.13773",
+      "tasks": [],
+      "title": "FastRAG: Retrieval Augmented Generation for Semi-structured Data",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) have demonstrated impressive reasoning abilities, but they still struggle with faithful reasoning due to knowledge gaps and hallucinations. To address these issues, knowledge graphs (KGs) have been utilized to enhance LLM reasoning through their structured knowledge. However, existing KG-enhanced methods, either retrieval-based or agent-based, encounter difficulties in accurately retrieving knowledge and efficiently traversing KGs at scale.",
+      "arxiv_id": "2410.13080",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-10-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2410.13080",
+      "tasks": [],
+      "title": "Graph-constrained Reasoning: Faithful Reasoning on Knowledge Graphs with Large Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Recent optimization studies on Retrieval-Augmented Generation (RAG) have exploited chunk-level KV cache reuse to avoid processing long retrieved contexts for higher efficiency, while significant information redundancy and noise still remain in the coarse-grained chunks. This paper optimizes the Pareto frontier under low prefill latency constraints while maximizing accuracy by proposing CoinRAG (Contextualized Information Nugget KV Cache Reuse for Long-Context RAG).",
+      "arxiv_id": "2608.07458",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "question-answering"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2026-08-07",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.07458",
+      "tasks": [
+        "question-answering"
+      ],
+      "title": "CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG",
+      "verdict": null
+    },
+    {
       "abstract": "Recent advances in AI agents have increasingly internalized native capabilities into their underlying foundation models, giving rise to multimodal foundation models and large reasoning models. However, agent memory is still primarily implemented through external modules, leaving the native memory capability largely unexplored.",
       "arxiv_id": "2607.26760",
       "citations": 0,
@@ -193,6 +453,441 @@
       "verdict": null
     },
     {
+      "abstract": "Multi-step retrieval-augmented generation (RAG) has become a widely adopted strategy for enhancing large language models (LLMs) on tasks that demand global comprehension and intensive reasoning. Although many RAG systems incorporate a working memory to consolidate information, existing designs primarily function as a passive storage for isolated facts.",
+      "arxiv_id": "2512.23959",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-12-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2512.23959",
+      "tasks": [],
+      "title": "HGMEM: Hypergraph-based Working Memory to Improve Multi-step RAG for Long-Context Complex Relational Modeling",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based retrieval-augmented generation (Graph-based RAG) has demonstrated significant potential in enhancing Large Language Models (LLMs) with structured knowledge. However, existing methods face three critical challenges: Inaccurate Graph Construction, caused by LLM hallucination; Poor Reasoning Ability, caused by failing to generate explicit reasons telling LLM why certain chunks were selected; and Inadequate Answering, which only partially answers the query due to the…",
+      "arxiv_id": "2511.05549",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-11-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2511.05549",
+      "tasks": [],
+      "title": "AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs",
+      "verdict": null
+    },
+    {
+      "abstract": "Building effective knowledge graphs (KGs) for Retrieval-Augmented Generation (RAG) is pivotal for advancing question answering (QA) systems. However, its effectiveness is hindered by a fundamental disconnect: the knowledge graph (KG) construction process is decoupled from its downstream application, yielding suboptimal graph structures.",
+      "arxiv_id": "2510.15339",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-10-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2510.15339",
+      "tasks": [],
+      "title": "AutoGraph-R1: End-to-End Reinforcement Learning for Knowledge Graph Construction",
+      "verdict": null
+    },
+    {
+      "abstract": "Current knowledge-enhanced large language models (LLMs) rely on static, pre-constructed knowledge bases that suffer from coverage gaps and temporal obsolescence, limiting their effectiveness in dynamic information environments. We present Agentic-KGR, a novel framework enabling co-evolution between LLMs and knowledge graphs (KGs) through multi-round reinforcement learning (RL).",
+      "arxiv_id": "2510.09156",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2510.09156",
+      "tasks": [],
+      "title": "Agentic-KGR: Co-evolutionary Knowledge Graph Construction through Multi-Agent Reinforcement Learning",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) excel at complex reasoning but remain limited by static and incomplete parametric knowledge. Retrieval-augmented generation (RAG) mitigates this by incorporating external knowledge, yet existing RAGs struggle with knowledge-intensive tasks due to fragmented information and weak modeling of knowledge structure.",
+      "arxiv_id": "2509.24276",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-09-29",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2509.24276",
+      "tasks": [],
+      "title": "G-reasoner: Foundation Models for Unified Reasoning over Graph-structured Knowledge",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph Retrieval-Augmented Generation (GraphRAG) enhances factual reasoning in LLMs by structurally modeling knowledge through graph-based representations. However, existing GraphRAG approaches face two core limitations: shallow retrieval that fails to surface all critical evidence, and inefficient utilization of pre-constructed structural graph data, which hinders effective reasoning from complex queries.",
+      "arxiv_id": "2509.22009",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-09-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2509.22009",
+      "tasks": [],
+      "title": "GraphSearch: An Agentic Deep Searching Workflow for Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph retrieval-augmented generation (GraphRAG) has effectively enhanced large language models in complex reasoning by organizing fragmented knowledge into explicitly structured graphs. Prior efforts have been made to improve either graph construction or graph retrieval in isolation, yielding suboptimal performance, especially when domain shifts occur.",
+      "arxiv_id": "2508.19855",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-08-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2508.19855",
+      "tasks": [],
+      "title": "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) is a well-suited technique for retrieving privacy-sensitive Electronic Health Records (EHR). It can serve as a key module of the healthcare copilot, helping reduce misdiagnosis for healthcare practitioners and patients. However, the diagnostic accuracy and specificity of existing heuristic-based RAG models used in the medical domain are inadequate, particularly for diseases with similar manifestations.",
+      "arxiv_id": "2502.04413",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-02-06",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2502.04413",
+      "tasks": [],
+      "title": "MedRAG: Enhancing Retrieval-augmented Generation with Knowledge Graph-Elicited Reasoning for Healthcare Copilot",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) has proven effective in integrating knowledge into large language models (LLMs). However, conventional RAGs struggle to capture complex relationships between pieces of knowledge, limiting their performance in intricate reasoning that requires integrating knowledge from multiple sources.",
+      "arxiv_id": "2502.01113",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-02-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2502.01113",
+      "tasks": [],
+      "title": "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Despite notable advancements in Retrieval-Augmented Generation (RAG) systems that expand large language model (LLM) capabilities through external retrieval, these systems often struggle to meet the complex and diverse needs of real-world industrial applications. The reliance on retrieval alone proves insufficient for extracting deep, domain-specific knowledge performing in logical reasoning from specialized corpora.",
+      "arxiv_id": "2501.11551",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-01-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.11551",
+      "tasks": [],
+      "title": "PIKE-RAG: sPecIalized KnowledgE and Rationale Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Given a semi-structured knowledge base (SKB), where text documents are interconnected by relations, how can we effectively retrieve relevant information to answer user questions? Retrieval-Augmented Generation (RAG) retrieves documents to assist large language models (LLMs) in question answering; while Graph RAG (GRAG) uses structured knowledge bases as its knowledge source.",
+      "arxiv_id": "2412.16311",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-12-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2412.16311",
+      "tasks": [],
+      "title": "HybGRAG: Hybrid Retrieval-Augmented Generation on Textual and Relational Knowledge Bases",
+      "verdict": null
+    },
+    {
+      "abstract": "GraphRAG integrates (knowledge) graphs with large language models (LLMs) to improve reasoning accuracy and contextual relevance. Despite its promising applications and strong relevance to multiple research communities, such as databases and natural language processing, GraphRAG currently lacks modular workflow analysis, systematic solution frameworks, and insightful empirical studies.",
+      "arxiv_id": "2411.05844",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-11-06",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2411.05844",
+      "tasks": [],
+      "title": "LEGO-GraphRAG: Modularizing Graph-based Retrieval-Augmented Generation for Design Space Exploration",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) have shown remarkable reasoning capabilities on complex tasks, but they still suffer from out-of-date knowledge, hallucinations, and opaque decision-making. In contrast, Knowledge Graphs (KGs) can provide explicit and editable knowledge for LLMs to alleviate these issues. Existing paradigm of KG-augmented LLM manually predefines the breadth of exploration space and requires flawless navigation in KGs.",
+      "arxiv_id": "2410.23875",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-10-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2410.23875",
+      "tasks": [],
+      "title": "Plan-on-Graph: Self-Correcting Adaptive Planning of Large Language Model on Knowledge Graphs",
+      "verdict": null
+    },
+    {
+      "abstract": "The increasing reliance on Large Language Models (LLMs) for health information seeking can pose severe risks due to the potential for misinformation and the complexity of these topics. This paper introduces KNOWNET a visualization system that integrates LLMs with Knowledge Graphs (KG) to provide enhanced accuracy and structured exploration.",
+      "arxiv_id": "2407.13598",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-07-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2407.13598",
+      "tasks": [],
+      "title": "KNOWNET: Guided Health Information Seeking from LLMs via Knowledge Graph Integration",
+      "verdict": null
+    },
+    {
+      "abstract": "Naive Retrieval-Augmented Generation (RAG) focuses on individual documents during retrieval and, as a result, falls short in handling networked documents which are very popular in many applications such as citation graphs, social media, and knowledge graphs.",
+      "arxiv_id": "2405.16506",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-05-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2405.16506",
+      "tasks": [],
+      "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
       "abstract": "How small can a competitive multilingual retrieval model be? We present Bekko Embedding: its smallest model, bekko-embedding-v1-a8m, has just under 8M Active Parameters (AP) -- the non-embedding parameters that dominate inference compute -- yet on official MMTEB Multilingual v2 Retrieval (nDCG@10) it scores 56.2, above the multilingual-e5 family and BGE-M3 (40x the AP) in our comparison.",
       "arxiv_id": "2607.25180",
       "citations": 0,
@@ -214,6 +909,186 @@
       "source": "https://paperswithcode.co/api/v1/papers/2607.25180",
       "tasks": [],
       "title": "Bekko Embedding: Parameter-Efficient Multilingual Retrieval with Ultra-Compact Encoders",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based Retrieval-Augmented Generation (GraphRAG) enhances Large Language Models (LLMs) by incorporating external knowledge from linearized subgraphs retrieved from knowledge graphs. However, LLMs struggle to interpret the relational and topological information in these inputs, resulting in hallucinations that are inconsistent with the retrieved knowledge.",
+      "arxiv_id": "2512.09148",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-12-09",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2512.09148",
+      "tasks": [],
+      "title": "Detecting Hallucinations in Graph Retrieval-Augmented Generation via Attention Patterns and Semantic Alignment",
+      "verdict": null
+    },
+    {
+      "abstract": "We propose a novel framework for persona-based language model system, motivated by the need for personalized AI agents that adapt to individual user preferences. In our approach, the agent embodies the user's \"persona\" (e.g. user profile or taste) and is powered by a large language model (LLM).",
+      "arxiv_id": "2511.17467",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-11-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2511.17467",
+      "tasks": [],
+      "title": "PersonaAgent with GraphRAG: Community-Aware Knowledge Graphs for Personalized LLM",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) systems combine Large Language Models (LLMs) with external knowledge, and their performance depends heavily on how that knowledge is represented. This study investigates how different Knowledge Graph (KG) construction strategies influence RAG performance. We compare a variety of approaches: standard vector-based RAG, GraphRAG, and retrieval over KGs built from ontologies derived either from relational databases or textual corpora.",
+      "arxiv_id": "2511.05991",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-11-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2511.05991",
+      "tasks": [],
+      "title": "Ontology Learning and Knowledge Graph Construction: A Comparison of Approaches and Their Impact on RAG Performance",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based RAG methods like GraphRAG have shown promising global understanding of the knowledge base by constructing hierarchical entity graphs. However, they often suffer from inefficiency and rely on manually pre-defined query modes, limiting practical use. In this paper, we propose E^2GraphRAG, a streamlined graph-based RAG framework that improves both Efficiency and Effectiveness.",
+      "arxiv_id": "2505.24226",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-05-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2505.24226",
+      "tasks": [],
+      "title": "E^2GraphRAG: Streamlining Graph-based RAG for High Efficiency and Effectiveness",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) has emerged as a promising technology for addressing hallucination issues in the responses generated by large language models (LLMs). Existing studies on RAG primarily focus on applying semantic-based approaches to retrieve isolated relevant chunks, which ignore their intrinsic relationships.",
+      "arxiv_id": "2502.06864",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-02-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2502.06864",
+      "tasks": [],
+      "title": "Knowledge Graph-Guided Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph Retrieval-Augmented Generation (GRAG or Graph RAG) architectures aim to enhance language understanding and generation by leveraging external knowledge. However, effectively capturing and integrating the rich semantic information present in textual and structured data remains a challenge.",
+      "arxiv_id": "2412.18644",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-12-24",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2412.18644",
+      "tasks": [],
+      "title": "DynaGRAG | Exploring the Topology of Information for Advancing Language Understanding and Generation in Graph Retrieval-Augmented Generation",
       "verdict": null
     },
     {
@@ -261,6 +1136,214 @@
         "summarization"
       ],
       "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
+      "verdict": null
+    },
+    {
+      "abstract": "Accurate healthcare prediction is critical for improving patient outcomes and reducing operational costs. Bolstered by growing reasoning capabilities, large language models (LLMs) offer a promising path to enhance healthcare predictions by drawing on their rich parametric knowledge. However, LLMs are prone to factual inaccuracies due to limitations in the reliability and coverage of their embedded knowledge.",
+      "arxiv_id": "2511.13293",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2511.13293",
+      "tasks": [],
+      "title": "Grounded by Experience: Generative Healthcare Prediction Augmented with Hierarchical Agentic Retrieval",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) often suffer from hallucination, generating factually incorrect statements when handling questions beyond their knowledge and perception. Retrieval-augmented generation (RAG) addresses this by retrieving query-relevant contexts from knowledge bases to support LLM reasoning. Recent advances leverage pre-constructed graphs to capture the relational connections among distributed documents, showing remarkable performance in complex tasks.",
+      "arxiv_id": "2508.06105",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-08-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2508.06105",
+      "tasks": [],
+      "title": "You Don't Need Pre-built Graphs for RAG: Retrieval Augmented Generation with Adaptive Reasoning Structures",
+      "verdict": null
+    },
+    {
+      "abstract": "In recent years, large language models (LLMs) have revolutionized the field of natural language processing. However, they often suffer from knowledge gaps and hallucinations. Graph retrieval-augmented generation (GraphRAG) enhances LLM reasoning by integrating structured knowledge from external graphs.",
+      "arxiv_id": "2503.13804",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-03-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2503.13804",
+      "tasks": [],
+      "title": "Empowering GraphRAG with Knowledge Filtering and Integration",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based Retrieval-Augmented Generation (RAG) methods have significantly enhanced the performance of large language models (LLMs) in domain-specific tasks. However, existing RAG methods do not adequately utilize the naturally inherent hierarchical knowledge in human cognition, which limits the capabilities of RAG systems.",
+      "arxiv_id": "2503.10150",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2025-03-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2503.10150",
+      "tasks": [],
+      "title": "Retrieval-Augmented Generation with Hierarchical Knowledge",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) is a powerful technique that enhances downstream task execution by retrieving additional information, such as knowledge, skills, and tools from external sources. Graph, by its intrinsic \"nodes connected by edges\" nature, encodes massive heterogeneous and relational information, making it a golden resource for RAG in tremendous real-world applications.",
+      "arxiv_id": "2501.00309",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-12-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.00309",
+      "tasks": [],
+      "title": "Retrieval-Augmented Generation with Graphs (GraphRAG)",
+      "verdict": null
+    },
+    {
+      "abstract": "Language Models (LMs) are increasingly challenging the dominance of domain-specific models, such as Graph Neural Networks (GNNs) and Graph Transformers (GTs), in graph learning tasks. Following this trend, we propose a novel approach that empowers off-the-shelf LMs to achieve performance comparable to state-of-the-art (SOTA) GNNs on node classification tasks, without requiring any architectural modification.",
+      "arxiv_id": "2410.02296",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-10-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2410.02296",
+      "tasks": [],
+      "title": "How to Make LMs Strong Node Classifiers?",
+      "verdict": null
+    },
+    {
+      "abstract": "We introduce a novel graph-based Retrieval-Augmented Generation (RAG) framework specifically designed for the medical domain, called \\textbf{MedGraphRAG}, aimed at enhancing Large Language Model (LLM) capabilities for generating evidence-based medical responses, thereby improving safety and reliability when handling private medical data.",
+      "arxiv_id": "2408.04187",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-08-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2408.04187",
+      "tasks": [],
+      "title": "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) have shown potential in reasoning over structured environments, e.g., knowledge graph and table. Such tasks typically require multi-hop reasoning, i.e., match natural language utterance with instances in the environment. Previous methods leverage LLMs to incrementally build a reasoning path, where the LLMs either invoke tools or pick up schemas by step-by-step interacting with the environment.",
+      "arxiv_id": "2403.08593",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-13",
+      "published": "2024-03-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2403.08593",
+      "tasks": [],
+      "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
       "verdict": null
     },
     {

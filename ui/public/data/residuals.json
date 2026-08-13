@@ -92,6 +92,21 @@
     {
       "candidate": false,
       "count": 1,
+      "id": "analogical_case_retrieval",
+      "note": "Прецеденты сопоставляются по разбору на признаки задачи и решения, а не по расстоянию между векторами. Оператор поиска (C1) называет действие над указателем, но не признак подобия, по которому две задачи считаются схожими.",
+      "note_en": "Cases are matched by their decomposition into problem and solution features rather than by distance between vectors. The search operator (C1) names the operation over the index but not the criterion of similarity by which two problems are held to be alike.",
+      "technologies": [
+        {
+          "id": "cbr_rag",
+          "name": "CBR-RAG"
+        }
+      ],
+      "term": "отбор по подобию прецедента, а не по близости представления",
+      "term_en": "selection by analogy between cases rather than by closeness of representations"
+    },
+    {
+      "candidate": false,
+      "count": 1,
       "id": "llm_scored_partial_answers",
       "note": "Порядок сборки задан оценкой языковой модели, а не структурой индекса и не отдельной моделью переранжирования.",
       "note_en": "The assembly order is set by a language model's own judgement, not by index structure and not by a separate reranking model.",
@@ -133,6 +148,21 @@
       ],
       "term": "порядок обхода корпуса по оценке относимости",
       "term_en": "corpus traversal ordered by a relevance estimate"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "rejected_candidate_pruning",
+      "note": "Кандидат, отвергнутый однажды, перестаёт возвращаться и в дальнейшем. Забывание (F3) описывает, как сохранённое перестаёт учитываться, тогда как здесь исключается то, что никогда не сохранялось.",
+      "note_en": "A candidate rejected once stops being returned thereafter. Forgetting (F3) describes how stored material ceases to count, whereas what is excluded here was never stored in the first place.",
+      "technologies": [
+        {
+          "id": "roza_graphs",
+          "name": "ROZA Graphs"
+        }
+      ],
+      "term": "постоянное исключение отвергнутых кандидатов из выдачи",
+      "term_en": "permanent exclusion of rejected candidates from future results"
     },
     {
       "candidate": false,
@@ -223,6 +253,21 @@
       ],
       "term": "рёбра синонимии между узлами индекса",
       "term_en": "synonymy edges between index nodes"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "decisions_as_memory",
+      "note": "Между запросами сохраняется то, как система оценила свидетельство, а не само свидетельство. Запись обратно (F1) называет род сохраняемого материала, но не различает сведение о мире и суждение системы о нём.",
+      "note_en": "What is kept between queries is how the system judged a piece of evidence, not the evidence itself. Write-back (F1) names the kind of material stored but does not distinguish a fact about the world from the system's judgement about that fact.",
+      "technologies": [
+        {
+          "id": "roza_graphs",
+          "name": "ROZA Graphs"
+        }
+      ],
+      "term": "хранение решений об оценке, а не самих сведений",
+      "term_en": "storing evaluation decisions rather than the facts themselves"
     }
   ]
 }

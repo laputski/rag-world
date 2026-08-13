@@ -32,6 +32,9 @@ ALLOWED_HOSTS: frozenset[str] = frozenset({
     "openalex.org",
     "api.github.com",
     "github.com",
+    # Разметка курируемых списков берётся сырым файлом, а не страницей:
+    # страница несёт оформление площадки, меняющееся независимо от списка.
+    "raw.githubusercontent.com",
     "pypi.org",
     # Индекс пакетов не отдаёт число загрузок; его публикует отдельная служба.
     "pypistats.org",
