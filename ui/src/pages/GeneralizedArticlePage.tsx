@@ -10,6 +10,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import mermaid from "mermaid";
 import { getGeneralizedContent } from "../generalizedData";
 import { RichText } from "../components/RichText";
+import { useDocumentHead } from "../useDocumentHead";
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -95,7 +96,12 @@ function MermaidDiagram({ chart, theme }: { chart: string; theme: "light" | "dar
 interface OutletCtx { mode: "light" | "dark" }
 
 export function GeneralizedArticlePage() {
+
   const { t, i18n } = useTranslation();
+  useDocumentHead({
+    title: t("head.article.title"),
+    description: t("head.article.description"),
+  });
   const { mode } = useOutletContext<OutletCtx>();
   const content = getGeneralizedContent(i18n.language === "ru" ? "ru" : "en");
 

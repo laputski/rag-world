@@ -14,12 +14,33 @@ function flatten(obj: Record<string, unknown>, prefix = ""): string[] {
 }
 
 describe("локализация", () => {
-  it("русский и английский словари имеют одинаковый состав ключей", () => {
-    const ruKeys = flatten(ru).sort();
-    const enKeys = flatten(en).sort();
+  /*
+    Ключи сравниваются по основе, без окончания формы числа. Формы задаёт
+    грамматика, и она у языков разная: русскому нужны `_one`, `_few` и `_many`,
+    английскому — `_one` и `_other`. Прямое сравнение объявляло бы это
+    расхождение недостачей перевода, хотя недостачи нет.
+  */
+  const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/;
+  const base = (key: string) => key.replace(PLURAL_SUFFIX, "");
+
+  it("русский и английский словари покрывают одни и те же сообщения", () => {
+    const ruKeys = [...new Set(flatten(ru).map(base))].sort();
+    const enKeys = [...new Set(flatten(en).map(base))].sort();
     const missingInEn = ruKeys.filter((k) => !enKeys.includes(k));
     const missingInRu = enKeys.filter((k) => !ruKeys.includes(k));
     expect({ missingInEn, missingInRu }).toEqual({ missingInEn: [], missingInRu: [] });
+  });
+
+  it("у сообщения со счётом заданы все формы числа, нужные языку", () => {
+    const required = { ru: ["one", "few", "many"], en: ["one", "other"] } as const;
+    for (const [locale, dict] of [["ru", ru], ["en", en]] as const) {
+      const keys = flatten(dict);
+      const plural = [...new Set(keys.filter((k) => PLURAL_SUFFIX.test(k)).map(base))];
+      for (const stem of plural) {
+        const missing = required[locale].filter((form) => !keys.includes(`${stem}_${form}`));
+        expect(missing, `${locale}: ${stem}`).toEqual([]);
+      }
+    }
   });
 
   it("ни одно значение не пустое", () => {

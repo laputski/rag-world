@@ -7,6 +7,7 @@ import { getStats } from "../api/client";
 import type { RegistryStats } from "../api/types";
 import { toBibTeX, toGost, toPlain } from "../citation";
 import { MONO } from "../theme";
+import { useDocumentHead } from "../useDocumentHead";
 
 /**
  * О портале: как устроены данные и как они обновляются.
@@ -17,12 +18,22 @@ import { MONO } from "../theme";
  */
 
 const DATA_FILES = [
+  { name: "index.json", key: "about.fileIndex" },
   { name: "registry.json", key: "about.fileRegistry" },
   { name: "map.json", key: "about.fileMap" },
   { name: "changes.json", key: "about.fileChanges" },
   { name: "stats.json", key: "about.fileStats" },
+  { name: "residuals.json", key: "about.fileResiduals" },
+  { name: "candidates.json", key: "about.fileCandidates" },
+  { name: "digest.json", key: "about.fileDigest" },
   { name: "feed.xml", key: "about.fileFeed" },
 ];
+
+/** Постоянный адрес портала для примеров обращения. */
+const SITE = "https://ragworld.org";
+
+/** Хранилище с исходными данными и полной историей их изменений. */
+const REPOSITORY = "https://github.com/laputski/rag-world";
 
 /** Источники, из которых сбор действительно идёт сегодня. */
 const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code"];
@@ -54,12 +65,18 @@ function Snippet({ text }: { text: string }) {
 }
 
 export function AboutPage() {
+
   const { t, i18n } = useTranslation();
+  useDocumentHead({
+    title: t("head.about.title"),
+    description: t("head.about.description"),
+  });
   // ГОСТ англоязычному читателю не нужен: это российский стандарт.
   const style = i18n.language === "ru" ? toGost : toPlain;
   const [stats, setStats] = useState<RegistryStats | null>(null);
   const [release, setRelease] = useState<string | null>(null);
   const [example, setExample] = useState(false);
+  const [access, setAccess] = useState(false);
 
   useEffect(() => { getStats().then(setStats).catch(() => setStats(null)); }, []);
   useEffect(() => {
@@ -180,6 +197,71 @@ export function AboutPage() {
           </Box>
         ))}
       </Box>
+
+      {/*
+        Раздел о подключении к данным.
+
+        Портал показывает те же сведения, что лежат в этих файлах, только с
+        разметкой. Кто берёт их разбором страниц, получает худшие данные и
+        ломается при первой правке вёрстки, поэтому способ обращения назван
+        прямо, с примерами, которые можно выполнить не читая ничего больше.
+      */}
+      <Typography variant="h5" sx={{ mb: 1 }}>{t("about.machine")}</Typography>
+      <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+        {t("about.machineText")}
+      </Typography>
+      <Box component="ul" sx={{ pl: 3, m: 0, mb: 2 }}>
+        {["machinePointIndex", "machinePointLlms", "machinePointGit",
+          "machinePointRelease", "machinePointLicense"].map((key) => (
+          <Box component="li" key={key} sx={{ mb: 0.75 }}>
+            <Typography variant="body1" sx={{ lineHeight: 1.75 }}>{t(`about.${key}`)}</Typography>
+          </Box>
+        ))}
+      </Box>
+
+      <MuiLink
+        component="button"
+        onClick={() => setAccess((v) => !v)}
+        sx={{ display: "block", mb: 1 }}
+      >
+        {access ? t("about.machineHide") : t("about.machineShow")}
+      </MuiLink>
+      <Collapse in={access}>
+        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+          <Typography variant="subtitle2">{t("about.machineShell")}</Typography>
+          <Snippet text={[
+            `# ${t("about.machineShellComment")}`,
+            `curl -s ${SITE}/data/index.json | jq '.datasets[] | {url, records}'`,
+            "",
+            `curl -s ${SITE}/data/registry.json \\`,
+            "  | jq '.technologies[] | select(.level == \"L5\") | {id, name, level}'",
+          ].join("\n")} />
+        </Paper>
+        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+          <Typography variant="subtitle2">{t("about.machinePython")}</Typography>
+          <Snippet text={[
+            "import urllib.request, json",
+            "",
+            `url = "${SITE}/data/registry.json"`,
+            "with urllib.request.urlopen(url) as response:",
+            "    registry = json.load(response)",
+            "",
+            "for tech in registry[\"technologies\"]:",
+            "    if tech[\"configuration\"].get(\"A4\") == \"graph\":",
+            "        print(tech[\"id\"], tech[\"level\"], tech[\"name\"])",
+          ].join("\n")} />
+        </Paper>
+        <Paper variant="outlined" sx={{ p: 2, mb: 3 }}>
+          <Typography variant="subtitle2">{t("about.machineGit")}</Typography>
+          <Snippet text={[
+            `git clone ${REPOSITORY}`,
+            "",
+            `# ${t("about.machineGitComment")}`,
+            "ls rag-world/data/technologies/",
+            "cat rag-world/data/evidence/2026-08.jsonl",
+          ].join("\n")} />
+        </Paper>
+      </Collapse>
 
       {/*
         Ссылаться следует на выпуск: состояние записи меняется, и ссылка на

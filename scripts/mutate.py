@@ -264,6 +264,27 @@ MUTATIONS: tuple[Mutation, ...] = (
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+    # ── Машиночитаемый вход: указатель, карта сайта, llms.txt ──────────────
+    #
+    # Отказ здесь тих вдвойне. Указатель, обещающий несуществующий набор, и
+    # карта сайта без половины карточек выглядят исправными файлами; ошибка
+    # обнаруживается у потребителя, который по ним написал обращение.
+    Mutation("scripts/build_artifacts.py", "указатель называет все опубликованные наборы",
+             '    ("digest.json", "issues",',
+             '    ("digest_absent.json", "issues",'),
+    Mutation("scripts/build_artifacts.py", "число записей берётся из файла",
+             'entry["records"] = len(payload.get(key, []))',
+             'entry["records"] = 0'),
+    Mutation("scripts/build_artifacts.py", "карта сайта содержит карточки",
+             'urls += [f"{SITE}/tech/{row[\'id\']}" for row in sorted(',
+             'urls += [] or [f"{SITE}/tech/nowhere" for row in sorted('),
+    Mutation("scripts/build_artifacts.py", "указатель несёт версию правила уровня",
+             '"rule_version": RULE_VERSION,', '"rule_version": "unknown",'),
+    Mutation("scripts/build_artifacts.py", "llms.txt отговаривает от разбора страниц",
+             '"Do not scrape the pages.', '"Feel free to read the pages.'),
+    Mutation("ui/src/i18n/ru.json", "у сообщения со счётом есть все русские формы",
+             '    "thatDay_few": "{{count}} изменения",\n', ""),
+
     # ── Проза карточек: единственный текст портала, писанный руками ────────
     #
     # Порча вносится не в код, а в сами тексты: проверять здесь нечего, кроме

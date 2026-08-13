@@ -12,6 +12,7 @@ import { ConfigGlyph } from "../components/ConfigGlyph";
 import { ConfigFlow } from "../components/ConfigFlow";
 import { StratumChip } from "../components/StratumChip";
 import { DIMENSIONS, STRATA } from "../schema.generated";
+import { useDocumentHead } from "../useDocumentHead";
 import type { ParseNote, RegistryTechnology } from "../api/types";
 
 /**
@@ -169,11 +170,18 @@ export function TechCardPage() {
       .finally(() => setLoading(false));
   }, [id, t]);
 
+  // Заголовок и описание вкладки берутся у самой записи. Хук вызывается до
+  // возвратов по загрузке и ошибке, потому что порядок вызовов обязан быть
+  // одинаковым при каждом отображении.
+  const prose = getTechProse(tech?.prose_id ?? null, i18n.language);
+  useDocumentHead({
+    title: tech?.name,
+    description: prose.short ?? tech?.core_idea ?? undefined,
+  });
+
   if (loading) return <CircularProgress sx={{ display: "block", mx: "auto", my: 8 }} />;
   if (error) return <Alert severity="info" sx={{ m: 2 }}>{error}</Alert>;
   if (!tech) return null;
-
-  const prose = getTechProse(tech.prose_id, i18n.language);
 
   return (
     <Box sx={{ maxWidth: 900, mx: "auto" }}>

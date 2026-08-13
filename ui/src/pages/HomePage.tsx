@@ -12,6 +12,7 @@ import { MaturityGrid } from "../components/MaturityGrid";
 import { LevelBadge } from "../components/LevelBadge";
 import { MONO, stratumColor, type ThemeMode } from "../theme";
 import { useTheme } from "@mui/material/styles";
+import { useDocumentHead } from "../useDocumentHead";
 
 /**
  * Главная страница: состояние области с одного взгляда.
@@ -25,7 +26,12 @@ import { useTheme } from "@mui/material/styles";
 type Projection = "map" | "grid";
 
 export function HomePage() {
+
   const { t } = useTranslation();
+  useDocumentHead({
+    title: t("head.home.title"),
+    description: t("head.home.description"),
+  });
   const theme = useTheme();
   const navigate = useNavigate();
   const [artifact, setArtifact] = useState<MaturityArtifact | null>(null);

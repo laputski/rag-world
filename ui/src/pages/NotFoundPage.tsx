@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useRouteError, isRouteErrorResponse } from "react-router-dom";
+import { useDocumentHead } from "../useDocumentHead";
 
 /**
  * Страница для адреса, которого нет.
@@ -14,7 +15,11 @@ import { useNavigate, useRouteError, isRouteErrorResponse } from "react-router-d
  * странице: сломанная страница не должна выглядеть как сломанный портал.
  */
 export function NotFoundPage() {
+
   const { t } = useTranslation();
+  useDocumentHead({
+    title: t("head.notFound.title"),
+  });
   const navigate = useNavigate();
   const error = useRouteError();
 

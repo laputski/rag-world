@@ -9,7 +9,9 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/jetbrains-mono";
 
-import "./i18n/index";
+// Ввоз настраивает локализацию побочным действием; отсюда же берётся
+// умолчание языка, чтобы оно оставалось записанным в одном месте.
+import { DEFAULT_LANGUAGE, savedLanguage } from "./i18n/index";
 import { getTheme, type ThemeMode } from "./theme";
 import { AppLayout } from "./layouts/AppLayout";
 import { HomePage } from "./pages/HomePage";
@@ -35,8 +37,16 @@ function initialMode(): ThemeMode {
   return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+/**
+ * Язык, с которого открывается портал.
+ *
+ * Умолчание живёт в одном месте, в настройке локализации, и берётся
+ * оттуда, а не переписывается здесь. Пока оно было записано дважды, эта
+ * функция молча перекрывала настройку: язык всегда получался русским
+ * независимо от того, что было объявлено в i18n.
+ */
 function initialLang(): "ru" | "en" {
-  return (localStorage.getItem(LANG_KEY) as "ru" | "en" | null) ?? "ru";
+  return savedLanguage() ?? DEFAULT_LANGUAGE;
 }
 
 /** Оболочка приложения: тема, язык и общий для всех страниц быстрый поиск. */

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getCandidates, getResiduals } from "../api/client";
 import type { Candidate, ResidualMechanism } from "../api/types";
 import { MONO } from "../theme";
+import { useDocumentHead } from "../useDocumentHead";
 
 //: Наибольшая оценка пригодности; совпадает с core/candidate_fit.py.
 const FIT_MAX = 10;
@@ -26,7 +27,12 @@ const FIT_MAX = 10;
  * каждая.
  */
 export function ResidualsPage() {
+
   const { t, i18n } = useTranslation();
+  useDocumentHead({
+    title: t("head.residuals.title"),
+    description: t("head.residuals.description"),
+  });
   const navigate = useNavigate();
   const [rows, setRows] = useState<ResidualMechanism[]>([]);
   const [candidateRows, setCandidateRows] = useState<Candidate[]>([]);

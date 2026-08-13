@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getDigest } from "../api/client";
 import type { DigestIssue } from "../api/types";
 import { MONO } from "../theme";
+import { useDocumentHead } from "../useDocumentHead";
 
 /**
  * Выпуски дайджеста.
@@ -87,7 +88,12 @@ function BasisList({ issue, onOpen }: {
 }
 
 export function DigestPage() {
+
   const { t, i18n } = useTranslation();
+  useDocumentHead({
+    title: t("head.digest.title"),
+    description: t("head.digest.description"),
+  });
   const navigate = useNavigate();
   const [issues, setIssues] = useState<DigestIssue[]>([]);
   const [error, setError] = useState<string | null>(null);

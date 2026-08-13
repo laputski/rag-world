@@ -163,13 +163,19 @@
     "empty": "No changes in the selected period.",
     "unavailable": "Changelog unavailable: data artifact not found",
     "all": "full changelog →",
-    "basis": "Grounds:",
-    "more": "and {{count}} more",
     "window": {
       "week": "week",
       "month": "month",
       "all": "all time"
-    }
+    },
+    "appearedAt": "entered at {{level}}",
+    "hideBasis": "hide basis",
+    "thatDay_one": "{{count}} change",
+    "thatDay_other": "{{count}} changes",
+    "daysWithChanges_one": "day with changes",
+    "daysWithChanges_other": "days with changes",
+    "basisCount_one": "basis ({{count}})",
+    "basisCount_other": "basis ({{count}})"
   },
   "glyph": {
     "title": "Configuration fingerprint",
@@ -223,7 +229,25 @@
     "exampleGood": "Technology: Self-RAG (in the registry, currently L1)\nProposal: raise to L2\nEvidence: the work was accepted at ICLR 2024\nAddress: https://openreview.net/forum?id=hSyW5go0v8\nKind of evidence: publication at a peer-reviewed venue",
     "exampleBadTitle": "A report the portal can do nothing with:",
     "exampleBad": "Self-RAG has been mature for ages,\neveryone uses it, please raise its level",
-    "exampleBadWhy": "The second report names neither evidence nor an address at which it can be checked. A rule computes the level, and the rule reads evidence, so such a report cannot change it."
+    "exampleBadWhy": "The second report names neither evidence nor an address at which it can be checked. A rule computes the level, and the rule reads evidence, so such a report cannot change it.",
+    "fileIndex": "index of all datasets: what each file holds, how many records, where the schema is described",
+    "fileResiduals": "mechanisms the schema does not express, and the records that raised each",
+    "fileCandidates": "works found by discovery and awaiting a verdict",
+    "fileDigest": "digest issues",
+    "machine": "Consuming the data",
+    "machineText": "The pages of this portal are built from the same files listed above, only with markup around them. Scraping the pages is unnecessary and inadvisable: it yields worse data and breaks the first time the markup changes. Below is where to start, and the button opens examples that run as they stand.",
+    "machinePointIndex": "The dataset index sits at /data/index.json. It lists every file with its purpose, its record count, the version of the level rule, and the strata of the schema. Every integration starts there, because the other addresses come from it.",
+    "machinePointLlms": "A short description for language models sits at /llms.txt, following the llmstxt.org convention. A model handed that file learns what data exists and where it lives without opening a single page.",
+    "machinePointGit": "The source data lives in a git repository: one file per technology, with evidence and levels appended line by line. Cloning gives the full history of changes, which the built artefacts do not carry.",
+    "machinePointRelease": "Cite a release, not the live file. A release is immutable; the live file changes weekly, and a link to it will in time support something other than what it supported.",
+    "machinePointLicense": "Licensed CC BY 4.0. Attribute the source: RAG World, https://ragworld.org.",
+    "machineShow": "show worked examples",
+    "machineHide": "hide examples",
+    "machineShell": "Command line",
+    "machineShellComment": "list the datasets, then every record at level L5",
+    "machinePython": "Python with no third-party libraries",
+    "machineGit": "Cloning the source data",
+    "machineGitComment": "one file per technology; evidence is appended line by line"
   },
   "levelCondition": {
     "L1": "L1 — needs a preprint or workshop publication",
@@ -303,5 +327,38 @@
     "lead": "The steps follow the order in which a query passes through them. Each step names what sets this technology apart from plain vector search; a step with nothing of its own is marked as base. The diagram is built from the record’s configuration and changes together with it.",
     "defaultStep": "no departure from the base configuration",
     "allDefault": "The technology departs from the base configuration in no dimension."
+  },
+  "head": {
+    "home": {
+      "title": "Maturity map of RAG technologies",
+      "description": "Sixty-five retrieval-augmented generation technologies, each with a maturity level from L0 to L6 derived by rule and the evidence it stands on. Updated weekly."
+    },
+    "registry": {
+      "title": "Registry",
+      "description": "The full registry of RAG technologies, filterable by kind, dimension stratum, and maturity level. Every record opens a card with its configuration and evidence."
+    },
+    "changes": {
+      "title": "Chronicle of changes",
+      "description": "What changed in the registry and on what grounds: every level change with its date and the evidence that caused it."
+    },
+    "digest": {
+      "title": "Digest",
+      "description": "Digest issues composed from the chronicle of changes with no language model involved."
+    },
+    "residuals": {
+      "title": "Gaps",
+      "description": "Mechanisms the 28-dimension schema does not express, and works awaiting a verdict on whether to enter them into the registry."
+    },
+    "article": {
+      "title": "Foundations",
+      "description": "The stratified configuration space of RAG: 28 dimensions across seven strata, compatibility constraints, and the rule that derives a maturity level."
+    },
+    "about": {
+      "title": "About",
+      "description": "How the portal works, where the data comes from, how to cite it, how to consume it machine-readably, and how to propose a change."
+    },
+    "notFound": {
+      "title": "Page not found"
+    }
   }
 }

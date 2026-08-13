@@ -1,0 +1,32 @@
+# RAG World
+
+> A self-updating registry of retrieval-augmented generation technologies. Every record carries a configuration over a 28-dimension schema, a maturity level from L0 to L6 derived by a deterministic rule with no language model involved, and the evidence that level stands on. Data is collected weekly from arXiv, OpenAlex, GitHub, PyPI and Papers with Code.
+
+Do not scrape the pages. Every page on this site is rendered from the JSON files below, and those files are the same data without the markup. Start from https://ragworld.org/data/index.json, which lists them all.
+
+- Records: 65
+- Evidence records: 198
+- Freshest evidence: 2026-08-12
+- Built: 2026-08-12
+- Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+- Attribution: RAG World, https://ragworld.org
+
+## Data
+
+- [Index of all datasets](https://ragworld.org/data/index.json): what each file holds, how many records, where the schema is described.
+- [Registry](https://ragworld.org/data/registry.json): Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.
+- [Map](https://ragworld.org/data/map.json): Maturity level against attention for every record, as plotted on the maturity map.
+- [Changes](https://ragworld.org/data/changes.json): Append-only chronicle: every level change with its date and the evidence that caused it.
+- [Stats](https://ragworld.org/data/stats.json): Counts by kind, level, and stratum, plus the date of the freshest evidence.
+- [Residuals](https://ragworld.org/data/residuals.json): Mechanisms recorded as not expressible in the current schema, with the records that raised each one. Three mentions make a mechanism a candidate for a new dimension.
+- [Candidates](https://ragworld.org/data/candidates.json): Works found by weekly discovery and awaiting a human verdict, each with a deterministic fit score from 0 to 10.
+- [Digest](https://ragworld.org/data/digest.json): Digest issues, generated from the chronicle without a language model.
+
+## Citing
+
+- [Releases](https://ragworld.org/data/releases/index.json): dated, immutable snapshots. Cite a release, not the live file: the live file changes every week.
+- [How to cite](https://ragworld.org/about): citation formats and the licence.
+
+## Source
+
+- [Repository](https://github.com/laputski/rag-world): the data lives in git as one JSON file per technology, plus append-only evidence and level journals. Cloning gives the full history; the artefacts above are derived from it.

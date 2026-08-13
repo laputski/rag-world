@@ -1,9 +1,90 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RAG World — карта и реестр технологий RAG</title>
+
+    <!--
+      Описание, заголовок и адрес заданы статически и переписываются при
+      переходе по страницам (см. `useDocumentHead`). Статические значения нужны
+      потому, что портал собирается на клиенте: обходчик, не выполняющий код,
+      увидит только то, что стоит здесь. Язык по умолчанию английский, как и у
+      самого портала.
+    -->
+    <title>RAG World — registry of retrieval-augmented generation technologies</title>
+    <meta
+      name="description"
+      content="A self-updating registry of 65 RAG technologies. Every record carries a configuration over 28 dimensions, a maturity level from L0 to L6 derived by a deterministic rule, and the evidence behind it. Data published as open JSON under CC BY 4.0."
+    />
+    <link rel="canonical" href="https://ragworld.org/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RAG World" />
+    <meta property="og:title" content="RAG World — registry of retrieval-augmented generation technologies" />
+    <meta
+      property="og:description"
+      content="65 RAG technologies, each with a configuration over 28 dimensions, a maturity level derived by rule, and the evidence behind it. Updated weekly. Open data."
+    />
+    <meta property="og:url" content="https://ragworld.org/" />
+    <meta name="twitter:card" content="summary" />
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="color-scheme" content="dark light" />
+
+    <link rel="alternate" type="application/rss+xml" title="RAG World" href="/data/feed.xml" />
+    <!--
+      Указатель наборов данных объявлен ссылкой, а не только упомянут в тексте:
+      так его находит и потребитель, читающий разметку, и тот, кто читает
+      llms.txt.
+    -->
+    <link rel="alternate" type="application/json" title="RAG World datasets" href="/data/index.json" />
+
+    <!--
+      Разметка набора данных по schema.org. Портал публикует именно набор
+      данных, а не статью и не программу, и объявление этого рода — то, на что
+      опираются поисковые системы и каталоги данных.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "RAG World registry",
+        "description": "A registry of retrieval-augmented generation technologies. Each record carries a configuration over a 28-dimension stratified schema, a maturity level from L0 to L6 derived by a deterministic rule with no language model involved, and the evidence records that level stands on. Collected weekly from arXiv, OpenAlex, GitHub, PyPI and Papers with Code.",
+        "url": "https://ragworld.org/",
+        "sameAs": "https://github.com/laputski/rag-world",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isAccessibleForFree": true,
+        "creator": { "@type": "Organization", "name": "RAG World", "url": "https://ragworld.org/" },
+        "keywords": [
+          "retrieval-augmented generation",
+          "RAG",
+          "information retrieval",
+          "technology readiness",
+          "configuration space",
+          "knowledge graph"
+        ],
+        "distribution": [
+          {
+            "@type": "DataDownload",
+            "name": "Registry",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://ragworld.org/data/registry.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "Dataset index",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://ragworld.org/data/index.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "Change feed",
+            "encodingFormat": "application/rss+xml",
+            "contentUrl": "https://ragworld.org/data/feed.xml"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

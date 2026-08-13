@@ -40,6 +40,23 @@ from services.registry import store  # noqa: E402
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "ui" / "public" / "data"
 
+#: Постоянный адрес портала. Входит в машиночитаемое описание и в карту сайта,
+#: поэтому задан здесь один раз, а не повторяется по файлам.
+SITE = "https://ragworld.org"
+
+#: Хранилище исходных данных. Клонирование остаётся первым способом доступа:
+#: артефакты производны, а история изменений живёт только в нём.
+REPOSITORY = "https://github.com/laputski/rag-world"
+
+#: Лицензия на данные и артефакты; та же, что в data/LICENSE.md.
+LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
+LICENSE_NAME = "CC BY 4.0"
+
+#: Страницы портала, существующие постоянно. Карточки технологий добавляются к
+#: ним по реестру, поэтому карта сайта не отстаёт от него на новую запись.
+STATIC_ROUTES = ("/", "/registry", "/changes", "/digest", "/residuals",
+                 "/article", "/about")
+
 #: Схема измерений для интерфейса порождается из той же декларации, что и для
 #: остального кода. Переписать её вручную значило бы завести второе описание —
 #: ровно то, что проект однажды уже пережил.
@@ -534,6 +551,14 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "mechanisms": _residual_queue(technologies),
     })
     _write_feed(target / "feed.xml", changes, built_at, _issues())
+    # Машиночитаемый вход: описание набора данных, карта сайта и указатель для
+    # языковых моделей. Собираются здесь, потому что зависят от тех же чисел,
+    # что и артефакты, и врозь с ними разошлись бы на первой же новой записи.
+    _write(target / "index.json", _access_manifest(target, built_at, registry_rows, stats))
+    _write_sitemap(target.parent / "sitemap.xml", registry_rows, built_at)
+    (target.parent / "llms.txt").write_text(
+        render_llms_txt(built_at, registry_rows, stats), encoding="utf-8"
+    )
     if out_dir is None:
         SCHEMA_MODULE.write_text(render_schema_module(), encoding="utf-8")
 
@@ -591,6 +616,162 @@ def render_schema_module() -> str:
         "  return DIMENSIONS.filter((d) => d.stratum === stratum);\n"
         "}\n"
     )
+
+
+#: Наборы данных, публикуемые порталом: файл, ключ с записями и назначение.
+#:
+#: Описания по-английски намеренно. Их читает не посетитель, а тот, кто
+#: подключает набор к своей системе, и в этой роли английский общий.
+DATASETS: tuple[tuple[str, str, str], ...] = (
+    ("registry.json", "technologies",
+     "Every technology in the registry with its configuration over the 28 "
+     "dimensions, maturity level, the rule output behind that level, and the "
+     "evidence records the level stands on."),
+    ("map.json", "points",
+     "Maturity level against attention for every record, as plotted on the "
+     "maturity map."),
+    ("changes.json", "changes",
+     "Append-only chronicle: every level change with its date and the "
+     "evidence that caused it."),
+    ("stats.json", "",
+     "Counts by kind, level, and stratum, plus the date of the freshest "
+     "evidence."),
+    ("residuals.json", "mechanisms",
+     "Mechanisms recorded as not expressible in the current schema, with the "
+     "records that raised each one. Three mentions make a mechanism a "
+     "candidate for a new dimension."),
+    ("candidates.json", "candidates",
+     "Works found by weekly discovery and awaiting a human verdict, each with "
+     "a deterministic fit score from 0 to 10."),
+    ("digest.json", "issues",
+     "Digest issues, generated from the chronicle without a language model."),
+)
+
+
+def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict) -> dict:
+    """Описание набора данных для машинного потребителя.
+
+    Артефакты лежали в открытом каталоге и раньше, но узнать об их
+    существовании можно было только прочитав исходный код портала. Указатель
+    называет каждый набор, его назначение и число записей в нём, поэтому
+    подключение не требует ни разбора страниц, ни чтения кода.
+
+    Число записей берётся из только что записанных файлов, а не из переменных
+    сборки. Так указатель описывает опубликованное, а не задуманное, и
+    разойтись с ним не может.
+    """
+    datasets = []
+    for name, key, description in DATASETS:
+        entry: dict = {
+            "url": f"{SITE}/data/{name}",
+            "description": description,
+        }
+        if key:
+            payload = json.loads((target / name).read_text(encoding="utf-8"))
+            entry["records_at"] = key
+            entry["records"] = len(payload.get(key, []))
+        datasets.append(entry)
+
+    return {
+        "name": "RAG World",
+        "site": SITE,
+        "built_at": built_at,
+        "license": {"name": LICENSE_NAME, "url": LICENSE_URL},
+        "attribution": f"RAG World, {SITE}",
+        "repository": REPOSITORY,
+        "documentation": f"{SITE}/about",
+        "schema": {
+            "dimensions": SCHEMA_SIZE,
+            "strata": [{"code": code, "name": name} for code, name in STRATA.items()],
+            "levels": LEVELS,
+            "rule_version": RULE_VERSION,
+        },
+        "technologies": len(rows),
+        "technology_ids": sorted(row["id"] for row in rows),
+        "datasets": datasets,
+        # Выпуски неизменны: ссылка на запись внутри выпуска указывает на то,
+        # что не изменится, тогда как ссылка на текущий артефакт указывает на
+        # движущийся объект. Для цитирования годится только первое.
+        "releases": f"{SITE}/data/releases/index.json",
+        "feed": f"{SITE}/data/feed.xml",
+        "sitemap": f"{SITE}/sitemap.xml",
+    }
+
+
+def _write_sitemap(path: Path, rows: list[dict], built_at: str) -> None:
+    """Карта сайта по постоянным страницам и карточкам реестра."""
+    day = built_at[:10]
+    urls = [f"{SITE}{route}" for route in STATIC_ROUTES]
+    urls += [f"{SITE}/tech/{row['id']}" for row in sorted(
+        rows, key=lambda r: r["id"]
+    )]
+    body = "\n".join(
+        f"  <url><loc>{escape(url)}</loc><lastmod>{day}</lastmod></url>"
+        for url in urls
+    )
+    path.write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{body}\n</urlset>\n",
+        encoding="utf-8",
+    )
+
+
+def render_llms_txt(built_at: str, rows: list[dict], stats: dict) -> str:
+    """Указатель портала для языковых моделей.
+
+    Соглашение llmstxt.org: короткий файл в корне, из которого видно, что на
+    сайте есть и где это лежит в машиночитаемом виде. Смысл его в том, чтобы
+    модель, которой нужны сведения о технологиях RAG, брала их из набора
+    данных, а не разбирала страницы: разбор страниц даёт худшие сведения и
+    ломается при первой же правке вёрстки.
+    """
+    lines = [
+        "# RAG World",
+        "",
+        "> A self-updating registry of retrieval-augmented generation "
+        "technologies. Every record carries a configuration over a 28-dimension "
+        "schema, a maturity level from L0 to L6 derived by a deterministic rule "
+        "with no language model involved, and the evidence that level stands on. "
+        "Data is collected weekly from arXiv, OpenAlex, GitHub, PyPI and Papers "
+        "with Code.",
+        "",
+        "Do not scrape the pages. Every page on this site is rendered from the "
+        "JSON files below, and those files are the same data without the markup. "
+        f"Start from {SITE}/data/index.json, which lists them all.",
+        "",
+        f"- Records: {len(rows)}",
+        f"- Evidence records: {stats.get('evidence_total')}",
+        f"- Freshest evidence: {stats.get('freshest_evidence')}",
+        f"- Built: {built_at}",
+        f"- Licence: {LICENSE_NAME}, {LICENSE_URL}",
+        f"- Attribution: RAG World, {SITE}",
+        "",
+        "## Data",
+        "",
+        f"- [Index of all datasets]({SITE}/data/index.json): what each file "
+        "holds, how many records, where the schema is described.",
+    ]
+    for name, _key, description in DATASETS:
+        title = name.removesuffix(".json").replace("_", " ").capitalize()
+        lines.append(f"- [{title}]({SITE}/data/{name}): {description}")
+    lines += [
+        "",
+        "## Citing",
+        "",
+        f"- [Releases]({SITE}/data/releases/index.json): dated, immutable "
+        "snapshots. Cite a release, not the live file: the live file changes "
+        "every week.",
+        f"- [How to cite]({SITE}/about): citation formats and the licence.",
+        "",
+        "## Source",
+        "",
+        f"- [Repository]({REPOSITORY}): the data lives in git as one JSON file "
+        "per technology, plus append-only evidence and level journals. Cloning "
+        "gives the full history; the artefacts above are derived from it.",
+        "",
+    ]
+    return "\n".join(lines)
 
 
 def _write(path: Path, payload: dict) -> None:

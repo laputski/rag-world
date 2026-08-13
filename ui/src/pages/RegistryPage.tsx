@@ -7,6 +7,7 @@ import { FacetRail, type FacetOption } from "../components/FacetRail";
 import { FeedRow, type FeedItem } from "../components/FeedRow";
 import { StratumChip } from "../components/StratumChip";
 import { STRATA } from "../schema.generated";
+import { useDocumentHead } from "../useDocumentHead";
 
 /**
  * Реестр технологий: фасеты слева, лента по центру.
@@ -17,14 +18,28 @@ import { STRATA } from "../schema.generated";
  * процитировать ссылкой — для читателя-исследователя это важнее удобства.
  */
 
-const KINDS = ["paradigm", "architecture", "technique", "tool", "artifact"];
+/**
+ * Порядок родов при показе. Сам перечень берётся из данных, а этот список
+ * задаёт лишь очерёдность: от самого общего к самому частному.
+ *
+ * Записанный руками перечень разошёлся с данными в обе стороны сразу. Род
+ * «артефакт оценки» стоял в отборе с нулём записей, потому что таких записей
+ * в реестре нет; род «атака» из отбора выпал, хотя записи есть, и добраться
+ * до них отбором было нельзя. Поэтому перечень выводится, а не пишется.
+ */
+const KIND_ORDER = ["paradigm", "architecture", "technique", "tool", "attack", "artifact"];
 const SORTS = ["level", "attention", "recent", "name"] as const;
 type Sort = (typeof SORTS)[number];
 
 const LEVEL_ORDER = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"];
 
 export function RegistryPage() {
+
   const { t } = useTranslation();
+  useDocumentHead({
+    title: t("head.registry.title"),
+    description: t("head.registry.description"),
+  });
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [all, setAll] = useState<FeedItem[]>([]);
@@ -78,11 +93,20 @@ export function RegistryPage() {
     return sorted;
   }, [all, kind, stratum, sort]);
 
-  const kindFacets: FacetOption[] = KINDS.map((k) => ({
-    value: k,
-    label: t(`kind.${k}`, { defaultValue: k }),
-    count: all.filter((it) => it.kind === k && (!stratum || it.groups.includes(stratum))).length,
-  }));
+  // Роды берутся из самих записей: отбор по роду, которого в реестре нет,
+  // предлагать нечего, а род, появившийся в данных, попадает в отбор сам.
+  const kindFacets: FacetOption[] = useMemo(() => {
+    const present = new Set(all.map((it) => it.kind).filter(Boolean));
+    const ordered = [
+      ...KIND_ORDER.filter((k) => present.has(k)),
+      ...[...present].filter((k) => !KIND_ORDER.includes(k)).sort(),
+    ];
+    return ordered.map((k) => ({
+      value: k,
+      label: t(`kind.${k}`, { defaultValue: k }),
+      count: all.filter((it) => it.kind === k && (!stratum || it.groups.includes(stratum))).length,
+    }));
+  }, [all, stratum, t]);
 
   const stratumFacets: FacetOption[] = STRATA.map((s) => ({
     value: s.code,

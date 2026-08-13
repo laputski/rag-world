@@ -49,12 +49,19 @@ def test_locale_files_have_no_broken_characters():
         json.loads(text)  # файл обязан оставаться разбираемым
 
 
-def test_locales_declare_the_same_keys():
-    """Ключ, добавленный в один язык и забытый в другом, показывает читателю код."""
-    import json
-    from pathlib import Path
+#: Окончания форм числа. Формы задаёт грамматика, и у языков она разная:
+#: русскому нужны `_one`, `_few` и `_many`, английскому — `_one` и `_other`.
+#: Сравнивать такие ключи напрямую значит объявлять грамматику недостачей
+#: перевода.
+PLURAL_FORMS = ("zero", "one", "two", "few", "many", "other")
 
-    root = Path(__file__).resolve().parents[2]
+#: Формы, обязательные для языка. Недостача любой из них показывает читателю
+#: ключ вместо сообщения ровно на тех числах, для которых форма пропущена.
+REQUIRED_FORMS = {"ru": ("one", "few", "many"), "en": ("one", "other")}
+
+
+def _locale_keys(root, language: str) -> set[str]:
+    import json
 
     def flat(node: object, prefix: str = "") -> set[str]:
         if isinstance(node, dict):
@@ -64,11 +71,48 @@ def test_locales_declare_the_same_keys():
             return out
         return {prefix}
 
-    ru = flat(json.loads((root / "ui" / "src" / "i18n" / "ru.json").read_text(encoding="utf-8")))
-    en = flat(json.loads((root / "ui" / "src" / "i18n" / "en.json").read_text(encoding="utf-8")))
+    path = root / "ui" / "src" / "i18n" / f"{language}.json"
+    return flat(json.loads(path.read_text(encoding="utf-8")))
+
+
+def _stem(key: str) -> str:
+    for form in PLURAL_FORMS:
+        if key.endswith(f"_{form}"):
+            return key[: -len(form) - 1]
+    return key
+
+
+def test_locales_declare_the_same_keys():
+    """Ключ, добавленный в один язык и забытый в другом, показывает читателю код."""
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    ru = {_stem(key) for key in _locale_keys(root, "ru")}
+    en = {_stem(key) for key in _locale_keys(root, "en")}
     assert ru == en, (
         f"только в русском: {sorted(ru - en)}; только в английском: {sorted(en - ru)}"
     )
+
+
+def test_counted_messages_declare_every_form_the_language_needs():
+    """Сообщение со счётом без нужной формы обрывается на определённых числах.
+
+    По-русски «7 изменений» и «2 изменения» требуют разных форм, и недостача
+    формы `_few` показывает читателю сам ключ на числах от двух до четырёх.
+    Заметить это, глядя на страницу с семью изменениями, нельзя.
+    """
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    problems: list[str] = []
+    for language, required in REQUIRED_FORMS.items():
+        keys = _locale_keys(root, language)
+        stems = {_stem(key) for key in keys if _stem(key) != key}
+        for stem in sorted(stems):
+            missing = [form for form in required if f"{stem}_{form}" not in keys]
+            if missing:
+                problems.append(f"{language}{stem}: нет форм {missing}")
+    assert not problems, "сообщения со счётом неполны: " + "; ".join(problems)
 
 
 #: Ключи, где тире отделяет обозначение от расшифровки, а не заменяет связку.
