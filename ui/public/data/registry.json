@@ -367,7 +367,7 @@
           "why_en": "The survey divides them by the number of agents outright, so the dimension is marked."
         }
       ],
-      "prose_id": null,
+      "prose_id": "agentic_rag",
       "residual": [],
       "residual_en": []
     },
@@ -813,7 +813,7 @@
           "why_en": "It is a part of a system rather than a system: the dimensions of synthesis, query and retrieval do not apply to it."
         }
       ],
-      "prose_id": null,
+      "prose_id": "bge_m3",
       "residual": [],
       "residual_en": []
     },
@@ -1264,7 +1264,7 @@
           "why_en": "Both the reader and the retriever are trained, the second for the task of the first."
         }
       ],
-      "prose_id": null,
+      "prose_id": "chatqa",
       "residual": [],
       "residual_en": []
     },
@@ -6543,7 +6543,7 @@
           "why_en": "The product runs distributed."
         }
       ],
-      "prose_id": null,
+      "prose_id": "opensearch",
       "residual": [],
       "residual_en": []
     },
@@ -7087,7 +7087,7 @@
           "why_en": "There is no synthesis stage, nor any query transformation: both are done by the system that uses the store."
         }
       ],
-      "prose_id": null,
+      "prose_id": "qdrant",
       "residual": [],
       "residual_en": []
     },
@@ -7243,7 +7243,7 @@
           "why_en": "What is found is handed to the generator directly."
         }
       ],
-      "prose_id": null,
+      "prose_id": "ra_cm3",
       "residual": [],
       "residual_en": []
     },

@@ -53,6 +53,6 @@
   ],
   "name": "Qdrant",
   "package": "qdrant-client",
-  "prose_id": null,
+  "prose_id": "qdrant",
   "residual": []
 }

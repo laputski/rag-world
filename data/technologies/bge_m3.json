@@ -53,6 +53,6 @@
   ],
   "name": "BGE-M3",
   "package": "FlagEmbedding",
-  "prose_id": null,
+  "prose_id": "bge_m3",
   "residual": []
 }

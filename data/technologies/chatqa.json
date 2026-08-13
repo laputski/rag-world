@@ -54,6 +54,6 @@
   ],
   "name": "ChatQA",
   "package": null,
-  "prose_id": null,
+  "prose_id": "chatqa",
   "residual": []
 }

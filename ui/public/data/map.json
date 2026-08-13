@@ -57,7 +57,7 @@
       "kind": "architecture",
       "level": null,
       "name": "Agentic RAG",
-      "prose_id": null
+      "prose_id": "agentic_rag"
     },
     {
       "attention": 1.036,
@@ -135,7 +135,7 @@
       "kind": "tool",
       "level": "L0",
       "name": "BGE-M3",
-      "prose_id": null
+      "prose_id": "bge_m3"
     },
     {
       "attention": null,
@@ -214,7 +214,7 @@
       "kind": "architecture",
       "level": "L2",
       "name": "ChatQA",
-      "prose_id": null
+      "prose_id": "chatqa"
     },
     {
       "attention": 2.513,
@@ -982,7 +982,7 @@
       "kind": "tool",
       "level": "L2",
       "name": "OpenSearch",
-      "prose_id": null
+      "prose_id": "opensearch"
     },
     {
       "attention": 2.763,
@@ -1081,7 +1081,7 @@
       "kind": "tool",
       "level": "L2",
       "name": "Qdrant",
-      "prose_id": null
+      "prose_id": "qdrant"
     },
     {
       "attention": 0.644,
@@ -1106,7 +1106,7 @@
       "kind": "architecture",
       "level": "L1",
       "name": "RA-CM3",
-      "prose_id": null
+      "prose_id": "ra_cm3"
     },
     {
       "attention": 0.248,

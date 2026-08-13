@@ -6,11 +6,37 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getRegistry } from "../api/client";
-import { getTechProse } from "../i18n/index";
+import { getTechProse, getDimensionLabel, getValueLabel } from "../i18n/index";
 import { LevelBadge } from "../components/LevelBadge";
 import { ConfigGlyph } from "../components/ConfigGlyph";
+import { ConfigFlow } from "../components/ConfigFlow";
 import { StratumChip } from "../components/StratumChip";
+import { DIMENSIONS, STRATA } from "../schema.generated";
 import type { ParseNote, RegistryTechnology } from "../api/types";
+
+/**
+ * Проза карточки: абзацы, а не полотно.
+ *
+ * Тексты хранятся с пустой строкой между абзацами, как в любом обычном
+ * источнике. Без этой разбивки описание в четыреста слов выходит одним
+ * блоком, который читатель пролистывает не читая.
+ */
+function Prose({ text }: { text: string }) {
+  const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  return (
+    <>
+      {paragraphs.map((p, i) => (
+        <Typography
+          key={i}
+          variant="body2"
+          sx={{ lineHeight: 1.75, mb: i < paragraphs.length - 1 ? 1.5 : 0 }}
+        >
+          {p}
+        </Typography>
+      ))}
+    </>
+  );
+}
 
 /**
  * Обоснование одного решения разбора конфигурации.
@@ -213,7 +239,7 @@ export function TechCardPage() {
 
       {prose.full && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-          <Typography variant="body2" sx={{ lineHeight: 1.75 }}>{prose.full}</Typography>
+          <Prose text={prose.full} />
         </Paper>
       )}
 
@@ -226,21 +252,30 @@ export function TechCardPage() {
           ] as const).map(([key, text]) => text ? (
             <Box key={key} sx={{ mb: 1.5 }}>
               <Typography variant="subtitle2" sx={{ mb: 0.5 }}>{t(key)}</Typography>
-              <Typography variant="body2" sx={{ lineHeight: 1.75 }}>{text}</Typography>
+              <Prose text={text} />
             </Box>
           ) : null)}
         </Paper>
       )}
 
-      <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-        <Typography variant="subtitle2" sx={{ mb: 1 }}>{t("techCard.groups")}</Typography>
-        <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
-          {tech.groups.map((g) => (
-            <Chip key={g} size="small" label={g} />
-          ))}
-          {tech.groups.length === 0 && <Typography variant="body2" color="text.secondary">—</Typography>}
-        </Box>
-      </Paper>
+      {/*
+        Ход обработки заменил перечень страт, который стоял здесь раньше.
+        Перечень называл буквы A и C, ничего к ним не добавляя, и повторял
+        фишки страт из шапки. Диаграмма выводится из той же конфигурации, но
+        говорит, что именно технология делает и на каком шаге.
+      */}
+      {Object.keys(tech.configuration).length > 0 && (
+        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5 }}>{t("configFlow.title")}</Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1.5 }}>
+            {t("configFlow.lead")}
+          </Typography>
+          <ConfigFlow
+            configuration={tech.configuration}
+            variable={tech.configuration_variable}
+          />
+        </Paper>
+      )}
 
       {Object.keys(tech.configuration).length > 0 && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
@@ -250,11 +285,20 @@ export function TechCardPage() {
             первоисточником, от значения по умолчанию, которое никто не смотрел.
             Выглядят они одинаково, а утверждают разное.
           */}
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 0.5 }}>
+            {t("techCard.configurationLead")}
+          </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1 }}>
             {tech.configuration_reviewed
               ? t("techCard.configurationReviewed", { date: tech.configuration_reviewed })
               : t("techCard.configurationUnreviewed")}
           </Typography>
+          {/*
+            Строки идут в порядке схемы и сгруппированы по стратам, а не в том
+            порядке, в каком ключи легли в JSON. Порядок схемы совпадает с
+            порядком обработки запроса, поэтому таблица читается сверху вниз
+            как устройство системы, а не как алфавитный список свойств.
+          */}
           <TableContainer>
             <Table size="small">
               <TableHead>
@@ -264,53 +308,129 @@ export function TechCardPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/*
-                  Три разных утверждения об измерении показываются по-разному.
-                  Переменное значение выбирается системой во время работы, и
-                  без пометки читатель принял бы записанное за единственное.
-                  Неприменимое измерение значения не имеет вовсе — строка
-                  остаётся, потому что её отсутствие читалось бы как «забыли».
-                */}
-                {Object.entries(tech.configuration).map(([dim, val]) => {
-                  const variable = tech.configuration_variable.includes(dim);
-                  const note = tech.parse_notes.find((n) => n.code === dim);
-                  return (
-                    <TableRow key={dim} sx={{ "& > td": { borderBottom: note ? 0 : undefined } }}>
-                      <TableCell sx={{ fontFamily: "monospace", verticalAlign: "top" }}>{dim}</TableCell>
-                      <TableCell sx={{ fontFamily: "monospace" }}>
-                        {val}
-                        {variable && (
-                          <Typography
-                            component="span"
-                            variant="caption"
-                            color="text.secondary"
-                            sx={{ ml: 1, fontFamily: "inherit" }}
-                          >
-                            {t("techCard.dimensionVariable")}
-                          </Typography>
-                        )}
-                        {/*
-                          Обоснование прямо под значением, а не в сноске.
-                          Конфигурация — единственное место портала, где решение
-                          принял человек: у уровня показан вывод правила, у
-                          свидетельства — источник, и только здесь значение
-                          появлялось без основания.
-                        */}
-                        {note && <ParseNoteBlock note={note} />}
-                      </TableCell>
-                    </TableRow>
+                {STRATA.map((stratum) => {
+                  const rows = DIMENSIONS.filter(
+                    (d) =>
+                      d.stratum === stratum.code &&
+                      (d.code in tech.configuration ||
+                        tech.configuration_inapplicable.includes(d.code))
                   );
+                  if (rows.length === 0) return null;
+                  return [
+                    <TableRow key={`h-${stratum.code}`}>
+                      <TableCell
+                        colSpan={2}
+                        sx={{ borderBottom: 0, pt: 2, pb: 0.5 }}
+                      >
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            textTransform: "uppercase",
+                            letterSpacing: "0.06em",
+                            fontSize: "0.66rem",
+                            color: "text.secondary",
+                          }}
+                        >
+                          {t(`stratum.${stratum.code}`, { defaultValue: stratum.code })}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>,
+                    ...rows.map((dim) => {
+                      const inapplicable = tech.configuration_inapplicable.includes(dim.code);
+                      const val = tech.configuration[dim.code];
+                      const variable = tech.configuration_variable.includes(dim.code);
+                      const note = tech.parse_notes.find((n) => n.code === dim.code);
+                      const label = getDimensionLabel(dim.code, i18n.language);
+                      const own = !inapplicable && val !== dim.default;
+                      return (
+                        <TableRow
+                          key={dim.code}
+                          sx={{ "& > td": { borderBottom: note ? 0 : undefined } }}
+                        >
+                          <TableCell sx={{ verticalAlign: "top", width: "42%", opacity: inapplicable ? 0.6 : 1 }}>
+                            <Typography variant="body2" sx={{ fontWeight: own ? 600 : 400 }}>
+                              {label?.name ?? dim.code}
+                            </Typography>
+                            {/*
+                              Вопрос под именем и есть определение измерения.
+                              Имя «Компоновка» без него так же непрозрачно, как
+                              код D3: читателю нужно знать, о чём измерение
+                              вообще, а не только как оно называется.
+                            */}
+                            {label && (
+                              <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{ display: "block", lineHeight: 1.4 }}
+                              >
+                                {label.question}
+                              </Typography>
+                            )}
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                              sx={{ fontFamily: "monospace", fontSize: "0.68rem" }}
+                            >
+                              {dim.code}
+                            </Typography>
+                          </TableCell>
+                          {/*
+                            Три разных утверждения о значении показываются
+                            по-разному. Переменное значение выбирается системой
+                            во время работы, и без пометки читатель принял бы
+                            записанное за единственное. Неприменимое измерение
+                            значения не имеет вовсе; строка остаётся, потому
+                            что её отсутствие читалось бы как «забыли».
+                          */}
+                          <TableCell sx={{ verticalAlign: "top" }}>
+                            {inapplicable ? (
+                              <Typography variant="caption" color="text.secondary">
+                                {t("techCard.dimensionInapplicable")}
+                              </Typography>
+                            ) : (
+                              <>
+                                <Typography
+                                  variant="body2"
+                                  sx={{ fontWeight: own ? 600 : 400, color: own ? "text.primary" : "text.secondary" }}
+                                >
+                                  {getValueLabel(dim.code, val, i18n.language) ?? val}
+                                </Typography>
+                                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", alignItems: "baseline" }}>
+                                  <Typography
+                                    variant="caption"
+                                    color="text.secondary"
+                                    sx={{ fontFamily: "monospace", fontSize: "0.68rem" }}
+                                  >
+                                    {val}
+                                  </Typography>
+                                  {!own && (
+                                    <Typography variant="caption" color="text.secondary">
+                                      {t("techCard.dimensionDefaultMark")}
+                                    </Typography>
+                                  )}
+                                  {variable && (
+                                    <Typography variant="caption" color="text.secondary">
+                                      {t("techCard.dimensionVariable")}
+                                    </Typography>
+                                  )}
+                                </Box>
+                                {/*
+                                  Обоснование прямо под значением, а не в
+                                  сноске. Конфигурация — единственное место
+                                  портала, где решение принял человек: у уровня
+                                  показан вывод правила, у свидетельства —
+                                  источник, и только здесь значение появлялось
+                                  без основания.
+                                */}
+                                {note && <ParseNoteBlock note={note} />}
+                              </>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }),
+                  ];
                 })}
-                {tech.configuration_inapplicable.map((dim) => (
-                  <TableRow key={dim}>
-                    <TableCell sx={{ fontFamily: "monospace", opacity: 0.6 }}>{dim}</TableCell>
-                    <TableCell>
-                      <Typography variant="caption" color="text.secondary">
-                        {t("techCard.dimensionInapplicable")}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                ))}
               </TableBody>
             </Table>
           </TableContainer>

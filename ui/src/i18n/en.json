@@ -115,7 +115,6 @@
   "techCard": {
     "notFound": "Technology not found in the registry",
     "family": "family",
-    "groups": "Dimension strata",
     "configuration": "Configuration in the dimension schema",
     "dimension": "Dimension",
     "value": "Value",
@@ -150,7 +149,10 @@
     "basisWhy": "Why that yields this value",
     "basisInstead": "Which value did not fit",
     "basisQuestion": "Another reading is possible here",
-    "basisNotYetTranslated": "This justification is shown in Russian: the translation of this record is not finished yet."
+    "basisNotYetTranslated": "This justification is shown in Russian: the translation of this record is not finished yet.",
+    "configurationLead": "Each row answers one question about how the system is built. A value of its own is highlighted; the rest match the base configuration. The stable code stands in parentheses: it is never translated and is what to cite.",
+    "dimensionOwn": "value of its own",
+    "dimensionDefaultMark": "as in the base configuration"
   },
   "changes": {
     "title": "Changelog",
@@ -295,5 +297,11 @@
       "mechanismWeak": "the abstract touches on how retrieval is arranged, words: {{count}}",
       "offTask": "task from another field: {{tasks}}"
     }
+  },
+  "configFlow": {
+    "title": "Processing path",
+    "lead": "The steps follow the order in which a query passes through them. Each step names what sets this technology apart from plain vector search; a step with nothing of its own is marked as base. The diagram is built from the record’s configuration and changes together with it.",
+    "defaultStep": "no departure from the base configuration",
+    "allDefault": "The technology departs from the base configuration in no dimension."
   }
 }

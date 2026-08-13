@@ -53,6 +53,6 @@
   ],
   "name": "OpenSearch",
   "package": "opensearch-py",
-  "prose_id": null,
+  "prose_id": "opensearch",
   "residual": []
 }

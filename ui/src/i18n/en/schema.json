@@ -1,0 +1,209 @@
+{
+  "dimension": {
+    "A1": { "name": "Unit of retrieval", "question": "What the search returns as a single result." },
+    "A2": { "name": "Segmentation", "question": "By what rule a document is cut into units." },
+    "A3": { "name": "Unit enrichment", "question": "What is added to a unit beyond its own text." },
+    "A4": { "name": "Index topology", "question": "How units are connected to one another inside the store." },
+    "A5": { "name": "Representation model", "question": "In what form a unit is compared against the query." },
+    "A6": { "name": "Temporality", "question": "How the store accounts for time." },
+    "A7": { "name": "Modality", "question": "What kind of data is stored." },
+    "A8": { "name": "Origin of index structure", "question": "Where the connections between units came from." },
+    "B1": { "name": "Query transformation", "question": "What happens to the query before the index is consulted." },
+    "B2": { "name": "Routing", "question": "How the processing path for a query is chosen." },
+    "C1": { "name": "Search operator", "question": "By what operation candidates are taken from the index." },
+    "C2": { "name": "Traversal control", "question": "How many times the system consults the index, and who decides." },
+    "C3": { "name": "Source fusion", "question": "How results from several searches are combined." },
+    "C4": { "name": "Distribution", "question": "Where the data physically resides." },
+    "D1": { "name": "Reranking", "question": "How retrieved candidates are ordered anew." },
+    "D2": { "name": "Selection and compression", "question": "How what was found is reduced to what fits the model window." },
+    "D3": { "name": "Arrangement", "question": "In what order the selected material is given to the model." },
+    "E1": { "name": "Generation mode", "question": "How the answer is constructed." },
+    "E2": { "name": "Groundedness control", "question": "How the answer's support in the retrieved material is checked." },
+    "E3": { "name": "Attribution", "question": "What a citation in the answer points to." },
+    "E4": { "name": "Refusal policy", "question": "Under what conditions the system declines to answer." },
+    "E5": { "name": "Coupling of generation to retrieval", "question": "Whether generated text influences further search." },
+    "F1": { "name": "Write-back", "question": "Whether the system stores the result of its work for future queries." },
+    "F2": { "name": "Conflict resolution", "question": "What happens when stored material contradicts stored material." },
+    "F3": { "name": "Forgetting", "question": "How stored material stops being taken into account." },
+    "G1": { "name": "Privacy", "question": "What regime of data handling is provided." },
+    "G2": { "name": "Execution site", "question": "Where the computation runs." },
+    "G3": { "name": "Trainability of components", "question": "Which parts of the system are trained and which are taken ready-made." }
+  },
+  "value": {
+    "A1": {
+      "passage": "Text fragment",
+      "proposition": "Proposition, that is a single self-contained statement",
+      "entity": "Entity",
+      "node_edge": "Graph node or edge",
+      "page_image": "Page image",
+      "table_row": "Table row",
+      "summary_node": "Summary node"
+    },
+    "A2": {
+      "fixed": "Fragments of constant length",
+      "structure_aware": "By document structure",
+      "late_chunking": "Late, after encoding the whole document",
+      "semantic": "By meaning boundaries",
+      "none": "No segmentation"
+    },
+    "A3": {
+      "none": "No enrichment",
+      "context_prefix": "Prefix carrying document context",
+      "summary": "Summary of the content",
+      "extracted_triples": "Extracted subject, relation, object triples",
+      "metadata": "Descriptive fields"
+    },
+    "A4": {
+      "flat": "Flat list",
+      "tree": "Tree",
+      "graph": "Graph",
+      "hypergraph": "Hypergraph, where an edge joins more than two nodes",
+      "community_hierarchy": "Hierarchy of communities"
+    },
+    "A5": {
+      "lexical": "Lexical, by word overlap",
+      "dense_single": "Dense single-vector",
+      "dense_multi_late_interaction": "Dense multi-vector with late interaction",
+      "symbolic": "Symbolic, over logical formulas",
+      "vision_language": "Vision-language",
+      "none": "No representation model"
+    },
+    "A6": {
+      "snapshot": "Snapshot",
+      "append_only": "Append-only",
+      "bitemporal": "Bitemporal: event time and record time"
+    },
+    "A7": {
+      "text": "Text",
+      "image": "Image",
+      "table": "Table",
+      "audio": "Audio",
+      "scene_3d": "Three-dimensional scene"
+    },
+    "A8": {
+      "none": "No structure",
+      "given": "Given by the source",
+      "extracted": "Extracted from the content",
+      "computed": "Computed by an algorithm"
+    },
+    "B1": {
+      "identity": "Query unchanged",
+      "hyde": "Hypothetical answer in place of the query",
+      "multi_reformulation": "Several reformulations",
+      "step_back": "Step back to a more general question",
+      "subquestion_decomposition": "Decomposition into subquestions"
+    },
+    "B2": {
+      "static": "Single path",
+      "trained_classifier": "Trained classifier",
+      "llm_router": "Choice made by a language model",
+      "cost_aware_policy": "Cost-aware policy"
+    },
+    "C1": {
+      "ann": "Approximate nearest neighbour search",
+      "lexical": "Search by word overlap",
+      "graph_traversal": "Graph traversal",
+      "boolean_query": "Boolean query",
+      "tree_navigation": "Descent through a tree",
+      "spatial_range": "Selection by region of space"
+    },
+    "C2": {
+      "single_shot": "One consultation",
+      "multi_hop_fixed": "Fixed number of hops",
+      "iterative_stopping": "Repetition until a stopping condition",
+      "agentic_open_loop": "Open loop driven by the model"
+    },
+    "C3": {
+      "none": "No fusion",
+      "rrf": "Reciprocal rank fusion",
+      "score_normalization": "Scores brought to one scale",
+      "learned_fusion": "Learned fusion"
+    },
+    "C4": {
+      "single_store": "One store",
+      "multiple_local": "Several local stores",
+      "federation": "Federation of independent owners"
+    },
+    "D1": {
+      "none": "No reranking",
+      "cross_encoder": "Joint encoder of query and candidate",
+      "graph_structural": "By position in the graph",
+      "set_cover": "Set cover, selecting dissimilar items",
+      "path_pruning": "Path pruning"
+    },
+    "D2": {
+      "top_k": "First k candidates",
+      "budget_aware": "Aware of the context budget",
+      "abstractive_compression": "Restatement of what was found",
+      "latent_compression": "Compression into latent vectors"
+    },
+    "D3": {
+      "natural_order": "Natural order",
+      "reliability_ascending": "By ascending reliability",
+      "hierarchical": "Hierarchical"
+    },
+    "E1": {
+      "single_pass": "Single pass",
+      "draft_verify": "Draft followed by verification",
+      "ensemble_fragments": "Assembly from per-fragment answers",
+      "multi_agent": "Several interacting agents"
+    },
+    "E2": {
+      "none": "No control",
+      "pre_gen_grounding": "Support checked before generation",
+      "post_gen_check": "Check after generation",
+      "decoding_reflection": "Self-assessment during generation",
+      "decoding_trigger": "Search invoked on a sign of uncertainty",
+      "external_judge": "External judge"
+    },
+    "E3": {
+      "none": "No citations",
+      "document_level": "To a document",
+      "fragment_level": "To a fragment",
+      "claim_level": "To an individual claim"
+    },
+    "E4": {
+      "no_refusal": "Refusal not provided for",
+      "confidence_threshold": "Confidence threshold",
+      "domain_policy": "Domain policy"
+    },
+    "E5": {
+      "none": "Generation does not influence search",
+      "generation_seeds": "Generated text sets the next query",
+      "mutual_loop": "Mutual loop of search and generation"
+    },
+    "F1": {
+      "none": "Nothing is stored",
+      "episodic": "Individual episodes recorded",
+      "consolidating": "Records consolidated into generalised memory"
+    },
+    "F2": {
+      "none": "Contradictions are not resolved",
+      "by_time": "The later record prevails",
+      "by_authority": "By reliability of the source",
+      "explicit_reconciliation": "Explicit reconciliation"
+    },
+    "F3": {
+      "none": "No forgetting",
+      "by_ttl": "By time to live",
+      "by_significance_decay": "By decay of significance"
+    },
+    "G1": {
+      "open": "No special restrictions",
+      "isolated_circuit": "Isolated circuit",
+      "differential_privacy": "Differential privacy",
+      "tee": "Trusted execution environment"
+    },
+    "G2": {
+      "server": "Server",
+      "edge_device": "Edge device",
+      "mixed": "Mixed"
+    },
+    "G3": {
+      "frozen": "All components taken ready-made",
+      "trained_retriever": "Retriever is trained",
+      "trained_reader": "Reader is trained",
+      "joint_training": "Retriever and reader trained jointly"
+    }
+  }
+}
