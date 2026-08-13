@@ -1,22 +1,22 @@
 {
   "attribution": "RAG World, https://ragworld.org",
-  "built_at": "2026-08-12",
+  "built_at": "2026-08-13",
   "datasets": [
     {
       "description": "Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.",
-      "records": 65,
+      "records": 67,
       "records_at": "technologies",
       "url": "https://ragworld.org/data/registry.json"
     },
     {
       "description": "Maturity level against attention for every record, as plotted on the maturity map.",
-      "records": 65,
+      "records": 67,
       "records_at": "points",
       "url": "https://ragworld.org/data/map.json"
     },
     {
       "description": "Append-only chronicle: every level change with its date and the evidence that caused it.",
-      "records": 87,
+      "records": 89,
       "records_at": "changes",
       "url": "https://ragworld.org/data/changes.json"
     },
@@ -26,7 +26,7 @@
     },
     {
       "description": "Mechanisms recorded as not expressible in the current schema, with the records that raised each one. Three mentions make a mechanism a candidate for a new dimension.",
-      "records": 12,
+      "records": 14,
       "records_at": "mechanisms",
       "url": "https://ragworld.org/data/residuals.json"
     },
@@ -44,7 +44,10 @@
     }
   ],
   "documentation": "https://ragworld.org/about",
-  "feed": "https://ragworld.org/data/feed.xml",
+  "feeds": {
+    "en": "https://ragworld.org/data/feed.xml",
+    "ru": "https://ragworld.org/data/feed.ru.xml"
+  },
   "license": {
     "name": "CC BY 4.0",
     "url": "https://creativecommons.org/licenses/by/4.0/"
@@ -67,37 +70,44 @@
     "strata": [
       {
         "code": "A",
-        "name": "Представление знаний"
+        "name": "Представление знаний",
+        "name_en": "Knowledge representation"
       },
       {
         "code": "B",
-        "name": "Формулировка и маршрутизация запроса"
+        "name": "Формулировка запроса",
+        "name_en": "Query formulation"
       },
       {
         "code": "C",
-        "name": "Извлечение"
+        "name": "Извлечение",
+        "name_en": "Retrieval"
       },
       {
         "code": "D",
-        "name": "Формирование контекста"
+        "name": "Формирование контекста",
+        "name_en": "Context assembly"
       },
       {
         "code": "E",
-        "name": "Синтез и контроль"
+        "name": "Синтез и контроль",
+        "name_en": "Synthesis and control"
       },
       {
         "code": "F",
-        "name": "Эволюция состояния"
+        "name": "Эволюция состояния",
+        "name_en": "State evolution"
       },
       {
         "code": "G",
-        "name": "Оболочка ограничений"
+        "name": "Оболочка ограничений",
+        "name_en": "Constraint envelope"
       }
     ]
   },
   "site": "https://ragworld.org",
   "sitemap": "https://ragworld.org/sitemap.xml",
-  "technologies": 65,
+  "technologies": 67,
   "technology_ids": [
     "adaptive_rag",
     "agentic_rag",
@@ -137,6 +147,7 @@
     "og_rag",
     "opensearch",
     "pathrag",
+    "pixelrag",
     "poison_rag",
     "poisonedrag",
     "qdrant",
@@ -144,6 +155,7 @@
     "ra_dit",
     "ra_isf",
     "raft",
+    "rag_anything",
     "rag_as_memory",
     "rag_fusion",
     "raptor",

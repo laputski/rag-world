@@ -25,7 +25,7 @@ export interface FeedItem {
   kind: string;
   groups: string[];
   configuration: Record<string, string>;
-  core_idea?: string | null;
+  summary?: string | null;
   level?: string | null;
   confidence?: number | null;
   evidence_basis?: string | null;
@@ -43,8 +43,11 @@ interface Props {
 
 export function FeedRow({ item, onOpen }: Props) {
   const { t, i18n } = useTranslation();
+  // Запасной вариант берётся из артефакта, а не из русского поля реестра:
+  // проза есть у всех записей, и русский абзац на английской версии остался
+  // бы там, где перевод забыли.
   const short = getTechProse(item.prose_id ?? null, i18n.language).short
-    ?? item.core_idea;
+    ?? item.summary;
 
   return (
     <Box

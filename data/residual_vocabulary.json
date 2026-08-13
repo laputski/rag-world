@@ -2,74 +2,11 @@
   "note": "Словарь механизмов, не выразимых схемой измерений. Остаток записи ссылается сюда кодом, а не свободным текстом: подсчёт повторов возможен только при совпадающих формулировках, а свободный текст даёт десять названий одному механизму. Механизм, набравший три и более упоминания, — кандидат в измерение (см. specs/stages/STAGE-residual-queue.md). Формулировки хранятся отдельно от кодов, поэтому английская локализация не требует переписывать реестр. Механизм, ставший измерением схемы, из словаря убирается: он больше не остаток. Так очередь остаётся списком того, чего схема не выражает, а не историей того, чего она когда-то не выражала. Пояснение хранится на обоих языках: очередь показывается читателю, а не только владельцу.",
   "mechanisms": [
     {
-      "id": "synonymy_edges",
-      "ru": "рёбра синонимии между узлами индекса",
-      "en": "synonymy edges between index nodes",
-      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
-      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts."
-    },
-    {
-      "id": "query_entity_extraction",
-      "ru": "извлечение именованных сущностей из запроса",
-      "en": "named entity extraction from the query",
-      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
-      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing."
-    },
-    {
-      "id": "score_transfer_to_units",
-      "ru": "перенос оценок узлов на единицы извлечения",
-      "en": "transfer of node scores onto retrieval units",
-      "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
-      "note_en": "One structure is ranked and a different one is returned. Neither the search operator (C1) nor reranking (D1) expresses that transition."
-    },
-    {
-      "id": "random_walk_ranking",
-      "ru": "ранжирование случайным блужданием с предпочтением",
-      "en": "personalized random-walk ranking",
-      "note": "Обход графа (C1) говорит, что структура обходится, но не как распределяется вес по узлам.",
-      "note_en": "Graph traversal (C1) says the structure is traversed, but not how weight is distributed across nodes. Different rules give different results on the same graph."
-    },
-    {
       "id": "approximate_then_exact",
       "ru": "приближённый отбор с последующим точным пересчётом",
       "en": "approximate shortlist followed by exact rescoring",
       "note": "Две ступени одной модели, а не модель поиска плюс модель переранжирования. Переранжирование (D1) описывает вторую модель, которой здесь нет.",
       "note_en": "Two stages of one model, not a search model plus a reranking model. Reranking (D1) describes a second model, which is absent here."
-    },
-    {
-      "id": "max_similarity_interaction",
-      "ru": "сравнение по максимуму сходства между представлениями",
-      "en": "max-similarity interaction between representations",
-      "note": "Модель представления (A5) называет вид представления, но не правило, по которому два набора векторов сводятся к одной оценке.",
-      "note_en": "The representation model (A5) names the kind of representation but not the rule by which two sets of vectors collapse into a single score."
-    },
-    {
-      "id": "llm_scored_partial_answers",
-      "ru": "оценка полезности частичных ответов моделью",
-      "en": "model-scored usefulness of partial answers",
-      "note": "Порядок сборки задан оценкой языковой модели, а не структурой индекса и не отдельной моделью переранжирования.",
-      "note_en": "The assembly order is set by a language model's own judgement, not by index structure and not by a separate reranking model."
-    },
-    {
-      "id": "multiple_modes_one_record",
-      "ru": "несколько режимов работы с разной конфигурацией",
-      "en": "several operating modes with differing configurations",
-      "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
-      "note_en": "A record is a point in the configuration space, but the system offers several modes differing in their values. The union of what is confirmed is recorded: a value is set if at least one mode has it."
-    },
-    {
-      "id": "sparse_and_dense_one_pass",
-      "ru": "разреженное и плотное представление одной моделью за проход",
-      "en": "sparse and dense representations from one model in a single pass",
-      "note": "Измерение модели представления называет один вид представления. Здесь одна модель за один проход выдаёт оба, и потребитель выбирает, каким пользоваться; схема хранит одно значение и такого выбора не выражает.",
-      "note_en": "The representation-model dimension names one kind of representation. Here one model emits both in a single pass and the consumer chooses which to use; the schema holds one value and does not express that choice."
-    },
-    {
-      "id": "language_coherence_ranking",
-      "ru": "предпочтение языку запроса при ранжировании",
-      "en": "preference for the query's language in ranking",
-      "note": "Переранжирование говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Здесь при равной относимости выше ставится документ на языке запроса, и это свойство схема не выражает.",
-      "note_en": "Reranking says which mechanism revisits the order, and not by what criterion besides relevance. Here, at equal relevance, a document in the query's language ranks higher, and the schema does not express that property."
     },
     {
       "id": "biencoder_rerank",
@@ -79,11 +16,88 @@
       "note_en": "Among reranking mechanisms the schema names the cross-encoder, that is a model reading query and document together. Here the order is revisited by the same bi-encoder that retrieves, and there is no value for that."
     },
     {
+      "id": "language_coherence_ranking",
+      "ru": "предпочтение языку запроса при ранжировании",
+      "en": "preference for the query's language in ranking",
+      "note": "Переранжирование говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Здесь при равной относимости выше ставится документ на языке запроса, и это свойство схема не выражает.",
+      "note_en": "Reranking says which mechanism revisits the order, and not by what criterion besides relevance. Here, at equal relevance, a document in the query's language ranks higher, and the schema does not express that property."
+    },
+    {
+      "id": "llm_scored_partial_answers",
+      "ru": "оценка полезности частичных ответов моделью",
+      "en": "model-scored usefulness of partial answers",
+      "note": "Порядок сборки задан оценкой языковой модели, а не структурой индекса и не отдельной моделью переранжирования.",
+      "note_en": "The assembly order is set by a language model's own judgement, not by index structure and not by a separate reranking model."
+    },
+    {
+      "id": "max_similarity_interaction",
+      "ru": "сравнение по максимуму сходства между представлениями",
+      "en": "max-similarity interaction between representations",
+      "note": "Модель представления (A5) называет вид представления, но не правило, по которому два набора векторов сводятся к одной оценке.",
+      "note_en": "The representation model (A5) names the kind of representation but not the rule by which two sets of vectors collapse into a single score."
+    },
+    {
+      "id": "modality_aware_ranking",
+      "ru": "ранжирование с учётом модальности единицы",
+      "en": "ranking that accounts for the modality of a unit",
+      "note": "Порядок выдачи зависит от того, текст перед нами, таблица или изображение, а не только от близости к запросу. Переранжирование (D1) называет способ пересчёта порядка, но не признак, по которому единицы сравниваются между модальностями.",
+      "note_en": "The order of results depends on whether a unit is text, a table, or an image, and not on closeness to the query alone. Reranking (D1) names the manner of reordering but not the criterion by which units of different modalities are compared against one another."
+    },
+    {
+      "id": "multiple_modes_one_record",
+      "ru": "несколько режимов работы с разной конфигурацией",
+      "en": "several operating modes with differing configurations",
+      "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
+      "note_en": "A record is a point in the configuration space, but the system offers several modes differing in their values. The union of what is confirmed is recorded: a value is set if at least one mode has it."
+    },
+    {
+      "id": "query_entity_extraction",
+      "ru": "извлечение именованных сущностей из запроса",
+      "en": "named entity extraction from the query",
+      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
+      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing."
+    },
+    {
+      "id": "random_walk_ranking",
+      "ru": "ранжирование случайным блужданием с предпочтением",
+      "en": "personalized random-walk ranking",
+      "note": "Обход графа (C1) говорит, что структура обходится, но не как распределяется вес по узлам.",
+      "note_en": "Graph traversal (C1) says the structure is traversed, but not how weight is distributed across nodes. Different rules give different results on the same graph."
+    },
+    {
       "id": "relevance_ordered_traversal",
       "ru": "порядок обхода корпуса по оценке относимости",
       "en": "corpus traversal ordered by a relevance estimate",
       "note": "Оператор поиска говорит, чем ищут, управление обходом — насколько глубоко, но ни то ни другое не говорит, в каком порядке обходятся документы. Здесь относимость задаёт порядок, не будучи при этом каналом свидетельств.",
       "note_en": "The search operator says what searches, traversal control says how deep, and neither says in what order documents are visited. Here relevance sets the order without being the evidence channel itself."
+    },
+    {
+      "id": "resolution_as_cost_lever",
+      "ru": "разрешение изображения как рычаг стоимости",
+      "en": "image resolution as a lever on cost",
+      "note": "Разрешение, с которым единица подаётся модели, задаёт расход входа и меняется независимо от числа единиц. Отбор и сжатие (D2) описывают, сколько единиц войдёт в контекст, но не то, во сколько обойдётся каждая.",
+      "note_en": "The resolution at which a unit is given to the model settles the input spend and varies independently of the number of units. Selection and compression (D2) describe how many units enter the context but not what each of them costs."
+    },
+    {
+      "id": "score_transfer_to_units",
+      "ru": "перенос оценок узлов на единицы извлечения",
+      "en": "transfer of node scores onto retrieval units",
+      "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
+      "note_en": "One structure is ranked and a different one is returned. Neither the search operator (C1) nor reranking (D1) expresses that transition."
+    },
+    {
+      "id": "sparse_and_dense_one_pass",
+      "ru": "разреженное и плотное представление одной моделью за проход",
+      "en": "sparse and dense representations from one model in a single pass",
+      "note": "Измерение модели представления называет один вид представления. Здесь одна модель за один проход выдаёт оба, и потребитель выбирает, каким пользоваться; схема хранит одно значение и такого выбора не выражает.",
+      "note_en": "The representation-model dimension names one kind of representation. Here one model emits both in a single pass and the consumer chooses which to use; the schema holds one value and does not express that choice."
+    },
+    {
+      "id": "synonymy_edges",
+      "ru": "рёбра синонимии между узлами индекса",
+      "en": "synonymy edges between index nodes",
+      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
+      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts."
     }
   ]
 }

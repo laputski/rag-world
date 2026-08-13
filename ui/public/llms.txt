@@ -4,10 +4,10 @@
 
 Do not scrape the pages. Every page on this site is rendered from the JSON files below, and those files are the same data without the markup. Start from https://ragworld.org/data/index.json, which lists them all.
 
-- Records: 65
-- Evidence records: 198
-- Freshest evidence: 2026-08-12
-- Built: 2026-08-12
+- Records: 67
+- Evidence records: 203
+- Freshest evidence: 2026-08-13
+- Built: 2026-08-13
 - Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 - Attribution: RAG World, https://ragworld.org
 

@@ -176,7 +176,7 @@ export function TechCardPage() {
   const prose = getTechProse(tech?.prose_id ?? null, i18n.language);
   useDocumentHead({
     title: tech?.name,
-    description: prose.short ?? tech?.core_idea ?? undefined,
+    description: prose.short ?? tech?.summary ?? undefined,
   });
 
   if (loading) return <CircularProgress sx={{ display: "block", mx: "auto", my: 8 }} />;
@@ -239,9 +239,9 @@ export function TechCardPage() {
         абзацем посреди страницы. Поле остаётся запасным вариантом — у записи
         может не быть прозы, и тогда лучше показать русскую строку, чем ничего.
       */}
-      {(prose.short || tech.core_idea) && (
+      {(prose.short || tech.summary) && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-          <Typography variant="body2">{prose.short ?? tech.core_idea}</Typography>
+          <Typography variant="body2">{prose.short ?? tech.summary}</Typography>
         </Paper>
       )}
 

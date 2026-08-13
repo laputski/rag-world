@@ -264,6 +264,26 @@ MUTATIONS: tuple[Mutation, ...] = (
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+    # ── Локализация выгрузки ───────────────────────────────────────────────
+    #
+    # Русский текст без двойника выглядит исправным полем и обнаруживается
+    # только у потребителя, читающего данные без портала. Проза же, оставшаяся
+    # в ресурсах интерфейса, не обнаруживается вовсе: выгрузка просто молчит о
+    # том, что это за технология.
+    Mutation("scripts/build_artifacts.py", "проза уходит в выгрузку",
+             '            **prose.get(tech.prose_id or "", {}),', ""),
+    Mutation("scripts/build_artifacts.py", "проза уходит на обоих языках",
+             '                out[prose_id][f"{published}_en"] = english',
+             "                pass"),
+    Mutation("scripts/build_artifacts.py", "страты названы по-английски",
+             '"name_en": strip(names["en"].get(code, code)),',
+             '"name_en": "",'),
+    Mutation("scripts/build_artifacts.py", "английская запись свидетельства доезжает",
+             '"value_en": e.value_en,', '"value_en": None,'),
+    Mutation("scripts/build_artifacts.py", "лента выпускается на обоих языках",
+             '    _write_feed(target / "feed.ru.xml", changes, built_at, _issues(), "ru")',
+             "    pass"),
+
     # ── Машиночитаемый вход: указатель, карта сайта, llms.txt ──────────────
     #
     # Отказ здесь тих вдвойне. Указатель, обещающий несуществующий набор, и

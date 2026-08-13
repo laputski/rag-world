@@ -18,9 +18,19 @@ export interface RegistryTechnology {
   family: string | null;
   /** Страты измерений, к которым относится вклад технологии (A–G). */
   groups: string[];
-  core_idea: string | null;
   /** Идентификатор локализованной прозы карточки. */
   prose_id: string | null;
+  /**
+   * Проза, уложенная в артефакт на обоих языках.
+   *
+   * Портал берёт тексты из ресурсов локализации, а эти поля существуют ради
+   * потребителя выгрузки: реестр, прочитанный без портала, состоял из кодов и
+   * уровней без единого предложения о том, что это за технология.
+   */
+  summary?: string | null;
+  summary_en?: string | null;
+  description?: string | null;
+  description_en?: string | null;
   first_published: string | null;
   /** Значения измерений: главное поле для сравнения технологий. */
   configuration: Record<string, string>;

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-12",
+  "built_at": "2026-08-13",
   "candidates": [
     {
       "abstract": "Long-term memory systems store what a user says in an external store and retrieve it when a related query arrives. This interface rests on an assumption so natural that it is rarely stated: a memory that is needed will resemble the query that needs it. World knowledge breaks the assumption. A tree-nut allergy should change the answer to a macaron request through their almond-flour ingredient, yet the two texts share no cue a retriever can see.",

@@ -247,7 +247,8 @@
     "machineShellComment": "list the datasets, then every record at level L5",
     "machinePython": "Python with no third-party libraries",
     "machineGit": "Cloning the source data",
-    "machineGitComment": "one file per technology; evidence is appended line by line"
+    "machineGitComment": "one file per technology; evidence is appended line by line",
+    "fileFeedRu": "the same feed in Russian: a channel declares one language, so there are two feeds"
   },
   "levelCondition": {
     "L1": "L1 — needs a preprint or workshop publication",

@@ -1,7 +1,10 @@
 {
-  "aliases": [],
+  "aliases": [
+    "PIXELRAG",
+    "Pixel RAG"
+  ],
   "configuration": {
-    "A1": "passage",
+    "A1": "page_image",
     "A2": "fixed",
     "A3": "none",
     "A4": "flat",
@@ -16,7 +19,7 @@
     "C3": "none",
     "C4": "single_store",
     "D1": "none",
-    "D2": "top_k",
+    "D2": "budget_aware",
     "D3": "natural_order",
     "E1": "single_pass",
     "E2": "none",
@@ -28,33 +31,34 @@
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "trained_reader"
+    "G3": "frozen"
   },
   "configuration_inapplicable": [],
-  "configuration_reviewed": "2026-08-09",
+  "configuration_reviewed": "2026-08-13",
   "configuration_variable": [],
   "core_idea": null,
   "family": null,
-  "first_published": "2022-11",
+  "first_published": "2026-06",
   "groups": [
     "A",
-    "E",
-    "G"
+    "C",
+    "D"
   ],
-  "id": "ra_cm3",
+  "id": "pixelrag",
   "kind": "architecture",
   "links": [
     {
       "kind": "preprint",
-      "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
-      "status": "verified",
-      "url": "https://arxiv.org/abs/2211.12561",
-      "verified_at": "2026-08-09",
-      "label_en": "arXiv:2211.12561 (corrected: was 2204.05021, a data extraction paper)"
+      "label": "arXiv:2606.28344",
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2606.28344",
+      "verified_at": null
     }
   ],
-  "name": "RA-CM3",
+  "name": "PixelRAG",
   "package": null,
-  "prose_id": "ra_cm3",
-  "residual": []
+  "prose_id": "pixelrag",
+  "residual": [
+    "resolution_as_cost_lever"
+  ]
 }

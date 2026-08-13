@@ -262,3 +262,5 @@
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7172392400", "technology_id": "uembed", "value": 0.0}
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7171352433", "technology_id": "lamar", "value": 0.0}
 {"measured_at": "2026-08-12", "metric": "citation_velocity", "source": "https://openalex.org/W7171505919", "technology_id": "rarg", "value": 0.0}
+{"measured_at": "2026-08-13", "metric": "citation_velocity", "source": "https://openalex.org/W4415270293", "technology_id": "rag_anything", "value": 0.0}
+{"measured_at": "2026-08-13", "metric": "citation_velocity", "source": "https://openalex.org/W7166706851", "technology_id": "pixelrag", "value": 0.0}

@@ -27,6 +27,7 @@ const DATA_FILES = [
   { name: "candidates.json", key: "about.fileCandidates" },
   { name: "digest.json", key: "about.fileDigest" },
   { name: "feed.xml", key: "about.fileFeed" },
+  { name: "feed.ru.xml", key: "about.fileFeedRu" },
 ];
 
 /** Постоянный адрес портала для примеров обращения. */

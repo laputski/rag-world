@@ -59,7 +59,8 @@
       "label": "Страница проекта",
       "status": "needs_review",
       "url": "https://alibaba-nlp.github.io/UEmbed",
-      "verified_at": null
+      "verified_at": null,
+      "label_en": "Project page"
     }
   ],
   "name": "UEmbed",

@@ -79,6 +79,9 @@ class Link(BaseModel):
     url: str
     kind: LinkKind = "other"
     label: str | None = None
+    #: Английская подпись ссылки. Заполняется только там, где подпись написана
+    #: по-русски: адрес и обозначение препринта в переводе не нуждаются.
+    label_en: str | None = None
     status: LinkStatus = "needs_review"
     verified_at: date | None = None
 
@@ -137,6 +140,9 @@ class Evidence(BaseModel):
     technology_id: str
     type: EvidenceType
     value: str | None = None
+    #: Английская запись значения. Нужна там, где значение писал человек:
+    #: собранные автоматически значения приходят на английском от источника.
+    value_en: str | None = None
     source: str
     fetched_at: date
     obtained_by: Literal["auto", "manual"] = "manual"

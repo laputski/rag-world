@@ -623,8 +623,15 @@ def test_issue_reaches_the_reader(registry, artifacts):
     payload = json.loads((artifacts / "digest.json").read_text(encoding="utf-8"))
     assert len(payload["issues"]) == 1
 
-    feed = (artifacts / "feed.xml").read_text(encoding="utf-8")
-    assert "Дайджест за" in feed
+    # Лента объявляет язык на канал целиком, поэтому их две, и выпуск обязан
+    # дойти до каждой: подписчик читает одну и о существовании второй не знает.
+    english = (artifacts / "feed.xml").read_text(encoding="utf-8")
+    assert "<language>en</language>" in english
+    assert "Digest for" in english
+
+    russian = (artifacts / "feed.ru.xml").read_text(encoding="utf-8")
+    assert "<language>ru</language>" in russian
+    assert "Дайджест за" in russian
 
 
 def test_broken_data_publishes_no_issue(registry, artifacts):

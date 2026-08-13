@@ -1,6 +1,46 @@
 {
-  "built_at": "2026-08-12",
+  "built_at": "2026-08-13",
   "changes": [
+    {
+      "changed_at": "2026-08-13",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2606.28344",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7166706851",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "PixelRAG",
+      "technology_id": "pixelrag"
+    },
+    {
+      "changed_at": "2026-08-13",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2510.12323",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415270293",
+          "type": "publication"
+        },
+        {
+          "source": "https://github.com/HKUDS/RAG-Anything",
+          "type": "repository"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "RAG-Anything",
+      "technology_id": "rag_anything"
+    },
     {
       "changed_at": "2026-08-12",
       "evidence": [

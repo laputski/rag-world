@@ -66,6 +66,25 @@ SCHEMA_MODULE = (
 
 LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 
+#: Подписи ленты по языкам. Лента объявляет язык на канал целиком, поэтому
+#: перевод здесь не пара полей, а второй канал со своими подписями.
+FEED_WORDS = {
+    "en": {
+        "title": "RAG World: chronicle of changes",
+        "description": "Maturity level changes for RAG technologies",
+        "digest": "Digest for",
+        "none": "none",
+        "noBasis": "no basis recorded",
+    },
+    "ru": {
+        "title": "RAG World: хроника изменений",
+        "description": "Изменения уровней зрелости технологий RAG",
+        "digest": "Дайджест за",
+        "none": "нет",
+        "noBasis": "основание не указано",
+    },
+}
+
 #: Данные считаются устаревшими, если самое свежее свидетельство старше этого
 #: срока. Признак показывается в интерфейсе всегда.
 STALE_AFTER = timedelta(days=45)
@@ -149,6 +168,73 @@ def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None
         ):
             by_source[point.source] = point
     return max(p.value for p in by_source.values())
+
+
+#: Проза карточек: краткая суть и развёрнутое описание каждой записи.
+#:
+#: Тексты живут в ресурсах локализации портала, потому что пишутся вместе с
+#: ним и правятся чаще данных. В артефакт они переносятся копией: реестр,
+#: выгруженный наружу, состоял из кодов, уровней и ссылок без единого
+#: предложения о том, что это за технология, и прочитать его без портала было
+#: нельзя. Переносятся оба языка сразу, иначе выгрузка оказывается наполовину
+#: на языке, которого потребитель не знает.
+PROSE_DIR = Path(__file__).resolve().parent.parent / "ui" / "src" / "i18n"
+
+#: Поле прозы и имя, под которым оно выходит в артефакт. Краткая суть
+#: называется `summary`, а не `short`: за пределами интерфейса «короткое» не
+#: говорит, короткое что.
+PROSE_FIELDS = (
+    ("short", "summary"),
+    ("full", "description"),
+    ("problem", "problem"),
+    ("barriers", "barriers"),
+    ("solutions", "solutions"),
+    ("maturityNote", "maturity_note"),
+)
+
+
+def _prose() -> dict[str, dict[str, str]]:
+    """Проза по записям на обоих языках, готовая к укладке в артефакт."""
+    tables = {
+        language: json.loads(
+            (PROSE_DIR / language / "tech.json").read_text(encoding="utf-8")
+        )
+        for language in ("ru", "en")
+    }
+    out: dict[str, dict[str, str]] = defaultdict(dict)
+    for prose_id in tables["ru"]:
+        for source_field, published in PROSE_FIELDS:
+            russian = tables["ru"].get(prose_id, {}).get(source_field)
+            english = tables["en"].get(prose_id, {}).get(source_field)
+            if russian:
+                out[prose_id][published] = russian
+            if english:
+                out[prose_id][f"{published}_en"] = english
+    return dict(out)
+
+
+def _strata_rows() -> list[dict]:
+    """Страты с названиями на обоих языках.
+
+    Названия берутся из ресурсов интерфейса, а не из схемы: в схеме они только
+    русские, и артефакт получал бы половину подписи. Буквенная приставка вида
+    «A. » снимается, потому что код страты стоит рядом отдельным полем.
+    """
+    names = {
+        language: json.loads(
+            (PROSE_DIR / f"{language}.json").read_text(encoding="utf-8")
+        )["stratum"]
+        for language in ("ru", "en")
+    }
+    strip = lambda label: label.split(". ", 1)[-1]  # noqa: E731
+    return [
+        {
+            "code": code,
+            "name": strip(names["ru"].get(code, russian)),
+            "name_en": strip(names["en"].get(code, code)),
+        }
+        for code, russian in STRATA.items()
+    ]
 
 
 def _parse_notes() -> dict[str, list[dict]]:
@@ -366,6 +452,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
 
     cohorts = attention_cohorts(technologies, metrics_by_tech)
     parse_notes = _parse_notes()
+    prose = _prose()
 
     built_at = _built_at()
     freshest = max((e.fetched_at for e in evidence), default=None)
@@ -396,8 +483,15 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
                 "evidence_basis": result.evidence_basis,
             }
 
+        row = tech.model_dump(mode="json")
+        # Краткая мысль хранилась только по-русски и повторяла краткую суть
+        # прозы, которая теперь выходит на обоих языках. Оставить поле значило
+        # бы выгружать русский текст без двойника ради сведения, уже
+        # опубликованного рядом.
+        row.pop("core_idea", None)
         registry_rows.append({
-            **tech.model_dump(mode="json"),
+            **row,
+            **prose.get(tech.prose_id or "", {}),
             # Данные хранят код механизма, читателю нужна формулировка.
             # Подстановка на сборке, а не в реестре: тогда перевод словаря не
             # требует переписывать записи технологий.
@@ -428,6 +522,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
                 {
                     "type": e.type,
                     "value": e.value,
+                    "value_en": e.value_en,
                     "source": e.source,
                     "fetched_at": e.fetched_at.isoformat(),
                     "obtained_by": e.obtained_by,
@@ -468,7 +563,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "built_at": built_at,
         "rule_version": RULE_VERSION,
         "levels": LEVELS,
-        "strata": [{"code": code, "name": name} for code, name in STRATA.items()],
+        "strata": _strata_rows(),
         "points": points,
         "count": len(points),
         "stale": stale,
@@ -550,7 +645,10 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "candidate_threshold": RESIDUAL_CANDIDATE_THRESHOLD,
         "mechanisms": _residual_queue(technologies),
     })
-    _write_feed(target / "feed.xml", changes, built_at, _issues())
+    # Лента односоставна по устройству: язык объявляется на канал целиком.
+    # Поэтому языков две ленты, а не одна с полями на двух языках.
+    _write_feed(target / "feed.xml", changes, built_at, _issues(), "en")
+    _write_feed(target / "feed.ru.xml", changes, built_at, _issues(), "ru")
     # Машиночитаемый вход: описание набора данных, карта сайта и указатель для
     # языковых моделей. Собираются здесь, потому что зависят от тех же чисел,
     # что и артефакты, и врозь с ними разошлись бы на первой же новой записи.
@@ -682,7 +780,7 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
         "documentation": f"{SITE}/about",
         "schema": {
             "dimensions": SCHEMA_SIZE,
-            "strata": [{"code": code, "name": name} for code, name in STRATA.items()],
+            "strata": _strata_rows(),
             "levels": LEVELS,
             "rule_version": RULE_VERSION,
         },
@@ -693,7 +791,12 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
         # что не изменится, тогда как ссылка на текущий артефакт указывает на
         # движущийся объект. Для цитирования годится только первое.
         "releases": f"{SITE}/data/releases/index.json",
-        "feed": f"{SITE}/data/feed.xml",
+        # Ленты названы по языкам: канал объявляет язык целиком, поэтому их
+        # две, и потребителю нужно знать, какая на каком.
+        "feeds": {
+            "en": f"{SITE}/data/feed.xml",
+            "ru": f"{SITE}/data/feed.ru.xml",
+        },
         "sitemap": f"{SITE}/sitemap.xml",
     }
 
@@ -794,28 +897,37 @@ def _issues() -> list[dict]:
 
 
 def _write_feed(
-    path: Path, changes: list[dict], built_at: str, issues: list[dict] | None = None
+    path: Path, changes: list[dict], built_at: str,
+    issues: list[dict] | None = None, language: str = "en",
 ) -> None:
     """Лента: выпуски дайджеста и изменения уровней.
 
     Выпуски идут первыми: читателю ленты нужно сообщение о происходящем, а
-    отдельные изменения уровня — его подробность.
+    отдельные изменения уровня служат его подробностью.
+
+    Лента односоставна по устройству: язык объявляется на канал целиком, и
+    класть в один канал поля на двух языках нельзя. Поэтому выпускается две
+    ленты, `feed.xml` по-английски и `feed.ru.xml` по-русски, а язык каждой
+    объявлен в разметке, чтобы читалка не гадала.
     """
+    words = FEED_WORDS[language]
     items = []
     for issue in (issues or [])[:20]:
+        text = issue.get("text_en" if language == "en" else "text") or issue.get("text", "")
         items.append(
             "    <item>\n"
-            f"      <title>{escape('Дайджест за ' + issue['issued_at'])}</title>\n"
-            f"      <description>{escape(issue.get('text', ''))}</description>\n"
+            f"      <title>{escape(words['digest'] + ' ' + issue['issued_at'])}</title>\n"
+            f"      <description>{escape(text)}</description>\n"
             f"      <guid isPermaLink=\"false\">digest-{escape(issue['issued_at'])}</guid>\n"
             "    </item>"
         )
     for change in changes[:50]:
-        title = f"{change['name']}: {change['level_before'] or '—'} → {change['level_after']}"
+        before = change["level_before"] or words["none"]
+        title = f"{change['name']}: {before} > {change['level_after']}"
         body = ", ".join(
             f"{e.get('type', '')} {e.get('source', '')}".strip()
             for e in change["evidence"][:5]
-        ) or "основание не указано"
+        ) or words["noBasis"]
         items.append(
             "    <item>\n"
             f"      <title>{escape(title)}</title>\n"
@@ -828,8 +940,10 @@ def _write_feed(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0">\n'
         "  <channel>\n"
-        "    <title>RAG World: хроника изменений</title>\n"
-        "    <description>Изменения уровней зрелости технологий RAG</description>\n"
+        f"    <title>{escape(words['title'])}</title>\n"
+        f"    <description>{escape(words['description'])}</description>\n"
+        f"    <language>{language}</language>\n"
+        f"    <link>{SITE}/changes</link>\n"
         f"    <lastBuildDate>{escape(built_at)}</lastBuildDate>\n"
         + "\n".join(items)
         + "\n  </channel>\n</rss>\n"

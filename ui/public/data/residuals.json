@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-12",
+  "built_at": "2026-08-13",
   "candidate_threshold": 3,
   "mechanisms": [
     {
@@ -178,6 +178,36 @@
       ],
       "term": "разреженное и плотное представление одной моделью за проход",
       "term_en": "sparse and dense representations from one model in a single pass"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "resolution_as_cost_lever",
+      "note": "Разрешение, с которым единица подаётся модели, задаёт расход входа и меняется независимо от числа единиц. Отбор и сжатие (D2) описывают, сколько единиц войдёт в контекст, но не то, во сколько обойдётся каждая.",
+      "note_en": "The resolution at which a unit is given to the model settles the input spend and varies independently of the number of units. Selection and compression (D2) describe how many units enter the context but not what each of them costs.",
+      "technologies": [
+        {
+          "id": "pixelrag",
+          "name": "PixelRAG"
+        }
+      ],
+      "term": "разрешение изображения как рычаг стоимости",
+      "term_en": "image resolution as a lever on cost"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "modality_aware_ranking",
+      "note": "Порядок выдачи зависит от того, текст перед нами, таблица или изображение, а не только от близости к запросу. Переранжирование (D1) называет способ пересчёта порядка, но не признак, по которому единицы сравниваются между модальностями.",
+      "note_en": "The order of results depends on whether a unit is text, a table, or an image, and not on closeness to the query alone. Reranking (D1) names the manner of reordering but not the criterion by which units of different modalities are compared against one another.",
+      "technologies": [
+        {
+          "id": "rag_anything",
+          "name": "RAG-Anything"
+        }
+      ],
+      "term": "ранжирование с учётом модальности единицы",
+      "term_en": "ranking that accounts for the modality of a unit"
     },
     {
       "candidate": false,

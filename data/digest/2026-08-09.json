@@ -141,7 +141,7 @@
     {
       "level_after": "L0",
       "level_before": null,
-      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "name": "RAG with Test-Time Reasoning",
       "technology_id": "test_time"
     },
     {
@@ -165,7 +165,7 @@
     {
       "level_after": "L0",
       "level_before": null,
-      "name": "Edge и On-Device RAG",
+      "name": "Edge and On-Device RAG",
       "technology_id": "edge"
     },
     {
@@ -237,7 +237,7 @@
     {
       "level_after": "L1",
       "level_before": null,
-      "name": "Unified RAG над Structured и Unstructured Data",
+      "name": "Unified RAG over Structured and Unstructured Data",
       "technology_id": "unified"
     },
     {
@@ -381,7 +381,7 @@
     {
       "level_after": "L3",
       "level_before": "L0",
-      "name": "RAG и Test-Time Reasoning (интерливинг retrieve-think)",
+      "name": "RAG with Test-Time Reasoning",
       "technology_id": "test_time"
     },
     {

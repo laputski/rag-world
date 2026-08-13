@@ -1,6 +1,6 @@
 {
-  "built_at": "2026-08-12",
-  "count": 65,
+  "built_at": "2026-08-13",
+  "count": 67,
   "levels": [
     "L0",
     "L1",
@@ -60,7 +60,7 @@
       "prose_id": "agentic_rag"
     },
     {
-      "attention": 1.036,
+      "attention": 1.341,
       "attention_cohort": "2025",
       "attention_raw": 0.6,
       "confidence": 1.0,
@@ -162,7 +162,7 @@
       "prose_id": "bm25_sparse"
     },
     {
-      "attention": 1.0,
+      "attention": 1.294,
       "attention_cohort": "2025",
       "attention_raw": 0.579,
       "confidence": 1.0,
@@ -453,7 +453,7 @@
       "prose_id": "embodied_rag"
     },
     {
-      "attention": 0.546,
+      "attention": 0.706,
       "attention_cohort": "2025",
       "attention_raw": 0.316,
       "confidence": 1.0,
@@ -740,7 +740,7 @@
       "prose_id": "lightrag"
     },
     {
-      "attention": 0.116,
+      "attention": 0.15,
       "attention_cohort": "2025",
       "attention_raw": 0.067,
       "confidence": 1.0,
@@ -928,7 +928,7 @@
       "prose_id": "neuro_symbolic_rag"
     },
     {
-      "attention": 1.181,
+      "attention": 1.528,
       "attention_cohort": "2025",
       "attention_raw": 0.684,
       "confidence": 1.0,
@@ -985,7 +985,7 @@
       "prose_id": "opensearch"
     },
     {
-      "attention": 2.763,
+      "attention": 3.575,
       "attention_cohort": "2025",
       "attention_raw": 1.6,
       "confidence": 1.0,
@@ -1014,7 +1014,32 @@
       "prose_id": "pathrag"
     },
     {
-      "attention": 1.092,
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-06",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-13",
+          "level": "L1"
+        }
+      ],
+      "id": "pixelrag",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "PixelRAG",
+      "prose_id": "pixelrag"
+    },
+    {
+      "attention": 1.412,
       "attention_cohort": "2025",
       "attention_raw": 0.632,
       "confidence": 1.0,
@@ -1181,7 +1206,32 @@
       "prose_id": "raft"
     },
     {
-      "attention": 1.727,
+      "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2025-10",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "history": [
+        {
+          "at": "2026-08-13",
+          "level": "L1"
+        }
+      ],
+      "id": "rag_anything",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "RAG-Anything",
+      "prose_id": "rag_anything"
+    },
+    {
+      "attention": 2.235,
       "attention_cohort": "2025",
       "attention_raw": 1.0,
       "confidence": 1.0,
@@ -1432,7 +1482,7 @@
       "prose_id": "simrag"
     },
     {
-      "attention": 0.484,
+      "attention": 0.626,
       "attention_cohort": "2025",
       "attention_raw": 0.28,
       "confidence": 1.0,
@@ -1680,31 +1730,38 @@
   "strata": [
     {
       "code": "A",
-      "name": "Представление знаний"
+      "name": "Представление знаний",
+      "name_en": "Knowledge representation"
     },
     {
       "code": "B",
-      "name": "Формулировка и маршрутизация запроса"
+      "name": "Формулировка запроса",
+      "name_en": "Query formulation"
     },
     {
       "code": "C",
-      "name": "Извлечение"
+      "name": "Извлечение",
+      "name_en": "Retrieval"
     },
     {
       "code": "D",
-      "name": "Формирование контекста"
+      "name": "Формирование контекста",
+      "name_en": "Context assembly"
     },
     {
       "code": "E",
-      "name": "Синтез и контроль"
+      "name": "Синтез и контроль",
+      "name_en": "Synthesis and control"
     },
     {
       "code": "F",
-      "name": "Эволюция состояния"
+      "name": "Эволюция состояния",
+      "name_en": "State evolution"
     },
     {
       "code": "G",
-      "name": "Оболочка ограничений"
+      "name": "Оболочка ограничений",
+      "name_en": "Constraint envelope"
     }
   ]
 }

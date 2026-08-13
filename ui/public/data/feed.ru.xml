@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>RAG World: chronicle of changes</title>
-    <description>Maturity level changes for RAG technologies</description>
-    <language>en</language>
+    <title>RAG World: хроника изменений</title>
+    <description>Изменения уровней зрелости технологий RAG</description>
+    <language>ru</language>
     <link>https://ragworld.org/changes</link>
     <lastBuildDate>2026-08-13</lastBuildDate>
     <item>
-      <title>Digest for 2026-08-12</title>
-      <description>Received a level for the first time: 11 records, namely Auto-RAG, DSPy, GNN-RAG, GraphReader, KAG, Poison-RAG, RA-ISF, REPLUG and 3 more. Rose in level: ColPali from L1 to L2, RAG as Memory from L1 to L2, Speculative RAG from L1 to L2. Collected 54 pieces of evidence: 36 about publications, 13 about package downloads, 5 about repositories. The registry now holds 62 records. Level L0 in 7 records, L1 in 18, L2 in 29, L3 in 3, L4 in 1, L5 in 1. For 3 records no level is computed, because there is no evidence yet.</description>
+      <title>Дайджест за 2026-08-12</title>
+      <description>Впервые получили уровень 11 записей: Auto-RAG, DSPy, GNN-RAG, GraphReader, KAG, Poison-RAG, RA-ISF, REPLUG и ещё 3 записи. Поднялись в уровне ColPali с L1 до L2, RAG as Memory с L1 до L2, Speculative RAG с L1 до L2. Собрано 54 свидетельства: 36 о публикациях, 13 о загрузках пакетов, 5 о репозиториях. Сейчас в реестре 62 записи. Уровень L0 у 7 записей, L1 у 18, L2 у 29, L3 у 3, L4 у 1, L5 у 1. У 3 записей уровень не вычислен, потому что свидетельств пока нет.</description>
       <guid isPermaLink="false">digest-2026-08-12</guid>
     </item>
     <item>
-      <title>Digest for 2026-08-10</title>
-      <description>Rose in level: HippoRAG from L0 to L4, Dense X from L1 to L2, Edge and On-Device RAG from L0 to L1. Collected 45 pieces of evidence: 35 about publications, 7 about package downloads, 3 about repositories. The registry now holds 53 records. Level L0 in 7 records, L1 in 17, L2 in 19, L3 in 3, L4 in 1, L5 in 1. For 5 records no level is computed, because there is no evidence yet.</description>
+      <title>Дайджест за 2026-08-10</title>
+      <description>Поднялись в уровне HippoRAG с L0 до L4, Dense X с L1 до L2, Edge and On-Device RAG с L0 до L1. Собрано 45 свидетельств: 35 о публикациях, 7 о загрузках пакетов, 3 о репозиториях. Сейчас в реестре 53 записи. Уровень L0 у 7 записей, L1 у 17, L2 у 19, L3 у 3, L4 у 1, L5 у 1. У 5 записей уровень не вычислен, потому что свидетельств пока нет.</description>
       <guid isPermaLink="false">digest-2026-08-10</guid>
     </item>
     <item>
-      <title>Digest for 2026-08-09</title>
-      <description>Received a level for the first time: 48 records, namely Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X and 40 more. Rose in level: Adaptive RAG from L1 to L2, ArchRAG from L1 to L2, CausalRAG from L0 to L3, ChatQA from L1 to L2, Federated RAG from L0 to L3, FLARE from L1 to L2, HyDE from L1 to L2, IRCoT from L1 to L2, plus 11 records. Collected 92 pieces of evidence: 65 about publications, 11 about repositories, 7 about package downloads, 5 about presence in frameworks, 4 about industrial use. The registry now holds 54 records. Level L0 in 9 records, L1 in 17, L2 in 18, L3 in 3, L5 in 1. For 6 records no level is computed, because there is no evidence yet.</description>
+      <title>Дайджест за 2026-08-09</title>
+      <description>Впервые получили уровень Adaptive RAG, ArchRAG, CRAG, CausalRAG, ChatQA, ColBERT, ColPali, Dense X и ещё 40 записей — 48 записей. Поднялись в уровне: Adaptive RAG (L1 → L2), ArchRAG (L1 → L2), CausalRAG (L0 → L3), ChatQA (L1 → L2), Federated RAG (L0 → L3), FLARE (L1 → L2), HyDE (L1 → L2), IRCoT (L1 → L2) и ещё 11 записей. Добавлено 92 свидетельства (публикации — 65, репозитории — 11, загрузки пакетов — 7, присутствие во фреймворках — 5, промышленное применение — 4). Сейчас в реестре 54 записи: L0 — 9, L1 — 17, L2 — 18, L3 — 3, L5 — 1; у 6 записей уровень не вычислен — свидетельств пока нет.</description>
       <guid isPermaLink="false">digest-2026-08-09</guid>
     </item>
     <item>
-      <title>PixelRAG: none &gt; L1</title>
+      <title>PixelRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2606.28344, publication https://openalex.org/W7166706851</description>
       <guid isPermaLink="false">pixelrag-2026-08-13-L1</guid>
     </item>
     <item>
-      <title>RAG-Anything: none &gt; L1</title>
+      <title>RAG-Anything: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2510.12323, publication https://openalex.org/W4415270293, repository https://github.com/HKUDS/RAG-Anything</description>
       <guid isPermaLink="false">rag_anything-2026-08-13-L1</guid>
     </item>
@@ -37,7 +37,7 @@
       <guid isPermaLink="false">colpali-2026-08-12-L2</guid>
     </item>
     <item>
-      <title>Naive Dense: none &gt; L2</title>
+      <title>Naive Dense: нет &gt; L2</title>
       <description>publication https://paperswithcode.co/api/v1/papers/2004.04906</description>
       <guid isPermaLink="false">naive_dense-2026-08-12-L2</guid>
     </item>
@@ -52,67 +52,67 @@
       <guid isPermaLink="false">speculative_rag-2026-08-12-L2</guid>
     </item>
     <item>
-      <title>LAMAR: none &gt; L1</title>
+      <title>LAMAR: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2607.22042, publication https://openalex.org/W7171352433</description>
       <guid isPermaLink="false">lamar-2026-08-12-L1</guid>
     </item>
     <item>
-      <title>RARG: none &gt; L1</title>
+      <title>RARG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2607.24223, publication https://openalex.org/W7171505919, repository https://github.com/LeqsNaN/RARG</description>
       <guid isPermaLink="false">rarg-2026-08-12-L1</guid>
     </item>
     <item>
-      <title>UEmbed: none &gt; L1</title>
+      <title>UEmbed: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2608.02583, publication https://openalex.org/W7172392400</description>
       <guid isPermaLink="false">uembed-2026-08-12-L1</guid>
     </item>
     <item>
-      <title>Auto-RAG: none &gt; L1</title>
+      <title>Auto-RAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2411.19443, publication https://openalex.org/W4405030361</description>
       <guid isPermaLink="false">auto_rag-2026-08-10-L1</guid>
     </item>
     <item>
-      <title>DSPy: none &gt; L1</title>
+      <title>DSPy: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2310.03714, publication https://openalex.org/W4387430850</description>
       <guid isPermaLink="false">dspy-2026-08-10-L1</guid>
     </item>
     <item>
-      <title>GNN-RAG: none &gt; L1</title>
+      <title>GNN-RAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2405.20139, publication https://openalex.org/W4399253046</description>
       <guid isPermaLink="false">gnn_rag-2026-08-10-L1</guid>
     </item>
     <item>
-      <title>GraphReader: none &gt; L2</title>
+      <title>GraphReader: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2406.14550, publication https://openalex.org/W4404781346</description>
       <guid isPermaLink="false">graphreader-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>KAG: none &gt; L2</title>
+      <title>KAG: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2409.13731, publication https://openalex.org/W4410636953</description>
       <guid isPermaLink="false">kag-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>Poison-RAG: none &gt; L2</title>
+      <title>Poison-RAG: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2501.11759, publication https://openalex.org/W4409166754</description>
       <guid isPermaLink="false">poison_rag-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>RA-ISF: none &gt; L2</title>
+      <title>RA-ISF: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2403.06840, publication https://openalex.org/W4402670862</description>
       <guid isPermaLink="false">ra_isf-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>REPLUG: none &gt; L2</title>
+      <title>REPLUG: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2301.12652, publication https://openalex.org/W4401042773</description>
       <guid isPermaLink="false">replug-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>SimRAG: none &gt; L2</title>
+      <title>SimRAG: нет &gt; L2</title>
       <description>publication https://arxiv.org/abs/2410.17952, publication https://openalex.org/W4411119264</description>
       <guid isPermaLink="false">simrag-2026-08-10-L2</guid>
     </item>
     <item>
-      <title>Think-on-Graph: none &gt; L1</title>
+      <title>Think-on-Graph: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2307.07697, publication https://openalex.org/W4384643740</description>
       <guid isPermaLink="false">think_on_graph-2026-08-10-L1</guid>
     </item>
@@ -132,137 +132,137 @@
       <guid isPermaLink="false">edge-2026-08-09-L1</guid>
     </item>
     <item>
-      <title>Adaptive RAG: none &gt; L1</title>
+      <title>Adaptive RAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2403.14403</description>
       <guid isPermaLink="false">adaptive_rag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>ArchRAG: none &gt; L1</title>
+      <title>ArchRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2502.09891</description>
       <guid isPermaLink="false">archrag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>CRAG: none &gt; L1</title>
+      <title>CRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2401.15884</description>
       <guid isPermaLink="false">crag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>CausalRAG: none &gt; L0</title>
+      <title>CausalRAG: нет &gt; L0</title>
       <description>repository https://github.com/hippoley/CausalRAG</description>
       <guid isPermaLink="false">causalrag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>ChatQA: none &gt; L1</title>
+      <title>ChatQA: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2401.10225</description>
       <guid isPermaLink="false">chatqa-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>ColBERT: none &gt; L1</title>
+      <title>ColBERT: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2004.12832</description>
       <guid isPermaLink="false">colbert-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>ColPali: none &gt; L1</title>
+      <title>ColPali: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2407.01449</description>
       <guid isPermaLink="false">colpali-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>Dense X: none &gt; L1</title>
+      <title>Dense X: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2312.06648</description>
       <guid isPermaLink="false">dense_x_retrieval-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>EdgeRAG: none &gt; L1</title>
+      <title>EdgeRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2412.21023</description>
       <guid isPermaLink="false">edgerag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>FLARE: none &gt; L1</title>
+      <title>FLARE: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2305.06983</description>
       <guid isPermaLink="false">flare-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>Federated RAG: none &gt; L0</title>
+      <title>Federated RAG: нет &gt; L0</title>
       <description>repository https://github.com/DocAILab/FedE4RAG</description>
       <guid isPermaLink="false">federated_rag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>HippoRAG: none &gt; L0</title>
+      <title>HippoRAG: нет &gt; L0</title>
       <description>repository https://github.com/OSU-NLP-Group/HippoRAG</description>
       <guid isPermaLink="false">hipporag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>HyDE: none &gt; L1</title>
+      <title>HyDE: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2212.10496</description>
       <guid isPermaLink="false">hyde-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>IRCoT: none &gt; L1</title>
+      <title>IRCoT: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2212.10509</description>
       <guid isPermaLink="false">ircot-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>Late Chunking: none &gt; L1</title>
+      <title>Late Chunking: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2409.19773</description>
       <guid isPermaLink="false">late_chunking-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>LightRAG: none &gt; L0</title>
+      <title>LightRAG: нет &gt; L0</title>
       <description>repository https://github.com/HKUDS/LightRAG</description>
       <guid isPermaLink="false">lightrag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>MemoRAG: none &gt; L0</title>
+      <title>MemoRAG: нет &gt; L0</title>
       <description>repository https://github.com/qhjqhj00/MemoRAG</description>
       <guid isPermaLink="false">memorag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>Microsoft GraphRAG: none &gt; L0</title>
+      <title>Microsoft GraphRAG: нет &gt; L0</title>
       <description>repository https://github.com/microsoft/graphrag</description>
       <guid isPermaLink="false">msft_graphrag-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>MuRAG: none &gt; L1</title>
+      <title>MuRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2210.02928</description>
       <guid isPermaLink="false">murag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>OG-RAG: none &gt; L1</title>
+      <title>OG-RAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2412.15235</description>
       <guid isPermaLink="false">og_rag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>PathRAG: none &gt; L1</title>
+      <title>PathRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2502.14902</description>
       <guid isPermaLink="false">pathrag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>PoisonedRAG: none &gt; L1</title>
+      <title>PoisonedRAG: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2402.07867</description>
       <guid isPermaLink="false">poisonedrag-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>RA-DIT: none &gt; L1</title>
+      <title>RA-DIT: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2310.01352</description>
       <guid isPermaLink="false">ra_dit-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>RAG with Test-Time Reasoning: none &gt; L0</title>
+      <title>RAG with Test-Time Reasoning: нет &gt; L0</title>
       <description>repository https://github.com/DavidZWZ/Awesome-RAG-Reasoning</description>
       <guid isPermaLink="false">test_time-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>RAG-Fusion: none &gt; L0</title>
+      <title>RAG-Fusion: нет &gt; L0</title>
       <description>repository https://github.com/Raudaschl/rag-fusion</description>
       <guid isPermaLink="false">rag_fusion-2026-08-08-L0</guid>
     </item>
     <item>
-      <title>ReAct: none &gt; L1</title>
+      <title>ReAct: нет &gt; L1</title>
       <description>publication https://arxiv.org/abs/2210.03629</description>
       <guid isPermaLink="false">react-2026-08-08-L1</guid>
     </item>
     <item>
-      <title>Vectorless: none &gt; L0</title>
+      <title>Vectorless: нет &gt; L0</title>
       <description>repository https://github.com/VectifyAI/PageIndex</description>
       <guid isPermaLink="false">vectorless-2026-08-08-L0</guid>
     </item>
