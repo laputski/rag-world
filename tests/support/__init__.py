@@ -1,4 +1,4 @@
-"""Общие средства тестов: поддельный транспорт и записанные ответы источников."""
+"""Shared test helpers: the fake transport and the recorded answers."""
 
 from tests.support.fake_transport import (
     FakeTransport,

@@ -1,21 +1,22 @@
-"""Корневой conftest для pytest.
+"""The root conftest for pytest.
 
-Набор делится на быстрый и сетевой. Быстрый выполняется целиком без сети и без
-внешних хранилищ: проверки обязаны проходить при полной недоступности
-источников, иначе портал нельзя собрать без интернета.
+The suite splits into a fast part and a networked one. The fast part runs
+entirely without a network and without external stores: the checks have to pass
+when every source is unreachable, or the portal could not be built without an
+internet connection.
 
-Дымовые проверки развёрнутого портала помечены `network` и в основной набор не
-входят: тест, падающий из-за чужой сети, перестают читать вместе со всеми
-остальными.
+The smoke checks of the deployed portal are marked `network` and stay out of the
+main suite: a test that fails because of somebody else's network stops being
+read, and the rest of the suite stops being read along with it.
 """
 
 import pytest
 
 
-# Маркер для integration-тестов (живые бэкенды). CI их не запускает.
+# The marker for integration tests against live backends. CI does not run them.
 def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line(
         "markers",
-        "integration: требует живых бэкендов (Qdrant/OpenSearch/LLM); "
-        "не запускается в CI по умолчанию.",
+        "integration: needs live backends (Qdrant/OpenSearch/LLM); "
+        "not run in CI by default.",
     )

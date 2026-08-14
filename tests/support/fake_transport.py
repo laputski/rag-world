@@ -1,14 +1,14 @@
-"""Поддельный транспорт: прогон цепочки без сети.
+"""The fake transport: running the chain without a network.
 
-Всё покрытие еженедельного прогона держится на этом. Пока цепочка ходит в сеть,
-проверять нечего: результат зависит от того, что сегодня отдаёт архив
-препринтов, а нездоровые случаи — отказ, ограничение частоты, испорченный
-ответ — воспроизвести нельзя вовсе.
+All the coverage of the weekly pass rests on this. While the chain reaches the
+network there is nothing to check: the result depends on what the preprint
+archive returns today, and the unhealthy cases — a refusal, a rate limit, a
+corrupted answer — cannot be reproduced at all.
 
-Транспорт отдаёт записанные ответы по подстроке адреса и умеет вести себя
-плохо: отвечать отказом, молчать, возвращать мусор. Он считает обращения,
-поэтому можно проверить и то, что источник опрошен, и то, что лишних запросов
-нет.
+The transport returns recorded answers by a substring of the address and knows
+how to behave badly: refuse, stay silent, return rubbish. It counts the requests,
+so it can be checked both that a source was polled and that no superfluous
+requests were made.
 """
 
 from __future__ import annotations
@@ -21,17 +21,16 @@ FIXTURES = Path(__file__).resolve().parent.parent / "fixtures" / "sources"
 
 
 def load_fixture(name: str) -> bytes:
-    """Записанный ответ источника."""
+    """A recorded answer from a source."""
     return (FIXTURES / name).read_bytes()
 
 
 @dataclass
 class SourceBehaviour:
-    """Как источник отвечает: тело, код и число повторов отказа.
+    """How a source answers: the body, the status and how often it refuses first.
 
-    `fail_times` позволяет описать источник, который сперва отвечает отказом по
-    частоте обращений, а затем отдаёт данные, — иначе повтор с паузой проверить
-    нечем.
+    `fail_times` describes a source that refuses on rate for a while and then
+    returns the data — without it there is no way to test the retry with a pause.
     """
 
     body: bytes = b""
@@ -42,10 +41,10 @@ class SourceBehaviour:
 
 @dataclass
 class FakeTransport:
-    """Отдаёт заранее заданные ответы по подстроке адреса.
+    """Returns prepared answers by a substring of the address.
 
-    Адрес, не совпавший ни с одним правилом, получает код 404: молчание об
-    источнике, которого не ждали, лучше выдуманного ответа.
+    An address matching no rule receives a 404: silence about a source nobody
+    expected is better than an invented answer.
     """
 
     routes: dict[str, SourceBehaviour] = field(default_factory=dict)
@@ -70,7 +69,7 @@ class FakeTransport:
 
 
 def standard_routes() -> dict[str, SourceBehaviour]:
-    """Здоровые ответы всех источников: основа, от которой отклоняются тесты."""
+    """Healthy answers from every source: the baseline tests depart from."""
     return {
         "export.arxiv.org": SourceBehaviour(load_fixture("arxiv_entry.xml")),
         "api.openalex.org/works/doi": SourceBehaviour(
@@ -83,7 +82,7 @@ def standard_routes() -> dict[str, SourceBehaviour]:
         "api.github.com/repos/demo/demo": SourceBehaviour(
             load_fixture("github_repo.json")
         ),
-        # Оглавления каталогов интеграций фреймворков.
+        # The directory listings of the framework integration folders.
         "contents": SourceBehaviour(load_fixture("github_contents.json")),
         "pypi.org/pypi": SourceBehaviour(load_fixture("pypi_meta.json")),
         "pypistats.org": SourceBehaviour(load_fixture("pypistats.json")),
@@ -91,7 +90,7 @@ def standard_routes() -> dict[str, SourceBehaviour]:
 
 
 def route_without(routes: dict[str, SourceBehaviour], marker: str) -> dict:
-    """Те же правила, но без одного источника: он ответит отказом."""
+    """The same rules without one source, which will then refuse."""
     return {k: v for k, v in routes.items() if k != marker}
 
 
