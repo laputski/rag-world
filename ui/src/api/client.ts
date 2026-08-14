@@ -1,9 +1,9 @@
-/** Загрузка данных портала.
+/** Loading the portal's data.
  *
- * Портал статический: данные читаются из заранее собранных артефактов, которые
- * лежат рядом со сборкой. Живого сервера нет, поэтому отказ внешних источников
- * не приводит к отказу портала — он приводит только к устареванию данных, о чём
- * артефакт сообщает полем даты сборки и признаком устаревания.
+ * The portal is static: the data is read from artefacts built in advance and
+ * sitting beside the build. There is no live server, so a source failing does
+ * not make the portal fail — it only makes the data age, which the artefact
+ * reports through its build date and its staleness mark.
  */
 
 import type {
@@ -21,17 +21,17 @@ const DATA = "/data";
 async function loadJson<T>(name: string): Promise<T> {
   const resp = await fetch(`${DATA}/${name}`);
   if (!resp.ok) {
-    throw new Error(`${resp.status}: не удалось загрузить ${name}`);
+    throw new Error(`${resp.status}: could not load ${name}`);
   }
   return (await resp.json()) as T;
 }
 
-/** Карта зрелости: точки технологий с уровнем, вниманием и историей. */
+/** The maturity map: technologies as points with level, attention and history. */
 export async function getMaturityMap(): Promise<MaturityArtifact> {
   return loadJson<MaturityArtifact>("map.json");
 }
 
-/** Реестр технологий целиком; отбор выполняется на клиенте. */
+/** The whole technology registry; filtering happens in the browser. */
 export async function getRegistry(): Promise<{
   count: number;
   built_at: string;
@@ -40,13 +40,14 @@ export async function getRegistry(): Promise<{
   return loadJson("registry.json");
 }
 
-/** Хроника изменений реестра. */
+/** The chronicle of registry changes. */
 /**
- * Одна запись реестра отдельным файлом.
+ * One registry record as a file of its own.
  *
- * Карточка читала весь реестр ради одной записи, то есть восемьсот килобайт на
- * страницу, куда чаще всего приходят по ссылке извне. Отдельный файл весит
- * около десяти килобайт и несёт ровно ту же запись.
+ * A card used to read the whole registry for a single record, that is, eight
+ * hundred kilobytes for the page people most often arrive at from an outside
+ * link. A separate file costs about ten kilobytes and carries exactly the same
+ * record.
  */
 export async function getTechnology(id: string): Promise<RegistryTechnology> {
   const payload = await loadJson<{ technology: RegistryTechnology }>(`tech/${id}.json`);
@@ -60,12 +61,12 @@ export async function getChanges(): Promise<{
   return loadJson("changes.json");
 }
 
-/** Сводка: распределение по уровням, покрытие, свежесть. */
+/** The summary: distribution by level, coverage, freshness. */
 export async function getStats(): Promise<RegistryStats> {
   return loadJson<RegistryStats>("stats.json");
 }
 
-/** Выпуски дайджеста, свежие впереди. */
+/** The digest issues, newest first. */
 export async function getDigest(): Promise<{
   built_at: string;
   issues: DigestIssue[];
@@ -73,8 +74,8 @@ export async function getDigest(): Promise<{
   return loadJson("digest.json");
 }
 
-/** Очередь остатков: механизмы, которых схема не выражает. */
-/** Кандидаты в реестр: работы, найденные каталогом и ждущие решения. */
+/** The residual queue: mechanisms the schema does not express. */
+/** Candidates for the registry: work found by the catalogue, awaiting a verdict. */
 export async function getCandidates(): Promise<{
   built_at: string;
   candidates: Candidate[];

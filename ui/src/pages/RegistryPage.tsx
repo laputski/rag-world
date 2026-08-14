@@ -10,22 +10,24 @@ import { STRATA } from "../schema.generated";
 import { useDocumentHead } from "../useDocumentHead";
 
 /**
- * Реестр технологий: фасеты слева, лента по центру.
+ * The technology registry: facets on the left, the feed in the middle.
  *
- * Данные читаются одним артефактом, отбор и сортировка идут на клиенте: при
- * нескольких сотнях записей это отвечает мгновенно и не требует сервера.
- * Состояние отбора живёт в адресе страницы, поэтому результат можно
- * процитировать ссылкой — для читателя-исследователя это важнее удобства.
+ * The data is read as one artefact, and filtering and sorting happen in the
+ * browser: over a few hundred records that answers instantly and needs no
+ * server. The filter state lives in the page address, so a result can be cited
+ * by a link — for a reader who is doing research that matters more than
+ * convenience.
  */
 
 /**
- * Порядок родов при показе. Сам перечень берётся из данных, а этот список
- * задаёт лишь очерёдность: от самого общего к самому частному.
+ * The order the kinds are shown in. The set itself comes from the data, and this
+ * only sets the sequence: from the most general to the most particular.
  *
- * Записанный руками перечень разошёлся с данными в обе стороны сразу. Род
- * «артефакт оценки» стоял в отборе с нулём записей, потому что таких записей
- * в реестре нет; род «атака» из отбора выпал, хотя записи есть, и добраться
- * до них отбором было нельзя. Поэтому перечень выводится, а не пишется.
+ * A hand-written set diverged from the data in both directions at once. The kind
+ * "evaluation artefact" stood in the filter with zero records, because there are
+ * none in the registry; the kind "attack" fell out of the filter although
+ * records exist, and there was no way to filter down to them. The set is
+ * therefore derived rather than written.
  */
 const KIND_ORDER = ["paradigm", "architecture", "technique", "tool", "attack", "artifact"];
 const SORTS = ["level", "attention", "recent", "name"] as const;
@@ -76,8 +78,8 @@ export function RegistryPage() {
     );
     const sorted = [...filtered];
     if (sort === "level") {
-      // Записи без уровня уходят вниз: отсутствие данных не должно
-      // конкурировать за внимание с подтверждёнными уровнями.
+      // Records with no level sink to the bottom: an absence of data must not
+      // compete for attention with confirmed levels.
       sorted.sort((a, b) =>
         (b.level ? LEVEL_ORDER.indexOf(b.level) : -1) -
         (a.level ? LEVEL_ORDER.indexOf(a.level) : -1) ||
@@ -93,8 +95,9 @@ export function RegistryPage() {
     return sorted;
   }, [all, kind, stratum, sort]);
 
-  // Роды берутся из самих записей: отбор по роду, которого в реестре нет,
-  // предлагать нечего, а род, появившийся в данных, попадает в отбор сам.
+  // The kinds come from the records themselves: there is nothing to offer for a
+  // kind absent from the registry, and a kind that appears in the data enters
+  // the filter by itself.
   const kindFacets: FacetOption[] = useMemo(() => {
     const present = new Set(all.map((it) => it.kind).filter(Boolean));
     const ordered = [

@@ -6,22 +6,23 @@ import { getDimensionLabel, getValueLabel } from "../i18n/index";
 import { stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Базовая конфигурация: точка отсчёта, от которой измеряется всё остальное.
+ * The base configuration: the reference point everything else is measured from.
  *
- * Раздел заведён потому, что портал ссылался на неё повсюду и нигде не
- * показывал. На карточке значение помечалось «как в базовой конфигурации», в
- * ходе обработки шаг помечался «без отличий от базовой», а посмотреть, какова
- * она и почему такова, было негде: умолчания жили в схеме и приезжали в
- * интерфейс, но ни одна страница их не выводила.
+ * The section exists because the portal pointed at it everywhere and showed it
+ * nowhere. On a card a value was marked "as in the base configuration", in the
+ * processing flow a step was marked "no departures from the base", and there was
+ * nowhere to look at what it was or why: the defaults lived in the schema and
+ * reached the interface, and no page displayed them.
  *
- * Это противоречило тому, на чём портал стоит. У уровня показан вывод правила,
- * у значения измерения — обоснование разбора, у числа — происхождение, и только
- * точка отсчёта, относительно которой считаются все отступления, оставалась
- * невидимой и ничем не обоснованной.
+ * That contradicted what the portal rests on. A level shows the output of the
+ * rule, a dimension value shows the justification of the reading, a number shows
+ * its provenance — and the reference point all departures are counted from
+ * stayed invisible and unjustified.
  *
- * Таблица собирается из самой схемы, а не переписывается в текст статьи: второе
- * описание разошлось бы с первым при первой же правке умолчания. Обоснования
- * хранятся в локализации, потому что переводятся, а коды не переводятся.
+ * The table is assembled from the schema itself rather than written out in text:
+ * a second description would diverge from the first at the first edit to a
+ * default. The names live in the localisation because they are translated and
+ * the codes are not.
  */
 
 export const BASE_CONFIGURATION_ID = "base-configuration";
@@ -41,9 +42,9 @@ export function BaseConfiguration() {
         {t("baseConfig.principle")}
       </Typography>
       {/*
-        Оговорка о двух измерениях, где «ничего не делаем» невозможно, стоит
-        отдельно и до таблицы: без неё читатель, дошедший до строки A5, решит,
-        что правило нарушено, и будет прав по видимости.
+        The caveat about the dimensions where "do nothing" is impossible stands
+        apart and before the table: without it a reader who reaches the row for
+        A1 decides the rule is broken, and on the face of it they are right.
       */}
       <Typography variant="body2" sx={{ mb: 2.5, lineHeight: 1.8, maxWidth: "68ch" }}>
         {t("baseConfig.exceptions")}

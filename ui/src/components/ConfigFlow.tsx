@@ -8,28 +8,29 @@ import { stratumColor, type ThemeMode } from "../theme";
 import { BASE_CONFIGURATION_ID } from "./BaseConfiguration";
 
 /**
- * Ход обработки: что технология делает и на каком шаге.
+ * The processing flow: what a technology does, and at which step.
  *
- * Диаграмма выводится целиком из конфигурации записи и потому не может
- * разойтись с данными. Нарисованная руками схема архитектуры была бы
- * утверждением без источника, а через полгода ещё и утверждением неверным:
- * конфигурация меняется при пересмотре разбора, картинка не меняется никогда.
+ * The diagram is derived entirely from the configuration of the record and
+ * therefore cannot diverge from the data. A diagram drawn by hand would be a
+ * claim without a source, and in half a year a wrong one as well: the
+ * configuration changes when the reading is revised, and a picture does not.
  *
- * Показаны только те измерения, где технология отступает от значения по
- * умолчанию. Это и есть её решения: страта без отступлений означает, что на
- * этом шаге система делает то же, что делает базовый поиск по векторам, и
- * перечислять там нечего. Полный набор значений, включая совпавшие с
- * умолчанием, остаётся ниже в таблице.
+ * Only the dimensions where the technology departs from the base value are
+ * shown. Those are its decisions: a stratum without departures means that at
+ * this step the system does what plain vector search does, and there is nothing
+ * to list. The full set of values, the matching ones included, stays in the
+ * table below.
  *
- * Порядок страт A–G совпадает с порядком обработки запроса: представление
- * знаний, формулировка запроса, извлечение, формирование контекста, синтез,
- * эволюция состояния, оболочка ограничений. Поэтому диаграмма читается сверху
- * вниз как путь запроса, а не как произвольный список свойств.
+ * The order of the strata A–G matches the order a query is processed in:
+ * knowledge representation, query formulation, retrieval, context assembly,
+ * synthesis and control, state evolution, constraint envelope. The diagram
+ * therefore reads top to bottom as the path of a query rather than as an
+ * arbitrary list of properties.
  */
 
 interface Props {
   configuration: Record<string, string>;
-  /** Измерения, значение которых система выбирает во время работы. */
+  /** Dimensions whose value the system chooses at run time. */
   variable?: string[];
 }
 
@@ -84,9 +85,10 @@ export function ConfigFlow({ configuration, variable = [] }: Props) {
             sx={{ display: "flex", gap: 1.5, alignItems: "stretch", opacity: idle ? 0.45 : 1 }}
           >
             {/*
-              Рельс слева несёт две вещи сразу: цвет страты, тот же, что в глифе
-              и в фишках страт, и непрерывность линии между шагами. Непрерывная
-              линия и делает список ходом обработки, а не перечнем.
+              The rail on the left carries two things at once: the colour of
+              the stratum, the same one the stratum chips use, and the continuity
+              of a line between the steps. It is the unbroken line that makes the
+              list a flow of processing rather than an enumeration.
             */}
             <Box
               sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: 12 }}
