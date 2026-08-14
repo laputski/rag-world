@@ -4,15 +4,15 @@ import { useTranslation } from "react-i18next";
 import { MONO } from "../theme";
 
 /**
- * Уровень зрелости: значок и шкала положения.
+ * The maturity level: a badge and a positional scale.
  *
- * Уровень порядковый, поэтому кодируется положением, а не цветом: по двум
- * оттенкам читатель не скажет, какой из них «выше», а по семи делениям —
- * скажет сразу.
+ * A level is ordinal and is therefore encoded by position rather than colour: of
+ * two hues a reader cannot say which is higher, and of seven positions they can
+ * say at once.
  *
- * Отсутствие уровня показывается отдельным состоянием и никогда не заменяется
- * нулевым уровнем: «не изучено» и «гипотеза» — разные утверждения, и подмена
- * первого вторым обвиняет технологию в том, чего про неё просто не выясняли.
+ * An absent level is shown as a state of its own and never as level zero: "not
+ * studied" and "a hypothesis" are different claims, and passing the first off as
+ * the second accuses a technology of something nobody knows about it.
  */
 
 const LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"];
@@ -20,7 +20,8 @@ const LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"];
 interface Props {
   level: string | null;
   confidence?: number | null;
-  /** Уровень введён человеком там, где машиночитаемого источника не существует. */
+  /** The level was entered by a person, where no machine-readable source
+   *  exists. */
   manual?: boolean;
   showScale?: boolean;
 }

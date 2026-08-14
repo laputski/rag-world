@@ -2,19 +2,19 @@ import { Box, Typography } from "@mui/material";
 import { MONO } from "../theme";
 
 /**
- * Колонка фасетов со счётчиками.
+ * The column of facets with their counts.
  *
- * У каждого значения стоит число записей: без него читатель не знает, приведёт
- * ли отбор к трём записям или к тридцати, и вынужден выяснять это нажатием.
- * Значение без записей показывается приглушённым и не выбирается — предлагать
- * заведомо пустой отбор нечестно.
+ * Every value carries the number of records: without it a reader cannot tell
+ * whether a filter leads to three records or thirty, and has to find out by
+ * clicking. A value with no records is dimmed and cannot be chosen: offering a
+ * filter known to be empty would be dishonest.
  */
 
 export interface FacetOption {
   value: string;
   label: string;
   count: number;
-  /** Необязательный элемент слева: метка страты, значок рода объекта. */
+  /** An optional element on the left: a stratum chip, a kind icon. */
   icon?: React.ReactNode;
 }
 
@@ -23,7 +23,7 @@ interface Props {
   options: FacetOption[];
   selected: string;
   onSelect: (value: string) => void;
-  /** Подпись пункта «все значения». */
+  /** The label of the "all values" item. */
   allLabel: string;
   totalCount: number;
 }

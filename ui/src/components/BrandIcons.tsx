@@ -1,19 +1,19 @@
 import { Box } from "@mui/material";
 
 /**
- * Знаки внешних площадок: хранилища кода и профессиональной сети.
+ * The marks of external platforms: the code host and the professional network.
  *
- * Рисуются здесь, а не берутся набором значков: тот весит сотни килобайт, а
- * нужно из него два глифа. Оба взяты фирменными очертаниями и не
- * перекрашиваются произвольно — знак площадки есть её товарный знак, и
- * пользоваться им можно ссылаясь на неё, но не переделывая.
+ * They are drawn here rather than taken from an icon set: a set weighs hundreds
+ * of kilobytes and two glyphs are wanted from it. Both keep their official
+ * outlines and are not recoloured at will — a platform's mark is its trademark,
+ * and it may be used to point at the platform but not remade.
  *
- * Цвет наследуется от родителя, чтобы значок жил в обеих темах наравне с
- * текстом рядом.
+ * The colour is inherited from the parent so that the icon lives in both themes
+ * and beside the text.
  */
 
 interface Props {
-  /** Сторона значка в пикселях. */
+  /** The side of the icon in pixels. */
   size?: number;
 }
 

@@ -8,22 +8,23 @@ import { LevelBadge } from "./LevelBadge";
 import type { FeedItem } from "./FeedRow";
 
 /**
- * Быстрый поиск по реестру, открываемый сочетанием клавиш.
+ * The quick search over the registry, opened by a keyboard shortcut.
  *
- * Реестр умещается в память целиком, поэтому поиск идёт на клиенте и отвечает
- * мгновенно, обращаться к серверу не за чем. Совпадения ищутся по имени и
- * псевдонимам: технологии часто помнят под сокращением, а не под полным
- * названием.
+ * The registry fits in memory whole, so the search runs in the browser: it is
+ * instant and there is no server to ask. Matches are looked for by name and by
+ * alias, because technologies are often remembered by an abbreviation rather
+ * than by a full name.
  *
- * Реестр читается при первом открытии поиска, а не при загрузке страницы.
- * Прежде его тянула оболочка, поэтому восемьсот килобайт приходили на каждую
- * страницу ради поиска, которым читатель мог ни разу не воспользоваться.
- * Прочитанное остаётся в памяти, поэтому второе открытие мгновенно.
+ * The registry is read when the search is first opened rather than on page load.
+ * The shell used to pull it, so eight hundred kilobytes came with every page for
+ * a search the reader might never use. What has been read stays in memory, so
+ * the second opening is instant.
  */
 
 interface Props {
   onOpen: (id: string) => void;
-  /** Позволяет открыть поиск извне: из кнопки в шапке, а не только с клавиатуры. */
+  /** Lets the search be opened from outside: from the header button, not only
+   *  by the shortcut. */
   registerOpener?: (open: () => void) => void;
 }
 
@@ -39,8 +40,8 @@ export function CommandPalette({ onOpen, registerOpener }: Props) {
   const requested = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Загрузка начинается при первом открытии и делается один раз: отказ сети
-  // оставляет поиск пустым, но портал работающим.
+  // Loading starts on the first opening and happens once. A failure leaves the
+  // search empty and the portal working.
   useEffect(() => {
     if (!open || requested.current) return;
     requested.current = true;
@@ -130,8 +131,9 @@ export function CommandPalette({ onOpen, registerOpener }: Props) {
       </Box>
       <Box sx={{ maxHeight: 420, overflowY: "auto" }}>
         {/*
-          Пока реестр не пришёл, «ничего не найдено» было бы неправдой: искать
-          ещё не в чем. Различие видно читателю, а не только коду.
+          Until the registry has arrived, "nothing found" would be untrue: there
+          is nothing to search yet. The difference is visible to the reader and
+          not only to the code.
         */}
         {results.length === 0 && (
           <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>

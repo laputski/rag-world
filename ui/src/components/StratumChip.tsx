@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next";
 import { MONO, stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Метка страты: буква кода и её цвет.
+ * The stratum chip: the letter of the code and its colour.
  *
- * Цвет здесь — единственный насыщенный элемент интерфейса, и он всегда означает
- * страту решений. Буква дублирует цвет, чтобы метка оставалась читаемой при
- * дальтонизме и в чёрно-белой печати.
+ * Colour here is the only saturated element of the interface, and it means the
+ * stratum of a decision. The letter duplicates the colour so that the chip stays
+ * readable under colour blindness and in black-and-white print.
  */
 
 interface Props {
   stratum: string;
-  /** Показать полное название страты рядом с кодом. */
+  /** Show the full name of the stratum beside the code. */
   withName?: boolean;
   count?: number;
 }

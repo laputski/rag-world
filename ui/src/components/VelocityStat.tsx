@@ -2,22 +2,23 @@ import { Box, Tooltip, Typography } from "@mui/material";
 import { MONO } from "../theme";
 
 /**
- * Показатель скорости в правой колонке ленты.
+ * The rate shown in the right column of the feed.
  *
- * Портал сообщает не абсолютные величины, а скорости: цитирования в месяц,
- * изменение уровня за период, срок с последней проверки свидетельств.
- * Абсолютное число цитирований несравнимо между областями и устаревает в
- * момент измерения, а скорость сравнима и говорит о происходящем сейчас.
+ * The portal reports rates rather than absolute quantities: citations a month,
+ * a level change over a period, the time since the evidence was last checked.
+ * An absolute citation count is not comparable across fields and is out of date
+ * the moment it is measured, whereas a rate is comparable and says something
+ * about what is happening.
  *
- * Отсутствие данных показывается прочерком. Ноль означал бы, что величину
- * измерили и она равна нулю, а это другое утверждение.
+ * Absent data is shown as a dash. A zero would say the quantity was measured and
+ * came out zero, which is a different claim.
  */
 
 interface Props {
   value: number | null | undefined;
-  /** Подпись под числом: «цит./мес», «свидетельств» и подобное. */
+  /** The label under the number: "cit./mo", "evidence" and the like. */
   unit: string;
-  /** Происхождение значения: показывается при наведении. */
+  /** The provenance of the value, shown on hover. */
   origin?: string;
   fractionDigits?: number;
 }
@@ -52,7 +53,7 @@ export function VelocityStat({ value, unit, origin, fractionDigits = 1 }: Props)
     </Box>
   );
 
-  // Каждое число несёт происхождение: без него его нельзя показывать (K2).
+  // Every number carries its provenance: without one it must not be shown.
   return origin ? (
     <Tooltip title={origin} enterDelay={300}>{body}</Tooltip>
   ) : body;

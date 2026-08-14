@@ -37,7 +37,7 @@ function MermaidDiagram({ chart, theme }: { chart: string; theme: "light" | "dar
   }, [chart, theme]);
 
   const handleOpen = () => {
-    // Перерендерить в крупном масштабе для модального окна.
+    // Re-render at a larger scale for the modal.
     const bigId = `big${idRef.current}`;
     mermaid.initialize({
       startOnLoad: false,
@@ -89,10 +89,10 @@ function MermaidDiagram({ chart, theme }: { chart: string; theme: "light" | "dar
 }
 
 /**
- * То, что кладёт в контекст оболочка. Имя поля обязано совпадать с её `mode`:
- * поле называлось здесь `theme`, оболочка передавала `mode`, и получалось
- * `undefined`. Схемы на этой странице рисовались светлыми и в тёмной теме, а
- * типы молчали: `useOutletContext<T>()` — приведение, а не проверка.
+ * What the shell puts into the context. The field name has to match: the field
+ * was called `theme` here while the shell passed `mode`, and what arrived was
+ * `undefined`. The diagrams on this page were drawn light inside the dark theme,
+ * and the types said nothing: `useOutletContext<T>()` is a cast, not a check.
  */
 interface OutletCtx { mode: "light" | "dark" }
 
@@ -108,7 +108,7 @@ export function GeneralizedArticlePage() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* Оглавление слева */}
+      {/* The table of contents on the left */}
       <Box sx={{ width: 200, flexShrink: 0, position: "sticky", top: 64, alignSelf: "flex-start", display: { xs: "none", md: "block" } }}>
         <List dense sx={{ pr: 1 }}>
           <ListItemButton onClick={() => scrollToId("abstract")} sx={{ py: 0.25 }}>
@@ -131,15 +131,16 @@ export function GeneralizedArticlePage() {
         </List>
       </Box>
 
-      {/* Тело статьи */}
+      {/* The body of the article */}
       <Box sx={{ flexGrow: 1, minWidth: 0, maxWidth: 800 }}>
         <Box id="abstract" sx={{ scrollMarginTop: 80, mb: 2 }}>
           <Typography variant="h4" sx={{ mb: 1 }}>{content.title}</Typography>
           {/*
-            Раздел назван «Основания», а не «Статья», и разница существенна.
-            «Статья» обещает читателю новость об области; он же получает модель,
-            на которой держатся реестр и карта. Без этой строки непонятно, зачем
-            в портале о технологиях лежит научный текст.
+            The section is called "Foundations" rather than "Article", and the
+            difference matters. "Article" promises the reader news about the
+            field; what they get is the ground the registry and the map stand on.
+            Without this line it is unclear why a portal about technologies holds
+            a scientific text.
           */}
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: "64ch" }}>
             {t("article.foundationsNote")}
@@ -163,7 +164,7 @@ export function GeneralizedArticlePage() {
 
         <BaseConfiguration />
 
-        {/* Источники */}
+        {/* The references */}
         <Paper variant="outlined" sx={{ p: 3, mb: 3, scrollMarginTop: 80 }} id="refs">
           <Typography variant="h5" gutterBottom>{t("common.sources")}</Typography>
           <Divider sx={{ mb: 2 }} />

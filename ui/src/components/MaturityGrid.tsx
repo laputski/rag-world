@@ -7,15 +7,16 @@ import type { MaturityArtifact, MaturityPoint } from "../api/types";
 import { KIND_SYMBOLS, MONO, stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Сетка «страты и уровни»: вторая проекция тех же данных.
+ * The strata-and-levels grid: a second projection of the same data.
  *
- * Карта хорошо показывает распределение, но плохо отвечает на вопрос «что есть
- * в этой страте на этом уровне». Сетка отвечает на него прямо и остаётся
- * читаемой при разреженных данных: пустая ячейка здесь — содержательное
- * наблюдение, а не пробел в картинке.
+ * The map shows a distribution well and answers "what is in this stratum at this
+ * level" badly. The grid answers that directly and stays readable on sparse
+ * data: an empty cell here is a meaningful observation rather than a hole in a
+ * picture.
  *
- * Нижняя строка отведена записям без вычисленного уровня. Она отделена от
- * строки L0, потому что «не изучено» и «гипотеза» — разные утверждения.
+ * The bottom row is given to records with no computed level. It stands apart
+ * from the L0 row, because "not studied" and "a hypothesis" are different
+ * claims.
  */
 
 interface Props {
@@ -43,7 +44,7 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
 
   const option = useMemo(() => {
     const columns = artifact.strata.map((s) => s.code);
-    // Уровни снизу вверх, под ними — строка «нет данных».
+    // Levels from the bottom up, with the "no data" row beneath them.
     const rows = [UNKNOWN_ROW, ...artifact.levels];
 
     const byKind = new Map<string, MaturityPoint[]>();
@@ -94,8 +95,8 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
       },
       xAxis: {
         type: "value",
-        // Границы целые: иначе деления не попадают на целые числа и подписи
-        // стратов не выводятся вовсе.
+        // The bounds are whole numbers: otherwise the ticks miss the integers
+        // and the stratum labels are not drawn at all.
         min: -1,
         max: columns.length,
         interval: 1,

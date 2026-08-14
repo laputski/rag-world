@@ -1,7 +1,7 @@
-// Научная статья «Обобщённый конструктор систем RAG» (RU/EN).
-// Самостоятельный документ: описывает RAG как точку в стратифицированном
-// конфигурационном пространстве из 28 измерений с моделью признаков.
-// Структурированные данные по образцу articleData.ts / futureData.ts.
+// The article "A generalised constructor of RAG systems" (RU/EN).
+// A self-contained document: it describes RAG as a point in a stratified
+// configuration space of 28 dimensions under a feature model.
+// Structured data, following the pattern of articleData.ts / futureData.ts.
 
 export interface Section {
   id: string;
@@ -23,7 +23,7 @@ export interface GeneralizedContent {
   refs: RefLink[];
 }
 
-// ─── Mermaid-диаграммы ───
+// ─── Mermaid diagrams ────────────────────────────────────────────────────────
 
 const DIAG_GAP = `flowchart TD
     M["Существующие описания RAG"]
@@ -198,10 +198,11 @@ const DIAG_LIMITS = `flowchart TB
     end
     DOES -.- DOESNT`;
 
-// ─── Диаграммы по-английски ─────────────────────────────────────────────────
+// ─── The diagrams in English ─────────────────────────────────────────────────
 //
-// Схемы переведены целиком, а не подписаны заново: подпись под русской схемой
-// оставляла бы англоязычному читателю картинку, которую он не прочтёт.
+// The diagrams are translated whole rather than merely relabelled: a caption in
+// one language over a picture in another would leave an English reader with an
+// image they cannot read.
 
 const DIAG_GAP_EN = `flowchart TD
     M["Existing descriptions of RAG"]
@@ -376,8 +377,8 @@ const DIAG_LIMITS_EN = `flowchart TB
     end
     DOES -.- DOESNT`;
 
-//: Русская схема и её английский двойник. Пара нужна, чтобы страница выбирала
-//: по языку, а сторож мог потребовать двойника для каждой схемы.
+//: A Russian diagram and its English twin. The pair exists so that the page can
+//: choose by language and a guard can demand a twin for every diagram.
 const DIAGRAM_EN: Record<string, string> = {
   [DIAG_GAP]: DIAG_GAP_EN,
   [DIAG_MAP]: DIAG_MAP_EN,
@@ -390,11 +391,12 @@ const DIAGRAM_EN: Record<string, string> = {
   [DIAG_LIMITS]: DIAG_LIMITS_EN,
 };
 
-//: Заголовки и вводные разделов по-английски. Содержание разделов остаётся
-//: русским по решению: раздел держится определениями, и неверно переведённое
-//: определение меняет утверждение о предмете. Заголовок и вводная определений
-//: не несут, а без них англоязычный читатель не может даже понять, о чём
-//: раздел, и оглавление для него бесполезно.
+//: The headings and the leads of the sections in English. The bodies of the
+//: sections stay Russian by decision: a section rests on its definitions, and a
+//: definition translated wrongly changes a claim about the subject. A heading
+//: and a lead carry no definitions, and without them an English reader cannot
+//: even tell what a section is about, which makes the table of contents useless
+//: to them.
 const SECTION_EN: Record<string, { title: string; intro: string }> = {
   intro: {
     title: "1. Introduction and problem statement",
@@ -578,11 +580,12 @@ const en: GeneralizedContent = {
     title: SECTION_EN[s.id]?.title ?? s.title,
     intro: SECTION_EN[s.id]?.intro ?? s.intro,
     diagram: s.diagram ? (DIAGRAM_EN[s.diagram] ?? s.diagram) : undefined,
-    // Прозу карточек допустимо перевести моделью с последующей вычиткой: цена
-    // ошибки там — корявая фраза. Здесь цена другая: неверно переведённое
-    // определение меняет утверждение о предмете, а раздел «Основания» именно
-    // определениями и держится. Поэтому перевод делает человек, и до тех пор
-    // читателю говорится об этом прямо, вместо машинного текста.
+    // The prose of the cards may be translated by a model and then read over:
+    // the price of an error there is an awkward phrase. Here the price is
+    // different: a definition translated wrongly changes a claim about the
+    // subject, and the Foundations section is held together by its definitions.
+    // So a person does the translating, and until then the reader is told so
+    // outright instead of being given machine text.
     content:
       "This section is available in Russian only. It states the model the " +
       "portal rests on, and its translation is deliberately not machine-made: " +

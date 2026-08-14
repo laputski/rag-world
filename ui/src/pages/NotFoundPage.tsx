@@ -4,15 +4,15 @@ import { useNavigate, useRouteError, isRouteErrorResponse } from "react-router-d
 import { useDocumentHead } from "../useDocumentHead";
 
 /**
- * Страница для адреса, которого нет.
+ * The page for an address that does not exist.
  *
- * Портал статический, и правило переписывания отдаёт index.html на любой
- * адрес — иначе прямая ссылка на карточку не открывалась бы. Обратная сторона:
- * опечатка в адресе доходит до приложения, и без этой страницы читатель видел
- * отладочный экран маршрутизатора с обращением к разработчику.
+ * The portal is static, and the rewrite rule serves index.html for any address —
+ * otherwise a direct link to a card would not open. So every typo in an address
+ * reaches the application, and without this page the reader would meet the
+ * router's debug screen addressing a developer.
  *
- * Служит и разделом «не найдено», и запасным на случай ошибки в любой другой
- * странице: сломанная страница не должна выглядеть как сломанный портал.
+ * It serves both as the "not found" section and as a fallback for an error
+ * inside any page: a broken page must not look like a broken portal.
  */
 export function NotFoundPage() {
 

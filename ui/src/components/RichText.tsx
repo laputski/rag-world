@@ -1,11 +1,11 @@
 import { Box, Link } from "@mui/material";
 import type { ReactNode } from "react";
 
-// Парсит текст с разметкой:
-// [N] — citation, кликабельная ссылка на #ref-N
-// [Name](url) — inline-ссылка на ресурс
-// \n\n — новый абзац
-// Возвращает массив ReactNode.
+// Parses text with a small markup:
+// [N] — a citation, a clickable link to #ref-N
+// [Name](url) — an inline link to a resource
+// \n\n — a new paragraph
+// Returns an array of ReactNode.
 
 const CITATION_RE = /\[(\d+(?:\s*,\s*\d+)*)\]/g;
 const LINK_RE = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
@@ -29,14 +29,14 @@ export function RichText({ children, sx }: Props) {
 }
 
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
-  // Сначала найдём все inline-ссылки [Name](url) и citations [N],
-  // затем соберём части.
+  // First find every inline link [Name](url) and every citation [N], then
+  // assemble the parts.
   type Token = { type: "text"; value: string } | { type: "link"; label: string; url: string } | { type: "cite"; ids: string[] };
   const tokens: Token[] = [];
   let i = 0;
   let key = 0;
 
-  // Комбинированный regex: ищет [Name](url) или [N] или [N, M]
+  // One combined pattern: [Name](url), or [N], or [N, M].
   const combined = /\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)|\[(\d+(?:\s*,\s*\d+)*)\]/g;
   let lastIdx = 0;
   let m: RegExpExecArray | null;
@@ -46,10 +46,10 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
       tokens.push({ type: "text", value: text.slice(lastIdx, m.index) });
     }
     if (m[1] !== undefined && m[2] !== undefined) {
-      // Inline-ссылка [Name](url)
+      // An inline link [Name](url)
       tokens.push({ type: "link", label: m[1], url: m[2] });
     } else if (m[3] !== undefined) {
-      // Citation [N] или [N, M]
+      // A citation [N] or [N, M]
       const ids = m[3].split(",").map((s) => s.trim());
       tokens.push({ type: "cite", ids });
     }
@@ -59,7 +59,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     tokens.push({ type: "text", value: text.slice(lastIdx) });
   }
 
-  // Рендерим токены.
+  // Render the tokens.
   const nodes: ReactNode[] = [];
   for (const tok of tokens) {
     if (tok.type === "text") {
