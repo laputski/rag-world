@@ -264,6 +264,22 @@ MUTATIONS: tuple[Mutation, ...] = (
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+    # ── Знак портала и значки ──────────────────────────────────────────────
+    #
+    # Знак живёт кодом, значки — файлами, и расходятся они молча: портал
+    # показывает новый рисунок, а чужая страница со ссылкой — старый.
+    Mutation("scripts/build_icons.py", "рисунок значков берётся из знака",
+             'block = re.search(r"PATTERN[^=]*=\\s*\\{(?P<body>.*?)\\n\\};", text, re.S)',
+             'block = None if text else None'),
+    Mutation("scripts/build_icons.py", "значок вкладки несёт обе палитры",
+             'f"<style>{light}@media(prefers-color-scheme:dark){{{dark}}}</style>"',
+             'f"<style>{light}</style>"'),
+    Mutation("scripts/build_icons.py", "значки сверяются с нынешним знаком",
+             "if current != payload:", "if current is None:"),
+    Mutation("ui/index.html", "разметка ссылается на картинку предпросмотра",
+             '<meta property="og:image" content="https://ragworld.org/og-image.png" />',
+             ""),
+
     # ── Обнаружение по курируемым спискам ──────────────────────────────────
     #
     # Источник здесь не служба с договором, а файл, который правят руками.

@@ -18,6 +18,16 @@
     />
     <link rel="canonical" href="https://ragworld.org/" />
 
+    <!--
+      Значок вкладки векторный и один на обе темы: палитра выбирается внутри
+      файла по теме браузера. Растровый значок так не умеет, и пришлось бы
+      выбирать палитру за читателя, отчего знак тускнел бы на половине
+      устройств. Значок для домашнего экрана растровый, потому что векторный там
+      не принимается.
+    -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="RAG World" />
     <meta property="og:title" content="RAG World — registry of retrieval-augmented generation technologies" />
@@ -26,7 +36,11 @@
       content="65 RAG technologies, each with a configuration over 28 dimensions, a maturity level derived by rule, and the evidence behind it. Updated weekly. Open data."
     />
     <meta property="og:url" content="https://ragworld.org/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://ragworld.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="RAG World: a configuration fingerprint over seven strata" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <meta name="color-scheme" content="dark light" />

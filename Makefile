@@ -3,9 +3,14 @@
         collect update levels artifacts validate sources release \
         release-dry mutate mutate-list
 
+# Средства вызываются модулями через сам интерпретатор, а не запускалками из
+# .venv/bin. Запускалка несёт путь к окружению в заголовке файла, поэтому
+# переименование каталога проекта ломает её молча: `make test` падает с
+# «нет такого файла», хотя окружение на месте. Символьная ссылка на
+# интерпретатор от пути не зависит и переименование переживает.
 PYTHON ?= .venv/bin/python
 PIP    ?= .venv/bin/pip
-PYTEST ?= .venv/bin/pytest
+PYTEST ?= $(PYTHON) -m pytest
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -62,6 +67,9 @@ levels: ## Recompute maturity levels from stored evidence
 artifacts: ## Rebuild public/data/*.json and the changes feed
 	$(PYTHON) scripts/build_artifacts.py
 
+icons: ## Rebuild favicon, device icon and link preview image from the logo
+	$(PYTHON) scripts/build_icons.py
+
 validate: ## Validate registry data: schema, link resolvability, provenance
 	$(PYTHON) scripts/validate_data.py
 
@@ -98,10 +106,10 @@ mutate-list: ## Show the catalogue of rules the mutation run protects
 	$(PYTHON) scripts/mutate.py --list
 
 lint: ## Run ruff checks
-	.venv/bin/ruff check core services scripts tests
+	$(PYTHON) -m ruff check core services scripts tests
 
 format: ## Auto-format with ruff (по желанию, не обязательно)
-	.venv/bin/ruff format core services scripts tests
+	$(PYTHON) -m ruff format core services scripts tests
 
 clean: ## Remove build artifacts and caches
 	rm -rf .venv .pytest_cache .ruff_cache ui/node_modules ui/dist *.egg-info

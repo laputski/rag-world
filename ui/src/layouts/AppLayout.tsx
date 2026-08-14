@@ -6,6 +6,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { ThemeMode } from "../theme";
 import { MONO, SERIF_FAMILY } from "../theme";
+import { Logo } from "../components/Logo";
 
 /**
  * Каркас портала: верхняя навигация и широкое поле содержания.
@@ -48,16 +49,31 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
         }}
       >
         <Container maxWidth="xl" sx={{ display: "flex", alignItems: "center", gap: 3, py: 1.25 }}>
-          <Typography
+          {/*
+            Знак и словесный знак — одна ссылка, а не две рядом: две ссылки на
+            один адрес удваивают остановку при обходе с клавиатуры и заставляют
+            читалку экрана назвать цель дважды. Знак при этом скрыт от
+            озвучивания, потому что слово рядом говорит то же самое.
+          */}
+          <Box
             component={NavLink}
             to="/"
             sx={{
-              fontFamily: SERIF_FAMILY, fontSize: "1.15rem", fontWeight: 600,
-              color: "text.primary", textDecoration: "none", flexShrink: 0,
+              display: "flex", alignItems: "center", gap: 1,
+              textDecoration: "none", flexShrink: 0,
             }}
           >
-            RAG World
-          </Typography>
+            <Logo size={26} title="" />
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: SERIF_FAMILY, fontSize: "1.15rem", fontWeight: 600,
+                color: "text.primary",
+              }}
+            >
+              RAG World
+            </Typography>
+          </Box>
 
           <Box component="nav" sx={{ display: "flex", gap: 2.5, flexGrow: 1, flexWrap: "wrap" }}>
             {NAV.map((item) => (
