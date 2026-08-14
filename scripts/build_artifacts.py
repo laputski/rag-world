@@ -589,10 +589,21 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     changes.sort(key=lambda c: c["changed_at"], reverse=True)
 
     # ─── Сводка ──────────────────────────────────────────────────────────────
-    by_level = Counter(
+    # Уровни перечисляются все, включая пустые.
+    #
+    # Счётчик заводил ключ только там, где запись нашлась, поэтому L6 из сводки
+    # выпадал целиком: шкала выглядела кончающейся на L5, тогда как «ни одна
+    # технология не достигла отраслевого стандарта» есть, пожалуй, самое
+    # содержательное её утверждение.
+    #
+    # Правилу «ноль вместо отсутствия недопустим» это не противоречит: ноль
+    # здесь и есть наблюдение, а «не знаем» живёт отдельным ключом `unknown`.
+    counted = Counter(
         (level_by_tech[t.id].level if t.id in level_by_tech else "unknown")
         for t in technologies
     )
+    by_level = {level: counted.get(level, 0) for level in LEVELS}
+    by_level["unknown"] = counted.get("unknown", 0)
     by_stratum: Counter[str] = Counter()
     for tech in technologies:
         for group in tech.groups:
@@ -601,7 +612,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     stats = {
         "built_at": built_at,
         "total": len(technologies),
-        "by_level": dict(sorted(by_level.items())),
+        "by_level": by_level,
         "by_kind": dict(sorted(Counter(t.kind for t in technologies).items())),
         "by_stratum": dict(sorted(by_stratum.items())),
         "with_evidence": sum(1 for t in technologies if evidence_by_tech.get(t.id)),

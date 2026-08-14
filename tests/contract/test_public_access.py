@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT))
 from scripts import build_artifacts  # noqa: E402
 
 PUBLIC = ROOT / "ui" / "public"
+INDEX = ROOT / "ui" / "index.html"
 DATA = PUBLIC / "data"
 
 SITEMAP_NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
@@ -143,3 +144,60 @@ def test_head_of_the_page_declares_the_dataset():
     assert build_artifacts.LICENSE_URL in html
     # Язык разметки, отданной сервером, совпадает с языком портала.
     assert '<html lang="en">' in html
+
+
+# ─── Описания для поиска ─────────────────────────────────────────────────────
+
+def test_descriptions_carry_no_counts():
+    """Счёт в описании устаревает к следующему прогону.
+
+    Описание страницы попадает в выдачу поиска и в предпросмотр ссылки, а там
+    живёт неделями после того, как перестало быть верным. Строка «реестр из
+    шестидесяти пяти технологий» была неверна уже на следующий прогон
+    обнаружения, а исправить её у площадки, закешировавшей выдачу, нельзя.
+
+    Запрещены цифры, а не числа вообще: «двадцать восемь измерений» устареет
+    при первом же новом измерении ровно так же, поэтому счёт из описаний убран
+    целиком, а проверка ловит его самый частый вид.
+    """
+    import re
+
+    html = INDEX.read_text(encoding="utf-8")
+    with_digits: list[str] = []
+    for match in re.finditer(
+        r'(?:name|property)="(?:description|og:description)"[^>]*?content="([^"]*)"',
+        html, re.S,
+    ):
+        if re.search(r"\d", match.group(1)):
+            with_digits.append(match.group(1)[:70])
+    # Разметка переносит длинные значения на свою строку, поэтому ищется и так.
+    for match in re.finditer(
+        r'(?:name|property)="(?:description|og:description)"\s*\n\s*content="([^"]*)"',
+        html, re.S,
+    ):
+        if re.search(r"\d", match.group(1)):
+            with_digits.append(match.group(1)[:70])
+    assert not with_digits, f"счёт в описании страницы: {with_digits}"
+
+    for language in ("ru", "en"):
+        head = json.loads(
+            (ROOT / "ui" / "src" / "i18n" / f"{language}.json").read_text(encoding="utf-8")
+        )["head"]
+        stale = [
+            f"{language}.{page}"
+            for page, value in head.items()
+            if re.search(r"\d", value.get("description", ""))
+        ]
+        assert not stale, f"счёт в описании раздела: {stale}"
+
+
+def test_keywords_are_declared_and_free_of_counts():
+    """Слова-ключи на выдачу не влияют, но устаревать им тоже незачем."""
+    import re
+
+    html = INDEX.read_text(encoding="utf-8")
+    match = re.search(r'name="keywords"\s*\n?\s*content="([^"]*)"', html, re.S)
+    assert match, "слова-ключи не объявлены"
+    words = [w.strip() for w in match.group(1).split(",") if w.strip()]
+    assert len(words) >= 8, f"слов-ключей слишком мало: {len(words)}"
+    assert not re.search(r"\d", match.group(1)), "счёт в словах-ключах"

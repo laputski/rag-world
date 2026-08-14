@@ -64,6 +64,27 @@ export function HomePage() {
       }));
   }, [stats]);
 
+  /*
+    Счёт изменений за месяц. Окно то же, что открывается по умолчанию на
+    странице хроники, поэтому число здесь и число там совпадают, а читатель,
+    перешедший по ссылке, видит продолжение, а не другую картину.
+  */
+  const recent = useMemo(() => {
+    const since = new Date();
+    since.setDate(since.getDate() - 31);
+    const within = changes.filter((c) => new Date(c.changed_at) >= since);
+    const count = (kind: string) => within.filter((c) => c.kind === kind).length;
+    const parts: { key: string; n: number }[] = [
+      { key: "home.downCount", n: count("level_down") },
+      { key: "home.upCount", n: count("level_up") },
+      { key: "home.addedCount", n: count("added") },
+    ];
+    return {
+      total: within.length,
+      words: parts.filter((p) => p.n > 0).map((p) => t(p.key, { count: p.n })),
+    };
+  }, [changes, t]);
+
   if (error) {
     return <Alert severity="info">{t("map.unavailable")}</Alert>;
   }
@@ -159,32 +180,71 @@ export function HomePage() {
       </Box>
 
       <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", alignItems: "flex-start" }}>
-        {/* Что изменилось: свежесть доказывается изменением, а не датой. */}
+        {/*
+          Что изменилось: свежесть доказывается изменением, а не датой.
+
+          Блок читается первым взглядом и потому начинается со счёта: сколько
+          всего произошло за месяц и было ли среди этого понижение. Прежде
+          здесь лежали шесть строк без дат и без рода изменения, а новая запись
+          показывалась как «— → L1», отчего прочерк читался уровнем. Подробности
+          уводятся ссылкой: полная хроника собрана по датам и несёт основания.
+        */}
         <Box sx={{ flex: "1 1 380px", minWidth: 0 }}>
-          <Typography variant="h6" sx={{ mb: 1 }}>{t("changes.title")}</Typography>
+          <Typography variant="h6" sx={{ mb: 0.5 }}>{t("changes.title")}</Typography>
+
           {changes.length === 0 && (
             <Typography variant="body2" color="text.secondary">{t("changes.empty")}</Typography>
           )}
-          {changes.slice(0, 6).map((change, i) => (
-            <Box
-              key={`${change.technology_id}-${i}`}
-              sx={{
-                display: "flex", alignItems: "center", gap: 1.5, py: 0.9,
-                borderBottom: 1, borderColor: "divider",
-              }}
-            >
-              <MuiLink
-                href={`/tech/${change.technology_id}`}
-                onClick={(e) => { e.preventDefault(); navigate(`/tech/${change.technology_id}`); }}
-                sx={{ color: "text.primary", fontSize: "0.9rem", flexGrow: 1, minWidth: 0 }}
+
+          {changes.length > 0 && (
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+              {recent.total === 0
+                ? t("home.changesQuiet")
+                : `${t("home.changesWindow")}: ${recent.words.join(", ")}.`}
+            </Typography>
+          )}
+
+          {changes.slice(0, 6).map((change, i) => {
+            const added = change.kind === "added";
+            const down = change.kind === "level_down";
+            return (
+              <Box
+                key={`${change.technology_id}-${i}`}
+                sx={{
+                  display: "flex", alignItems: "baseline", gap: 1.5, py: 0.9,
+                  borderBottom: 1, borderColor: "divider",
+                }}
               >
-                {change.name}
-              </MuiLink>
-              <Typography variant="caption" sx={{ fontFamily: MONO }}>
-                {change.level_before ?? "—"} → {change.level_after}
-              </Typography>
-            </Box>
-          ))}
+                <MuiLink
+                  href={`/tech/${change.technology_id}`}
+                  onClick={(e) => { e.preventDefault(); navigate(`/tech/${change.technology_id}`); }}
+                  sx={{ color: "text.primary", fontSize: "0.9rem", minWidth: 0 }}
+                >
+                  {change.name}
+                </MuiLink>
+                {/*
+                  Новая запись описывается словами, а не прочерком со стрелкой:
+                  прочерк на месте прежнего уровня читается уровнем, которого
+                  нет, и ровно так же он читался в сводке рядом.
+                */}
+                <Typography
+                  variant="caption"
+                  sx={{ fontFamily: MONO, color: down ? "warning.main" : "text.secondary" }}
+                >
+                  {added
+                    ? t("changes.appearedAt", { level: change.level_after })
+                    : `${change.level_before} → ${change.level_after}`}
+                </Typography>
+                <Typography
+                  variant="caption" color="text.secondary" className="tabular"
+                  sx={{ ml: "auto", flexShrink: 0 }}
+                >
+                  {change.changed_at.slice(5)}
+                </Typography>
+              </Box>
+            );
+          })}
+
           {changes.length > 0 && (
             <MuiLink href="/changes" sx={{ display: "inline-block", mt: 1, fontSize: "0.85rem" }}>
               {t("changes.all")}
@@ -197,9 +257,19 @@ export function HomePage() {
           <Typography variant="h6" sx={{ mb: 1 }}>{t("stats.title")}</Typography>
           {levelBars.map((bar) => (
             <Box key={bar.level} sx={{ display: "flex", alignItems: "center", gap: 1, py: 0.3 }}>
-              <Box sx={{ width: 34 }}>
+              {/*
+                Строка «уровень не вычислен» стояла прочерком и читалась как
+                ещё один уровень шкалы, тем более что L6 из сводки выпадал.
+                Теперь шкала показана целиком, включая пустые уровни, а
+                непосчитанное названо словом.
+              */}
+              <Box sx={{ width: bar.level === "unknown" ? "auto" : 34, flexShrink: 0 }}>
                 {bar.level === "unknown"
-                  ? <Typography variant="caption" sx={{ fontFamily: MONO }}>—</Typography>
+                  ? (
+                    <Typography variant="caption" color="text.secondary">
+                      {t("map.levelUnknown")}
+                    </Typography>
+                  )
                   : <LevelBadge level={bar.level} showScale={false} />}
               </Box>
               <Box sx={{ flexGrow: 1, height: 8, bgcolor: "action.hover", borderRadius: 0.5 }}>

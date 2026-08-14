@@ -88,7 +88,8 @@
     "showMovement": "show movement",
     "openRegistry": "full registry →",
     "attentionRaw": "cit./mo.",
-    "attentionNotNormalized": "The age cohort holds fewer than five works, so its median is unstable and no normalisation is applied. The measured citations per month are shown; they are not comparable with normalised values."
+    "attentionNotNormalized": "The age cohort holds fewer than five works, so its median is unstable and no normalisation is applied. The measured citations per month are shown; they are not comparable with normalised values.",
+    "levelUnknown": "not computed"
   },
   "registry": {
     "title": "RAG technology registry",
@@ -332,7 +333,7 @@
   "head": {
     "home": {
       "title": "Maturity map of RAG technologies",
-      "description": "Sixty-five retrieval-augmented generation technologies, each with a maturity level from L0 to L6 derived by rule and the evidence it stands on. Updated weekly."
+      "description": "Retrieval-augmented generation technologies on a maturity map: each with a level derived by rule and the evidence it stands on. Updated weekly."
     },
     "registry": {
       "title": "Registry",
@@ -348,11 +349,11 @@
     },
     "residuals": {
       "title": "Gaps",
-      "description": "Mechanisms the 28-dimension schema does not express, and works awaiting a verdict on whether to enter them into the registry."
+      "description": "Mechanisms the dimension schema does not express, and works awaiting a verdict on whether to enter them into the registry."
     },
     "article": {
       "title": "Foundations",
-      "description": "The stratified configuration space of RAG: 28 dimensions across seven strata, compatibility constraints, and the rule that derives a maturity level."
+      "description": "The stratified configuration space of RAG: dimensions grouped into strata, compatibility constraints, and the rule that derives a maturity level."
     },
     "about": {
       "title": "About",
@@ -400,5 +401,15 @@
       "G2": "The computation has to run somewhere, and a server is the ordinary place.",
       "G3": "Every part is taken ready-made: the absence of training."
     }
+  },
+  "home": {
+    "upCount_one": "{{count}} promotion",
+    "upCount_other": "{{count}} promotions",
+    "downCount_one": "{{count}} demotion",
+    "downCount_other": "{{count}} demotions",
+    "addedCount_one": "{{count}} new record",
+    "addedCount_other": "{{count}} new records",
+    "changesWindow": "Over the past month",
+    "changesQuiet": "Nothing changed over the past month."
   }
 }
