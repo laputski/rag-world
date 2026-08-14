@@ -8,8 +8,9 @@
 Every record carries a configuration over a stratified schema, a maturity level
 derived by a deterministic rule from collected evidence, and the evidence itself.
 
-[![Checks](https://github.com/laputski/rag-world/actions/workflows/ci.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/ci.yml)
-[![Weekly collection](https://github.com/laputski/rag-world/actions/workflows/collect.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/collect.yml)
+[![Checks](https://github.com/laputski/rag-world/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/laputski/rag-world/actions/workflows/ci.yml)
+[![Data update](https://github.com/laputski/rag-world/actions/workflows/collect.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/collect.yml)
+[![Mutation run](https://github.com/laputski/rag-world/actions/workflows/mutation.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/mutation.yml)
 [![Code licence: Apache 2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
 [![Data licence: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-blue.svg)](data/LICENSE.md)
 
@@ -104,7 +105,8 @@ ui/                  the static portal (React, TypeScript)
 ui/public/data/      built artefacts, the only thing the portal reads
 governance/          decision log, including decisions later reversed
 specs/               stage specifications, each marked with its state
-docs/                data schema, source list, architecture
+docs/                data layout (DATA.md) and the list of sources polled
+research/archive/    planning documents from before the rebuild, kept as history
 ```
 
 Dependencies point one way: views depend on artefacts, artefacts on the

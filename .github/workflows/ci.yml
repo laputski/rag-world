@@ -1,11 +1,11 @@
-# Проверки при изменении кода и данных.
+# Checks that run on every change to code or data.
 #
-# Файл создан заранее и до переезда репозитория на GitHub не выполняется. Он
-# намеренно не содержит логики: всё, что он делает, — вызывает цели Makefile,
-# те же самые, которыми пользуется человек. Благодаря этому поведение проверок
-# в автономном режиме совпадает с локальным по построению.
+# The file deliberately contains no logic: everything it does is invoke Makefile
+# targets, the same ones a person uses. Because of that, what the automated
+# checks do matches what a local run does by construction, rather than by
+# someone remembering to keep two lists in step.
 
-name: Проверки
+name: Checks
 
 on:
   push:
@@ -17,29 +17,29 @@ permissions:
 
 jobs:
   python:
-    name: Python и данные
+    name: Python and data
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Установка
+      - name: Install
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
-      - name: Проверка кода
+      - name: Lint
         run: ruff check core services scripts tests
-      - name: Тесты
+      - name: Tests
         run: pytest tests/ -q
-      # Схема, разрешимость ссылок и происхождение чисел. Обращений к сети нет:
-      # проверки обязаны проходить при её полной недоступности, иначе портал
-      # нельзя собрать без интернета.
-      - name: Проверка данных
+      # Schema, referential integrity and provenance of every number. No network
+      # is touched: these checks have to pass with the network fully down, or
+      # the portal could not be built offline.
+      - name: Validate data
         run: python scripts/validate_data.py
 
   ui:
-    name: Интерфейс
+    name: Portal
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,12 +48,12 @@ jobs:
           node-version: "20"
           cache: npm
           cache-dependency-path: ui/package-lock.json
-      - name: Установка
+      - name: Install
         run: npm ci
         working-directory: ui
-      - name: Типы и сборка
+      - name: Types and build
         run: npm run build
         working-directory: ui
-      - name: Тесты интерфейса
+      - name: Portal tests
         run: npm test
         working-directory: ui

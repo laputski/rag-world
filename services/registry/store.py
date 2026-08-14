@@ -1,6 +1,6 @@
 """Чтение и запись файлового реестра.
 
-Раскладка описана в `registry/README.md`. Коротко:
+Раскладка описана в `docs/DATA.md`. Коротко:
 
     data/technologies/<id>.json   факты, файл на запись
     data/evidence/YYYY-MM.jsonl   свидетельства, только добавление

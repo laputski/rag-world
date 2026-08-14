@@ -1,28 +1,28 @@
-# Мутационный прогон: порча каждого правила по очереди.
+# Mutation run: each rule broken in turn.
 #
-# Отвечает на вопрос, которого не задаёт покрытие: заметит ли поломку правила
-# хоть один тест. Разница не умозрительная. У проверки данных покрытие было
-# 48 процентов, а отключение любой её проверки по одной оставляло весь набор
-# зелёным двадцать один раз подряд.
+# It answers the question coverage does not ask — would any test notice if a
+# rule stopped working. The difference is not hypothetical. Data validation had
+# 48 percent coverage, and disabling any one of its checks left the whole suite
+# green, twenty-one times in a row.
 #
-# Живёт отдельно от проверок при каждой правке, потому что идёт около двадцати
-# пяти минут. Вешать это на каждый пуш значило бы получить проверку, которую
-# начнут обходить.
+# It lives apart from the per-change checks because it takes about twenty-five
+# minutes. Hanging that on every push would produce a check people learn to
+# route around.
 #
-# Недельного шага достаточно: перечень портится не от времени, а от правок
-# кода, и его годность (совпадает ли образец записи с нынешним кодом)
-# проверяется обычным набором при каждой правке, там же, где она и ломается.
-# Сюда остаётся собственно прогон.
+# A weekly cadence is enough: the catalogue decays from code edits, not from
+# time, and whether an entry still applies (does its pattern still match the
+# current code) is checked by the ordinary suite on every change, in the same
+# place where it breaks. What remains here is the run itself.
 #
-# Логики здесь нет: вызывается тот же скрипт, который человек запускает
-# командой `make mutate`.
+# No logic lives here: it invokes the same script a person runs with
+# `make mutate`.
 
-name: Мутационный прогон
+name: Mutation run
 
 on:
   schedule:
-    # По четвергам в 05:00 UTC. Отдельно от сбора данных (понедельник), чтобы
-    # два долгих задания не сходились в одном дне.
+    # Thursdays at 05:00 UTC. Kept away from the data collection run (Monday)
+    # so two long jobs do not land on the same day.
     - cron: "0 5 * * 4"
   workflow_dispatch:
 
@@ -32,17 +32,18 @@ permissions:
 jobs:
   mutate:
     runs-on: ubuntu-latest
-    # Прогон местами упирался в двадцать пять минут; запас взят на рост
-    # перечня, но не бесконечный: зависшее задание должно падать, а не жить.
+    # The run has come close to twenty-five minutes; the allowance leaves room
+    # for the catalogue to grow, but not unbounded room: a hung job should fail
+    # rather than live on.
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Установка
+      - name: Install
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
-      - name: Порча правил по одному
+      - name: Break each rule in turn
         run: python scripts/mutate.py

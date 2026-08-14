@@ -1,48 +1,51 @@
-# specs/ Исполняемые стадии
+# specs/ — stage specifications
 
-Каталог содержит спеки работ в принятом формате: SPECIFY (цель, объём,
-функциональные требования, критерии приёмки), PLAN, TASKS. Код не пишется без
-спеки; спека пишется до кода и правится, когда меняется понимание.
+Each stage is specified before it is written: SPECIFY (goal, scope, functional
+requirements, acceptance criteria), then PLAN, then TASKS. A specification is
+amended when understanding changes, not quietly abandoned.
 
-## Состояние
+**This index states what is actually built.** A specification is a plan until
+its state line says otherwise, and a reader must be able to tell one from the
+other without reading the code.
 
-| Стадия | Предмет | Состояние |
+## State
+
+| Stage | Subject | State |
 |---|---|---|
-| [STAGE-portal-rebuild.md](stages/STAGE-portal-rebuild.md) | перестройка движка в портал | выполнена |
-| [STAGE-gap-map.md](stages/STAGE-gap-map.md) | карта пробелов конфигурационного пространства | не начата |
-| [STAGE-residual-queue.md](stages/STAGE-residual-queue.md) | заполнение остатков и очередь новых измерений | не начата |
-| [STAGE-compare-and-inverse.md](stages/STAGE-compare-and-inverse.md) | сравнение технологий и обратный конструктор | не начата |
-| [STAGE-news-generator.md](stages/STAGE-news-generator.md) | дайджест изменений и аннотации | не начата |
-| [STAGE-citability.md](stages/STAGE-citability.md) | выпуски, экспорт ссылок, идентификатор | не начата |
-| [STAGE-en-locale.md](stages/STAGE-en-locale.md) | английская локализация | не начата, ждёт решения владельца |
-| [STAGE-engine-v1.md](stages/STAGE-engine-v1.md) | исполняемый движок поверх схемы | не начата, требует решения о назначении |
-| [STAGE-harness.md](stages/STAGE-harness.md) | испытательный стенд | заблокирована развилкой о прочтении термина |
+| [STAGE-portal-rebuild.md](stages/STAGE-portal-rebuild.md) | rebuilding the engine into a portal | **built** |
+| [STAGE-discovery.md](stages/STAGE-discovery.md) | finding new work and the candidate queue | **built**, runs weekly |
+| [STAGE-residual-queue.md](stages/STAGE-residual-queue.md) | filling residuals, queue of candidate dimensions | **built**; two mechanisms have since become dimensions |
+| [STAGE-citability.md](stages/STAGE-citability.md) | releases, citation export, persistent identifier | **built** except the DOI, which waits on Zenodo |
+| [STAGE-en-locale.md](stages/STAGE-en-locale.md) | English localisation | **built**; English is now the default language |
+| [STAGE-news-generator.md](stages/STAGE-news-generator.md) | digest and annotations | **first genre built**, the rest closed ([ADR-010](../governance/DECISIONS.md)) |
+| [STAGE-gap-map.md](stages/STAGE-gap-map.md) | map of gaps in the configuration space | not started |
+| [STAGE-compare-and-inverse.md](stages/STAGE-compare-and-inverse.md) | comparing technologies, inverse constructor | not started |
+| [STAGE-engine-v1.md](stages/STAGE-engine-v1.md) | an executable engine over the schema | not started; needs a decision on what it is for |
+| [STAGE-harness.md](stages/STAGE-harness.md) | test harness for measuring metrics | not started; blocked on how to read the term |
 
-## Порядок, а не список
+## Order, not a list
 
-Стадии перечислены не в порядке выполнения. Порядок определяется тем, что каждая
-из них даёт порталу, и он таков.
+The stages are not listed in the order they get done. The order follows from
+what each gives the portal, and it is this: anything that makes an existing
+claim checkable comes before anything that adds a new claim.
 
-**Сначала то, что чинит имеющееся.** Заполнение остатков закрывает незакрытое
-утверждение статьи о покрытии схемы и одновременно даёт очередь развития. Разбор
-конфигураций (часть той же работы) нужен всему остальному: замер на 2026-08-08
-показывает двадцать одну запись с целиком дефолтной конфигурацией и ещё двадцать
-семь, где своих значений одно или два. На таких данных сравнение технологий
-покажет ложное сходство, а карта пробелов — ложные пробелы.
+That is why citability came before the gap map, and why the engine waits: a
+constructor that builds systems from the schema is the most interesting item
+here and the least useful one until the schema is proven on more records than
+it is today.
 
-**Затем то, что даёт внешний эффект.** Цитируемость не добавляет данных, но
-делает уже собранное пригодным для чужих работ. Дайджест выносит наружу то, что
-портал уже знает.
+---
 
-**Затем инструменты поверх данных.** Сравнение, обратный конструктор, карта
-пробелов — все они опираются на качество конфигураций и до его повышения дадут
-уверенные неверные ответы.
+# specs/ — спеки ступеней
 
-**В конце дорогое и рискованное.** Движок и стенд требуют месяцев и упираются в
-нерешённые развилки. Портал полезен без них; они добавляют измеренные
-характеристики к тому, что уже есть.
+Каждая ступень описывается до того, как написана: SPECIFY (цель, объём,
+функциональные требования, критерии приёмки), затем PLAN и TASKS. Спека
+правится, когда меняется понимание, а не забрасывается молча.
 
-Две стадии не начинаются без решения владельца: `STAGE-harness.md` (какое из двух
-прочтений термина принято) и `STAGE-engine-v1.md` (иллюстрация, испытуемый или
-продукт). Решения эти меняют объём на порядок, и принимать их за владельца
-нельзя.
+**Указатель говорит, что построено на самом деле.** Спека остаётся планом, пока
+строка состояния не скажет иного, и отличить одно от другого читатель обязан не
+читая код.
+
+Порядок ступеней определяется не удобством, а правилом: то, что делает уже
+сделанное утверждение проверяемым, идёт раньше того, что добавляет новое
+утверждение.

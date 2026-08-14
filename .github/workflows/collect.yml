@@ -1,32 +1,32 @@
-# Обновление данных по расписанию: то, ради чего портал называется
-# самообновляемым.
+# The scheduled data update: the thing that makes the portal self-updating.
 #
-# В этом файле нет логики намеренно. Он вызывает те же цели Makefile, которыми
-# пользуется человек, поэтому поведение автономного прогона совпадает с
-# локальным по построению, а всё, что решает вопросы, лежит в scripts/ и
-# покрыто тестами.
+# This file contains no logic, deliberately. It invokes the same Makefile
+# targets a person uses, so what the unattended run does matches what a local
+# run does by construction, and everything that makes a decision lives in
+# scripts/ where tests can reach it.
 #
-# Периодичность недельная. Ежедневный сбор был бы тратой: обходятся ссылки уже
-# известных записей, шага обнаружения новых технологий нет, поэтому ежедневный
-# проход почти всегда возвращает то же самое. Меняется немногое и небыстро:
-# цитирования — медленно, состояние репозиториев — в масштабе недель, переход
-# препринта в конференционную публикацию — месяцев. Последнее и есть то, ради
-# чего стоит опрашивать регулярно.
+# The cadence is weekly. Daily collection would be waste: the run walks the
+# links of records already known, there is no discovery of new work in it, so a
+# daily pass almost always returns the same thing. Little changes and nothing
+# changes fast: citations move slowly, repository state on the scale of weeks,
+# a preprint becoming a conference paper on the scale of months. That last one
+# is what makes regular polling worth doing at all.
 
-name: Обновление данных
+name: Data update
 
 on:
   schedule:
-    # По понедельникам в 04:40 UTC. Время приблизительное: площадка задерживает
-    # запуск на пять–тридцать минут при нагрузке, для недельного шага неважно.
+    # Mondays at 04:40 UTC. The time is approximate: the platform delays a
+    # scheduled start by five to thirty minutes under load, which does not
+    # matter at a weekly cadence.
     - cron: "40 4 * * 1"
   workflow_dispatch:
     inputs:
       only:
-        description: "Обработать только одну запись (идентификатор)"
+        description: "Process a single record (identifier)"
         required: false
       limit:
-        description: "Ограничить число записей"
+        description: "Cap the number of records"
         required: false
 
 permissions:
@@ -34,7 +34,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  # Два прохода одновременно писали бы в одни и те же файлы.
+  # Two passes at once would write to the same files.
   group: update-data
   cancel-in-progress: false
 
@@ -46,66 +46,66 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Установка
+      - name: Install
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # Сбор, пересчёт уровней, сборка артефактов, проверка и запись прогона —
-      # одной целью. Ровно её же запускает человек командой `make collect`.
-      # Проверка данных выполняется внутри прохода и до фиксации: коммит бота
-      # не запускает другие рабочие процессы, поэтому «проверим потом в CI» не
-      # сработает.
-      - name: Проход обновления
+      # Collection, level recomputation, artefact rebuild, validation and the
+      # run-log line, in one target. The same one a person runs with
+      # `make collect`. Validation happens inside the pass and before anything
+      # is committed: a bot commit does not trigger other workflows, so
+      # "we will check it later in CI" would never happen.
+      - name: Update pass
         env:
-          # Токен выдаётся заданию автоматически; ключи прочих источников не
-          # нужны — архив препринтов и открытый индекс работают без них.
+          # The token is issued to the job automatically; no other source needs
+          # a key — the preprint archive and the open index work without one.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Открытый индекс держит вежливый поток обращений для тех, кто
-          # назвался почтой для связи; лимиты там заметно выше. Секрет
-          # необязателен: без него прогон работает, просто медленнее и с
-          # риском упереться в отказ по частоте.
+          # The open index keeps a polite request pool for those who give a
+          # contact address, with noticeably higher limits. The secret is
+          # optional: without it the run works, just slower and at risk of
+          # hitting a rate refusal.
           OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
         run: |
           python scripts/update.py \
             ${{ inputs.only && format('--only {0}', inputs.only) || '' }} \
             ${{ inputs.limit && format('--limit {0}', inputs.limit) || '' }}
 
-      - name: Требуется ли рассмотрение человеком
+      - name: Does this need human review
         id: gate
         run: python scripts/classify_changes.py --github >> "$GITHUB_OUTPUT"
 
-      # Строка журнала прогонов уходит в основную ветку **всегда** — в том числе
-      # когда сами данные отправлены на просмотр. Она не утверждение о
-      # технологии, а факт: проход состоялся, источники опрошены. Просматривать
-      # в ней нечего.
+      # The run-log line reaches the main branch **always**, including when the
+      # data itself went for review. It is not a claim about a technology but a
+      # fact: the pass happened, the sources were polled. There is nothing in it
+      # to review.
       #
-      # Держать её вместе с данными было ошибкой, и она обошлась дорого. Проход
-      # с просмотром не оставлял в основной ветке ничего, а именно такие проходы
-      # и случаются в интересные недели. Ломались при этом две вещи, и обе
-      # молча: площадка отключает расписание после шестидесяти дней без
-      # коммитов, а читатель по дате последней проверки отличает «никто не
-      # смотрел» от «ничего не происходило» — застывшая дата говорит ему первое,
-      # когда верно второе.
-      - name: Отметить прогон в основной ветке
+      # Keeping it together with the data was a mistake, and an expensive one. A
+      # pass that went to review left nothing on the main branch, and those are
+      # exactly the passes that happen in interesting weeks. Two things broke,
+      # both silently: the platform disables a schedule after sixty days without
+      # commits, and a reader tells "nobody looked" from "nothing happened" by
+      # the date of the last check — a frozen date tells them the first when the
+      # second is true.
+      - name: Record the pass on the main branch
         run: |
           git config user.name "rag-world-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/collection_log.jsonl
-          git diff --cached --quiet || git commit -m "Прогон $(date -u +%Y-%m-%d) [skip ci]"
+          git diff --cached --quiet || git commit -m "chore(data): pass $(date -u +%Y-%m-%d) [skip ci]"
           git push
 
-      - name: Зафиксировать изменения
+      - name: Commit the changes
         if: steps.gate.outputs.review == 'false'
         run: |
           git add data ui/public/data
-          git diff --cached --quiet && echo "изменений нет" && exit 0
-          git commit -m "Данные: проход обновления $(date -u +%Y-%m-%d) [skip ci]"
+          git diff --cached --quiet && echo "nothing changed" && exit 0
+          git commit -m "chore(data): update pass $(date -u +%Y-%m-%d) [skip ci]"
           git push
 
-      # Ветка отрастает от уже зафиксированного прогона, поэтому строка журнала
-      # в неё не попадает повторно и слияние не упирается в конфликт.
-      - name: Открыть запрос на слияние
+      # The branch grows from the already-committed pass, so the run-log line
+      # does not enter it a second time and the merge does not hit a conflict.
+      - name: Open a pull request
         if: steps.gate.outputs.review == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -113,8 +113,8 @@ jobs:
           branch="data/$(date -u +%Y-%m-%d-%H%M)"
           git checkout -b "$branch"
           git add data ui/public/data
-          git commit -m "Данные: изменения, требующие рассмотрения"
+          git commit -m "chore(data): changes that need review"
           git push -u origin "$branch"
           gh pr create --fill \
-            --title "Данные: изменения, требующие рассмотрения" \
-            --body "Изменение затрагивает понижение уровня, переход через границу подтверждённости либо свидетельство, введённое человеком. Такие изменения применяются только после просмотра. Строка журнала прогонов уже в основной ветке: проход состоялся, на просмотре только выводы."
+            --title "Data: changes that need review" \
+            --body "This pass touches a demotion, a crossing of the confirmed-evidence boundary, or evidence entered by a human. Such changes apply only after review. The run-log line is already on the main branch: the pass happened, only its conclusions are under review."
