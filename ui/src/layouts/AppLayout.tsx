@@ -10,16 +10,16 @@ import { MONO, SERIF_FAMILY } from "../theme";
 import { Logo } from "../components/Logo";
 import { GitHubIcon, LinkedInIcon } from "../components/BrandIcons";
 
-/** Хранилище исходного кода и данных. */
+/** The store of the source code and the data. */
 const REPOSITORY = "https://github.com/laputski/rag-world";
 
 /**
- * Каркас портала: верхняя навигация и широкое поле содержания.
+ * The frame of the portal: navigation on top and a wide field of content.
  *
- * Боковое меню уступило место верхней панели, потому что портал читают, а не
- * администрируют: горизонталь отдана содержанию, а разделов немного и они
- * помещаются в строку. На списочных страницах место слева занимает колонка
- * фасетов, которая относится к содержанию, а не к навигации.
+ * A side menu gave way to a top bar because a portal is read rather than
+ * administered: the horizontal goes to the content, and the sections fit in one
+ * line. On the list pages the space on the left is taken by the facet panel,
+ * which belongs to the content and not to the navigation.
  */
 
 const NAV = [
@@ -58,19 +58,19 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
           sx={{
             display: "flex", alignItems: "center", py: 1.25,
             gap: { xs: 1.5, md: 3 },
-            // На узком экране шапка складывается в две строки: имя с
-            // управлением сверху, навигация под ними во всю ширину. В одну
-            // строку навигации оставалось около тридцати пикселей, то есть
-            // полтора слова, и прокручивать её приходилось вслепую.
+            // On a narrow screen the header folds into two rows: the name and
+            // the controls on top, the navigation below across the full width.
+            // In one row the navigation had some thirty pixels left, that is, a
+            // word and a half, and had to be scrolled blind.
             flexWrap: { xs: "wrap", md: "nowrap" },
             rowGap: 1,
           }}
         >
           {/*
-            Знак и словесный знак — одна ссылка, а не две рядом: две ссылки на
-            один адрес удваивают остановку при обходе с клавиатуры и заставляют
-            читалку экрана назвать цель дважды. Знак при этом скрыт от
-            озвучивания, потому что слово рядом говорит то же самое.
+            The mark and the wordmark are one link rather than two side by side:
+            two links to one address double the stop in keyboard traversal and
+            make a screen reader name the target twice. The mark is hidden from
+            being announced, because the word beside it says the same thing.
           */}
           <Box
             component={NavLink}
@@ -81,9 +81,9 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
             }}
           >
             {/*
-              На узком экране знак уступает место: сорок шесть пикселей рядом с
-              семью пунктами навигации стоят дороже узнавания, а словесный знак
-              и без него говорит то же самое.
+              On a narrow screen the mark gives way: forty-six pixels beside
+              seven navigation items cost more than the recognition is worth, and
+              the wordmark says the same thing without it.
             */}
             <Box sx={{ display: { xs: "none", sm: "flex" } }}>
               <Logo size={26} title="" />
@@ -100,12 +100,13 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
           </Box>
 
           {/*
-            Навигация не переносится, а прокручивается вбок.
+            The navigation does not wrap; it scrolls sideways.
 
-            С переносом семь пунктов на телефоне вставали в семь строк, шапка
-            занимала весь экран, и до содержания приходилось долистывать. Полоса
-            прокрутки прячется, но прокрутка остаётся: пункт, уехавший за край,
-            достижим, тогда как спрятанный за кнопкой требует её найти.
+            Wrapping put seven items on a phone into seven rows, the header took
+            the whole screen, and the content had to be reached by scrolling. A
+            scrollbar hides itself but the scrolling remains: an item that has
+            gone off the edge is reachable, whereas one hidden behind a button
+            has to be found first.
           */}
           <Box
             component="nav"
@@ -117,8 +118,8 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
               overflowX: "auto", overflowY: "hidden",
               scrollbarWidth: "none",
               "&::-webkit-scrollbar": { display: "none" },
-              // Маска у правого края говорит, что строка продолжается: обрез
-              // по границе выглядит концом списка.
+              // The mask at the right edge says the row continues: a cut at the
+              // boundary looks like the end of the list.
               maskImage: {
                 xs: "linear-gradient(to right, #000 calc(100% - 24px), transparent)",
                 md: "none",
@@ -144,11 +145,13 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
           </Box>
 
           {/*
-            Поиск, язык и тема идут одной группой: на узком экране она остаётся
-            в первой строке рядом с именем, а навигация уходит под них.
+            Search, language and theme travel as one group: on a narrow screen
+            it stays in the first row beside the name, and the navigation moves
+            below them.
 
-            Подсказка о сочетании клавиш на телефоне бесполезна: клавиатуры нет.
-            Само поле поиска остаётся, потому что искать с телефона нужно.
+            The hint about the keyboard shortcut is useless on a phone, there
+            being no keyboard. The search field itself stays, because searching
+            from a phone is a real need.
           */}
           <Box
             sx={{
@@ -213,9 +216,10 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
       </Box>
 
       {/*
-        Ожидание страницы показывается вместо содержания, а не вместо всего
-        портала: шапка уже отрисована и при переходе не мигает. Страницы
-        грузятся по требованию, поэтому такое ожидание бывает, но короткое.
+        The waiting state is shown in place of the content rather than in place
+        of the whole portal: the header is already drawn and does not blink on a
+        transition. The pages load on demand, so such waiting happens, but it is
+        short.
       */}
       <Container maxWidth="xl" component="main" sx={{ flexGrow: 1, py: 3 }}>
         <Suspense
@@ -229,9 +233,10 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
         <Container maxWidth="xl" sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
           <Typography variant="caption">Alexander Laputski, 2026</Typography>
           {/*
-            Знак сети вместо слова: подвал читают взглядом, а не чтением, и
-            узнаваемый глиф находится там быстрее строки. Подпись остаётся для
-            читалки экрана, иначе ссылка для неё безымянна.
+            A glyph instead of a word: a footer is scanned rather than read, and
+            a recognisable glyph is found there faster than a line of text. The
+            label stays for a screen reader, which would otherwise meet a link
+            with no name.
           */}
           <Box
             component="a"

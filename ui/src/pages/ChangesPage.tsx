@@ -10,24 +10,24 @@ import { MONO } from "../theme";
 import { useDocumentHead } from "../useDocumentHead";
 
 /**
- * Хроника изменений реестра.
+ * The chronicle of registry changes.
  *
- * Свежесть портала доказывается не датой сборки, а перечнем произошедшего.
- * Поэтому у каждой записи хроники указаны прежний и новый уровень и те
- * свидетельства, которые к изменению привели: утверждение об изменении без
- * основания ничем не лучше отсутствия хроники.
+ * The freshness of the portal is proved by a list of changes rather than by a
+ * build date. Every chronicle entry therefore carries the former and the new
+ * level and the evidence that led to the change: a claim of a change without
+ * grounds is no better than no chronicle at all.
  *
- * Порядок показа исходит из того, как страницу читают. Сперва читатель хочет
- * знать, много ли произошло и было ли среди этого понижение, и лишь потом
- * разбирает отдельные записи. Поэтому наверху стоит счёт по родам изменений, а
- * записи собраны по датам: восемьдесят семь строк с повторённой в каждой датой
- * читались как однородная простыня, тогда как четыре даты с числом изменений
- * при каждой видны сразу.
+ * The order of presentation follows how the page is read. A reader first wants
+ * to know how much happened and whether a demotion was among it, and only then
+ * works through the individual entries. So the counts by kind stand at the top
+ * and the entries are gathered by date: eighty-seven rows with a repeated date
+ * read as one uniform sheet, whereas four dates with a count beside each are
+ * taken in at a glance.
  *
- * Основания свёрнуты. Они обязаны быть доступны, иначе изменение
- * недоказуемо, но в развёрнутом виде занимали больше места, чем само
- * изменение, и вытесняли его. Развернуть их можно одним щелчком, и в
- * свёрнутом виде сказано, сколько их и какого они рода.
+ * The grounds are collapsed. They have to be available, or a change is
+ * unprovable, but expanded they took more room than the change itself and
+ * crowded it out. One click opens them, and collapsed they still say how many
+ * there are and of what kind.
  */
 
 const WINDOWS = [
@@ -36,7 +36,7 @@ const WINDOWS = [
   { key: "all", days: 0 },
 ] as const;
 
-/** Роды изменений в порядке важности: понижение читается первым. */
+/** The kinds of change in order of importance: a demotion is read first. */
 const KINDS = ["level_down", "level_up", "added"] as const;
 
 const KIND_LABEL: Record<string, string> = {
@@ -46,11 +46,11 @@ const KIND_LABEL: Record<string, string> = {
 };
 
 /**
- * Цвет рода изменения.
+ * The colour of a kind of change.
  *
- * Понижение — единственное событие портала, которое означает, что прежнее
- * утверждение оказалось неверным, и увидеть его нужно раньше всего
- * остального. Повышение и появление записи привычны и цветом не выделяются.
+ * A demotion is the one event on the portal that means an earlier claim turned
+ * out to be wrong, and it has to be seen before anything else. A promotion and
+ * a record appearing are ordinary and carry no colour.
  */
 function kindColor(kind: string): "warning.main" | "text.secondary" {
   return kind === "level_down" ? "warning.main" : "text.secondary";
@@ -86,14 +86,14 @@ export function ChangesPage() {
     return changes.filter((c) => new Date(c.changed_at) >= since);
   }, [changes, window]);
 
-  /** Счёт по родам изменений за выбранный период. */
+  /** The counts by kind of change over the chosen period. */
   const tally = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const change of visible) counts[change.kind] = (counts[change.kind] ?? 0) + 1;
     return KINDS.filter((kind) => counts[kind]).map((kind) => ({ kind, count: counts[kind] }));
   }, [visible]);
 
-  /** Изменения, собранные по датам, свежие дни сверху. */
+  /** The changes gathered by date, the newest days on top. */
   const byDate = useMemo(() => {
     const groups = new Map<string, RegistryChange[]>();
     for (const change of visible) {
@@ -105,8 +105,8 @@ export function ChangesPage() {
       .sort((a, b) => b[0].localeCompare(a[0]))
       .map(([date, items]) => ({
         date,
-        // Внутри дня понижения идут первыми по той же причине, по какой они
-        // выделены цветом: это единственное, что читатель обязан заметить.
+        // Within a day demotions come first for the same reason they are
+        // coloured: they are the one thing a reader must not miss.
         items: [...items].sort(
           (a, b) => KINDS.indexOf(a.kind as never) - KINDS.indexOf(b.kind as never)
         ),
@@ -144,9 +144,10 @@ export function ChangesPage() {
       </Box>
 
       {/*
-        Счёт по родам стоит до записей и отвечает на вопрос, с которым на
-        страницу приходят: много ли произошло и есть ли среди этого понижение.
-        Без него ответ требовал пролистать всю хронику.
+        The counts by kind stand before the entries and answer the question
+        people come to the page with: how much happened, and was there a demotion
+        among it. Without them the answer took scrolling through the whole
+        chronicle.
       */}
       {!loading && !error && visible.length > 0 && (
         <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap", py: 1.5 }}>
@@ -205,11 +206,11 @@ export function ChangesPage() {
 }
 
 /**
- * Одна строка хроники: что за запись, как изменился уровень и на чём это стоит.
+ * One chronicle row: which record, how the level changed and on what grounds.
  *
- * Переход уровня набран моноширинным и стоит сразу за именем, потому что
- * ровно он и есть содержание строки. Прежний уровень у новой записи не
- * показывается вовсе: прочерк на его месте читался как «был нулевой».
+ * The level transition is set in a monospace face and stands right after the
+ * name, because it is precisely the content of the row. For a new record the
+ * former level is not shown at all: a dash in its place read as "it was zero".
  */
 function ChangeRow({
   change, onOpen,
@@ -273,9 +274,9 @@ function ChangeRow({
                   {" · "}
                   <MuiLink href={e.source} target="_blank" rel="noopener">
                     {/*
-                      Показывается имя источника, а не весь адрес.
-                      `openalex.org/W4400373146` не сообщает читателю ничего
-                      сверх `openalex.org`, а места занимает вчетверо больше.
+                      The name of the source is shown rather than the whole
+                      address. `openalex.org/W4400373146` tells a reader nothing
+                      beyond `openalex.org` and takes four times the room.
                     */}
                     {hostOf(e.source)}
                   </MuiLink>

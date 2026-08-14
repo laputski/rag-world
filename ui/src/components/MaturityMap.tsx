@@ -7,35 +7,36 @@ import type { MaturityArtifact, MaturityPoint } from "../api/types";
 import { KIND_SYMBOLS, MONO, stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Карта созревания: зрелость по горизонтали, внимание по вертикали.
+ * The maturity map: maturity across, attention up.
  *
- * Двумерная раскладка выбрана вместо круговой намеренно. Круговая форма
- * заимствует интуицию отраслевых радаров и читается как совет, что внедрять, —
- * а портал сообщает подтверждённую зрелость, а не рекомендацию. Кроме того,
- * круг несёт одну величину, тогда как вторая, внимание, для читателя не менее
- * важна: она отвечает на вопрос «обсуждают ли это сейчас», который к
- * работоспособности отношения не имеет и потому обязан быть отдельной осью.
+ * The two-dimensional layout was chosen over a circular one deliberately. A
+ * circle borrows the intuition of industry radars and reads as advice on what to
+ * adopt, whereas the portal reports confirmed maturity and not a recommendation.
+ * A circle also carries one quantity, while the second — attention — matters to
+ * a reader no less: it answers whether a thing is being discussed now, which has
+ * nothing to do with whether it works and therefore has to be an axis of its
+ * own.
  *
- * Положение внутри уровня задаётся уверенностью: запись с полным набором
- * свежих свидетельств стоит у правого края своей полосы, запись с неполным —
- * у левого. Так видно не только уровень, но и то, насколько он обеспечен.
+ * The position within a level is set by confidence: a record with a full set of
+ * fresh evidence stands at the right edge of its band, one with an incomplete
+ * set at the left. That shows not only the level but how well it is supported.
  *
- * Две отдельные полосы отведены отсутствию данных: слева — записи без
- * вычисленного уровня, снизу — записи без данных о внимании. Помещать их в
- * ноль нельзя: ноль означал бы измеренную величину.
+ * Two separate bands are given to absent data: on the left, records with no
+ * computed level; at the bottom, records with no attention data. Putting them at
+ * zero is inadmissible: a zero would mean a measured quantity.
  */
 
 interface Props {
   artifact: MaturityArtifact;
   height?: number;
-  /** Показывать движение уровней: линия от прежнего положения к нынешнему. */
+  /** Show level movement: a line from the former position to the current one. */
   showMovement?: boolean;
   onSelect?: (id: string) => void;
 }
 
 const UNKNOWN_LEVEL_X = -0.75;
 
-/** Устойчивое дробное смещение по идентификатору: точка не прыгает между сборками. */
+/** A stable fractional offset from the identifier, so a point does not jump between builds. */
 function stableJitter(id: string): number {
   let hash = 0;
   for (let i = 0; i < id.length; i += 1) {
@@ -62,16 +63,16 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       .map((p) => p.attention)
       .filter((a): a is number => a != null);
     const maxAttention = attentions.length ? Math.max(...attentions) : 1;
-    // Полоса «нет данных» лежит ниже нуля и отделена от измеренных значений.
+    // The "no data" band lies below zero, apart from the measured values.
     const unknownAttentionY = -maxAttention * 0.12;
 
     const xOf = (p: MaturityPoint): number => {
       const index = levelIndex(levels, p.level);
       if (index < 0) return UNKNOWN_LEVEL_X + (stableJitter(p.id) - 0.5) * 0.3;
-      // Полоса уровня центрирована на своей подписи, иначе точка у правого
-      // края читается как принадлежащая следующему уровню. Внутри полосы
-      // положение задаёт уверенность, а дрожание разводит совпадения и
-      // остаётся устойчивым между сборками.
+      // A level band is centred on its own label, or a point at the right edge
+      // reads as belonging to the next level. Within the band the position is
+      // set by confidence, and the jitter separates coincidences while staying
+      // stable between builds.
       const confidence = p.confidence ?? 0;
       return index + (confidence - 0.5) * 0.62 + (stableJitter(p.id) - 0.5) * 0.14;
     };
@@ -80,14 +81,14 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         ? p.attention
         : unknownAttentionY + (stableJitter(p.id) - 0.5) * maxAttention * 0.06;
 
-    // Размер точки ничего не кодирует и одинаков у всех.
+    // The size of a point encodes nothing and is the same for all.
     //
-    // Он задавался распространённостью, но величины под ним не было: ряд с
-    // такими показателями не писал никто, поэтому размер и так был у всех
-    // одинаков, только выглядел осмысленным. Хуже того, «нет данных» давало
-    // размер 11, а полторы тысячи загрузок в месяц давали 9 + √1748, то есть
-    // тоже упиралось в потолок: незнание и малую величину нельзя было
-    // различить глазом. Портал обязан показывать это различие, а не прятать.
+    // It used to be set by spread, and there was no quantity behind it: nobody
+    // wrote a series of such measurements, so the size was the same for everyone
+    // anyway and merely looked meaningful. Worse, "no data" produced size 11
+    // while fifteen hundred downloads a month produced 9 + √1748, which hit the
+    // same ceiling: not knowing and knowing a small value could not be told
+    // apart by eye. The portal is obliged to show that difference, not hide it.
     const POINT_SIZE = 11;
 
     const byKind = new Map<string, MaturityPoint[]>();
@@ -107,8 +108,8 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         point: p,
         itemStyle: {
           color: stratumColor(p.group ?? "", mode),
-          // Прозрачность отражает уверенность: чем меньше свежих проверенных
-          // свидетельств, тем бледнее точка.
+          // Opacity carries confidence: the fewer the fresh verified pieces of
+          // evidence, the paler the point.
           opacity: p.level ? 0.35 + (p.confidence ?? 0) * 0.6 : 0.28,
           borderColor: theme.palette.background.default,
           borderWidth: 1,
@@ -118,7 +119,7 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       z: 3,
     }));
 
-    // Движение: отрезок от прежнего уровня к нынешнему.
+    // Movement: a segment from the former level to the current one.
     const movement = showMovement
       ? artifact.points
           .filter((p) => p.history.length > 1 && p.level)
@@ -147,10 +148,10 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
           const p = params.data?.point;
           if (!p) return "";
           const level = p.level ? t(`level.${p.level}`) : t("level.unknown");
-          // Единица зависит от того, нормировалась ли величина: у малой
-          // возрастной подгруппы медианы нет, и показывается измеренное
-          // значение. Без различия читатель сравнил бы доли медианы с
-          // цитированиями в месяц.
+          // The unit depends on whether the quantity was normalised: a small
+          // age subgroup has no median, and the measured value is shown
+          // instead. Without the distinction a reader would compare fractions
+          // of a median with citations a month.
           const attention = p.attention != null
             ? `${p.attention.toFixed(1)} ${
                 p.attention_cohort
@@ -168,8 +169,8 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       },
       xAxis: {
         type: "value",
-        // Границы целые, иначе деления не попадают на целые числа и подписи
-        // уровней встают мимо своих полос.
+        // The bounds are whole numbers, or the ticks miss the integers and the
+        // level labels land beside their bands rather than on them.
         min: -1,
         max: levels.length,
         interval: 1,
@@ -222,8 +223,8 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
           z: 2,
         },
         {
-          // Разделители полос «нет данных»: без них отсутствие величины
-          // выглядело бы просто малым значением.
+          // The separators of the "no data" bands: without them an absent
+          // quantity would look like a merely small one.
           type: "line" as const,
           data: [],
           markLine: {
@@ -237,8 +238,9 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
             },
             lineStyle: { color: line, type: "solid" as const, width: 1 },
             data: [
-              // Нулевая линия отделяет измеренное внимание от его отсутствия,
-              // а вертикаль — записи без вычисленного уровня от уровня L0.
+              // The zero line separates measured attention from its absence,
+              // and the vertical separates records with no computed level from
+              // the level L0.
               { yAxis: 0, name: t("map.noAttention") },
               { xAxis: 0, name: "" },
             ],
