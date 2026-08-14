@@ -100,14 +100,14 @@ def test_release_refuses_stale_artifacts(workspace):
     ))
 
     problems = make_release.readiness()
-    assert any("собран не из нынешних данных" in p for p in problems), problems
+    assert any("was not built from the current data" in p for p in problems), problems
     assert make_release.run(today=TODAY) == 1
     assert not (make_release.releases_dir() / TODAY.isoformat()).exists()
 
 
 def test_release_refuses_unbuilt_artifacts(workspace):
     problems = make_release.readiness()
-    assert any("артефакты не собраны" in p for p in problems), problems
+    assert any("the artefacts are not built" in p for p in problems), problems
     assert make_release.run(today=TODAY) == 1
 
 
@@ -122,7 +122,7 @@ def test_release_refuses_broken_data(workspace):
         configuration={"A4": "гиперкуб"},
     ))
     problems = make_release.readiness()
-    assert any("данные не проходят проверку" in p for p in problems), problems
+    assert any("does not pass validation" in p for p in problems), problems
     assert make_release.run(today=TODAY) == 1
 
 
@@ -136,7 +136,7 @@ def test_snapshot_may_not_promise_a_file_it_lacks(workspace):
     (make_release.artifacts_dir() / "residuals.json").unlink()
 
     meta = make_release.build(tag="проба", today=TODAY)
-    with pytest.raises(FileNotFoundError, match="снимок неполон"):
+    with pytest.raises(FileNotFoundError, match="the snapshot is incomplete"):
         make_release.publish(meta)
 
 

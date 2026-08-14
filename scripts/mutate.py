@@ -236,7 +236,7 @@ MUTATIONS: tuple[Mutation, ...] = (
 
     # ── The release: the one irreversible action ────────────────────────────
     Mutation("scripts/make_release.py", "a release validates the data",
-             'problems = [f"данные не проходят проверку: {p}" for p in\n'
+             'problems = [f"the data does not pass validation: {p}" for p in\n'
              "                validate_data.check_registry()]",
              "problems = []"),
     Mutation("scripts/make_release.py", "the artefacts are built from current data",
@@ -255,8 +255,8 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/make_release.py", "a draft is removed when the write fails",
              "        shutil.rmtree(draft, ignore_errors=True)", "        pass"),
     Mutation("scripts/make_release.py", "a release stops on an obstacle",
-             '    if problems:\n        sys.stderr.write(f"выпускать нельзя',
-             '    if False:\n        sys.stderr.write(f"выпускать нельзя'),
+             '    if problems:\n        sys.stderr.write(f"a release must not',
+             '    if False:\n        sys.stderr.write(f"a release must not'),
     Mutation("scripts/make_release.py", "an incomplete release does not pass for a complete one",
              '    if not (target / "release.json").exists():\n        return False',
              "    if False:\n        return False"),
@@ -401,8 +401,8 @@ MUTATIONS: tuple[Mutation, ...] = (
              '"full_": "Microsoft GraphRAG builds a single knowledge graph'),
 
     Mutation("scripts/make_release.py", "a dry run writes nothing",
-             '    if dry_run:\n        print("пробный прогон',
-             '    if False:\n        print("пробный прогон'),
+             '    if dry_run:\n        print("dry run: no obstacles',
+             '    if False:\n        print("dry run: no obstacles'),
 )
 
 

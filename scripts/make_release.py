@@ -39,15 +39,15 @@ from services.registry import store  # noqa: E402
 ARTIFACTS = Path(__file__).resolve().parent.parent / "ui" / "public" / "data"
 RELEASES = ARTIFACTS / "releases"
 
-#: Что входит в снимок. Лента не входит: она о новостях, а не о состоянии.
+#: What goes into a snapshot. The feed does not: it is about news, not state.
 SNAPSHOT_FILES = ("registry.json", "map.json", "stats.json", "residuals.json")
 
-#: Поля, меняющиеся при каждой сборке и потому не значащие расхождения.
+#: Fields that change on every build and therefore mean no divergence.
 VOLATILE_KEYS = {"built_at"}
 
 
 def artifacts_dir() -> Path:
-    """Каталог артефактов. Читается заново, чтобы тесты могли его подменить."""
+    """The artefact directory. Read afresh so that tests can substitute it."""
     return ARTIFACTS
 
 
@@ -68,35 +68,36 @@ def _normalize(payload):
 
 
 def readiness() -> list[str]:
-    """Причины, по которым выпускать нельзя. Пусто — можно.
+    """The reasons a release must not be cut. An empty list means it may.
 
-    Выпуск фиксирует состояние навсегда, поэтому проверяется он строже
-    обычного прохода. Проверок три, и каждая закрывает случай, доказанный на
-    этом же коде.
+    A release fixes a state for ever, so it is checked more strictly than an
+    ordinary pass. There are three checks, and each closes a case this very code
+    demonstrated.
 
-    Первая: данные обязаны быть исправны. Выпуск не звал проверку вовсе, и
-    зафиксировать испорченный реестр навсегда ему ничто не мешало.
+    First, the data has to be sound. The release used to call no validation at
+    all, and nothing stopped it fixing a spoiled registry for ever.
 
-    Вторая: артефакты обязаны быть собраны из нынешних данных. Числа выпуска
-    берутся из `data/`, а файлы копируются из `ui/public/data/`, и сверки между
-    ними не было. Расхождение получалось не теоретическое: снимок утверждал
-    шестьдесят две технологии, а лежала в нём одна.
+    Second, the artefacts have to be built from the current data. The numbers of
+    a release come from `data/` while the files are copied from
+    `ui/public/data/`, and the two were never compared. The divergence was not
+    theoretical: a snapshot claimed sixty-two technologies and held one.
 
-    Третья: все файлы снимка обязаны существовать. Отсутствующий копировался
-    молча, и выпуск обещал в своём перечне файл, которого в нём нет.
+    Third, every file the snapshot promises has to exist. A missing one was
+    copied in silence, and the release promised in its own list a file it did
+    not contain.
     """
     import build_artifacts
     import validate_data
 
-    problems = [f"данные не проходят проверку: {p}" for p in
+    problems = [f"the data does not pass validation: {p}" for p in
                 validate_data.check_registry()]
 
     missing = [name for name in SNAPSHOT_FILES
                if not (artifacts_dir() / name).exists()]
     if missing:
         problems.append(
-            f"артефакты не собраны: нет {', '.join(missing)}; "
-            "выполните `make artifacts`"
+            f"the artefacts are not built: {', '.join(missing)} missing; "
+            "run `make artifacts`"
         )
         return problems
 
@@ -112,14 +113,14 @@ def readiness() -> list[str]:
             )
             if expected != actual:
                 problems.append(
-                    f"артефакт {name} собран не из нынешних данных; "
-                    "выполните `make artifacts` и зафиксируйте результат"
+                    f"the artefact {name} was not built from the current data; "
+                    "run `make artifacts` and commit the result"
                 )
     return problems
 
 
 def releases_index() -> list[dict]:
-    """Выпущенные снимки, свежие впереди."""
+    """The snapshots released, the newest first."""
     path = releases_dir() / "index.json"
     if not path.exists():
         return []
@@ -127,12 +128,13 @@ def releases_index() -> list[dict]:
 
 
 def is_complete(tag: str) -> bool:
-    """Выпущен ли снимок целиком.
+    """Whether a snapshot was released in full.
 
-    Каталог выпуска существовал и после прерывания на середине, а проверялось
-    именно существование. Прерванный выпуск навсегда оставался пустым: повтор
-    видел каталог, сообщал «уже существует» и уходил, а `publish` отказался бы
-    переписывать. Целостность теперь спрашивается у содержимого.
+    The release directory survived an interruption halfway through, and existence
+    was exactly what got checked. An interrupted release stayed empty for ever: a
+    second attempt saw the directory, reported that it already existed and left,
+    while `publish` would have refused to overwrite it. Completeness is now asked
+    of the content.
     """
     target = releases_dir() / tag
     if not (target / "release.json").exists():
@@ -147,7 +149,7 @@ def is_complete(tag: str) -> bool:
 
 
 def build(tag: str | None = None, today: date | None = None) -> dict:
-    """Сведения о выпуске: метка, дата и что в нём зафиксировано."""
+    """What a release is: a tag, a date, and what it fixed."""
     today = today or date.today()
     tag = tag or today.isoformat()
     technologies = store.load_technologies()
@@ -163,27 +165,29 @@ def build(tag: str | None = None, today: date | None = None) -> dict:
 
 
 def publish(meta: dict) -> Path:
-    """Записать снимок. Существующий выпуск не переписывается никогда.
+    """Write the snapshot. An existing release is never overwritten.
 
-    Снимок собирается рядом и переносится в место назначения одним движением.
-    Прерывание на середине оставляет черновик, а не полувыпуск: каталог под
-    меткой появляется уже целым. Это важнее обычного, потому что повторить
-    выпуск нельзя — на него уже могла лечь ссылка.
+    The snapshot is assembled beside its destination and moved there in one
+    stroke. An interruption halfway leaves a draft rather than half a release:
+    the directory under the tag appears already complete. That matters more than
+    usual here, because a release cannot be repeated — a link may already point
+    at it.
     """
     target = releases_dir() / meta["tag"]
     if target.exists():
         raise FileExistsError(
-            f"выпуск {meta['tag']} уже существует: {target}. Выпуск фиксирует "
-            "состояние навсегда, и переписывать его нельзя: ссылка на него уже "
-            "могла попасть в чужую работу."
+            f"the release {meta['tag']} already exists: {target}. A release "
+            "fixes a state for ever and must not be overwritten: a link to it "
+            "may already have reached somebody else's work."
         )
 
     missing = [name for name in SNAPSHOT_FILES
                if not (artifacts_dir() / name).exists()]
     if missing:
         raise FileNotFoundError(
-            f"снимок неполон: нет {', '.join(missing)}. Выпуск перечисляет свои "
-            "файлы, и обещать в нём отсутствующий значит дать ссылку в никуда."
+            f"the snapshot is incomplete: {', '.join(missing)} missing. A "
+            "release lists its own files, and promising one it lacks means "
+            "handing out a link to nothing."
         )
 
     releases_dir().mkdir(parents=True, exist_ok=True)
@@ -211,15 +215,16 @@ def publish(meta: dict) -> Path:
 
 
 def bundle(meta: dict) -> Path:
-    """Собрать архив выпуска и описание для внешнего архива публикаций.
+    """Build the release archive and the description for the external archive.
 
-    Цифровой идентификатор нужен снимку данных, а не исходному коду: ссылаются
-    на состояние реестра, а не на то, каким кодом оно получено. Поэтому
-    закрытость репозитория делу не мешает — внешний архив принимает файлы
-    напрямую, без связи с системой контроля версий.
+    The persistent identifier belongs to the data snapshot rather than to the
+    source code: what is cited is the state of the registry, not the code that
+    produced it. The external archive therefore takes the files directly, with
+    no connection to version control.
 
-    Описание пишется рядом в готовом виде: заполнять его руками при каждом
-    выпуске значит однажды ошибиться в числах, а числа здесь и есть содержание.
+    The description is written out ready beside it: filling it in by hand on
+    every release means eventually mistyping a number, and the numbers here are
+    the content.
     """
     target = releases_dir() / meta["tag"]
     archive = shutil.make_archive(
@@ -267,43 +272,44 @@ def bundle(meta: dict) -> Path:
 def run(*, dry_run: bool = False, today: date | None = None) -> int:
     meta = build(today=today)
     print(
-        f"выпуск {meta['tag']}: технологий {meta['technologies']}, "
-        f"свидетельств {meta['evidence']}, с уровнем {meta['with_level']}, "
-        f"разобрано {meta['reviewed']}"
+        f"release {meta['tag']}: technologies {meta['technologies']}, "
+        f"evidence {meta['evidence']}, with a level {meta['with_level']}, "
+        f"reviewed {meta['reviewed']}"
     )
 
-    # Проверка идёт и на пробном прогоне: узнать, что выпускать нельзя, лучше
-    # до выпуска, а не вместо него.
+    # The checks run on a dry run as well: learning that a release must not be
+    # cut is better done before the release than instead of it.
     problems = readiness()
     if problems:
-        sys.stderr.write(f"выпускать нельзя: препятствий {len(problems)}\n")
+        sys.stderr.write(f"a release must not be cut: {len(problems)} obstacles\n")
         for problem in problems:
             sys.stderr.write(f"  {problem}\n")
         return 1
 
     if dry_run:
-        print("пробный прогон: препятствий нет, записано ничего не будет")
+        print("dry run: no obstacles, and nothing will be written")
         return 0
 
     if is_complete(meta["tag"]):
-        print(f"выпуск {meta['tag']} уже существует целиком, повторный не пишется")
+        print(f"the release {meta['tag']} already exists in full, no second one")
         return 0
 
     path = releases_dir() / meta["tag"]
     if path.exists():
-        # Каталог есть, а выпуска нет: прежде такое состояние сообщало «уже
-        # существует» и оставалось навсегда.
+        # The directory is there and the release is not: this state used to
+        # report that it already existed and stayed that way for ever.
         sys.stderr.write(
-            f"выпуск {meta['tag']} записан не целиком: каталог {path} есть, а "
-            "снимка, архива, описания или записи в перечне нет. Уберите каталог "
-            "и выпустите заново, если на выпуск ещё никто не ссылался.\n"
+            f"the release {meta['tag']} is not written in full: the directory "
+            f"{path} exists while the snapshot, the archive, the description or "
+            "the index entry does not. Remove the directory and release again, "
+            "if nobody has cited this release yet.\n"
         )
         return 1
 
-    print(f"снимок записан: {publish(meta)}")
+    print(f"the snapshot is written: {publish(meta)}")
     archive = bundle(meta)
     print(
-        f"пакет для внешнего архива: {archive.name}, описание "
+        f"the package for the external archive: {archive.name}, description "
         f"{meta['tag']}-deposit.json"
     )
     return 0
@@ -311,7 +317,7 @@ def run(*, dry_run: bool = False, today: date | None = None) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true", help="показать, не записывая")
+    parser.add_argument("--dry-run", action="store_true", help="show without writing")
     args = parser.parse_args()
     return run(dry_run=args.dry_run)
 
