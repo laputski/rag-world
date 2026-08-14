@@ -1,31 +1,31 @@
 #!/usr/bin/env python3
-"""Мутационный прогон: правило считается проверенным, если его порча ловится.
+"""The mutation run: a rule counts as guarded when breaking it is caught.
 
-Покрытие говорит, что строка выполнялась. Оно не говорит, что её поломку
-кто-нибудь заметит. Разница не умозрительная: у проверки данных покрытие было
-48 процентов, а отключение любой её проверки по одной оставляло весь набор
-зелёным двадцать один раз подряд.
+Coverage says a line ran. It does not say that anyone would notice if it broke.
+The difference is not hypothetical: the data validation had 48 per cent
+coverage, and disabling its checks one at a time left the whole suite green
+twenty-one times running.
 
-Здесь боевой код портится осмысленно, по одной правке за раз, и запускается
-весь набор тестов. Мутант, переживший прогон, показывает место, где проверки
-нет, сколько бы ни было покрытия.
+Here the working code is broken deliberately, one edit at a time, and the whole
+suite is run. A mutant that survives marks a place where no check exists,
+however much coverage there is.
 
-**Перечень составлен вручную, и это решение, а не лень.** Средства случайной
-мутации порождают тысячи правок, из которых большинство равносильны исходному
-коду: они ничего не меняют в поведении, убить их нельзя, и отчёт тонет в них.
-Здесь каждая запись называет правило, которое она проверяет, поэтому перечень
-читается как список того, на чём проект держится.
+**The catalogue is written by hand, and that is a decision rather than
+laziness.** Random mutation tools produce thousands of edits, most of them
+equivalent to the original code: they change nothing in behaviour, they cannot
+be killed, and the report drowns in them. Here every entry names the rule it
+checks, so the catalogue reads as a list of what the project rests on.
 
-**Неприменившийся мутант считается провалом, а не пропуском.** Строка кода
-меняется, образец перестаёт совпадать, и запись тихо перестаёт что-либо
-проверять. Перечень при этом остаётся зелёным и выглядит внушительно. За один
-день такое случилось трижды, поэтому здесь это ошибка.
+**A mutant that fails to apply counts as a failure, not as a skip.** A line of
+code changes, the pattern stops matching, and the entry quietly stops checking
+anything. The catalogue stays green meanwhile and looks impressive. That
+happened three times in one day, so here it is an error.
 
-Использование::
+Usage::
 
-    python3 scripts/mutate.py                 # весь перечень
-    python3 scripts/mutate.py --only ссылк    # только правила про ссылки
-    python3 scripts/mutate.py --list          # показать перечень, не запуская
+    python3 scripts/mutate.py                 # the whole catalogue
+    python3 scripts/mutate.py --only links    # only the rules about links
+    python3 scripts/mutate.py --list          # show the catalogue without running
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 @dataclass(frozen=True)
 class Mutation:
-    """Одна порча: какое правило проверяется и чем оно заменяется."""
+    """One deliberate break: the rule it tests and what replaces what."""
 
     path: str
     rule: str
@@ -50,359 +50,362 @@ class Mutation:
     after: str
 
 
-# ─── Перечень ────────────────────────────────────────────────────────────────
+# ─── The catalogue ───────────────────────────────────────────────────────────
 #
-# Порядок тематический, а не по важности: так проще искать глазами и добавлять
-# соседа к родственной записи.
+# The order is by subject rather than by importance: that makes an entry easier
+# to find by eye and easier to add next to a related one.
 
 MUTATIONS: tuple[Mutation, ...] = (
-    # ── Шкала зрелости: каждое правило утверждает о технологии ──────────────
-    Mutation("core/maturity.py", "L1 требует публикации",
+    # ── The maturity scale: every rule asserts something about a technology ─
+    Mutation("core/maturity.py", "L1 requires a publication",
              'l1_ok = _has_publication(evidence, "workshop_preprint")',
              "l1_ok = True"),
-    Mutation("core/maturity.py", "L3 требует L2 (монотонность)",
+    Mutation("core/maturity.py", "L3 requires L2, the scale being monotone",
              'if l3_ok and "L2" in satisfied:', "if l3_ok:"),
-    Mutation("core/maturity.py", "L4 засчитывает загрузки пакета",
+    Mutation("core/maturity.py", "L4 counts package downloads",
              '        or _has_any(evidence, "package_downloads")', "        or False"),
-    Mutation("core/maturity.py", "уверенность считается, а не назначается",
+    Mutation("core/maturity.py", "confidence is computed, not assigned",
              "return round(sum(per_alt) / len(per_alt), 3) if per_alt else 0.0",
              "return 1.0"),
-    Mutation("core/maturity.py", "свежесть свидетельства учитывается",
+    Mutation("core/maturity.py", "the freshness of evidence counts",
              "good = sum(1 for e in of_type if _is_fresh(e, as_of) and e.verified)",
              "good = len(of_type)"),
 
-    # ── Схема измерений ─────────────────────────────────────────────────────
-    Mutation("core/dimensions_schema.py", "конфигурация проверяется ограничениями",
+    # ── The dimension schema ────────────────────────────────────────────────
+    Mutation("core/dimensions_schema.py", "a configuration is checked against the constraints",
              "def validate(", "def _disabled_validate("),
 
-    # ── Хранилище: повторы и дозапись ───────────────────────────────────────
-    Mutation("services/registry/store.py", "отбор повторов свидетельств",
+    # ── The store: duplicates and appending ─────────────────────────────────
+    Mutation("services/registry/store.py", "duplicate evidence is filtered out",
              "if key in known:\n            continue",
              "if False:\n            continue"),
-    Mutation("services/registry/store.py", "источник входит в ключ повторов ряда",
+    Mutation("services/registry/store.py", "the source is part of a series duplicate key",
              "return (m.technology_id, m.metric, m.measured_at.isoformat(), m.source)",
              "return (m.technology_id, m.metric, m.measured_at.isoformat(), '')"),
-    Mutation("services/registry/store.py", "уровень пишется только при изменении",
+    Mutation("services/registry/store.py", "a level is written only when it changes",
              "if previous is not None and previous.level == entry.level:",
              "if False:"),
-    Mutation("services/registry/store.py", "свидетельства раскладываются по месяцам",
+    Mutation("services/registry/store.py", "evidence is filed by month",
              "by_month.setdefault(evidence_path(item.fetched_at), [])",
              "by_month.setdefault(evidence_path(date(2000, 1, 1)), [])"),
 
-    # ── Пригодность кандидата ───────────────────────────────────────────────
-    Mutation("core/candidate_fit.py", "задача из предмета реестра весит больше",
+    # ── The fitness of a candidate ──────────────────────────────────────────
+    Mutation("core/candidate_fit.py", "a task from the registry subject weighs more",
              'fit.add(4, "coreTask", tasks=core)', 'fit.add(2, "coreTask", tasks=core)'),
-    Mutation("core/candidate_fit.py", "чужая область снижает оценку",
+    Mutation("core/candidate_fit.py", "a foreign field lowers the score",
              "if off and not core:", "if False:"),
-    Mutation("core/candidate_fit.py", "чужая область не наказывает работу об извлечении",
+    Mutation("core/candidate_fit.py", "a foreign field does not penalise work on retrieval",
              "if off and not core:", "if off:"),
-    Mutation("core/candidate_fit.py", "оценка не опускается ниже нуля",
+    Mutation("core/candidate_fit.py", "the score never falls below zero",
              "fit.score = max(0, min(MAX_SCORE, fit.score))",
              "fit.score = min(MAX_SCORE, fit.score)"),
-    Mutation("core/candidate_fit.py", "признак записывается кодом, а не фразой",
-             'fit.add(2, "named")', 'fit.signals.append("работа названа") or None'),
+    Mutation("core/candidate_fit.py", "a signal is written as a code, not as a phrase",
+             'fit.add(2, "named")', 'fit.signals.append("the work is named") or None'),
 
-    # ── Каталог работ и кода ────────────────────────────────────────────────
+    # ── The works-and-code catalogue ────────────────────────────────────────
     Mutation("services/collectors/paperswithcode.py",
-             "ответ каталога о той ли работе",
+             "the catalogue answers about the work that was asked",
              "    if paper.arxiv_id != arxiv_id:", "    if False:"),
     Mutation("services/collectors/paperswithcode.py",
-             "лента не старше запрошенной даты",
+             "the feed is no older than the date requested",
              "        if paper.published < published_after:", "        if False:"),
     Mutation("services/collectors/paperswithcode.py",
-             "без площадки нет свидетельства о публикации",
-             "    if not paper.venue:\n        # Сведения о площадке нет.",
-             "    if False:\n        # Сведения о площадке нет."),
+             "no venue, no publication evidence",
+             "    if not paper.venue:\n        # There is no venue.",
+             "    if False:\n        # There is no venue."),
     Mutation("services/collectors/paperswithcode.py",
-             "счётчик цитирований назван по имени",
+             "the citation counter is named",
              'parts.append(f"citations_semantic_scholar={paper.citations}")',
              'parts.append(f"cited_by={paper.citations}")'),
     Mutation("services/collectors/paperswithcode.py",
-             "запрос идёт по метке метода и дате",
+             "the request goes by method tag and date",
              '{"method": method, "published_after": published_after.isoformat()}',
              '{"q": method}'),
 
-    # ── Проверки ступени сбора ──────────────────────────────────────────────
-    Mutation("services/collectors/s5.py", "нижняя граница года",
+    # ── The checks of the collection stage ──────────────────────────────────
+    Mutation("services/collectors/s5.py", "the lower bound on a year",
              "MIN_YEAR = 1900", "MIN_YEAR = 0"),
 
-    # ── Внимание и нормировка ───────────────────────────────────────────────
-    Mutation("scripts/build_artifacts.py", "порог размера возрастной подгруппы",
+    # ── Attention and its normalisation ─────────────────────────────────────
+    Mutation("scripts/build_artifacts.py", "the size threshold of an age subgroup",
              "if len(values) >= MIN_COHORT", "if len(values) >= 0"),
-    Mutation("scripts/build_artifacts.py", "медиана подгруппы, а не среднее",
+    Mutation("scripts/build_artifacts.py", "the subgroup median, not the mean",
              "year: _median(values)", "year: (sum(values) / len(values))"),
-    Mutation("scripts/build_artifacts.py", "свежесть показателя считается по источнику",
+    Mutation("scripts/build_artifacts.py", "a measurement freshness is counted per source",
              "known.measured_at, known.value", "known.value, known.measured_at"),
 
-    # ── Ссылки ──────────────────────────────────────────────────────────────
-    Mutation("scripts/check_links.py", "временный отказ не убивает ссылку",
+    # ── Links ───────────────────────────────────────────────────────────────
+    Mutation("scripts/check_links.py", "a temporary refusal does not kill a link",
              '    if status in GONE:\n        return "unresolved"',
              '    if status >= 400:\n        return "unresolved"'),
-    Mutation("scripts/check_links.py", "разрыв связи не меняет отметку",
+    Mutation("scripts/check_links.py", "a broken connection does not change a link mark",
              'outcomes[link.url] = ("unknown", 0)',
              'outcomes[link.url] = ("unresolved", 0)'),
-    Mutation("scripts/check_links.py", "закрытый правами адрес получает свою отметку",
+    Mutation("scripts/check_links.py", "an address closed by rights gets its own link mark",
              '    if status in GUARDED:\n        return "guarded"',
              '    if False:\n        return "guarded"'),
 
-    # ── Дайджест ────────────────────────────────────────────────────────────
-    Mutation("scripts/build_digest.py", "пустой выпуск не выходит",
+    # ── The digest ──────────────────────────────────────────────────────────
+    Mutation("scripts/build_digest.py", "an empty issue is not published",
              "def has_news(self) -> bool:\n        return bool(",
              "def has_news(self) -> bool:\n        return True or bool("),
-    Mutation("scripts/build_digest.py", "русские числительные",
+    Mutation("scripts/build_digest.py", "Russian numerals agree with the count",
              "if 11 <= tail_100 <= 14:", "if False:"),
 
-    # ── Шлюз просмотра ──────────────────────────────────────────────────────
-    Mutation("scripts/classify_changes.py", "граница подтверждённости",
+    # ── The review gate ─────────────────────────────────────────────────────
+    Mutation("scripts/classify_changes.py", "the boundary of confirmed evidence",
              'REVIEW_THRESHOLD = "L4"', 'REVIEW_THRESHOLD = "L6"'),
-    Mutation("scripts/classify_changes.py", "понижение уровня требует просмотра",
+    Mutation("scripts/classify_changes.py", "a demotion requires review",
              "if before is not None and _rank(level) < _rank(before):", "if False:"),
-    Mutation("scripts/classify_changes.py", "свидетельство человека требует просмотра",
+    Mutation("scripts/classify_changes.py", "evidence entered by a person requires review",
              'if entry.get("evidence_basis") == "manual":', "if False:"),
-    Mutation("scripts/classify_changes.py", "сравнение с HEAD, а не с индексом",
+    Mutation("scripts/classify_changes.py", "the comparison is against HEAD, not the index",
              '["git", "diff", "HEAD", "--unified=0", "--", LEVELS_PATH]',
              '["git", "diff", "--unified=0", "--", LEVELS_PATH]'),
-    Mutation("scripts/classify_changes.py", "отказ git поднимает незнание",
+    Mutation("scripts/classify_changes.py", "a git failure raises undecidability",
              "if result.returncode != 0:", "if False:"),
-    Mutation("scripts/classify_changes.py", "отсутствие журнала поднимает незнание",
+    Mutation("scripts/classify_changes.py", "a missing journal raises undecidability",
              "if not (base / LEVELS_PATH).exists():", "if False:"),
-    Mutation("scripts/classify_changes.py", "незнание закрывает шлюз",
+    Mutation("scripts/classify_changes.py", "undecidability closes the gate",
              'print("review=true")', 'print("review=false")'),
-    Mutation("scripts/classify_changes.py", "путь журнала берётся у хранилища",
+    Mutation("scripts/classify_changes.py", "the journal path comes from the store",
              "LEVELS_PATH = str(store.LEVELS_FILE.relative_to(ROOT))",
              'LEVELS_PATH = "data/levels/history.jsonl.old"'),
 
-    # ── Проверка данных ─────────────────────────────────────────────────────
-    Mutation("scripts/validate_data.py", "значение измерения существует в схеме",
+    # ── Data validation ─────────────────────────────────────────────────────
+    Mutation("scripts/validate_data.py", "a dimension value exists in the schema",
              "elif value not in ALL_VALUES[code]:", "elif False:"),
-    Mutation("scripts/validate_data.py", "измерение существует в схеме",
+    Mutation("scripts/validate_data.py", "a dimension exists in the schema",
              "if code not in ALL_VALUES:\n"
              '                problems.append(f"{where}: неизвестное измерение',
              "if False:\n"
              '                problems.append(f"{where}: неизвестное измерение'),
-    Mutation("scripts/validate_data.py", "конфигурация не нарушает ограничений",
+    Mutation("scripts/validate_data.py", "a configuration breaks no constraint",
              "for error in validate(tech.configuration):", "for error in []:"),
-    Mutation("scripts/validate_data.py", "осмотренная ссылка несёт дату",
+    Mutation("scripts/validate_data.py", "a guarded link carries a date",
              'if link.status in ("verified", "guarded") and link.verified_at is None:',
              "if False:"),
-    Mutation("scripts/validate_data.py", "неприменимое измерение не несёт значения",
+    Mutation("scripts/validate_data.py", "an inapplicable dimension carries no value",
              "elif code in tech.configuration:\n                # Значение у неприменимого",
              "elif False:\n                # Значение у неприменимого"),
-    Mutation("scripts/validate_data.py", "роду без конфигурации нельзя иметь значения",
+    Mutation("scripts/validate_data.py", "a kind without a configuration may hold no values",
              "if tech.kind in store.KINDS_WITHOUT_CONFIGURATION and tech.configuration:",
              "if False:"),
-    Mutation("scripts/validate_data.py", "свидетельство ссылается на известную запись",
+    Mutation("scripts/validate_data.py", "evidence refers to a record that exists",
              "if item.technology_id not in known:", "if False:"),
-    Mutation("scripts/validate_data.py", "уверенность лежит в отрезке",
+    Mutation("scripts/validate_data.py", "confidence lies within its interval",
              "if not 0.0 <= entry.confidence <= 1.0:", "if False:"),
-    Mutation("scripts/validate_data.py", "идентификатор записи не повторяется",
+    Mutation("scripts/validate_data.py", "a record identifier is not repeated",
              "if tech.id in known:", "if False:"),
-    Mutation("scripts/validate_data.py", "остаток берётся из словаря",
+    Mutation("scripts/validate_data.py", "a residual comes from the vocabulary",
              "if mechanism not in vocabulary:", "if False:"),
-    Mutation("scripts/validate_data.py", "имя файла совпадает с идентификатором",
+    Mutation("scripts/validate_data.py", "the file name matches the identifier",
              "if declared != path.stem:", "if False:"),
-    Mutation("scripts/validate_data.py", "словарь остатков читается при проверке",
+    Mutation("scripts/validate_data.py", "the residual vocabulary is read during validation",
              "vocabulary = _residual_vocabulary()", "vocabulary = {}"),
-    Mutation("scripts/validate_data.py", "идентификатор по соглашению",
+    Mutation("scripts/validate_data.py", "an identifier follows the convention",
              "if not ID_RE.match(tech.id):", "if False:"),
-    Mutation("scripts/validate_data.py", "имя записи непусто",
+    Mutation("scripts/validate_data.py", "a record name is not empty",
              "if not tech.name.strip():", "if False:"),
-    Mutation("scripts/validate_data.py", "страта принадлежит A–G",
+    Mutation("scripts/validate_data.py", "a stratum belongs to A–G",
              "if group not in STRATA:", "if False:"),
-    Mutation("scripts/validate_data.py", "разобранная запись что-то утверждает",
+    Mutation("scripts/validate_data.py", "a reviewed record asserts something",
              "if (\n            tech.configuration_reviewed", "if (\n            False"),
-    Mutation("scripts/validate_data.py", "измерение не переменное и неприменимое сразу",
+    Mutation("scripts/validate_data.py", "a dimension is not variable and inapplicable at once",
              "if both:", "if False:"),
-    Mutation("scripts/validate_data.py", "переменное измерение имеет значение",
+    Mutation("scripts/validate_data.py", "a variable dimension has a value",
              "elif code not in tech.configuration:", "elif False:"),
-    Mutation("scripts/validate_data.py", "у источника есть адрес",
+    Mutation("scripts/validate_data.py", "a source has an address",
              "if not link.url.strip():", "if False:"),
-    Mutation("scripts/validate_data.py", "уровень принадлежит шкале",
+    Mutation("scripts/validate_data.py", "a level belongs to the scale",
              "if entry.level not in LEVELS:", "if False:"),
 
-    # ── Объявленные зависимости ─────────────────────────────────────────────
-    Mutation("pyproject.toml", "зависимость разбора рабочих процессов объявлена",
+    # ── Declared dependencies ───────────────────────────────────────────────
+    Mutation("pyproject.toml", "the workflow parser dependency is declared",
              '    "pyyaml>=6.0",\n', ""),
 
-    # ── Проход обновления ───────────────────────────────────────────────────
-    Mutation("scripts/update.py", "проход встаёт на непройденной проверке",
+    # ── The update pass ─────────────────────────────────────────────────────
+    Mutation("scripts/update.py", "the pass stops on a failed validation",
              "if problems:\n        sys.stderr", "if False:\n        sys.stderr"),
 
-    # ── Выпуск: единственное необратимое действие ───────────────────────────
-    Mutation("scripts/make_release.py", "выпуск проверяет данные",
+    # ── The release: the one irreversible action ────────────────────────────
+    Mutation("scripts/make_release.py", "a release validates the data",
              'problems = [f"данные не проходят проверку: {p}" for p in\n'
              "                validate_data.check_registry()]",
              "problems = []"),
-    Mutation("scripts/make_release.py", "артефакты собраны из нынешних данных",
+    Mutation("scripts/make_release.py", "the artefacts are built from current data",
              "            if expected != actual:", "            if False:"),
-    Mutation("scripts/make_release.py", "артефакты вообще собраны",
+    Mutation("scripts/make_release.py", "the artefacts are built at all",
              "    if missing:\n        problems.append(",
              "    if False:\n        problems.append("),
-    Mutation("scripts/make_release.py", "снимок не обещает отсутствующий файл",
+    Mutation("scripts/make_release.py", "a snapshot does not promise a missing file",
              "    if missing:\n        raise FileNotFoundError(",
              "    if False:\n        raise FileNotFoundError("),
-    Mutation("scripts/make_release.py", "выпуск не переписывается",
+    Mutation("scripts/make_release.py", "a release is never rewritten",
              "    if target.exists():\n        raise FileExistsError(",
              "    if False:\n        raise FileExistsError("),
-    Mutation("scripts/make_release.py", "снимок пишется целиком или никак",
+    Mutation("scripts/make_release.py", "a snapshot is written whole or not at all",
              "        os.replace(draft, target)", "        shutil.copytree(draft, target)"),
-    Mutation("scripts/make_release.py", "черновик убирается при срыве",
+    Mutation("scripts/make_release.py", "a draft is removed when the write fails",
              "        shutil.rmtree(draft, ignore_errors=True)", "        pass"),
-    Mutation("scripts/make_release.py", "выпуск встаёт на препятствиях",
+    Mutation("scripts/make_release.py", "a release stops on an obstacle",
              '    if problems:\n        sys.stderr.write(f"выпускать нельзя',
              '    if False:\n        sys.stderr.write(f"выпускать нельзя'),
-    Mutation("scripts/make_release.py", "неполный выпуск не сходит за полный",
+    Mutation("scripts/make_release.py", "an incomplete release does not pass for a complete one",
              '    if not (target / "release.json").exists():\n        return False',
              "    if False:\n        return False"),
-    Mutation("scripts/make_release.py", "архив входит в признак полноты",
+    Mutation("scripts/make_release.py", "the archive counts towards completeness",
              'if not (releases_dir() / f"rag-world-{tag}.zip").exists():\n        return False',
              "if False:\n        return False"),
-    Mutation("scripts/make_release.py", "перечень выпусков свежими вперёд",
+    Mutation("scripts/make_release.py", "the release index lists the newest first",
              'index.sort(key=lambda r: r["tag"], reverse=True)',
              'index.sort(key=lambda r: r["tag"])'),
-    Mutation("scripts/make_release.py", "числа описания берутся у выпуска",
+    Mutation("scripts/make_release.py", "the description numbers come from the release",
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
-    # Точка отсчёта обязана означать отсутствие приёма. Обратное переворачивает
-    # смысл всего портала: бездействие показывается решением, а действие
-    # умолчанием, и это выглядит исправной страницей.
-    Mutation("core/dimensions_schema.py", "базовое значение означает отсутствие приёма",
+    # The reference point has to mean the absence of a technique. The reverse
+    # inverts the meaning of the whole portal: inaction is shown as a decision
+    # and action as a default, and it all looks like a working page.
+    Mutation("core/dimensions_schema.py", "a base value means the absence of a technique",
              '"path_pruning"), default="none"),', '"path_pruning"), default="cross_encoder"),'),
 
-    # Настоящие данные обязаны проходить проверку в обычном прогоне тестов, а
-    # не только в задании непрерывной интеграции. Пока их не читал ни один тест,
-    # правка записи проходила `make test` зелёной и падала после отправки.
+    # The real data has to pass validation in an ordinary test run and not only
+    # in the continuous integration job. While no test read it, an edit to a
+    # record passed `make test` green and failed after being pushed.
     Mutation("data/technologies/standard_hybridrag.json",
-             "настоящие данные проверяются прогоном тестов",
+             "the real data is validated by the test run",
              '"verified_at": "2026-08-13"', '"verified_at": null'),
 
-    Mutation("scripts/collect.py", "цифровой идентификатор доходит до индекса",
+    Mutation("scripts/collect.py", "a digital identifier reaches the open index",
              '    if "doi.org" in url:\n        return ["openalex"]', "    pass"),
 
-    # ── Разбиение по страницам ─────────────────────────────────────────────
+    # ── Splitting the code by page ─────────────────────────────────────────
     #
-    # Отказ здесь тих: страница работает, просто грузит лишнее. Заметить это
-    # можно только измерив, а измеряют редко.
-    Mutation("ui/public/data/registry.json", "запись публикуется отдельным файлом",
+    # The failure here is quiet: the page works, it merely loads more than it
+    # needs. Noticing that takes a measurement, and measurements are rare.
+    Mutation("ui/public/data/registry.json", "a record is published as a file of its own",
              '"id": "pathrag"', '"id": "pathrag_moved"'),
-    Mutation("scripts/build_artifacts.py", "лишний файл записи удаляется",
+    Mutation("scripts/build_artifacts.py", "a stale record file is deleted",
              "        (per_record / name).unlink()", "        pass"),
 
-    # ── Знак портала и значки ──────────────────────────────────────────────
+    # ── The mark of the portal and its icons ───────────────────────────────
     #
-    # Знак живёт кодом, значки — файлами, и расходятся они молча: портал
-    # показывает новый рисунок, а чужая страница со ссылкой — старый.
-    Mutation("scripts/build_icons.py", "рисунок значков берётся из знака",
+    # The mark lives as code and the icons as files, and they diverge in
+    # silence: the portal shows the new drawing while somebody else's page with
+    # a link to it shows the old one.
+    Mutation("scripts/build_icons.py", "the icon pattern comes from the mark",
              'block = re.search(r"PATTERN[^=]*=\\s*\\{(?P<body>.*?)\\n\\};", text, re.S)',
              'block = None if text else None'),
-    Mutation("scripts/build_icons.py", "значок вкладки несёт обе палитры",
+    Mutation("scripts/build_icons.py", "the tab icon carries both palettes",
              'f"<style>{light}@media(prefers-color-scheme:dark){{{dark}}}</style>"',
              'f"<style>{light}</style>"'),
-    Mutation("scripts/build_icons.py", "значки сверяются с нынешним знаком",
+    Mutation("scripts/build_icons.py", "the icons are checked against the current mark",
              "if current != payload:", "if current is None:"),
-    Mutation("ui/index.html", "разметка ссылается на картинку предпросмотра",
+    Mutation("ui/index.html", "the markup links to the preview image",
              '<meta property="og:image" content="https://ragworld.org/og-image.png" />',
              ""),
 
-    # ── Обнаружение по курируемым спискам ──────────────────────────────────
+    # ── Discovery from curated lists ───────────────────────────────────────
     #
-    # Источник здесь не служба с договором, а файл, который правят руками.
-    # Отсюда отказы, которых у прочих сборщиков нет: список меняет форму
-    # записи, и разбор молча возвращает пустоту, выглядя работающим.
-    Mutation("services/collectors/curated.py", "смена формы списка замечается",
-             'f"{source.name}: разметка получена, но ни одной записи не разобрано; "',
+    # The source here is not a service with a contract but a file people edit
+    # by hand. Hence failures the other collectors do not have: the list changes
+    # the shape of its entries, and the parsing silently returns nothing while
+    # looking as though it works.
+    Mutation("services/collectors/curated.py", "a list changing its shape is noticed",
+             'f"{source.name}: the markup arrived and not one entry parsed; "',
              'f"{source.name}: "'),
-    Mutation("services/collectors/curated.py", "известное отсеивается до обращения к arXiv",
+    Mutation("services/collectors/curated.py",
+             "what is known is filtered out before the archive is asked",
              "fresh = [entry for entry in entries if entry.arxiv_id not in known]",
              "fresh = list(entries)"),
-    Mutation("services/collectors/curated.py", "работа без аннотации не заводится",
+    Mutation("services/collectors/curated.py", "a work without an abstract is not entered",
              "            if not detail:", "            if False:"),
-    Mutation("services/collectors/curated.py", "разбор не выдумывает записи из произвольных строк",
+    Mutation("services/collectors/curated.py", "parsing invents no entries from arbitrary lines",
              r'    r"^-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"',
              r'    r"^.*?(?P<venue>)(?P<title>\S+)"'),
-    Mutation("scripts/discover.py", "пересчёт не теряет признак курируемого списка",
+    Mutation("scripts/discover.py", "recomputation does not lose the curated-list signal",
              'curated_by=row.get("curated_by") or None,', "curated_by=None,"),
-    Mutation("core/candidate_fit.py", "включение в список повышает пригодность",
+    Mutation("core/candidate_fit.py", "inclusion in a list raises fitness",
              'fit.add(2, "curatedList", lists=sorted(curated_by))',
              'fit.add(0, "curatedList", lists=sorted(curated_by))'),
 
-    # ── Локализация выгрузки ───────────────────────────────────────────────
+    # ── The localisation of the published data ─────────────────────────────
     #
-    # Русский текст без двойника выглядит исправным полем и обнаруживается
-    # только у потребителя, читающего данные без портала. Проза же, оставшаяся
-    # в ресурсах интерфейса, не обнаруживается вовсе: выгрузка просто молчит о
-    # том, что это за технология.
-    Mutation("scripts/build_artifacts.py", "проза уходит в выгрузку",
+    # A Russian text without its twin looks like a valid field and is found
+    # only by a consumer reading the data without the portal. Prose left behind
+    # in the interface resources is not found at all: the published data simply
+    # says nothing about what the technology is.
+    Mutation("scripts/build_artifacts.py", "the prose reaches the published data",
              '            **prose.get(tech.prose_id or "", {}),', ""),
-    Mutation("scripts/build_artifacts.py", "проза уходит на обоих языках",
+    Mutation("scripts/build_artifacts.py", "the prose is published in both languages",
              '                out[prose_id][f"{published}_en"] = english',
              "                pass"),
-    Mutation("scripts/build_artifacts.py", "страты названы по-английски",
+    Mutation("scripts/build_artifacts.py", "the strata are named in English",
              '"name_en": strip(names["en"].get(code, code)),',
              '"name_en": "",'),
-    Mutation("scripts/build_artifacts.py", "английская запись свидетельства доезжает",
+    Mutation("scripts/build_artifacts.py", "the English wording of evidence arrives",
              '"value_en": e.value_en,', '"value_en": None,'),
-    Mutation("scripts/build_artifacts.py", "лента выпускается на обоих языках",
+    Mutation("scripts/build_artifacts.py", "the feed is published in both languages",
              '    _write_feed(target / "feed.ru.xml", changes, built_at, _issues(), "ru")',
              "    pass"),
 
-    # ── Машиночитаемый вход: указатель, карта сайта, llms.txt ──────────────
+    # ── The machine-readable entrance: index, sitemap, llms.txt ────────────
     #
-    # Отказ здесь тих вдвойне. Указатель, обещающий несуществующий набор, и
-    # карта сайта без половины карточек выглядят исправными файлами; ошибка
-    # обнаруживается у потребителя, который по ним написал обращение.
-    Mutation("scripts/build_artifacts.py", "указатель называет все опубликованные наборы",
+    # The failure here is doubly quiet. An index promising a dataset that does
+    # not exist, and a sitemap missing half the records, both look like valid
+    # files; the error surfaces at a consumer who wrote a request from them.
+    Mutation("scripts/build_artifacts.py", "the index names every published dataset",
              '    ("digest.json", "issues",',
              '    ("digest_absent.json", "issues",'),
-    Mutation("scripts/build_artifacts.py", "число записей берётся из файла",
+    Mutation("scripts/build_artifacts.py", "the record count comes from the file",
              'entry["records"] = len(payload.get(key, []))',
              'entry["records"] = 0'),
-    Mutation("scripts/build_artifacts.py", "карта сайта содержит карточки",
+    Mutation("scripts/build_artifacts.py", "the sitemap contains the record pages",
              'urls += [f"{SITE}/tech/{row[\'id\']}" for row in sorted(',
              'urls += [] or [f"{SITE}/tech/nowhere" for row in sorted('),
-    Mutation("scripts/build_artifacts.py", "указатель несёт версию правила уровня",
+    Mutation("scripts/build_artifacts.py", "the index carries the version of the level rule",
              '"rule_version": RULE_VERSION,', '"rule_version": "unknown",'),
-    Mutation("scripts/build_artifacts.py", "llms.txt отговаривает от разбора страниц",
+    Mutation("scripts/build_artifacts.py", "llms.txt discourages scraping the pages",
              '"Do not scrape the pages.', '"Feel free to read the pages.'),
-    Mutation("ui/src/i18n/ru.json", "у сообщения со счётом есть все русские формы",
+    Mutation("ui/src/i18n/ru.json", "a counted message has every Russian plural form",
              '    "thatDay_few": "{{count}} изменения",\n', ""),
 
-    # ── Проза карточек: единственный текст портала, писанный руками ────────
+    # ── The prose of the records: the only text of the portal written by hand ─
     #
-    # Порча вносится не в код, а в сами тексты: проверять здесь нечего, кроме
-    # данных, и сторож обязан ловить именно их. Каждое правило повторяет
-    # дефект, который на портале уже был.
-    Mutation("ui/src/i18n/ru/tech.json", "проза без ссылок на список литературы",
+    # The break is made in the texts rather than in the code: there is nothing
+    # here to check but the data, and the guard has to catch exactly that. Every
+    # rule repeats a defect the portal has already had.
+    Mutation("ui/src/i18n/ru/tech.json", "the prose carries no bibliography references",
              "Microsoft GraphRAG строит по всему",
              "Microsoft GraphRAG [4] строит по всему"),
-    Mutation("ui/src/i18n/ru/tech.json", "проза без транслитерированного жаргона",
+    Mutation("ui/src/i18n/ru/tech.json", "the prose carries no transliterated jargon",
              "Векторное представление строится по вымышленному ответу",
              "Эмбеддинг строится по вымышленному ответу"),
-    Mutation("ui/src/i18n/ru/tech.json", "проза без нерасшифрованных сокращений",
+    Mutation("ui/src/i18n/ru/tech.json", "the prose carries no unexplained abbreviations",
              "которые большая языковая модель извлекает из текста",
              "которые LLM извлекает из текста"),
-    Mutation("ui/src/i18n/ru/tech.json", "тире не заменяет связку",
+    Mutation("ui/src/i18n/ru/tech.json", "a dash does not stand in for a verb",
              "а рёбрами служат отношения",
              "а рёбра — отношения"),
-    Mutation("ui/src/i18n/ru/tech.json", "развёрнутое описание разбито на абзацы",
+    Mutation("ui/src/i18n/ru/tech.json", "a long description is broken into paragraphs",
              "\\n\\nСистема отвечает на вопрос одним из трёх способов",
              " Система отвечает на вопрос одним из трёх способов"),
-    Mutation("ui/src/i18n/en/tech.json", "английская проза есть везде, где русская",
+    Mutation("ui/src/i18n/en/tech.json", "English prose exists wherever Russian prose does",
              '"full": "Microsoft GraphRAG builds a single knowledge graph',
              '"full_": "Microsoft GraphRAG builds a single knowledge graph'),
 
-    Mutation("scripts/make_release.py", "пробный прогон ничего не пишет",
+    Mutation("scripts/make_release.py", "a dry run writes nothing",
              '    if dry_run:\n        print("пробный прогон',
              '    if False:\n        print("пробный прогон'),
 )
 
 
-# ─── Прогон ──────────────────────────────────────────────────────────────────
+# ─── The run ─────────────────────────────────────────────────────────────────
 
 
 def suite_is_green() -> bool:
-    """Набор на нетронутом дереве. Без этого мутанты «гибнут» по чужой вине."""
+    """The suite on an untouched tree. Without it, mutants die for other reasons."""
     return _pytest().returncode == 0
 
 
@@ -415,7 +418,7 @@ def _pytest() -> subprocess.CompletedProcess:
 
 
 def survives(mutation: Mutation) -> bool | None:
-    """True — мутант выжил, False — пойман, None — не применился."""
+    """True when the mutant survived, False when caught, None when it did not apply."""
     target = ROOT / mutation.path
     original = target.read_text(encoding="utf-8")
     if mutation.before not in original:
@@ -425,15 +428,15 @@ def survives(mutation: Mutation) -> bool | None:
     try:
         return _pytest().returncode == 0
     finally:
-        # Восстановление обязано случиться при любом исходе, включая прерывание
-        # с клавиатуры: иначе испорченный код останется в рабочем дереве.
+        # Restoration must happen whatever the outcome, an interrupt from the
+        # keyboard included: otherwise the broken code stays in the tree.
         target.write_text(original, encoding="utf-8")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--only", help="только правила, содержащие эту подстроку")
-    parser.add_argument("--list", action="store_true", help="показать перечень")
+    parser.add_argument("--only", help="only the rules containing this substring")
+    parser.add_argument("--list", action="store_true", help="show the catalogue")
     args = parser.parse_args()
 
     chosen = [
@@ -445,18 +448,18 @@ def main() -> int:
     if args.list:
         for mutation in chosen:
             print(f"  {mutation.path:<34} {mutation.rule}")
-        print(f"\nвсего правил: {len(chosen)}")
+        print(f"\n{len(chosen)} rules in all")
         return 0
     if not chosen:
-        sys.stderr.write(f"по образцу {args.only!r} ничего не найдено\n")
+        sys.stderr.write(f"nothing matches {args.only!r}\n")
         return 1
 
-    print("проверка нетронутого дерева…", flush=True)
+    print("checking the untouched tree…", flush=True)
     if not suite_is_green():
         sys.stderr.write(
-            "набор тестов не проходит без всяких мутаций. Мутационный прогон "
-            "в таком состоянии бессмыслен: мутанты будут «гибнуть» по чужой "
-            "вине. Сначала почините набор.\n"
+            "the test suite does not pass without any mutation at all. A "
+            "mutation run in this state is meaningless: mutants would die for "
+            "reasons of their own. Repair the suite first.\n"
         )
         return 1
 
@@ -470,28 +473,29 @@ def main() -> int:
         head = f"[{index:>2}/{len(chosen)}]"
         if outcome is None:
             unapplied.append(mutation)
-            print(f"{head} ?  НЕ ПРИМЕНИЛСЯ  {mutation.rule}", flush=True)
+            print(f"{head} ?  DID NOT APPLY  {mutation.rule}", flush=True)
         elif outcome:
             survivors.append(mutation)
-            print(f"{head} !  ВЫЖИЛ         {mutation.rule}", flush=True)
+            print(f"{head} !  SURVIVED       {mutation.rule}", flush=True)
         else:
             caught += 1
-            print(f"{head} +  пойман        {mutation.rule}", flush=True)
+            print(f"{head} +  caught         {mutation.rule}", flush=True)
 
     spent = time.monotonic() - started
     print(
-        f"\nправил {len(chosen)}, пойманы {caught}, выжили {len(survivors)}, "
-        f"не применились {len(unapplied)}; за {spent:.0f} с"
+        f"\n{len(chosen)} rules, {caught} caught, {len(survivors)} survived, "
+        f"{len(unapplied)} did not apply; in {spent:.0f} s"
     )
 
     if survivors:
-        print("\nПРАВИЛА БЕЗ ПРОВЕРКИ (порча не замечена ни одним тестом):")
+        print("\nUNGUARDED RULES (no test noticed the break):")
         for mutation in survivors:
             print(f"  {mutation.path}: {mutation.rule}")
     if unapplied:
-        # Не пропуск, а провал: образец разошёлся с кодом, и запись перестала
-        # что-либо проверять, оставаясь в перечне и создавая видимость охраны.
-        print("\nОБРАЗЕЦ РАЗОШЁЛСЯ С КОДОМ (запись ничего не проверяет):")
+        # Not a skip but a failure: the pattern has drifted from the code, and
+        # the entry has stopped checking anything while staying in the catalogue
+        # and creating an appearance of a guard.
+        print("\nPATTERN DRIFTED FROM THE CODE (the entry checks nothing):")
         for mutation in unapplied:
             print(f"  {mutation.path}: {mutation.rule}")
 

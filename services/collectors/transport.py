@@ -1,17 +1,17 @@
-"""HTTP-транспорт сборщиков.
+"""The HTTP transport the collectors run on.
 
-Обёртка над requests, реализующая интерфейс, который сборщики ожидают. В тестах
-подменяется заглушкой, поэтому сеть в них не нужна.
+A wrapper over the HTTP library implementing the interface collectors expect.
+Tests replace it with a stub, which is why they need no network.
 
-Транспорт соблюдает два правила, без которых автономный сбор быстро упрётся в
-запреты источников:
+The transport keeps two rules, and without them an unattended run would soon be
+refused by the sources:
 
-* **перечень разрешённых доменов** — обращение к постороннему адресу не
-  выполняется вовсе, даже если сборщик ошибся;
-* **вежливая частота** — между обращениями к одному хосту выдерживается пауза.
-  Архив препринтов просит не чаще одного запроса в три секунды и отвечает
-  отказом при нарушении; открытые индексы терпимее, но и им не следует слать
-  запросы без пауз.
+* **the allowlist of hosts** — a request to a host outside it is not made at
+  all, even when a collector asks for one by mistake;
+* **a polite rate** — a pause is held between requests to the same host. The
+  preprint archive asks for no more than one request every three seconds and
+  refuses when that is broken; the open indexes are more tolerant, but they too
+  should not be sent requests without pauses.
 """
 
 from __future__ import annotations
@@ -23,14 +23,14 @@ import requests
 
 from services.collectors.base import is_allowed_host
 
-#: Минимальная пауза между обращениями к одному хосту, в секундах.
+#: The least pause between two requests to the same host, in seconds.
 HOST_DELAYS: dict[str, float] = {
     "export.arxiv.org": 4.0,
     "arxiv.org": 4.0,
-    # Пять обращений в секунду индекс не выдерживает и отвечает отказом по
-    # частоте даже с повторами. Секунда — то, что проходит и в общем потоке;
-    # с назначенной почтой можно было бы чаще, но настройка необязательна, и
-    # прогон должен работать и без неё.
+    # Five requests a second is more than the open index bears: it refuses on
+    # rate even with retries. One second passes in the common request pool. A
+    # contact address would buy a higher limit, but supplying one is optional
+    # and the run has to work without it.
     "api.openalex.org": 1.0,
     "api.github.com": 1.0,
     "pypi.org": 0.2,
@@ -38,27 +38,29 @@ HOST_DELAYS: dict[str, float] = {
 }
 DEFAULT_DELAY = 0.5
 
-#: Сколько раз повторить запрос при отказе из-за частоты обращений.
+#: How many times a request is repeated after a refusal on rate.
 RETRIES_ON_RATE_LIMIT = 3
 
-#: Как обращение представляется площадке.
+#: How a request introduces itself to the host.
 #:
-#: Обращение без представления многие площадки отклоняют как роботское, и отказ
-#: этот неотличим от «страница закрыта». Один такой случай уже был: статья
-#: справочника отвечала отказом, и лишь с представлением стало видно, что её не
-#: существует вовсе. Молчание о себе не делает обращение вежливее — оно делает
-#: ответ менее правдивым.
+#: Many hosts refuse an unintroduced request as robotic, and that refusal is
+#: indistinguishable from "the page is closed". It happened once already: a
+#: reference article answered with a refusal, and only once the request
+#: introduced itself did it become visible that the article does not exist at
+#: all. Saying nothing about yourself does not make a request politer, it makes
+#: the answer less truthful.
 DEFAULT_USER_AGENT = "rag-world/0.2 (registry; +https://ragworld.org)"
 
 
 class RequestsTransport:
-    """HTTP-транспорт поверх requests с соблюдением вежливой частоты.
+    """An HTTP transport that holds a polite rate.
 
-    `allow_any_host` снимает перечень доменов и предназначен ровно для одной
-    задачи — проверки разрешимости ссылок самого реестра. Перечень существует,
-    чтобы сбор свидетельств не уходил по адресам, встреченным в содержимом
-    источника; ссылки реестра, наоборот, вписаны нами, и половина из них ведёт
-    на площадки, которых в перечне нет и быть не должно.
+    `allow_any_host` lifts the allowlist and exists for exactly one task:
+    checking that the registry's own links resolve. The allowlist is there so
+    that evidence collection does not follow addresses met in the content of a
+    source. The registry's links are the opposite case — they were written by
+    us, and half of them lead to venues that are not on the list and should not
+    be.
     """
 
     def __init__(self, allow_any_host: bool = False) -> None:
@@ -77,8 +79,9 @@ class RequestsTransport:
     def get(
         self, url: str, headers: dict[str, str] | None = None, timeout: int = 20
     ) -> tuple[int, bytes]:
-        # Двойная проверка перечня доменов: сборщики проверяют его сами, но
-        # транспорт не должен обращаться к постороннему адресу и при их ошибке.
+        # The allowlist is checked twice over: collectors check it themselves,
+        # and the transport must not reach a foreign address even when one of
+        # them is wrong.
         if not self._allow_any_host and not is_allowed_host(url):
             return (403, b"host not in allowlist")
 
@@ -86,14 +89,14 @@ class RequestsTransport:
         for attempt in range(RETRIES_ON_RATE_LIMIT + 1):
             self._wait(host)
             try:
-                # Представление подставляется, если вызывающий его не задал:
-                # одно место вместо повторения в каждом сборщике.
+                # The introduction is supplied when the caller gave none: one
+                # place instead of a repetition in every collector.
                 sent = {"User-Agent": DEFAULT_USER_AGENT, **(headers or {})}
                 resp = requests.get(url, headers=sent, timeout=timeout)
             except requests.RequestException as exc:
                 return (0, str(exc).encode())
             if resp.status_code != 429 or attempt == RETRIES_ON_RATE_LIMIT:
                 return (resp.status_code, resp.content)
-            # Отказ по частоте: ждём дольше обычного и пробуем ещё раз.
+            # Refused on rate: wait longer than usual and try once more.
             time.sleep(HOST_DELAYS.get(host, DEFAULT_DELAY) * (attempt + 2))
         return (429, b"rate limited")

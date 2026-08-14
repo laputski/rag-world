@@ -1,19 +1,20 @@
-"""Сборщик сведений о пакете: существование и число загрузок.
+"""The package collector: whether a package exists and how often it is taken.
 
-Загрузки пакета — второе достаточное условие уровня L4: они означают, что
-технологией пользуются за пределами исходной работы. Вместе с присутствием во
-фреймворках это единственные два машиночитаемых пути к L4, поэтому без обоих
-сборщиков потолок собранных данных остаётся на L3.
+Downloads are one of the two sufficient conditions for the level at which a
+technology is used beyond the work that introduced it. Together with presence in
+a framework they are the only two machine-readable routes to that level, so
+without both collectors the ceiling of collected data stays one level lower.
 
-Имя пакета берётся из поля записи и **не выводится из имени технологии**.
-Догадка здесь недопустима: в индексе пакетов полно имён, похожих на названия
-архитектур, и ошибка дала бы уровень, подтверждённый чужими загрузками. Запись
-без имени пакета пропускается молча — это не ошибка, а отсутствие сведения.
+The package name comes from a field of the record and is **not derived from the
+technology's name**. Guessing is inadmissible here: the package index is full of
+names resembling names of architectures, and a mistake would yield a level
+confirmed by somebody else's downloads. A record without a package name is
+passed over in silence, which is an absence of information rather than an error.
 
-Индекс пакетов не публикует число загрузок; его отдаёт отдельная служба
-статистики. Если существование пакета подтвердилось, а статистика недоступна,
-свидетельство о загрузках не создаётся: тип свидетельства называется
-«загрузки», и подменять его фактом существования нельзя.
+The package index does not publish download counts; a separate statistics
+service does. When the package is confirmed to exist but the statistics are
+unavailable, no downloads evidence is created: the evidence type is called
+downloads, and the fact of existence must not be substituted for it.
 """
 
 from __future__ import annotations
@@ -31,23 +32,23 @@ from services.collectors.base import (
 PYPI_API = "https://pypi.org/pypi"
 STATS_API = "https://pypistats.org/api/packages"
 
-#: Ниже этого порога загрузки за месяц не считаются свидетельством
-#: распространённости: столько даёт непрерывная интеграция самих авторов.
+#: Below this threshold a month's downloads are not evidence that a technology
+#: has spread: the authors' own continuous integration produces about as many.
 MIN_MONTHLY_DOWNLOADS = 1000
 
 
 def _get_json(http: HttpGetter, url: str) -> tuple[dict | None, str | None]:
     if not is_allowed_host(url):
-        return None, f"домен вне allowlist: {url}"
+        return None, f"host outside the allowlist: {url}"
     status, body = http.get(url, headers={"User-Agent": "rag-world/0.2"}, timeout=20)
     if status == 404:
-        return None, None  # пакета нет — это ответ, а не сбой
+        return None, None  # no such package, which is an answer and not a failure
     if status != 200:
-        return None, f"код {status} от {url}"
+        return None, f"status {status} from {url}"
     try:
         return json.loads(body), None
     except (json.JSONDecodeError, UnicodeDecodeError):
-        return None, f"некорректный ответ от {url}"
+        return None, f"malformed answer from {url}"
 
 
 def collect_pypi(
@@ -57,7 +58,7 @@ def collect_pypi(
     http: HttpGetter,
     today: date | None = None,
 ) -> CollectResult:
-    """Проверить пакет и собрать число загрузок за последний месяц."""
+    """Check that the package exists and collect last month's downloads."""
     today = today or date.today()
     result = CollectResult(source_name="pypi", technology_id=technology_id)
 
@@ -66,24 +67,24 @@ def collect_pypi(
         result.errors.append(f"{technology_id}: {error}")
         return result
     if meta is None:
-        result.errors.append(f"{technology_id}: пакет {package!r} не найден")
+        result.errors.append(f"{technology_id}: no package {package!r} exists")
         return result
 
-    # Служба статистики принимает нормализованное имя: «FlagEmbedding» она не
-    # знает, а «flagembedding» знает.
+    # The statistics service takes the normalised name: it knows
+    # "flagembedding" and does not know "FlagEmbedding".
     stats, error = _get_json(http, f"{STATS_API}/{package.lower()}/recent")
     if error or stats is None:
-        # Пакет есть, статистики нет. Свидетельство о загрузках не создаётся:
-        # существование пакета — другое утверждение.
+        # The package exists, the statistics do not. No downloads evidence is
+        # created: that a package exists is a different claim.
         result.errors.append(
-            f"{technology_id}: статистика загрузок {package!r} недоступна"
+            f"{technology_id}: download statistics for {package!r} are unavailable"
         )
         return result
 
     monthly = int((stats.get("data") or {}).get("last_month") or 0)
     if monthly < MIN_MONTHLY_DOWNLOADS:
         result.skipped.append(
-            f"{technology_id}: загрузок за месяц {monthly}, ниже порога"
+            f"{technology_id}: {monthly} downloads a month, below the threshold"
         )
         return result
 

@@ -1,31 +1,29 @@
 #!/usr/bin/env python3
-"""Выпуск дайджеста: что изменилось со времени прошлого выпуска.
+"""A digest issue: what has changed since the previous one.
 
-Портал знает, что изменилось, но узнать об этом можно, только зайдя на него.
-Дайджест выносит изменения наружу.
+The portal knows what changed, and the only way to learn it is to visit the
+portal. The digest carries the changes outward.
 
-**Языковая модель здесь не участвует.** Выдумать в дайджесте нечего: он
-пересказывает числа, которые уже вычислены правилом из собранных свидетельств.
-Ровно поэтому он публикуется сам, без просмотра человеком, тогда как аннотации
-записей — жанр, где модель порождает правдоподобное, а не проверенное, — просмотр
-проходят обязательно (STAGE-news-generator.md, разделение жанров по допуску).
+**No language model takes part.** There is nothing in a digest to invent: it
+retells numbers already computed by a rule from collected evidence. That is
+exactly why it is published without review by a person.
 
-**Выпуск — данные, а не артефакт.** Он утверждает, что было верно в день его
-выхода, и пересобрать его позже нельзя: по нынешним данным получился бы другой
-текст, а прошлый выпуск читатель уже видел. Поэтому выпуски дозаписываются в
-`data/digest/` и никогда не переписываются — та же дисциплина, что у
-свидетельств и журнала прогонов.
+**An issue is data, not an artefact.** It asserts what was true on the day it
+came out, and it cannot be rebuilt later: today's data would produce a different
+text, and the reader has already seen the old one. Issues are therefore appended
+to `data/digest/` and never rewritten, under the same discipline as the evidence
+and the run log.
 
-**Пустой выпуск не выходит.** Неделя без изменений — обычное дело, и полсотни
-сообщений «ничего не произошло» превратили бы дайджест в шум. Свежесть проверки
-и без того видна по журналу прогонов: он отвечает на вопрос «смотрели ли», а
-дайджест — на вопрос «что нашли».
+**An empty issue is not published.** A week without changes is an ordinary
+thing, and fifty messages saying nothing happened would turn the digest into
+noise. How recently the data was checked is visible from the run log anyway: it
+answers whether anyone looked, and the digest answers what they found.
 
-Использование::
+Usage::
 
-    python3 scripts/build_digest.py            # выпустить, если есть о чём
-    python3 scripts/build_digest.py --dry-run  # показать текст, не записывая
-    python3 scripts/build_digest.py --force    # выпустить даже без изменений
+    python3 scripts/build_digest.py            # publish, if there is anything to say
+    python3 scripts/build_digest.py --dry-run  # show the text without writing
+    python3 scripts/build_digest.py --force    # publish even without changes
 """
 
 from __future__ import annotations

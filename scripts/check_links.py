@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
-"""Проверка разрешимости ссылок реестра.
+"""Check that the registry's links resolve.
 
-Ссылка — единственное, чем запись отличается от упоминания: без разрешимого
-источника имя технологии ничего не подтверждает. Проверка входит в
-еженедельный прогон, потому что ссылки гниют молча — площадка переезжает,
-препринт снимают, репозиторий переименовывают, и запись продолжает выглядеть
-обоснованной.
+A link is the only thing separating a record from a mention: without a
+resolvable source, the name of a technology confirms nothing. The check runs in
+the weekly pass because links rot in silence — a venue moves, a preprint is
+withdrawn, a repository is renamed, and the record goes on looking grounded.
 
-Различаются три исхода, и различие существенно:
+Three outcomes are distinguished, and the distinction matters:
 
-* **разрешается** — отметка `verified` с датой; читатель видит, что ссылку
-  открывали, а не просто вписали;
-* **не существует** — 404 либо 410, отметка `unresolved`: адрес указывает в
-  пустоту, и это надо чинить руками;
-* **непонятно** — отказ по правам, ограничение частоты, ошибка сети, отказ
-  сервера. Отметка не меняется вовсе.
+* **it resolves** — the mark becomes `verified` with a date, so a reader sees
+  that the link was opened rather than merely written down;
+* **it does not exist** — a 404 or a 410 gives the mark `unresolved`: the
+  address points into nothing, and that has to be repaired by hand;
+* **it is unclear** — a refusal on rights, a rate limit, a network error, a
+  server failure. The mark does not change at all.
 
-Последнее правило — главное. Временный отказ не должен превращать проверенную
-ссылку в несуществующую: издательства отвечают отказом роботам, сеть рвётся, а
-запись после этого выглядела бы испорченной, хотя с ней всё в порядке.
+The last rule is the important one. A temporary refusal must not turn a verified
+link into a non-existent one: publishers refuse robots and networks break, and
+the record would then look damaged while nothing is wrong with it.
 
-Перечень разрешённых доменов здесь снят намеренно: он ограждает сбор
-свидетельств от блуждания по адресам из содержимого источников, а ссылки
-реестра вписаны нами, и многие ведут на площадки, которых в перечне нет.
+The allowlist of hosts is deliberately lifted here. It guards evidence
+collection from wandering to addresses met in the content of sources, whereas
+the registry's links were written by us and many of them lead to venues the list
+does not contain.
 
-Использование::
+Usage::
 
-    python3 scripts/check_links.py              # проверить и проставить отметки
-    python3 scripts/check_links.py --dry-run    # только показать, что изменится
-    python3 scripts/check_links.py --stale 30   # только не проверявшиеся 30 дней
+    python3 scripts/check_links.py              # check and set the marks
+    python3 scripts/check_links.py --dry-run    # show what would change
+    python3 scripts/check_links.py --stale 30   # only those unchecked for 30 days
 """
 
 from __future__ import annotations

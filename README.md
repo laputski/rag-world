@@ -8,16 +8,19 @@
 Every record carries a configuration over a stratified schema, a maturity level
 derived by a deterministic rule from collected evidence, and the evidence itself.
 
-[![Checks](https://github.com/laputski/rag-world/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/laputski/rag-world/actions/workflows/ci.yml)
-[![Data update](https://github.com/laputski/rag-world/actions/workflows/collect.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/collect.yml)
-[![Mutation run](https://github.com/laputski/rag-world/actions/workflows/mutation.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/mutation.yml)
-[![Code licence: Apache 2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
-[![Data licence: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-blue.svg)](data/LICENSE.md)
+[![Open the portal](https://img.shields.io/badge/portal-ragworld.org-1A56B0?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ragworld.org)
+[![Open data](https://img.shields.io/badge/data-open%20JSON-5B616E?style=for-the-badge&logo=json&logoColor=white)](https://ragworld.org/data/index.json)
 
-[**Portal**](https://ragworld.org) ·
-[**Data**](https://ragworld.org/data/index.json) ·
-[**Foundations**](https://ragworld.org/article) ·
-[**Contributing**](CONTRIBUTING.md)
+[![Checks](https://img.shields.io/github/actions/workflow/status/laputski/rag-world/ci.yml?branch=main&label=checks&logo=github&logoColor=white)](https://github.com/laputski/rag-world/actions/workflows/ci.yml)
+[![Data update](https://img.shields.io/github/actions/workflow/status/laputski/rag-world/collect.yml?label=data%20update&logo=githubactions&logoColor=white)](https://github.com/laputski/rag-world/actions/workflows/collect.yml)
+[![Mutation run](https://img.shields.io/github/actions/workflow/status/laputski/rag-world/mutation.yml?label=mutation%20run&logo=githubactions&logoColor=white)](https://github.com/laputski/rag-world/actions/workflows/mutation.yml)
+[![Code licence](https://img.shields.io/badge/code-Apache--2.0-blue?logo=apache&logoColor=white)](LICENSE)
+[![Data licence](https://img.shields.io/badge/data-CC%20BY%204.0-blue?logo=creativecommons&logoColor=white)](data/LICENSE.md)
+
+[Foundations](https://ragworld.org/article) ·
+[Registry](https://ragworld.org/registry) ·
+[Changelog](https://ragworld.org/changes) ·
+[Contributing](CONTRIBUTING.md)
 
 </div>
 

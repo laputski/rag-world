@@ -1,47 +1,51 @@
 #!/usr/bin/env python3
-"""Обновление портала одним проходом.
+"""Update the portal in a single pass.
 
-Единственная точка входа цепочки. Ею пользуется и человек (`make collect`), и
-расписание — поэтому поведение автономного прогона совпадает с локальным по
-построению, а рабочий процесс остаётся обёрткой без логики.
+The only entry point of the chain. A person uses it through `make collect` and
+the schedule uses it directly, so what the unattended run does matches what a
+local run does by construction, and the workflow stays a wrapper with no logic
+in it.
 
-Порядок шагов и почему он такой:
+The order of the steps, and why it is this one:
 
-1. **Сбор** — опрос источников, детерминированные проверки, дозапись
-   свидетельств и показателей. Отказ источника не прерывает проход: остальные
-   записи обрабатываются, а отказ попадает в журнал прогонов.
-2. **Ссылки** — разрешимость адресов реестра. Ссылка гниёт молча, и запись без
-   живого источника продолжает выглядеть обоснованной. Временный отказ отметку
-   не меняет: издательства отвечают отказом роботам, и принять это за смерть
-   ссылки значит испортить реестр быстрее, чем время испортит адреса.
-3. **Обнаружение** — опрос каталога по метке метода за прошедшую неделю.
-   Записей реестра не заводит: дописывает кандидатов в очередь, где решение
-   принимает человек. Найденная работа — предположение о технологии, а не
-   технология.
-4. **Уровни** — пересчёт правилом без языковой модели. В журнал уровней
-   попадает только изменение.
-5. **Артефакты** — пересборка того, что читает портал. Сборка устойчива: при
-   неизменных данных файлы совпадают побайтово, поэтому лишних изменений не
-   возникает.
-6. **Проверка** — схема, ссылочная целостность, происхождение чисел.
-   Выполняется **всегда**, даже когда данные не менялись: она дешёвая и ловит
-   порчу, а не только обновление. Не прошла — проход завершается с ошибкой и
-   **до** фиксации.
-7. **Журнал прогонов** — одна строка, всегда. Она отличает «никто не смотрел»
-   от «ничего не происходило» и служит признаком активности репозитория:
-   расписание площадки отключается после шестидесяти дней без коммитов.
-8. **Дайджест** — выпуск о том, что изменилось, если изменилось хоть что-то.
-   Языковая модель не участвует: выпуск пересказывает уже вычисленное, и
-   выдумать в нём нечего. Пустой выпуск не выходит — на вопрос «смотрели ли»
-   отвечает журнал прогонов, а дайджест отвечает на вопрос «что нашли».
+1. **Collection** — the sources are asked, the deterministic checks run, and
+   evidence and measurements are appended. A source refusing does not interrupt
+   the pass: the remaining records are processed and the refusal reaches the run
+   log.
+2. **Links** — whether the registry's addresses resolve. A link rots in silence,
+   and a record with no live source goes on looking grounded. A temporary
+   refusal does not change the mark: publishers refuse robots, and taking that
+   for the death of a link would spoil the registry faster than time spoils
+   addresses.
+3. **Discovery** — the catalogue is asked for the past week under the method
+   tag. It creates no registry records and appends candidates to a queue where a
+   person decides. A work that has been found is a supposition about a
+   technology, not a technology.
+4. **Levels** — recomputed by the rule, with no language model. Only a change
+   reaches the level journal.
+5. **Artefacts** — what the portal reads is rebuilt. The build is stable: with
+   unchanged data the files come out byte for byte the same, so no spurious
+   changes arise.
+6. **Validation** — schema, references, the provenance of numbers. It runs
+   **always**, even when the data did not change: it is cheap and it catches
+   corruption rather than only an update. A failure ends the pass with an error,
+   and it does so **before** anything is committed.
+7. **The run log** — one line, always. It distinguishes "nobody looked" from
+   "nothing happened" and serves as the sign of activity the platform wants: a
+   schedule is disabled after sixty days without commits.
+8. **The digest** — an issue about what changed, when anything did. No language
+   model takes part: an issue retells what has already been computed, and there
+   is nothing in it to invent. An empty issue is not published — the question
+   whether anyone looked is answered by the run log, and the digest answers the
+   question of what was found.
 
-Использование::
+Usage::
 
-    python3 scripts/update.py                 # полный проход
-    python3 scripts/update.py --limit 5       # первые пять записей, для пробы
-    python3 scripts/update.py --only pathrag  # одна запись
-    python3 scripts/update.py --skip-collect  # только пересчёт и сборка
-    python3 scripts/update.py --dry-run       # ничего не записывать
+    python3 scripts/update.py                 # the whole pass
+    python3 scripts/update.py --limit 5       # the first five records, as a trial
+    python3 scripts/update.py --only pathrag  # one record
+    python3 scripts/update.py --skip-collect  # recomputation and build only
+    python3 scripts/update.py --dry-run       # write nothing
 """
 
 from __future__ import annotations

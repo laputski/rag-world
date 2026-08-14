@@ -138,7 +138,7 @@ def test_foreign_work_is_rejected_instead_of_recorded():
         http=http, expected_title="Self-RAG", today=TODAY,
     )
     assert result.evidence == []
-    assert any("надёжного совпадения" in e for e in result.errors)
+    assert any("no reliable match by title" in e for e in result.errors)
 
 
 def test_prefix_match_accepts_full_paper_title():

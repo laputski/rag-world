@@ -1,30 +1,31 @@
-"""Сборщик каталога Papers with Code: площадка публикации и обнаружение работ.
+"""The works-and-code catalogue: a publication venue and a feed of new work.
 
-Каталог даёт две вещи, которых нет у прочих источников.
+The catalogue gives two things the other sources do not.
 
-**Второй источник для уровня L2.** Площадка публикации приходила только из
-открытого индекса работ, и его ошибка ничем не перекрывалась. Здесь она
-приходит из каталога, который ведут люди. Данные о площадке разрежены: у
-большинства препринтов её нет, и тогда свидетельство не создаётся. Это
-правильно: отсутствие сведения не то же самое, что сведение об отсутствии.
+**A second source for the peer-review level.** The publication venue used to
+come from the open index alone, and an error there was covered by nothing. Here
+it comes from a catalogue people maintain. Venue data is sparse: most preprints
+have none, and then no evidence is created. That is right — the absence of
+information is not information about an absence.
 
-**Ленту для обнаружения новых работ.** Метка метода в каталоге проставлена
-людьми, и плотность сигнала от этого меняется на порядок: запрос по метке `rag`
-за неделю даёт около пяти работ, тогда как полнотекстовый поиск в архиве
-препринтов даёт около пятидесяти, и большинство из них приложения, а не
-архитектуры. Пять кандидатов человек просматривает за минуту.
+**A feed for discovering new work.** The method tag in the catalogue is applied
+by people, and the density of the signal changes by an order of magnitude
+because of it: a week of the `rag` tag yields about five works, whereas a
+full-text search of the preprint archive yields about fifty, most of them
+applications rather than architectures. Five candidates take a person a minute
+to look through.
 
-**Ответ проверяется на то, что он отвечает на заданный вопрос.** У каталога есть
-параметры, которые он молча игнорирует: `q`, `arxiv_id`, `title`, `ordering`.
-Обращение с ними отвечает кодом 200 и лентой свежайших работ всей области,
-и такой ответ неотличим от осмысленного. Поэтому здесь проверяется, что
-пришедшая работа имеет запрошенный идентификатор, а работы ленты не старше
-запрошенной даты. Без этой проверки сборщик молча приписывал бы записям чужие
-свидетельства.
+**The answer is checked for answering the question that was asked.** The
+catalogue has parameters it silently ignores: `q`, `arxiv_id`, `title`,
+`ordering`. A request carrying them answers 200 and a feed of the newest work in
+the whole field, and such an answer is indistinguishable from a meaningful one.
+So it is checked here that the work returned carries the identifier requested,
+and that the works of a feed are no older than the date requested. Without that
+check the collector would silently attribute one work's evidence to another.
 
-Каталог ведёт сообщество при Hugging Face после закрытия paperswithcode.com.
-Долговечность его не доказана, поэтому отказ каталога обрабатывается как отказ
-любого другого источника: проход продолжается, отказ попадает в журнал.
+The catalogue is run by the community after paperswithcode.com closed. Its
+longevity is unproven, so a refusal from it is handled like a refusal from any
+other source: the pass continues and the refusal reaches the log.
 """
 
 from __future__ import annotations
@@ -44,31 +45,31 @@ from services.collectors.base import (
 
 PWC_API = "https://paperswithcode.co/api/v1"
 
-#: Метка метода, под которой каталог собирает работы про RAG.
+#: The method tag under which the catalogue gathers work on RAG.
 RAG_METHOD = "rag"
 
-#: Признаки рецензируемой площадки в поле сборника. Каталог пишет туда строку
-#: вида «NeurIPS 2020 12», то есть имя площадки и год.
+#: What marks a peer-reviewed venue in the proceedings field. The catalogue
+#: writes a string there of the form "NeurIPS 2020 12": a venue and a year.
 _VENUE_YEAR = re.compile(r"\b(19|20)\d{2}\b")
 
 
 @dataclass
 class Paper:
-    """Карточка работы в каталоге, приведённая к тому, что нужно порталу."""
+    """A catalogue entry reduced to what the portal needs of it."""
 
     arxiv_id: str
     title: str
-    #: Аннотация работы, как её даёт каталог. Своими словами пересказывать
-    #: нечего: аннотация и есть краткое изложение, написанное авторами.
+    #: The abstract as the catalogue gives it. There is nothing to paraphrase:
+    #: the abstract is already a summary, written by the authors.
     abstract: str
     published: date | None
     venue: str | None
     citations: int | None
     url: str
     repositories: list[str] = field(default_factory=list)
-    #: Метки задач каталога, проставленные людьми. По ним оценивается
-    #: пригодность кандидата реестру, и они же позволяют пересчитать оценку
-    #: без повторного обращения к каталогу.
+    #: The task tags of the catalogue, applied by people. A candidate's fitness
+    #: for the registry is judged from them, and keeping them allows the
+    #: judgement to be recomputed without asking the catalogue again.
     tasks: list[str] = field(default_factory=list)
 
 
@@ -78,16 +79,16 @@ def _paper_url(arxiv_id: str) -> str:
 
 def _get_json(http: HttpGetter, url: str) -> tuple[dict | None, str | None]:
     if not is_allowed_host(url):
-        return None, f"домен вне allowlist: {url}"
+        return None, f"host outside the allowlist: {url}"
     status, body = http.get(url, timeout=30)
     if status == 404:
-        return None, None  # работы в каталоге нет — это ответ, а не сбой
+        return None, None  # the catalogue has no such work: an answer, not a failure
     if status != 200:
-        return None, f"код {status} от {url}"
+        return None, f"status {status} from {url}"
     try:
         return json.loads(body), None
     except (json.JSONDecodeError, UnicodeDecodeError):
-        return None, f"некорректный ответ от {url}"
+        return None, f"malformed answer from {url}"
 
 
 def _as_date(value: object) -> date | None:
@@ -100,11 +101,11 @@ def _as_date(value: object) -> date | None:
 
 
 def _venue_of(payload: dict) -> str | None:
-    """Площадка публикации, если каталог её знает.
+    """The publication venue, when the catalogue knows it.
 
-    Полей три, и заполнено обычно не больше одного. Пустое поле означает, что
-    сведения нет, а не что работа не публиковалась: у Self-RAG, принятого на
-    конференцию, здесь пусто.
+    There are three fields and usually no more than one of them is filled. An
+    empty field means the information is missing, not that the work was never
+    published: Self-RAG was accepted at a conference and has nothing here.
     """
     for key in ("proceeding", "conference_name", "conference"):
         value = payload.get(key)
@@ -114,7 +115,7 @@ def _venue_of(payload: dict) -> str | None:
 
 
 def parse_paper(payload: dict) -> Paper | None:
-    """Привести карточку каталога к виду, который нужен порталу."""
+    """Reduce a catalogue entry to the shape the portal needs."""
     arxiv_id = payload.get("arxiv_id")
     title = payload.get("title")
     if not isinstance(arxiv_id, str) or not isinstance(title, str):
@@ -146,22 +147,23 @@ def parse_paper(payload: dict) -> Paper | None:
 def fetch_paper(
     arxiv_id: str, *, http: HttpGetter
 ) -> tuple[Paper | None, str | None]:
-    """Карточка работы по идентификатору препринта.
+    """The catalogue entry for a preprint identifier.
 
-    Возвращает работу и причину отказа. Пришедшая работа обязана иметь именно
-    запрошенный идентификатор: каталог отвечает лентой свежайших работ на
-    обращения с игнорируемыми параметрами, и такой ответ выглядит осмысленным.
+    Returns the work and the reason for a refusal. The work returned must carry
+    exactly the identifier requested: the catalogue answers a request with
+    ignored parameters by a feed of the newest work, and such an answer looks
+    meaningful.
     """
     payload, error = _get_json(http, _paper_url(arxiv_id))
     if error or payload is None:
         return None, error
     paper = parse_paper(payload)
     if paper is None:
-        return None, f"каталог вернул карточку без обязательных полей: {arxiv_id}"
+        return None, f"the catalogue returned an entry without required fields: {arxiv_id}"
     if paper.arxiv_id != arxiv_id:
         return None, (
-            f"каталог ответил не о том, о чём спрошено: запрошен {arxiv_id}, "
-            f"получен {paper.arxiv_id}"
+            f"the catalogue answered about a different work: {arxiv_id} was "
+            f"asked for, {paper.arxiv_id} came back"
         )
     return paper, None
 
@@ -173,14 +175,14 @@ def collect_venue(
     http: HttpGetter,
     today: date | None = None,
 ) -> CollectResult:
-    """Свидетельство о площадке публикации из каталога.
+    """Evidence of the publication venue, taken from the catalogue.
 
-    Число цитирований пишется в свидетельство, но **не** в ряд показателей.
-    Внимание на карте нормируется внутри возрастной подгруппы, и подгруппа
-    считается по одному счётчику; смешать два счётчика одной работы значило бы
-    сравнивать несравнимое, а правило «берём наибольшее по источникам» ещё и
-    систематически завышало бы результат. Счётчик назван в самом значении,
-    чтобы читатель видел, чьё это число.
+    The citation count is written into the evidence but **not** into the series
+    of measurements. Attention on the map is normalised inside an age subgroup,
+    and a subgroup is computed from one counter. Mixing two counters of one work
+    would mean comparing what is not comparable, and a rule of taking the larger
+    across sources would also inflate the result systematically. The counter is
+    named inside the value so that a reader sees whose number it is.
     """
     today = today or date.today()
     result = CollectResult(source_name="paperswithcode", technology_id=technology_id)
@@ -190,10 +192,10 @@ def collect_venue(
         result.errors.append(error)
         return result
     if paper is None:
-        return result  # работы в каталоге нет
+        return result  # the catalogue has no such work
     if not paper.venue:
-        # Сведения о площадке нет. Свидетельство типа «публикация» без неё
-        # утверждало бы ровно то, что уже утверждает препринт.
+        # There is no venue. Evidence of the publication type without one would
+        # assert exactly what the preprint already asserts.
         return result
 
     peer_reviewed = bool(_VENUE_YEAR.search(paper.venue))
@@ -221,12 +223,13 @@ def discover(
     published_after: date,
     method: str = RAG_METHOD,
 ) -> tuple[list[Paper], list[str]]:
-    """Работы под меткой метода, вышедшие не раньше указанной даты.
+    """Work under the method tag published no earlier than the given date.
 
-    Возвращает найденное и причины отказов. Работы старше запрошенной даты
-    отбрасываются вместе с объяснением: каталог молча игнорирует часть
-    параметров, и лента свежайших работ всей области неотличима от ответа по
-    существу. Пустая лента при этом законна: неделя без новых работ бывает.
+    Returns what was found and the reasons for refusals. Work older than the
+    date requested is dropped with an explanation: the catalogue silently
+    ignores some parameters, and a feed of the newest work in the whole field is
+    indistinguishable from an answer to the point. An empty feed is legitimate,
+    though: a week without new work happens.
     """
     query = urlencode({"method": method, "published_after": published_after.isoformat()})
     payload, error = _get_json(http, f"{PWC_API}/papers/?{query}")
@@ -235,7 +238,7 @@ def discover(
 
     rows = payload.get("results")
     if not isinstance(rows, list):
-        return [], [f"каталог вернул ленту без перечня работ: {type(rows).__name__}"]
+        return [], [f"the catalogue returned a feed without a list of works: {type(rows).__name__}"]
 
     found: list[Paper] = []
     problems: list[str] = []
@@ -246,12 +249,13 @@ def discover(
         if paper is None:
             continue
         if paper.published is None:
-            problems.append(f"работа без даты публикации: {paper.arxiv_id}")
+            problems.append(f"a work without a date of publication: {paper.arxiv_id}")
             continue
         if paper.published < published_after:
             problems.append(
-                f"каталог отдал работу от {paper.published.isoformat()} на запрос "
-                f"от {published_after.isoformat()}: параметр даты не применён"
+                f"the catalogue returned a work from {paper.published.isoformat()} "
+                f"for a request from {published_after.isoformat()}: the date "
+                f"parameter was not applied"
             )
             continue
         found.append(paper)

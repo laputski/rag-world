@@ -1,26 +1,25 @@
-"""Стратифицированное конфигурационное пространство: 28 измерений и ограничения Φ.
+"""The stratified configuration space: 28 dimensions and the constraints Φ.
 
-Декларативное описание схемы, на которой держится весь проект: произвольная
-система RAG представляется точкой этого пространства. Измерения сгруппированы в
-семь стратов A–G (представление знаний, формулировка запроса, извлечение,
-формирование контекста, синтез и контроль, эволюция состояния, оболочка
-ограничений).
+A declarative statement of the schema the whole project rests on: any RAG system
+is represented as a point in this space. The dimensions are grouped into seven
+strata A–G — knowledge representation, query formulation, retrieval, context
+assembly, synthesis and control, state evolution, constraint envelope.
 
-Модуль предметно-нейтрален: только структура пространства, никаких адаптеров и
-бэкендов. Значения — устойчивые ASCII-коды; читаемые человеком подписи живут в
-локализации интерфейса.
+The module is domain-neutral: the structure of the space and nothing else, no
+adapters and no backends. Values are stable ASCII codes, and the labels a person
+reads live in the interface localisation.
 
-Каждое измерение несёт код (A1..G3), имя, упорядоченный список значений, признак
-ядрового или условного и охраняющее условие для условных. Ограничения Φ бывают
-трёх видов:
-  requires — значение требует другого значения (графовая топология требует
-             обхода графа);
-  excludes — значение исключает другое (древесная топология без векторов
-             исключает плотную модель представления);
-  implies  — значение влечёт значение другого измерения по умолчанию.
+Each dimension carries a code (A1..G3), a name, an ordered list of values, a
+mark of whether it is core or conditional, and for a conditional one the guard
+under which it is defined. Constraints Φ come in three kinds:
 
-Связанность решений выражена этими ограничениями явно: недопустимые сочетания
-обнаруживает функция validate(), а не список исключений в прозе.
+  requires — a value requires another value;
+  excludes — a value rules another one out;
+  implies  — a value entails another dimension's value by default.
+
+The coupling between decisions is stated by these constraints explicitly:
+inadmissible combinations are found by validate(), not by a list of exceptions
+written out in prose.
 """
 
 from __future__ import annotations
@@ -31,11 +30,11 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class Dimension:
     code: str            # A1..G3
-    name: str            # человекочитаемое имя (RU)
+    name: str            # human-readable name
     values: tuple[str, ...]
-    core: bool = True    # Я — ядро, определено всегда; У — условное
-    guard: str = ""      # охраняющее условие для условных измерений
-    # Значение по умолчанию: применяется, когда измерение не задано явно.
+    core: bool = True    # core dimensions are always defined; the rest are conditional
+    guard: str = ""      # the condition under which a conditional dimension is defined
+    # The base value: it applies when the dimension is not set explicitly.
     default: str = ""
 
     @property
@@ -45,15 +44,15 @@ class Dimension:
 
 @dataclass(frozen=True)
 class Constraint:
-    """Ограничение Φ между значениями измерений.
+    """A constraint Φ between values of two dimensions.
 
     kind:
-      'requires' — (dim_a, val_a) требует, чтобы в config было (dim_b, val_b).
-                   Если (dim_a,val_a) присутствует, а (dim_b) отсутствует или
-                   отличается — ошибка.
-      'excludes' — (dim_a, val_a) и (dim_b, val_b) не могут встречаться вместе.
-      'implies'  — синоним requires, применяемый как значение по умолчанию при
-                   достройке неполной конфигурации.
+      'requires' — (dim_a, val_a) requires (dim_b, val_b) to be present. If
+                   (dim_a, val_a) is there while dim_b is absent or differs,
+                   that is an error.
+      'excludes' — (dim_a, val_a) and (dim_b, val_b) cannot occur together.
+      'implies'  — the same as requires, applied as a default when completing a
+                   partial configuration.
     """
 
     kind: str
@@ -64,143 +63,147 @@ class Constraint:
     reason: str = ""
 
 
-# ─── 22 измерения по плану 01 §3 ──────────────────────────────────────────────
+# ─── The dimensions ───────────────────────────────────────────────────────────
 
 DIMENSIONS: tuple[Dimension, ...] = (
-    # Группа A — Представление знаний
-    Dimension("A1", "Единица извлечения",
+    # Stratum A — Knowledge representation
+    Dimension("A1", "Unit of retrieval",
               ("passage", "proposition", "entity", "node_edge",
                "page_image", "table_row", "summary_node"), default="passage"),
-    Dimension("A2", "Сегментация",
+    Dimension("A2", "Segmentation",
               ("fixed", "structure_aware", "late_chunking", "semantic", "none"),
               default="fixed"),
-    Dimension("A3", "Обогащение единицы",
+    Dimension("A3", "Unit enrichment",
               ("none", "context_prefix", "summary", "extracted_triples", "metadata"),
               default="none"),
-    Dimension("A4", "Топология индекса",
+    Dimension("A4", "Index topology",
               ("flat", "tree", "graph", "hypergraph", "community_hierarchy"),
               default="flat"),
-    Dimension("A5", "Модель представления",
+    Dimension("A5", "Representation model",
               ("lexical", "dense_single", "dense_multi_late_interaction",
                "symbolic", "vision_language", "none"),
               default="dense_single"),
-    Dimension("A6", "Темпоральность",
+    Dimension("A6", "Temporality",
               ("snapshot", "append_only", "bitemporal"),
-              core=False, guard="определено при F1≠none (эволюция состояния)",
+              core=False, guard="defined when F1 is not none, that is, when state evolves",
               default="snapshot"),
-    Dimension("A7", "Модальность",
+    Dimension("A7", "Modality",
               ("text", "image", "table", "audio", "scene_3d"), default="text"),
-    # Топология говорит, какого рода структура над данными, но не откуда она
-    # взялась. Разница не оттенок: оглавление документа верно по построению, а
-    # иерархия, вычисленная кластеризацией, может оказаться неудачной и меняется
-    # при переиндексации. Vectorless и RAPTOR обе имеют дерево и без этого
-    # измерения неразличимы.
-    Dimension("A8", "Происхождение структуры индекса",
+    # Topology says what kind of structure sits over the data, not where that
+    # structure came from. The difference is not a nuance: a document's table of
+    # contents is correct by construction, whereas a hierarchy computed by
+    # clustering may turn out poor and changes on reindexing. Vectorless and
+    # RAPTOR both have a tree, and without this dimension they are
+    # indistinguishable.
+    Dimension("A8", "Origin of index structure",
               ("none", "given", "extracted", "computed"), default="none"),
 
-    # Группа B — Формулировка и маршрутизация запроса
-    Dimension("B1", "Преобразование запроса",
+    # Stratum B — Query formulation
+    Dimension("B1", "Query transformation",
               ("identity", "hyde", "multi_reformulation", "step_back",
                "subquestion_decomposition"), default="identity"),
-    Dimension("B2", "Маршрутизация",
+    Dimension("B2", "Routing",
               ("static", "trained_classifier", "llm_router", "cost_aware_policy"),
               default="static"),
 
-    # Группа C — Извлечение
-    Dimension("C1", "Оператор поиска",
+    # Stratum C — Retrieval
+    Dimension("C1", "Search operator",
               ("ann", "lexical", "graph_traversal", "boolean_query",
                "tree_navigation", "spatial_range"), default="ann"),
-    Dimension("C2", "Управление обходом",
+    Dimension("C2", "Traversal control",
               ("single_shot", "multi_hop_fixed", "iterative_stopping",
                "agentic_open_loop"), default="single_shot"),
-    Dimension("C3", "Слияние источников",
+    Dimension("C3", "Source fusion",
               ("none", "rrf", "score_normalization", "learned_fusion"),
               default="none"),
-    Dimension("C4", "Распределённость",
+    Dimension("C4", "Distribution",
               ("single_store", "multiple_local", "federation"),
-              core=False, guard="определено при нескольких источниках",
+              core=False, guard="defined when more than one store is involved",
               default="single_store"),
 
-    # Группа D — Формирование контекста
+    # Stratum D — Context assembly
     #
-    # Умолчание D1 было `cross_encoder`, и это переворачивало смысл отсчёта:
-    # переранжировщик есть приём, а базовая конфигурация описывает его
-    # отсутствие. Из-за этого тридцать четыре записи, ничего не
-    # переранжирующие, показывались отступающими от базовой, а двадцать пять с
-    # совместным кодировщиком — совпадающими с ней. Naive Dense, чья проза
-    # прямо называет себя точкой отсчёта, отличался от неё ровно здесь.
+    # The base value of D1 used to be `cross_encoder`, and that inverted the
+    # meaning of the reference point: reranking is a technique, and the base
+    # configuration describes its absence. Thirty-four records that rerank
+    # nothing were shown as departing from the base, while twenty-five using a
+    # joint encoder were shown as matching it. Naive Dense, whose prose calls
+    # itself the reference point, differed from it in exactly this dimension.
     #
-    # Побочно снята скрытая несогласованность: ограничение Φ запрещает
-    # `cross_encoder` при словарной, символьной и отсутствующей модели
-    # представления, поэтому запись с такой моделью и без явного D1
-    # достраивалась до недопустимой конфигурации.
-    Dimension("D1", "Переранжирование",
+    # A hidden inconsistency went with it: a constraint Φ forbids
+    # `cross_encoder` with a lexical, symbolic or absent representation model,
+    # so a record with such a model and no explicit D1 was completed into an
+    # inadmissible configuration.
+    Dimension("D1", "Reranking",
               ("none", "cross_encoder", "graph_structural", "set_cover",
                "path_pruning"), default="none"),
-    Dimension("D2", "Отбор и сжатие",
+    Dimension("D2", "Selection and compression",
               ("top_k", "budget_aware", "abstractive_compression",
                "latent_compression"), default="top_k"),
-    Dimension("D3", "Компоновка",
+    Dimension("D3", "Arrangement",
               ("natural_order", "reliability_ascending", "hierarchical"),
               default="natural_order"),
 
-    # Группа E — Синтез и контроль
-    Dimension("E1", "Режим генерации",
+    # Stratum E — Synthesis and control
+    Dimension("E1", "Generation mode",
               ("single_pass", "draft_verify", "ensemble_fragments",
                "multi_agent"), default="single_pass"),
-    Dimension("E2", "Контроль обоснованности",
+    Dimension("E2", "Groundedness control",
               ("none", "pre_gen_grounding", "post_gen_check",
                "decoding_reflection", "decoding_trigger", "external_judge"),
               default="none"),
-    Dimension("E3", "Атрибуция",
+    Dimension("E3", "Attribution",
               ("none", "document_level", "fragment_level", "claim_level"),
               default="none"),
-    # Управление обходом (C2) говорит, сколько раз система идёт в поиск; режим
-    # генерации (E1) — как устроен синтез. Связь между ними не выражает ни то,
-    # ни другое. HyDE сочиняет запрос один раз, и найденное на сочинённое уже не
-    # влияет; IRCoT ведёт цикл, где рассуждение задаёт запрос, а найденное
-    # меняет рассуждение. В схеме они различались только числом обращений.
-    Dimension("E5", "Связь порождения с извлечением",
+    # Traversal control (C2) says how many times the system goes to retrieval;
+    # the generation mode (E1) says how synthesis is arranged. The link between
+    # the two is expressed by neither. HyDE composes a query once, and what is
+    # found no longer affects what was composed; IRCoT runs a loop where the
+    # reasoning sets the query and what is found changes the reasoning. In the
+    # schema they used to differ only by the number of retrieval calls.
+    Dimension("E5", "Coupling of generation to retrieval",
               ("none", "generation_seeds", "mutual_loop"), default="none"),
-    Dimension("E4", "Политика отказа",
+    Dimension("E4", "Refusal policy",
               ("no_refusal", "confidence_threshold", "domain_policy"),
               default="no_refusal"),
 
-    # Группа F — Эволюция состояния (все условные)
-    Dimension("F1", "Запись обратно",
+    # Stratum F — State evolution
+    Dimension("F1", "Write-back",
               ("none", "episodic", "consolidating"),
-              core=False, guard="определено для систем с памятью", default="none"),
-    Dimension("F2", "Разрешение противоречий",
+              core=False, guard="defined for systems that keep memory", default="none"),
+    Dimension("F2", "Conflict resolution",
               ("none", "by_time", "by_authority", "explicit_reconciliation"),
-              core=False, guard="определено при F1≠none", default="none"),
-    Dimension("F3", "Забывание",
+              core=False, guard="defined when F1 is not none", default="none"),
+    Dimension("F3", "Forgetting",
               ("none", "by_ttl", "by_significance_decay"),
-              core=False, guard="определено при F1≠none", default="none"),
+              core=False, guard="defined when F1 is not none", default="none"),
 
-    # Группа G — Оболочка ограничений (G1/G3 влияют на поведение — ADR-007, 01-6)
-    Dimension("G1", "Приватность",
+    # Stratum G — Constraint envelope
+    Dimension("G1", "Privacy",
               ("open", "isolated_circuit", "differential_privacy", "tee"),
               default="open"),
-    Dimension("G2", "Место исполнения",
+    Dimension("G2", "Execution site",
               ("server", "edge_device", "mixed"), default="server"),
-    Dimension("G3", "Обучаемость компонентов",
+    Dimension("G3", "Trainability of components",
               ("frozen", "trained_retriever", "trained_reader", "joint_training"),
               default="frozen"),
 )
 
-# Состав схемы: A1–A8 = 8, B1–B2 = 2, C1–C4 = 4, D1–D3 = 3, E1–E5 = 5,
-# F1–F3 = 3, G1–G3 = 3, всего 28 измерений, из них условных пять: A6, C4, F1–F3.
-# Число зафиксировано проверкой, чтобы изменение состава было осознанным: правка
-# схемы требует одновременного обновления научного текста и данных реестра.
+# The composition of the schema: A1–A8 = 8, B1–B2 = 2, C1–C4 = 4, D1–D3 = 3,
+# E1–E5 = 5, F1–F3 = 3, G1–G3 = 3, twenty-eight dimensions in all, five of them
+# conditional: A6, C4, F1–F3. The count is fixed by a check so that changing the
+# composition is a deliberate act: an edit to the schema requires the scientific
+# text and the registry data to be updated in the same breath.
 #
-# Два измерения добавлены по очереди остатков: происхождение структуры индекса
-# (A8) и связь порождения с извлечением (E5). Оба выдвинула не догадка, а счёт:
-# первое пришлось записывать в остаток у четырёх записей, второе у шести.
+# Two dimensions entered through the residual queue: the provenance of the index
+# structure (A8) and the coupling of generation to retrieval (E5). Neither was
+# proposed by a hunch; both were proposed by a count. The first had to be
+# written into the residual of four records, the second of six.
 SCHEMA_SIZE = 28
 _n = len(DIMENSIONS)
-assert _n == SCHEMA_SIZE, f"ожидалось {SCHEMA_SIZE} измерений, определено {_n}"
+assert _n == SCHEMA_SIZE, f"expected {SCHEMA_SIZE} dimensions, defined {_n}"
 
-# Быстрый доступ по коду.
+# Lookup by code.
 BY_CODE: dict[str, Dimension] = {d.code: d for d in DIMENSIONS}
 CORE_CODES: tuple[str, ...] = tuple(d.code for d in DIMENSIONS if d.core)
 CONDITIONAL_CODES: tuple[str, ...] = tuple(d.code for d in DIMENSIONS if not d.core)
@@ -208,67 +211,74 @@ ALL_VALUES: dict[str, tuple[str, ...]] = {d.code: d.values for d in DIMENSIONS}
 DEFAULTS: dict[str, str] = {d.code: d.default for d in DIMENSIONS}
 
 
-# ─── Ограничения Φ ───────────────────────────────────────────────────────────
-# Каждое несовместимое или требующее сочетание значений описано здесь явно и
-# проверяется автоматически. Список пополняется по мере появления архитектур,
-# обнажающих новую несовместимость.
+# ─── Constraints Φ ───────────────────────────────────────────────────────────
+# Every incompatible or requiring combination of values is stated here
+# explicitly and checked automatically. The list grows as architectures appear
+# that expose a new incompatibility.
 
 CONSTRAINTS: tuple[Constraint, ...] = (
-    # Плоский индекс и отсутствие структуры — одно и то же, сказанное с двух
-    # сторон. Связь двусторонняя, поэтому записана обоими направлениями.
+    # A flat index and the absence of structure are one thing said from two
+    # sides. The link runs both ways, so it is written in both directions.
     Constraint("requires", "A4", "flat", "A8", "none",
-               reason="у плоского индекса структуры нет, и её происхождения тоже"),
+               reason="a flat index has no structure, hence no provenance for one"),
     Constraint("requires", "A8", "none", "A4", "flat",
-               reason="отсутствие структуры означает плоский индекс"),
-    # Цикл между порождением и поиском невозможен без повторных обращений.
-    # Обратного ограничения нет: повторные обращения бывают и без участия
-    # порождения — например, фиксированный многошаговый обход.
+               reason="the absence of structure means a flat index"),
+    # A loop between generation and retrieval is impossible without repeated
+    # retrieval calls. There is no converse constraint: repeated calls also
+    # happen without generation taking part, as in a fixed multi-hop traversal.
     Constraint("excludes", "E5", "mutual_loop", "C2", "single_shot",
-               reason="цикл порождения и поиска требует повторных обращений"),
+               reason="a generation-retrieval loop requires repeated retrieval calls"),
 
-    # Ограничения «дерево исключает векторы» здесь были и сняты: они обобщали
-    # свойство одной системы на всё значение. Не использует векторы Vectorless,
-    # а не древовидный индекс вообще — RAPTOR строит дерево рекурсивной
-    # кластеризацией представлений и ими же ищет. Свойство самой Vectorless
-    # выражается значением A5=none и отдельного запрета не требует.
+    # Constraints saying "a tree excludes vectors" stood here and were removed:
+    # they generalised a property of one system to a whole value. It is
+    # Vectorless that uses no vectors, not the tree index as such — RAPTOR
+    # builds its tree by recursively clustering representations and searches by
+    # those same representations. The property belongs to Vectorless alone, it
+    # is expressed by A5=none, and it needs no separate prohibition.
     #
-    # Урок общий: несовместимость записывается сюда, только если она следует из
-    # устройства значений, а не из того, что первая встреченная система такого
-    # сочетания не имела.
-    # cross_encoder несовместим с невекторными моделями (none, lexical, symbolic).
-    # dense_single/multi/vision_language допустимы — cross_encoder работает по любому
-    # векторному входу. Это разрешает graph store + cross_encoder (PathRAG-стиль),
-    # где rerank применяется поверх графовых результатов.
+    # The lesson generalises: an incompatibility belongs here only when it
+    # follows from what the values are, not from the first system encountered
+    # happening to lack the combination.
+    #
+    # A cross-encoder is incompatible with non-vector representation models
+    # (none, lexical, symbolic) and admissible with all vector ones, because it
+    # works over any vector input. That admits a graph store together with a
+    # cross-encoder, as in PathRAG, where reranking is applied over results
+    # obtained from the graph.
     Constraint("excludes", "D1", "cross_encoder", "A5", "none",
-               reason="cross_encoder требует векторного входа (не none)"),
+               reason="a cross-encoder requires vector input, and none is not one"),
     Constraint("excludes", "D1", "cross_encoder", "A5", "lexical",
-               reason="cross_encoder требует векторного входа (не lexical)"),
+               reason="a cross-encoder requires vector input, and lexical is not one"),
     Constraint("excludes", "D1", "cross_encoder", "A5", "symbolic",
-               reason="cross_encoder требует векторного входа (не symbolic)"),
-    # 2. hypergraph store + path_pruning несовместимы (OG-RAG использует set_cover).
+               reason="a cross-encoder requires vector input, and symbolic is not one"),
+    # A hypergraph ontology selects context by covering sets of hyperedges, so
+    # there are no paths in it to prune.
     Constraint("excludes", "A4", "hypergraph", "D1", "path_pruning",
-               reason="hypergraph ontology использует set_cover, не path-pruning"),
-    # 3. graph store требует graph_traversal как оператор поиска (требует, не исключает).
-    # Ограничение «граф требует обхода» здесь было и снято: оно тоже обобщало
-    # одну реализацию на всё значение. Граф можно не обходить шаг за шагом, а
-    # запрашивать языком запросов графовой базы — так устроен Unified RAG, и
-    # это обычная практика, а не исключение. Второй раз подряд ограничение
-    # заставляло приписывать записи значение, которого в источнике нет.
-    # 4. self_rag_tokens (decoding_reflection) требует fine-tuned модели (G3≠frozen).
+               reason="a hypergraph ontology covers sets, it does not prune paths"),
+    # A constraint saying "a graph requires traversal" stood here and was
+    # removed for the same reason: it too generalised one implementation to a
+    # whole value. A graph need not be walked step by step; it can be asked in
+    # the query language of a graph database, which is how Unified RAG works and
+    # is ordinary practice rather than an exception. For the second time running,
+    # a constraint was forcing a value onto a record that its sources do not
+    # state.
+    #
+    # Reflection during decoding is performed by special tokens the reader emits,
+    # and a frozen reader emits none of them.
     Constraint("requires", "E2", "decoding_reflection", "G3", "trained_reader",
-               reason="reflection tokens требуют fine-tuned LLM (lat.md §4)"),
-    # 5. agentic traversal + crag_evaluator — двойной corrective-слой (предупредить).
-    #    Формализуем как excludes (избыточно по lat.md §4).
+               reason="reflection during decoding requires a reader trained to emit it"),
+    # An open agentic loop already decides whether what was found suffices, so a
+    # separate check after generation duplicates that decision.
     Constraint("excludes", "C2", "agentic_open_loop", "E2", "post_gen_check",
-               reason="agentic + post-gen check — двойной corrective-слой (§4)"),
-    # 6. iterative/agentic traversal требуют не-single_shot — encoded в C2 значениях.
-    #    multi_hop требует graph/topology (обход осмыслен только по графу/дереву).
+               reason="an open agentic loop already checks what was found"),
+    # A hop leads from one node to another, so a fixed multi-hop traversal is
+    # meaningful only over a graph.
     Constraint("requires", "C2", "multi_hop_fixed", "A4", "graph",
-               reason="multi_hop осмыслен только над графом"),
+               reason="multi-hop traversal is meaningful only over a graph"),
 )
 
 
-# ─── API для проверки конфигурации ────────────────────────────────────────────
+# ─── The configuration-checking interface ─────────────────────────────────────
 
 
 def is_valid_value(code: str, value: str) -> bool:
@@ -276,58 +286,61 @@ def is_valid_value(code: str, value: str) -> bool:
 
 
 def validate(config: dict[str, str]) -> list[str]:
-    """Вернуть список ошибок конфигурации (пустой = допустима).
+    """Return the configuration's errors; an empty list means it is admissible.
 
-    Проверяет: (1) каждое значение принадлежит измерению; (2) ни одно requires/
-    excludes-ограничение не нарушено. Условные измерения могут отсутствовать
-    (охраняющее условие не выполнено) — это не ошибка.
+    Two things are checked: that every value belongs to its dimension, and that
+    no requires or excludes constraint is broken. A conditional dimension may be
+    absent, meaning its guard does not hold, and that is not an error.
     """
     errors: list[str] = []
 
-    # (1) Значения в каталоге.
+    # Values belong to their dimensions.
     for code, value in config.items():
         if code not in BY_CODE:
-            errors.append(f"Неизвестное измерение {code!r}")
+            errors.append(f"unknown dimension {code!r}")
             continue
         if not is_valid_value(code, value):
             errors.append(
-                f"Измерение {code}: {value!r} не в {ALL_VALUES[code]}"
+                f"dimension {code}: {value!r} is not in {ALL_VALUES[code]}"
             )
 
-    # (2) Ограничения Φ.
+    # Constraints Φ hold.
     for c in CONSTRAINTS:
         a_val = config.get(c.dim_a)
         b_val = config.get(c.dim_b)
         if a_val != c.val_a:
-            continue  # ограничение неактивно (условие-источник не выполнено)
+            continue  # the constraint is dormant: its left-hand value is absent
         if c.kind == "excludes":
             if b_val == c.val_b:
                 errors.append(
-                    f"{c.dim_a}={c.val_a} исключает {c.dim_b}={c.val_b}: {c.reason}"
+                    f"{c.dim_a}={c.val_a} excludes {c.dim_b}={c.val_b}: {c.reason}"
                 )
         elif c.kind == "requires":
-            # requires: если b-измерение задано, оно должно совпадать; если не задано
-            # — это не ошибка для условных, но ошибка для ядровых (которые обязаны
-            # присутствовать в полной конфигурации). Здесь проверяем только конфликт.
+            # If the required dimension is set, it must match. If it is absent,
+            # that is no error for a conditional dimension, and for a core one it
+            # is caught by the completeness check elsewhere. Only a conflict is
+            # reported here.
             if b_val is not None and b_val != c.val_b:
                 errors.append(
-                    f"{c.dim_a}={c.val_a} требует {c.dim_b}={c.val_b}, "
-                    f"получено {c.dim_b}={b_val!r}: {c.reason}"
+                    f"{c.dim_a}={c.val_a} requires {c.dim_b}={c.val_b}, "
+                    f"got {c.dim_b}={b_val!r}: {c.reason}"
                 )
     return errors
 
 
 def independence_degree() -> float:
-    """Степень независимости схемы (определение 6 плана 01) — аппроксимация.
+    """Approximate the degree to which the schema's decisions are independent.
 
-    Точное вычисление требует перебора ~10^14 конфигураций (21 ядровое измерение),
-    что неисполнимо. Используется локальная аппроксимация: доля пар
-    (значение, значение) из разных измерений, которые не запрещены excludes-Φ,
-    среди всех возможных пар. Величина описательная; **не** использовать как
-    показатель «улучшения» между версиями схемы (замечание 01-8) — при дроблении
-    измерения на два степень растёт, хотя предметная область не изменилась.
+    Computing the quantity exactly would mean enumerating some 10^14
+    configurations, which cannot be done. A local approximation is used instead:
+    the share of value pairs drawn from two different core dimensions that no
+    excludes constraint forbids, among all such pairs.
+
+    The number is descriptive, and it must not be read as a measure of
+    improvement between versions of the schema. Splitting one dimension into two
+    raises it while nothing about the subject matter has changed.
     """
-    # Все пары значений из РАЗНЫХ измерений (ядровых).
+    # Every pair of values drawn from two different core dimensions.
     excludes_pairs: set[tuple[str, str, str, str]] = {
         (c.dim_a, c.val_a, c.dim_b, c.val_b) for c in CONSTRAINTS if c.kind == "excludes"
     }
@@ -349,14 +362,15 @@ def independence_degree() -> float:
 
 
 def dead_values() -> list[tuple[str, str]]:
-    """Мёртвые значения: недостижимые ни в одной допустимой конфигурации.
+    """Dead values: those unreachable in any admissible configuration.
 
-    Полный перебор ~10^14 конфигураций неисполним, поэтому используется
-    локальный анализ: значение считается мёртвым, если оно состоит в excludes-
-    ограничении, запрещающем его вместе со ВСЕМИ значениями другого измерения,
-    ИЛИ в requires-ограничении, требующем значение, которого нет в каталоге.
-    Это нижняя оценка (могут быть и более тонкие случаи мёртвости, но они
-    требуют разрешения системы ограничений — выходит за рамки Ф3).
+    Full enumeration is again out of reach, so the analysis is local. A value
+    counts as dead when it stands in an excludes constraint that forbids it
+    together with every value of some other dimension, or in a requires
+    constraint demanding a value the catalogue does not contain.
+
+    This is a lower bound. Subtler forms of deadness exist, but finding them
+    requires solving the constraint system.
     """
     dead: list[tuple[str, str]] = []
     for d in DIMENSIONS:
@@ -369,13 +383,13 @@ def dead_values() -> list[tuple[str, str]]:
 
 
 def _is_locally_dead(code: str, value: str) -> bool:
-    """Локальная проверка мёртвости значения по excludes/requires."""
-    # requires: требует значение, отсутствующее в каталоге → мёртвое.
+    """Check a single value for local deadness against excludes and requires."""
+    # Requires a value absent from the catalogue, hence unreachable.
     for c in CONSTRAINTS:
         if c.kind == "requires" and c.dim_a == code and c.val_a == value:
             if c.val_b not in ALL_VALUES.get(c.dim_b, ()):
                 return True
-        # excludes: запрещает со всеми значениями другого измерения.
+        # Excluded together with every value of another dimension.
         if c.kind == "excludes" and c.dim_a == code and c.val_a == value:
             other = BY_CODE.get(c.dim_b)
             if other and len(other.values) == 1 and c.val_b == other.values[0]:
@@ -383,19 +397,19 @@ def _is_locally_dead(code: str, value: str) -> bool:
     return False
 
 
-# ─── Страты ──────────────────────────────────────────────────────────────────
+# ─── Strata ──────────────────────────────────────────────────────────────────
 
 STRATA: dict[str, str] = {
-    "A": "Представление знаний",
-    "B": "Формулировка и маршрутизация запроса",
-    "C": "Извлечение",
-    "D": "Формирование контекста",
-    "E": "Синтез и контроль",
-    "F": "Эволюция состояния",
-    "G": "Оболочка ограничений",
+    "A": "Knowledge representation",
+    "B": "Query formulation",
+    "C": "Retrieval",
+    "D": "Context assembly",
+    "E": "Synthesis and control",
+    "F": "State evolution",
+    "G": "Constraint envelope",
 }
 
 
 def dimensions_of(stratum: str) -> tuple[Dimension, ...]:
-    """Измерения одного страта в порядке объявления."""
+    """The dimensions of one stratum, in the order they are declared."""
     return tuple(d for d in DIMENSIONS if d.group == stratum)

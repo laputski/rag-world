@@ -1,27 +1,27 @@
-"""Пригодность кандидата реестру: детерминированное правило, без языковой модели.
+"""How well a candidate fits the registry: a deterministic rule, no model involved.
 
-Обнаружение приносит около двадцати работ в неделю, и все они помечены в
-каталоге как относящиеся к RAG. Между тем реестр держит **именованные
-технологии извлечения**, а большинство находок — применения RAG к предметной
-области: восстановление исторических документов, ответы по химической
-литературе, экономические модели мира. Читать двадцать аннотаций подряд, чтобы
-отделить одно от другого, владелец перестанет на третьей неделе.
+Discovery brings in around twenty works a week, every one of them tagged in the
+catalogue as RAG. The registry, meanwhile, holds **named retrieval
+technologies**, while most of what turns up are applications of RAG to some
+field: restoring historical documents, answering over chemistry literature,
+economic world models. Reading twenty abstracts in a row to tell one from the
+other is a habit that dies in the third week.
 
-Отсюда оценка. Она **не утверждение о работе**, а порядок просмотра очереди:
-показывает, на что смотреть сначала. Ровно поэтому она живёт только в очереди
-кандидатов и никогда не попадает на карточку технологии: там всё, что портал
-говорит, обязано быть проверяемым, а здесь — эвристика.
+Hence the score. It is **not a claim about the work** but an order of review: it
+says what to look at first. That is exactly why it lives only in the candidate
+queue and never reaches a technology card. On a card, everything the portal says
+has to be checkable; here it is a heuristic.
 
-Признаки названы поимённо и показываются вместе с оценкой. Число без слагаемых
-означало бы «поверьте», а портал построен на обратном.
+The signals are named and shown alongside the score. A number without its terms
+would amount to "take our word for it", and the portal is built on the opposite.
 
-Чего в оценке нет и почему:
+What the score deliberately leaves out:
 
-* **числа цитирований.** У работы недельной давности оно равно нулю у всех, и
-  признак не различает ничего;
-* **наличия репозитория.** Каталог это поле не заполняет: из двадцати четырёх
-  найденных работ репозиторий указан у нуля. Признак, всегда равный нулю,
-  выглядит как данные, не будучи ими.
+* **citation counts.** For a work a week old the count is zero for everyone, so
+  the signal separates nothing;
+* **whether a repository exists.** The catalogue does not fill that field: of
+  twenty-four works found, zero listed one. A signal that is always zero looks
+  like data without being data.
 """
 
 from __future__ import annotations
@@ -29,31 +29,31 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-#: Метки задач каталога, попадающие в предмет реестра. Список выведен из того,
-#: чем каталог действительно помечает работы про RAG, а не из воображения.
+#: Catalogue task tags that fall inside the registry's subject. The list was
+#: derived from what the catalogue actually tags RAG work with, not from guesswork.
 CORE_TASKS = frozenset({
     "retrieval",
     "embedding-models",
     "learning-to-rank",
 })
 
-#: Метки, соседние предмету: работа может оказаться и архитектурой извлечения,
-#: и применением. Сами по себе решают мало.
+#: Tags adjacent to the subject: the work may be a retrieval architecture or an
+#: application of one. On their own they settle little.
 NEAR_TASKS = frozenset({
     "question-answering",
     "reasoning",
     "summarization",
     "agents",
     "language-modeling",
-    # Понимание документов бывает и предметом реестра, и предметом области:
-    # восстановление исторических рукописей помечено им же. Одной этой метки
-    # мало, чтобы работа считалась работой об извлечении.
+    # Document understanding belongs to the registry's subject and to other
+    # fields alike: restoring historical manuscripts carries the same tag. This
+    # tag alone does not make a work a work about retrieval.
     "document-understanding",
 })
 
-#: Метки, говорящие о другой области. Признак отрицательный только тогда, когда
-#: ядровых меток нет вовсе: работа про извлечение в мультимодальной системе
-#: остаётся работой про извлечение.
+#: Tags that point at another field. The signal counts against a work only when
+#: no core tag is present at all: a paper about retrieval inside a multimodal
+#: system is still a paper about retrieval.
 OFF_TASKS = frozenset({
     "image-restoration",
     "image-understanding",
@@ -66,18 +66,19 @@ OFF_TASKS = frozenset({
     "text-to-image",
 })
 
-#: Слова, которыми описывают устройство извлечения. Считаются в аннотации:
-#: работа про архитектуру говорит об индексе, разбиении, переранжировании, а
-#: работа-применение говорит о предметной области.
+#: Words used to describe how retrieval is built. They are counted in the
+#: abstract: a paper about an architecture talks of indexes, chunking and
+#: reranking, while an application talks about its field.
 MECHANISM_WORDS = (
     "retriev", "index", "chunk", "passage", "rerank", "re-rank", "embedding",
     "vector", "corpus", "knowledge graph", "grounding", "context window",
     "query rewrit", "hybrid search", "sparse", "dense", "bm25", "recall@",
 )
 
-#: Заголовок вида «LEDGERMIND: Provenance-Constrained…»: имя стоит до
-#: двоеточия и коротко. Записи реестра именованы, и своё имя работы — сильный
-#: признак того, что она предлагает вещь, а не применяет чужую.
+#: A title of the form "LEDGERMIND: Provenance-Constrained…": the name comes
+#: before the colon and is short. Registry records are named things, and a work
+#: naming itself is strong evidence that it proposes one rather than applies
+#: someone else's.
 _NAMED = re.compile(r"^\s*([A-Z][\w.\-]{1,24}(?:\s[A-Z][\w.\-]{1,24})?)\s*:")
 
 MAX_SCORE = 10
@@ -85,14 +86,15 @@ MAX_SCORE = 10
 
 @dataclass
 class Fit:
-    """Оценка пригодности и её слагаемые.
+    """A fitness score and the terms it is made of.
 
-    Слагаемые показываются читателю вместе с числом: оценка без них требует
-    веры, а её здесь просить не за что.
+    The terms are shown to the reader along with the number: a score without
+    them asks for trust, and there is nothing here to trust it on.
 
-    Признак записывается кодом и величинами, а не готовой фразой. Причина та
-    же, по которой словарь остатков хранит коды: портал двуязычен, и фраза,
-    собранная правилом, оказалась бы на одном языке у обоих читателей.
+    A signal is recorded as a code and its parameters, not as a finished phrase.
+    The reason is the one behind the residual vocabulary: the portal is
+    bilingual, and a phrase assembled by a rule would reach both readers in one
+    language.
     """
 
     score: int = 0
@@ -119,20 +121,20 @@ def assess(
     tasks: list[dict] | None = None,
     curated_by: list[str] | None = None,
 ) -> Fit:
-    """Оценить пригодность работы реестру по её карточке в каталоге.
+    """Score how well a work fits the registry, from its catalogue entry.
 
-    Возвращает целое от нуля до десяти и перечень сработавших признаков.
-    Целое, а не дробь: точность здесь мнимая, а десяти ступеней хватает, чтобы
-    отсортировать два десятка работ.
+    Returns a whole number from zero to ten and the signals that fired. Whole,
+    not fractional: precision here would be imaginary, and ten steps are enough
+    to sort a couple of dozen works.
     """
     fit = Fit()
     slugs = _task_slugs(tasks)
 
-    # Включение в тематический список — решение человека, разбирающегося в
-    # предмете, тогда как метка задачи в каталоге проставлена тем, кто работу
-    # выложил. Без этого признака работы, найденные по спискам, получали бы
-    # заведомо низкую оценку не по своим свойствам, а по бедности источника:
-    # меток задач список не несёт вовсе.
+    # Inclusion in a topic list is a decision by someone who works in the field,
+    # whereas a catalogue task tag was applied by whoever uploaded the work.
+    # Without this signal, works found through lists would score low not for
+    # their properties but for the poverty of the source: a list carries no
+    # task tags at all.
     if curated_by:
         fit.add(2, "curatedList", lists=sorted(curated_by))
 

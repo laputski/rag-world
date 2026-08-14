@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-"""Обнаружение новых работ: очередь кандидатов, а не записи реестра.
+"""Discovery of new work: a candidate queue, not registry records.
 
-Найденная работа — не технология, а предположение о ней. Решение «это новая
-архитектура, а не приложение существующей» принимает человек: правило здесь
-ошибается, а цена ошибки — запись реестра о том, чего нет. Поэтому обнаружение
-**не заводит записей** и дописывает строки в `data/candidates.jsonl`.
+A work that has been found is not a technology but a supposition about one. The
+decision that this is a new architecture rather than an application of an
+existing one belongs to a person: a rule errs here, and the price of the error
+is a registry record about something that does not exist. Discovery therefore
+**creates no records** and appends lines to `data/candidates.jsonl`.
 
-Журнал только добавляется, как свидетельства. Вердикт проставляется отдельно и
-означает решение: `accepted` — запись реестра заведена, `rejected` — причина
-записана, кандидат больше не всплывёт.
+The journal is append-only, like the evidence. A verdict is entered separately
+and states a decision: `accepted` means a registry record now exists, `rejected`
+means the reason is written down and the candidate will not surface again.
 
-Отсев до просмотра делается машинно и без языковой модели: отбрасывается то,
-что уже есть в реестре по номеру препринта либо по имени, и то, что уже
-получило вердикт. Отсев по существу («это приложение, а не архитектура») машине
-не поручается.
+Filtering before review is done mechanically and without a language model: what
+is already in the registry by preprint number or by name is dropped, and so is
+what already carries a verdict. Filtering on the substance, deciding that this
+is an application rather than an architecture, is not delegated to a machine.
 
-Использование::
+Usage::
 
-    python3 scripts/discover.py                 # за неделю
-    python3 scripts/discover.py --since 30      # за тридцать дней
-    python3 scripts/discover.py --dry-run       # показать, не записывая
+    python3 scripts/discover.py                 # the past week
+    python3 scripts/discover.py --since 30      # the past thirty days
+    python3 scripts/discover.py --dry-run       # show without writing
 """
 
 from __future__ import annotations

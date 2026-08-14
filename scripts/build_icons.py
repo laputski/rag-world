@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
-"""Значки портала: файл вкладки, значок для устройств и картинка предпросмотра.
+"""The portal's icons: the tab file, the device icon, the link preview image.
 
-Знак нарисован кодом в `ui/src/components/Logo.tsx`, а значки нужны файлами:
-вкладка браузера, значок на домашнем экране и предпросмотр ссылки читаются
-площадками, которые кода портала не выполняют. Отсюда задача — получить те же
-клетки в файлах, не заводя второго описания знака.
+The mark is drawn in code, in `ui/src/components/Logo.tsx`, and the icons are
+needed as files: a browser tab, a home-screen icon and a link preview are read
+by platforms that do not run the portal's code. Hence the task — obtain the same
+cells as files without keeping a second description of the mark.
 
-Рисунок и цвета поэтому **читаются из исходников интерфейса**, а не
-переписываются сюда. Разбор узкий и проверяемый: если он не нашёл семь страт
-или двадцать восемь клеток, сборка останавливается. Расхождение так становится
-громким, тогда как переписанный вручную рисунок разошёлся бы молча и обнаружился
-бы на чужом предпросмотре.
+The pattern and the colours are therefore **read out of the interface sources**
+rather than copied here. The parsing is narrow and checkable: if it does not
+find seven strata or twenty-eight cells, the build stops. A divergence is made
+loud that way, whereas a hand-copied drawing would diverge in silence and be
+discovered on somebody else's link preview.
 
-Растр пишется своими руками поверх `zlib`: знак состоит из прямоугольников, и
-рисовать их в буфер пикселей проще, чем заводить зависимость от разрисовщика
-векторной графики ради четырнадцати квадратов.
+The raster is written by hand over `zlib`: the mark consists of rectangles, and
+drawing them into a pixel buffer is simpler than taking a dependency on a vector
+graphics renderer for the sake of fourteen squares.
 
-Использование::
+Usage::
 
     python3 scripts/build_icons.py
-    python3 scripts/build_icons.py --check   # проверить, не собирая
+    python3 scripts/build_icons.py --check   # check without building
 """
 
 from __future__ import annotations

@@ -1,8 +1,9 @@
-"""Файловый реестр технологий RAG.
+"""The file-based registry of RAG technologies.
 
-Реестр проекта — версионируемые файлы каталога `data/`. Этот пакет содержит
-модели записей и операции чтения и записи; всё остальное (сборщики, сборка
-артефактов, проверки) работает через него и не знает о раскладке файлов.
+The registry is the versioned files of the `data/` directory. This package holds
+the models of the records and the read and write operations; everything else —
+the collectors, the artefact build, the validation — works through it and knows
+nothing of how the files are laid out.
 """
 
 from services.registry.store import (

@@ -1,20 +1,20 @@
-"""Чтение и запись файлового реестра.
+"""Reading and writing the file-based registry.
 
-Раскладка описана в `docs/DATA.md`. Коротко:
+The layout is described in `docs/DATA.md`. In short::
 
-    data/technologies/<id>.json   факты, файл на запись
-    data/evidence/YYYY-MM.jsonl   свидетельства, только добавление
-    data/metrics/YYYY.jsonl       временные ряды показателей
-    data/levels/history.jsonl     журнал изменений уровня
+    data/technologies/<id>.json   the facts, one file per record
+    data/evidence/YYYY-MM.jsonl   evidence, append-only
+    data/metrics/YYYY.jsonl       the measurement series
+    data/levels/history.jsonl     the journal of level changes
 
-Свидетельства и показатели **только добавляются**: существующая строка никогда не
-переписывается, поэтому любое значение уровня объяснимо набором свидетельств,
-доступных на момент вычисления (принцип K6). Записи технологий, наоборот,
-перезаписываются целиком, а история изменений остаётся в системе контроля версий.
+Evidence and measurements are **appended only**: an existing line is never
+rewritten, so any level is explicable by the evidence available when it was
+computed. Technology records, by contrast, are rewritten whole, and the history
+of their changes stays in version control.
 
-Файлы записываются устойчиво: ключи объектов упорядочены, отступ фиксирован, в
-конце перевод строки. Это делает различия между версиями читаемыми и не даёт
-появляться шумным изменениям, за которыми не стоит содержания.
+Files are written stably: object keys are ordered, the indent is fixed, and
+there is a newline at the end. That makes the difference between two versions
+readable and keeps spurious changes with no content behind them from appearing.
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from typing import Iterable, Iterator, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-# Корень данных: каталог `data/` рядом с корнем репозитория.
+# The root of the data: the `data/` directory beside the root of the repository.
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
 TECHNOLOGIES_DIR = DATA_DIR / "technologies"
@@ -35,29 +35,30 @@ METRICS_DIR = DATA_DIR / "metrics"
 LEVELS_FILE = DATA_DIR / "levels" / "history.jsonl"
 COLLECTION_LOG = DATA_DIR / "collection_log.jsonl"
 
-#: Род объекта. «Атака» стоит особняком: остальные роды описывают системы RAG
-#: или их части и потому занимают место в конфигурационном пространстве, а
-#: атака действует **на** такую систему извне. Своих значений измерений у неё
-#: нет, и базовые утверждали бы, что она сегментирует документы и ищет
-#: ближайших соседей, чего она не делает.
+#: The kind of an object. An attack stands apart: the other kinds describe RAG
+#: systems or parts of them and therefore occupy a place in the configuration
+#: space, whereas an attack acts **upon** such a system from outside. It has no
+#: dimension values of its own, and base ones would assert that it segments
+#: documents and searches for nearest neighbours, which it does not do.
 Kind = Literal[
     "paradigm", "architecture", "technique", "tool", "artifact", "attack"
 ]
 
-#: Роды, к которым конфигурационное пространство неприменимо целиком.
+#: The kinds the configuration space does not apply to at all.
 KINDS_WITHOUT_CONFIGURATION = frozenset({"attack"})
 LinkKind = Literal["paper", "preprint", "github", "product", "venue", "other"]
-#: Состояние источника.
+#: The state of a source.
 #:
-#: `guarded` появилось потому, что без него у ссылки не было выхода из
-#: состояния «не смотрели». Издательства и часть площадок отвечают роботам
-#: отказом по правам, и такой отказ намеренно не считается смертью ссылки:
-#: принять его за неё значит испортить реестр быстрее, чем время испортит
-#: адреса. Но тогда адрес навсегда оставался в `needs_review`, неотличимый от
-#: того, на который никто ещё не смотрел, и никто об этом не узнавал.
+#: `guarded` came about because without it a link had no way out of the state
+#: "nobody looked". Publishers and some venues answer robots with a refusal on
+#: rights, and such a refusal is deliberately not counted as the death of a
+#: link: taking it for one would spoil the registry faster than time spoils
+#: addresses. But then the address stayed in `needs_review` for ever,
+#: indistinguishable from one nobody had looked at, and nobody learned of it.
 #:
-#: `guarded` утверждает проверяемое: обращение было, адрес ответил, показывать
-#: себя роботу отказался. Подтвердить его может только человек.
+#: `guarded` asserts something checkable: the request was made, the address
+#: answered, and it declined to show itself to a robot. Only a person can
+#: confirm it.
 LinkStatus = Literal["verified", "needs_review", "unresolved", "guarded"]
 EvidenceType = Literal[
     "publication",
@@ -72,22 +73,22 @@ EvidenceType = Literal[
 
 
 class Link(BaseModel):
-    """Разрешимый источник сведений о технологии."""
+    """A resolvable source of information about a technology."""
 
     model_config = ConfigDict(extra="forbid")
 
     url: str
     kind: LinkKind = "other"
     label: str | None = None
-    #: Английская подпись ссылки. Заполняется только там, где подпись написана
-    #: по-русски: адрес и обозначение препринта в переводе не нуждаются.
+    #: The English label of the link. It is filled in only where the label is
+    #: written in Russian: an address and a preprint number need no translation.
     label_en: str | None = None
     status: LinkStatus = "needs_review"
     verified_at: date | None = None
 
 
 class Technology(BaseModel):
-    """Факты о технологии. Длинные тексты сюда не попадают (принцип K3)."""
+    """The facts about a technology. Long texts do not belong here."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -96,51 +97,53 @@ class Technology(BaseModel):
     aliases: list[str] = Field(default_factory=list)
     kind: Kind
     family: str | None = None
-    #: Страты измерений A–G, к которым относится вклад технологии.
+    #: The strata A–G the technology's contribution belongs to.
     groups: list[str] = Field(default_factory=list)
-    #: Значения измерений — главное поле для сравнения технологий.
+    #: The dimension values, the field two technologies are compared by.
     configuration: dict[str, str] = Field(default_factory=dict)
-    #: Механизмы, не выразимые схемой измерений: коды из словаря остатков
-    #: (`data/residual_vocabulary.json`). Свободный текст не допускается —
-    #: подсчёт повторов возможен только при совпадающих формулировках.
+    #: Mechanisms the schema does not express, as codes from the residual
+    #: vocabulary (`data/residual_vocabulary.json`). Free text is inadmissible:
+    #: counting repetitions is possible only when the wording coincides.
     residual: list[str] = Field(default_factory=list)
-    #: Измерения, значение которых система выбирает во время работы или в
-    #: зависимости от режима. Записанное значение — из самой полной ветви;
-    #: пометка говорит, что оно не единственное. Без неё сравнение считает
-    #: запись занимающей одну клетку, а карта пробелов объявляет соседние
-    #: клетки пустыми, хотя система занимает и их.
+    #: Dimensions whose value the system chooses while running or according to
+    #: its mode. The value written down is the one from the fullest branch, and
+    #: this mark says it is not the only one. Without it, a comparison treats
+    #: the record as occupying a single cell and the gap map declares the
+    #: neighbouring cells empty although the system occupies them too.
     configuration_variable: list[str] = Field(default_factory=list)
-    #: Измерения, неприменимые к объекту: у поисковика нет ступени синтеза, и
-    #: «генерация однопроходная» — утверждение о несуществующем. Такие
-    #: измерения не имеют значения в `configuration` вовсе: отсутствие
-    #: значения и значение по умолчанию — разные утверждения, ровно как
-    #: отсутствие уровня и уровень L0.
+    #: Dimensions inapplicable to the object: a retriever has no synthesis
+    #: stage, so "generation is single-pass" asserts something about what does
+    #: not exist. Such dimensions carry no value in `configuration` at all: an
+    #: absent value and a base value are different assertions, exactly as an
+    #: absent level and the level L0 are.
     configuration_inapplicable: list[str] = Field(default_factory=list)
-    #: Дата разбора конфигурации по источникам. Пусто — запись не разбирали, и
-    #: её значения по умолчанию ничего не утверждают. Проставлено — значения
-    #: сверены с первоисточником, включая совпавшие с базовыми: «совпадает с
-    #: базовой конфигурацией» и «не смотрели» — разные утверждения, и без этой
-    #: даты карта пробелов показывала бы вторые как первые.
+    #: The date the configuration was read out of the sources. Empty means the
+    #: record was never read and its base values assert nothing. Filled in means
+    #: the values were checked against the primary source, those coinciding with
+    #: the base ones included: "it matches the base configuration" and "nobody
+    #: looked" are different assertions, and without this date the gap map would
+    #: show the second as the first.
     configuration_reviewed: date | None = None
     prose_id: str | None = None
     first_published: str | None = None
-    #: Имя пакета в индексе пакетов Python, если он существует. Заполняется
-    #: человеком: вывести его из имени технологии нельзя, а угадывать нельзя
-    #: тем более — чужой пакет с похожим именем даст ложное свидетельство.
+    #: The name of the package in the Python package index, when one exists. It
+    #: is filled in by a person: it cannot be derived from the technology's name,
+    #: and guessing is worse still — somebody else's package with a similar name
+    #: would yield false evidence.
     package: str | None = None
     links: list[Link] = Field(default_factory=list)
 
 
 class Evidence(BaseModel):
-    """Свидетельство в пользу уровня зрелости. Никогда не перезаписывается."""
+    """Evidence for a maturity level. It is never rewritten."""
 
     model_config = ConfigDict(extra="forbid")
 
     technology_id: str
     type: EvidenceType
     value: str | None = None
-    #: Английская запись значения. Нужна там, где значение писал человек:
-    #: собранные автоматически значения приходят на английском от источника.
+    #: The English wording of the value. It is needed where a person wrote the
+    #: value: values collected automatically arrive in English from the source.
     value_en: str | None = None
     source: str
     fetched_at: date
@@ -149,7 +152,7 @@ class Evidence(BaseModel):
 
 
 class MetricPoint(BaseModel):
-    """Точка временного ряда: цитирования, звёзды, загрузки пакета."""
+    """A point of a series: citations, stars, package downloads."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -161,55 +164,55 @@ class MetricPoint(BaseModel):
 
 
 class CollectionRun(BaseModel):
-    """Запись о прогоне сбора. Появляется всегда, даже когда ничего не изменилось.
+    """A record of a collection pass. It appears always, even when nothing changed.
 
-    Служит трём целям сразу. Во-первых, различает «данные старые, потому что
-    никто не смотрел» и «данные старые, потому что ничего не происходило» —
-    без этого читатель не может судить о свежести. Во-вторых, даёт площадке
-    признак активности: расписание отключается после шестидесяти дней без
-    коммитов, а строка журнала — это коммит. В-третьих, показывает, какие
-    источники отвечали, а какие нет.
+    It serves three purposes at once. It distinguishes "the data is old because
+    nobody looked" from "the data is old because nothing happened", without
+    which a reader cannot judge freshness. It gives the platform a sign of
+    activity: a schedule is disabled after sixty days without commits, and a
+    line of this journal is a commit. And it shows which sources answered and
+    which did not.
     """
 
     model_config = ConfigDict(extra="forbid")
 
     ran_at: date
-    #: Опрошенные источники: arxiv, openalex, github, pypi, frameworks.
+    #: The sources polled: arxiv, openalex, github, pypi, frameworks.
     sources: list[str] = Field(default_factory=list)
     evidence_added: int = 0
     metrics_added: int = 0
     levels_changed: int = 0
-    #: Сколько обращений к источникам не дали результата.
+    #: How many requests to sources yielded nothing.
     source_errors: int = 0
-    #: Сколько адресов реестра проверено на разрешимость и сколько исчезло.
+    #: How many registry addresses were checked, and how many had vanished.
     links_checked: int = 0
     links_broken: int = 0
-    #: Изменились ли данные реестра; если нет, артефакты не пересобираются.
+    #: Whether the registry data changed; if not, the artefacts are not rebuilt.
     data_changed: bool = False
 
 
 class LevelEntry(BaseModel):
-    """Строка журнала уровней. Добавляется только при изменении уровня."""
+    """A line of the level journal. It is added only when the level changes."""
 
     model_config = ConfigDict(extra="forbid")
 
     technology_id: str
     level: str
     confidence: float
-    #: `computed` — вычислено правилом; `manual` — введено человеком там, где
-    #: машиночитаемого источника не существует.
+    #: `computed` means the rule produced it; `manual` means a person entered it
+    #: where no machine-readable source exists.
     evidence_basis: Literal["computed", "manual"] = "computed"
     rule_version: str
     computed_at: date
-    #: Свидетельства, учтённые при вычислении: тип и источник.
+    #: The evidence the computation took into account: type and source.
     evidence_snapshot: list[dict[str, str]] = Field(default_factory=list)
 
 
-# ─── Служебное ───────────────────────────────────────────────────────────────
+# ─── Internals ───────────────────────────────────────────────────────────────
 
 
 def _dump(model: BaseModel) -> str:
-    """Каноническое представление записи: устойчивый порядок ключей."""
+    """The canonical form of a record: a stable order of keys."""
     return json.dumps(
         model.model_dump(mode="json", exclude_none=False),
         ensure_ascii=False,
@@ -238,11 +241,11 @@ def _append_jsonl(path: Path, models: Iterable[BaseModel]) -> int:
     return len(rows)
 
 
-# ─── Технологии ──────────────────────────────────────────────────────────────
+# ─── Technologies ────────────────────────────────────────────────────────────
 
 
 def load_technologies() -> list[Technology]:
-    """Все записи реестра, упорядоченные по идентификатору."""
+    """Every record of the registry, ordered by identifier."""
     if not TECHNOLOGIES_DIR.exists():
         return []
     items = [
@@ -260,7 +263,7 @@ def load_technology(tech_id: str) -> Technology | None:
 
 
 def save_technology(tech: Technology) -> Path:
-    """Записать запись целиком. История изменений остаётся в системе версий."""
+    """Write a record whole. The history of its changes stays in version control."""
     TECHNOLOGIES_DIR.mkdir(parents=True, exist_ok=True)
     path = TECHNOLOGIES_DIR / f"{tech.id}.json"
     payload = json.dumps(
@@ -270,16 +273,16 @@ def save_technology(tech: Technology) -> Path:
     return path
 
 
-# ─── Свидетельства ───────────────────────────────────────────────────────────
+# ─── Evidence ────────────────────────────────────────────────────────────────
 
 
 def evidence_path(when: date) -> Path:
-    """Помесячный раздел: закрытый месяц больше не переписывается."""
+    """A partition by month: a closed month is never rewritten again."""
     return EVIDENCE_DIR / f"{when.year:04d}-{when.month:02d}.jsonl"
 
 
 def load_evidence(technology_id: str | None = None) -> list[Evidence]:
-    """Все свидетельства, при необходимости отобранные по технологии."""
+    """All the evidence, filtered by technology when one is given."""
     if not EVIDENCE_DIR.exists():
         return []
     out: list[Evidence] = []
@@ -292,10 +295,10 @@ def load_evidence(technology_id: str | None = None) -> list[Evidence]:
 
 
 def append_evidence(items: Iterable[Evidence]) -> int:
-    """Добавить свидетельства, разложив их по месяцам получения.
+    """Append evidence, filed by the month it was fetched in.
 
-    Дубликаты по (технология, тип, источник, значение) отбрасываются: повторный
-    прогон сборщиков не должен раздувать журнал.
+    Duplicates by technology, type, source and value are dropped: a second run
+    of the collectors must not inflate the journal.
     """
     items = list(items)
     if not items:
@@ -313,7 +316,7 @@ def append_evidence(items: Iterable[Evidence]) -> int:
     return sum(_append_jsonl(path, rows) for path, rows in by_month.items())
 
 
-# ─── Показатели ──────────────────────────────────────────────────────────────
+# ─── Measurements ────────────────────────────────────────────────────────────
 
 
 def metrics_path(when: date) -> Path:
@@ -333,16 +336,18 @@ def load_metrics(technology_id: str | None = None) -> list[MetricPoint]:
 
 
 def append_metrics(points: Iterable[MetricPoint]) -> int:
-    """Добавить точки ряда, отбросив повторное измерение того же дня.
+    """Append points of a series, dropping a repeated measurement of one day.
 
-    Без этого еженедельный прогон дописывал бы одну и ту же величину при каждом
-    запуске: ряд рос бы, не неся новых сведений, а бот коммитил бы шум.
+    Without this the weekly pass would append the same quantity on every run:
+    the series would grow while carrying nothing new, and the bot would commit
+    noise.
 
-    Источник входит в ключ, и это существенно. У записи может быть несколько
-    работ, и каждая даёт **свою** скорость цитирования: ключ без источника
-    схлопнул бы разные измерения в одно и потерял бы всё, кроме первого.
-    Значение в ключ, наоборот, не входит — иначе повторное измерение того же
-    источника в тот же день прошло бы как новая точка, а это и есть шум.
+    The source is part of the key, and that matters. A record may have several
+    works, and each yields **its own** citation velocity: a key without the
+    source would collapse different measurements into one and lose all but the
+    first. The value, on the contrary, is not part of the key — otherwise a
+    repeated measurement of the same source on the same day would pass as a new
+    point, and that is exactly the noise.
     """
     points = list(points)
     if not points:
@@ -361,7 +366,7 @@ def append_metrics(points: Iterable[MetricPoint]) -> int:
     return sum(_append_jsonl(path, rows) for path, rows in by_year.items())
 
 
-# ─── Уровни ──────────────────────────────────────────────────────────────────
+# ─── Levels ──────────────────────────────────────────────────────────────────
 
 
 def load_levels(technology_id: str | None = None) -> list[LevelEntry]:
@@ -372,17 +377,17 @@ def load_levels(technology_id: str | None = None) -> list[LevelEntry]:
 
 
 def latest_level(technology_id: str) -> LevelEntry | None:
-    """Последняя запись журнала для технологии, либо None, если её нет.
+    """The last journal entry for a technology, or None when there is none.
 
-    Отсутствие записи означает «уровень не вычислялся» и отличается от уровня L0:
-    представления обязаны показывать это различие, а не подставлять ноль.
+    An absent entry means the level was never computed, which differs from the
+    level L0: the views must show that difference rather than substitute a zero.
     """
     entries = load_levels(technology_id)
     return entries[-1] if entries else None
 
 
 def load_runs() -> list[CollectionRun]:
-    """Журнал прогонов сбора, от старых к новым."""
+    """The journal of collection passes, oldest first."""
     return [CollectionRun.model_validate(row) for row in _read_jsonl(COLLECTION_LOG)]
 
 
@@ -392,16 +397,17 @@ def latest_run() -> CollectionRun | None:
 
 
 def append_run(run: CollectionRun) -> None:
-    """Дописать запись о прогоне. Выполняется всегда, даже без изменений."""
+    """Append a record of a pass. This happens always, changes or no changes."""
     COLLECTION_LOG.parent.mkdir(parents=True, exist_ok=True)
     _append_jsonl(COLLECTION_LOG, [run])
 
 
 def append_level(entry: LevelEntry) -> bool:
-    """Добавить запись, если уровень действительно изменился.
+    """Append an entry when the level has actually changed.
 
-    Возвращает True, если запись добавлена. Пересчёт без изменения уровня журнал
-    не трогает, поэтому он читается как хроника, а не как лог запусков.
+    Returns True when an entry was added. A recomputation that changed nothing
+    leaves the journal untouched, so it reads as a chronicle rather than a log
+    of runs.
     """
     previous = latest_level(entry.technology_id)
     if previous is not None and previous.level == entry.level:

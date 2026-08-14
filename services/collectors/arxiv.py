@@ -1,14 +1,16 @@
-"""Сборщик arXiv (STAGE-7 Ф8, план 03 §5.2 S1).
+"""The preprint-archive collector.
 
-Опрашивает arXiv API по идентификатору публикации или запросу, извлекает
-метаданные (заголовок, год, авторы) и возвращает кандидатные свидетельства
-типа publication. Запись в БД делает оркестратор.
+Asks the archive about a publication by its identifier, extracts the metadata
+and returns candidate evidence of the publication type. Writing to the registry
+is the orchestrator's job.
 
-arXiv API: http://export.arxiv.org/api/query?id_list=XXXX.XXXXX
-Возвращает Atom XML; заголовок в <entry><title>.
+The interface answers Atom XML at
+http://export.arxiv.org/api/query?id_list=XXXX.XXXXX, with the title inside
+<entry><title>.
 
-Ключевая роль:actual_title проверяется ступенью S5 на совпадение с ожидаемым
-заголовком — та проверка, что нашла 3 ошибочные ссылки в рецензии (99-review).
+The title matters beyond display: the cross-check stage compares the title the
+archive returns against the title the registry expects. That comparison is what
+found three links pointing at a different work than the record claimed.
 """
 
 from __future__ import annotations
@@ -24,18 +26,18 @@ ATOM_NS = "{http://www.w3.org/2005/Atom}"
 
 
 def _extract_arxiv_id(url: str) -> str | None:
-    """Извлечь arXiv-id из URL или вернуть само значение, если это уже id."""
+    """Pull the archive identifier out of a URL, or return an identifier as is."""
     m = re.search(r"arxiv\.org/(?:abs|pdf)/([0-9]{4}\.[0-9]{4,5}|[a-z\-]+/[0-9]{7})", url, re.I)
     if m:
         return m.group(1)
-    # голый id
+    # A bare identifier.
     if re.fullmatch(r"[0-9]{4}\.[0-9]{4,5}|[a-z\-]+/[0-9]{7}", url):
         return url
     return None
 
 
 def _parse_atom_entries(xml_bytes: bytes) -> list[dict[str, str]]:
-    """Извлечь записи из Atom-ответа arXiv: [{id, title, published, summary}]."""
+    """Extract the entries of an Atom answer: [{id, title, published, summary}]."""
     entries: list[dict[str, str]] = []
     try:
         root = ET.fromstring(xml_bytes)
@@ -50,9 +52,10 @@ def _parse_atom_entries(xml_bytes: bytes) -> list[dict[str, str]]:
         title = (entry.findtext(f"{ATOM_NS}title", default="") or "").strip()
         title = re.sub(r"\s+", " ", title)
         published = entry.findtext(f"{ATOM_NS}published", default="") or ""
-        # Аннотация обещана описанием функции с самого начала, но не
-        # извлекалась: обнаружение по курируемым спискам оценивает пригодность
-        # именно по ней, и без неё оценка вырождается в догадку по заголовку.
+        # The abstract was promised by this function's description from the
+        # start yet was not extracted. Discovery from curated lists judges a
+        # work's fitness by the abstract, and without it the judgement degrades
+        # into a guess from the title.
         summary = (entry.findtext(f"{ATOM_NS}summary", default="") or "").strip()
         summary = re.sub(r"\s+", " ", summary)
         entries.append({
@@ -70,38 +73,38 @@ def collect_arxiv(
     expected_title: str | None = None,
     today: date | None = None,
 ) -> CollectResult:
-    """Собрать публикацию из arXiv по id/URL.
+    """Collect a publication from the preprint archive by identifier or URL.
 
-    Возвращает CollectResult с одним RawEvidence (publication), содержащим
-    actual_title для проверки S5. expected_title — ожидаемый заголовок (из
-    реестра/сида); если задан, S5 сравнит его с actual_title.
+    Returns one piece of raw evidence of the publication type, carrying the
+    title the archive actually returned. When `expected_title` is given, the
+    cross-check stage compares the two.
     """
     today = today or date.today()
     result = CollectResult(source_name="arxiv", technology_id=technology_id)
 
     arxiv_id = _extract_arxiv_id(arxiv_id_or_url)
     if not arxiv_id:
-        result.errors.append(f"не удалось извлечь arXiv-id из {arxiv_id_or_url!r}")
+        result.errors.append(f"no archive identifier could be read from {arxiv_id_or_url!r}")
         return result
 
     url = f"{ARXIV_API}?id_list={arxiv_id}"
     if not is_allowed_host(url):
-        result.skipped.append(f"домен вне allowlist: {url}")
+        result.skipped.append(f"host outside the allowlist: {url}")
         return result
 
     status, body = http.get(url, timeout=20)
     if status != 200:
-        result.errors.append(f"arXiv API вернул {status} для {arxiv_id}")
+        result.errors.append(f"the preprint archive answered {status} for {arxiv_id}")
         return result
 
     entries = _parse_atom_entries(body)
     if not entries:
-        result.errors.append(f"arXiv: нет записи для {arxiv_id}")
+        result.errors.append(f"the preprint archive has no entry for {arxiv_id}")
         return result
 
     entry = entries[0]
     actual_title = entry["title"]
-    # published → год публикации (для проверки S5: год не противоречит препринту).
+    # The year of publication, which the cross-check stage tests for plausibility.
     year = entry["published"][:4] if entry["published"] else ""
 
     result.evidence.append(RawEvidence(
@@ -111,7 +114,7 @@ def collect_arxiv(
         source=f"https://arxiv.org/abs/{arxiv_id}",
         fetched_at=today,
         obtained_by="auto",
-        verified=False,  # S5 решит, verified ли
+        verified=False,  # the cross-check stage decides whether it is verified
         expected_title=expected_title,
         actual_title=actual_title,
     ))

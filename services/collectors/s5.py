@@ -1,22 +1,19 @@
-"""Ступень S5: детерминированные проверки свидетельств (STAGE-7 Ф8, план 03 §5.2).
+"""The cross-check stage: deterministic checks over candidate evidence.
 
-S5 применяет к кандидатным свидетельствам дисциплину обоснованности, которую
-конструктор применяет к ответам RAG: каждое утверждение должно подтверждаться
-досленвым фрагментом источника. Здесь — БЕЗ LLM, чисто детерминированные
-проверки (план 03 §5.1: «вычисление уровня выполняется детерминированной
-функцией без участия языковой модели»).
+The stage holds candidate evidence to the same discipline of groundedness the
+portal demands of its own claims: every assertion must be supported by what the
+source literally says. No language model takes part, and every check here is
+deterministic.
 
-Проверки:
-  1. Совпадение заголовка: expected_title ≈ actual_title (нормализованное).
-     Та проверка, что нашла 3 ошибочные ссылки в рецензии (99-review): id
-     разрешается, но заголовок по id не совпадает с заявленным.
-  2. Год публикации не противоречит препринту (в пределах разумного окна).
-  3. Численные значения в допустимом диапазоне (cited_by_count >= 0 и т.п.).
-  4. Лицензия репозитория присутствует и распознаваема.
-  5. Домен источника в allowlist (C4).
+What is checked:
 
-Решение 03-5: согласие агентов здесь не учитывается (S5 детерминирована;
-согласие агентов в S4/S6 лишь повышает приоритет рассмотрения).
+  1. The title matches. The title the source returned is compared with the
+     title the registry expects. This is the check that found three links whose
+     identifier resolved while the work behind it was a different one.
+  2. The year of publication is plausible.
+  3. Numeric values fall in an admissible range: no negative citation counts and
+     no downloads below zero.
+  4. The host of the source is on the allowlist.
 """
 
 from __future__ import annotations
@@ -29,22 +26,22 @@ from services.collectors.base import RawEvidence, is_allowed_host
 
 @dataclass
 class CheckResult:
-    """Результат детерминированной проверки одного свидетельства."""
+    """The outcome of checking one piece of evidence."""
 
     passed: bool
     reasons: list[str] = field(default_factory=list)
 
 
 def _normalize_title(s: str) -> str:
-    """Нормализация заголовка для сравнения: нижний регистр, удалить пунктуацию."""
+    """Normalise a title for comparison: lower case, punctuation removed."""
     s = s.lower()
-    # Заменить всё небуквенно-цифровое на пробел, сжать.
+    # Everything that is not a letter or a digit becomes a space.
     s = re.sub(r"[^a-z0-9]+", " ", s).strip()
     return re.sub(r"\s+", " ", s)
 
 
 def _title_similarity(a: str, b: str) -> float:
-    """Грубая мера сходства заголовков: доля общих слов (Jaccard)."""
+    """A coarse similarity of two titles: the share of words they share."""
     wa = set(_normalize_title(a).split())
     wb = set(_normalize_title(b).split())
     if not wa or not wb:
@@ -52,58 +49,58 @@ def _title_similarity(a: str, b: str) -> float:
     return len(wa & wb) / len(wa | wb)
 
 
-#: Величины, которые не бывают отрицательными, и как они записаны в свидетельстве.
-#: Перечень задан по тому, что сборщики действительно пишут: образец, не
-#: совпадающий с форматом значения, — это защита, которой нет.
+#: Quantities that are never negative, and how a collector writes them into the
+#: value. The list follows what the collectors actually write: a pattern that
+#: does not match the format is a protection that does not exist.
 _NON_NEGATIVE: tuple[tuple[str, str], ...] = (
-    (r"cited_by=(-?\d+)", "число цитирований отрицательно"),
-    (r"citation_velocity=(-?[\d.]+)", "скорость цитирования отрицательна"),
-    (r"downloads_last_month=(-?\d+)", "число загрузок отрицательно"),
-    (r"stars=(-?\d+)", "число звёзд отрицательно"),
+    (r"cited_by=(-?\d+)", "the citation count is negative"),
+    (r"citation_velocity=(-?[\d.]+)", "the citation velocity is negative"),
+    (r"downloads_last_month=(-?\d+)", "the download count is negative"),
+    (r"stars=(-?\d+)", "the number of stars is negative"),
 )
 
-#: Нижняя граница года публикации: раньше вычислительной техники работ нет.
+#: The lower bound on a year of publication: no work predates computing.
 MIN_YEAR = 1900
 
-# Порог сходства заголовков: ниже — считается несовпадением (S5 отклоняет).
-# 0.6 — умеренный порог: ловит явные расхождения (LiDAR vs MA-RAG), но допускает
-# варианты написания (Self-RAG vs Self-RAG: Learning to Retrieve...).
+# Below this similarity the titles count as different and the evidence is
+# rejected. The threshold is moderate on purpose: it catches an outright
+# mismatch between two unrelated works while admitting a title given in short
+# and in full form.
 TITLE_SIMILARITY_THRESHOLD = 0.6
 
 
 def check(evidence: RawEvidence) -> CheckResult:
-    """Детерминированная проверка одного свидетельства (ступень S5).
+    """Check one piece of evidence deterministically.
 
-    Возвращает CheckResult(passed, reasons). passed=False → свидетельство
-    не записывается в БД (или помечается unverifed, в зависимости от класса
-    изменения S8).
+    When the result does not pass, the evidence is not written to the registry.
     """
     reasons: list[str] = []
 
-    # 1. Домен источника в allowlist (C4, мера 5.4.2).
+    # The host of the source is on the allowlist.
     if not is_allowed_host(evidence.source):
-        reasons.append(f"домен источника вне allowlist: {evidence.source}")
+        reasons.append(f"the source host is outside the allowlist: {evidence.source}")
 
-    # 2. Совпадение заголовка (если оба заданы). Применимо только к publication —
-    # для repository/framework_presence и пр. поля expected/actual_title несут
-    # иную семантику (заметка), и проверка заголовка к ним не относится.
+    # The titles match, when both are given. This applies to publications only:
+    # for repository and framework evidence the two title fields carry a note of
+    # a different kind, and comparing them would mean nothing.
     if evidence.type == "publication" and evidence.expected_title and evidence.actual_title:
         sim = _title_similarity(evidence.expected_title, evidence.actual_title)
         if sim < TITLE_SIMILARITY_THRESHOLD:
             reasons.append(
-                f"несовпадение заголовка: ожидаемый ~ фактический "
-                f"(сходство {sim:.2f} < {TITLE_SIMILARITY_THRESHOLD})"
+                f"the titles do not match: similarity {sim:.2f} is below "
+                f"{TITLE_SIMILARITY_THRESHOLD}"
             )
 
-    # 3. Численные значения в допустимом диапазоне.
+    # Numeric values fall in an admissible range.
     #
-    # Источник может ответить синтаксически исправно и содержательно
-    # бессмысленно. Такой ответ опаснее отказа: отказ виден, а бессмыслица
-    # выглядит как результат и попадает в шкалу.
+    # A source can answer in perfect syntax and complete nonsense. Such an answer
+    # is more dangerous than a refusal: a refusal is visible, whereas nonsense
+    # looks like a result and reaches the maturity scale.
     #
-    # Верхняя граница года берётся от даты сбора, а не зашивается числом:
-    # зашитая граница либо отвергает верные данные, когда время до неё дойдёт,
-    # либо, как здесь до исправления, пропускает 2099 год как допустимый.
+    # The upper bound on the year is taken from the date of collection rather
+    # than written in as a number. A written-in bound either rejects correct data
+    # once time reaches it or, as this one did before the fix, admits the year
+    # 2099 as plausible.
     val = evidence.value or ""
     for pattern, message in _NON_NEGATIVE:
         found = re.search(pattern, val)
@@ -117,12 +114,12 @@ def check(evidence: RawEvidence) -> CheckResult:
         year = int(year_text)
         if year < MIN_YEAR or year > max_year:
             reasons.append(
-                f"год публикации {year} вне диапазона {MIN_YEAR}..{max_year}"
+                f"the year of publication {year} is outside {MIN_YEAR}..{max_year}"
             )
 
     return CheckResult(passed=not reasons, reasons=reasons)
 
 
 def check_many(evidence_list: list[RawEvidence]) -> list[tuple[RawEvidence, CheckResult]]:
-    """Проверить пакет свидетельств; вернуть [(evidence, result)]."""
+    """Check a batch of evidence and return each item with its outcome."""
     return [(e, check(e)) for e in evidence_list]

@@ -99,14 +99,14 @@ def test_arxiv_handles_missing_entry():
     http = FakeHttp({"id_list=0000.00000": (200, body)})
     result = arxiv.collect_arxiv("x", "0000.00000", http=http, today=TODAY)
     assert result.evidence == []
-    assert any("нет записи" in e for e in result.errors)
+    assert any("has no entry" in e for e in result.errors)
 
 
 def test_arxiv_invalid_id_extracted():
     http = FakeHttp({})
     result = arxiv.collect_arxiv("x", "https://example.com/notarxiv", http=http, today=TODAY)
     assert result.evidence == []
-    assert any("arXiv-id" in e for e in result.errors)
+    assert any("no archive identifier" in e for e in result.errors)
 
 
 def test_arxiv_handles_api_error_status():
@@ -198,7 +198,9 @@ def test_openalex_extracts_citations():
 def test_openalex_handles_invalid_json():
     http = FakeHttp({"openalex.org": (200, b"not json")})
     result = openalex.collect_openalex("x", "test query", http=http, today=TODAY)
-    assert any("JSON" in e for e in result.errors) or any("нет" in e.lower() for e in result.errors)
+    assert any("JSON" in e for e in result.errors) or any(
+        "no such work" in e for e in result.errors
+    )
 
 
 # ─── S5: детерминированные проверки ──────────────────────────────────────────
@@ -230,7 +232,7 @@ def test_s5_title_mismatch_reproduces_broken_links():
     )
     res = s5.check(ev)
     assert not res.passed
-    assert any("несовпадение заголовка" in r for r in res.reasons)
+    assert any("titles do not match" in r for r in res.reasons)
 
 
 def test_s5_unknown_domain_rejected():
@@ -252,7 +254,7 @@ def test_s5_negative_citations_rejected():
     )
     res = s5.check(ev)
     assert not res.passed
-    assert any("цитирован" in r for r in res.reasons), res.reasons
+    assert any("citation count is negative" in r for r in res.reasons), res.reasons
 
 
 def test_s5_year_out_of_range_rejected():

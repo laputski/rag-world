@@ -1,22 +1,24 @@
-"""Обнаружение работ по курируемым тематическим спискам.
+"""Discovery from curated topic lists.
 
-Каталог работ находит новое по меткам задач, и это его сила и его предел.
-Метку ставит тот, кто выкладывает работу, поэтому каталог знает о работе ровно
-то, что о ней заявили, и не знает, признали ли её своей те, кто в области
-работает. Курируемый список знает обратное: он ничего не знает о метках, но
-включение в него есть решение человека, разбирающегося в предмете.
+The works-and-code catalogue finds new work by task tags, and that is both its
+strength and its limit. The tag is applied by whoever uploads the work, so the
+catalogue knows exactly what was claimed about a work and does not know whether
+the people working in the field have recognised it as theirs. A curated list
+knows the opposite: it knows nothing about tags, but inclusion in it is the
+decision of a person who understands the subject.
 
-Отсюда роль этого сборщика. Он не заменяет каталог, а добавляет второй, иначе
-устроенный отбор: работа, попавшая в обзорный список по графовому извлечению,
-признана своей сообществом, даже если в каталоге метка ей не проставлена.
+Hence this collector's role. It does not replace the catalogue; it adds a second
+selection built on a different principle. A work that made it into a survey list
+on graph retrieval has been recognised by the community even when no tag was
+ever applied to it.
 
-Сборщик читает разметку списка и достаёт из неё **идентификаторы**, а сведения
-о работе берёт у arXiv. Порядок именно такой и по существу: список пишут
-руками, и доверять его формулировкам как источнику нельзя, тогда как
-идентификатор проверяем и однозначен.
+The collector reads the markup of a list and takes **identifiers** out of it,
+while the information about a work comes from the preprint archive. That order
+is deliberate: a list is written by hand and its wording cannot be trusted as a
+source, whereas an identifier is checkable and unambiguous.
 
-Записей сборщик не заводит: он пополняет очередь кандидатов, где решение
-принимает человек, как и для прочих путей обнаружения.
+The collector creates no records. It fills the candidate queue, where the
+decision is a person's, as it is for every other route of discovery.
 """
 
 from __future__ import annotations
@@ -32,24 +34,25 @@ from services.collectors.paperswithcode import Paper
 
 @dataclass(frozen=True)
 class CuratedList:
-    """Курируемый список, из которого берутся идентификаторы работ."""
+    """A curated list the identifiers of works are taken from."""
 
-    #: Имя списка. Попадает в очередь кандидатов как происхождение находки.
+    #: The name of the list. It reaches the candidate queue as the provenance.
     name: str
-    #: Адрес разметки. Берётся сырой файл, а не страница: страница несёт
-    #: оформление площадки, которое меняется независимо от содержания списка.
+    #: The address of the markup. The raw file is taken rather than the page:
+    #: the page carries the hosting platform's chrome, which changes
+    #: independently of the content of the list.
     readme: str
-    #: Страница списка для читателя.
+    #: The page of the list, for a reader.
     page: str
-    #: Обзор, по которому список составлен, если он есть.
+    #: The survey the list accompanies, when there is one.
     survey: str | None = None
 
 
-#: Списки, которые опрашиваются.
+#: The lists that are polled.
 #:
-#: Перечень намеренно короткий. Курируемый список полезен ровно настолько,
-#: насколько его ведёт человек, разбирающийся в предмете; список, собранный
-#: ради числа звёзд, даёт шум, который потом разбирать руками.
+#: The set is deliberately short. A curated list is useful exactly to the extent
+#: that a person who understands the subject keeps it; a list assembled for the
+#: sake of stars yields noise that has to be sorted out by hand afterwards.
 CURATED_LISTS: tuple[CuratedList, ...] = (
     CuratedList(
         name="Awesome-GraphRAG",
@@ -59,10 +62,10 @@ CURATED_LISTS: tuple[CuratedList, ...] = (
     ),
 )
 
-#: Строка записи в списке: род площадки в скобках, заголовок полужирным,
-#: где-то дальше ссылка на препринт. Разбирается именно эта форма, а всё
-#: прочее пропускается: попытка понять произвольную разметку кончается
-#: выдуманными заголовками.
+#: The shape of an entry: the venue in parentheses, the title in bold, and a
+#: link to the preprint somewhere after. Exactly this shape is parsed and
+#: everything else is passed over: trying to understand arbitrary markup ends in
+#: invented titles.
 ENTRY = re.compile(
     r"^-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"
     r"(?P<tail>.*?)$",
@@ -71,20 +74,20 @@ ENTRY = re.compile(
 
 ARXIV_LINK = re.compile(r"arxiv\.org/(?:abs|pdf)/(?P<id>[0-9]{4}\.[0-9]{4,5})")
 
-#: Год в обозначении площадки: «(ICLR 2026)» даёт 2026.
+#: The year inside the venue: "(ICLR 2026)" yields 2026.
 VENUE_YEAR = re.compile(r"\b(19|20)(\d{2})\b")
 
-#: Сколько идентификаторов запрашивается у arXiv за одно обращение.
+#: How many identifiers are asked for in one request.
 #:
-#: Ограничение вежливости, а не возможностей: arXiv принимает список через
-#: запятую, и дробить его на отдельные запросы значит бить по чужой службе
-#: без нужды.
+#: A limit of politeness rather than of capability: the archive accepts a
+#: comma-separated list, and splitting it into separate requests would hammer
+#: somebody else's service for nothing.
 BATCH = 25
 
 
 @dataclass(frozen=True)
 class ListedEntry:
-    """Запись списка: то, что удалось прочитать из разметки, и не более."""
+    """An entry of a list: what the markup yielded, and nothing beyond it."""
 
     arxiv_id: str
     title: str
@@ -93,18 +96,19 @@ class ListedEntry:
 
 
 def parse_entries(markup: str) -> list[ListedEntry]:
-    """Разобрать разметку списка в записи с идентификаторами препринтов.
+    """Parse the markup of a list into entries carrying preprint identifiers.
 
-    Функция чистая и не обращается к сети: разбор проверяется на записанной
-    разметке, а не на том, что сегодня лежит в чужом репозитории.
+    The function is pure and reaches no network: the parsing is checked against
+    recorded markup rather than against whatever sits in somebody else's
+    repository today.
     """
     entries: list[ListedEntry] = []
     seen: set[str] = set()
     for match in ENTRY.finditer(markup):
         link = ARXIV_LINK.search(match.group("tail"))
         if not link:
-            # Запись без препринта пропускается молча: у работы может не быть
-            # идентификатора вовсе, и это не поломка списка.
+            # An entry without a preprint is passed over in silence: a work may
+            # have no identifier at all, and that is not a broken list.
             continue
         arxiv_id = link.group("id")
         if arxiv_id in seen:
@@ -124,21 +128,22 @@ def parse_entries(markup: str) -> list[ListedEntry]:
 def _abstracts(
     http: HttpGetter, arxiv_ids: list[str]
 ) -> tuple[dict[str, dict[str, str]], list[str]]:
-    """Аннотации и даты работ по идентификаторам, пачками."""
+    """Abstracts and dates for a set of identifiers, requested in batches."""
     found: dict[str, dict[str, str]] = {}
     problems: list[str] = []
     for start in range(0, len(arxiv_ids), BATCH):
         chunk = arxiv_ids[start:start + BATCH]
         url = f"{ARXIV_API}?id_list={','.join(chunk)}&max_results={len(chunk)}"
         if not is_allowed_host(url):
-            problems.append(f"домен вне перечня разрешённых: {url}")
+            problems.append(f"host outside the allowlist: {url}")
             continue
         status, body = http.get(url, timeout=30)
         if status != 200:
-            problems.append(f"arXiv вернул {status} на пачку из {len(chunk)} работ")
+            problems.append(f"the archive answered {status} to a batch of {len(chunk)} works")
             continue
         for entry in _parse_atom_entries(body):
-            # Идентификатор в ответе несёт номер версии; список его не знает.
+            # The identifier in the answer carries a version number; the list
+            # does not know it.
             bare = entry["id"].split("v")[0]
             found[bare] = entry
     return found, problems
@@ -151,12 +156,12 @@ def discover_from_lists(
     lists: tuple[CuratedList, ...] = CURATED_LISTS,
     known: set[str] | None = None,
 ) -> tuple[list[Paper], list[str]]:
-    """Работы из курируемых списков, приведённые к общему виду кандидата.
+    """Works from the curated lists, reduced to the common candidate shape.
 
-    `known` содержит идентификаторы, о которых решение уже принято либо
-    которые уже в реестре. Отсев по нему делается **до** обращения к arXiv:
-    список содержит сотню с лишним работ, из которых новых единицы, и
-    спрашивать аннотации по всем значило бы бить по чужой службе впустую.
+    `known` holds the identifiers already decided upon or already in the
+    registry. Filtering by it happens **before** the archive is asked: a list
+    holds a hundred-odd works of which a handful are new, and asking for every
+    abstract would hammer somebody else's service to no purpose.
     """
     known = known or set()
     papers: list[Paper] = []
@@ -164,25 +169,26 @@ def discover_from_lists(
 
     for source in lists:
         if not is_allowed_host(source.readme):
-            problems.append(f"домен вне перечня разрешённых: {source.readme}")
+            problems.append(f"host outside the allowlist: {source.readme}")
             continue
         status, body = http.get(source.readme, timeout=30)
         if status != 200:
-            problems.append(f"{source.name}: разметка списка вернула {status}")
+            problems.append(f"{source.name}: the markup of the list answered {status}")
             continue
         try:
             markup = body.decode("utf-8")
         except UnicodeDecodeError:
-            problems.append(f"{source.name}: разметка не читается как UTF-8")
+            problems.append(f"{source.name}: the markup does not read as UTF-8")
             continue
 
         entries = parse_entries(markup)
         if not entries:
-            # Пустой разбор при успешном ответе означает, что список сменил
-            # форму записи. Молчать нельзя: сборщик выглядел бы работающим.
+            # An empty parse of a successful answer means the list has changed
+            # the shape of its entries. Silence is not an option here: the
+            # collector would look as though it were working.
             problems.append(
-                f"{source.name}: разметка получена, но ни одной записи не разобрано; "
-                "вероятно, изменилась форма списка"
+                f"{source.name}: the markup arrived and not one entry parsed; "
+                "the shape of the list has probably changed"
             )
             continue
 
@@ -201,17 +207,18 @@ def discover_from_lists(
         for entry in fresh:
             detail = details.get(entry.arxiv_id)
             if not detail:
-                # Аннотации нет — кандидата нет. Оценивать пригодность по
-                # одному заголовку значит выдавать догадку за измерение.
+                # No abstract, no candidate. Judging fitness from a title alone
+                # would mean passing a guess off as a measurement.
                 problems.append(
-                    f"{source.name}: arXiv не отдал работу {entry.arxiv_id}"
+                    f"{source.name}: the archive did not return {entry.arxiv_id}"
                 )
                 continue
             published = detail.get("published") or ""
             papers.append(Paper(
                 arxiv_id=entry.arxiv_id,
-                # Заголовок берётся у arXiv, а не из списка: список пишут
-                # руками, и опечатка в нём разошлась бы по очереди кандидатов.
+                # The title comes from the archive rather than from the list:
+                # a list is written by hand, and a typo in it would spread
+                # through the candidate queue.
                 title=detail.get("title") or entry.title,
                 abstract=detail.get("summary", ""),
                 published=date.fromisoformat(published) if len(published) == 10 else None,

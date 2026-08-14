@@ -50,7 +50,7 @@ def test_paper_with_another_identifier_is_refused():
     paper, error = pwc.fetch_paper("2405.14831", http=http)
 
     assert paper is None
-    assert error and "не о том, о чём спрошено" in error
+    assert error and "answered about a different work" in error
 
 
 def test_paper_with_the_requested_identifier_is_accepted():
@@ -73,7 +73,7 @@ def test_broken_answer_does_not_raise():
     http = FakeTransport({"paperswithcode.co": SourceBehaviour("{не json".encode())})
     paper, error = pwc.fetch_paper("2405.14831", http=http)
     assert paper is None
-    assert error and "некорректный ответ" in error
+    assert error and "malformed answer" in error
 
 
 def test_refusal_is_reported_not_swallowed():
@@ -168,7 +168,7 @@ def test_discovery_refuses_papers_older_than_asked():
 
     found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
 
-    assert any("параметр даты не применён" in p for p in problems)
+    assert any("the date parameter was not applied" in p for p in problems)
     assert all(p.published >= date(2026, 8, 1) for p in found)
 
 
@@ -176,7 +176,7 @@ def test_discovery_survives_a_missing_list():
     http = FakeTransport({"paperswithcode.co": SourceBehaviour(b'{"count": 3}')})
     found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
     assert found == []
-    assert problems and "без перечня работ" in problems[0]
+    assert problems and "without a list of works" in problems[0]
 
 
 def test_empty_week_is_not_a_problem():

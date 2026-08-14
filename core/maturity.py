@@ -1,22 +1,25 @@
-"""Детерминированная функция уровня зрелости RAG-технологий (план 02 §3, STAGE-6 Ф2).
+"""The deterministic maturity rule for RAG technologies.
 
-Чистая функция: принимает свидетельства, возвращает (уровень, уверенность, basis).
-Без языковой модели и без обращений к хранилищу. Запись результата в журнал
-уровней делает вызывающий код (`scripts/compute_levels.py`), и только при
-изменении уровня.
+A pure function: it takes evidence and returns a level, a confidence and a
+basis. No language model, no store access. Writing the result to the level
+journal is the caller's job (`scripts/compute_levels.py`), and only when the
+level actually changed.
 
-Утверждённые решения рецензии:
-- **02-1 (двойной путь к L2).** L2 достигается либо по научному пути
-  (рецензируемая площадка/независимое воспроизведение), либо по отраслевому
-  (документированное промышленное применение). Без отраслевого пути
-  Contextual Retrieval (промышленный стандарт без рецензирования) получил бы
-  L0/L1 и оказался ниже препринта — прямая инверсия.
-- **02-3 (manual для L5/L6).** Достаточные условия L5/L6 не имеют
-  машиночитаемого источника, поэтому уровень на их основе помечается
-  evidence_basis='manual' и не маскируется под вычисленный.
+Two decisions shape the rule, and both came out of review.
 
-Шкала порядковая: арифметика над уровнями не определена. Монотонность:
-достижение L_k требует выполнения условий всех уровней ниже.
+**Two roads to L2.** L2 is reached either by the scientific road (a
+peer-reviewed venue, or independent reproduction) or by the industrial one
+(documented production use). Without the industrial road, Contextual Retrieval
+— an industry staple that was never peer-reviewed — would sit at L0 or L1, below
+a preprint nobody reproduced. That is a straight inversion of what the scale is
+for.
+
+**L5 and L6 are marked as entered by a human.** Their sufficient conditions have
+no machine-readable source, so a level resting on them carries
+`evidence_basis='manual'` and does not pass itself off as computed.
+
+The scale is ordinal: arithmetic over levels is undefined. It is also monotone:
+reaching L_k requires the conditions of every level below it.
 """
 
 from __future__ import annotations
@@ -24,31 +27,32 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
-# Версия правила. Изменение логики → bump версии и пересчёт всех записей
-# (план 02 §3.3: обе версии результата сохраняются в maturity_history).
+# Version of the rule. Changing the logic means raising this and recomputing
+# every record, with both versions of the result kept in the level journal so
+# that each change stays explainable.
 RULE_VERSION = "1.0.0"
 
-# Период актуальности свидетельства по типу (определение 5: «срок с даты получения
-# превышает установленный для типа период»). L5/L6-свидетельства актуальны дольше,
-# поскольку промышленное применение меняется медленнее библиометрии.
+# How long evidence of each type stays current. Evidence behind L5 and L6 lasts
+# longer because production use changes more slowly than bibliometrics do.
 FRESHNESS_DAYS: dict[str, int] = {
-    "publication": 365 * 3,           # публикация не устаревает как факт
+    "publication": 365 * 3,           # a publication does not stop being a fact
     "independent_reproduction": 365 * 3,
-    "repository": 180,                # активность репозитория — полугодовая
-    "build_run": 90,                  # сборка/запуск — квартальная
+    "repository": 180,                # repository activity, judged half-yearly
+    "build_run": 90,                  # a build and run, judged quarterly
     "framework_presence": 365,
     "package_downloads": 90,
-    "industrial_use": 365 * 2,        # промышленное применение стабильно
+    "industrial_use": 365 * 2,        # production use is stable
     "provider_count": 365 * 2,
 }
 
 
 @dataclass
 class EvidenceIn:
-    """Входное свидетельство для вычисления уровня (нейтральная структура).
+    """One piece of evidence, in the neutral shape the rule reads.
 
-    Поля соответствуют таблице evidence (ADR-010). value и type несут семантику
-    класса площадки / факта; см. _venue_class и условия ниже.
+    `type` and `value` carry the meaning: which kind of fact this is, and for a
+    publication, which class of venue. See `_venue_class` and the level
+    conditions below.
     """
 
     type: str
@@ -63,37 +67,36 @@ class MaturityResult:
     level: str            # 'L0'..'L6'
     confidence: float     # 0..1
     evidence_basis: str   # 'computed' | 'manual'
-    satisfied: list[str] = field(default_factory=list)   # выполненные уровни
-    missing: list[str] = field(default_factory=list)     # невыполненные условия
+    satisfied: list[str] = field(default_factory=list)   # levels whose conditions hold
+    missing: list[str] = field(default_factory=list)     # conditions not met
 
 
-# ─── Классификация площадки публикации (для L1/L2 научного пути) ──────────────
+# ─── Classifying the venue of a publication (for L1 and the scientific L2) ────
 
-# Рецензируемые площадки. Список утверждается отдельно (план 02 §3.2: «включённые
-# в утверждённый перечень площадок»). value свидетельства типа publication может
-# содержать имя площадки или маркер peer_reviewed=true.
+# Peer-reviewed venues. The list is approved separately. The `value` of a
+# publication may carry a venue name or the marker peer_reviewed=true.
 PEER_REVIEWED_VENUES: frozenset[str] = frozenset(
     v.lower()
     for v in (
-        # Конференции ML/NLP
+        # Machine learning and language conferences
         "NeurIPS", "ICLR", "ICML", "ACL", "EMNLP", "NAACL", "AAAI",
         "CVPR", "ICCV", "ECCV",
-        # Журналы
+        # Journals
         "TACL", "JMLR", "Nature", "Nature Communications", "Science",
-        # БД/системы
+        # Databases and systems
         "VLDB", "PVLDB", "SIGMOD",
-        # Прочие рецензируемые
+        # Other peer-reviewed venues
         "ECIR", "CIKM", "WSDM", "KDD",
     )
 )
 
 
 def _venue_class(ev: EvidenceIn) -> str:
-    """Класс площадки из value свидетельства publication.
+    """The class of venue, read out of a publication's `value`.
 
-    Возвращает одно из: 'peer_reviewed', 'workshop_preprint', 'blog_talk'.
-    value может содержать: имя площадки, маркер 'peer_reviewed=true/false',
-    или тип ('arXiv', 'workshop', 'blog').
+    Returns one of 'peer_reviewed', 'workshop_preprint', 'blog_talk'. The value
+    may hold a venue name, the marker 'peer_reviewed=true/false', or a kind
+    such as 'arXiv', 'workshop' or 'blog'.
     """
     val = (ev.value or "").lower()
     if "peer_reviewed=true" in val or "peer_reviewed=true" in val.replace(" ", ""):
@@ -106,13 +109,13 @@ def _venue_class(ev: EvidenceIn) -> str:
     return "blog_talk"
 
 
-# ─── Условия уровней ──────────────────────────────────────────────────────────
+# ─── Conditions of each level ─────────────────────────────────────────────────
 
 
 def _has_publication(evidence: list[EvidenceIn], min_class: str) -> bool:
-    """Есть ли publication с классом площадки не ниже min_class.
+    """Whether a publication exists at a venue class of at least `min_class`.
 
-    Порядок классов: blog_talk < workshop_preprint < peer_reviewed.
+    The classes are ordered blog_talk < workshop_preprint < peer_reviewed.
     """
     order = {"blog_talk": 0, "workshop_preprint": 1, "peer_reviewed": 2}
     threshold = order[min_class]
@@ -131,18 +134,18 @@ def _has_any(evidence: list[EvidenceIn], etype: str) -> bool:
     return any(e.type == etype for e in evidence)
 
 
-# ─── Свежесть (определение 5) ──────────────────────────────────────────────────
+# ─── Freshness ────────────────────────────────────────────────────────────────
 
 
 def _is_fresh(ev: EvidenceIn, as_of: date) -> bool:
-    """Свидетельство актуально, если не истёк срок для его типа."""
+    """Evidence is current while the period set for its type has not run out."""
     if ev.fetched_at is None:
-        return False  # без даты получения считать устаревшим нельзя → не свежее
+        return False  # with no date collected, currency cannot be judged
     days = FRESHNESS_DAYS.get(ev.type, 365)
     return (as_of - ev.fetched_at) <= timedelta(days=days)
 
 
-# ─── Главная функция ──────────────────────────────────────────────────────────
+# ─── The rule itself ──────────────────────────────────────────────────────────
 
 
 def compute_level(
@@ -150,48 +153,49 @@ def compute_level(
     *,
     as_of: date | None = None,
 ) -> MaturityResult:
-    """Вычислить уровень зрелости из свидетельств (детерминированно, без LLM).
+    """Derive the maturity level from evidence, deterministically.
 
-    Возвращает наибольший уровень, все условия которого выполнены, при
-    монотонности (для L_k выполнены условия всех L_<k). Уверенность — доля
-    обязательных свежих проверенных свидетельств для достигнутого уровня.
+    Returns the highest level whose conditions all hold, under monotonicity: for
+    L_k, the conditions of every level below it hold too. Confidence is the
+    share of the required evidence for that level which is present, current and
+    verified.
 
-    L5 и L6 помечаются evidence_basis='manual', т.к. их условия
-    (промышленное применение, число поставщиков) не имеют машиночитаемого
-    источника (02-3).
+    L5 and L6 carry evidence_basis='manual', because their conditions —
+    production use, and the number of independent providers — have no
+    machine-readable source.
     """
     as_of = as_of or date.today()
-    satisfied: list[str] = ["L0"]  # L0 выполняется всегда (любая технология описана)
+    satisfied: list[str] = ["L0"]  # L0 always holds: the technology is described at all
 
-    # ── L1: Публикация (препринт/workshop) ──
+    # ── L1: a publication, preprint or workshop ──
     l1_ok = _has_publication(evidence, "workshop_preprint")
     if l1_ok:
         satisfied.append("L1")
 
-    # ── L2: Рецензирование — ДВА пути (02-1) ──
-    #   (а) научный: публикация в рецензируемой площадке (требует L1 по
-    #       монотонности — есть препринт/публикация)
-    #   (б) альтернативный путь без L1: независимое воспроизведение
-    #       (independent_reproduction) либо документированное промышленное
-    #       применение (industrial_use). План 02 §3.1: L2 = «рецензируемая
-    #       площадка ЛИБО независимо воспроизведён»; отраслевой путь добавлен
-    #       решением 02-1 (Contextual Retrieval без рецензирования).
+    # ── L2: review, by either of two roads ──
+    #   (a) the scientific road: a peer-reviewed venue, which requires L1 by
+    #       monotonicity, since a paper implies a paper exists;
+    #   (b) a road that does not pass through L1: independent reproduction, or
+    #       documented production use. It exists because some techniques are
+    #       used everywhere and reviewed nowhere, and placing them below an
+    #       unreproduced preprint would invert the scale.
     peer_reviewed_l2 = _has_publication(evidence, "peer_reviewed")
     independent_l2 = _has_any(evidence, "independent_reproduction")
     industrial_l2 = _has_any(evidence, "industrial_use")
     if peer_reviewed_l2 and "L1" in satisfied:
-        satisfied.append("L2")  # научный путь с монотонностью
+        satisfied.append("L2")  # the scientific road, with monotonicity
     elif independent_l2 or industrial_l2:
-        satisfied.append("L2")  # альтернативные пути: L2 без L1 (02-1)
+        satisfied.append("L2")  # the other roads: L2 without L1
 
-    # ── L3: Референсная реализация ──
-    # Авторский репозиторий ИЛИ успешная сборка/запуск на стенде.
+    # ── L3: a reference implementation ──
+    # The authors' own repository, or a successful build and run.
     l3_ok = _has_any(evidence, "repository") or _has_any(evidence, "build_run")
     if l3_ok and "L2" in satisfied:
         satisfied.append("L3")
 
-    # ── L4: Независимое воспроизведение ──
-    # Независимая реализация ИЛИ присутствие во фреймворке ИЛИ загрузки пакета.
+    # ── L4: independent reproduction ──
+    # An implementation not by the authors, presence in a framework, or package
+    # downloads.
     l4_ok = (
         _has_any(evidence, "independent_reproduction")
         or _has_any(evidence, "framework_presence")
@@ -200,14 +204,14 @@ def compute_level(
     if l4_ok and "L3" in satisfied:
         satisfied.append("L4")
 
-    # ── L5: Промышленная эксплуатация (manual, 02-3) ──
-    # Документированное применение в производственной среде.
+    # ── L5: production use, entered by a human ──
+    # Documented use in a production environment.
     l5_ok = _has_any(evidence, "industrial_use")
     if l5_ok and "L4" in satisfied:
         satisfied.append("L5")
 
-    # ── L6: Отраслевой стандарт (manual, 02-3) ──
-    # Реализована независимо ≥3 поставщиками (provider_count).
+    # ── L6: an industry standard, entered by a human ──
+    # Implemented independently by three or more providers.
     l6_ok = _has_any(evidence, "provider_count")
     if l6_ok and "L5" in satisfied:
         satisfied.append("L6")
@@ -226,11 +230,11 @@ def compute_level(
 
 
 def _confidence_for(level: str, evidence: list[EvidenceIn], as_of: date) -> float:
-    """Доля обязательных свежих проверенных свидетельств для уровня (определение 5).
+    """The share of the required evidence for a level that is current and verified.
 
-    Для L0 (нет требований) уверенность 1.0 (формально). Для L1..L6 — доля типов
-    свидетельств, которые «обязательны» для этого уровня и присутствуют свежими и
-    проверенными. Обязательные типы определены таблицей плана 02 §3.2.
+    L0 has no requirements, so its confidence is 1.0 by definition. For L1 to L6
+    it is the share of the evidence types required by that level which are
+    present, current and verified.
     """
     if level == "L0":
         return 1.0
@@ -239,9 +243,10 @@ def _confidence_for(level: str, evidence: list[EvidenceIn], as_of: date) -> floa
     if level == "L1":
         required = ["publication"]
     elif level == "L2":
-        # L2 по научному пути требует publication(peer_reviewed) либо independent_reproduction;
-        # по отраслевому — industrial_use. Для уверенности считаем все три как
-        # альтернативные обязательные: учитываем достигнутые.
+        # The scientific road to L2 wants a peer-reviewed publication or an
+        # independent reproduction; the industrial one wants production use.
+        # For confidence all three count as alternatives, and whichever were
+        # reached are the ones measured.
         required = ["publication", "independent_reproduction", "industrial_use"]
     elif level == "L3":
         required = ["repository", "build_run"]
@@ -252,14 +257,15 @@ def _confidence_for(level: str, evidence: list[EvidenceIn], as_of: date) -> floa
     else:  # L6
         required = ["provider_count"]
 
-    # Для альтернативных условий (несколько типов на один уровень) confidence =
-    # отношение выполненных альтернатив к общему числу обязательных, но не ниже
-    # доли свежих+проверенных среди присутствующих.
+    # Where a level admits alternatives, confidence is measured over the
+    # alternatives actually reached, by how much of their evidence is current
+    # and verified.
     present_types = {e.type for e in evidence}
     met = [t for t in required if t in present_types]
     if not met:
         return 0.0
-    # Уверенность = среднее по met-альтернативам доли (свежих+проверенных / всех этого типа).
+    # Confidence is the mean, over the alternatives reached, of the share of
+    # that type which is current and verified.
     per_alt: list[float] = []
     for t in met:
         of_type = [e for e in evidence if e.type == t]

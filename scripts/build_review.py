@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
-"""Страница разбора конфигураций: чем обосновано каждое значение.
+"""The configuration review page: what justifies each value.
 
-Разбор конфигурации — единственная часть портала, где решение принимает не
-правило, а чтение источника. Уровень вычисляется из свидетельств и
-воспроизводим; значение измерения — вывод из текста статьи, и проверить его
-можно только рассуждением, которое к нему привело.
+Reading a configuration out of a source is the one part of the portal where the
+decision is made by a person rather than by a rule. A level is computed from
+evidence and reproduces; a dimension value is a conclusion drawn from the text
+of a paper, and the only way to check it is the reasoning that led to it.
 
-Поэтому обоснование хранится рядом с реестром (`data/parse_notes.jsonl`), а эта
-страница его показывает. Порождение, а не ручная вёрстка, выбрано по одной
-причине: страница, набранная руками, разъезжается с реестром молча — прошлая
-версия уже требовала сверки в уме, и сверка эта нашла расхождения.
+The justification therefore lives beside the registry, in
+`data/parse_notes.jsonl`, and this page displays it. Generating the page rather
+than writing it by hand was chosen for one reason: a hand-written page drifts
+away from the registry in silence. The previous version already had to be
+reconciled by eye, and that reconciliation found discrepancies.
 
-Проверка на расхождение выполняется здесь же: каждое значение со страницы
-сверяется с реестром, и несовпадение останавливает сборку.
+The check against drift runs here as well: every value on the page is compared
+with the registry, and a mismatch stops the build.
 
-Использование::
+Usage::
 
-    python3 scripts/build_review.py               # собрать страницу
-    python3 scripts/build_review.py --out путь    # положить в указанный файл
+    python3 scripts/build_review.py               # build the page
+    python3 scripts/build_review.py --out path    # write it to the given file
 """
 
 from __future__ import annotations

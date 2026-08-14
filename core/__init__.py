@@ -1,15 +1,16 @@
-"""Ядро RAG World: формальное описание технологий RAG.
+"""The core of RAG World: a formal description of RAG technologies.
 
-Пакет содержит только предметно-нейтральные средства описания и оценки:
+The package holds only domain-neutral means of description and assessment:
 
-* `dimensions_schema` — схема из двадцати восьми измерений в семи стратах A–G
-  с ограничениями совместимости Φ;
-* `configuration` — конфигурация как точка этого пространства и её устойчивый
-  идентификатор;
-* `maturity` — детерминированное правило уровня зрелости L0–L6 по собранным
-  свидетельствам, без языковой модели.
+* `dimensions_schema` — the schema of twenty-eight dimensions across seven
+  strata A–G, with the compatibility constraints Φ;
+* `configuration` — a configuration as a point in that space, and its stable
+  identifier;
+* `maturity` — the deterministic rule that derives a level from L0 to L6 out of
+  collected evidence, with no language model involved.
 
-Предметная нейтральность ядра проверяется `tests/unit/test_p1_guardian.py`.
+That the core stays domain-neutral is checked by
+`tests/unit/test_p1_guardian.py`.
 """
 
 from core.configuration import Configuration, config_hash

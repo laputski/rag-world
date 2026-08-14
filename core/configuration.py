@@ -1,14 +1,14 @@
-"""Конфигурация RAG в стратифицированном пространстве измерений.
+"""A RAG configuration as a point in the stratified dimension space.
 
-Единственный контракт описания RAG-системы в проекте: точка в пространстве
-двадцати восьми измерений, сгруппированных по семи стратам A–G
-(`core/dimensions_schema.py`). Допустимость конфигурации определяется
-ограничениями Φ («требует», «исключает», «подразумевает»), а не списком
-исключений в прозе.
+This is the project's only contract for describing a RAG system: a point in the
+space of twenty-eight dimensions grouped into seven strata A–G
+(`core/dimensions_schema.py`). Whether a configuration is admissible follows
+from the constraints Φ (`requires`, `excludes`, `implies`), not from a list of
+exceptions written out in prose.
 
-Идентификатор конфигурации (`config_hash`) устойчив: одна и та же конфигурация
-всегда даёт один и тот же хэш, поэтому записи реестра и результаты сравнения
-сопоставимы во времени.
+The configuration identifier (`config_hash`) is stable: the same configuration
+always yields the same hash, so registry records and comparison results stay
+comparable over time.
 """
 
 from __future__ import annotations
@@ -26,10 +26,11 @@ from core.dimensions_schema import (
 
 
 def config_hash(payload: dict[str, str]) -> str:
-    """Стабильный SHA256 канонического представления конфигурации.
+    """A stable SHA256 over the canonical form of a configuration.
 
-    Поле `config_hash` исключается из полезной нагрузки, чтобы вычисление было
-    идемпотентным при повторном применении к уже помеченной записи.
+    The `config_hash` field itself is excluded from the payload so that the
+    computation is idempotent when applied again to a record that already
+    carries one.
     """
     clean = {k: v for k, v in payload.items() if k != "config_hash"}
     blob = str(sorted(clean.items())).encode("utf-8")
@@ -37,22 +38,23 @@ def config_hash(payload: dict[str, str]) -> str:
 
 
 class Configuration(BaseModel):
-    """RAG-конфигурация в пространстве двадцати восьми измерений.
+    """A RAG configuration in the space of twenty-eight dimensions.
 
-    Условные измерения (A6, C4, F1–F3) могут быть не заданы — тогда действует
-    значение по умолчанию из `dimensions_schema.DEFAULTS`. Полная конфигурация
-    для хэширования включает все измерения с подставленными значениями.
+    Conditional dimensions (A6, C4, F1–F3) may be left unset, in which case the
+    default from `dimensions_schema.DEFAULTS` applies. The full configuration
+    used for hashing includes every dimension with its value filled in.
     """
 
     model_config = ConfigDict(extra="forbid")
 
-    # Поля перечислены явно, чтобы Pydantic знал их типы; значения по умолчанию
-    # берутся из dimensions_schema — единственного источника правды о схеме.
+    # The fields are listed explicitly so that Pydantic knows their types; the
+    # defaults come from dimensions_schema, the single source of truth about
+    # the schema.
     #
-    # Перечень приходится править вручную при изменении состава схемы, и это
-    # намеренно: молчаливо подхваченное новое измерение появилось бы в хэше
-    # конфигурации, не будучи заполненным ни у одной записи. Проверка состава в
-    # tests/unit/test_dimensions_schema.py не даст забыть.
+    # This list has to be edited by hand whenever the schema changes, and that
+    # is deliberate: a new dimension picked up silently would enter the
+    # configuration hash while no record had filled it in. The composition
+    # check in tests/unit/test_dimensions_schema.py makes forgetting loud.
     A1: str = DEFAULTS["A1"]
     A2: str = DEFAULTS["A2"]
     A3: str = DEFAULTS["A3"]
@@ -83,15 +85,15 @@ class Configuration(BaseModel):
     G3: str = DEFAULTS["G3"]
 
     def as_dict(self) -> dict[str, str]:
-        """Все измерения в каноническом порядке (основа хэширования)."""
+        """Every dimension in canonical order; this is what hashing reads."""
         return {code: getattr(self, code) for code in CORE_CODES + CONDITIONAL_CODES}
 
     def config_hash(self) -> str:
-        """Стабильный идентификатор конфигурации (16 шестнадцатеричных знаков)."""
+        """The stable configuration identifier, sixteen hexadecimal digits."""
         return config_hash(self.as_dict())
 
     def validate(self) -> list[str]:
-        """Ошибки конфигурации (значения и Φ). Пустой список означает допустимость."""
+        """Errors in the configuration, by value and by Φ; empty means admissible."""
         return validate(self.as_dict())
 
     def is_valid(self) -> bool:

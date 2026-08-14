@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-"""Перечень опрашиваемых ресурсов, порождённый из кода сборщиков.
+"""The list of polled resources, generated from the collectors themselves.
 
-Такого перечня не было, и узнать, куда портал ходит, можно было только чтением
-шести модулей. Написанный руками он разошёлся бы с кодом при первом же переезде
-чужого каталога, а переезд уже случался: интеграции LangChain переехали из
-`libs/community` в `libs/langchain/langchain_classic`.
+There was no such list, and the only way to learn where the portal goes was to
+read six modules. Written by hand it would have drifted from the code at the
+first move of somebody else's catalogue, and a move has already happened: the
+LangChain integrations went from `libs/community` to
+`libs/langchain/langchain_classic`.
 
-Поэтому файл порождается: адреса, пути и паузы берутся у самих сборщиков, а
-руками написано только назначение каждого ресурса. Расхождение невозможно по
-построению, а сторож `tests/architecture/test_sources_in_sync.py` не даёт
-забыть пересборку.
+The file is therefore generated: addresses, paths and pauses are taken from the
+collectors, and the only thing written by hand is what each resource is for.
+Drift is impossible by construction, and a guard in
+`tests/architecture/test_sources_in_sync.py` does not let the rebuild be
+forgotten.
 
-Использование::
+Usage::
 
-    python3 scripts/build_sources.py            # перезаписать docs/SOURCES.md
-    python3 scripts/build_sources.py --check    # только сверить, ничего не писать
+    python3 scripts/build_sources.py            # rewrite docs/SOURCES.md
+    python3 scripts/build_sources.py --check    # compare only, write nothing
 """
 
 from __future__ import annotations

@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
-"""Сборка артефактов, которые читает портал.
+"""Build the artefacts the portal reads.
 
-Портал статический: он не обращается к реестру во время работы, а читает
-заранее собранные файлы. Отсюда следует свойство, ради которого всё и сделано:
-отказ внешнего источника приводит к устареванию данных, а не к отказу портала
-(принцип K5).
+The portal is static: it never reaches the registry while serving, it reads
+files built in advance. That yields the property the whole arrangement exists
+for, which is that a source going down ages the data instead of breaking the
+portal.
 
-Собираются:
+What is built::
 
-    public/data/registry.json  реестр целиком; отбор идёт на клиенте
-    public/data/map.json       точки карты зрелости
-    public/data/changes.json   хроника изменений со ссылками на свидетельства
-    public/data/stats.json     сводка: распределение, покрытие, свежесть
-    public/data/digest.json    выпуски дайджеста, свежие впереди
-    public/data/residuals.json  очередь остатков: чего схема не выражает
-    public/data/candidates.json очередь кандидатов: чего нет в реестре
-    public/data/feed.xml       лента: выпуски и изменения уровней
+    public/data/registry.json   the registry entire; filtering happens in the browser
+    public/data/map.json        the points of the maturity map
+    public/data/changes.json    the chronicle of changes, each linked to its evidence
+    public/data/stats.json      the summary: distribution, coverage, freshness
+    public/data/digest.json     digest issues, the newest first
+    public/data/residuals.json  the residual queue: what the schema does not express
+    public/data/candidates.json the candidate queue: what is not in the registry yet
+    public/data/feed.xml        the feed: issues and level changes
 
-Ни одно число не попадает в артефакт без происхождения: внимание и
-распространённость берутся из временных рядов, а если ряда нет, поле остаётся
-пустым и представление обязано показать «нет данных», а не ноль.
+No number reaches an artefact without provenance. Attention and spread come from
+the measurement series, and where there is no series the field stays empty and
+the view must say that there is no data rather than show a zero.
 """
 
 from __future__ import annotations

@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-"""Выпуск реестра: снимок состояния, на который можно сослаться.
+"""Release the registry: a snapshot that can be cited.
 
-Учёные не ссылаются на сайты. Сайт меняется, и ссылка перестаёт подтверждать
-то, ради чего дана: читатель открывает её и видит другое. Ссылаются на то, у
-чего есть версия.
+Scholars do not cite web sites. A site changes, and the citation stops
+supporting what it was given for: the reader opens it and sees something else.
+What gets cited is something that has a version.
 
-Выпуск — датированный снимок артефактов. Он кладётся рядом с ними под своей
-меткой и **никогда не переписывается**: в этом весь смысл. Ссылка вида
-`/data/releases/2026-08-10/registry.json` через год отдаёт то же, что сегодня,
-даже если реестр за это время вырос вдвое.
+A release is a dated snapshot of the artefacts. It is placed beside them under
+its own tag and is **never rewritten**, which is the whole point. A link of the
+form `/data/releases/2026-08-10/registry.json` will return in a year what it
+returns today, even if the registry has doubled in the meantime.
 
-Отдельного идентификатора у записи нет и не будет. Запись меняется, и
-постоянный идентификатор у изменяющегося объекта вводит в заблуждение сильнее,
-чем его отсутствие: ссылка выглядит надёжной, а указывает на движущуюся цель.
-Ссылаться следует на запись **в выпуске**.
+A record has no identifier of its own and will not get one. A record changes,
+and a permanent identifier for a changing object misleads more than its absence
+does: the link looks dependable while pointing at a moving target. What should
+be cited is a record **in a release**.
 
-Использование::
+Usage::
 
-    python3 scripts/make_release.py            # выпустить снимок на сегодня
-    python3 scripts/make_release.py --dry-run  # показать, что попадёт в выпуск
+    python3 scripts/make_release.py            # release a snapshot of today
+    python3 scripts/make_release.py --dry-run  # show what the release would hold
 """
 
 from __future__ import annotations

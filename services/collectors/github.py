@@ -1,14 +1,9 @@
-"""Сборщик GitHub (STAGE-7 Ф8, план 02 §3.2 — состояние репозитория).
+"""The code-hosting collector: the state of a repository.
 
-Опрашивает GitHub API по адресу репозитория, извлекает: наличие лицензии,
-дату последнего push, наличие выпусков и CI. Возвращает кандидатное свидетельство
-типа repository (используется для L3 — «референсная реализация»).
-
-GitHub API: https://api.github.com/repos/{owner}/{repo}
-Лицензия: https://api.github.com/repos/{owner}/{repo}/license
-Выпуски: https://api.github.com/repos/{owner}/{repo}/releases
-
-CHAOSS-метрики (план 02 [3]): активность, зрелость проекта.
+Asks the hosting interface about a repository and extracts the licence, the date
+of the last push and whether releases exist. It returns candidate evidence of
+the repository type, which is what the maturity rule reads for the level that
+requires a reference implementation.
 """
 
 from __future__ import annotations
@@ -22,7 +17,7 @@ GITHUB_API = "https://api.github.com"
 
 
 def _extract_repo(url: str) -> tuple[str, str] | None:
-    """Извлечь (owner, repo) из GitHub URL или вернуть None."""
+    """Pull (owner, repo) out of a repository URL, or return None."""
     m = re.search(r"github\.com/([^/]+)/([^/]+?)(?:\.git)?/?(?:$|[?#])", url, re.I)
     if m:
         return m.group(1), m.group(2)
@@ -30,7 +25,7 @@ def _extract_repo(url: str) -> tuple[str, str] | None:
 
 
 def _json_get(body: bytes, *path: str) -> str:
-    """Безопасное извлечение поля из JSON-ответа."""
+    """Read a field out of a JSON answer without trusting its shape."""
     import json
 
     try:
@@ -54,21 +49,21 @@ def collect_github(
     token: str | None = None,
     today: date | None = None,
 ) -> CollectResult:
-    """Собрать состояние репозитория из GitHub.
+    """Collect the state of a repository from the code hosting service.
 
-    token — GitHub Personal Access Token (из env GITHUB_TOKEN), без него действует
-    жёсткий rate-limit (60 запросов/час). Сбор продолжается без токена, но с
-    риском 403.
+    The token raises the rate limit, which without one is sixty requests an
+    hour. Collection proceeds without a token and simply risks a refusal.
 
-    Возвращает CollectResult с RawEvidence типа repository, содержащим лицензию,
-    дату последнего push, наличие выпусков. verified=False (S5 проверит).
+    Returns evidence of the repository type carrying the licence, the date of
+    the last push and whether releases exist. The cross-check stage decides
+    whether it counts as verified.
     """
     today = today or date.today()
     result = CollectResult(source_name="github", technology_id=technology_id)
 
     repo = _extract_repo(repo_url)
     if not repo:
-        result.errors.append(f"не удалось извлечь owner/repo из {repo_url!r}")
+        result.errors.append(f"no owner/repo could be read from {repo_url!r}")
         return result
 
     owner, name = repo
@@ -76,25 +71,25 @@ def collect_github(
     if token:
         headers["Authorization"] = f"Bearer {token}"
 
-    # 1. Основная информация о репозитории.
+    # The repository itself.
     repo_api = f"{GITHUB_API}/repos/{owner}/{name}"
     if not is_allowed_host(repo_api):
-        result.skipped.append(f"домен вне allowlist: {repo_api}")
+        result.skipped.append(f"host outside the allowlist: {repo_api}")
         return result
 
     status, body = http.get(repo_api, headers=headers, timeout=20)
     if status == 404:
-        result.errors.append(f"GitHub: репозиторий {owner}/{name} не найден (404)")
+        result.errors.append(f"no repository {owner}/{name} exists (404)")
         return result
     if status != 200:
-        result.errors.append(f"GitHub API вернул {status} для {owner}/{name}")
+        result.errors.append(f"the code host answered {status} for {owner}/{name}")
         return result
 
     pushed_at = _json_get(body, "pushed_at")[:10]
     license_key = _json_get(body, "license", "key") or "none"
     license_name = _json_get(body, "license", "name") or "No license"
 
-    # 2. Наличие выпусков (releases).
+    # Whether releases exist.
     releases_api = f"{GITHUB_API}/repos/{owner}/{name}/releases?per_page=1"
     rel_status, rel_body = http.get(releases_api, headers=headers, timeout=20)
     has_releases = False
@@ -118,7 +113,8 @@ def collect_github(
         obtained_by="auto",
         verified=False,
     ))
-    # Глобальная заметка для S5 (лицензия и активность — проверяемые факты).
+    # What the cross-check stage compares: the licence and the activity are
+    # both checkable facts.
     result.evidence[-1].expected_title = f"license={license_name}"
     result.evidence[-1].actual_title = f"license={license_name}; pushed_at={pushed_at}"
     return result

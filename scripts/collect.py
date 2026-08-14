@@ -1,28 +1,28 @@
 #!/usr/bin/env python3
-"""Сбор свидетельств из открытых источников.
+"""Collect evidence from open sources.
 
-Первый шаг цепочки обновления. Обходит источники каждой записи реестра,
-опрашивает архив препринтов, открытый индекс, площадку репозиториев и
-каталог работ и кода, прогоняет детерминированные проверки и
-дописывает прошедшие свидетельства в журнал. Языковая модель не участвует.
+The first step of the update chain. It walks the sources of every record, asks
+the preprint archive, the open index, the code host and the works-and-code
+catalogue, runs the deterministic checks and appends what passes to the evidence
+journal. No language model takes part.
 
-Проверки принципиально детерминированные: разрешимость идентификатора,
-совпадение заголовка, допустимость диапазона. Согласие двух языковых моделей
-подтверждением не считается — они обучены на пересекающихся данных и ошибаются
-согласованно.
+The checks are deterministic on principle: an identifier resolves, a title
+matches, a value falls in range. Two language models agreeing is not accepted as
+confirmation, because they are trained on overlapping data and err in the same
+direction.
 
-Отдельно загружается файл свидетельств, вводимых человеком
-(`data/manual_evidence.jsonl`). Он нужен там, где машиночитаемого источника не
-существует: промышленное применение, независимое воспроизведение, публикация на
-площадке, которую открытые индексы не знают. Каждая такая запись обязана нести
-ссылку и помечается как введённая человеком.
+Evidence entered by a person is loaded separately, from
+`data/manual_evidence.jsonl`. It is needed where no machine-readable source
+exists: industrial use, independent reproduction, publication at a venue the
+open indexes do not know. Every such entry must carry a link and is marked as
+entered by a person.
 
-Использование::
+Usage::
 
-    python3 scripts/collect.py                 # все записи
-    python3 scripts/collect.py --limit 5       # первые пять, для пробы
-    python3 scripts/collect.py --only pathrag  # одна запись
-    python3 scripts/collect.py --dry-run       # ничего не записывать
+    python3 scripts/collect.py                 # every record
+    python3 scripts/collect.py --limit 5       # the first five, as a trial
+    python3 scripts/collect.py --only pathrag  # one record
+    python3 scripts/collect.py --dry-run       # write nothing
 """
 
 from __future__ import annotations

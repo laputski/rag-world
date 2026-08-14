@@ -1,20 +1,23 @@
-"""Сборщик OpenAlex: площадка публикации и цитирования.
+"""The open-index collector: the publication venue and the citations.
 
-OpenAlex — открытый индекс научных работ. Из него берутся две вещи:
+The open index of scholarly works supplies two things:
 
-* **класс площадки** — рецензируемая конференция или журнал против препринта.
-  Это единственный машиночитаемый путь к уровню L2 по научной линии: без него
-  любая работа остаётся препринтом, каким бы известным ни был её результат;
-* **цитирования и дата публикации** — из них выводится скорость цитирования,
-  то есть внимание. Абсолютное число цитирований в представления не попадает:
-  оно устаревает в момент измерения и несравнимо между областями.
+* **the class of the venue** — a peer-reviewed conference or journal as against
+  a preprint. This is the only machine-readable route to the level that requires
+  peer review: without it every work stays a preprint, however well known its
+  result;
+* **citations and the date of publication**, from which the citation velocity is
+  derived, that is, attention. The absolute citation count never reaches the
+  views: it is out of date the moment it is measured and it is not comparable
+  across fields.
 
-Поиск идёт в два шага. Сначала работа находится по идентификатору arXiv через
-его канонический DOI. Затем по названию ищутся остальные её версии: препринт и
-конференционная публикация — это разные записи индекса, и рецензирование видно
-только у второй.
+The search runs in two steps. The work is first found by its preprint identifier
+through that identifier's canonical digital object identifier. Its other
+versions are then found by title, because the preprint and the conference
+publication are two separate records of the index and peer review is visible
+only on the second.
 
-Языковая модель не используется: все решения принимаются по полям ответа.
+No language model takes part: every decision is made from fields of the answer.
 """
 
 from __future__ import annotations
@@ -33,18 +36,19 @@ from services.collectors.base import (
 
 OPENALEX_API = "https://api.openalex.org"
 
-#: Открытый индекс держит два потока обращений: общий и вежливый. Во втором
-#: лимиты заметно выше, и попасть туда можно, назвав почту для связи — так
-#: устроено у них намеренно. Без этого прогон упирается в отказ по частоте, и
-#: половина записей остаётся без сведений о площадке публикации.
+#: The open index keeps two request pools, a common one and a polite one. Limits
+#: in the second are noticeably higher, and a contact address is what admits a
+#: caller to it, by their own design. Without it the run hits a refusal on rate
+#: and half the records are left without their publication venue.
 #:
-#: Почта берётся из окружения, а не вписывается в код: репозиторий читают
-#: посторонние, и личный адрес в нём — не то, что стоит публиковать.
+#: The address comes from the environment rather than being written into the
+#: code: the repository is read by strangers, and a personal address is not
+#: something to publish in it.
 OPENALEX_MAILTO_ENV = "OPENALEX_MAILTO"
 
 
 def _polite(url: str) -> str:
-    """Добавить к адресу почту для связи, если она задана в окружении."""
+    """Append the contact address to the URL when the environment supplies one."""
     import os
 
     mailto = os.environ.get(OPENALEX_MAILTO_ENV, "").strip()
@@ -56,23 +60,23 @@ def _polite(url: str) -> str:
 _ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf)/(?P<id>\d{4}\.\d{4,5})", re.I)
 _DOI_RE = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
 
-#: Типы площадок OpenAlex, означающие рецензирование. Тип `repository` — это
-#: архив препринтов (arXiv и подобные), он рецензирование не подтверждает.
+#: Venue types that mean peer review. The type `repository` denotes a preprint
+#: archive and confirms no review.
 PEER_REVIEWED_SOURCE_TYPES = frozenset({"journal", "conference", "book series"})
 
-#: Типы работы, означающие рецензирование. Препринт имеет собственный тип,
-#: поэтому различие надёжно даже тогда, когда название площадки не заполнено.
+#: Work types that mean peer review. A preprint has a type of its own, so the
+#: distinction holds even when the venue name is not filled in.
 PEER_REVIEWED_WORK_TYPES = frozenset({
     "article", "conference-paper", "proceedings-article", "book-chapter", "review",
 })
 
-#: Площадки, которые по типу выглядят журналом, но рецензирования не означают.
-#: Сравнение по вхождению: индекс называет архив «arXiv (Cornell University)».
+#: Venues that look like a journal by type yet mean no review. The comparison is
+#: by substring: the index calls the archive "arXiv (Cornell University)".
 NOT_PEER_REVIEWED_MARKERS = ("arxiv", "biorxiv", "medrxiv", "ssrn", "preprint")
 
-#: Префикс DOI однозначно указывает издателя. Это спасает, когда индекс не
-#: заполнил название площадки: у конференционных публикаций такое встречается
-#: часто, а знать площадку необходимо для вывода об уровне.
+#: The prefix of a digital object identifier names the publisher unambiguously.
+#: That rescues the case where the index left the venue name empty, which happens
+#: often for conference publications while the venue is what the level turns on.
 DOI_PREFIX_VENUES: dict[str, str] = {
     "10.18653": "ACL Anthology",
     "10.1145": "ACM",
@@ -87,7 +91,7 @@ DOI_PREFIX_VENUES: dict[str, str] = {
     "10.1093": "Oxford University Press",
 }
 
-#: Префикс DOI архива препринтов: рецензирования не означает.
+#: The identifier prefix of the preprint archive, which means no review.
 PREPRINT_DOI_PREFIX = "10.48550"
 
 
@@ -104,29 +108,29 @@ def _doi_prefix(work: dict) -> str:
 
 def _get_json(http: HttpGetter, url: str, result: CollectResult) -> dict | None:
     if not is_allowed_host(url):
-        result.skipped.append(f"домен вне allowlist: {url}")
+        result.skipped.append(f"host outside the allowlist: {url}")
         return None
     status, body = http.get(
         url, headers={"User-Agent": "rag-world/0.2 (registry collector)"}, timeout=20
     )
     if status != 200:
-        result.errors.append(f"OpenAlex вернул {status}")
+        result.errors.append(f"the open index answered {status}")
         return None
     try:
         return json.loads(body)
     except (json.JSONDecodeError, UnicodeDecodeError):
-        result.errors.append("OpenAlex: некорректный JSON")
+        result.errors.append("the open index answered malformed JSON")
         return None
 
 
 def _venue_of(work: dict) -> tuple[str, bool]:
-    """Название площадки и признак рецензирования.
+    """The name of the venue and whether it means peer review.
 
-    Решение принимается по трём признакам в порядке надёжности: тип площадки в
-    индексе, тип самой работы и издательский префикс DOI. Последние два нужны
-    потому, что у части конференционных публикаций название площадки в индексе
-    просто отсутствует, и по одному лишь первому признаку они выглядели бы
-    препринтами.
+    The decision uses three signals in order of reliability: the venue type in
+    the index, the type of the work itself, and the publisher prefix of the
+    identifier. The latter two are needed because for some conference
+    publications the index simply has no venue name, and on the first signal
+    alone they would look like preprints.
     """
     prefix = _doi_prefix(work)
     work_type = (work.get("type") or "").strip().lower()
@@ -154,7 +158,7 @@ def _venue_of(work: dict) -> tuple[str, bool]:
 
 
 def _citation_velocity(work: dict, today: date) -> float | None:
-    """Цитирования, делённые на число месяцев с публикации."""
+    """Citations divided by the number of months since publication."""
     cited = work.get("cited_by_count")
     published = work.get("publication_date") or ""
     if cited is None or not published:
@@ -177,11 +181,11 @@ def collect_openalex(
     expected_title: str | None = None,
     today: date | None = None,
 ) -> CollectResult:
-    """Собрать сведения о публикации: площадка, рецензирование, цитирования.
+    """Collect the venue, whether it was reviewed, and the citations.
 
-    `query` — адрес arXiv, DOI либо название работы. Возвращает свидетельства
-    типа `publication`; сведения о цитированиях попадают в поле значения, откуда
-    их извлекает оркестратор для временного ряда.
+    `query` is a preprint address, an identifier or the title of a work. The
+    result is evidence of the publication type; the citation figures go into the
+    value field, from which the orchestrator takes them for the time series.
     """
     today = today or date.today()
     result = CollectResult(source_name="openalex", technology_id=technology_id)
@@ -191,7 +195,7 @@ def collect_openalex(
     arxiv_match = _ARXIV_RE.search(query)
     doi_match = _DOI_RE.search(query)
     if arxiv_match:
-        # У препринтов arXiv есть канонический DOI: это самый надёжный ключ.
+        # A preprint has a canonical identifier, which is the most reliable key.
         doi = f"10.48550/arXiv.{arxiv_match.group('id')}"
         work = _get_json(http, _polite(f"{OPENALEX_API}/works/doi:{doi}"), result)
     elif doi_match:
@@ -203,24 +207,24 @@ def collect_openalex(
     def _title_of(candidate: dict) -> str:
         return (candidate.get("title") or candidate.get("display_name") or "").strip()
 
-    # Название, по которому ищутся остальные версии работы. Разрешённое по
-    # идентификатору название авторитетнее имени технологии: второе может
-    # совпасть с посторонней работой.
+    # The title the other versions of the work are searched by. A title resolved
+    # from an identifier carries more authority than the technology's name: the
+    # latter can coincide with an unrelated work.
     resolved_title = _title_of(work) if work else ""
     search_title = resolved_title or (expected_title or "")
 
-    # Второй шаг: у препринта и у конференционной публикации разные записи, и
-    # рецензирование видно только у второй.
+    # The second step: the preprint and the conference publication are separate
+    # records, and peer review is visible only on the second.
     candidates: list[dict] = [work] if work else []
     if search_title:
-        # В фильтре запятая и вертикальная черта разделяют условия, двоеточие
-        # отделяет имя фильтра от значения, а вопросительный знак и звёздочка
-        # означают подстановку. Названия работ содержат их сплошь и рядом —
-        # «What Retrieval Granularity Should We Use?» ломало запрос кодом 400,
-        # и работа молча оставалась без сведений о площадке.
+        # Inside a filter the comma and the vertical bar separate conditions,
+        # the colon separates a filter name from its value, and the question
+        # mark and the asterisk stand for wildcards. Titles of works contain
+        # them constantly: "What Retrieval Granularity Should We Use?" broke the
+        # request with a 400, and the work silently stayed without a venue.
         #
-        # Разделители заменяются пробелом: поиск по словам от этого не
-        # страдает, а запрос перестаёт быть недопустимым.
+        # The separators are replaced by a space. Word search does not suffer
+        # from that, and the request stops being inadmissible.
         safe_title = re.sub(r"[,|:?*]+", " ", search_title).strip()
         search = _get_json(
             http,
@@ -238,13 +242,14 @@ def collect_openalex(
 
     if not candidates:
         if not result.errors:
-            result.errors.append("OpenAlex: работа не найдена")
+            result.errors.append("the open index has no such work")
         return result
 
-    # Отбор совпадений. Если работа разрешена по идентификатору, принимаются
-    # только записи с тем же названием. Если нет — название технологии обязано
-    # быть началом названия работы: «Self-RAG» подходит к «Self-RAG: Learning
-    # to Retrieve...», но не к посторонней работе, где оно лишь упоминается.
+    # Selecting the matches. When the work was resolved by identifier, only
+    # records with the same title are accepted. When it was not, the technology's
+    # name must begin the title of the work: "Self-RAG" fits "Self-RAG: Learning
+    # to Retrieve...", and does not fit an unrelated work that merely mentions
+    # it.
     if resolved_title:
         wanted = _norm(resolved_title)
         matched = [c for c in candidates if _norm(_title_of(c)) == wanted]
@@ -255,11 +260,11 @@ def collect_openalex(
         matched = candidates[:1]
 
     if not matched:
-        # Ненадёжное совпадение хуже отсутствия данных: неверная запись в
-        # реестре разрушает доверие ко всем остальным.
+        # An unreliable match is worse than no data: one wrong record in the
+        # registry destroys trust in all the others.
         result.errors.append(
-            f"OpenAlex: надёжного совпадения по названию не найдено "
-            f"({search_title!r}); свидетельство не создано"
+            f"the open index gave no reliable match by title "
+            f"({search_title!r}); no evidence was created"
         )
         return result
 
@@ -284,10 +289,11 @@ def collect_openalex(
     if velocity is not None:
         value += f"; citation_velocity={velocity}"
 
-    # В свидетельство попадает название, по которому шло сопоставление, а не
-    # имя технологии: последнее короче заголовка работы, и последующая проверка
-    # сходства заголовков отвергала бы верные совпадения. Сама защита от чужой
-    # работы обеспечена строгим отбором выше, а он жёстче сравнения по сходству.
+    # The evidence carries the title the matching ran against rather than the
+    # technology's name: the name is shorter than the title of the work, and the
+    # later similarity check would reject correct matches. Protection against a
+    # foreign work is provided by the strict selection above, which is stricter
+    # than a comparison by similarity.
     matched_title = _title_of(best)
     result.evidence.append(RawEvidence(
         technology_id=technology_id,

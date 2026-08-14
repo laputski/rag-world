@@ -1,15 +1,17 @@
-"""Общие модели сборщиков свидетельств (STAGE-7 Ф8, план 03 §2).
+"""The models every evidence collector shares.
 
-Сборщики опрашивают источники (arXiv, OpenAlex, GitHub) и возвращают сырые
-кандидатные свидетельства в нейтральном формате. Запись в БД (evidence-таблица,
-append-only) делает оркестратор, а не сам сборщик — это позволяет тестировать
-сборщики без БД и подменять HTTP-клиент.
+Collectors poll sources — the preprint archive, the open index of works, code
+hosting — and return raw candidate evidence in one neutral format. Writing to
+the registry is the orchestrator's job, not the collector's, which is what makes
+a collector testable without a store and with the HTTP client replaced.
 
-Ключевые инварианты (план 03):
-  - сбор только с перечня разрешённых доменов (allowlist, принцип C4 + мера 5.4.2);
-  - свидетельство никогда не перезаписывается (append-only на уровне БД);
-  - каждое свидетельство имеет тип, разрешимый источник и дату получения;
-  - ступень S5 проверяет свиделиства детерминированно (без LLM).
+The invariants:
+
+  - collection happens only against an allowlist of hosts;
+  - evidence is never overwritten, only appended;
+  - every piece of evidence carries a type, a resolvable source and the date it
+    was fetched;
+  - the cross-check stage decides deterministically, with no language model.
 """
 
 from __future__ import annotations
@@ -18,34 +20,35 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Protocol
 
-# ─── Allowlist разрешённых доменов (C4 + мера 5.4.2 плана 03) ────────────────
-# Сбор с домена вне перечня требует ручного утверждения (план 03 §5.4.2).
-# Список расширится (ACL Anthology, OpenReview, DBLP, PyPI, npm) по мере
-# реализации соответствующих сборщиков.
+# ─── The allowlist of hosts ──────────────────────────────────────────────────
+# Collecting from a host outside this list requires a deliberate addition here.
+# The list grows as collectors are written, not in anticipation of them.
 
 ALLOWED_HOSTS: frozenset[str] = frozenset({
     "arxiv.org",
     "export.arxiv.org",
     "api.openalex.org",
-    # Идентификатор работы в открытом индексе имеет вид openalex.org/W..., и
-    # именно он попадает в поле источника свидетельства.
+    # A work's identifier in the open index has the form openalex.org/W..., and
+    # that is what ends up in the source field of the evidence.
     "openalex.org",
     "api.github.com",
     "github.com",
-    # Разметка курируемых списков берётся сырым файлом, а не страницей:
-    # страница несёт оформление площадки, меняющееся независимо от списка.
+    # Curated lists are read as the raw file rather than as the page: the page
+    # carries the hosting platform's chrome, which changes independently of the
+    # list.
     "raw.githubusercontent.com",
     "pypi.org",
-    # Индекс пакетов не отдаёт число загрузок; его публикует отдельная служба.
+    # The package index does not publish download counts; a separate service
+    # does.
     "pypistats.org",
     "aclanthology.org",
     "doi.org",
-    # Каталог работ и кода, который ведёт сообщество при Hugging Face после
-    # закрытия paperswithcode.com. Даёт площадку публикации вторым источником
-    # и ленту работ под меткой метода для обнаружения новых.
+    # The catalogue of works and their code that the community has kept since
+    # paperswithcode.com closed. It gives the publication venue from a second
+    # source, and a feed of works under a method tag for discovering new ones.
     "paperswithcode.co",
-    # Площадки, на которые ссылаются свидетельства, введённые человеком:
-    # часть рецензируемых публикаций существует только здесь.
+    # Venues that evidence entered by a person points to: some peer-reviewed
+    # publications exist nowhere else.
     "openreview.net",
     "dl.acm.org",
     "proceedings.neurips.cc",
@@ -58,25 +61,25 @@ ALLOWED_HOSTS: frozenset[str] = frozenset({
 
 
 def is_allowed_host(url: str) -> bool:
-    """True, если host URL входит в allowlist (C4)."""
+    """True when the URL's host is on the allowlist."""
     from urllib.parse import urlparse
 
     host = urlparse(url).hostname or ""
     host = host.lower()
     if host in ALLOWED_HOSTS:
         return True
-    # поддомены разрешённых (api.github.com уже в списке; github.com покрывает raw).
+    # Subdomains of an allowed host count as allowed.
     return any(host == h or host.endswith("." + h) for h in ALLOWED_HOSTS)
 
 
-# ─── HTTP-клиент: протокол для инъекции (тесты подменяют без сети) ───────────
+# ─── The HTTP client, injected so that tests need no network ─────────────────
 
 
 class HttpGetter(Protocol):
-    """Минимальный интерфейс HTTP-клиента для сборщиков.
+    """The smallest HTTP interface a collector needs.
 
-    Возвращает (status, body_bytes) для URL + headers. В проде — обёртка над
-    requests; в тестах — заглушка, возвращающая предзаготовленный ответ.
+    Returns (status, body) for a URL and headers. In a real run it wraps the
+    HTTP library; in a test it replays a recorded response.
     """
 
     def get(
@@ -85,38 +88,39 @@ class HttpGetter(Protocol):
         ...
 
 
-# ─── Сырое кандидатное свидетельство ─────────────────────────────────────────
+# ─── Raw candidate evidence ──────────────────────────────────────────────────
 
 
 @dataclass
 class RawEvidence:
-    """Кандидатное свидетельство, извлечённое сборщиком.
+    """A candidate piece of evidence as a collector extracted it.
 
-    Не записывается в БД напрямую: проходит нормализацию (S2), проверку
-    привязки (S4), перекрёстную проверку (S5), и только затем запись.
-    Здесь — нейтральный формат, общий для всех сборщиков.
+    It does not reach the registry directly: it is normalised, checked for
+    belonging to the record it claims, cross-checked against a second source,
+    and only then written. What is defined here is the neutral format all
+    collectors share.
     """
 
-    technology_id: str               # к какой технологии относится
-    type: str                         # EvidenceType (publication/repository/...)
-    value: str                        # содержание (площадка, id, лицензия)
-    source: str                       # разрешимый URL
-    fetched_at: date                  # дата получения (сегодня, если авто)
-    obtained_by: str = "auto"         # auto/manual
-    # Дополнительные поля для детерминированных проверок S5:
+    technology_id: str                # the record this is about
+    type: str                         # publication, repository, and so on
+    value: str                        # the content: venue, identifier, licence
+    source: str                       # a resolvable URL
+    fetched_at: date                  # the date it was fetched
+    obtained_by: str = "auto"         # auto or manual
+    # Fields the deterministic cross-checks need.
     verified: bool = False
-    # title-поля для проверки совпадения заголовка (S5, та, что нашла 3 ошибки).
+    # The titles compared to catch a source that describes a different work.
     expected_title: str | None = None
     actual_title: str | None = None
 
 
 @dataclass
 class CollectResult:
-    """Результат сбора одного источника по одной технологии."""
+    """What one source yielded for one record."""
 
     source_name: str                  # 'arxiv' | 'openalex' | 'github'
     technology_id: str
     evidence: list[RawEvidence] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
-    # Свидетельства, не попавшие в evidence (например, домен вне allowlist).
+    # What was found but not taken, a host outside the allowlist for instance.
     skipped: list[str] = field(default_factory=list)

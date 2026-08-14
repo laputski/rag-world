@@ -152,7 +152,8 @@ def test_a_list_that_changed_its_form_is_reported_not_passed_over():
         lists=(LIST,),
     )
     assert papers == []
-    assert any("изменилась форма" in problem for problem in problems)
+    assert any("the shape of the list has probably changed" in problem
+               for problem in problems)
 
 
 @pytest.mark.parametrize("status", [404, 500, 503])
@@ -184,7 +185,7 @@ def test_a_host_outside_the_allowlist_is_refused():
         lists=(CuratedList(name="Where", readme="https://example.org/x.md", page="x"),),
     )
     assert papers == []
-    assert any("вне перечня" in problem for problem in problems)
+    assert any("outside the allowlist" in problem for problem in problems)
 
 
 def test_window_keeps_older_entries_out():

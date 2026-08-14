@@ -1,26 +1,26 @@
 #!/usr/bin/env python3
-"""Проверка реестра: схема, ссылочная целостность, допустимость конфигураций.
+"""Validate the registry: schema, references, admissible configurations.
 
-Запускается в цепочке обновления и в проверках сборки. Падение означает, что
-выпуск публиковать нельзя.
+Runs inside the update chain and in the build checks. A failure means a release
+must not be published.
 
-Что проверяется без сети:
+What is checked without a network:
 
-* каждая запись читается схемой, идентификатор совпадает с именем файла и
-  удовлетворяет соглашению;
-* значения измерений существуют в схеме, а конфигурация допустима по
-  ограничениям Φ;
-* страты записи принадлежат A–G;
-* свидетельства и записи журнала уровней ссылаются на существующие технологии;
-* у каждого источника заполнен адрес, а состояние проверки согласовано с датой.
+* every record parses against the schema, and its identifier matches the file
+  name and satisfies the naming convention;
+* the dimension values exist in the schema, and the configuration is admissible
+  under the constraints Φ;
+* the strata of a record belong to A–G;
+* evidence and level-journal entries refer to technologies that exist;
+* every source has an address, and its check status agrees with its date.
 
-Разрешимость адресов требует сети и включается отдельно::
+Whether the addresses resolve requires a network and is enabled separately::
 
-    python3 scripts/validate_data.py               # без сети
-    python3 scripts/validate_data.py --check-links # с обращением к источникам
+    python3 scripts/validate_data.py               # without a network
+    python3 scripts/validate_data.py --check-links # asking the sources
 
-Такое разделение намеренно: проверки должны проходить при полной недоступности
-внешних источников, иначе портал нельзя собрать в отсутствие сети.
+The separation is deliberate: the checks must pass with every external source
+unreachable, or the portal could not be built without a network.
 """
 
 from __future__ import annotations

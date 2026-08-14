@@ -95,11 +95,11 @@ def test_constraints_are_well_formed():
 
 
 def test_validate_rejects_unknown_dimension():
-    assert any("Неизвестное измерение" in e for e in validate({"ZZ": "x"}))
+    assert any("unknown dimension" in e for e in validate({"ZZ": "x"}))
 
 
 def test_validate_rejects_invalid_value():
-    assert any("не в" in e for e in validate({"A4": "nonsense"}))
+    assert any("is not in" in e for e in validate({"A4": "nonsense"}))
 
 
 def test_validate_accepts_default_configuration():
@@ -124,7 +124,7 @@ def test_tree_topology_allows_dense_representation():
 
 def test_phi_cross_encoder_requires_vector_representation():
     cfg = {**DEFAULTS, "A5": "lexical", "D1": "cross_encoder", "C1": "lexical"}
-    assert any("cross_encoder требует" in e for e in validate(cfg))
+    assert any("D1=cross_encoder excludes A5=lexical" in e for e in validate(cfg))
 
 
 def test_phi_cross_encoder_excludes_non_vector_models():
@@ -167,12 +167,14 @@ def test_graph_topology_allows_a_query_language():
 def test_phi_decoding_reflection_requires_trained_reader():
     """Рефлексия на этапе декодирования требует обученного ридера."""
     cfg = {**DEFAULTS, "E2": "decoding_reflection", "G3": "frozen"}
-    assert any("fine-tuned" in e for e in validate(cfg))
+    assert any("E2=decoding_reflection requires G3=trained_reader" in e
+               for e in validate(cfg))
 
 
 def test_phi_agentic_excludes_post_generation_check():
     cfg = {**DEFAULTS, "C2": "agentic_open_loop", "E2": "post_gen_check"}
-    assert any("двойной corrective" in e for e in validate(cfg))
+    assert any("C2=agentic_open_loop excludes E2=post_gen_check" in e
+               for e in validate(cfg))
 
 
 def test_phi_multi_hop_requires_graph_topology():

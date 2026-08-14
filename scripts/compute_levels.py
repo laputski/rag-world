@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Пересчёт уровней зрелости из собранных свидетельств.
+"""Recompute maturity levels from the collected evidence.
 
-Второй шаг цепочки обновления. Правило детерминированное и не использует
-языковую модель: одни и те же свидетельства всегда дают один и тот же уровень,
-поэтому любое значение воспроизводится повторным запуском (принцип K2).
+The second step of the update chain. The rule is deterministic and uses no
+language model: the same evidence always yields the same level, so any value
+reproduces on a rerun.
 
-В журнал попадает только **изменение** уровня. Пересчёт, не изменивший
-результата, журнал не трогает: иначе он превратился бы в лог запусков, а нужен
-он как хроника.
+Only a **change** of level reaches the journal. A recomputation that changed
+nothing leaves it untouched; otherwise the journal would become a log of runs,
+whereas what is wanted from it is a chronicle.
 
-Использование::
+Usage::
 
     python3 scripts/compute_levels.py
-    python3 scripts/compute_levels.py --dry-run   # показать, что изменится
+    python3 scripts/compute_levels.py --dry-run   # show what would change
 """
 
 from __future__ import annotations

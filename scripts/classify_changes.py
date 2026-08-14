@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
-"""Классификация изменений реестра: применять само или показать человеку.
+"""Classify a registry change: apply it, or show it to a person.
 
-Раньше этот разбор жил внутри рабочего процесса, вписанный в YAML. Логика в
-описании задания не проверяется тестами и не запускается локально, поэтому она
-переехала сюда, а рабочий процесс остался обёрткой.
+This reasoning used to live inside the workflow, written into YAML. Logic in a
+job description is covered by no tests and cannot be run locally, so it moved
+here and the workflow stayed a wrapper.
 
-Правило исходит из принципа K6: изменение реестра всегда объяснимо, а те
-изменения, которые трудно откатить или легко пропустить, проходят через
-человека. Показу подлежат три случая:
+The rule follows from a principle the project rests on: a registry change is
+always explicable, and the changes that are hard to undo or easy to miss go
+through a person. Three cases are shown:
 
-* **понижение уровня** — оно означает, что прежнее утверждение было неверным
-  либо технология деградировала; и то и другое требует проверки;
-* **пересечение границы подтверждённости** (переход в L4 и выше) — дальше
-  начинаются утверждения о независимом воспроизведении и промышленном
-  применении, цена ошибки в которых выше;
-* **свидетельство, введённое человеком** — если оно появилось в автоматическом
-  проходе, значит кто-то правил файл ручных свидетельств, и это стоит увидеть.
+* **a demotion** — it means either that the previous claim was wrong or that the
+  technology has degraded, and both deserve a look;
+* **crossing the boundary of confirmed evidence**, that is, entering L4 or
+  above — beyond it begin claims about independent reproduction and industrial
+  use, where an error costs more;
+* **evidence entered by a person** — if it appeared during an automatic pass,
+  somebody edited the manual evidence file, and that is worth seeing.
 
-Всё остальное применяется само. Пропускать через просмотр каждое изменение
-нельзя: очередь переполнится, и просмотр выродится в формальность.
+Everything else applies by itself. Sending every change through review is not an
+option: the queue would overflow and the review would decay into a formality.
 
-Использование::
+Usage::
 
-    python3 scripts/classify_changes.py            # разобрать изменения в git
-    python3 scripts/classify_changes.py --github   # вывод для рабочего процесса
+    python3 scripts/classify_changes.py            # classify the changes in git
+    python3 scripts/classify_changes.py --github   # output for the workflow
 """
 
 from __future__ import annotations
