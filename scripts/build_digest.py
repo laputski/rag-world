@@ -40,31 +40,32 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from services.registry import store  # noqa: E402
 
-#: Порядок уровней: по нему отличается повышение от понижения. Тот же, что в
-#: сборке артефактов; здесь повторён, чтобы дайджест не зависел от неё.
+#: The order of the levels, by which a promotion is told from a demotion. It is
+#: the same order the artefact build uses, repeated here so that the digest does
+#: not depend on it.
 LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 
 DIGEST_DIR = store.DATA_DIR / "digest"
 
-#: Сколько записей перечислять поимённо. Дальше — числом: список из сорока имён
-#: читатель не прочитает, а выпуск перестанет быть сообщением и станет выгрузкой.
+#: How many records to name outright. Beyond that a count: a list of forty names
+#: goes unread, and the issue stops being a message and becomes a data dump.
 NAMED_LIMIT = 8
 
 
 def digest_dir() -> Path:
-    """Каталог выпусков. Читается заново, чтобы тесты могли подменить корень."""
+    """The directory of issues. Read afresh so that tests can substitute the root."""
     return store.DATA_DIR / "digest"
 
 
-# ─── Русские числительные ────────────────────────────────────────────────────
+# ─── Russian numerals ────────────────────────────────────────────────────────
 #
-# «1 запись», «2 записи», «5 записей» — правило простое, но ошибка в нём видна
-# сразу и портит доверие к остальному тексту: читатель, увидевший «5 запись»,
-# справедливо усомнится и в числах.
+# Russian agrees a noun with the number before it in three forms. The rule is
+# simple, but an error in it shows at once and spoils trust in the rest of the
+# text: a reader who sees the wrong form doubts the numbers too, and rightly.
 
 
 def plural(count: int, one: str, few: str, many: str) -> str:
-    """Форма слова при числе по правилам русского языка."""
+    """The Russian form of a word for a given count."""
     tail_100 = abs(count) % 100
     tail_10 = abs(count) % 10
     if 11 <= tail_100 <= 14:
@@ -80,24 +81,24 @@ def counted(count: int, one: str, few: str, many: str) -> str:
     return f"{count} {plural(count, one, few, many)}"
 
 
-# ─── Выпуск ──────────────────────────────────────────────────────────────────
+# ─── An issue ────────────────────────────────────────────────────────────────
 
 
 @dataclass
 class Issue:
-    """Один выпуск: что произошло за период и как об этом сказано."""
+    """One issue: what happened over the period and how it is told."""
 
     issued_at: date
-    #: Начало периода: дата прошлого выпуска. Показывается читателю, но границу
-    #: периода не задаёт — см. отметки ниже.
+    #: The start of the period: the date of the previous issue. It is shown to
+    #: the reader but does not bound the period — see the marks below.
     since: date | None
-    #: Сколько записей журналов уже охвачено прошлыми выпусками.
+    #: How many journal entries the previous issues already covered.
     #:
-    #: Граница по дате теряет данные: изменение, случившееся в день выпуска, но
-    #: после него, не попадает ни в этот выпуск, ни в следующий — оно
-    #: проваливается между ними навсегда. Журналы дописываются и не
-    #: переписываются, поэтому число уже охваченных записей — точная и
-    #: устойчивая отметка, а дата — нет.
+    #: A boundary by date loses data: a change that happened on the day of an
+    #: issue but after it reaches neither this issue nor the next — it falls
+    #: between them for ever. The journals are appended to and never rewritten,
+    #: so the count of entries already covered is an exact and stable mark,
+    #: whereas a date is not.
     levels_seen: int = 0
     evidence_seen: int = 0
     runs_seen: int = 0
@@ -108,14 +109,14 @@ class Issue:
     evidence_by_type: dict[str, int] = field(default_factory=dict)
     links_checked: int = 0
     links_broken: int = 0
-    #: Распределение по уровням на день выпуска — чтобы читатель видел не только
-    #: изменение, но и состояние, к которому оно привело.
+    #: The distribution by level on the day of the issue, so that the reader
+    #: sees not only the change but the state it led to.
     by_level: dict[str, int] = field(default_factory=dict)
     total: int = 0
-    #: Текст выпуска на каждом языке портала. Выпуск не переписывается, поэтому
-    #: оба текста рождаются сразу: дописать перевод к вышедшему выпуску нельзя,
-    #: а показывать англоязычному читателю русский абзац — то же, что показать
-    #: ему сломанную страницу.
+    #: The text of the issue in each language of the portal. An issue is never
+    #: rewritten, so both texts are born at once: a translation cannot be added
+    #: to an issue already out, and showing an English reader a Russian paragraph
+    #: is the same as showing them a broken page.
     text: str = ""
     text_en: str = ""
 
@@ -148,7 +149,7 @@ class Issue:
 
 
 def load_issues() -> list[dict]:
-    """Выпущенные дайджесты, от старых к новым."""
+    """The issues already published, oldest first."""
     directory = digest_dir()
     if not directory.exists():
         return []
@@ -168,7 +169,7 @@ def _names(technologies: list[store.Technology]) -> dict[str, str]:
 
 
 def _listing(items: list[dict]) -> str:
-    """Имена через запятую, с обрывом на разумном числе."""
+    """Names separated by commas, cut off at a reasonable number."""
     names = [item["name"] for item in items]
     if len(names) <= NAMED_LIMIT:
         return ", ".join(names)
@@ -178,12 +179,13 @@ def _listing(items: list[dict]) -> str:
 
 
 def compose(issue: Issue) -> str:
-    """Текст выпуска по шаблону. Ничего, кроме уже вычисленного.
+    """The text of an issue, from a template. Nothing beyond what is computed.
 
-    Связки называются словами, а не тире. Тире прячет отношение между частями
-    фразы: читателю приходится самому достраивать, перечисление это, причина
-    или уточнение. Текст порождается шаблоном и публикуется без просмотра
-    человеком, поэтому догадываться он заставлять не должен.
+    Relations are named by words rather than by dashes. A dash hides the
+    relation between parts of a phrase, and the reader has to work out for
+    themselves whether it is a list, a cause or a qualification. The text is
+    generated from a template and published without review by a person, so it
+    must not force anyone to guess.
     """
     parts: list[str] = []
 
@@ -208,8 +210,8 @@ def compose(issue: Issue) -> str:
             f"{item['name']} с {item['level_before']} до {item['level_after']}"
             for item in issue.demoted
         )
-        # Понижение называется прямо: свидетельство, оказавшееся слабее, чем
-        # считалось, — такая же новость, как и подтверждение.
+        # A demotion is named outright: evidence that turned out weaker than
+        # it was thought is as much news as a confirmation.
         parts.append(f"Опустились в уровне {moves}.")
 
     if issue.evidence_added:
@@ -232,9 +234,9 @@ def compose(issue: Issue) -> str:
         )
 
     if issue.by_level:
-        # Существительное несёт первое число, остальные его подразумевают:
-        # «уровень L0 у 7 записей, L1 у 17» читается, а повтор слова в каждом
-        # члене перечисления — нет.
+        # The noun goes with the first number and the rest imply it: "L0 on 7
+        # records, L1 on 17" reads, while repeating the word in every member of
+        # the list does not.
         pairs = [
             (level, count)
             for level, count in sorted(issue.by_level.items())
@@ -270,11 +272,11 @@ def _listing_en(items: list[dict]) -> str:
 
 
 def compose_en(issue: Issue) -> str:
-    """Тот же выпуск по-английски.
+    """The same issue in English.
 
-    Отдельный составитель, а не перевод готовой строки: русский текст склоняет
-    существительные при числах, и переводить его пословно значит переносить в
-    английский чужую грамматику.
+    A separate writer rather than a translation of a finished string: the Russian
+    text declines its nouns after numbers, and translating it word by word would
+    carry a foreign grammar into English.
     """
     def plural_en(count: int, one: str, many: str) -> str:
         return f"{count} {one if count == 1 else many}"
@@ -345,7 +347,7 @@ def compose_en(issue: Issue) -> str:
     return " ".join(parts)
 
 
-#: Названия видов свидетельств для читателя по-английски.
+#: The names of the evidence kinds as a reader sees them, in English.
 EVIDENCE_NAMES_EN = {
     "publication": "about publications",
     "independent_reproduction": "about independent reproductions",
@@ -357,7 +359,8 @@ EVIDENCE_NAMES_EN = {
     "provider_count": "about providers",
 }
 
-#: Названия видов свидетельств для читателя. Ключи — значения `EvidenceType`.
+#: The names of the evidence kinds as a reader sees them, in Russian. The keys
+#: are the values of `EvidenceType`.
 EVIDENCE_NAMES = {
     "publication": "о публикациях",
     "independent_reproduction": "о независимых воспроизведениях",
@@ -371,12 +374,12 @@ EVIDENCE_NAMES = {
 
 
 def build(*, today: date | None = None, force: bool = False) -> Issue:
-    """Собрать выпуск за период с прошлого выпуска по сегодня."""
+    """Build the issue covering the period from the previous one to today."""
     today = today or date.today()
     previous = latest_issue()
     since = date.fromisoformat(previous["issued_at"]) if previous else None
 
-    # Отметки прошлого выпуска: сколько записей журналов он уже охватил.
+    # The marks of the previous issue: how many journal entries it covered.
     levels_seen = int(previous.get("levels_seen", 0)) if previous else 0
     evidence_seen = int(previous.get("evidence_seen", 0)) if previous else 0
     runs_seen = int(previous.get("runs_seen", 0)) if previous else 0
@@ -387,9 +390,9 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
 
     issue = Issue(issued_at=today, since=since)
 
-    # Изменения уровней: журнал читается целиком, потому что «первое появление»
-    # определяется историей, а не одной строкой. Охваченным считается то, что
-    # уже сосчитано прошлым выпуском.
+    # Level changes: the journal is read whole, because whether a level appears
+    # for the first time is decided by the history and not by a single line.
+    # What counts as covered is what the previous issue already counted.
     all_levels = store.load_levels()
     issue.levels_seen = len(all_levels)
     seen: dict[str, str] = {}
@@ -413,14 +416,14 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
         else:
             issue.demoted.append(item)
 
-    # Свидетельства за период.
+    # The evidence of the period.
     all_evidence = store.load_evidence()
     issue.evidence_seen = len(all_evidence)
     fresh = [e for e in all_evidence[evidence_seen:] if e.fetched_at <= today]
     issue.evidence_added = len(fresh)
     issue.evidence_by_type = dict(sorted(Counter(e.type for e in fresh).items()))
 
-    # Проверка ссылок за период — из журнала прогонов.
+    # The link check over the period, taken from the run log.
     all_runs = store.load_runs()
     issue.runs_seen = len(all_runs)
     for index, run in enumerate(all_runs):
@@ -431,7 +434,7 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
         issue.links_checked += run.links_checked
         issue.links_broken += run.links_broken
 
-    # Состояние на день выпуска.
+    # The state on the day of the issue.
     issue.total = len(technologies)
     issue.by_level = dict(sorted(Counter(
         (store.latest_level(t.id).level if store.latest_level(t.id) else "unknown")
@@ -445,15 +448,15 @@ def build(*, today: date | None = None, force: bool = False) -> Issue:
 
 
 def publish(issue: Issue) -> Path:
-    """Записать выпуск. Существующий файл не переписывается никогда."""
+    """Write the issue. An existing file is never overwritten."""
     directory = digest_dir()
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{issue.issued_at.isoformat()}.json"
     if path.exists():
         raise FileExistsError(
-            f"выпуск за {issue.issued_at} уже существует: {path}. "
-            "Выпуск утверждает, что было верно в день выхода, и переписывать "
-            "его нельзя."
+            f"the issue for {issue.issued_at} already exists: {path}. An issue "
+            "asserts what was true on the day it came out, and it must not be "
+            "rewritten."
         )
     path.write_text(
         json.dumps(issue.to_json(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -466,7 +469,7 @@ def run(*, today: date | None = None, dry_run: bool = False, force: bool = False
     issue = build(today=today, force=force)
 
     if not issue.has_news() and not force:
-        print("выпуск не собран: со времени прошлого ничего не изменилось")
+        print("no issue built: nothing has changed since the previous one")
         return 0
 
     print(issue.text)
@@ -475,19 +478,19 @@ def run(*, today: date | None = None, dry_run: bool = False, force: bool = False
 
     path = digest_dir() / f"{issue.issued_at.isoformat()}.json"
     if path.exists():
-        print(f"выпуск за {issue.issued_at} уже существует, повторный не пишется")
+        print(f"the issue for {issue.issued_at} already exists, no second one")
         return 0
 
-    print(f"\nвыпуск записан: {publish(issue)}")
+    print(f"\nthe issue is written: {publish(issue)}")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true", help="показать, не записывая")
+    parser.add_argument("--dry-run", action="store_true", help="show without writing")
     parser.add_argument(
         "--force", action="store_true",
-        help="выпустить даже когда изменений нет",
+        help="publish even when nothing changed",
     )
     args = parser.parse_args()
     return run(dry_run=args.dry_run, force=args.force)
