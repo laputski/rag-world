@@ -59,8 +59,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from services.registry import store  # noqa: E402
 
-#: Насколько часто перепроверять уже подтверждённую ссылку. Месяц — размен
-#: между расходом чужих ресурсов и сроком, за который поломку заметят.
+#: How often to recheck a link already confirmed. A month trades the cost to
+#: somebody else's resources against how long a breakage stays unnoticed.
 LINK_RECHECK_DAYS = 30
 
 
@@ -71,8 +71,8 @@ def run(
     skip_collect: bool = False,
     dry_run: bool = False,
     http=None,
-    #: Отдельный транспорт для ссылок: у него снят перечень доменов,
-    #: потому что реестр ссылается и на площадки вне его.
+    #: A separate transport for the links: its allowlist is lifted, because the
+    #: registry points at venues outside it.
     link_http=None,
     today: date | None = None,
 ) -> int:
@@ -85,7 +85,7 @@ def run(
 
     today = today or date.today()
 
-    # ─── 1. Сбор ─────────────────────────────────────────────────────────────
+    # ─── 1. Collection ───────────────────────────────────────────────────────
     if skip_collect:
         gathered = collect.CollectSummary()
     else:
@@ -93,33 +93,34 @@ def run(
             limit=limit, only=only, dry_run=dry_run, http=http, today=today
         )
         print(
-            f"собрано: свидетельств {gathered.evidence_added}, "
-            f"точек ряда {gathered.metrics_added}; "
-            f"отклонено проверками {gathered.rejected}; "
-            f"источников без результата {len(gathered.errors)}"
+            f"collected: evidence {gathered.evidence_added}, "
+            f"series points {gathered.metrics_added}; "
+            f"rejected by the checks {gathered.rejected}; "
+            f"sources that yielded nothing {len(gathered.errors)}"
         )
         for message in gathered.errors[:10]:
             print(f"  {message[:130]}")
         if len(gathered.errors) > 10:
             print(f"  ещё {len(gathered.errors) - 10}")
 
-    # ─── 2. Ссылки ───────────────────────────────────────────────────────────
+    # ─── 2. Links ────────────────────────────────────────────────────────────
     #
-    # Ссылки гниют молча: площадка переезжает, препринт снимают, репозиторий
-    # переименовывают, а запись продолжает выглядеть обоснованной. Проверка
-    # идёт после сбора, потому что сбор мог добавить источники, и до
-    # пересчёта уровней, чтобы испорченная ссылка была видна в том же прогоне.
+    # Links rot in silence: a venue moves, a preprint is withdrawn, a repository
+    # is renamed, and the record goes on looking grounded. The check runs after
+    # collection, because collection may have added sources, and before levels
+    # are recomputed, so that a broken link shows up in the same pass.
     #
-    # Недавно подтверждённые адреса пропускаются: за неделю ссылка, открытая
-    # вчера, обычно не исчезает, а лишние обращения — расход чужих ресурсов.
+    # Recently confirmed addresses are skipped: a link opened yesterday rarely
+    # vanishes within a week, and the extra requests spend somebody else's
+    # resources.
     if not skip_collect:
         links = check_links.run(
             http=link_http, today=today, dry_run=dry_run,
             stale_after=LINK_RECHECK_DAYS,
         )
         print(
-            f"ссылки: проверено {links.checked}, разрешается {links.verified}, "
-            f"не существует {links.gone}, закрыто правами {links.guarded}"
+            f"links: checked {links.checked}, resolving {links.verified}, "
+            f"gone {links.gone}, closed by rights {links.guarded}"
         )
         for problem in links.problems[:10]:
             print(f"  {problem[:130]}")
@@ -128,49 +129,51 @@ def run(
     else:
         links = check_links.LinkSummary()
 
-    # ─── 3. Обнаружение ──────────────────────────────────────────────────────
+    # ─── 3. Discovery ────────────────────────────────────────────────────────
     #
-    # Записей не заводит: дописывает кандидатов в очередь, где их ждёт решение
-    # человека. Отказ каталога проход не прерывает, как и отказ любого другого
-    # источника.
+    # It creates no records: it appends candidates to a queue where a person's
+    # verdict awaits them. A refusal from the catalogue does not interrupt the
+    # pass, any more than a refusal from any other source does.
     if not skip_collect:
         import discover
 
         found = discover.run(http=http, today=today, dry_run=dry_run)
         print(
-            f"обнаружение: найдено {found.found}, в очередь добавлено "
-            f"{found.added}, уже в реестре {found.known}"
+            f"discovery: found {found.found}, added to the queue "
+            f"{found.added}, already in the registry {found.known}"
         )
         gathered.errors.extend(found.problems)
     else:
         found = None
 
-    # ─── 4. Уровни ───────────────────────────────────────────────────────────
+    # ─── 4. Levels ───────────────────────────────────────────────────────────
     levels_changed = compute_levels.run(dry_run=dry_run, today=today)
 
-    # ─── 5. Артефакты ────────────────────────────────────────────────────────
+    # ─── 5. Artefacts ────────────────────────────────────────────────────────
     if not dry_run:
         counts = build_artifacts.build()
         print(
-            f"артефакты: технологий {counts['technologies']}, "
-            f"записей хроники {counts['changes']}"
+            f"artefacts: technologies {counts['technologies']}, "
+            f"chronicle entries {counts['changes']}"
         )
 
-    # ─── 6. Проверка ─────────────────────────────────────────────────────────
+    # ─── 6. Validation ───────────────────────────────────────────────────────
     problems = validate_data.check_registry()
     if problems:
-        sys.stderr.write(f"проверка данных не пройдена: нарушений {len(problems)}\n")
+        sys.stderr.write(f"data validation failed: {len(problems)} problems\n")
         for problem in problems[:20]:
             sys.stderr.write(f"  {problem}\n")
-        # Возврат с ошибкой до фиксации: испорченные данные публиковать нельзя.
+        # Return with an error before anything is committed: spoiled data must
+        # not be published.
         return 1
-    print("проверка данных пройдена")
+    print("data validation passed")
 
-    # ─── 7. Журнал прогонов ──────────────────────────────────────────────────
+    # ─── 7. The run log ──────────────────────────────────────────────────────
     #
-    # Проход без опроса источников в журнал сбора не попадает: строка «проверено
-    # такого-то числа» при пустом перечне источников утверждала бы проверку,
-    # которой не было. Такой проход — пересборка после правки кода, а не сбор.
+    # A pass that polled no sources does not reach the collection log: a line
+    # saying "checked on such a date" with an empty list of sources would assert
+    # a check that never happened. Such a pass is a rebuild after a code edit,
+    # not a collection.
     if not dry_run and not skip_collect:
         store.append_run(store.CollectionRun(
             ran_at=today,
@@ -186,46 +189,47 @@ def run(
                 or levels_changed or links.changed
             ),
         ))
-        print(f"прогон записан в журнал: {store.COLLECTION_LOG.name}")
+        print(f"the pass is recorded in {store.COLLECTION_LOG.name}")
 
-        # ─── 8. Дайджест ─────────────────────────────────────────────────────
+        # ─── 8. The digest ───────────────────────────────────────────────────
         #
-        # После журнала прогонов, потому что выпуск сообщает и о проверке
-        # ссылок, и после проверки данных, потому что публиковать сообщение по
-        # испорченным данным нельзя. Языковая модель не участвует: выпуск
-        # пересказывает уже вычисленное, и выдумать в нём нечего — ровно
-        # поэтому он публикуется без просмотра человеком.
+        # After the run log, because an issue reports the link check as well,
+        # and after validation, because an issue must not be published from
+        # spoiled data. No language model takes part: an issue retells what has
+        # already been computed, and there is nothing in it to invent — which is
+        # exactly why it is published without review by a person.
         #
-        # Пустой выпуск не выходит: неделя без изменений — обычное дело, а
-        # полсотни сообщений «ничего не произошло» превратили бы дайджест в
-        # шум. На вопрос «смотрели ли» отвечает журнал прогонов.
+        # An empty issue is not published: a week without changes is an ordinary
+        # thing, and fifty messages saying nothing happened would turn the digest
+        # into noise. The question of whether anyone looked is answered by the
+        # run log.
         issue = build_digest.build(today=today)
         if issue.has_news():
             path = build_digest.digest_dir() / f"{issue.issued_at.isoformat()}.json"
             if path.exists():
-                print("выпуск дайджеста за сегодня уже есть, повторный не пишется")
+                print("a digest issue for today already exists, no second one")
             else:
                 build_digest.publish(issue)
-                print(f"выпуск дайджеста: {path.name}")
-                # Лента и страница выпусков читают собранное, поэтому артефакты
-                # пересобираются: без этого выпуск лежал бы в данных, но не
-                # доходил до читателя.
+                print(f"digest issue: {path.name}")
+                # The feed and the issues page read the built files, so the
+                # artefacts are rebuilt: without that the issue would sit in the
+                # data and never reach a reader.
                 build_artifacts.build()
         else:
-            print("дайджест: изменений нет, выпуск не собран")
+            print("digest: nothing changed, no issue built")
 
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=0, help="ограничить число записей")
-    parser.add_argument("--only", help="обработать только указанную запись")
+    parser.add_argument("--limit", type=int, default=0, help="cap the number of records")
+    parser.add_argument("--only", help="process one named record")
     parser.add_argument(
         "--skip-collect", action="store_true",
-        help="не опрашивать источники, только пересчитать и пересобрать",
+        help="poll no sources, only recompute and rebuild",
     )
-    parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
+    parser.add_argument("--dry-run", action="store_true", help="write nothing")
     args = parser.parse_args()
     return run(
         limit=args.limit,
