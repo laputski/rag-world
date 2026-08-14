@@ -3,11 +3,12 @@
         collect update levels artifacts validate sources release \
         release-dry mutate mutate-list
 
-# Средства вызываются модулями через сам интерпретатор, а не запускалками из
-# .venv/bin. Запускалка несёт путь к окружению в заголовке файла, поэтому
-# переименование каталога проекта ломает её молча: `make test` падает с
-# «нет такого файла», хотя окружение на месте. Символьная ссылка на
-# интерпретатор от пути не зависит и переименование переживает.
+# The tools are invoked as modules through the interpreter itself rather than
+# through the launchers in .venv/bin. A launcher carries the path to the
+# environment in its first line, so renaming the project directory breaks it in
+# silence: `make test` fails with "no such file" while the environment is right
+# where it was. Calling the interpreter does not depend on that path and
+# survives a rename.
 PYTHON ?= .venv/bin/python
 PIP    ?= .venv/bin/pip
 PYTEST ?= $(PYTHON) -m pytest
@@ -51,11 +52,11 @@ build: ## Build the static portal into ui/dist
 	cd ui && npm ci && npm run build
 
 # ── Data pipeline ────────────────────────────────────────────────────────────
-# Единая точка входа для человека и для расписания: автономный режим вызывает
-# ровно эти цели, поэтому переход к автоматике не требует правок кода.
+# One entry point for a person and for the schedule: the unattended run invokes
+# exactly these targets, so moving to automation requires no change to the code.
 
-# Одна точка входа: ею пользуется и человек, и расписание, поэтому поведение
-# автономного прогона совпадает с локальным по построению.
+# One entry point, used by a person and by the schedule alike, so what the
+# unattended run does matches what a local run does by construction.
 collect: ## Full update pass: collect, recompute, rebuild, validate, log the run
 	$(PYTHON) scripts/update.py
 
@@ -76,10 +77,11 @@ validate: ## Validate registry data: schema, link resolvability, provenance
 sources: ## Regenerate docs/SOURCES.md from the collectors' own constants
 	$(PYTHON) scripts/build_sources.py
 
-# Выпуск фиксирует состояние навсегда: ссылка на него уходит в чужую работу, а
-# описание подаётся во внешний архив и получает постоянный идентификатор.
-# Артефакты пересобираются здесь же, чтобы в снимок не попало вчерашнее: сам
-# выпуск это проверит и откажется, но чинить отказ вручную незачем.
+# A release fixes a state for ever: a link to it goes into somebody else's work,
+# and its description is deposited in an external archive and receives a
+# permanent identifier. The artefacts are rebuilt right here so that yesterday's
+# state does not enter the snapshot: the release would catch that and refuse, but
+# there is no reason to repair the refusal by hand.
 release: artifacts ## Cut a dated, immutable snapshot and the deposit package
 	$(PYTHON) scripts/make_release.py
 
@@ -88,17 +90,18 @@ release-dry: artifacts ## Show what a release would contain, writing nothing
 
 # ── Quality ──────────────────────────────────────────────────────────────────
 
-# Форматирование не навязывается: в схеме измерений и в каталогах значений
-# выравнивание сделано вручную и несёт смысл (таблицу видно глазом), а
-# автоформат его разрушает. Проверяются ошибки, а не расстановка пробелов.
+# Formatting is not imposed: in the dimension schema and in the value catalogues
+# the alignment is done by hand and carries meaning, because it makes the table
+# visible to the eye, and an automatic formatter destroys it. What is checked is
+# errors, not the placement of spaces.
 smoke: ## Check the deployed portal (needs network)
 	$(PYTHON) -m pytest tests/smoke -m network -q
 
-# Мутационный прогон отвечает на вопрос, которого не задаёт покрытие: заметит
-# ли кто-нибудь поломку правила. Идёт около двадцати пяти минут, поэтому в
-# `make test` не входит и запускается отдельно. Годность самого перечня при
-# этом проверяется обычным набором при каждой правке: портится он именно от
-# правок кода, а не от времени.
+# The mutation run answers the question coverage does not ask: would anyone
+# notice if a rule broke. It takes about twenty-five minutes, so it stays out of
+# `make test` and is run separately. The soundness of the catalogue itself is
+# checked by the ordinary suite on every edit: it is edits to the code that spoil
+# it, not the passage of time.
 mutate: ## Break each rule in turn and check that some test notices
 	$(PYTHON) scripts/mutate.py
 
@@ -108,7 +111,7 @@ mutate-list: ## Show the catalogue of rules the mutation run protects
 lint: ## Run ruff checks
 	$(PYTHON) -m ruff check core services scripts tests
 
-format: ## Auto-format with ruff (по желанию, не обязательно)
+format: ## Auto-format with ruff (optional, never required)
 	$(PYTHON) -m ruff format core services scripts tests
 
 clean: ## Remove build artifacts and caches

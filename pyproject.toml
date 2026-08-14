@@ -33,9 +33,9 @@ Dataset = "https://ragworld.org/data/index.json"
 dev = [
     "pytest>=8.0",
     "ruff>=0.6",
-    # Разбор описаний рабочих процессов в проверке «в задании нет логики».
-    # Локально он приходил попутно с другим пакетом, поэтому его отсутствие
-    # обнаружилось только на чистой установке в непрерывной интеграции.
+    # Parses workflow descriptions for the check that a job holds no logic.
+    # Locally it arrived as another package's dependency, so its absence showed
+    # up only on a clean install in continuous integration.
     "pyyaml>=6.0",
 ]
 
@@ -44,12 +44,13 @@ include = ["core*", "services*", "scripts*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-# Дымовые проверки развёрнутого портала требуют сети и проверяют не код, а
-# результат развёртывания. В основной набор они не входят: тест, падающий
-# из-за чужой сети, перестают читать вместе со всеми остальными.
+# The smoke checks of the deployed portal need a network and test the result of
+# a deployment rather than the code. They stay out of the main suite: a test that
+# fails because of somebody else's network stops being read, and the rest of the
+# suite stops being read along with it.
 addopts = "-q -m 'not network'"
 markers = [
-    "network: требует сети; в основной набор не входит (см. tests/smoke)",
+    "network: needs a network; outside the main suite (see tests/smoke)",
 ]
 
 [tool.ruff]

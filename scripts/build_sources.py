@@ -38,73 +38,75 @@ from services.collectors.pypi import PYPI_API, STATS_API  # noqa: E402
 
 OUT = ROOT / "docs" / "SOURCES.md"
 
-#: Назначение ресурса: зачем портал туда ходит и что оттуда берёт. Прозу нельзя
-#: вывести из кода, поэтому она здесь; адреса, наоборот, только из кода.
+#: What a resource is for: why the portal goes there and what it takes. The
+#: prose cannot be derived from the code, so it lives here; the addresses, on
+#: the contrary, come from the code alone.
 PURPOSE = {
     ARXIV_API: (
-        "Препринты",
-        "Подтверждает существование препринта и сверяет заголовок с заявленным. "
-        "Даёт уровень L1.",
+        "Preprints",
+        "Confirms that a preprint exists and compares its title with the one "
+        "claimed. Yields the level L1.",
     ),
     OPENALEX_API: (
-        "Открытый индекс работ",
-        "Площадка публикации, признак рецензирования, число цитирований и "
-        "скорость цитирования. Даёт уровень L2 научным путём и всё внимание на "
-        "карте.",
+        "The open index of works",
+        "The publication venue, whether it was peer-reviewed, the citation count "
+        "and the citation velocity. Yields the level L2 by the scholarly route, "
+        "and all the attention shown on the map.",
     ),
     GITHUB_API: (
-        "Репозитории",
-        "Лицензия, дата последней правки, наличие выпусков. Даёт уровень L3. "
-        "Тем же адресом читаются оглавления каталогов интеграций (ниже).",
+        "Repositories",
+        "The licence, the date of the last edit, whether releases exist. Yields "
+        "the level L3. The same address serves the integration listings below.",
     ),
     PYPI_API: (
-        "Индекс пакетов",
-        "Существование пакета и его версия. Опрашивается только там, где имя "
-        "пакета записано человеком: угадывать нельзя, чужой пакет с похожим "
-        "именем даст ложное свидетельство.",
+        "The package index",
+        "That a package exists, and its version. It is asked only where the "
+        "package name was written down by a person: guessing is inadmissible, "
+        "because somebody else's package with a similar name would yield false "
+        "evidence.",
     ),
     CURATED_LISTS[0].page: (
-        "Курируемый тематический список",
-        "Второй путь обнаружения, устроенный иначе, чем каталог. Каталог знает "
-        "о работе то, что о ней заявил выложивший, а включение в список есть "
-        "решение человека, который в предмете работает. Из разметки берутся "
-        "только обозначения работ; сведения о них даёт архив препринтов, "
-        "потому что список пишут руками и доверять его формулировкам нельзя.",
+        "A curated topic list",
+        "A second route of discovery, built on a different principle from the "
+        "catalogue. The catalogue knows about a work what whoever uploaded it "
+        "claimed, whereas inclusion in a list is the decision of a person who "
+        "works in the subject. Only the identifiers of works are taken from the "
+        "markup; what is known about them comes from the preprint archive, "
+        "because a list is written by hand and its wording cannot be trusted.",
     ),
     PWC_API: (
-        "Каталог работ и кода",
-        "Площадка публикации вторым источником: пока она приходила только из "
-        "открытого индекса, его ошибка ничем не перекрывалась. Оттуда же лента "
-        f"работ под меткой метода `{RAG_METHOD}` для обнаружения новых. "
-        "Каталог ведёт сообщество при Hugging Face после закрытия "
-        "paperswithcode.com.",
+        "The works-and-code catalogue",
+        "The publication venue from a second source: while it came from the open "
+        "index alone, an error there was covered by nothing. The same catalogue "
+        f"gives a feed of works under the method tag `{RAG_METHOD}` for "
+        "discovering new ones. It is run by the community after "
+        "paperswithcode.com closed.",
     ),
     STATS_API: (
-        "Загрузки пакетов",
-        "Число загрузок за месяц. Вместе с присутствием во фреймворках даёт "
-        "уровень L4.",
+        "Package downloads",
+        "The number of downloads in a month. Together with presence in a "
+        "framework it yields the level L4.",
     ),
 }
 
 
 def render() -> str:
     lines = [
-        "<!-- ПОРОЖДЕНО из services/collectors/ командой "
-        "`python3 scripts/build_sources.py`. Не править вручную: правка "
-        "потеряется. -->",
+        "<!-- GENERATED from services/collectors/ by "
+        "`python3 scripts/build_sources.py`. Do not edit by hand: an edit "
+        "would be lost. -->",
         "",
-        "# Опрашиваемые ресурсы",
+        "# The resources polled",
         "",
-        "Портал ходит только сюда. Список порождается из кода сборщиков, "
-        "поэтому разойтись с ним не может.",
+        "These are the only places the portal goes. The list is generated from "
+        "the code of the collectors, so it cannot drift from it.",
         "",
-        "Ключей и учётных записей не требуется нигде. Токен площадки "
-        "используется, если он есть, и только ради более высоких пределов "
-        "частоты обращений.",
+        "No key and no account is required anywhere. A hosting token is used "
+        "when one is present, and only for the sake of a higher rate limit.",
         "",
-        "## Точки входа",
+        "## Entry points",
         "",
-        "| Ресурс | Адрес | Что берётся |",
+        "| Resource | Address | What is taken |",
         "| --- | --- | --- |",
     ]
     for url, (name, purpose) in PURPOSE.items():
@@ -112,14 +114,14 @@ def render() -> str:
 
     lines += [
         "",
-        "## Каталоги интеграций",
+        "## Integration folders",
         "",
-        "Читаются оглавления каталогов, а не поиск по коду: присутствие "
-        "технологии во фреймворке проверяется наличием её каталога. Пути "
-        "меняются вместе с раскладкой чужих репозиториев, и это самая хрупкая "
-        "часть перечня.",
+        "Directory listings are read rather than code search: a technology is "
+        "present in a framework when a folder of its own exists. The paths "
+        "change along with the layout of somebody else's repository, which "
+        "makes this the most brittle part of the list.",
         "",
-        "| Фреймворк | Репозиторий | Каталоги |",
+        "| Framework | Repository | Folders |",
         "| --- | --- | --- |",
     ]
     for catalog in frameworks.CATALOGS:
@@ -128,34 +130,35 @@ def render() -> str:
 
     lines += [
         "",
-        "## Вежливость",
+        "## Politeness",
         "",
-        "Пауза между обращениями к одному узлу. Значения взяты из требований "
-        "самих ресурсов, а не из удобства.",
+        "The pause between two requests to one host. The values come from what "
+        "the resources ask for, not from convenience.",
         "",
-        "| Узел | Пауза, с |",
+        "| Host | Pause, s |",
         "| --- | --- |",
     ]
     for host, delay in sorted(transport.HOST_DELAYS.items()):
         lines.append(f"| `{host}` | {delay} |")
     lines += [
-        f"| прочие | {transport.DEFAULT_DELAY} |",
+        f"| any other | {transport.DEFAULT_DELAY} |",
         "",
-        f"Портал представляется строкой `{transport.DEFAULT_USER_AGENT}`. "
-        f"Открытый индекс работ держит отдельный поток для тех, кто назвался "
-        f"почтой для связи: адрес берётся из переменной окружения "
-        f"`{OPENALEX_MAILTO_ENV}`, без неё прогон идёт медленнее и рискует "
-        f"упереться в отказ по частоте.",
+        f"The portal introduces itself as `{transport.DEFAULT_USER_AGENT}`. "
+        f"The open index of works keeps a separate request pool for those who "
+        f"give a contact address: it is taken from the environment variable "
+        f"`{OPENALEX_MAILTO_ENV}`, and without it a pass runs slower and risks "
+        f"a refusal on rate.",
         "",
-        f"Повторов при отказе по частоте: {transport.RETRIES_ON_RATE_LIMIT}.",
+        f"Retries after a refusal on rate: {transport.RETRIES_ON_RATE_LIMIT}.",
         "",
-        "## Чего портал не делает сам",
+        "## What the portal does not do by itself",
         "",
-        "Автоматического заведения записей. Обнаружение опрашивает каталог по "
-        "метке метода и дописывает найденное в очередь кандидатов, а решение "
-        "по каждому принимает человек: правило, отличающее новую архитектуру "
-        "от приложения существующей, ошибается, и цена ошибки — запись реестра "
-        "о том, чего нет. Очередь показана на странице «Пробелы».",
+        "It does not create records. Discovery asks the catalogue under the "
+        "method tag and appends what it finds to the candidate queue, and the "
+        "verdict on each is a person's: a rule telling a new architecture from "
+        "an application of an existing one errs, and the price of the error is "
+        "a registry record about something that does not exist. The queue is "
+        "shown on the Gaps page.",
         "",
     ]
     return "\n".join(lines)
@@ -164,7 +167,7 @@ def render() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true",
-                        help="сверить и вернуть ошибку при расхождении")
+                        help="compare only, and fail on a divergence")
     args = parser.parse_args()
 
     expected = render()
@@ -172,16 +175,16 @@ def main() -> int:
         actual = OUT.read_text(encoding="utf-8") if OUT.exists() else ""
         if actual != expected:
             sys.stderr.write(
-                f"{OUT.relative_to(ROOT)} разошёлся с кодом сборщиков; "
-                "выполните `python3 scripts/build_sources.py`\n"
+                f"{OUT.relative_to(ROOT)} has drifted from the collector code; "
+                "run `python3 scripts/build_sources.py`\n"
             )
             return 1
-        print("перечень ресурсов совпадает с кодом")
+        print("the list of resources matches the code")
         return 0
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(expected, encoding="utf-8")
-    print(f"перечень ресурсов записан: {OUT.relative_to(ROOT)}")
+    print(f"the list of resources is written: {OUT.relative_to(ROOT)}")
     return 0
 
 

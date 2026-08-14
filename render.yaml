@@ -1,27 +1,27 @@
-# Публикация портала на Render.
+# Publishing the portal on Render.
 #
-# Портал статический: сборка выполняет только команды интерфейса, живого сервера
-# в продакшене нет. Отсюда два следствия. Первое: ограничение на засыпание при
-# простое к статике не относится. Второе: данные обязаны лежать в репозитории
-# собранными — сборка не запускает Python и артефакты не породит.
+# The portal is static: the build runs the interface commands and nothing else,
+# and there is no live server in production. Two things follow. The idle-sleep
+# limit of the free plan does not apply to static files. And the data has to sit
+# in the repository already built, because the build runs no Python and will
+# produce no artefacts.
 #
-# Правило переписывания адресов нужно клиентской маршрутизации: без него прямое
-# обращение к /registry или /tech/pathrag вернуло бы отсутствие страницы, а
-# постоянные адреса карточек — обязательное условие цитируемости.
+# The rewrite rule is what client-side routing needs: without it a direct
+# request to /registry or /tech/pathrag would return no page, and permanent
+# addresses for the record pages are a precondition of being citable.
 #
-# ВАЖНО. Этот файл действует, только если сервис создан через Blueprint
-# («New +» → «Blueprint»). Сервис, заведённый вручную как Static Site, читает
-# из репозитория лишь команду сборки: ни правила переписывания, ни заголовки
-# отсюда к нему не применяются, и обнаруживается это не при развёртывании, а
-# когда читатель открывает ссылку на карточку и получает 404.
+# IMPORTANT. This file takes effect only when the service was created through a
+# Blueprint ("New +" then "Blueprint"). A service created by hand as a Static
+# Site reads only the build command from the repository: neither the rewrite
+# rules nor the headers here apply to it, and that is discovered not at deploy
+# time but when a reader opens a link to a record and gets a 404.
 #
-# Так уже случилось: все внутренние адреса портала отвечали отсутствием
-# страницы, а файлы данных при этом отдавались исправно — потому что к ним
-# правило и не нужно. Если сервис заведён вручную, то же правило добавляется
-# на вкладке Redirects/Rewrites: источник /*, назначение /index.html,
-# действие Rewrite.
+# It has happened already: every internal address of the portal answered with no
+# page while the data files were served correctly, because they need no rule.
+# If the service was created by hand, the same rule is added on the
+# Redirects/Rewrites tab: source /*, destination /index.html, action Rewrite.
 #
-# Проверяется это `make smoke`: там есть проверка прямой ссылки на карточку.
+# `make smoke` checks this: it opens a direct link to a record page.
 
 services:
   - type: web
@@ -37,8 +37,8 @@ services:
         source: /*
         destination: /index.html
     headers:
-      # Артефакты данных обновляются ежедневно, поэтому кэшируются ненадолго:
-      # иначе читатель увидит вчерашнее состояние и не поймёт почему.
+      # The data artefacts change with every update pass, so they are cached
+      # briefly: otherwise a reader sees last week's state and cannot tell why.
       - path: /data/*
         name: Cache-Control
         value: public, max-age=300, must-revalidate

@@ -26,5 +26,7 @@ keywords:
   - configuration space
   - feature model
   - open data
-license: Apache-2.0
-license-url: "https://github.com/laputski/rag-world/blob/main/LICENSE"
+# The object cited here is the registry, that is, the data. It is CC BY 4.0;
+# the code that builds it is Apache-2.0 and is cited through the repository.
+license: CC-BY-4.0
+license-url: "https://github.com/laputski/rag-world/blob/main/data/LICENSE.md"

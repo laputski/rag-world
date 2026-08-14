@@ -30,7 +30,7 @@ ui/tsconfig.tsbuildinfo
 mlruns/
 mlartifacts/
 
-# --- Model weights (large; хранить во внутреннем хранилище) ---
+# --- Model weights (large; keep them in internal storage) ---
 *.bin
 *.safetensors
 *.gguf
@@ -46,8 +46,12 @@ neo4j-data/
 .vscode/
 *.iml
 
-# --- AI assistant session caches (не часть репозитория) ---
+# --- AI assistant session caches (not part of the repository) ---
 .zcode/
+.deepeval/
+# Local, per-machine settings. .claude/launch.json is shared on purpose:
+# it names the dev-server commands and belongs to everyone.
+.claude/settings.local.json
 
 # --- OS ---
 *.DS_Store
@@ -56,8 +60,8 @@ Thumbs.db
 # --- Eval artifacts with sensitive content ---
 eval/golden/private/
 
-# Собранные артефакты портала версионируются намеренно. Они производны от data/,
-# но именно их публикует статический хостинг: сборка выполняет только команды
-# сборки интерфейса и не запускает Python. Без артефактов в репозитории
-# опубликованный портал остался бы без данных.
-# От расхождения с data/ защищает tests/architecture/test_artifacts_in_sync.py.
+# The built artefacts of the portal are versioned deliberately. They derive from
+# data/, but they are what the static hosting publishes: the build runs the
+# interface build commands and no Python. Without the artefacts in the
+# repository, the published portal would be left without data.
+# tests/architecture/test_artifacts_in_sync.py guards against drift from data/.

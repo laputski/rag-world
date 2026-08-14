@@ -62,7 +62,7 @@ supported and preferred over scraping the pages.
 
 | File | What it holds |
 |---|---|
-| [`data/index.json`](https://ragworld.org/data/index.json) | index of every dataset: purpose, record count, schema version |
+| [`data/index.json`](https://ragworld.org/data/index.json) | index of every dataset: purpose, record count, the level rule's version |
 | [`data/registry.json`](https://ragworld.org/data/registry.json) | every record with configuration, level, evidence and prose |
 | [`data/tech/{id}.json`](https://ragworld.org/data/tech/pathrag.json) | one record on its own, for when the whole registry is not wanted |
 | [`data/changes.json`](https://ragworld.org/data/changes.json) | append-only chronicle of level changes with their evidence |
