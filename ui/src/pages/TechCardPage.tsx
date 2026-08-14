@@ -17,11 +17,11 @@ import { useDocumentHead } from "../useDocumentHead";
 import type { ParseNote, RegistryTechnology } from "../api/types";
 
 /**
- * Проза карточки: абзацы, а не полотно.
+ * The prose of a card: paragraphs rather than a wall.
  *
- * Тексты хранятся с пустой строкой между абзацами, как в любом обычном
- * источнике. Без этой разбивки описание в четыреста слов выходит одним
- * блоком, который читатель пролистывает не читая.
+ * The texts are stored with a blank line between paragraphs, as in any ordinary
+ * source. Without that split a description of four hundred words comes out as
+ * one block, which a reader scrolls past without reading.
  */
 function Prose({ text }: { text: string }) {
   const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
@@ -41,30 +41,32 @@ function Prose({ text }: { text: string }) {
 }
 
 /**
- * Обоснование одного решения разбора конфигурации.
+ * The justification of one decision of the configuration reading.
  *
- * Показывается свёрнутым: читателю, которому нужно значение, обоснование
- * мешает; читателю, который значению не верит, оно необходимо. Разворот — один
- * щелчок, и он не уводит со страницы.
+ * It is shown collapsed: a reader who wants the value finds the justification in
+ * the way, and a reader who does not believe the value needs it. Opening it is
+ * one click, and it does not lead away from the page.
  *
- * «Что делает система» и «почему из этого следует значение» разнесены
- * намеренно: первое проверяется по источнику, второе — по схеме измерений.
+ * "What the system does" and "why the value follows" are kept apart on purpose:
+ * the first is checked against the source, the second against the schema.
  */
 /**
- * Обоснование разбора: почему у измерения такое значение.
+ * The justification of the reading: why a dimension holds the value it does.
  *
- * Перевод идёт записями и хранится рядом с оригиналом, как в словаре остатков:
- * обоснование бессмысленно в отрыве от измерения, к которому относится. Пока
- * запись не переведена, показывается русский текст с пометкой об этом: пустое
- * место и молчаливый русский абзац одинаково выглядят поломкой.
+ * The translation goes record by record and is stored beside the original, as in
+ * the residual vocabulary: a justification means nothing apart from the
+ * dimension it belongs to. While a record is untranslated, the Russian text is
+ * shown with a note saying so — a blank space and a silent Russian paragraph
+ * look equally like a breakage.
  */
 function ParseNoteBlock({ note }: { note: ParseNote }) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
 
-  // Перевод обоснований идёт записями, и пока он не закончен, часть карточек
-  // остаётся русской. Читателю об этом сказано прямо на тех карточках, где так
-  // и есть: пустое место либо молчаливый русский абзац хуже, чем пометка.
+  // The justifications are translated record by record, and until that is done
+  // some cards stay Russian. The reader is told so outright on the cards where
+  // it is the case: a blank space or a silent Russian paragraph is worse than a
+  // note.
   const english = i18n.language !== "ru";
   const translated = !english || Boolean(note.did_en && note.why_en);
   const pick = (ru: string, en?: string) => (english && en ? en : ru);
@@ -81,9 +83,9 @@ function ParseNoteBlock({ note }: { note: ParseNote }) {
       </MuiLink>
       <Collapse in={open}>
         {/*
-          Пометка `data-basis` называет единственное место карточки, где на
-          английской версии законно стоит русский текст. По ней же проверка
-          отличает намеренное от забытого перевода.
+          The `data-basis` mark names the one place on a card where Russian text
+          may legitimately stand in the English version. A test uses the same
+          mark to tell a deliberate omission from a forgotten translation.
         */}
         <Box
           data-basis="ru"
@@ -143,12 +145,12 @@ function NoteLine({ label, text, accent }: { label: string; text: string; accent
 }
 
 /**
- * Карточка технологии.
+ * The card of one technology.
  *
- * Факты приходят из реестра, тексты — из ресурсов локализации по `prose_id`
- * (принцип K3). Рубрика «задача, барьеры, решения» применяется ко всем записям,
- * у которых такой текст есть, а не только к тем, что попали в прежнюю статью о
- * парадигмах.
+ * The facts come from the registry and the texts from the localisation resources
+ * by `prose_id`. The heading "task, barriers, solutions" applies to every record
+ * that has such a text, not only to those that made it into the earlier article
+ * about paradigms.
  */
 export function TechCardPage() {
   const { id } = useParams<{ id: string }>();
@@ -160,9 +162,9 @@ export function TechCardPage() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    // Запрашивается одна запись, а не весь реестр: карточка есть страница, на
-    // которую чаще всего приходят по ссылке извне, и платить за шестьдесят
-    // восемь чужих записей ей не за что.
+    // One record is requested rather than the whole registry: a card is the
+    // page people most often arrive at from an outside link, and it has no
+    // reason to pay for sixty-eight records that are not its own.
     getTechnology(id)
       .then((found) => {
         setTech(found);
@@ -175,9 +177,9 @@ export function TechCardPage() {
       .finally(() => setLoading(false));
   }, [id, t]);
 
-  // Заголовок и описание вкладки берутся у самой записи. Хук вызывается до
-  // возвратов по загрузке и ошибке, потому что порядок вызовов обязан быть
-  // одинаковым при каждом отображении.
+  // The tab title and description come from the record itself. The hook is
+  // called before the loading and error returns, because the order of hook calls
+  // has to be the same on every render.
   const prose = getTechProse(tech?.prose_id ?? null, i18n.language);
   useDocumentHead({
     title: tech?.name,
@@ -208,12 +210,12 @@ export function TechCardPage() {
       </Box>
 
       {/*
-        Источник, который портал не смог открыть сам, помечается прямо здесь.
-        Портал стоит на том, что каждое его утверждение проверяемо, и «ссылки
-        проверены еженедельно» — тоже утверждение. У трёх адресов оно неверно:
-        издательства отвечают роботу отказом по правам, и подтвердить их может
-        только человек. Умолчать значило бы выдать непроверенное за
-        проверенное.
+        A source the portal could not open itself is marked right here. The
+        portal rests on every claim of its own being checkable, and "the links
+        are checked weekly" is a claim too. For three addresses it is untrue:
+        publishers answer a robot with a refusal on rights, and only a person can
+        confirm them. Saying nothing would mean passing the unchecked off as
+        checked.
       */}
       {tech.links.length > 0 && (
         <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap", mb: 2 }}>
@@ -239,10 +241,11 @@ export function TechCardPage() {
       )}
 
       {/*
-        Краткая суть берётся из локализованной прозы, а не из поля реестра:
-        поле хранит русский текст, и на английской версии он был бы русским
-        абзацем посреди страницы. Поле остаётся запасным вариантом — у записи
-        может не быть прозы, и тогда лучше показать русскую строку, чем ничего.
+        The short summary comes from the localised prose rather than from the
+        registry field: the field holds Russian text, and in the English version
+        it would be a Russian paragraph in the middle of the page. The field
+        stays as a fallback — a record may have no prose, and then a Russian line
+        is better than nothing.
       */}
       {(prose.short || tech.summary) && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
@@ -272,10 +275,11 @@ export function TechCardPage() {
       )}
 
       {/*
-        Ход обработки заменил перечень страт, который стоял здесь раньше.
-        Перечень называл буквы A и C, ничего к ним не добавляя, и повторял
-        фишки страт из шапки. Диаграмма выводится из той же конфигурации, но
-        говорит, что именно технология делает и на каком шаге.
+        The processing diagram replaced a list of strata that used to stand
+        here. The list named the letters A and C and added nothing to them, and
+        it repeated the stratum chips from the header. The diagram is derived
+        from the same configuration but says what the technology actually does,
+        and at which step.
       */}
       {Object.keys(tech.configuration).length > 0 && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
@@ -294,9 +298,9 @@ export function TechCardPage() {
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 1 }}>{t("techCard.configuration")}</Typography>
           {/*
-            Без этой строки читатель не может отличить значение, сверенное с
-            первоисточником, от значения по умолчанию, которое никто не смотрел.
-            Выглядят они одинаково, а утверждают разное.
+            Without this line a reader cannot tell a value checked against the
+            primary source from a base value nobody has looked at. They look
+            alike and assert different things.
           */}
           <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 0.5 }}>
             {t("techCard.configurationLead")}
@@ -307,10 +311,11 @@ export function TechCardPage() {
               : t("techCard.configurationUnreviewed")}
           </Typography>
           {/*
-            Строки идут в порядке схемы и сгруппированы по стратам, а не в том
-            порядке, в каком ключи легли в JSON. Порядок схемы совпадает с
-            порядком обработки запроса, поэтому таблица читается сверху вниз
-            как устройство системы, а не как алфавитный список свойств.
+            The rows follow the order of the schema and are grouped by stratum,
+            rather than the order the keys happened to land in the JSON. The
+            schema order matches the order a query is processed in, so the table
+            reads top to bottom as the make-up of a system rather than as an
+            alphabetical list of properties.
           */}
           <TableContainer>
             <Table size="small">
@@ -365,10 +370,11 @@ export function TechCardPage() {
                               {label?.name ?? dim.code}
                             </Typography>
                             {/*
-                              Вопрос под именем и есть определение измерения.
-                              Имя «Компоновка» без него так же непрозрачно, как
-                              код D3: читателю нужно знать, о чём измерение
-                              вообще, а не только как оно называется.
+                              The question under the name is the definition of
+                              the dimension. The name "Context assembly" without
+                              it is as opaque as the code D3: a reader needs to
+                              know what the dimension is about at all, not only
+                              what it is called.
                             */}
                             {label && (
                               <Typography
@@ -388,12 +394,12 @@ export function TechCardPage() {
                             </Typography>
                           </TableCell>
                           {/*
-                            Три разных утверждения о значении показываются
-                            по-разному. Переменное значение выбирается системой
-                            во время работы, и без пометки читатель принял бы
-                            записанное за единственное. Неприменимое измерение
-                            значения не имеет вовсе; строка остаётся, потому
-                            что её отсутствие читалось бы как «забыли».
+                            Three different claims about a value are shown
+                            differently. A variable value is chosen by the system
+                            while it runs, and without a mark a reader would take
+                            what is written for the only one. An inapplicable
+                            dimension has no value at all; the row stays, because
+                            its absence would read as an oversight.
                           */}
                           <TableCell sx={{ verticalAlign: "top" }}>
                             {inapplicable ? (
@@ -432,12 +438,13 @@ export function TechCardPage() {
                                   )}
                                 </Box>
                                 {/*
-                                  Обоснование прямо под значением, а не в
-                                  сноске. Конфигурация — единственное место
-                                  портала, где решение принял человек: у уровня
-                                  показан вывод правила, у свидетельства —
-                                  источник, и только здесь значение появлялось
-                                  без основания.
+                                  The justification sits directly under the
+                                  value rather than in a footnote. The
+                                  configuration is the one place on the portal
+                                  where a person made the decision: a level shows
+                                  the output of the rule, a piece of evidence
+                                  shows its source, and only here did a value
+                                  used to appear with no grounds at all.
                                 */}
                                 {note && <ParseNoteBlock note={note} />}
                               </>
@@ -488,8 +495,9 @@ export function TechCardPage() {
 
       <Divider sx={{ my: 2 }} />
 
-      {/* Почему такой уровень: вывод правила и свидетельства, на которых он стоит.
-          Уровень без этого раздела — утверждение, которое нечем проверить. */}
+      {/* Why the level is what it is: the output of the rule and the evidence it
+          stands on. Without this section a level is a claim the reader has no
+          means to check. */}
       <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
         <Typography variant="subtitle2" sx={{ mb: 1 }}>{t("techCard.whyLevel")}</Typography>
 
@@ -513,10 +521,10 @@ export function TechCardPage() {
             </Box>
 
             {(() => {
-              // Невыполненные уровни делятся на два разных случая. Те, что выше
-              // текущего, — это дорога вперёд. Те, что ниже, означают обход:
-              // уровень достигнут другим путём, и это стоит объяснить, иначе
-              // читатель сочтёт пропуск ошибкой.
+              // Unsatisfied levels fall into two different cases. Those above
+              // the current one are the road ahead. Those below mean a bypass:
+              // the level was reached by another route, and that is worth
+              // explaining, or a reader takes the gap for an error.
               const order = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"];
               const current = tech.level ? order.indexOf(tech.level) : -1;
               const ahead = tech.level_reason!.missing.filter(

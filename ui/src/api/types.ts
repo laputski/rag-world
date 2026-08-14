@@ -1,66 +1,67 @@
-/** Типы данных портала.
+/** The data types of the portal.
  *
- * Портал статический: все структуры ниже приходят из заранее собранных
- * артефактов (`public/data/*.json`), а не от живого сервера.
+ * The portal is static: every structure below arrives from artefacts built in
+ * advance (`public/data/*.json`) rather than from a live server.
  *
- * Отсутствие величины всюду обозначается `null`, а не нулём. Ноль означал бы,
- * что величину измерили и она равна нулю; для «не измеряли» это неправда, и
- * представления обязаны показывать различие.
+ * An absent quantity is `null` everywhere and never a zero. A zero would say the
+ * quantity was measured and came out zero; for "not measured" that is untrue,
+ * and the views are obliged to show the difference.
  */
 
-/** Запись реестра технологий. */
+/** A record of the technology registry. */
 export interface RegistryTechnology {
   id: string;
   name: string;
   aliases: string[];
-  /** Род объекта: paradigm | architecture | technique | tool | artifact. */
+  /** The kind: paradigm | architecture | technique | tool | artifact | attack. */
   kind: string;
   family: string | null;
-  /** Страты измерений, к которым относится вклад технологии (A–G). */
+  /** The strata A–G the technology's contribution belongs to. */
   groups: string[];
-  /** Идентификатор локализованной прозы карточки. */
+  /** The identifier of the localised prose of the card. */
   prose_id: string | null;
   /**
-   * Проза, уложенная в артефакт на обоих языках.
+   * The prose laid into the artefact in both languages.
    *
-   * Портал берёт тексты из ресурсов локализации, а эти поля существуют ради
-   * потребителя выгрузки: реестр, прочитанный без портала, состоял из кодов и
-   * уровней без единого предложения о том, что это за технология.
+   * The portal takes its texts from the localisation resources; these fields
+   * exist for a consumer of the published data. The registry, read without the
+   * portal, consisted of codes and levels without a single sentence saying what
+   * a technology was.
    */
   summary?: string | null;
   summary_en?: string | null;
   description?: string | null;
   description_en?: string | null;
   first_published: string | null;
-  /** Значения измерений: главное поле для сравнения технологий. */
+  /** The dimension values: the field two technologies are compared by. */
   configuration: Record<string, string>;
-  /** Механизмы, не выразимые схемой измерений (формулировки из словаря). */
+  /** Mechanisms the schema does not express, worded from the vocabulary. */
   residual: string[];
   residual_en: string[];
-  /** Измерения, значение которых выбирается во время работы или по режиму. */
+  /** Dimensions whose value is chosen at run time or by mode. */
   configuration_variable: string[];
-  /** Измерения, к объекту неприменимые: значения в конфигурации не имеют. */
+  /** Dimensions inapplicable to the object: they hold no value at all. */
   configuration_inapplicable: string[];
   /**
-   * Дата разбора конфигурации по первоисточникам; null — не разбиралась.
-   * Отличает значение, сверенное с источником, от базового: выглядят они
-   * одинаково, а утверждают разное.
+   * When the configuration was read out of the primary sources; null means it
+   * never was. It tells a value checked against a source from a base one: the
+   * two look alike and assert different things.
    */
   configuration_reviewed: string | null;
-  /** Обоснование разбора: почему у измерения такое значение. */
+  /** The justification: why a dimension holds the value it does. */
   parse_notes: ParseNote[];
   links: RegistryLink[];
-  /** Вычисленный уровень зрелости; null — уровень не вычислялся. */
+  /** The computed maturity level; null means it was never computed. */
   level: string | null;
   confidence: number | null;
-  /** `computed` — вычислено правилом, `manual` — введено человеком. */
+  /** `computed` by the rule, `manual` when a person entered it. */
   evidence_basis: string | null;
   attention: number | null;
   attention_raw: number | null;
   attention_cohort: string | null;
   evidence_count: number;
   evidence: EvidenceRecord[];
-  /** Вывод правила: какие уровни выполнены и какие нет. */
+  /** The output of the rule: which levels are satisfied and which are not. */
   level_reason: LevelReason | null;
 }
 
@@ -69,7 +70,7 @@ export interface EvidenceRecord {
   value: string | null;
   source: string;
   fetched_at: string;
-  /** `auto` — собрано сборщиком, `manual` — введено человеком. */
+  /** `auto` when a collector gathered it, `manual` when a person entered it. */
   obtained_by: string;
 }
 
@@ -88,54 +89,54 @@ export interface RegistryLink {
   verified_at: string | null;
 }
 
-/** Точка изменения уровня во времени. */
+/** One point of a level change in time. */
 export interface LevelChangePoint {
   level: string;
   at: string;
 }
 
-/** Точка технологии на карте зрелости. */
+/** A technology as a point on the maturity map. */
 export interface MaturityPoint {
   id: string;
   name: string;
   kind: string;
-  /** Первичный страт: определяет цвет точки. */
+  /** The primary stratum: it sets the colour of the point. */
   group: string | null;
   groups: string[];
   level: string | null;
   confidence: number | null;
   evidence_basis: string | null;
-  /** Внимание: скорость цитирования, отнесённая к медиане своего года.
-   *  null — данных нет. */
+  /** Attention: the citation velocity against the median of its own year;
+   *  null when there is no data. */
   attention: number | null;
-  /** Измеренная скорость цитирования до нормировки. */
+  /** The measured citation velocity, before normalisation. */
   attention_raw: number | null;
-  /** Год подгруппы, по которой нормировано; null — нормировать было нечем. */
+  /** The year of the subgroup it was normalised by; null when there was none. */
   attention_cohort: string | null;
-  /* Распространённости здесь нет намеренно. Поле существовало и задавало
-     размер точки, но величины под ним не было ни у одной записи. Подробности
-     и причина, по которой заполнить его нечем, — в scripts/build_artifacts.py
-     рядом с ATTENTION_METRIC. */
+  /* Spread is deliberately absent. The field existed and set the size of a
+     point, and no record had a quantity behind it. The detail, and the reason
+     there is nothing to fill it with, sits in scripts/build_artifacts.py beside
+     ATTENTION_METRIC. */
   first_published: string | null;
   prose_id: string | null;
   history: LevelChangePoint[];
 }
 
-/** Артефакт карты зрелости. */
+/** The maturity map artefact. */
 export interface MaturityArtifact {
-  /** Момент сборки артефакта в формате ISO. */
+  /** When the artefact was built, in ISO form. */
   built_at: string;
-  /** Версия правила вычисления уровня. */
+  /** The version of the rule that derives a level. */
   rule_version: string;
   levels: string[];
   strata: { code: string; name: string }[];
   points: MaturityPoint[];
   count: number;
-  /** Признак устаревания данных. */
+  /** Whether the data counts as stale. */
   stale: boolean;
 }
 
-/** Одно изменение в хронике. */
+/** One change in the chronicle. */
 export interface RegistryChange {
   technology_id: string;
   name: string;
@@ -146,7 +147,7 @@ export interface RegistryChange {
   changed_at: string;
 }
 
-/** Сводка состояния реестра. */
+/** The summary of the registry's state. */
 export interface RegistryStats {
   built_at: string;
   total: number;
@@ -162,20 +163,20 @@ export interface RegistryStats {
 }
 
 /**
- * Выпуск дайджеста.
+ * A digest issue.
  *
- * Порождается шаблоном по данным реестра, без языковой модели: выпуск
- * пересказывает уже вычисленное, и выдумать в нём нечего. Именно поэтому он
- * публикуется без просмотра человеком, в отличие от аннотаций записей.
+ * Generated from a template over the registry data, with no language model: it
+ * retells what has already been computed, and there is nothing in it to invent.
+ * That is why it is published without review by a person.
  *
- * Выпуск не пересобирается: он утверждает, что было верно в день выхода.
+ * An issue is never rebuilt: it asserts what was true on the day it came out.
  */
 export interface DigestIssue {
   issued_at: string;
-  /** Начало периода; null — первый выпуск, он охватывает всё. */
+  /** The start of the period; null for the first issue, which covers everything. */
   since: string | null;
   text: string;
-  /** Тот же выпуск по-английски. Пусто у выпусков, вышедших до локализации. */
+  /** The same issue in English. Empty for issues published before the localisation. */
   text_en?: string;
   added: DigestMove[];
   promoted: DigestMove[];
@@ -196,11 +197,11 @@ export interface DigestMove {
 }
 
 /**
- * Обоснование одного решения разбора.
+ * The justification of one decision of the reading.
  *
- * Разделено намеренно: `did` проверяется по источнику, `why` — по схеме
- * измерений. Слитые в одну фразу, они читаются как утверждение о технологии,
- * тогда как половина — утверждение о том, как схема её описывает.
+ * The split is deliberate: `did` is checked against the source and `why` against
+ * the dimension schema. Merged into one phrase they read as a claim about the
+ * technology, whereas half of it is a claim about how the schema describes it.
  */
 export interface ParseNote {
   code?: string;
@@ -210,16 +211,16 @@ export interface ParseNote {
   to?: string;
   variable?: boolean;
   inapplicable?: boolean;
-  /** Что делает система — проверяется по источнику. */
+  /** What the system does, checked against the source. */
   did: string;
   did_en?: string;
-  /** Почему из этого следует значение — проверяется по схеме. */
+  /** Why the value follows from that, checked against the schema. */
   why: string;
   why_en?: string;
-  /** Какое значение не подошло и почему. */
+  /** Which value did not fit, and why. */
   instead?: string;
   instead_en?: string;
-  /** Место, где источник допускает другое прочтение. */
+  /** A place where the source admits another reading. */
   question?: string;
   question_en?: string;
   source: string;
@@ -227,40 +228,42 @@ export interface ParseNote {
 }
 
 /**
- * Механизм, который схема не выражает.
+ * A mechanism the schema does not express.
  *
- * Очередь остатков — способ растить схему от наблюдений, а не от воображения.
- * Механизм, который приходится записывать снова и снова, показывает место, где
- * схема мала; встреченный однажды — частность одной работы.
+ * The residual queue is how the schema grows from observation rather than from
+ * imagination. A mechanism that has to be written down again and again marks a
+ * place where the schema is too small; one met once is a particularity of a
+ * single work.
  */
 export interface ResidualMechanism {
   id: string;
   term: string;
   term_en: string;
-  /** Почему схема этого не выражает. */
+  /** Why the schema does not express it. */
   note: string;
   note_en: string;
   count: number;
   technologies: { id: string; name: string }[];
-  /** Набрал порог упоминаний и потому предлагается в измерения. */
+  /** It reached the threshold of mentions and is proposed as a dimension. */
   candidate: boolean;
 }
 
 /**
- * Работа, найденная каталогом и ждущая решения.
+ * A work found by the catalogue and awaiting a verdict.
  *
- * Кандидат — предположение о технологии, а не технология. Решение «это новая
- * архитектура, а не приложение существующей» принимает человек: правило здесь
- * ошибается, и цена ошибки — запись реестра о том, чего нет.
+ * A candidate is a supposition about a technology, not a technology. The
+ * decision that this is a new architecture rather than an application of an
+ * existing one belongs to a person: a rule errs here, and the price of the error
+ * is a registry record about something that does not exist.
  */
 /**
- * Оценка пригодности кандидата реестру.
+ * How well a candidate fits the registry.
  *
- * Порядок просмотра очереди, а не утверждение о работе. Слагаемые показываются
- * вместе с числом: оценка без них требовала бы веры.
+ * An order of review rather than a claim about the work. The terms are shown
+ * beside the number: the score without them would ask to be believed.
  */
 export interface CandidateSignal {
-  /** Код признака; фраза собирается локализацией. */
+  /** The code of a signal; the phrase is assembled by the localisation. */
   code: string;
   tasks?: string[];
   count?: number;
@@ -275,13 +278,13 @@ export interface Candidate {
   arxiv_id: string;
   fit: CandidateFit;
   title: string;
-  /** Аннотация работы, как её даёт каталог, обрезанная для показа. */
+  /** The abstract as the catalogue gives it, cut for display. */
   abstract: string;
   published: string | null;
   source: string;
   citations: number | null;
   repositories: string[];
   found_at: string;
-  /** Пусто, пока решение не принято. */
+  /** Empty until a verdict is entered. */
   verdict: string | null;
 }
