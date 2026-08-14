@@ -1,31 +1,30 @@
-"""Требования к прозе карточек технологий.
+"""What the prose of the technology cards has to satisfy.
 
-Проза — единственный текст портала, который пишется руками и ничем не
-выводится из данных. Поэтому она и портится незаметно: испорченное описание
-выглядит как описание, проверки данных до него не достают, а читатель молча
-уходит.
+The prose is the only text of the portal written by hand rather than derived from
+data. That is why it decays unnoticed: spoiled prose still looks like a
+description, the data checks do not reach it, and a reader takes what is given.
 
-Проверяются четыре свойства, каждое из которых уже нарушалось.
+Four properties are checked, and each of them has been broken here before.
 
-**Ссылки вида `[4]`.** Проза пришла из статьи с пронумерованным списком
-литературы. Списка на портале нет, номер никуда не ведёт, и читатель видит
-обрывок чужой системы отсчёта. Источники у записи свои и стоят ссылками
-наверху карточки.
+**References of the form `[4]`.** The prose came from an article with a numbered
+bibliography. There is no such list on the portal, the number leads nowhere, and
+the reader meets a fragment of somebody else's frame of reference. A record has
+sources of its own, and they stand at the top of the card.
 
-**Транслитерированный жаргон.** «Эмбеддит», «чанки», «промпт», «прунинг» — это
-не термины, а английские слова, записанные кириллицей. Термин определяется и
-употребляется одинаково; жаргон каждый пишет по-своему, и читатель, не знающий
-исходного слова, не восстановит его никак.
+**Transliterated jargon.** Words like "эмбеддит" and "чанки" are not terms but
+English words written in Cyrillic. A term is used the same way by everyone;
+jargon is spelled differently by everyone, and a reader who does not know the
+original word cannot recover it.
 
-**Аббревиатуры без расшифровки.** `LLM` в русском тексте не расшифровано нигде
-на портале. «Большая языковая модель» длиннее ровно на четыре слова и не
-требует от читателя знать, что стоит за тремя буквами.
+**Abbreviations without expansion.** `LLM` is not expanded anywhere on the
+portal. The expansion is a few words longer and asks nothing of the reader.
 
-**Один абзац на всё описание.** Описание в двести слов, поданное сплошняком,
-не читают. Разбивка на абзацы — часть текста, а не оформления.
+**One paragraph for a whole description.** A two-hundred-word description served
+as a single block goes unread. Splitting it into paragraphs is part of the text
+rather than of its presentation.
 
-Отдельно проверяется, что английская проза есть везде, где есть русская:
-частичный перевод должен быть виден разработчику, а не читателю.
+Separately it is checked that English prose exists wherever Russian prose does: a
+partial translation should be visible to the developer and not to the reader.
 """
 
 from __future__ import annotations
@@ -40,22 +39,21 @@ ROOT = Path(__file__).resolve().parents[2]
 RU_PATH = ROOT / "ui" / "src" / "i18n" / "ru" / "tech.json"
 EN_PATH = ROOT / "ui" / "src" / "i18n" / "en" / "tech.json"
 
-#: Поля прозы, которые читает посетитель карточки.
+#: The prose fields a visitor to a card actually reads.
 FIELDS = ("short", "full", "problem", "barriers", "solutions", "maturityNote")
 
-#: Развёрнутые описания, к которым предъявляются требования объёма и разбивки.
+#: The full descriptions the requirements of length and paragraphing apply to.
 LONG_FIELDS = ("full", "problem", "barriers", "solutions")
 
-#: Наименьшая длина развёрнутого описания. Ниже этого «подробное описание»
-#: превращается в пересказ краткой сути другими словами.
+#: The least length of a full description. Below it the "detail" turns into the
+#: short summary retold in other words.
 MIN_FULL = 700
 
-#: Жаргон и замены, которыми он вытесняется.
+#: The jargon and what displaces it.
 #:
-#: Ключ — образец поиска, а не слово: корень «скор» без уточнения нашёл бы
-#: «скорость», а «ретрив» без уточнения не нашёл бы ничего лишнего. Образцы
-#: выписаны явно, чтобы проверка ловила жаргон и не спотыкалась об обычные
-#: русские слова.
+#: The key is a search pattern rather than a word: some Russian roots overlap
+#: with ordinary words, so the patterns are written out explicitly for the check
+#: to catch jargon without tripping over legitimate Russian.
 JARGON = {
     r"эмбед\w*": "векторное представление",
     r"эмбеддинг\w*": "векторное представление",
@@ -79,7 +77,7 @@ JARGON = {
     r"тул\b|тулз\b": "инструмент",
 }
 
-#: Аббревиатуры, которые в русском тексте не расшифровываются нигде.
+#: Abbreviations that go unexpanded in the Russian text.
 UNEXPANDED = ("LLM", "SOTA", "QA-", "IR-")
 
 
@@ -92,7 +90,7 @@ EN = _load(EN_PATH)
 
 
 def _texts(table: dict[str, dict[str, str]]) -> list[tuple[str, str, str]]:
-    """Тройки «запись, поле, текст» по всей прозе."""
+    """Triples of record, field and text across the whole prose."""
     return [
         (key, field, value[field])
         for key, value in table.items()
@@ -102,7 +100,7 @@ def _texts(table: dict[str, dict[str, str]]) -> list[tuple[str, str, str]]:
 
 
 def test_no_bibliographic_references():
-    """Номер в квадратных скобках указывает на список, которого нет."""
+    """A number in square brackets points at a list that does not exist here."""
     found = [
         f"{key}.{field}: {match.group(0)}"
         for key, field, text in _texts(RU) + _texts(EN)
@@ -110,25 +108,26 @@ def test_no_bibliographic_references():
         if match
     ]
     assert not found, (
-        "проза ссылается на пронумерованный список литературы, которого на "
-        f"портале нет: {found}. Источники записи стоят ссылками на карточке."
+        "the prose refers to a numbered bibliography that the portal does not "
+        f"have: {found}. The sources of a record stand as links at the top of the "
+        "card."
     )
 
 
 def test_no_transliterated_jargon():
-    """Жаргон вытесняется термином, а не остаётся английским словом кириллицей."""
+    """Jargon is displaced by a term rather than left as an English word."""
     found: list[str] = []
     for key, field, text in _texts(RU):
         lowered = text.lower()
         for pattern, replacement in JARGON.items():
             match = re.search(rf"\b(?:{pattern})", lowered)
             if match:
-                found.append(f"{key}.{field}: «{match.group(0)}» вместо «{replacement}»")
-    assert not found, "в русской прозе остался жаргон:\n  " + "\n  ".join(found)
+                found.append(f"{key}.{field}: «{match.group(0)}» instead of «{replacement}»")
+    assert not found, "jargon remains in the Russian prose:\n  " + "\n  ".join(found)
 
 
 def test_no_unexpanded_abbreviations():
-    """Аббревиатура без расшифровки требует от читателя знать её заранее."""
+    """An unexpanded abbreviation demands that the reader already know it."""
     found = [
         f"{key}.{field}: {abbr}"
         for key, field, text in _texts(RU)
@@ -136,17 +135,17 @@ def test_no_unexpanded_abbreviations():
         if abbr in text
     ]
     assert not found, (
-        f"в русской прозе аббревиатуры без расшифровки: {found}. "
-        "Расшифровка занимает несколько слов и снимает требование к читателю."
+        f"unexpanded abbreviations in the Russian prose: {found}. The expansion "
+        "takes a few words and asks nothing of the reader."
     )
 
 
 def test_no_em_dash_as_connector():
-    """Правило проекта: в текстах для читателя тире не заменяет связку.
+    """A rule of the project: a dash does not stand in for a verb.
 
-    Проверка запрещает длинное тире целиком, а не только в роли связки:
-    отличить роли разбором нельзя, а глагол или предлог на месте тире читается
-    лучше во всех случаях.
+    The check forbids the em dash outright rather than only in that role: telling
+    the roles apart by parsing is not possible, and a verb or a preposition in its
+    place is better in every case.
     """
     found = [
         f"{key}.{field}"
@@ -154,13 +153,13 @@ def test_no_em_dash_as_connector():
         if "—" in text
     ]
     assert not found, (
-        f"в прозе длинное тире: {found}. Вместо него ставится глагол или предлог."
+        f"an em dash in the prose: {found}. Put a verb or a preposition instead."
     )
 
 
 @pytest.mark.parametrize("language,table", [("ru", RU), ("en", EN)])
 def test_full_description_is_detailed_and_broken_into_paragraphs(language, table):
-    """Развёрнутое описание пишется абзацами и по существу."""
+    """A full description is written in paragraphs and says something."""
     short_ones: list[str] = []
     single_block: list[str] = []
     for key, value in table.items():
@@ -168,25 +167,25 @@ def test_full_description_is_detailed_and_broken_into_paragraphs(language, table
         if not text:
             continue
         if len(text) < MIN_FULL:
-            short_ones.append(f"{key} ({len(text)} знаков)")
+            short_ones.append(f"{key} ({len(text)} characters)")
         if len(re.split(r"\n\s*\n", text.strip())) < 2:
             single_block.append(key)
     assert not short_ones, (
-        f"{language}: развёрнутое описание короче {MIN_FULL} знаков и потому "
-        f"ничего не добавляет к краткой сути: {short_ones}"
+        f"{language}: a full description shorter than {MIN_FULL} characters adds "
+        f"nothing to the short summary: {short_ones}"
     )
     assert not single_block, (
-        f"{language}: описание идёт одним блоком без абзацев и не читается: "
-        f"{single_block}"
+        f"{language}: the description is one block with no paragraphs and goes "
+        f"unread: {single_block}"
     )
 
 
 def test_long_fields_have_no_stray_single_newlines():
-    """Одиночный перенос строки внутри абзаца не виден в разметке.
+    """A single line break inside a paragraph is invisible in the markup.
 
-    Абзацы разделяются пустой строкой. Одиночный перенос ничего не делает при
-    выводе и означает, что автор рассчитывал на перенос, а получил склейку слов
-    через пробел.
+    Paragraphs are separated by a blank line. A single break shows up nowhere in
+    the output and means the author expected a break while the reader gets a
+    space.
     """
     found = [
         f"{key}.{field}"
@@ -194,8 +193,8 @@ def test_long_fields_have_no_stray_single_newlines():
         if field in LONG_FIELDS and re.search(r"[^\n]\n[^\n]", text)
     ]
     assert not found, (
-        f"одиночный перенос строки внутри абзаца: {found}. "
-        "Абзацы разделяются пустой строкой."
+        f"a single line break inside a paragraph: {found}. "
+        "Paragraphs are separated by a blank line."
     )
 
 
@@ -207,34 +206,36 @@ def _registry_records() -> list[dict]:
 
 
 def test_every_record_is_described():
-    """Запись реестра без прозы открывается пустой карточкой.
+    """A registry record without prose opens as an empty card.
 
-    Такая карточка выглядит поломкой портала, а не отсутствием текста, и
-    сообщает читателю ровно ничего. Шесть записей однажды так и стояли.
+    Such a card looks like a broken portal rather than like missing data, and it
+    tells the reader precisely nothing. Six records were once exactly that.
     """
     undescribed: list[str] = []
     for record in _registry_records():
         prose_id = record.get("prose_id")
         if not prose_id:
-            undescribed.append(f"{record['id']}: нет prose_id")
+            undescribed.append(f"{record['id']}: no prose_id")
             continue
         prose = RU.get(prose_id)
         if not prose:
-            undescribed.append(f"{record['id']}: prose_id={prose_id} без прозы")
+            undescribed.append(f"{record['id']}: prose_id={prose_id} with no prose")
             continue
         if not prose.get("short"):
-            undescribed.append(f"{record['id']}: нет краткой сути")
+            undescribed.append(f"{record['id']}: no short summary")
         rubric = all(prose.get(field) for field in ("problem", "barriers", "solutions"))
         if not prose.get("full") and not rubric:
-            undescribed.append(f"{record['id']}: ни развёрнутого описания, ни рубрики")
+            undescribed.append(
+                f"{record['id']}: neither a full description nor the rubric"
+            )
     assert not undescribed, (
-        "записи реестра без описания открываются пустой карточкой: "
+        "registry records with no description open as an empty card: "
         f"{undescribed}"
     )
 
 
 def test_english_prose_exists_wherever_russian_does():
-    """Частичный перевод виден разработчику, а не читателю."""
+    """A partial translation is visible to the developer, not to the reader."""
     missing = [
         f"{key}.{field}"
         for key, value in RU.items()
@@ -242,6 +243,6 @@ def test_english_prose_exists_wherever_russian_does():
         if value.get(field) and not EN.get(key, {}).get(field)
     ]
     assert not missing, (
-        f"есть русская проза без английской: {missing}. "
-        "На английской версии читатель увидит пустое место либо русский абзац."
+        f"Russian prose exists without English: {missing}. In the English version "
+        "the reader would meet a blank space or a Russian paragraph."
     )
