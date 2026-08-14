@@ -1,16 +1,16 @@
-"""Опубликованные артефакты не должны расходиться с реестром.
+"""The published artefacts must not diverge from the registry.
 
-Артефакты производны от `data/`, но версионируются намеренно: статический
-хостинг собирает только интерфейс и Python не запускает, поэтому без них
-опубликованный портал остался бы без данных.
+The artefacts are derived from `data/` and are versioned deliberately: the static
+hosting builds the interface only and runs no Python, so without them the
+published portal would be left with no data.
 
-У версионирования производного есть цена — оно может устареть. Этот тест не даёт
-устареть: он пересобирает артефакты во временный каталог и сравнивает с теми,
-что лежат в репозитории. Расходятся — значит, кто-то правил `data/` и забыл
-выполнить сборку.
+Versioning something derived has a price — it can go stale. This guard does not
+let it: it rebuilds the artefacts into a temporary directory and compares them
+with what is in the repository. A divergence means somebody edited the data and
+forgot to run the build.
 
-Момент сборки при сравнении игнорируется: он меняется при каждом запуске и
-содержания не несёт.
+The build timestamp is ignored in the comparison: it changes on every run and
+carries no content.
 """
 
 from __future__ import annotations
@@ -24,14 +24,14 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.build_artifacts import OUT_DIR, build  # noqa: E402
 
-#: Поля, меняющиеся при каждой сборке и потому исключаемые из сравнения.
+#: Fields that change on every build and are therefore excluded from comparison.
 VOLATILE_KEYS = {"built_at"}
 
 COMPARED = ["registry.json", "map.json", "changes.json", "stats.json"]
 
 
 def _normalize(payload):
-    """Убрать изменчивые поля на всех уровнях структуры."""
+    """Strip the volatile fields at every level of the structure."""
     if isinstance(payload, dict):
         return {
             key: _normalize(value)
@@ -50,7 +50,8 @@ def test_published_artifacts_match_registry(tmp_path):
     for name in COMPARED:
         published = OUT_DIR / name
         assert published.exists(), (
-            f"артефакт {name} отсутствует в репозитории; выполните `make artifacts`"
+            f"the artefact {name} is missing from the repository; run "
+            "`make artifacts`"
         )
         expected = _normalize(json.loads((tmp_path / name).read_text(encoding="utf-8")))
         actual = _normalize(json.loads(published.read_text(encoding="utf-8")))
@@ -58,34 +59,34 @@ def test_published_artifacts_match_registry(tmp_path):
             stale.append(name)
 
     assert not stale, (
-        "опубликованные артефакты разошлись с реестром: "
+        "the published artefacts have diverged from the registry: "
         + ", ".join(stale)
-        + "; выполните `make artifacts` и зафиксируйте результат"
+        + "; run `make artifacts` and commit the result"
     )
 
 
-# ─── Поля, которых нет ───────────────────────────────────────────────────────
+# ─── Fields that hold nothing ────────────────────────────────────────────────
 #
-# Поле, пустое у всех записей сразу, выглядит как данные и данными не является.
-# Так прожило поле распространённости: артефакт его нёс, интерфейс задавал им
-# размер точки, а величины под ним не было ни у одной из шестидесяти двух
-# записей. Все точки были одного размера, и заметить это можно было только
-# глядя на карту с вопросом «почему они одинаковые».
+# A field empty across every record at once looks like data and is treated as
+# data. That is how the spread field lived: the artefact carried it, the interface
+# set the size of a point from it, and no record had a quantity behind it. Every
+# point was the same size, and noticing that took looking at the map and asking
+# why they all looked alike.
 #
-# Обычным тестом такое не ловится: проверка «нет данных значит null» проходит
-# вхолостую именно тогда, когда данных нет никогда. Ловится это только счётом
-# по всему артефакту, поэтому проверка живёт здесь, рядом со сборкой, и
-# смотрит на настоящие данные, а не на выдуманные.
+# An ordinary test does not catch this: a check that "no data means no zero" runs
+# idle exactly when there is never any data. It is caught by a sweep across the
+# whole artefact, so the check lives here, beside the one that looks at the real
+# data rather than at invented data.
 
-#: Поля, пустые у всех записей на законных основаниях, с причиной у каждого.
+#: Fields legitimately empty across every record, with the reason.
 ALLOWED_ALL_EMPTY = {
-    # Пусто, пока ни одна запись не понижалась и не поднималась: история
-    # появляется только при изменении уровня.
+    # Empty while no record has been promoted or demoted: the field appears only
+    # when a level changes.
 }
 
 
 def _all_empty_fields(items: list[dict]) -> list[str]:
-    """Поля, пустые у каждой записи набора."""
+    """The fields that are empty in every record of a dataset."""
     keys: set[str] = set()
     for item in items:
         keys |= set(item)
@@ -98,7 +99,7 @@ def _all_empty_fields(items: list[dict]) -> list[str]:
 
 
 def test_no_field_is_empty_for_every_record():
-    """Ни одно поле артефакта не пусто у всех записей сразу."""
+    """No field of an artefact is empty across every record at once."""
     offenders: dict[str, list[str]] = {}
     for name, path in (
         ("map.json", "points"),
@@ -114,28 +115,28 @@ def test_no_field_is_empty_for_every_record():
             offenders[name] = dead
 
     assert not offenders, (
-        f"поля пусты у всех записей сразу: {offenders}. "
-        "Либо величину никто не вычисляет, либо поле лишнее. И то и другое "
-        "выглядит на портале как данные, которых нет."
+        f"fields empty across every record at once: {offenders}. Either nobody "
+        "computes the quantity or the field is superfluous. Both look on the portal "
+        "like data that is not there."
     )
 
 
 def test_feed_is_published():
-    """Лента хроники — единственный способ узнать об изменениях извне портала."""
+    """The chronicle feed is the only way to learn of a change without visiting."""
     feed = OUT_DIR / "feed.xml"
-    assert feed.exists(), "лента отсутствует; выполните `make artifacts`"
+    assert feed.exists(), "the feed is missing; run `make artifacts`"
     text = feed.read_text(encoding="utf-8")
-    assert text.lstrip().startswith("<?xml"), "лента не является XML-документом"
+    assert text.lstrip().startswith("<?xml"), "the feed is not an XML document"
     assert "<channel>" in text
 
 
 def test_residual_codes_are_resolved_to_wording():
-    """Данные хранят код механизма, читателю показывается формулировка.
+    """The data stores a mechanism code and the reader is shown the wording.
 
-    Разделение существует ради перевода: английская локализация меняет словарь,
-    а не пятьдесят четыре записи реестра. Но если подстановка сломается,
-    карточка покажет читателю `synonymy_edges`, и заметить это можно будет
-    только глазами.
+    The split exists for the sake of translation: the English localisation
+    translates the vocabulary rather than fifty-four registry records. But if the
+    substitution breaks, a card shows the reader `synonymy_edges`, and that can
+    only be noticed by eye.
     """
     import json
     from pathlib import Path
@@ -154,17 +155,18 @@ def test_residual_codes_are_resolved_to_wording():
     for row in published["technologies"]:
         for item in row.get("residual", []):
             seen += 1
-            assert item not in codes, f"в артефакт попал код вместо формулировки: {item}"
-            assert item in wording, f"формулировка вне словаря: {item!r}"
-    assert seen > 0, "ни одного остатка в артефакте — проверка ничего не проверила"
+            assert item not in codes, (
+                f"a code reached the artefact instead of the wording: {item!r}"
+            )
+            assert item in wording, f"a wording outside the vocabulary: {item!r}"
+    assert seen > 0, "no residual in the artefact at all: the check verifies nothing"
 
 
 def test_marked_dimensions_survive_into_the_artifact():
-    """Пометки бесполезны, если не доходят до читателя.
+    """The marks are useless if they do not reach the reader.
 
-    Они существуют, чтобы значение не читалось как утверждение, которым оно не
-    является. Потеря их при сборке возвращает ровно ту неправду, ради которой
-    поля заводились.
+    They exist so that a value is not read as a claim it is not. Losing them at
+    build time restores exactly the untruth the fields were introduced against.
     """
     import json
     from pathlib import Path
@@ -179,26 +181,26 @@ def test_marked_dimensions_survive_into_the_artifact():
         r for r in rows.values()
         if r.get("configuration_variable") or r.get("configuration_inapplicable")
     ]
-    assert marked, "ни одной помеченной записи — проверка ничего не проверяет"
+    assert marked, "no marked record at all: the check verifies nothing"
 
     for row in marked:
         for code in row.get("configuration_inapplicable", []):
             assert code not in row["configuration"], (
-                f"{row['id']}: неприменимое измерение {code} несёт значение"
+                f"{row['id']}: the inapplicable dimension {code} carries a value"
             )
         for code in row.get("configuration_variable", []):
             assert code in row["configuration"], (
-                f"{row['id']}: переменное измерение {code} без значения"
+                f"{row['id']}: the variable dimension {code} carries no value"
             )
 
 
 def test_rejected_names_do_not_return_to_the_registry():
-    """Однажды отклонённое имя не заводится заново молча.
+    """A name once refused is not quietly created again.
 
-    Через полгода имя всплывает снова, никто не помнит, почему его убрали, и
-    работа повторяется. Файл отклонений отвечает на вопрос «почему нет», а
-    сторож не даёт ответу устареть незаметно: если запись всё-таки нужна, из
-    файла её надо убрать осознанно.
+    Half a year later the name surfaces again, nobody remembers why it was
+    refused, and the work is repeated. The file of refusals answers the question,
+    and this guard does not let the answer go stale unnoticed: if a record does
+    enter the registry, it has to be removed from the file deliberately.
     """
     import json
     from pathlib import Path
@@ -215,7 +217,7 @@ def test_rejected_names_do_not_return_to_the_registry():
             continue
         row = json.loads(line)
         assert row.get("reason", "").strip(), (
-            f"{row.get('name')}: отклонение без причины бесполезно"
+            f"{row.get('name')}: a refusal without a reason is useless"
         )
         if row.get("former_id"):
             rejected[row["former_id"]] = row["reason"]
@@ -223,16 +225,16 @@ def test_rejected_names_do_not_return_to_the_registry():
     present = {p.stem for p in (root / "data" / "technologies").glob("*.json")}
     returned = sorted(rejected.keys() & present)
     assert not returned, (
-        "отклонённые записи вернулись в реестр: "
+        "refused records have returned to the registry: "
         + ", ".join(f"{i} ({rejected[i][:60]}…)" for i in returned)
     )
 
 
 def test_parse_notes_agree_with_the_registry():
-    """Обоснование, разошедшееся с данными, хуже отсутствующего.
+    """A justification that has drifted from the data is worse than none.
 
-    Оно объясняет значение, которого нет, и делает это убедительно: читатель
-    видит связное рассуждение и не догадывается сверить его с реестром.
+    It explains a value that is not there, and it does so convincingly: the reader
+    sees coherent reasoning and does not think to check it.
     """
     import sys
     from pathlib import Path
@@ -245,14 +247,18 @@ def test_parse_notes_agree_with_the_registry():
     if not notes:
         return
     problems = build_review.check(notes)
-    assert not problems, "обоснования разошлись с реестром:\n  " + "\n  ".join(problems)
+    assert not problems, (
+        "the justifications have drifted from the registry:\n  "
+        + "\n  ".join(problems)
+    )
 
 
 def test_parse_notes_say_both_what_and_why():
-    """Разделение существенно: одно проверяется по источнику, другое по схеме.
+    """The split matters: one half is checked against the source, one against the
+    schema.
 
-    Слитая в одну фразу мысль читается как утверждение о технологии, тогда как
-    половина её — утверждение о том, как схема эту технологию описывает.
+    Merged into one phrase the thought reads as a claim about the technology,
+    whereas half of it is a claim about how the schema describes that technology.
     """
     import sys
     from pathlib import Path
@@ -263,23 +269,24 @@ def test_parse_notes_say_both_what_and_why():
 
     for note in build_review.load_notes():
         where = f"{note['technology_id']}.{note.get('code') or note.get('residual')}"
-        assert note.get("did", "").strip(), f"{where}: не сказано, что делает система"
-        assert note.get("why", "").strip(), f"{where}: не сказано, почему следует значение"
-        assert note.get("source", "").strip(), f"{where}: не указан источник"
+        assert note.get("did", "").strip(), f"{where}: it does not say what the system does"
+        assert note.get("why", "").strip(), f"{where}: it does not say why the value follows"
+        assert note.get("source", "").strip(), f"{where}: no source is given"
 
 
-# ─── Обоснования разбора на двух языках ──────────────────────────────────────
+# ─── The reading justifications in two languages ─────────────────────────────
 
 
 def test_every_justification_is_translated():
-    """У каждого русского поля обоснования есть английское.
+    """Every Russian field of a justification has an English one.
 
-    Обоснования были единственным русским текстом на английских карточках: 639
-    полей. Частичный перевод хуже отсутствия: читатель, встретив русский абзац
-    посреди страницы, решит, что портал сломан, а не что перевод не доделан.
+    The justifications were the only Russian text left on the English version of
+    the cards. A partial translation is worse than none: a reader meeting a
+    Russian paragraph in the middle of a page decides the portal is broken rather
+    than that the translation is unfinished.
 
-    Проверка идёт по данным, а не по артефакту: артефакт производен, и правка
-    в нём потерялась бы при первой пересборке.
+    The check runs over the data rather than over the artefact: a gap in the
+    artefact would be lost at the first rebuild.
     """
     import json
 
@@ -288,7 +295,7 @@ def test_every_justification_is_translated():
         for line in (ROOT / "data" / "parse_notes.jsonl").read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    assert notes, "обоснований разбора нет вовсе"
+    assert notes, "there are no reading justifications at all"
 
     missing = sorted(
         f"{n['technology_id']}.{n.get('code') or n.get('residual')}.{field}"
@@ -296,11 +303,11 @@ def test_every_justification_is_translated():
         for field in ("did", "why", "instead", "question", "source")
         if n.get(field) and not n.get(field + "_en")
     )
-    assert not missing, f"обоснования без перевода: {missing[:12]}"
+    assert not missing, f"justifications with no translation: {missing[:12]}"
 
 
 def test_translation_is_not_a_copy_of_the_original():
-    """Скопированный русский текст в английском поле переводом не является."""
+    """Russian text copied into an English field is not a translation."""
     import json
     import re
 
@@ -316,4 +323,4 @@ def test_translation_is_not_a_copy_of_the_original():
         for field in ("did_en", "why_en", "instead_en", "question_en", "source_en")
         if n.get(field) and cyrillic.search(n[field])
     )
-    assert not untranslated, f"в английском поле остался русский текст: {untranslated[:12]}"
+    assert not untranslated, f"Russian text remains in an English field: {untranslated[:12]}"
