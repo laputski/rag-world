@@ -15,6 +15,11 @@ reconciled by eye, and that reconciliation found discrepancies.
 The check against drift runs here as well: every value on the page is compared
 with the registry, and a mismatch stops the build.
 
+The page itself is written in Russian and renders the Russian side of the
+notes; the portal shows the English side on the technology cards. It is a
+working document under `build/`, which version control ignores, and not
+something the portal publishes.
+
 Usage::
 
     python3 scripts/build_review.py               # build the page
@@ -54,56 +59,58 @@ def load_notes() -> list[dict]:
 
 
 def check(notes: list[dict]) -> list[str]:
-    """Сверить обоснования с реестром.
+    """Compare the justifications with the registry.
 
-    Обоснование, разошедшееся с данными, хуже отсутствующего: оно объясняет
-    значение, которого нет.
+    A justification that has drifted from the data is worse than none: it
+    explains a value that is not there.
     """
     problems: list[str] = []
     for note in notes:
         tech = store.load_technology(note["technology_id"])
         if tech is None:
-            problems.append(f"{note['technology_id']}: записи нет в реестре")
+            problems.append(f"{note['technology_id']}: no such record in the registry")
             continue
 
-        # У записи рода без конфигурации обоснование одно и общее: оно
-        # объясняет сам род, а не отдельное измерение.
+        # For a record of a kind without a configuration there is one shared
+        # justification: it explains the kind, not a single dimension.
         if not note.get("code") and not note.get("residual"):
             if tech.kind not in store.KINDS_WITHOUT_CONFIGURATION:
                 problems.append(
-                    f"{tech.id}: обоснование без измерения у записи рода {tech.kind!r}"
+                    f"{tech.id}: a justification with no dimension on a "
+                    f"record of kind {tech.kind!r}"
                 )
             continue
 
         if note.get("residual"):
             if note["residual"] not in tech.residual:
                 problems.append(
-                    f"{tech.id}: обоснование остатка {note['residual']!r}, "
-                    "которого у записи нет"
+                    f"{tech.id}: a justification for the residual {note['residual']!r}, "
+                    "which the record does not carry"
                 )
             continue
 
         code = note["code"]
         if note.get("inapplicable"):
             if code not in tech.configuration_inapplicable:
-                problems.append(f"{tech.id}.{code}: не помечено неприменимым")
+                problems.append(f"{tech.id}.{code}: not marked inapplicable")
             if code in tech.configuration:
-                problems.append(f"{tech.id}.{code}: помечено неприменимым, но несёт значение")
+                problems.append(f"{tech.id}.{code}: marked inapplicable yet carries a value")
             continue
 
         if code not in tech.configuration:
-            problems.append(f"{tech.id}.{code}: значения нет в реестре")
+            problems.append(f"{tech.id}.{code}: the value is not in the registry")
             continue
-        # Обоснование хранит значение, которое объясняет. Без этого правка
-        # значения в реестре оставила бы при нём прежний довод, и страница
-        # объясняла бы одно, показывая другое.
+        # A justification keeps the value it explains. Without that, editing the
+        # value in the registry would leave the old argument beside it, and the
+        # page would explain one thing while showing another.
         if note.get("to") != tech.configuration[code]:
             problems.append(
-                f"{tech.id}.{code}: обоснование написано для {note.get('to')!r}, "
-                f"а в реестре {tech.configuration[code]!r}"
+                f"{tech.id}.{code}: the justification is written for "
+                f"{note.get('to')!r} while the registry holds "
+                f"{tech.configuration[code]!r}"
             )
         if bool(note.get("variable")) != (code in tech.configuration_variable):
-            problems.append(f"{tech.id}.{code}: пометка «выбирается на ходу» расходится")
+            problems.append(f"{tech.id}.{code}: the mark for a run-time choice disagrees")
     return problems
 
 
@@ -151,8 +158,8 @@ def render(notes: list[dict]) -> str:
         rows = []
         for note in by_tech[tech.id]:
             kind = _kind(note, tech)
-            # У записи рода без конфигурации обоснование одно и общее: оно
-            # объясняет сам род, а не отдельное измерение.
+            # For a record of a kind without a configuration there is one
+            # shared justification: it explains the kind, not a dimension.
             if not note.get("code") and not note.get("residual"):
                 heading = "род записи"
                 subtitle = tech.kind
@@ -385,19 +392,19 @@ def main() -> int:
 
     notes = load_notes()
     if not notes:
-        print("обоснований нет: data/parse_notes.jsonl пуст")
+        print("no justifications: data/parse_notes.jsonl is empty")
         return 0
 
     problems = check(notes)
     if problems:
-        sys.stderr.write(f"обоснования разошлись с реестром: {len(problems)}\n")
+        sys.stderr.write(f"the justifications disagree with the registry: {len(problems)}\n")
         for problem in problems:
             sys.stderr.write(f"  {problem}\n")
         return 1
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(render(notes), encoding="utf-8")
-    print(f"страница собрана: {args.out} ({len(notes)} обоснований)")
+    print(f"the page is built: {args.out} ({len(notes)} justifications)")
     return 0
 
 
