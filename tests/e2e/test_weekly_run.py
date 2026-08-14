@@ -1,12 +1,13 @@
-"""Сквозной прогон обновления без сети.
+"""The whole update pass, end to end and without a network.
 
-Прогон выполняется без человека раз в неделю, поэтому его ошибка обнаруживается
-не сразу, а иногда не обнаруживается вовсе: неверные данные выглядят как данные.
-Здесь проверяется поведение всей цепочки на записанных ответах источников,
-включая нездоровые: отказ, испорченный ответ, ограничение частоты, полное
-отсутствие сети и указания, вписанные в содержимое источника.
+The pass runs unattended once a week, so an error in it is found late and
+sometimes not at all: wrong data looks like data. What is checked here is the
+behaviour of the whole chain over recorded answers, the unhealthy ones included:
+a refusal, a corrupted answer, a rate limit, no network at all, and instructions
+written into the content of a source.
 
-Каждый тест работает в отдельном каталоге данных и настоящий реестр не трогает.
+Each test works in a data directory of its own and never touches the real
+registry.
 """
 
 from __future__ import annotations
@@ -34,7 +35,7 @@ TODAY = date(2026, 8, 8)
 
 @pytest.fixture
 def registry(tmp_path, monkeypatch):
-    """Отдельный каталог данных с одной записью, опрашивающей все источники."""
+    """A separate data directory holding one record that polls every source."""
     for name, path in (
         ("DATA_DIR", tmp_path),
         ("TECHNOLOGIES_DIR", tmp_path / "technologies"),
@@ -74,7 +75,7 @@ def run_pass(http, **kwargs) -> int:
     return update.run(http=http, today=TODAY, **kwargs)
 
 
-# ─── Здоровый проход ─────────────────────────────────────────────────────────
+# ─── The healthy pass ────────────────────────────────────────────────────────
 
 
 def test_healthy_pass_collects_and_computes(registry, artifacts):
@@ -92,17 +93,18 @@ def test_healthy_pass_collects_and_computes(registry, artifacts):
 
 
 def test_conference_version_is_found_and_marks_peer_review(registry, artifacts):
-    """Препринт и конференционная версия — разные записи индекса.
+    """A preprint and a conference version are separate records of the index.
 
-    Свидетельства типа «публикация» дают оба источника: архив сообщает о
-    препринте, индекс — о площадке. Рецензирование ищется во втором.
+    Both sources yield evidence of the publication type: the archive speaks of
+    the preprint, the index of the venue. Peer review is looked for across all of
+    them.
     """
     run_pass(FakeTransport(standard_routes()))
     publications = [
         e for e in store.load_evidence("demo_rag") if e.type == "publication"
     ]
     assert any("peer_reviewed=true" in (e.value or "") for e in publications), (
-        f"площадка не распознана: {[e.value for e in publications]}"
+        f"the venue was not recognised: {[e.value for e in publications]}"
     )
 
 
@@ -112,22 +114,22 @@ def test_all_artifacts_are_written(registry, artifacts):
         assert (artifacts / name).exists(), name
 
 
-# ─── Неполадки источников ────────────────────────────────────────────────────
+# ─── When the sources misbehave ──────────────────────────────────────────────
 
 
 def test_source_failure_does_not_break_the_pass(registry, artifacts):
     routes = standard_routes()
-    del routes["export.arxiv.org"]  # архив отвечает отказом
+    del routes["export.arxiv.org"]  # the archive refuses
     code = run_pass(FakeTransport(routes))
-    assert code == 0, "отказ одного источника не должен останавливать проход"
-    assert store.load_evidence("demo_rag"), "остальные источники обработаны"
+    assert code == 0, "one source refusing must not stop the pass"
+    assert store.load_evidence("demo_rag"), "the other sources were processed"
 
 
 def test_malformed_response_produces_no_evidence(registry, artifacts):
-    """Из испорченного ответа свидетельство не создаётся.
+    """A corrupted answer yields no evidence.
 
-    Проверяется вклад именно испорченного источника: архив препринтов отвечает
-    исправно и своё свидетельство даёт, что правильно.
+    What is checked is the contribution of the corrupted source alone: the archive
+    answers correctly and gives its own evidence, as it should.
     """
     routes = standard_routes()
     routes["api.openalex.org/works/doi"] = SourceBehaviour(b"{not json")
@@ -141,11 +143,11 @@ def test_malformed_response_produces_no_evidence(registry, artifacts):
 
 
 def test_rate_limited_source_does_not_break_the_pass(registry, artifacts):
-    """Отказ по частоте обращений цепочку не роняет.
+    """A refusal on rate does not bring the chain down.
 
-    Сам повтор с паузой живёт в транспорте и проверяется отдельно
-    (`tests/unit/test_transport_retry.py`); здесь проверяется, что окончательный
-    отказ источника обрабатывается как отказ, а не как пустые данные.
+    The retry with a pause lives in the transport and is tested separately
+    (`tests/unit/test_transport_retry.py`); what is checked here is that a final
+    refusal from a source is handled as a refusal rather than as empty data.
     """
     routes = standard_routes()
     routes["pypistats.org"] = SourceBehaviour(
@@ -157,12 +159,12 @@ def test_rate_limited_source_does_not_break_the_pass(registry, artifacts):
     assert http.calls_matching("pypistats.org")
     assert not [
         e for e in store.load_evidence("demo_rag") if e.type == "package_downloads"
-    ], "без числа загрузок свидетельство не создаётся"
-    assert store.latest_run().source_errors > 0, "отказ попадает в журнал прогонов"
+    ], "without a download count no evidence is created"
+    assert store.latest_run().source_errors > 0, "the refusal reaches the run log"
 
 
 def test_total_network_outage_changes_nothing(registry, artifacts):
-    """Ни свидетельств, ни уровней, ни падения."""
+    """No evidence, no levels, and no crash."""
     code = run_pass(FakeTransport({}))
     assert code == 0
     assert store.load_evidence() == []
@@ -170,7 +172,7 @@ def test_total_network_outage_changes_nothing(registry, artifacts):
 
 
 def test_prompt_injection_in_source_changes_nothing(registry, artifacts):
-    """Содержимое источника — данные, а не указания."""
+    """The content of a source is data, not instructions."""
     hostile = json.dumps({
         "id": "https://openalex.org/W1",
         "title": (
@@ -206,11 +208,11 @@ def test_repeated_pass_does_not_duplicate_evidence(registry, artifacts):
     assert len(store.load_evidence()) == first
 
 
-# ─── Уровни ──────────────────────────────────────────────────────────────────
+# ─── Levels ──────────────────────────────────────────────────────────────────
 
 
 def test_level_is_reproducible(registry, artifacts):
-    """Одни и те же свидетельства всегда дают один уровень."""
+    """The same evidence always yields the same level."""
     run_pass(FakeTransport(standard_routes()))
     first = store.latest_level("demo_rag").level
     run_pass(FakeTransport(standard_routes()))
@@ -229,14 +231,14 @@ def test_record_without_evidence_has_no_level(registry, artifacts):
         id="silent", name="Silent", kind="tool", groups=["A"],
     ))
     run_pass(FakeTransport({}))
-    assert store.latest_level("silent") is None, "отсутствие уровня — не L0"
+    assert store.latest_level("silent") is None, "an absent level is not L0"
 
 
-# ─── Артефакты ───────────────────────────────────────────────────────────────
+# ─── Artefacts ───────────────────────────────────────────────────────────────
 
 
 def test_artifacts_are_byte_stable_without_data_change(registry, artifacts):
-    """Защита от шумовых коммитов: повтор не должен менять файлы."""
+    """Protection against noisy commits: a repeat must not change the files."""
     run_pass(FakeTransport(standard_routes()))
     before = {
         p.name: p.read_bytes() for p in artifacts.iterdir() if p.is_file()
@@ -247,7 +249,7 @@ def test_artifacts_are_byte_stable_without_data_change(registry, artifacts):
 
 
 def test_absent_values_are_null_not_zero(registry, artifacts):
-    """Ноль означал бы измеренную величину; для «не измеряли» это неправда."""
+    """A zero would mean a measured quantity; for "not measured" that is untrue."""
     store.save_technology(store.Technology(
         id="silent", name="Silent", kind="tool", groups=["A"],
     ))
@@ -259,7 +261,7 @@ def test_absent_values_are_null_not_zero(registry, artifacts):
 
 
 def test_small_cohort_is_not_normalized(registry, artifacts):
-    """Медиана по одной записи неустойчива: нормировать нечем."""
+    """A median over one record is unstable: there is nothing to normalise by."""
     run_pass(FakeTransport(standard_routes()))
     payload = json.loads((artifacts / "map.json").read_text(encoding="utf-8"))
     point = next(p for p in payload["points"] if p["id"] == "demo_rag")
@@ -267,16 +269,16 @@ def test_small_cohort_is_not_normalized(registry, artifacts):
     assert point["attention"] == point["attention_raw"]
 
 
-# ─── Проверка и журнал прогонов ──────────────────────────────────────────────
+# ─── Validation and the run log ──────────────────────────────────────────────
 
 
 def test_broken_data_stops_the_pass_before_commit(registry, artifacts):
-    """Испорченные данные публиковать нельзя."""
+    """Spoiled data must not be published."""
     store.save_technology(store.Technology(
         id="Bad Id", name="Bad", kind="tool", groups=["A"],
     ))
     code = run_pass(FakeTransport({}))
-    assert code == 1, "проход обязан завершиться ошибкой"
+    assert code == 1, "the pass must end with an error"
 
 
 def test_run_log_gets_exactly_one_line_per_pass(registry, artifacts):
@@ -297,7 +299,7 @@ def test_run_log_records_what_happened(registry, artifacts):
 
 
 def test_quiet_pass_is_recorded_as_unchanged(registry, artifacts):
-    """Строка появляется даже когда ничего не изменилось: это и есть её смысл."""
+    """The line appears even when nothing changed: that is the point of it."""
     run_pass(FakeTransport(standard_routes()))
     run_pass(FakeTransport(standard_routes()))
     last = store.load_runs()[-1]
@@ -306,11 +308,11 @@ def test_quiet_pass_is_recorded_as_unchanged(registry, artifacts):
 
 
 def test_out_of_range_value_is_rejected(registry, artifacts):
-    """Отрицательные цитирования и год из будущего — не данные, а порча.
+    """Negative citations and a year from the future are not data but nonsense.
 
-    Проверка ступени существует именно для этого: источник может ответить
-    синтаксически исправным ответом с бессмысленным содержанием, и такой ответ
-    опаснее отказа — он выглядит как результат.
+    The stage checks exist for exactly this: a source can answer with syntactically
+    valid nonsense, and such an answer is more dangerous than a refusal because it
+    looks like a result.
     """
     absurd = json.dumps({
         "id": "https://openalex.org/W1",
@@ -331,16 +333,16 @@ def test_out_of_range_value_is_rejected(registry, artifacts):
     run_pass(FakeTransport(routes))
 
     for point in store.load_metrics("demo_rag"):
-        assert point.value >= 0, "отрицательная величина не должна попасть в ряд"
+        assert point.value >= 0, "a negative quantity must not reach the series"
     for item in store.load_evidence("demo_rag"):
-        assert "2099" not in (item.value or ""), "год из будущего не принимается"
+        assert "2099" not in (item.value or ""), "a year from the future is refused"
 
 
 def test_industry_path_reaches_l2_without_publication(registry, artifacts):
-    """Хранилище с промышленным применением не обязано иметь статью.
+    """A store in industrial use need not have a paper of its own.
 
-    Без отраслевого пути широко применяемое хранилище получало бы уровень ниже
-    препринта, никем не применяемого, — прямая инверсия смысла шкалы.
+    Without the industrial route a widely used store would rank below a preprint
+    nobody applies, which inverts the meaning outright.
     """
     store.save_technology(store.Technology(
         id="demo_store", name="DemoStore", kind="tool", groups=["B"],
@@ -361,11 +363,11 @@ def test_industry_path_reaches_l2_without_publication(registry, artifacts):
     assert level is not None and level.level == "L2"
     assert not [
         e for e in store.load_evidence("demo_store") if e.type == "publication"
-    ], "уровень достигнут в обход публикации"
+    ], "the level was reached bypassing publication"
 
 
 def test_industry_level_is_stable_across_passes(registry, artifacts):
-    """Устойчивость отраслевого пути: повтор не двигает уровень."""
+    """The industrial route is stable: a repeat does not move the level."""
     store.save_technology(store.Technology(
         id="demo_store", name="DemoStore", kind="tool", groups=["B"],
     ))
@@ -386,7 +388,7 @@ def test_industry_level_is_stable_across_passes(registry, artifacts):
 
 
 def test_metrics_do_not_grow_on_repeated_pass(registry, artifacts):
-    """Измерение одного дня одно: иначе ряд растёт, не неся сведений."""
+    """One measurement per day: otherwise the series grows carrying nothing new."""
     run_pass(FakeTransport(standard_routes()))
     first = len(store.load_metrics())
     assert first > 0
@@ -395,11 +397,11 @@ def test_metrics_do_not_grow_on_repeated_pass(registry, artifacts):
 
 
 def test_half_written_line_is_detected_not_silently_skipped(registry, artifacts):
-    """Прерванный прогон оставляет данные пригодными, а порчу — видимой.
+    """An interrupted pass leaves the data usable and makes the damage visible.
 
-    Дозапись может оборваться на середине строки. Такая строка обязана вызвать
-    ошибку чтения: молчаливый пропуск означал бы, что часть свидетельств
-    исчезла, а уровень пересчитался без них — незаметно и неверно.
+    An append may break off in the middle of a line. Such a line has to raise a
+    read error: skipping it in silence would mean part of the evidence vanished
+    and the level was recomputed without it, unnoticed and wrong.
     """
     run_pass(FakeTransport(standard_routes()))
     path = store.evidence_path(TODAY)
@@ -411,33 +413,33 @@ def test_half_written_line_is_detected_not_silently_skipped(registry, artifacts)
 
 
 def test_validation_runs_before_the_run_is_logged(registry, artifacts):
-    """Коммит бота не запускает другие процессы, поэтому проверка идёт внутри.
+    """A bot commit triggers no other workflow, so validation runs inside the pass.
 
-    Если проверка не прошла, прогон обязан прекратиться до записи в журнал:
-    иначе журнал утверждал бы, что проход состоялся, а данные были испорчены.
+    If validation fails, the pass must stop before anything is written: otherwise
+    the log would claim a pass took place while the data was spoiled.
     """
     store.save_technology(store.Technology(
         id="Bad Id", name="Bad", kind="tool", groups=["A"],
     ))
     code = run_pass(FakeTransport(standard_routes()))
     assert code == 1
-    assert store.load_runs() == [], "строка журнала не пишется после неуспеха"
+    assert store.load_runs() == [], "no log line is written after a failure"
 
 
 def test_dry_run_writes_nothing(registry, artifacts):
-    """Пробный проход обязан быть безопасным: им проверяют, что произойдёт."""
+    """A dry run must be safe: it is how anyone checks what would happen."""
     run_pass(FakeTransport(standard_routes()), dry_run=True)
     assert store.load_evidence() == []
     assert store.load_runs() == []
 
 
 def test_attention_of_a_record_with_several_works(registry, artifacts):
-    """Внимание записи не зависит от порядка строк в файле.
+    """The attention of a record does not depend on the order of lines in a file.
 
-    У записи с несколькими работами на свежайшую дату приходится несколько
-    точек ряда. Берётся наибольшая: первая попавшаяся зависела бы от того,
-    какая ссылка добавлена раньше, а сумма посчитала бы препринт и его
-    конференционную версию как две разные работы.
+    For a record with several works, the freshest date carries several points of
+    the series. The largest is taken: the first one would depend on which link was
+    added earlier, and a sum would count a preprint and its conference version as
+    two different works.
     """
     store.save_technology(store.Technology(
         id="multi", name="Multi", kind="architecture", groups=["A"],
@@ -461,16 +463,17 @@ def test_attention_of_a_record_with_several_works(registry, artifacts):
 
 
 def test_source_that_did_not_answer_keeps_its_last_value(registry, artifacts):
-    """Молчание источника не должно выглядеть как падение внимания.
+    """A silent source must not look like a collapse in attention.
 
-    У записи две работы. В прошлый прогон измерены обе, в нынешний ответила
-    только одна. Свежесть считается по каждому источнику отдельно, поэтому
-    вторая работа остаётся в расчёте со своим последним значением.
+    The record has two works. On the previous pass both were measured, on this one
+    only one. Freshness is computed per source, so the second work stays in the
+    calculation with its own last value.
 
-    Пока свежесть считалась по всей записи, промолчавший источник выпадал
-    целиком: внимание Dense X упало с 1,089 до 0,101 не потому, что работу
-    перестали цитировать, а потому, что её вторую работу не удалось опросить.
-    Прогон идёт без человека, и такое число неотличимо от наблюдения.
+    While freshness was computed across the whole record, a source that stayed
+    silent dropped out entirely: the attention of Dense X fell from 1.089 to 0.101
+    not because the work stopped being cited but because its second work could not
+    be polled. The pass runs unattended, and such a number is indistinguishable
+    from an observation.
     """
     store.save_technology(store.Technology(
         id="multi", name="Multi", kind="architecture", groups=["A"],
@@ -484,7 +487,7 @@ def test_source_that_did_not_answer_keeps_its_last_value(registry, artifacts):
         for value, when, source in [
             (0.156, date(2026, 8, 7), "https://openalex.org/W1"),
             (1.935, date(2026, 8, 7), "https://openalex.org/W2"),
-            # Во второй прогон ответила только первая работа.
+            # On the second pass only the first work answered.
             (0.156, TODAY, "https://openalex.org/W1"),
         ]
     ])
@@ -493,12 +496,12 @@ def test_source_that_did_not_answer_keeps_its_last_value(registry, artifacts):
     payload = json.loads((artifacts / "map.json").read_text(encoding="utf-8"))
     point = next(p for p in payload["points"] if p["id"] == "multi")
     assert point["attention_raw"] == 1.935, (
-        "промолчавший источник выпал из расчёта, и внимание упало на порядок"
+        "a silent source dropped out of the calculation and attention fell"
     )
 
 
 def test_metric_points_of_different_works_are_both_kept(registry, artifacts):
-    """Отбор повторов не должен схлопывать измерения разных работ."""
+    """Duplicate filtering must not collapse measurements of different works."""
     points = [
         store.MetricPoint(
             technology_id="multi", metric="citation_velocity", value=value,
@@ -510,12 +513,12 @@ def test_metric_points_of_different_works_are_both_kept(registry, artifacts):
         ]
     ]
     assert store.append_metrics(points) == 2
-    assert store.append_metrics(points) == 0, "повторный прогон точек не добавляет"
+    assert store.append_metrics(points) == 0, "a repeated pass adds no points"
     assert len(store.load_metrics("multi")) == 2
 
 
 def test_rebuild_without_collecting_is_not_logged_as_a_run(registry, artifacts):
-    """Журнал сбора утверждает «источники проверены»; без опроса это неправда."""
+    """The collection log claims the sources were checked; without a poll it lies."""
     run_pass(FakeTransport(standard_routes()))
     before = len(store.load_runs())
     run_pass(FakeTransport(standard_routes()), skip_collect=True)
@@ -523,23 +526,23 @@ def test_rebuild_without_collecting_is_not_logged_as_a_run(registry, artifacts):
 
 
 def test_level_computation_uses_the_given_date_not_the_clock(registry, artifacts):
-    """Дата прохода задаётся, а не читается с часов.
+    """The date of a pass is given, not read off the clock.
 
-    Правило зависит от возраста свидетельств, поэтому чтение системных часов
-    означало бы, что один и тот же набор данных даёт разные уровни в разные дни.
-    Проверяется по дате в журнале: она обязана совпасть с датой прохода, а не с
-    сегодняшним числом машины, на которой тест запущен.
+    The rule depends on the age of the evidence, so reading the clock would mean
+    one set of data yielding different levels on different days. It is checked
+    through the date in the journal: it must equal the date of the pass and not
+    today's date on the machine the test runs on.
     """
     run_pass(FakeTransport(standard_routes()))
     entries = store.load_levels("demo_rag")
-    assert entries, "уровень должен быть вычислен"
+    assert entries, "a level must have been computed"
     assert entries[-1].computed_at == TODAY, (
-        f"дата взята не из прохода: {entries[-1].computed_at} вместо {TODAY}"
+        f"the date did not come from the pass: {entries[-1].computed_at} not {TODAY}"
     )
 
 
 def test_same_data_gives_same_level_on_a_later_date(registry, artifacts):
-    """Проход неделей позже по тем же данным уровень не двигает."""
+    """A pass a week later over the same data does not move the level."""
     run_pass(FakeTransport(standard_routes()))
     first = store.latest_level("demo_rag").level
 
@@ -549,11 +552,11 @@ def test_same_data_gives_same_level_on_a_later_date(registry, artifacts):
     assert store.latest_level("demo_rag").level == first
 
 
-# ─── Проверка ссылок в составе прогона ───────────────────────────────────────
+# ─── The link check inside the pass ──────────────────────────────────────────
 
 
 def test_pass_marks_resolvable_links(registry, artifacts):
-    """Ссылки проверяются тем же проходом, что и всё остальное."""
+    """The links are checked by the same pass as everything else."""
     run_pass(FakeTransport(standard_routes()),
              link_http=FakeTransport({"": SourceBehaviour(b"ok")}))
 
@@ -565,10 +568,10 @@ def test_pass_marks_resolvable_links(registry, artifacts):
 
 
 def test_dead_link_is_recorded_but_does_not_stop_the_pass(registry, artifacts):
-    """Исчезнувший источник — повод для правки, а не для остановки прогона.
+    """A vanished source is a reason to repair, not a reason to stop.
 
-    Прогон обязан довести остальное до конца: иначе одна протухшая ссылка
-    останавливала бы обновление всего портала.
+    The pass must carry the rest through to the end: otherwise one rotten link
+    would stop the whole portal from updating.
     """
     code = run_pass(
         FakeTransport(standard_routes()),
@@ -583,7 +586,7 @@ def test_dead_link_is_recorded_but_does_not_stop_the_pass(registry, artifacts):
 
 
 def test_publisher_refusal_does_not_mark_a_link_dead(registry, artifacts):
-    """Отказ роботу — не исчезновение источника."""
+    """A refusal to a robot is not a vanished source."""
     run_pass(FakeTransport(standard_routes()),
              link_http=FakeTransport({"": SourceBehaviour(b"", status=403)}))
 
@@ -592,24 +595,24 @@ def test_publisher_refusal_does_not_mark_a_link_dead(registry, artifacts):
     assert store.latest_run().links_broken == 0
 
 
-# ─── Дайджест ────────────────────────────────────────────────────────────────
+# ─── The digest ──────────────────────────────────────────────────────────────
 
 
 def test_pass_with_news_publishes_an_issue(registry, artifacts):
-    """Изменения выносятся наружу тем же проходом, что их находит."""
+    """Changes are carried outward by the same pass that finds them."""
     run_pass(FakeTransport(standard_routes()))
 
     issues = list((registry / "digest").glob("*.json"))
-    assert len(issues) == 1, "проход с новостями обязан выпустить дайджест"
+    assert len(issues) == 1, "a pass with news must publish a digest issue"
 
     payload = json.loads(issues[0].read_text(encoding="utf-8"))
     assert payload["issued_at"] == TODAY.isoformat()
     assert "Demo-RAG" in payload["text"]
-    assert payload["text"], "выпуск без текста читателю бесполезен"
+    assert payload["text"], "an issue without text is useless to a reader"
 
 
 def test_quiet_pass_publishes_nothing(registry, artifacts):
-    """Полсотни сообщений «ничего не произошло» — шум, а не дайджест."""
+    """Fifty messages saying nothing happened are noise, not a digest."""
     run_pass(FakeTransport(standard_routes()))
     first = len(list((registry / "digest").glob("*.json")))
     run_pass(FakeTransport(standard_routes()))
@@ -617,14 +620,15 @@ def test_quiet_pass_publishes_nothing(registry, artifacts):
 
 
 def test_issue_reaches_the_reader(registry, artifacts):
-    """Выпуск, лежащий в данных и не дошедший до артефактов, никем не прочитан."""
+    """An issue that sits in the data and never reaches the artefacts is unread."""
     run_pass(FakeTransport(standard_routes()))
 
     payload = json.loads((artifacts / "digest.json").read_text(encoding="utf-8"))
     assert len(payload["issues"]) == 1
 
-    # Лента объявляет язык на канал целиком, поэтому их две, и выпуск обязан
-    # дойти до каждой: подписчик читает одну и о существовании второй не знает.
+    # A feed declares its language for the whole channel, so there are two, and
+    # an issue has to reach each: a subscriber reads one and does not know the
+    # other exists.
     english = (artifacts / "feed.xml").read_text(encoding="utf-8")
     assert "<language>en</language>" in english
     assert "Digest for" in english
@@ -635,7 +639,7 @@ def test_issue_reaches_the_reader(registry, artifacts):
 
 
 def test_broken_data_publishes_no_issue(registry, artifacts):
-    """Сообщение по испорченным данным публиковать нельзя."""
+    """A message must not be published from spoiled data."""
     store.save_technology(store.Technology(
         id="Bad Id", name="Bad", kind="tool", groups=["A"],
     ))
