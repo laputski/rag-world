@@ -32,9 +32,9 @@ from services.registry import store  # noqa: E402
 def run(
     dry_run: bool = False, quiet: bool = False, today: date | None = None
 ) -> int:
-    # Дата внедряется: правило зависит от возраста свидетельств, поэтому при
-    # чтении с часов один и тот же набор данных давал бы разные уровни в разные
-    # дни, и воспроизводимость нельзя было бы проверить.
+    # The date is injected. The rule depends on the age of the evidence, so
+    # reading it off the clock would let one set of data yield different levels
+    # on different days, and reproducibility could not be checked at all.
     today = today or date.today()
     technologies = store.load_technologies()
 
@@ -48,9 +48,9 @@ def run(
     for tech in technologies:
         evidence = by_tech.get(tech.id, [])
         if not evidence:
-            # Без свидетельств уровень не вычисляется. Подставлять L0 нельзя:
-            # «не изучено» и «гипотеза» — разные утверждения.
-            distribution["нет данных"] += 1
+            # With no evidence there is no level. Substituting L0 is not an
+            # option: "not studied" and "a hypothesis" are different claims.
+            distribution["no data"] += 1
             continue
 
         result = compute_level(
@@ -87,23 +87,23 @@ def run(
             ))
 
     if not quiet:
-        prefix = "изменится" if dry_run else "изменено"
-        print(f"{prefix} уровней: {len(changes)} из {len(technologies)} записей")
+        prefix = "would change" if dry_run else "changed"
+        print(f"levels {prefix}: {len(changes)} of {len(technologies)} records")
         for tech_id, before, after in changes[:20]:
-            print(f"  {tech_id:24} {before or 'нет данных':>10} → {after}")
+            print(f"  {tech_id:24} {before or 'no data':>10} → {after}")
         if len(changes) > 20:
-            print(f"  ещё {len(changes) - 20}")
+            print(f"  and {len(changes) - 20} more")
 
-        print("распределение: " + ", ".join(
+        print("distribution: " + ", ".join(
             f"{level} — {count}" for level, count in sorted(distribution.items())
         ))
-    # Возвращается число изменённых уровней: его записывает журнал прогонов.
+    # The number of changed levels is returned: the run log records it.
     return len(changes)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
+    parser.add_argument("--dry-run", action="store_true", help="write nothing")
     args = parser.parse_args()
     run(dry_run=args.dry_run)
     return 0

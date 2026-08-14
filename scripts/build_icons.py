@@ -39,25 +39,26 @@ PUBLIC = ROOT / "ui" / "public"
 STRATA = ["A", "B", "C", "D", "E", "F", "G"]
 ROWS = 4
 
-#: Страты и строки упрощённого рисунка. Держатся согласованными с `Logo.tsx`
-#: проверкой `tests/contract/test_icons_match_the_logo.py`.
+#: The strata and rows of the compact drawing. They are kept in step with
+#: `Logo.tsx` by `tests/contract/test_icons_match_the_logo.py`.
 COMPACT_STRATA = ["A", "C", "E", "G"]
 COMPACT_ROWS = 3
 
-#: Нейтральные цвета портала для подложек. Их немного, и берутся они там же.
+#: The portal's neutral colours, used for the grounds. There are few, and they
+#: come from the same place as the rest.
 NEUTRAL_RE = re.compile(
     r"(?P<mode>light|dark):\s*\{\s*bg:\s*\"(?P<bg>#[0-9A-Fa-f]{6})\""
 )
 
 
 def _strata_colors() -> dict[str, dict[str, str]]:
-    """Цвета страт из `theme.ts`, по теме."""
+    """The stratum colours from `theme.ts`, per theme."""
     text = THEME.read_text(encoding="utf-8")
     block = re.search(
         r"STRATUM_COLORS[^=]*=\s*\{(?P<body>.*?)\n\};", text, re.S
     )
     if not block:
-        raise SystemExit("в theme.ts не найдено объявление цветов страт")
+        raise SystemExit("theme.ts declares no stratum colours")
 
     out: dict[str, dict[str, str]] = {}
     for mode in ("light", "dark"):
@@ -65,11 +66,11 @@ def _strata_colors() -> dict[str, dict[str, str]]:
             rf"{mode}:\s*\{{(?P<body>.*?)\}},", block.group("body"), re.S
         )
         if not section:
-            raise SystemExit(f"в theme.ts нет палитры темы {mode}")
+            raise SystemExit(f"theme.ts has no palette for the {mode} theme")
         found = dict(re.findall(r"([A-G]):\s*\"(#[0-9A-Fa-f]{6})\"", section.group("body")))
         missing = [s for s in STRATA if s not in found]
         if missing:
-            raise SystemExit(f"в палитре темы {mode} нет страт {missing}")
+            raise SystemExit(f"the {mode} palette lacks the strata {missing}")
         out[mode] = found
     return out
 
@@ -79,30 +80,30 @@ def _backgrounds() -> dict[str, str]:
     found = {m.group("mode"): m.group("bg") for m in NEUTRAL_RE.finditer(text)}
     missing = [mode for mode in ("light", "dark") if mode not in found]
     if missing:
-        raise SystemExit(f"в theme.ts не найден фон тем {missing}")
+        raise SystemExit(f"theme.ts has no background for the themes {missing}")
     return found
 
 
 def _pattern() -> dict[str, list[bool]]:
-    """Рисунок знака из `Logo.tsx`."""
+    """The pattern of the mark, read from `Logo.tsx`."""
     text = LOGO.read_text(encoding="utf-8")
     block = re.search(r"PATTERN[^=]*=\s*\{(?P<body>.*?)\n\};", text, re.S)
     if not block:
-        raise SystemExit("в Logo.tsx не найдено объявление рисунка знака")
+        raise SystemExit("Logo.tsx declares no pattern for the mark")
     out: dict[str, list[bool]] = {}
     for stratum, body in re.findall(r"([A-G]):\s*\[(.*?)\]", block.group("body"), re.S):
         out[stratum] = [value.strip() == "true" for value in body.split(",")]
     missing = [s for s in STRATA if s not in out]
     if missing:
-        raise SystemExit(f"в рисунке знака нет страт {missing}")
+        raise SystemExit(f"the pattern lacks the strata {missing}")
     wrong = {s: len(v) for s, v in out.items() if len(v) != ROWS}
     if wrong:
-        raise SystemExit(f"в рисунке знака строк не {ROWS}: {wrong}")
+        raise SystemExit(f"the pattern has rows other than {ROWS}: {wrong}")
     return out
 
 
 def cells(size: float, compact: bool) -> list[tuple[float, float, float, str]]:
-    """Клетки знака:x, y, сторона, код страты."""
+    """The cells of the mark: x, y, side, stratum code."""
     pattern = _pattern()
     strata = COMPACT_STRATA if compact else STRATA
     rows = COMPACT_ROWS if compact else ROWS
@@ -118,10 +119,10 @@ def cells(size: float, compact: bool) -> list[tuple[float, float, float, str]]:
 
 
 def render_favicon() -> str:
-    """Значок вкладки: один файл, меняющий палитру вместе с темой браузера.
+    """The tab icon: one file that changes palette with the browser theme.
 
-    Растровый значок так не умеет, поэтому пришлось бы выбирать палитру за
-    читателя и мириться с тем, что на половине устройств знак тускнеет.
+    A raster icon cannot do that, so the palette would have to be chosen on the
+    reader's behalf, leaving the mark dim on half the devices.
     """
     colors = _strata_colors()
     size = 24.0
@@ -147,11 +148,11 @@ def render_favicon() -> str:
     )
 
 
-# ─── Растр ───────────────────────────────────────────────────────────────────
+# ─── The raster ──────────────────────────────────────────────────────────────
 #
-# Кодировщик на двадцать строк вместо зависимости от разрисовщика: знак есть
-# набор прямоугольников со сплошной заливкой, и всё, что нужно, — буфер пикселей
-# и `zlib` из стандартной поставки.
+# A twenty-line encoder instead of a dependency on a renderer: the mark is a set
+# of rectangles with solid fills, and all it takes is a pixel buffer and `zlib`
+# from the standard library.
 
 def _rgb(value: str) -> tuple[int, int, int]:
     value = value.lstrip("#")
@@ -191,12 +192,13 @@ def _fill(pixels: bytearray, canvas_w: int, x: float, y: float,
 def render_raster(
     width: int, height: int, mark: float, mode: str, *, band: bool = False
 ) -> bytes:
-    """Знак на подложке: значок устройства и картинка предпросмотра.
+    """The mark on a ground: the device icon and the link preview image.
 
-    Картинка предпросмотра несёт полосу страт по нижнему краю. Без неё знак
-    висел посреди пустого поля и читался незаконченным: площадка показывает
-    рядом заголовок и описание, но сама картинка не говорила ничего. Полоса
-    держит композицию и повторяет ту же семёрку, что и знак.
+    The preview image carries a band of strata along its lower edge. Without it
+    the mark hung in the middle of an empty field and read as unfinished: the
+    platform shows a title and a description beside it, while the image itself
+    said nothing. The band holds the composition together and repeats the same
+    seven strata as the mark.
     """
     colors = _strata_colors()[mode]
     pixels = _canvas(width, height, _backgrounds()[mode])
@@ -205,8 +207,9 @@ def render_raster(
     marks = cells(mark, compact=False)
     mark_w = (mark / ROWS) * len(STRATA)
     left = (width - mark_w) / 2
-    # Знак центрируется по полю над полосой, а не по всей карточке: иначе он
-    # съезжает к низу ровно на толщину полосы и композиция читается случайной.
+    # The mark is centred on the field above the band rather than on the whole
+    # card: otherwise it drifts down by exactly the height of the band and the
+    # composition reads as accidental.
     top = (height - thickness - mark) / 2
     for x, y, side, stratum in marks:
         _fill(pixels, width, left + x, top + y, side, side, colors[stratum])
@@ -227,7 +230,7 @@ TARGETS = (
 
 
 def build(*, check: bool = False) -> list[str]:
-    """Собрать значки; при `check` только сказать, что разошлось."""
+    """Build the icons; with `check`, only name what has drifted."""
     changed: list[str] = []
     for name, raster in TARGETS:
         if raster is None:
@@ -247,17 +250,17 @@ def build(*, check: bool = False) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true",
-                        help="не записывать, только назвать разошедшееся")
+                        help="write nothing, only name what has drifted")
     args = parser.parse_args()
 
     changed = build(check=args.check)
     if args.check:
         if changed:
-            print("значки разошлись со знаком: " + ", ".join(changed))
+            print("the icons have drifted from the mark: " + ", ".join(changed))
             return 1
-        print("значки отвечают знаку")
+        print("the icons match the mark")
         return 0
-    print("значки собраны" if changed else "значки уже были собраны")
+    print("the icons are built" if changed else "the icons were already built")
     for name in changed:
         print(f"  {name}")
     return 0

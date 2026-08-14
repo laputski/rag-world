@@ -48,28 +48,29 @@ _ARXIV_HOST = "arxiv.org"
 
 
 def _collectors_for(url: str) -> list[str]:
-    """Какие сборщики применимы к источнику.
+    """Which collectors apply to a source.
 
-    Адрес arXiv опрашивается дважды: сам архив даёт факт препринта, а открытый
-    индекс — площадку публикации и цитирования. Без второго запроса работа
-    навсегда осталась бы препринтом, даже если вышла на конференции.
+    A preprint address is asked twice over: the archive itself gives the fact of
+    the preprint, and the open index gives the publication venue and the
+    citations. Without the second request a work would stay a preprint for ever,
+    even after it appeared at a conference.
     """
     if _ARXIV_HOST in url:
-        # Каталог работ и кода опрашивается по тому же номеру препринта. Он
-        # даёт площадку публикации вторым источником: пока она приходила только
-        # из открытого индекса, ошибка индекса ничем не перекрывалась.
+        # The works-and-code catalogue is asked by the same preprint number. It
+        # gives the publication venue from a second source: while the venue came
+        # from the open index alone, an error there was covered by nothing.
         return ["arxiv", "openalex", "paperswithcode"]
     if "github.com" in url:
         return ["github"]
     if "openalex.org" in url:
         return ["openalex"]
-    # Открытый индекс разрешает работу и по цифровому идентификатору, и умел это
-    # с самого начала — не хватало только маршрута. Из-за этого запись, чей
-    # единственный источник издан не препринтом, не получала свидетельства
-    # публикации вовсе: у Standard HybridRAG уровень не вычислялся, хотя приём
-    # лежит в основе смешанного поиска и описан работой с шестьюстами
-    # цитированиями. Сама ссылка при этом остаётся недоступной роботу:
-    # издательство отвечает отказом по правам, и опрашивается именно индекс.
+    # The open index also resolves a work by its digital identifier, and always
+    # could — only the route here was missing. Because of that, a record whose
+    # only source was published other than as a preprint received no publication
+    # evidence at all: Standard HybridRAG had no level computed, although the
+    # technique underlies hybrid search and is described by a work with six
+    # hundred citations. The link itself stays closed to a robot, the publisher
+    # answering with a refusal on rights, so it is the index that gets asked.
     if "doi.org" in url:
         return ["openalex"]
     return []
@@ -88,15 +89,15 @@ def _collect_one(
     for link in tech.links:
         for kind in _collectors_for(link.url):
             if kind == "arxiv":
-                # Подпись ссылки заголовком работы не является: там пометки
-                # вроде «CausalRAG (arXiv:2503.19878, ACL 2025)» и «исправлено:
-                # было 2406.18542». Сравнение их с настоящим заголовком
-                # отклоняло тринадцать законных публикаций каждый прогон.
+                # The label of a link is not the title of a work: it holds notes
+                # like "CausalRAG (arXiv:2503.19878, ACL 2025)" and "corrected:
+                # was 2406.18542". Comparing those with a real title rejected
+                # thirteen legitimate publications on every pass.
                 #
-                # Проверять здесь нечего и по существу: у ссылки указан номер
-                # архива, и запрос по номеру возвращает ровно ту работу.
-                # Сверка заголовков нужна там, где работа ищется поиском, —
-                # в открытом индексе, и там она есть.
+                # There is nothing to check here in substance either: the link
+                # carries an archive number, and a request by number returns
+                # exactly that work. Comparing titles is needed where a work is
+                # found by search, that is, in the open index, and there it is.
                 result = collect_arxiv(
                     tech.id, link.url, http=http, today=today,
                 )
@@ -105,9 +106,9 @@ def _collect_one(
                     tech.id, link.url, http=http, token=github_token, today=today,
                 )
             elif kind == "paperswithcode":
-                # Каталог спрашивается по номеру препринта, а не по адресу:
-                # он отвечает лентой свежайших работ на всё, чего не понял, и
-                # такой ответ выглядит осмысленным.
+                # The catalogue is asked by preprint number rather than by
+                # address: it answers anything it did not understand with a feed
+                # of the newest work, and such an answer looks meaningful.
                 number = _extract_arxiv_id(link.url)
                 if not number:
                     continue
@@ -123,10 +124,11 @@ def _collect_one(
 
 
 def _metrics_from(evidence: list[store.Evidence]) -> list[store.MetricPoint]:
-    """Временной ряд внимания из значений собранных свидетельств.
+    """The attention series, taken from the values of collected evidence.
 
-    Абсолютное число цитирований как показатель не сохраняется: оно несравнимо
-    между областями и устаревает сразу. Сохраняется скорость цитирования.
+    The absolute citation count is not kept as a measurement: it is not
+    comparable across fields and is out of date at once. What is kept is the
+    citation velocity.
     """
     points: list[store.MetricPoint] = []
     for item in evidence:
@@ -143,7 +145,7 @@ def _metrics_from(evidence: list[store.Evidence]) -> list[store.MetricPoint]:
 
 
 def load_manual_evidence() -> list[store.Evidence]:
-    """Свидетельства, введённые человеком; каждое обязано нести ссылку."""
+    """Evidence entered by a person; every item must carry a link."""
     if not MANUAL_FILE.exists():
         return []
     import json
@@ -162,10 +164,10 @@ def load_manual_evidence() -> list[store.Evidence]:
 
 @dataclass
 class CollectSummary:
-    """Итог сбора: что добавлено и что не получилось.
+    """What the collection came to: what was added and what did not work.
 
-    Возвращается вызывающему, а не печатается: журнал прогонов записывает эти
-    числа, и они же попадают в сводку прохода.
+    It is returned to the caller rather than printed: the run log records these
+    numbers, and the same ones reach the summary of the pass.
     """
 
     sources: list[str] = field(default_factory=list)
@@ -183,10 +185,11 @@ def gather(
     http=None,
     today: date | None = None,
 ) -> CollectSummary:
-    """Опросить источники и дописать прошедшие проверку свидетельства.
+    """Ask the sources and append the evidence that passes the checks.
 
-    `http` и `today` внедряются: без этого прогон нельзя проверить без сети, а
-    непроверенный автономный прогон опаснее ручного запуска.
+    `http` and `today` are injected: without that the pass could not be tested
+    without a network, and an untested unattended pass is more dangerous than a
+    run started by hand.
     """
     if http is None:
         from services.collectors.transport import RequestsTransport
@@ -199,7 +202,7 @@ def gather(
     if only:
         technologies = [t for t in technologies if t.id == only]
         if not technologies:
-            raise SystemExit(f"Технология {only!r} не найдена в реестре.")
+            raise SystemExit(f"no technology {only!r} exists in the registry")
     if limit:
         technologies = technologies[:limit]
 
@@ -214,8 +217,8 @@ def gather(
         summary.errors.extend(tech_errors)
         raw_all.extend(raw)
 
-    # Присутствие во фреймворках опрашивается один раз на весь реестр:
-    # читаются оглавления каталогов, а не запись за записью.
+    # Framework presence is asked once for the whole registry: what is read is
+    # the directory listings, not one record after another.
     from services.collectors.frameworks import collect_frameworks
 
     framework_evidence, framework_errors = collect_frameworks(
@@ -226,7 +229,7 @@ def gather(
     if framework_evidence or not framework_errors:
         summary.sources.append("frameworks")
 
-    # Загрузки пакета — только там, где имя пакета записано человеком.
+    # Package downloads only where a person wrote the package name down.
     from services.collectors.pypi import collect_pypi
 
     polled_pypi = False
@@ -269,28 +272,28 @@ def gather(
 
 
 def run(*, limit: int = 0, only: str | None = None, dry_run: bool = False) -> int:
-    """Отдельный запуск только сбора; полный проход — в scripts/update.py."""
+    """Collection on its own; the whole pass lives in scripts/update.py."""
     summary = gather(limit=limit, only=only, dry_run=dry_run)
-    prefix = "будет добавлено" if dry_run else "добавлено"
+    prefix = "would add" if dry_run else "added"
     print(
-        f"{prefix}: свидетельств {summary.evidence_added}, "
-        f"точек ряда {summary.metrics_added}; "
-        f"отклонено проверками {summary.rejected}"
+        f"{prefix}: evidence {summary.evidence_added}, "
+        f"series points {summary.metrics_added}; "
+        f"rejected by the checks {summary.rejected}"
     )
     if summary.errors:
-        print(f"источники без результата: {len(summary.errors)}")
+        print(f"sources that yielded nothing: {len(summary.errors)}")
         for message in summary.errors[:10]:
             print(f"  {message[:130]}")
         if len(summary.errors) > 10:
-            print(f"  ещё {len(summary.errors) - 10}")
+            print(f"  and {len(summary.errors) - 10} more")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=0, help="ограничить число записей")
-    parser.add_argument("--only", help="обработать только указанную запись")
-    parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
+    parser.add_argument("--limit", type=int, default=0, help="cap the number of records")
+    parser.add_argument("--only", help="process one named record")
+    parser.add_argument("--dry-run", action="store_true", help="write nothing")
     args = parser.parse_args()
     return run(limit=args.limit, only=args.only, dry_run=args.dry_run)
 

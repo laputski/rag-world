@@ -43,16 +43,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from services.registry import store  # noqa: E402
 
-#: Коды, означающие, что адреса не существует. Всё прочее — не приговор.
+#: Codes meaning the address does not exist. Everything else is not a verdict.
 GONE = (404, 410)
 
-#: Коды, означающие «есть, но не показывает»: права, оплата, защита от роботов.
+#: Codes meaning "it is there and it will not show": rights, payment, bot walls.
 GUARDED = (401, 402, 403, 429)
 
 
 @dataclass
 class LinkSummary:
-    """Итог прохода по ссылкам."""
+    """What a pass over the links came to."""
 
     checked: int = 0
     verified: int = 0
@@ -80,11 +80,11 @@ def run(
     dry_run: bool = False,
     stale_after: int = 0,
 ) -> LinkSummary:
-    """Обойти ссылки реестра и обновить их отметки.
+    """Walk the registry's links and update their marks.
 
-    `stale_after` в днях позволяет не перепроверять недавно подтверждённые
-    ссылки: за неделю адрес, открывавшийся вчера, обычно не исчезает, а лишние
-    обращения — расход чужих ресурсов и своего времени.
+    `stale_after`, in days, spares the recently confirmed links a second check:
+    an address that opened yesterday rarely vanishes within a week, and a
+    superfluous request spends somebody else's resources and your own time.
     """
     if http is None:
         from services.collectors.transport import RequestsTransport
@@ -93,8 +93,8 @@ def run(
     today = today or date.today()
     summary = LinkSummary()
 
-    # Один адрес проверяется один раз, даже если встречается у нескольких
-    # записей: результат от записи не зависит.
+    # An address is checked once even when several records carry it: the
+    # outcome does not depend on the record.
     outcomes: dict[str, tuple[str, int]] = {}
 
     for tech in store.load_technologies():
@@ -102,9 +102,10 @@ def run(
         for link in tech.links:
             if not link.url.strip():
                 continue
-            # Недавно осмотренные адреса пропускаются. Закрытые правами тоже:
-            # площадка, отказавшая роботу вчера, откажет и сегодня, а лишнее
-            # обращение — расход чужих ресурсов ради заведомо известного ответа.
+            # Recently inspected addresses are skipped, and so are those closed
+            # by rights: a venue that refused a robot yesterday will refuse it
+            # today, and the request would spend somebody else's resources for
+            # an answer already known.
             if (
                 stale_after
                 and link.status in ("verified", "guarded")
@@ -117,7 +118,7 @@ def run(
                 summary.checked += 1
                 try:
                     status, _ = http.get(link.url, timeout=20)
-                except Exception as exc:  # сеть рвётся — это не приговор ссылке
+                except Exception as exc:  # a broken network is no verdict on a link
                     outcomes[link.url] = ("unknown", 0)
                     summary.problems.append(f"{tech.id}: {link.url} — {exc}"[:160])
                 else:
@@ -133,45 +134,47 @@ def run(
             elif verdict == "unresolved":
                 summary.gone += 1
                 summary.problems.append(
-                    f"{tech.id}: {link.url} отвечает кодом {status}"
+                    f"{tech.id}: {link.url} answers with {status}"
                 )
                 if link.status != "unresolved":
                     link.status = "unresolved"
                     link.verified_at = None
                     touched = True
             elif verdict == "guarded":
-                # Отказ по правам не понижает подтверждённую ссылку: издательства
-                # отвечают так роботам, и принять это за смерть адреса значит
-                # испортить реестр быстрее, чем время испортит адреса.
+                # A refusal on rights does not demote a confirmed link:
+                # publishers answer robots that way, and taking it for the death
+                # of an address would spoil the registry faster than time spoils
+                # addresses.
                 #
-                # Но и оставлять непроверенную ссылку в прежнем состоянии
-                # нельзя. Она застревала в «не смотрели» навсегда, хотя
-                # смотрели каждую неделю, и отличить её от действительно не
-                # проверявшейся было невозможно. Отметка `guarded` утверждает
-                # ровно наблюдённое: обращение было, адрес ответил, роботу себя
-                # не показал. Подтвердить его может только человек.
+                # But leaving an unchecked link in its former state is no better.
+                # It stuck in "nobody looked" for ever although it was looked at
+                # every week, and telling it from one truly never checked was
+                # impossible. The mark `guarded` asserts exactly what was
+                # observed: the request was made, the address answered, and it
+                # declined to show itself to a robot. Only a person can confirm
+                # it.
                 summary.guarded += 1
                 if link.status == "verified":
                     summary.problems.append(
-                        f"{tech.id}: {link.url} отвечает кодом {status} "
-                        "(отметка о проверке сохранена)"
+                        f"{tech.id}: {link.url} answers with {status} "
+                        "(the check mark is kept)"
                     )
                 elif link.status != "guarded" or link.verified_at != today:
                     link.status = "guarded"
                     link.verified_at = today
                     touched = True
                     summary.problems.append(
-                        f"{tech.id}: {link.url} отвечает кодом {status}, "
-                        "подтвердить может только человек"
+                        f"{tech.id}: {link.url} answers with {status}, "
+                        "only a person can confirm it"
                     )
             else:
-                # Обрыв связи, таймаут, неизвестный код: отметка не трогается,
-                # потому что о самом адресе это ничего не говорит.
+                # A broken connection, a timeout, an unknown code: the mark is
+                # left alone, because none of it says anything about the address.
                 summary.errored += 1
                 if status:
                     summary.problems.append(
-                        f"{tech.id}: {link.url} отвечает кодом {status} "
-                        "(отметка не изменена)"
+                        f"{tech.id}: {link.url} answers with {status} "
+                        "(the mark is unchanged)"
                     )
 
         if touched and not dry_run:
@@ -183,20 +186,20 @@ def run(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
+    parser.add_argument("--dry-run", action="store_true", help="write nothing")
     parser.add_argument(
         "--stale", type=int, default=0,
-        help="не перепроверять ссылки, подтверждённые за последние N дней",
+        help="skip links confirmed within the last N days",
     )
     args = parser.parse_args()
 
     summary = run(dry_run=args.dry_run, stale_after=args.stale)
     print(
-        f"проверено адресов {summary.checked}: "
-        f"разрешается {summary.verified}, не существует {summary.gone}, "
-        f"закрыто правами {summary.guarded}, ошибок обращения {summary.errored}"
+        f"addresses checked {summary.checked}: "
+        f"resolving {summary.verified}, gone {summary.gone}, "
+        f"closed by rights {summary.guarded}, request errors {summary.errored}"
     )
-    print(f"записей изменено: {summary.changed}")
+    print(f"records changed: {summary.changed}")
     for problem in summary.problems:
         print(f"  {problem}")
     return 1 if summary.gone else 0

@@ -43,17 +43,17 @@ from services.registry import store  # noqa: E402
 CANDIDATES = store.DATA_DIR / "candidates.jsonl"
 REJECTED = store.DATA_DIR / "rejected.jsonl"
 
-#: За какой срок спрашивать работы по умолчанию. Совпадает с шагом расписания:
-#: сутки нахлёста дешевле пропуска, а повтор отсеется по номеру препринта.
+#: How far back to ask for work by default. It matches the schedule: a day of
+#: overlap is cheaper than a gap, and a repeat is filtered out by its number.
 DEFAULT_WINDOW_DAYS = 8
 
-#: Окно для курируемых списков: два года вместо недели.
+#: The window for curated lists: two years rather than a week.
 #:
-#: Список пополняется не по расписанию, а когда у ведущего дошли руки, и работа
-#: может попасть в него через полгода после выхода. Недельное окно, годное для
-#: каталога, отсекло бы ровно то, ради чего список и опрашивается. Отсев по
-#: известному при этом идёт до обращения к arXiv, поэтому широкое окно стоит
-#: одного разбора разметки, а не сотни запросов.
+#: A list grows not on a schedule but when whoever keeps it gets round to it, and
+#: a work may enter it half a year after it appeared. A week-long window, right
+#: for the catalogue, would cut off exactly what the list is asked for. What is
+#: already known is filtered out before the archive is asked, so the wide window
+#: costs one parse of the markup rather than a hundred requests.
 CURATED_WINDOW_DAYS = 730
 
 _ARXIV_ID = re.compile(r"(\d{4}\.\d{4,5})")
@@ -61,7 +61,7 @@ _ARXIV_ID = re.compile(r"(\d{4}\.\d{4,5})")
 
 @dataclass
 class DiscoverySummary:
-    """Итог обнаружения: что найдено, что отсеяно и почему."""
+    """What discovery came to: what was found, what was filtered, and why."""
 
     found: int = 0
     added: int = 0
@@ -82,7 +82,7 @@ def load_candidates() -> list[dict]:
 
 
 def _registry_arxiv_ids() -> set[str]:
-    """Номера препринтов, на которые уже ссылается реестр."""
+    """The preprint numbers the registry already points at."""
     found: set[str] = set()
     for tech in store.load_technologies():
         for link in tech.links:
@@ -116,19 +116,19 @@ def _rejected_names() -> set[str]:
 
 
 def is_known(paper: Paper, *, arxiv_ids: set[str], names: set[str]) -> bool:
-    """Работа уже описана реестром либо отклонена прежде.
+    """The work is already in the registry or was refused before.
 
-    Сверка идёт по номеру препринта и по имени. Имя сравнивается целиком: имя
-    работы обычно длиннее имени технологии, поэтому совпадение по вхождению
-    дало бы ложные срабатывания на общих словах.
+    The comparison goes by preprint number and by name. The name is compared in
+    full: the title of a work is usually longer than the name of a technology,
+    so substring matching would produce false positives on common words.
     """
     if paper.arxiv_id in arxiv_ids:
         return True
     title = paper.title.strip().lower()
     if title in names:
         return True
-    # Заголовок вида «HippoRAG: Neurobiologically Inspired…»: имя стоит до
-    # двоеточия, и по нему запись реестра узнаётся.
+    # A title of the form "HippoRAG: Neurobiologically Inspired...": the name
+    # stands before the colon, and a registry record is recognised by it.
     head = title.split(":", 1)[0].strip()
     return bool(head) and head in names
 
@@ -160,16 +160,16 @@ def run(
         row.get("arxiv_id") for row in load_candidates() if row.get("verdict")
     }
 
-    # Второй путь обнаружения: курируемые тематические списки.
+    # The second route of discovery: curated topic lists.
     #
-    # Каталог находит работу по метке, проставленной тем, кто её выложил.
-    # Список находит работу по решению человека, который в предмете работает.
-    # Пути дополняют друг друга, и работа, найденная обоими, — не повтор, а
-    # согласие двух независимых отборов.
+    # The catalogue finds a work by a tag applied by whoever uploaded it. A list
+    # finds a work by the decision of a person who works in the subject. The two
+    # routes complement each other, and a work found by both is not a duplicate
+    # but the agreement of two independent selections.
     #
-    # Известное отсеивается до обращения к arXiv: в списке сотня с лишним
-    # работ, из которых новых единицы, и спрашивать аннотации по всем значило
-    # бы бить по чужой службе впустую.
+    # What is known is filtered out before the archive is asked: a list holds a
+    # hundred-odd works of which a handful are new, and asking for every abstract
+    # would hammer somebody else's service to no purpose.
     listed, listed_problems = discover_from_lists(
         http=http,
         published_after=today - timedelta(days=CURATED_WINDOW_DAYS),
@@ -189,7 +189,7 @@ def run(
             summary.decided += 1
             continue
         if paper.arxiv_id in seen:
-            continue  # уже в очереди и ждёт решения
+            continue  # already in the queue, awaiting a verdict
         curated = sorted(
             source.name for source in CURATED_LISTS
             if paper.arxiv_id in curated_source
@@ -208,9 +208,10 @@ def run(
             "source": paper.url,
             "citations": paper.citations,
             "repositories": paper.repositories,
-            # Откуда работа пришла. Нужно при разборе очереди: находка по
-            # списку и находка по каталогу подтверждены разным, и знать это
-            # человеку полезнее, чем видеть одно число пригодности.
+            # Where the work came from. It matters when the queue is worked
+            # through: a find from a list and a find from the catalogue are
+            # corroborated by different things, and knowing which is more use to
+            # a person than a single fitness number.
             "curated_by": curated,
             "verdict": None,
         })
@@ -227,18 +228,19 @@ def run(
 
 
 def rescore(*, dry_run: bool = False) -> int:
-    """Пересчитать оценку у кандидатов, ждущих решения.
+    """Recompute the fitness of the candidates awaiting a verdict.
 
-    Правило оценки меняется чаще, чем очередь: список меток уточняется по мере
-    того, как видно, что каталог действительно проставляет. Кандидат, лежащий
-    в очереди третью неделю, должен оцениваться нынешним правилом, а не тем,
-    что действовало в день находки, иначе порядок просмотра врёт.
+    The scoring rule changes more often than the queue does: the list of tags is
+    refined as it becomes clear what the catalogue actually applies. A candidate
+    in its third week in the queue should be judged by the current rule and not
+    by the one in force on the day it was found, or the order of review lies.
 
-    Сети не требует: метки задач, аннотация и происхождение находки хранятся
-    вместе с кандидатом. Происхождение приходится передавать обратно в оценку
-    явно: пересчёт идёт по строке очереди, и признак, выведенный при находке,
-    но не сохранённый, был бы при пересчёте потерян. Один раз так и вышло —
-    оценки работ, найденных по спискам, обнулялись первым же пересчётом.
+    It needs no network: the task tags, the abstract and the provenance of the
+    find are stored with the candidate. The provenance has to be handed back to
+    the scoring explicitly: the recomputation works from the queue line, and a
+    signal derived at discovery but not stored would be lost on recomputation.
+    That is exactly what happened once — the scores of works found through lists
+    were zeroed by the first recomputation.
     """
     rows = load_candidates()
     if not rows:
@@ -268,15 +270,15 @@ def rescore(*, dry_run: bool = False) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--since", type=int, default=DEFAULT_WINDOW_DAYS,
-                        help="за сколько дней спрашивать работы")
-    parser.add_argument("--dry-run", action="store_true", help="ничего не записывать")
+                        help="how many days back to ask for work")
+    parser.add_argument("--dry-run", action="store_true", help="write nothing")
     args = parser.parse_args()
 
     summary = run(since_days=args.since, dry_run=args.dry_run)
     print(
-        f"обнаружение: найдено {summary.found}, в очередь добавлено "
-        f"{summary.added}, уже в реестре {summary.known}, решено прежде "
-        f"{summary.decided}, оценка пересчитана у {summary.rescored}"
+        f"discovery: found {summary.found}, added to the queue "
+        f"{summary.added}, already in the registry {summary.known}, decided "
+        f"before {summary.decided}, rescored {summary.rescored}"
     )
     for problem in summary.problems[:10]:
         print(f"  {problem[:140]}")
