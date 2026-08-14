@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "RAG на edge-устройствах: прунинг эмбеддингов и on-demand генерация.",
   "family": "F",
   "first_published": "2024-12",
   "groups": [

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-13",
+  "built_at": "2026-08-14",
   "count": 69,
   "levels": [
     "L0",
@@ -138,9 +138,9 @@
       "prose_id": "bge_m3"
     },
     {
-      "attention": null,
+      "attention": 15.118,
       "attention_cohort": null,
-      "attention_raw": null,
+      "attention_raw": 15.118,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
@@ -153,11 +153,15 @@
         {
           "at": "2026-08-08",
           "level": "L0"
+        },
+        {
+          "at": "2026-08-14",
+          "level": "L2"
         }
       ],
       "id": "bm25_sparse",
       "kind": "technique",
-      "level": "L0",
+      "level": "L2",
       "name": "BM25 Sparse",
       "prose_id": "bm25_sparse"
     },
@@ -1558,22 +1562,27 @@
       "prose_id": "speculative_rag"
     },
     {
-      "attention": null,
+      "attention": 3.146,
       "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
-      "evidence_basis": null,
-      "first_published": null,
+      "attention_raw": 3.146,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2009",
       "group": "A",
       "groups": [
         "A",
         "C",
         "D"
       ],
-      "history": [],
+      "history": [
+        {
+          "at": "2026-08-14",
+          "level": "L2"
+        }
+      ],
       "id": "standard_hybridrag",
       "kind": "architecture",
-      "level": null,
+      "level": "L2",
       "name": "Standard HybridRAG",
       "prose_id": "standard_hybridrag"
     },

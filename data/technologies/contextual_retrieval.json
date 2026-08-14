@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "LLM-генерируемый контекст-prepend к каждому чанку перед эмбеддингом.",
   "family": "H",
   "first_published": "2024",
   "groups": [

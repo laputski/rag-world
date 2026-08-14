@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Fine-tuning LLM на инструкциях, аугментированных результатами поиска.",
   "family": "I",
   "first_published": "2023-05",
   "groups": [

@@ -483,14 +483,8 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
                 "evidence_basis": result.evidence_basis,
             }
 
-        row = tech.model_dump(mode="json")
-        # Краткая мысль хранилась только по-русски и повторяла краткую суть
-        # прозы, которая теперь выходит на обоих языках. Оставить поле значило
-        # бы выгружать русский текст без двойника ради сведения, уже
-        # опубликованного рядом.
-        row.pop("core_idea", None)
         registry_rows.append({
-            **row,
+            **tech.model_dump(mode="json"),
             **prose.get(tech.prose_id or "", {}),
             # Данные хранят код механизма, читателю нужна формулировка.
             # Подстановка на сборке, а не в реестре: тогда перевод словаря не

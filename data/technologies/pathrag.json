@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Потоковый прунинг связующих путей между узлами с затуханием по расстоянию.",
   "family": "B",
   "first_published": "2025",
   "groups": [

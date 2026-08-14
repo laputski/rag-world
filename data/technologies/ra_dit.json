@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Joint fine-tuning LLM-ридера и ретривера.",
   "family": "I",
   "first_published": "2023-10",
   "groups": [

@@ -1,6 +1,42 @@
 {
-  "built_at": "2026-08-13",
+  "built_at": "2026-08-14",
   "changes": [
+    {
+      "changed_at": "2026-08-14",
+      "evidence": [
+        {
+          "source": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+          "type": "industrial_use"
+        },
+        {
+          "source": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+          "type": "industrial_use"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "Standard HybridRAG",
+      "technology_id": "standard_hybridrag"
+    },
+    {
+      "changed_at": "2026-08-14",
+      "evidence": [
+        {
+          "source": "https://api.github.com/repos/langchain-ai/langchain",
+          "type": "framework_presence"
+        },
+        {
+          "source": "https://openalex.org/W4252076394",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L0",
+      "name": "BM25 Sparse",
+      "technology_id": "bm25_sparse"
+    },
     {
       "changed_at": "2026-08-13",
       "evidence": [

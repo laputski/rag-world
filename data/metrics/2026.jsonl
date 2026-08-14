@@ -266,3 +266,5 @@
 {"measured_at": "2026-08-13", "metric": "citation_velocity", "source": "https://openalex.org/W7166706851", "technology_id": "pixelrag", "value": 0.0}
 {"measured_at": "2026-08-13", "metric": "citation_velocity", "source": "https://openalex.org/W7154505616", "technology_id": "roza_graphs", "value": 0.0}
 {"measured_at": "2026-08-13", "metric": "citation_velocity", "source": "https://openalex.org/W4399932275", "technology_id": "cbr_rag", "value": 3.258}
+{"measured_at": "2026-08-14", "metric": "citation_velocity", "source": "https://openalex.org/W2148972377", "technology_id": "standard_hybridrag", "value": 3.146}
+{"measured_at": "2026-08-14", "metric": "citation_velocity", "source": "https://openalex.org/W4252076394", "technology_id": "bm25_sparse", "value": 15.118}

@@ -37,7 +37,6 @@
   "configuration_variable": [
     "C4"
   ],
-  "core_idea": "Легковесный Retrieval Evaluator классифицирует контекст как correct, ambiguous или incorrect.",
   "family": "A",
   "first_published": "2024",
   "groups": [

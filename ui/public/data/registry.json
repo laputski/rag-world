@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-13",
+  "built_at": "2026-08-14",
   "count": 69,
   "technologies": [
     {
@@ -853,9 +853,9 @@
       "aliases": [
         "BM25"
       ],
-      "attention": null,
+      "attention": 15.118,
       "attention_cohort": null,
-      "attention_raw": null,
+      "attention_raw": 15.118,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -900,10 +900,18 @@
           "type": "framework_presence",
           "value": "frameworks=LangChain, LlamaIndex",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-14",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4252076394",
+          "type": "publication",
+          "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3069; year=2009; citation_velocity=15.118",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": null,
       "first_published": null,
       "groups": [
@@ -912,20 +920,20 @@
       ],
       "id": "bm25_sparse",
       "kind": "technique",
-      "level": "L0",
+      "level": "L2",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L1",
-          "L2",
           "L3",
           "L4",
           "L5",
           "L6"
         ],
         "satisfied": [
-          "L0"
+          "L0",
+          "L1",
+          "L2"
         ]
       },
       "links": [
@@ -10780,10 +10788,10 @@
         "HybridRAG",
         "Hybrid RAG"
       ],
-      "attention": null,
+      "attention": 3.146,
       "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
+      "attention_raw": 3.146,
+      "confidence": 1.0,
       "configuration": {
         "A1": "passage",
         "A2": "fixed",
@@ -10819,11 +10827,36 @@
       "configuration_variable": [],
       "description": "Standard HybridRAG соединяет два способа поиска, которые ошибаются по-разному. Словарный поиск отбирает документы по совпадению слов и надёжен там, где слово запроса встречается в документе буквально: имя собственное, обозначение детали, номер статьи. Синонима он не понимает, и вопрос, заданный другими словами, остаётся без ответа. Плотный поиск по векторным представлениям понимает синонимию и перифразу, но склонен подменять точное слово похожим и на редком обозначении, которого не было в обучении, промахивается.\n\nСоединение состоит в том, что оба поиска выполняются по одному запросу независимо, каждый даёт свой упорядоченный список, а списки сливаются в один. Слияние идёт либо по обратным рангам, где учитывается только место документа, либо приведением оценок к общей шкале, если шкалы известны.\n\nСхема не даёт ни новой единицы извлечения, ни нового устройства индекса и потому служит основанием, а не архитектурой: её ставят под другими приёмами и от неё отсчитывают их выигрыш. Плата состоит в двух индексах вместо одного, которые нужно строить и держать согласованными, и в двух обращениях на каждый запрос.",
       "description_en": "Standard HybridRAG joins two kinds of search that fail in different ways. Lexical search selects documents by word overlap and is dependable where a query word appears in the document literally: a proper name, a part number, an article of a statute. It understands no synonym, so a question asked in other words goes unanswered. Dense search over vector representations understands synonymy and paraphrase, but it tends to substitute a similar word for the exact one and misses on a rare designation absent from its training.\n\nThe joining consists in running both searches on the same query independently, each producing its own ordered list, and merging the lists into one. The merge proceeds either by reciprocal rank, where only a document's position counts, or by bringing the scores onto a common scale where those scales are known.\n\nThe scheme introduces neither a new unit of retrieval nor a new index structure and therefore serves as a baseline rather than an architecture: it is placed underneath other techniques, and their gains are measured from it. It costs two indexes instead of one, which must be built and kept in step, and two consultations per query.",
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "manual",
+          "source": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+          "type": "industrial_use",
+          "value": "OpenSearch: смешанный поиск как штатная возможность, со слиянием выдач внутри хранилища",
+          "value_en": "OpenSearch: hybrid search as a supported feature, with result fusion inside the store"
+        },
+        {
+          "fetched_at": "2026-08-13",
+          "obtained_by": "manual",
+          "source": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+          "type": "industrial_use",
+          "value": "Qdrant: смешанные запросы с разреженными и плотными векторами и слиянием по обратным рангам",
+          "value_en": "Qdrant: hybrid queries over sparse and dense vectors with reciprocal rank fusion"
+        },
+        {
+          "fetched_at": "2026-08-14",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W2148972377",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=645; year=2009; citation_velocity=3.146",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
       "family": "D",
-      "first_published": null,
+      "first_published": "2009",
       "groups": [
         "A",
         "C",
@@ -10831,16 +10864,46 @@
       ],
       "id": "standard_hybridrag",
       "kind": "architecture",
-      "level": null,
-      "level_reason": null,
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
       "links": [
         {
-          "kind": "other",
-          "label": null,
-          "label_en": null,
+          "kind": "paper",
+          "label": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+          "label_en": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+          "status": "guarded",
+          "url": "https://doi.org/10.1145/1571941.1572114",
+          "verified_at": null
+        },
+        {
+          "kind": "product",
+          "label": "OpenSearch: смешанный поиск",
+          "label_en": "OpenSearch: hybrid search",
           "status": "verified",
-          "url": "https://atlan.com/know/hybrid-rag/",
-          "verified_at": "2026-08-09"
+          "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+          "verified_at": "2026-08-13"
+        },
+        {
+          "kind": "product",
+          "label": "Qdrant: смешанные запросы",
+          "label_en": "Qdrant: hybrid queries",
+          "status": "verified",
+          "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+          "verified_at": "2026-08-13"
         }
       ],
       "name": "Standard HybridRAG",

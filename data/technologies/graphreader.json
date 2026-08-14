@@ -13,7 +13,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Агент читает длинный документ, обходя построенный по нему граф.",
   "family": null,
   "first_published": "2024",
   "groups": [

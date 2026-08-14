@@ -36,9 +36,8 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "BM25 и dense-vector с RRF-слиянием и нейросетевым реранкером.",
   "family": "D",
-  "first_published": null,
+  "first_published": "2009",
   "groups": [
     "A",
     "C",
@@ -48,11 +47,28 @@
   "kind": "architecture",
   "links": [
     {
-      "kind": "other",
-      "label": null,
+      "kind": "paper",
+      "label": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+      "label_en": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+      "status": "guarded",
+      "url": "https://doi.org/10.1145/1571941.1572114",
+      "verified_at": null
+    },
+    {
+      "kind": "product",
+      "label": "OpenSearch: смешанный поиск",
+      "label_en": "OpenSearch: hybrid search",
       "status": "verified",
-      "url": "https://atlan.com/know/hybrid-rag/",
-      "verified_at": "2026-08-09"
+      "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+      "verified_at": "2026-08-13"
+    },
+    {
+      "kind": "product",
+      "label": "Qdrant: смешанные запросы",
+      "label_en": "Qdrant: hybrid queries",
+      "status": "verified",
+      "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+      "verified_at": "2026-08-13"
     }
   ],
   "name": "Standard HybridRAG",

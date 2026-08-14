@@ -122,7 +122,6 @@ class Technology(BaseModel):
     #: базовой конфигурацией» и «не смотрели» — разные утверждения, и без этой
     #: даты карта пробелов показывала бы вторые как первые.
     configuration_reviewed: date | None = None
-    core_idea: str | None = None
     prose_id: str | None = None
     first_published: str | None = None
     #: Имя пакета в индексе пакетов Python, если он существует. Заполняется

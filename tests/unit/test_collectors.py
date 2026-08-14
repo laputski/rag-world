@@ -378,3 +378,41 @@ def test_s5_accepts_ordinary_values_from_every_collector():
         )
         result = s5.check(ev)
         assert result.passed, f"{kind}: {result.reasons}"
+
+
+# ─── Маршрутизация ссылок по сборщикам ───────────────────────────────────────
+
+def _sources_for(url: str) -> list[str]:
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+    import collect
+
+    return collect._collectors_for(url)
+
+
+def test_doi_link_reaches_the_open_index():
+    """Работа, изданная не препринтом, обязана давать свидетельство публикации.
+
+    Открытый индекс разрешает работу по цифровому идентификатору и умел это с
+    самого начала; не хватало маршрута, и запись, чей единственный источник
+    издан журналом либо конференцией, оставалась без свидетельства публикации
+    вовсе. Так Standard HybridRAG не получал уровня, хотя приём лежит в основе
+    смешанного поиска и описан работой с шестьюстами цитированиями.
+
+    Отказ тихий: ссылка разрешима, проверка ссылок довольна, а свидетельства
+    нет, и понять это можно только сверив запись с её источником вручную.
+    """
+    assert _sources_for("https://doi.org/10.1145/1571941.1572114") == ["openalex"]
+
+
+def test_arxiv_link_is_asked_of_three_sources():
+    assert _sources_for("https://arxiv.org/abs/2502.14902") == [
+        "arxiv", "openalex", "paperswithcode",
+    ]
+
+
+def test_unknown_host_is_asked_of_nobody():
+    """Ссылка на страницу поставщика источником свидетельства не является."""
+    assert _sources_for("https://atlan.com/know/hybrid-rag/") == []

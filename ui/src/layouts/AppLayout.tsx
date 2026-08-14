@@ -48,7 +48,19 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
           borderBottom: 1, borderColor: "divider",
         }}
       >
-        <Container maxWidth="xl" sx={{ display: "flex", alignItems: "center", gap: 3, py: 1.25 }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            display: "flex", alignItems: "center", py: 1.25,
+            gap: { xs: 1.5, md: 3 },
+            // На узком экране шапка складывается в две строки: имя с
+            // управлением сверху, навигация под ними во всю ширину. В одну
+            // строку навигации оставалось около тридцати пикселей, то есть
+            // полтора слова, и прокручивать её приходилось вслепую.
+            flexWrap: { xs: "wrap", md: "nowrap" },
+            rowGap: 1,
+          }}
+        >
           {/*
             Знак и словесный знак — одна ссылка, а не две рядом: две ссылки на
             один адрес удваивают остановку при обходе с клавиатуры и заставляют
@@ -63,7 +75,14 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
               textDecoration: "none", flexShrink: 0,
             }}
           >
-            <Logo size={26} title="" />
+            {/*
+              На узком экране знак уступает место: сорок шесть пикселей рядом с
+              семью пунктами навигации стоят дороже узнавания, а словесный знак
+              и без него говорит то же самое.
+            */}
+            <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+              <Logo size={26} title="" />
+            </Box>
             <Typography
               component="span"
               sx={{
@@ -75,7 +94,32 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
             </Typography>
           </Box>
 
-          <Box component="nav" sx={{ display: "flex", gap: 2.5, flexGrow: 1, flexWrap: "wrap" }}>
+          {/*
+            Навигация не переносится, а прокручивается вбок.
+
+            С переносом семь пунктов на телефоне вставали в семь строк, шапка
+            занимала весь экран, и до содержания приходилось долистывать. Полоса
+            прокрутки прячется, но прокрутка остаётся: пункт, уехавший за край,
+            достижим, тогда как спрятанный за кнопкой требует её найти.
+          */}
+          <Box
+            component="nav"
+            sx={{
+              display: "flex", gap: 2.5, flexWrap: "nowrap",
+              order: { xs: 3, md: 2 },
+              width: { xs: "100%", md: "auto" },
+              flexGrow: { xs: 0, md: 1 },
+              overflowX: "auto", overflowY: "hidden",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
+              // Маска у правого края говорит, что строка продолжается: обрез
+              // по границе выглядит концом списка.
+              maskImage: {
+                xs: "linear-gradient(to right, #000 calc(100% - 24px), transparent)",
+                md: "none",
+              },
+            }}
+          >
             {NAV.map((item) => (
               <Typography
                 key={item.to}
@@ -84,7 +128,7 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
                 end={item.end}
                 sx={{
                   fontSize: "0.88rem", textDecoration: "none", color: "text.secondary",
-                  py: 0.25, borderBottom: "2px solid transparent",
+                  py: 0.25, borderBottom: "2px solid transparent", whiteSpace: "nowrap",
                   "&.active": { color: "text.primary", borderBottomColor: "text.primary" },
                   "&:hover": { color: "text.primary" },
                 }}
@@ -94,22 +138,40 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
             ))}
           </Box>
 
+          {/*
+            Поиск, язык и тема идут одной группой: на узком экране она остаётся
+            в первой строке рядом с именем, а навигация уходит под них.
+
+            Подсказка о сочетании клавиш на телефоне бесполезна: клавиатуры нет.
+            Само поле поиска остаётся, потому что искать с телефона нужно.
+          */}
+          <Box
+            sx={{
+              display: "flex", alignItems: "center", gap: { xs: 1, md: 3 },
+              order: { xs: 2, md: 3 }, ml: "auto", flexShrink: 0,
+            }}
+          >
           <Tooltip title={t("search.hint")}>
             <Box
               onClick={onOpenSearch}
               sx={{
                 display: "flex", alignItems: "center", gap: 0.75, px: 1, py: 0.35,
+                flexShrink: 0,
                 border: 1, borderColor: "divider", borderRadius: 1, cursor: "pointer",
                 color: "text.secondary",
                 "&:hover": { color: "text.primary" },
               }}
             >
               <SearchOutlinedIcon sx={{ fontSize: 16 }} />
-              <Typography sx={{ fontFamily: MONO, fontSize: "0.72rem" }}>⌘K</Typography>
+              <Typography
+                sx={{ fontFamily: MONO, fontSize: "0.72rem", display: { xs: "none", md: "block" } }}
+              >
+                ⌘K
+              </Typography>
             </Box>
           </Tooltip>
 
-          <FormControl size="small">
+          <FormControl size="small" sx={{ flexShrink: 0 }}>
             <Select
               value={lang}
               onChange={(e) => onSetLang(e.target.value as "ru" | "en")}
@@ -121,12 +183,13 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
           </FormControl>
 
           <Tooltip title={mode === "light" ? t("theme.dark") : t("theme.light")}>
-            <IconButton onClick={onToggleMode} size="small">
+            <IconButton onClick={onToggleMode} size="small" sx={{ flexShrink: 0 }}>
               {mode === "light"
                 ? <DarkModeOutlinedIcon fontSize="small" />
                 : <LightModeOutlinedIcon fontSize="small" />}
             </IconButton>
           </Tooltip>
+          </Box>
         </Container>
       </Box>
 

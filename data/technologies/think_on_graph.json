@@ -12,7 +12,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Языковая модель шагает по графу знаний, выбирая направление на каждом шаге.",
   "family": null,
   "first_published": "2023",
   "groups": [

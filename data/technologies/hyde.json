@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Генерация гипотетического ответа LLM и поиск по нему.",
   "family": "G",
   "first_published": "2022",
   "groups": [

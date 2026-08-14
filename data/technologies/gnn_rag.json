@@ -12,7 +12,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Графовая нейросеть отбирает подграф, языковая модель рассуждает по нему.",
   "family": null,
   "first_published": "2024",
   "groups": [

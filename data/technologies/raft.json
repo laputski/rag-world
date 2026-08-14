@@ -33,7 +33,6 @@
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
   "configuration_variable": [],
-  "core_idea": "Fine-tuning на смеси gold и distractor документов с цитированием gold.",
   "family": "I",
   "first_published": "2024-03",
   "groups": [

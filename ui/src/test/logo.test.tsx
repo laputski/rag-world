@@ -115,8 +115,17 @@ describe("знак в шапке", () => {
     const svg = home!.querySelector("svg");
     expect(svg, "знака в ссылке нет").not.toBeNull();
     expect(home!.textContent).toContain("RAG World");
-    // Порядок в разметке задаёт и порядок озвучивания, и порядок обхода.
-    expect(home!.firstElementChild?.tagName.toLowerCase()).toBe("svg");
+    /*
+      Порядок в разметке задаёт и порядок озвучивания, и порядок обхода.
+      Сравнивается положение узлов, а не то, что знак лежит первым потомком:
+      на узком экране он обёрнут в блок, который его скрывает, и требование
+      «первый потомок» запретило бы саму обёртку.
+    */
+    const word = [...home!.querySelectorAll("span")]
+      .find((node) => node.textContent === "RAG World")!;
+    expect(word, "словесного знака в связке нет").toBeDefined();
+    const order = svg!.compareDocumentPosition(word);
+    expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   /*
