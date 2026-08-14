@@ -76,7 +76,7 @@ def test_no_changes_needs_no_review():
     decision = classify([])
     assert decision.needs_review is False
     assert decision.changes == 0
-    assert "нет" in decision.as_text()
+    assert "no level changes" in decision.as_text()
 
 
 def test_first_computed_level_applies_itself():
@@ -102,13 +102,13 @@ def test_promotion_to_l3_applies_itself():
 def test_downgrade_requires_review():
     decision = classify([entry("demo", "L1")], {"demo": "L3"})
     assert decision.needs_review is True
-    assert any("понижение" in r for r in decision.reasons)
+    assert any("demotion" in r for r in decision.reasons)
 
 
 def test_crossing_confirmation_boundary_requires_review():
     decision = classify([entry("demo", REVIEW_THRESHOLD)], {"demo": "L3"})
     assert decision.needs_review is True
-    assert any("граница" in r for r in decision.reasons)
+    assert any("confirmed-evidence boundary" in r for r in decision.reasons)
 
 
 def test_levels_above_boundary_require_review():
@@ -121,7 +121,7 @@ def test_manual_evidence_requires_review():
     """Ручное свидетельство в автоматическом проходе означает правку файла."""
     decision = classify([entry("demo", "L2", basis="manual")], {"demo": "L1"})
     assert decision.needs_review is True
-    assert any("человеком" in r for r in decision.reasons)
+    assert any("entered by a person" in r for r in decision.reasons)
 
 
 def test_manual_basis_wins_over_level():
@@ -216,7 +216,7 @@ def test_missing_journal_is_undecidable(tmp_path):
         ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "x"],
         cwd=tmp_path, check=True, capture_output=True,
     )
-    with pytest.raises(Undecidable, match="журнала уровней нет"):
+    with pytest.raises(Undecidable, match="no level journal"):
         added_entries_from_git(repo=tmp_path)
 
 

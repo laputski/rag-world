@@ -41,42 +41,43 @@ from services.registry import store  # noqa: E402
 
 LEVEL_ORDER = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 
-#: Граница подтверждённости: с этого уровня начинаются утверждения о
-#: независимом воспроизведении, и цена ошибки в них выше.
+#: The boundary of confirmed evidence: from this level upwards begin claims of
+#: independent reproduction, where an error costs more.
 REVIEW_THRESHOLD = "L4"
 
-#: Путь журнала уровней относительно корня репозитория. Берётся у хранилища, а
-#: не пишется строкой: переезд журнала иначе оставил бы разбор смотреть в
-#: пустоту, и шлюз молча решил бы, что изменений нет.
+#: The path of the level journal relative to the root of the repository. It is
+#: taken from the store rather than written out: were the journal to move, the
+#: parsing would look into nothing and the gate would silently decide that
+#: nothing changed.
 ROOT = Path(__file__).resolve().parent.parent
 LEVELS_PATH = str(store.LEVELS_FILE.relative_to(ROOT))
 
 
 class Undecidable(Exception):
-    """Разобрать изменения не удалось.
+    """The changes could not be parsed.
 
-    Отличается от «изменений нет» ровно тем, чем незнание отличается от
-    знания. Шлюз, принявший одно за другое, пропускает в основную ветку
-    понижения уровня и переходы через границу подтверждённости, и делает это
-    молча.
+    This differs from "nothing changed" exactly as not knowing differs from
+    knowing. A gate that takes one for the other lets demotions and crossings of
+    the confirmed-evidence boundary through to the main branch, and does it in
+    silence.
     """
 
 
 @dataclass
 class Decision:
-    """Итог разбора: нужен ли просмотр и почему."""
+    """What the parsing came to: whether review is needed, and why."""
 
     needs_review: bool = False
     reasons: list[str] = field(default_factory=list)
-    #: Сколько изменений уровня обнаружено всего.
+    #: How many level changes were found in all.
     changes: int = 0
 
     def as_text(self) -> str:
         if not self.changes:
-            return "изменений уровней нет"
+            return "no level changes"
         if not self.needs_review:
-            return f"изменений {self.changes}, все применяются автоматически"
-        return f"изменений {self.changes}, требуют просмотра: " + "; ".join(self.reasons)
+            return f"{self.changes} changes, all applied automatically"
+        return f"{self.changes} changes, needing review: " + "; ".join(self.reasons)
 
 
 def _rank(level: str) -> int:
@@ -86,11 +87,11 @@ def _rank(level: str) -> int:
 def classify(
     added: list[dict], previous_levels: dict[str, str] | None = None
 ) -> Decision:
-    """Разобрать добавленные записи журнала уровней.
+    """Parse the entries added to the level journal.
 
-    `previous_levels` — уровень технологии до изменения. Отсутствие записи
-    означает, что уровень вычислен впервые; повышением с пустого места это не
-    считается и просмотра не требует.
+    `previous_levels` holds the level a technology had before the change. A
+    missing entry means the level was computed for the first time; that does not
+    count as a promotion from nothing and needs no review.
     """
     previous_levels = previous_levels or {}
     decision = Decision(changes=len(added))
@@ -102,47 +103,49 @@ def classify(
 
         if entry.get("evidence_basis") == "manual":
             decision.needs_review = True
-            decision.reasons.append(f"{tech}: свидетельство введено человеком")
+            decision.reasons.append(f"{tech}: evidence entered by a person")
             continue
 
         if before is not None and _rank(level) < _rank(before):
             decision.needs_review = True
-            decision.reasons.append(f"{tech}: понижение {before} → {level}")
+            decision.reasons.append(f"{tech}: demotion {before} → {level}")
             continue
 
         if _rank(level) >= _rank(REVIEW_THRESHOLD):
             decision.needs_review = True
             decision.reasons.append(
-                f"{tech}: переход в {level}, граница подтверждённости"
+                f"{tech}: entering {level}, the confirmed-evidence boundary"
             )
 
     return decision
 
 
 def added_entries_from_git(repo: Path | None = None) -> list[dict]:
-    """Записи, дописанные в журнал уровней и ещё не зафиксированные.
+    """The entries appended to the level journal and not yet committed.
 
-    Сравнение идёт с `HEAD`, а не с индексом. Разница решающая: `git diff` без
-    указания показывает только непроиндексированное, поэтому любой `git add`,
-    выполненный до шлюза, скрывал бы от него изменения целиком. Шлюз при этом
-    не падал, а отвечал «изменений нет» и пропускал в основную ветку всё, включая
-    понижения уровня.
+    The comparison is against `HEAD` rather than against the index. The
+    difference is decisive: a bare `git diff` shows only what is unstaged, so any
+    `git add` performed before the gate would hide the changes from it entirely.
+    The gate would not fail; it would answer "nothing changed" and let
+    everything through to the main branch, demotions included.
 
-    Всякая невозможность разобрать различия поднимает `Undecidable`. Прежде она
-    оборачивалась пустым списком, а пустой список означает «изменений нет»:
-    отсутствие репозитория, переезд журнала, оборванная строка и отказ git
-    выглядели для шлюза одинаково безобидно.
+    Any inability to parse the difference raises `Undecidable`. It used to turn
+    into an empty list, and an empty list means "nothing changed": a missing
+    repository, a moved journal, a truncated line and a refusal from git all
+    looked equally harmless to the gate.
     """
-    # По умолчанию корень репозитория, а не текущий каталог: путь к журналу
-    # задан относительно корня, и запуск из подкаталога иначе давал бы пустой
-    # разбор вместо отказа.
+    # The default is the root of the repository rather than the current
+    # directory: the path of the journal is given relative to the root, and a run
+    # from a subdirectory would otherwise yield an empty parse instead of a
+    # refusal.
     base = Path(repo) if repo is not None else ROOT
 
-    # Отсутствие журнала git ошибкой не считает: пустой перечень путей для него
-    # обычное дело, и `git diff` отвечает нулём и пустотой. Для шлюза это
-    # неотличимо от «изменений нет», поэтому существование проверяется прямо.
+    # git does not treat a missing journal as an error: an empty path list is an
+    # ordinary thing to it, and `git diff` answers with a zero and nothing. To
+    # the gate that is indistinguishable from "nothing changed", so existence is
+    # checked outright.
     if not (base / LEVELS_PATH).exists():
-        raise Undecidable(f"журнала уровней нет по пути {LEVELS_PATH}")
+        raise Undecidable(f"there is no level journal at {LEVELS_PATH}")
 
     result = subprocess.run(
         ["git", "diff", "HEAD", "--unified=0", "--", LEVELS_PATH],
@@ -150,8 +153,8 @@ def added_entries_from_git(repo: Path | None = None) -> list[dict]:
     )
     if result.returncode != 0:
         raise Undecidable(
-            f"git не показал изменения {LEVELS_PATH}: "
-            f"{result.stderr.strip()[:200] or 'код ' + str(result.returncode)}"
+            f"git did not show the changes to {LEVELS_PATH}: "
+            f"{result.stderr.strip()[:200] or 'exit code ' + str(result.returncode)}"
         )
 
     out: list[dict] = []
@@ -164,17 +167,17 @@ def added_entries_from_git(repo: Path | None = None) -> list[dict]:
                 out.append(json.loads(payload))
             except json.JSONDecodeError as exc:
                 raise Undecidable(
-                    f"строка журнала уровней не разбирается ({exc}); "
-                    f"начало: {payload[:60]!r}"
+                    f"a line of the level journal does not parse ({exc}); "
+                    f"it begins: {payload[:60]!r}"
                 ) from exc
     return out
 
 
 def previous_levels_before(added: list[dict]) -> dict[str, str]:
-    """Уровни технологий до добавленных записей.
+    """The levels the technologies had before the added entries.
 
-    Журнал упорядочен по времени, поэтому предыдущим считается последний
-    уровень технологии среди записей, не входящих в добавленные.
+    The journal is ordered in time, so the previous level is the last one a
+    technology had among the entries that are not part of the addition.
     """
     added_keys = {
         (e.get("technology_id"), e.get("level"), e.get("computed_at")) for e in added
@@ -192,27 +195,27 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--github", action="store_true",
-        help="вывести результат в формате переменных задания",
+        help="print the result as workflow output variables",
     )
     args = parser.parse_args()
 
-    # Не смогли разобрать — значит, показываем человеку. Отказ закрытый: цена
-    # лишнего просмотра равна одному щелчку, цена пропущенного понижения равна
-    # неверному утверждению о технологии в основной ветке.
+    # If it could not be parsed, it goes to a person. The gate fails closed: the
+    # price of one review too many is a click, and the price of a missed demotion
+    # is a wrong claim about a technology on the main branch.
     #
-    # Код возврата остаётся нулевым намеренно. Ненулевой остановил бы задание
-    # целиком, и отметка о прогоне не попала бы в основную ветку, а от неё
-    # зависит и признак активности репозитория, и дата последней проверки,
-    # которую видит читатель.
+    # The exit code stays zero deliberately. A non-zero one would stop the job
+    # entirely, and the run-log line would not reach the main branch — and on it
+    # depend both the sign of activity for the platform and the date of the last
+    # check that a reader sees.
     try:
         added = added_entries_from_git()
     except Undecidable as exc:
-        sys.stderr.write(f"разобрать изменения не удалось: {exc}\n")
+        sys.stderr.write(f"the changes could not be parsed: {exc}\n")
         if args.github:
             print("review=true")
             print("changes=0")
         else:
-            print(f"разобрать изменения не удалось, нужен просмотр: {exc}")
+            print(f"the changes could not be parsed, review is needed: {exc}")
         return 0
 
     decision = classify(added, previous_levels_before(added))
