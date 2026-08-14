@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Chip, Link as MuiLink, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { DIMENSIONS, STRATA } from "../schema.generated";
 import { getValueLabel } from "../i18n/index";
 import { stratumColor, type ThemeMode } from "../theme";
+import { BASE_CONFIGURATION_ID } from "./BaseConfiguration";
 
 /**
  * Ход обработки: что технология делает и на каком шаге.
@@ -113,9 +114,13 @@ export function ConfigFlow({ configuration, variable = [] }: Props) {
                 {t(`stratum.${step.stratum}`, { defaultValue: step.stratum })}
               </Typography>
               {idle ? (
-                <Typography variant="body2" color="text.secondary">
+                <MuiLink
+                  href={`/article#${BASE_CONFIGURATION_ID}`}
+                  variant="body2"
+                  color="text.secondary"
+                >
                   {t("configFlow.defaultStep")}
-                </Typography>
+                </MuiLink>
               ) : (
                 <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: 0.5 }}>
                   {step.decisions.map((d) => (

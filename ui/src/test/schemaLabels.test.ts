@@ -112,3 +112,56 @@ describe("оба языка описывают одну и ту же схему"
     }
   });
 });
+
+/**
+ * Базовая конфигурация: точка отсчёта обязана быть видимой и обоснованной.
+ *
+ * Портал ссылался на неё повсюду — «как в базовой конфигурации», «без отличий
+ * от базовой» — и нигде не показывал. Умолчание без объяснения есть ровно то
+ * утверждение без основания, которое портал запрещает себе в остальном.
+ */
+describe("базовая конфигурация", () => {
+  it("у каждого измерения объяснено, почему его значение базовое", () => {
+    for (const [lang, dict] of [["ru", ruUi], ["en", enUi]] as const) {
+      const why = (dict as { baseConfig: { why: Record<string, string> } }).baseConfig.why;
+      const missing = DIMENSIONS.filter((d) => !why[d.code]?.trim()).map((d) => d.code);
+      expect(missing, `${lang}: умолчание без объяснения`).toEqual([]);
+    }
+  });
+
+  it("объяснений не больше, чем измерений: лишнее переживает своё измерение", () => {
+    const codes = new Set(DIMENSIONS.map((d) => d.code));
+    for (const [lang, dict] of [["ru", ruUi], ["en", enUi]] as const) {
+      const why = (dict as { baseConfig: { why: Record<string, string> } }).baseConfig.why;
+      const stale = Object.keys(why).filter((code) => !codes.has(code));
+      expect(stale, `${lang}: объяснение без измерения`).toEqual([]);
+    }
+  });
+
+  it("базовое значение каждого измерения входит в его словарь", () => {
+    const broken = DIMENSIONS.filter((d) => !d.values.includes(d.default)).map((d) => d.code);
+    expect(broken, "умолчание вне словаря значений").toEqual([]);
+  });
+
+  /*
+    Смысл отсчёта держится на том, что базовое значение означает отсутствие
+    приёма. Шесть измерений исключены поимённо: для них «ничего не делаем» не
+    определено, и это сказано читателю в самом разделе. Список закрыт нарочно —
+    новое исключение обязано пройти через правку теста и через объяснение.
+  */
+  it("базовое значение означает отсутствие приёма, кроме шести названных измерений", () => {
+    const mustExist = new Set(["A1", "A5", "A7", "C1", "D2", "G2"]);
+    const absence = new Set([
+      "none", "identity", "static", "single_shot", "single_store", "flat",
+      "fixed", "snapshot", "natural_order", "single_pass", "no_refusal",
+      "open", "frozen",
+    ]);
+    const unexpected = DIMENSIONS
+      .filter((d) => !mustExist.has(d.code) && !absence.has(d.default))
+      .map((d) => `${d.code}=${d.default}`);
+    expect(
+      unexpected,
+      "базовым стало значение, означающее приём: отсчёт перевернулся"
+    ).toEqual([]);
+  });
+});

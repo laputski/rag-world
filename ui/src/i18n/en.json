@@ -361,5 +361,44 @@
     "notFound": {
       "title": "Page not found"
     }
+  },
+  "baseConfig": {
+    "title": "The base configuration",
+    "intro": "The reference point against which the contribution of every technique is measured.",
+    "principle": "For each dimension the base value is the one that means the technique is absent. That is what gives the reference its meaning: a technology departs from the base configuration exactly where it does something, and a match with it means that at this step the system behaves like plain vector search. The registry record answering to this chain in full is called Naive Dense.",
+    "exceptions": "Six dimensions admit no such absence, because \"do nothing\" is undefined for them: the unit of retrieval, the representation model, the modality, the search operator, selection, and the execution site. Without a unit there is nothing to return, without a representation model nothing to compare, without an operator nowhere to turn. There the base value is the simplest working one, and the table says so.",
+    "value": "Base value",
+    "reason": "Why it is the base",
+    "note": "The base configuration is a decision of the schema rather than a property of the field, and editing a default changes the fingerprint of every record at once. Such edits are therefore recorded: the default for reranking was \"joint encoder\" and was changed to \"no reranking\" on 13 August 2026. The former inverted the reference, because a technique counted as the default and its absence as a departure, and it disagreed with the Naive Dense record itself.",
+    "why": {
+      "A1": "A unit has to be something. A stretch of text is what plain cutting yields, with no parsing into propositions and no graph built.",
+      "A2": "Cutting by character count needs neither structural parsing nor a model: it is the absence of a segmentation technique.",
+      "A3": "Nothing is added to a unit beyond its own text.",
+      "A4": "There are no links between units; a flat list is the absence of topology.",
+      "A5": "Without a representation model there is no retrieval at all. One dense vector per unit is the simplest and the most widespread choice.",
+      "A6": "The store does not account for time: a snapshot is the absence of temporality.",
+      "A7": "A modality has to be something, and text covers the overwhelming majority of collections.",
+      "A8": "There is no structure, so it has no origin.",
+      "B1": "The query reaches the index as it stands: the absence of transformation.",
+      "B2": "One processing path serves every query: the absence of routing.",
+      "C1": "An operator has to be something. Approximate nearest neighbour search matches the dense representation model of A5.",
+      "C2": "One consultation of the index: the absence of traversal.",
+      "C3": "There is one source, so there is nothing to fuse.",
+      "C4": "The data sits in one place: the absence of distribution.",
+      "D1": "What was found is given in the order search returned it. Reranking is a technique, and the reference point has none.",
+      "D2": "Some selection is needed, or the whole result set enters the context. The first k is the simplest rule, and it counts no budget.",
+      "D3": "What was selected is given as it stands: the absence of arrangement.",
+      "E1": "The answer is built in one pass: no drafts, no assembly from parts, no several agents.",
+      "E2": "The answer's support in the retrieved material is not checked.",
+      "E3": "There are no citations in the answer.",
+      "E4": "Refusal is not provided for: the system always answers.",
+      "E5": "Generated text does not influence further search.",
+      "F1": "Nothing is kept between queries: the absence of memory.",
+      "F2": "Contradictions have nowhere to come from, because nothing is stored.",
+      "F3": "There is nothing to forget, for the same reason.",
+      "G1": "No special measures for handling data are taken.",
+      "G2": "The computation has to run somewhere, and a server is the ordinary place.",
+      "G3": "Every part is taken ready-made: the absence of training."
+    }
   }
 }

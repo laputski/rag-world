@@ -11,6 +11,7 @@ import mermaid from "mermaid";
 import { getGeneralizedContent } from "../generalizedData";
 import { RichText } from "../components/RichText";
 import { useDocumentHead } from "../useDocumentHead";
+import { BaseConfiguration, BASE_CONFIGURATION_ID } from "../components/BaseConfiguration";
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -118,6 +119,12 @@ export function GeneralizedArticlePage() {
               <ListItemText primary={s.title} slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
             </ListItemButton>
           ))}
+          <ListItemButton onClick={() => scrollToId(BASE_CONFIGURATION_ID)} sx={{ py: 0.25 }}>
+            <ListItemText
+              primary={t("baseConfig.title")}
+              slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }}
+            />
+          </ListItemButton>
           <ListItemButton onClick={() => scrollToId("refs")} sx={{ py: 0.25 }}>
             <ListItemText primary={t("common.sources")} slotProps={{ primary: { sx: { fontSize: "0.8rem" } } }} />
           </ListItemButton>
@@ -153,6 +160,8 @@ export function GeneralizedArticlePage() {
             {s.diagram && <MermaidDiagram chart={s.diagram} theme={mode} />}
           </Paper>
         ))}
+
+        <BaseConfiguration />
 
         {/* Источники */}
         <Paper variant="outlined" sx={{ p: 3, mb: 3, scrollMarginTop: 80 }} id="refs">

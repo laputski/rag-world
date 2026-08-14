@@ -37,7 +37,7 @@ export const DIMENSIONS: DimensionSpec[] = [
   { code: "C2", name: "Управление обходом", stratum: "C", core: true, default: "single_shot", values: ["single_shot", "multi_hop_fixed", "iterative_stopping", "agentic_open_loop"] },
   { code: "C3", name: "Слияние источников", stratum: "C", core: true, default: "none", values: ["none", "rrf", "score_normalization", "learned_fusion"] },
   { code: "C4", name: "Распределённость", stratum: "C", core: false, default: "single_store", values: ["single_store", "multiple_local", "federation"] },
-  { code: "D1", name: "Переранжирование", stratum: "D", core: true, default: "cross_encoder", values: ["none", "cross_encoder", "graph_structural", "set_cover", "path_pruning"] },
+  { code: "D1", name: "Переранжирование", stratum: "D", core: true, default: "none", values: ["none", "cross_encoder", "graph_structural", "set_cover", "path_pruning"] },
   { code: "D2", name: "Отбор и сжатие", stratum: "D", core: true, default: "top_k", values: ["top_k", "budget_aware", "abstractive_compression", "latent_compression"] },
   { code: "D3", name: "Компоновка", stratum: "D", core: true, default: "natural_order", values: ["natural_order", "reliability_ascending", "hierarchical"] },
   { code: "E1", name: "Режим генерации", stratum: "E", core: true, default: "single_pass", values: ["single_pass", "draft_verify", "ensemble_fragments", "multi_agent"] },

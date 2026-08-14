@@ -12,6 +12,7 @@ import { ConfigGlyph } from "../components/ConfigGlyph";
 import { ConfigFlow } from "../components/ConfigFlow";
 import { StratumChip } from "../components/StratumChip";
 import { DIMENSIONS, STRATA } from "../schema.generated";
+import { BASE_CONFIGURATION_ID } from "../components/BaseConfiguration";
 import { useDocumentHead } from "../useDocumentHead";
 import type { ParseNote, RegistryTechnology } from "../api/types";
 
@@ -412,9 +413,13 @@ export function TechCardPage() {
                                     {val}
                                   </Typography>
                                   {!own && (
-                                    <Typography variant="caption" color="text.secondary">
+                                    <MuiLink
+                                      href={`/article#${BASE_CONFIGURATION_ID}`}
+                                      variant="caption"
+                                      color="text.secondary"
+                                    >
                                       {t("techCard.dimensionDefaultMark")}
-                                    </Typography>
+                                    </MuiLink>
                                   )}
                                   {variable && (
                                     <Typography variant="caption" color="text.secondary">
