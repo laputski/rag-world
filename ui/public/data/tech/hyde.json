@@ -1,0 +1,164 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 6.419,
+    "attention_cohort": null,
+    "attention_raw": 6.419,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "hyde",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "generation_seeds",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "HyDE устраняет несоответствие, заложенное в плотном поиске. Вопрос и документ написаны по-разному: вопрос короток, содержит вопросительные слова и не содержит терминов, которыми написан ответ. Векторное представление вопроса поэтому лежит не там, где лежат представления отвечающих на него документов, и близость между ними меньше, чем между двумя документами об одном предмете.\n\nПриём состоит в том, чтобы сравнивать однородное с однородным. Большая языковая модель порождает по вопросу вымышленный ответ, не обращаясь ни к какому источнику. Ответ этот содержит выдуманные подробности и как утверждение о мире ничего не стоит, но написан он в том же роде и теми же словами, что и настоящий документ по этому предмету. Векторное представление строится по вымышленному ответу, и поиск идёт по нему, а сам вопрос в индекс не поступает.\n\nВыдуманные подробности при этом не вредят: близость определяется общим направлением вектора, которое задают предмет и способ изложения, а не отдельные неверные имена и числа. Приём не требует ни обучения, ни разметки и работает поверх готового индекса. Плата состоит в одном вызове языковой модели перед каждым поиском, что добавляет задержку, и в том, что на вопросе о предмете, о котором модель не знает ничего, вымышленный ответ уводит поиск в сторону.",
+    "description_en": "HyDE removes a mismatch built into dense retrieval. A question and a document are written differently: the question is short, carries interrogative words, and lacks the terms in which the answer is written. The vector representation of a question therefore does not lie where the representations of the documents answering it lie, and the closeness between them is smaller than between two documents on the same subject.\n\nThe technique is to compare like with like. A large language model generates an invented answer to the question without consulting any source. That answer contains fabricated particulars and is worthless as an assertion about the world, but it is written in the same register and the same vocabulary as a genuine document on the subject. The vector representation is built from the invented answer and the search runs on it, while the question itself never reaches the index.\n\nThe fabricated particulars do no harm: closeness is determined by the general direction of the vector, which is set by the subject and the manner of exposition rather than by individual wrong names and numbers. The technique requires neither training nor labelling and works over a ready index. It costs one language model call before every search, which adds latency, and on a question about a subject the model knows nothing of, the invented answer leads the search astray.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2212.10496",
+        "type": "publication",
+        "value": "arXiv:2212.10496 (2022)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385565351",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=273; year=2023; citation_velocity=6.349",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4312091824",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=20; year=2022; citation_velocity=0.455",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385565351",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=276; year=2023; citation_velocity=6.419",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "G",
+    "first_published": "2022",
+    "groups": [
+      "B"
+    ],
+    "id": "hyde",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2212.10496",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "HyDE",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Языковая модель сочиняет по вопросу вымышленный документ-ответ, и поиск ведётся уже по нему, а не по самому вопросу.",
+        "did_en": "A language model composes an imagined answer-document from the question, and retrieval then runs on that rather than on the question itself.",
+        "instead": "«без преобразования»: оно описало бы обычный поиск по вопросу, от которого приём и отличается.",
+        "instead_en": "«no transformation»: it would describe ordinary retrieval on the question, which is exactly what the technique differs from.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10496, метод",
+        "source_en": "arXiv:2212.10496, method",
+        "technology_id": "hyde",
+        "to": "hyde",
+        "why": "Запрос подменяется порождённым текстом до всякого обращения к индексу. У схемы есть значение с этим именем.",
+        "why_en": "The query is replaced by produced text before any call to the index. The schema has a value under that name."
+      },
+      {
+        "code": "G3",
+        "did": "Ни модель, сочиняющая документ, ни кодировщик не обучаются: обе берутся готовыми.",
+        "did_en": "Neither the model that composes the document nor the encoder is trained: both are taken ready-made.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10496, метод",
+        "source_en": "arXiv:2212.10496, method",
+        "technology_id": "hyde",
+        "to": "frozen",
+        "why": "Приём складывает существующие части, ничего не доучивая.",
+        "why_en": "The technique assembles existing parts without fine-tuning anything."
+      },
+      {
+        "code": "E5",
+        "did": "Модель сочиняет вымышленный документ, и поиск идёт по нему.",
+        "did_en": "The model composes an imagined document, and retrieval runs on it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "hyde",
+        "to": "generation_seeds",
+        "why": "Порождённый текст служит запросом, но обратной связи нет: найденное на сочинённое уже не влияет. Тем и отличается от цикла.",
+        "why_en": "Produced text serves as the query, but there is no feedback: what is found no longer affects what was composed. That is what distinguishes it from a loop."
+      }
+    ],
+    "prose_id": "hyde",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Поиск по вымышленному ответу вместо вопроса: сравниваются документ с документом, а не вопрос с документом.",
+    "summary_en": "Search by an invented answer rather than the question: document is compared with document, not question with document."
+  }
+}

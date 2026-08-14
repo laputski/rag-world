@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import {
   Alert, Box, Chip, CircularProgress, Link as MuiLink, Tooltip, Typography,
 } from "@mui/material";
@@ -7,8 +7,18 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { getChanges, getMaturityMap, getStats } from "../api/client";
 import type { MaturityArtifact, RegistryChange, RegistryStats } from "../api/types";
-import { MaturityMap } from "../components/MaturityMap";
-import { MaturityGrid } from "../components/MaturityGrid";
+/*
+  Построитель диаграмм грузится отдельно от страницы.
+
+  Он весит около мегабайта и нужен только двум представлениям, тогда как
+  остальное на главной есть текст: сводка, хроника, легенда. Без разделения
+  читатель ждал мегабайт кода, прежде чем увидеть хоть строку. Место под
+  диаграмму держится заранее, поэтому появление карты страницу не дёргает.
+*/
+const MaturityMap = lazy(() =>
+  import("../components/MaturityMap").then((m) => ({ default: m.MaturityMap })));
+const MaturityGrid = lazy(() =>
+  import("../components/MaturityGrid").then((m) => ({ default: m.MaturityGrid })));
 import { LevelBadge } from "../components/LevelBadge";
 import { MONO, stratumColor, type ThemeMode } from "../theme";
 import { useTheme } from "@mui/material/styles";
@@ -154,15 +164,28 @@ export function HomePage() {
         </MuiLink>
       </Box>
 
-      {projection === "map" ? (
-        <MaturityMap
-          artifact={artifact}
-          showMovement={movement}
-          onSelect={(id) => navigate(`/tech/${id}`)}
-        />
-      ) : (
-        <MaturityGrid artifact={artifact} onSelect={(id) => navigate(`/tech/${id}`)} />
-      )}
+      <Suspense
+        fallback={
+          <Box
+            sx={{
+              height: 520, mb: 2, display: "flex",
+              alignItems: "center", justifyContent: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        }
+      >
+        {projection === "map" ? (
+          <MaturityMap
+            artifact={artifact}
+            showMovement={movement}
+            onSelect={(id) => navigate(`/tech/${id}`)}
+          />
+        ) : (
+          <MaturityGrid artifact={artifact} onSelect={(id) => navigate(`/tech/${id}`)} />
+        )}
+      </Suspense>
 
       {/* Легенда стратов: цвет всегда означает страту и ничего больше. */}
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", mb: 3 }}>

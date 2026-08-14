@@ -1,0 +1,178 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.15,
+    "attention_cohort": "2025",
+    "attention_raw": 0.067,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "subquestion_decomposition",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "agentic_open_loop",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "multi_agent",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "MA-RAG разделяет обработку вопроса между несколькими исполнителями, каждый из которых занят одной задачей. Довод состоит в том, что единая подсказка, требующая от модели сразу планировать, искать, отбирать и излагать, задаёт ей несколько разнородных задач одновременно, и качество на каждой падает.\n\nИсполнителей четверо, и они вызываются по ходу. Составитель плана разбирает вопрос на подвопросы и назначает их порядок. Поисковый исполнитель переводит подвопрос в запрос к индексу с учётом того, что уже найдено. Исполнитель извлечения читает найденное и выписывает из него только то, что отвечает подвопросу, отбрасывая прочее. Составитель ответа собирает выписанное в связный текст со ссылками на источники. Каждый работает по своей подсказке и видит только нужную ему часть состояния.\n\nРазделение делает ход обработки наблюдаемым: неверный ответ прослеживается до исполнителя, который ошибся, тогда как в единой подсказке ошибка не локализуется. Плата состоит в числе вызовов, потому что каждый подвопрос проходит нескольких исполнителей, и в накоплении ошибки: неверно составленный план уводит всех последующих, а исправить его некому.",
+    "description_en": "MA-RAG divides the handling of a question among several agents, each occupied with one task. The argument is that a single prompt requiring the model to plan, search, select, and compose all at once sets it several unlike tasks simultaneously, and quality on each of them falls.\n\nThere are four agents, invoked as the work proceeds. The planner decomposes the question into subquestions and fixes their order. The search agent turns a subquestion into a query against the index, taking into account what has already been found. The extraction agent reads what was retrieved and writes out only what answers the subquestion, discarding the rest. The composer assembles what was written out into connected prose with references to the sources. Each works from its own prompt and sees only the part of the state it needs.\n\nThe division makes the course of processing observable: a wrong answer can be traced to the agent that erred, whereas in a single prompt the error cannot be localised. The price is the number of calls, since every subquestion passes through several agents, and the accumulation of error: a badly drawn plan carries every later stage with it, and there is no one to correct it.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4414588074",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.067",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2505.20096",
+        "type": "publication",
+        "value": "arXiv:2505.20096 (2025)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "C",
+    "first_published": "2025-05",
+    "groups": [
+      "B",
+      "C",
+      "E"
+    ],
+    "id": "ma_rag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2505.20096 (исправлено: было 2406.18542 → LiDAR)",
+        "label_en": "arXiv:2505.20096 (corrected: was 2406.18542, a LiDAR paper)",
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2505.20096",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "MA-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Отдельный агент-планировщик разбирает неоднозначный вопрос и раскладывает его на подзадачи до всякого поиска.",
+        "did_en": "A separate planner agent takes an ambiguous question apart and lays it out into sub-tasks before any retrieval.",
+        "instead": "«многократное переформулирование»: там следующий запрос неизвестен, пока не породится предыдущий шаг.",
+        "instead_en": "«repeated reformulation»: there the next query is unknown until the previous step produces it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2505.20096, устройство агентов",
+        "source_en": "arXiv:2505.20096, how the agents are arranged",
+        "technology_id": "ma_rag",
+        "to": "subquestion_decomposition",
+        "why": "Запрос делится заранее и сознательно, а не порождается по ходу рассуждения.",
+        "why_en": "The query is divided in advance and deliberately rather than produced in the course of reasoning."
+      },
+      {
+        "code": "C2",
+        "did": "Сколько раз обращаться к поиску и за чем, решают агенты по ходу, обмениваясь промежуточными рассуждениями.",
+        "did_en": "How many times to go to retrieval and for what is decided by the agents as they go, exchanging intermediate reasoning.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2505.20096, устройство агентов",
+        "source_en": "arXiv:2505.20096, how the agents are arranged",
+        "technology_id": "ma_rag",
+        "to": "agentic_open_loop",
+        "why": "Ни числа шагов, ни внешнего условия остановки нет — глубину выбирает система.",
+        "why_en": "There is neither a step count nor an external stopping condition: the system chooses the depth."
+      },
+      {
+        "code": "E1",
+        "did": "Ответ собирают четыре роли: планировщик, определяющий шаги, извлекающий свидетельства и отвечающий.",
+        "did_en": "The answer is assembled by four roles: a planner, one that defines the steps, one that retrieves evidence and one that answers.",
+        "instead": "«сборка из фрагментов»: там части ответа порождаются одинаково и сводятся, а здесь у каждого агента своя роль.",
+        "instead_en": "«assembly from fragments»: there the parts of the answer are produced alike and combined, whereas here each agent has its own role.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2505.20096, устройство агентов",
+        "source_en": "arXiv:2505.20096, how the agents are arranged",
+        "technology_id": "ma_rag",
+        "to": "multi_agent",
+        "why": "Синтез распределён по нескольким действующим лицам, а не выполняется одним проходом одной модели.",
+        "why_en": "Synthesis is distributed across several actors rather than performed in one pass by one model."
+      },
+      {
+        "code": "D1",
+        "did": "Отбором занимается агент-извлекатель; отдельной модели переранжирования не описано.",
+        "did_en": "Selection is done by the retriever agent; no separate reranking model is described.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2505.20096, устройство агентов",
+        "source_en": "arXiv:2505.20096, how the agents are arranged",
+        "technology_id": "ma_rag",
+        "to": "none",
+        "why": "Ступени пересмотра порядка в работе нет.",
+        "why_en": "The work has no stage that revisits the order."
+      },
+      {
+        "code": "E5",
+        "did": "Агенты передают друг другу рассуждения, и следующий поиск определяется ими.",
+        "did_en": "The agents pass reasoning to one another, and the next retrieval is determined by it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "ma_rag",
+        "to": "mutual_loop",
+        "why": "Связь двусторонняя.",
+        "why_en": "The coupling runs both ways."
+      }
+    ],
+    "prose_id": "ma_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Несколько узких исполнителей вместо одного: планирование, поиск, извлечение сведений и составление ответа разделены.",
+    "summary_en": "Several narrow agents instead of one: planning, search, fact extraction, and answer composition are kept apart."
+  }
+}

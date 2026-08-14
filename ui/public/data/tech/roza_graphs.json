@@ -1,0 +1,210 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "ROZA",
+      "ROZA Graphs"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "append_only",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "graph_structural",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "consolidating",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-13",
+    "configuration_variable": [],
+    "description": "ROZA Graphs исходит из наблюдения о расточительности обычной цепочки. Система оценивает найденное при каждом запросе заново: решает, относится ли отрывок к делу, годится ли он в обоснование, стоит ли на него опираться. Как только ответ построен, все эти решения отбрасываются. Тот же самый отрывок при следующем запросе оценивается с нуля, и оценка может выйти другой, отчего один и тот же вопрос получает разные ответы в разные дни.\n\nПредложены два хранилища, переживающие запрос. Первое, названное графом рассуждений, хранит вынесенные оценки: узел отвечает материалу, а накопленные при нём записи говорят, как этот материал оценивался прежде и в каких обстоятельствах. Второе, названное графом извлечения, хранит противоположное: кандидатов, отвергнутых однажды, чтобы они не возвращались впредь. При новом запросе система читает историю по каждому кандидату и упорядочивает выдачу с её учётом.\n\nНи языковая модель, ни модель представлений при этом не дообучаются, и работа заявляет это своим свойством: накопление идёт вне их весов и потому применимо к моделям, доступным только по внешнему обращению. Оценивать работу пока не на чем: это препринт одного автора без цитирований, проверенный на трёх наборах многошаговых вопросов, и независимого воспроизведения у него нет. В реестре она занимает пустовавшее место: направление самонастраивающихся систем до сих пор стояло без единой конкретной системы под собой.",
+    "description_en": "ROZA Graphs starts from an observation about the wastefulness of an ordinary chain. The system judges what it retrieves anew on every query: it decides whether a passage bears on the matter, whether it will serve as grounds, whether it should be relied upon. As soon as the answer is built, all those decisions are discarded. The very same passage is judged from scratch at the next query, the judgement may come out differently, and the same question receives different answers on different days.\n\nTwo stores that outlive a query are proposed. The first, called the reasoning graph, holds the judgements passed: a node stands for a piece of material, and the records accumulated at it say how that material was judged before and under what circumstances. The second, called the retrieval graph, holds the opposite: candidates rejected once, so that they do not return thereafter. On a new query the system reads the history of each candidate and orders the results with it in view.\n\nNeither the language model nor the representation model is fine-tuned, and the work states this as a property of its own: accumulation happens outside their weights and is therefore applicable to models reachable only through an external call. There is as yet nothing on which to judge the work: it is a single-author preprint with no citations, evaluated on three sets of multi-hop questions, with no independent reproduction. In the registry it fills a place that stood empty: the direction of self-improving systems had until now no concrete system under it at all.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2604.07595",
+        "type": "publication",
+        "value": "arXiv:2604.07595 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7154505616",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-04",
+    "groups": [
+      "D",
+      "F"
+    ],
+    "id": "roza_graphs",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2604.07595",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2604.07595",
+        "verified_at": null
+      }
+    ],
+    "name": "ROZA Graphs",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "D1",
+        "did": "Порядок кандидатов определяется обходом графа рассуждений: для каждого кандидата система читает, как этот же материал оценивался в прежних прогонах, и учитывает накопленные оценки.",
+        "did_en": "The order of candidates is settled by traversing the reasoning graph: for each candidate the system reads how the same material was judged in earlier runs and takes the accumulated judgements into account.",
+        "instead": "«совместный кодировщик»: он пересчитывает пару заново на каждом запросе, тогда как здесь используется уже вынесенная прежде оценка.",
+        "instead_en": "«joint encoder»: it recomputes the pair afresh on every query, whereas here a judgement made earlier is reused.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2604.07595, устройство",
+        "source_en": "arXiv:2604.07595, method",
+        "technology_id": "roza_graphs",
+        "to": "graph_structural",
+        "why": "Переранжирование опирается на положение кандидата в графе накопленных оценок, а не на совместный прогон модели по паре «запрос, кандидат».",
+        "why_en": "Reranking rests on the candidate's position in the graph of accumulated judgements rather than on a joint model pass over the query and candidate pair."
+      },
+      {
+        "code": "F1",
+        "did": "Оценки свидетельств, вынесенные при обработке запросов, сохраняются между прогонами и сводятся в граф, а не остаются отдельными записями о каждом случае.",
+        "did_en": "The judgements of evidence made while serving queries are kept between runs and consolidated into a graph rather than left as separate records of individual cases.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2604.07595, устройство",
+        "source_en": "arXiv:2604.07595, method",
+        "technology_id": "roza_graphs",
+        "to": "consolidating",
+        "why": "Сохраняемое обобщается: узел графа накапливает историю оценок по материалу, а не хранит перечень эпизодов.",
+        "why_en": "What is stored is generalised: a graph node accumulates the history of judgements about a piece of material rather than holding a list of episodes."
+      },
+      {
+        "code": "A6",
+        "did": "Память пополняется дописыванием оценок; прежние записи не переписываются.",
+        "did_en": "Memory grows by appending judgements; earlier records are not overwritten.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2604.07595, устройство",
+        "source_en": "arXiv:2604.07595, method",
+        "technology_id": "roza_graphs",
+        "to": "append_only",
+        "why": "Измерение определено, поскольку запись обратно включена, а отношение хранилища ко времени задаётся способом пополнения.",
+        "why_en": "The dimension is defined because write-back is enabled, and the store's relation to time is settled by the manner of growth."
+      },
+      {
+        "code": "G3",
+        "did": "Ни языковая модель, ни модель представлений не дообучаются: выигрыш достигается накоплением оценок вне их весов.",
+        "did_en": "Neither the language model nor the representation model is fine-tuned: the gain comes from judgements accumulated outside their weights.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2604.07595, аннотация",
+        "source_en": "arXiv:2604.07595, abstract",
+        "technology_id": "roza_graphs",
+        "to": "frozen",
+        "why": "Работа прямо заявляет отсутствие переобучения как своё свойство, и это отличает её от прочих самонастраивающихся систем.",
+        "why_en": "The work states the absence of retraining as a property of its own, and that is what sets it apart from other self-improving systems."
+      },
+      {
+        "code": "C2",
+        "did": "Работа проверена на многошаговых наборах задач, но многошагового обхода указателя в описании не заявлено.",
+        "did_en": "The work is evaluated on multi-hop task sets, but no multi-hop traversal of the index is claimed in the description.",
+        "question": "Возможно прочтение «повторение до условия остановки», если накопленные оценки используются в нескольких кругах одного запроса. Из аннотации это не следует.",
+        "question_en": "A reading of «repetition until a stopping condition» is possible if accumulated judgements are used across several rounds of one query. The abstract does not support it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2604.07595, проверка",
+        "source_en": "arXiv:2604.07595, evaluation",
+        "technology_id": "roza_graphs",
+        "to": "single_shot",
+        "why": "Записано базовое значение, потому что обратное из источника не следует: набор задач говорит о вопросах, а не об устройстве обхода.",
+        "why_en": "The base value is recorded because the source does not support the alternative: a task set speaks about the questions, not about the manner of traversal."
+      },
+      {
+        "did": "Между запросами сохраняется вынесенная оценка свидетельства, а не сам материал.",
+        "did_en": "What is kept between queries is the judgement passed on a piece of evidence, not the material itself.",
+        "residual": "decisions_as_memory",
+        "residual_term": "хранение решений об оценке, а не самих сведений",
+        "residual_term_en": "storing evaluation decisions rather than the facts themselves",
+        "source": "arXiv:2604.07595, устройство",
+        "source_en": "arXiv:2604.07595, method",
+        "technology_id": "roza_graphs",
+        "why": "Схема различает роды сохраняемого по способу накопления, но не отделяет сведение о мире от суждения системы о нём.",
+        "why_en": "The schema distinguishes kinds of stored material by the manner of accumulation but does not separate a fact about the world from the system's judgement about it."
+      },
+      {
+        "did": "Граф извлечения исключает однажды отвергнутых кандидатов из последующих выдач.",
+        "did_en": "The retrieval graph excludes candidates rejected once from subsequent results.",
+        "residual": "rejected_candidate_pruning",
+        "residual_term": "постоянное исключение отвергнутых кандидатов из выдачи",
+        "residual_term_en": "permanent exclusion of rejected candidates from future results",
+        "source": "arXiv:2604.07595, устройство",
+        "source_en": "arXiv:2604.07595, method",
+        "technology_id": "roza_graphs",
+        "why": "Забывание описывает, как перестаёт учитываться сохранённое, тогда как исключается здесь то, что в память не попадало.",
+        "why_en": "Forgetting describes how stored material ceases to count, whereas what is excluded here never entered memory."
+      }
+    ],
+    "prose_id": "roza_graphs",
+    "residual": [
+      "хранение решений об оценке, а не самих сведений",
+      "постоянное исключение отвергнутых кандидатов из выдачи"
+    ],
+    "residual_en": [
+      "storing evaluation decisions rather than the facts themselves",
+      "permanent exclusion of rejected candidates from future results"
+    ],
+    "summary": "Оценки свидетельств, вынесенные прежде, сохраняются между запросами и задают порядок выдачи.",
+    "summary_en": "Judgements of evidence made earlier are kept between queries and settle the order of results."
+  }
+}

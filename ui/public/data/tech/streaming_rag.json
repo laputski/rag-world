@@ -1,0 +1,217 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": "2025",
+    "attention_raw": 0.0,
+    "barriers": "Общее препятствие состоит в стоимости обновления, и оно распадается на четыре части.\n\nПересчёт векторных представлений при каждом изменении обходится дорого, а полное перестроение указателя занимает существенное время. Согласованность во времени нужно поддерживать особо, потому что утверждение, верное в один момент, ложно в другой, и указатель должен различать эти случаи. События поступают не в том порядке, в каком произошли, и запись, пришедшая позже своего предшественника, нарушает порядок в указателе. Наконец, свежесть и задержка противоречат друг другу: чем ближе указатель к текущему состоянию потока, тем дороже обходится каждый запрос.",
+    "barriers_en": "The common obstacle is the cost of updating, and it falls into four parts.\n\nRecomputing vector representations on every change is expensive, and a full rebuild of the index takes considerable time. Consistency over time has to be maintained explicitly, because a statement true at one moment is false at another, and the index must tell the two cases apart. Events arrive out of the order in which they occurred, and a record arriving after its successor disturbs the ordering in the index. Finally, freshness and latency work against each other: the closer the index tracks the current state of the stream, the more each query costs.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "vision_language",
+      "A6": "append_only",
+      "A7": "image",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "episodic",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4406840604",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2501.14101",
+        "type": "publication",
+        "value": "arXiv:2501.14101 (2025)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2025-01",
+    "groups": [
+      "A",
+      "F"
+    ],
+    "id": "streaming_rag",
+    "kind": "paradigm",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "StreamingRAG (arXiv:2501.14101, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2501.14101",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "StreamRAG for video (CVPR, 2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Xie_StreamRAG_Enhancing_Real-Time_Video_Understanding_with_Retrieval_Augmentation_CVPR_2026_paper.pdf",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранний продукт. Наборы средств Confluent и Solace выходят на рынок; вариант с графом знаний, учитывающим время, остаётся предметом исследований.",
+    "maturity_note_en": "Early product. The Confluent and Solace toolkits are reaching the market; the variant with a time-aware knowledge graph remains a research subject.",
+    "name": "Streaming RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A6",
+        "did": "Граф сцены строится по потоку данных и растёт со временем, сохраняя временные отношения.",
+        "did_en": "A scene graph is built from a stream of data and grows over time, keeping temporal relations.",
+        "instead": "«снимок»: он описал бы неизменный после построения индекс.",
+        "instead_en": "«snapshot»: it would describe an index unchanged after construction.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "append_only",
+        "why": "Состояние знаний накапливается, а не заменяется снимком. У схемы есть значение с этим именем.",
+        "why_en": "The knowledge state accumulates rather than being replaced by a snapshot. The schema has a value under that name."
+      },
+      {
+        "code": "A4",
+        "did": "Отношения между сценой, объектами и сущностями хранятся графом.",
+        "did_en": "Relations between scene, objects and entities are kept as a graph.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "graph",
+        "why": "У индекса есть связность.",
+        "why_en": "The index has connectivity."
+      },
+      {
+        "code": "C1",
+        "did": "Источник описывает построение графа сцены, но способ поиска по нему не раскрывает.",
+        "did_en": "The source describes how the scene graph is built but does not disclose how it is searched.",
+        "question": "Способ поиска в работе не описан. Базовое значение здесь означает не «проверено и совпало», а «источник молчит».",
+        "question_en": "The work does not describe the manner of search. The default value here means «the source is silent» rather than «checked and matched».",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "ann",
+        "why": "Значение оставлено базовым. Раньше здесь стоял обход графа, выведенный из ограничения схемы; ограничение оказалось неверным и снято, а вместе с ним ушло и основание приписывать значение.",
+        "why_en": "The value is left at its default. Graph traversal stood here before, inferred from a schema constraint; the constraint proved wrong and was removed, and with it went the ground for assigning the value."
+      },
+      {
+        "code": "A7",
+        "did": "Обрабатываются потоки разных модальностей, включая видео.",
+        "did_en": "Streams of several modalities are processed, video among them.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, постановка",
+        "source_en": "arXiv:2501.14101, problem statement",
+        "technology_id": "streaming_rag",
+        "to": "image",
+        "why": "Материал не только текстовый.",
+        "why_en": "The material is not only textual."
+      },
+      {
+        "code": "A5",
+        "did": "Представления строит модель, читающая изображение и текст вместе.",
+        "did_en": "Representations are built by a model that reads image and text together.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "vision_language",
+        "why": "Модальности сводятся в общее пространство.",
+        "why_en": "The modalities are brought into a shared space."
+      },
+      {
+        "code": "A3",
+        "did": "Из потока извлекаются сущности и отношения между ними.",
+        "did_en": "Entities and the relations between them are extracted from the stream.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "extracted_triples",
+        "why": "Единица индекса несёт добытые утверждения.",
+        "why_en": "A unit of the index carries the statements mined from it."
+      },
+      {
+        "code": "F1",
+        "did": "Граф пополняется по мере поступления данных.",
+        "did_en": "The graph is extended as data arrives.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "episodic",
+        "why": "Состояние знаний меняется во время работы, а не только при построении.",
+        "why_en": "The knowledge state changes while the system runs rather than only while it is built."
+      }
+    ],
+    "problem": "Указатель, построенный разом по всему собранию, слеп ко времени. Он не отвечает на вопрос о том, что было верно в определённый момент, и не поспевает за быстро меняющимся содержимым: новостями, биржевыми сведениями, показаниями приборов, видеопотоком.\n\nВсякое пополнение собрания при таком устройстве требует перестроения указателя, а перестроение занимает время, и применения, где ответ нужен немедленно, оказываются закрыты.",
+    "problem_en": "An index built over a whole collection at once is blind to time. It does not answer the question of what was true at a particular moment, and it fails to keep pace with rapidly changing content: news, market data, instrument readings, video streams.\n\nUnder such an arrangement, every addition to the collection requires rebuilding the index, and rebuilding takes time, so applications where an answer is needed at once are closed off.",
+    "prose_id": "streaming_rag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Обновление ведут дописыванием, а не перестроением: цепочки на основе Apache Kafka и Confluent переносят изменения в хранилище представлений по мере поступления.\n\nУчёт времени обеспечивают графом знаний, где у каждого утверждения проставлены отметки времени, поэтому вопрос о состоянии дел на определённую дату разрешается обходом с ограничением по этим отметкам. Работа StreamRAG, представленная на конференции CVPR 2026, распространяет такое извлечение на видеопоток, сохраняя порядок событий и причинные связи между ними.",
+    "solutions_en": "Updates are applied by appending rather than rebuilding: chains based on Apache Kafka and Confluent carry changes into the representation store as they arrive.\n\nAwareness of time is provided by a knowledge graph in which every statement carries timestamps, so a question about the state of affairs on a given date is settled by a traversal bounded by those stamps. The StreamRAG work presented at CVPR 2026 extends such retrieval to video streams, preserving the order of events and the causal links between them.",
+    "summary": "Извлечение из непрерывно поступающего потока с учётом того, что было верно в заданный момент.",
+    "summary_en": "Retrieval over a continuously arriving stream, aware of what held true at a given moment."
+  }
+}

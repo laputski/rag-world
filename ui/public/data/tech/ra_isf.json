@@ -1,0 +1,140 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.672,
+    "attention_cohort": "2024",
+    "attention_raw": 0.968,
+    "confidence": 1.0,
+    "configuration": {
+      "B1": "subquestion_decomposition",
+      "C2": "iterative_stopping",
+      "D1": "none",
+      "E2": "pre_gen_grounding",
+      "E5": "mutual_loop"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "RA-ISF выстраивает решения об извлечении в виде трёх последовательных проверок, каждую из которых выполняет отдельно обученный оценщик. Довод состоит в том, что решения эти разнородны и одно суждение обо всём сразу выносится хуже, чем три суждения по отдельности.\n\nПервая проверка спрашивает, достаточно ли модели собственных знаний. При утвердительном ответе обработка на этом и кончается: обращения к источникам не происходит, и посторонний контекст не вносится. Иначе выполняется извлечение, и вторая проверка оценивает найденное на уместность. Уместное идёт в ответ. При неуместном включается третья проверка: вопрос признаётся слишком сложным для одного обращения, разбивается на подвопросы, и каждый подвопрос проходит ту же цепочку с начала.\n\nРазбиение рекурсивно, поэтому глубина определяется вопросом. Отличие от распределителя, выбирающего стратегию заранее, состоит в том, что здесь решения принимаются по ходу и опираются на действительный результат поиска, а не на предсказание сложности по одной формулировке. Плата состоит в трёх обученных оценщиках, которые надо получить, и в накоплении их ошибок вдоль рекурсии.",
+    "description_en": "RA-ISF arranges the decisions about retrieval as three successive checks, each carried out by a separately trained evaluator. The argument is that these decisions are unalike, and one judgement about all of them at once is made worse than three judgements taken apart.\n\nThe first check asks whether the model's own knowledge suffices. If the answer is yes, processing ends there: no source is consulted and no extraneous context is introduced. Otherwise retrieval is performed, and the second check judges what was found for relevance. Relevant material goes into the answer. If it is not relevant, the third check comes into play: the question is judged too hard for a single consultation, is split into subquestions, and each subquestion passes through the same chain from the beginning.\n\nThe splitting is recursive, so depth is settled by the question. What distinguishes this from a router choosing a strategy in advance is that here the decisions are made as the work proceeds and rest on the actual result of a search rather than on a prediction of difficulty from a single formulation. The price is three trained evaluators that must be obtained, and the accumulation of their errors along the recursion.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2403.06840",
+        "type": "publication",
+        "value": "arXiv:2403.06840 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4402670862",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=30; year=2024; citation_velocity=0.968",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "B",
+      "C",
+      "E"
+    ],
+    "id": "ra_isf",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2403.06840",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "RA-ISF",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "E5",
+        "did": "Модель разбирает, чего ей не хватает, и уточняет запрос.",
+        "did_en": "The model works out what it lacks and refines the query.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "ra_isf",
+        "to": "mutual_loop",
+        "why": "Самооценка порождения задаёт следующий поиск.",
+        "why_en": "Self-assessment of production sets the next retrieval."
+      },
+      {
+        "code": "B1",
+        "did": "Задача раскладывается на подзадачи, и разбор идёт по ним.",
+        "did_en": "The task is laid out into sub-tasks, and the analysis proceeds by them.",
+        "question": "Аннотация называет три подмодуля, но не раскрывает их. Значения выведены из общего описания итеративного разложения; полный текст получить не удалось.",
+        "question_en": "The abstract names three submodules but does not disclose them. The values are inferred from the general description of iterative decomposition; the full text could not be obtained.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.06840, аннотация",
+        "source_en": "arXiv:2403.06840, abstract",
+        "technology_id": "ra_isf",
+        "to": "subquestion_decomposition",
+        "why": "Запрос делится заранее, а не порождается по ходу рассуждения.",
+        "why_en": "The query is divided in advance rather than produced in the course of reasoning."
+      },
+      {
+        "code": "C2",
+        "did": "Разбор повторяется, пока задача не решена.",
+        "did_en": "The analysis repeats until the task is solved.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.06840, аннотация",
+        "source_en": "arXiv:2403.06840, abstract",
+        "technology_id": "ra_isf",
+        "to": "iterative_stopping",
+        "why": "Число обращений определяется достаточностью, а не задано.",
+        "why_en": "The number of calls is set by sufficiency rather than fixed."
+      },
+      {
+        "code": "E2",
+        "did": "Самооценка решает, хватает ли модели собственных знаний и годится ли найденное, до порождения ответа.",
+        "did_en": "Self-assessment decides whether the model's own knowledge suffices and whether what was retrieved will do, before the answer is produced.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.06840, аннотация",
+        "source_en": "arXiv:2403.06840, abstract",
+        "technology_id": "ra_isf",
+        "to": "pre_gen_grounding",
+        "why": "Обоснованность обеспечивается отбором на входе.",
+        "why_en": "Groundedness is secured by selection at the input."
+      }
+    ],
+    "prose_id": "ra_isf",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Три оценки подряд: хватает ли собственных знаний, уместно ли найденное, нужно ли разбить вопрос.",
+    "summary_en": "Three judgements in sequence: is own knowledge enough, is the retrieved material relevant, must the question be split."
+  }
+}

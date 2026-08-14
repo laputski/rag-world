@@ -185,7 +185,8 @@
   "search": {
     "placeholder": "Search the registry…",
     "empty": "Nothing found",
-    "hint": "Search the registry"
+    "hint": "Search the registry",
+    "loading": "Loading the registry…"
   },
   "footer": {
     "data": "Data is open under CC BY"

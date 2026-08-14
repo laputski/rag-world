@@ -1,0 +1,188 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "PageIndex"
+    ],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "structure_aware",
+      "A3": "none",
+      "A4": "tree",
+      "A5": "none",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "given",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "tree_navigation",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Vectorless отказывается от векторного представления как средства поиска. Довод состоит в том, что близость векторов приблизительна по устройству: она отвечает на вопрос о похожести, тогда как читателю нужен ответ на вопрос об уместности, а эти вопросы совпадают не всегда. Векторный указатель, кроме того, требует построения, хранения и перестроения при изменении документов.\n\nВместо указателя строится дерево, повторяющее устройство самого документа: части, разделы, подразделы, с кратким описанием содержания каждого узла. Такое дерево у документа обычно уже есть в виде оглавления, и извлекать его из текста дешевле, чем строить векторы. Поиск выполняется спуском по дереву, и решение на каждой развилке принимает большая языковая модель: ей показывают запрос и описания дочерних узлов, она выбирает, куда идти дальше, и спуск продолжается до листа.\n\nВыигрыш состоит в отсутствии этапа построения векторов и в том, что путь спуска сам по себе объясняет, почему найден именно этот раздел. Плата состоит в задержке и стоимости: каждая развилка требует вызова модели, и обращение к индексу превращается из одной операции в цепочку из нескольких вызовов. Метод, кроме того, применим лишь к документам с внятной структурой и не работает на плоском собрании разрозненных записей.",
+    "description_en": "Vectorless dispenses with vector representation as a means of search. The argument is that vector closeness is approximate by construction: it answers the question of resemblance, whereas the reader needs an answer to the question of relevance, and the two do not always coincide. A vector index, moreover, has to be built, stored, and rebuilt whenever the documents change.\n\nIn place of an index, a tree is built that mirrors the structure of the document itself: parts, sections, subsections, with a brief description of each node's content. Documents usually carry such a tree already in the form of a table of contents, and extracting it from the text costs less than building vectors. Search proceeds by descending the tree, and the decision at each fork is made by a large language model: it is shown the query and the descriptions of the child nodes, it chooses where to go next, and the descent continues to a leaf.\n\nThe gain is that the vector-building stage disappears and that the path of the descent explains by itself why this particular section was found. The price is latency and cost: every fork requires a model call, and consulting the index turns from one operation into a chain of several. The method also applies only to documents with a clear structure and does not work over a flat collection of disconnected records.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-04, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-08, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-09, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-10, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-12, releases=yes",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 5,
+    "family": "H",
+    "first_published": null,
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "vectorless",
+    "kind": "technique",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/VectifyAI/PageIndex",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Vectorless",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Представлений не строится вовсе: навигация идёт по оглавлению документа логическими шагами.",
+        "did_en": "No representations are built at all: navigation follows the document's table of contents in logical steps.",
+        "instead": "«плотное представление»: приём существует именно как отказ от него.",
+        "instead_en": "«dense representation»: the technique exists precisely as a refusal of it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "репозиторий VectifyAI/PageIndex",
+        "source_en": "repository VectifyAI/PageIndex",
+        "technology_id": "vectorless",
+        "to": "none",
+        "why": "Модели представления в приёме нет, и это его определяющее свойство.",
+        "why_en": "The technique has no representation model, and that is its defining property."
+      },
+      {
+        "code": "A4",
+        "did": "Индекс — дерево оглавления документа.",
+        "did_en": "The index is the tree of the document's table of contents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "репозиторий VectifyAI/PageIndex",
+        "source_en": "repository VectifyAI/PageIndex",
+        "technology_id": "vectorless",
+        "to": "tree",
+        "why": "Структура иерархическая, у каждого узла один родитель.",
+        "why_en": "The structure is hierarchical, and every node has one parent."
+      },
+      {
+        "code": "C1",
+        "did": "Нужный раздел находится спуском по дереву оглавления.",
+        "did_en": "The section needed is found by descending the tree of contents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "репозиторий VectifyAI/PageIndex",
+        "source_en": "repository VectifyAI/PageIndex",
+        "technology_id": "vectorless",
+        "to": "tree_navigation",
+        "why": "Отбор — движение по структуре, а не сравнение представлений.",
+        "why_en": "Selection is movement through the structure rather than a comparison of representations."
+      },
+      {
+        "code": "A8",
+        "did": "Дерево индекса — это оглавление документа, написанное человеком.",
+        "did_en": "The index tree is the document's table of contents, written by a person.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "vectorless",
+        "to": "given",
+        "why": "Структура взята из источника как есть и верна по построению: её не вычисляли, и переиндексация её не изменит.",
+        "why_en": "The structure is taken from the source as it is and is correct by construction: it was not computed, and reindexing will not change it."
+      }
+    ],
+    "prose_id": "vectorless",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Обход дерева оглавления языковой моделью вместо поиска по векторным представлениям.",
+    "summary_en": "A language model descends a table-of-contents tree instead of searching vector representations."
+  }
+}

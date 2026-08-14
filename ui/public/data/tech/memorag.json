@@ -1,0 +1,185 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "hyde",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "latent_compression",
+      "D3": "natural_order",
+      "E1": "draft_verify",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "generation_seeds",
+      "F1": "episodic",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "MemoRAG отвечает на вопросы, при которых непонятно, что искать. Поиск устроен так, что запрос должен быть похож на искомое, а вопрос вида «какая мысль проходит через все эти отчёты» ни на один отрезок текста не похож: искомого предложения в собрании нет.\n\nВводится промежуточное звено, названное памятью. Лёгкая языковая модель с длинным входом принимает всё собрание и удерживает его в сжатом виде, огрублённо, без подробностей. По вопросу эта модель порождает черновик ответа: приблизительный, с неточными именами и числами, зато называющий предметы, о которых в собрании речь. Черновик служит не ответом, а поисковым запросом.\n\nПо черновику выполняется обычное извлечение, найденные подлинные фрагменты подаются основной модели, и та порождает окончательный ответ. Схема близка к поиску по вымышленному ответу с той разницей, что черновик здесь порождается не из общих знаний модели, а из сжатого представления самого собрания, и потому называет то, что в нём действительно есть. Плата состоит в удержании этой памяти: она строится по всему собранию и обновляется при его изменении.",
+    "description_en": "MemoRAG addresses questions where it is unclear what to search for. Search is built so that the query must resemble what is sought, and a question of the form \"what idea runs through all these reports\" resembles no stretch of the text: the sentence being sought is not in the collection.\n\nAn intermediate stage called memory is introduced. A light language model with a long input takes in the entire collection and holds it in compressed form, coarsely, without particulars. Given a question, this model generates a draft answer: approximate, with inexact names and numbers, but naming the subjects the collection actually discusses. The draft serves not as an answer but as a search query.\n\nOrdinary retrieval is performed on the draft, the genuine fragments found are given to the main model, and it generates the final answer. The scheme is close to search by an invented answer, with the difference that the draft here is generated not from the model's general knowledge but from a compressed view of the collection itself, and therefore names what is really in it. The price is maintaining that memory: it is built over the whole collection and must be refreshed as the collection changes.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/qhjqhj00/MemoRAG",
+        "type": "repository",
+        "value": "qhjqhj00/MemoRAG: license=apache-2.0, last_push=2025-09-11, releases=yes",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 1,
+    "family": "F",
+    "first_published": null,
+    "groups": [
+      "B",
+      "D",
+      "E",
+      "F",
+      "G"
+    ],
+    "id": "memorag",
+    "kind": "architecture",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/qhjqhj00/MemoRAG",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "MemoRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Лёгкая модель с длинной памятью сперва пишет черновой ответ, и уже он служит подсказкой поиску по исходной базе.",
+        "did_en": "A light model with long memory first writes a draft answer, and that draft serves as the cue for retrieval over the source base.",
+        "instead": "«без преобразования»: оно описало бы поиск по вопросу, от которого работа отличается.",
+        "instead_en": "«no transformation»: it would describe retrieval on the question, which is what the work differs from.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.05591, метод",
+        "source_en": "arXiv:2409.05591, method",
+        "technology_id": "memorag",
+        "to": "hyde",
+        "why": "Поиск ведётся по порождённому тексту, а не по исходному вопросу. Это тот же приём, что у гипотетического документа.",
+        "why_en": "Retrieval runs on produced text rather than on the original question. It is the same technique as a hypothetical document."
+      },
+      {
+        "code": "D2",
+        "did": "Память о длинном контексте хранится сжатыми внутренними состояниями модели, а не текстом.",
+        "did_en": "Memory of the long context is kept as compressed internal states of the model rather than as text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.05591, метод",
+        "source_en": "arXiv:2409.05591, method",
+        "technology_id": "memorag",
+        "to": "latent_compression",
+        "why": "Сжатие происходит в пространстве представлений; читаемого пересказа не образуется.",
+        "why_en": "Compression happens in the space of representations; no readable retelling is formed."
+      },
+      {
+        "code": "E1",
+        "did": "Сперва дешёвая модель пишет черновик, затем дорогая порождает окончательный ответ по найденному.",
+        "did_en": "First a cheap model writes a draft, then an expensive one produces the final answer from what was found.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.05591, метод",
+        "source_en": "arXiv:2409.05591, method",
+        "technology_id": "memorag",
+        "to": "draft_verify",
+        "why": "Порождение разделено на черновик и итог.",
+        "why_en": "Production is split into a draft and a result."
+      },
+      {
+        "code": "G3",
+        "did": "Модель памяти обучается подкреплением по качеству итогового ответа.",
+        "did_en": "The memory model is trained by reinforcement on the quality of the final answer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.05591, метод",
+        "source_en": "arXiv:2409.05591, method",
+        "technology_id": "memorag",
+        "to": "trained_reader",
+        "why": "Обучается порождающая сторона, а не поисковик.",
+        "why_en": "The producing side is trained rather than the retriever."
+      },
+      {
+        "code": "F1",
+        "did": "Память о контексте накапливается по ходу работы.",
+        "did_en": "Memory of the context accumulates as the system runs.",
+        "question": "Память здесь о текущем длинном контексте, а не о накопленном опыте между сессиями. Возможно, измерение эволюции состояния к ней не относится вовсе.",
+        "question_en": "The memory here is of the current long context rather than of experience accumulated between sessions. The state-evolution dimension may not apply to it at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.05591, метод",
+        "source_en": "arXiv:2409.05591, method",
+        "technology_id": "memorag",
+        "to": "episodic",
+        "why": "Состояние знаний меняется во время работы.",
+        "why_en": "The knowledge state changes while the system runs."
+      },
+      {
+        "code": "E5",
+        "did": "Лёгкая модель пишет черновик, служащий подсказкой поиску.",
+        "did_en": "A light model writes a draft that serves as the cue for retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "memorag",
+        "to": "generation_seeds",
+        "why": "Порождение задаёт запрос однократно, цикла нет.",
+        "why_en": "Production sets the query once, and there is no loop."
+      }
+    ],
+    "prose_id": "memorag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Черновая память по всему собранию: лёгкая модель хранит его сжатое представление и подсказывает, где искать.",
+    "summary_en": "A draft memory of the whole collection: a light model holds a compressed view of it and points to where to search."
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.504,
+    "attention_cohort": "2024",
+    "attention_raw": 0.871,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "summary_node",
+      "A2": "semantic",
+      "A3": "summary",
+      "A4": "tree",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "computed",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "tree_navigation",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "RAPTOR отвечает на вопросы, ответ на которые не содержится ни в одном отдельном фрагменте. Поиск по фрагментам находит места, похожие на запрос, и хорошо служит вопросу о конкретном факте. Вопрос вида «о чём вообще говорит этот отчёт» такой поиск обслужить не может: искомого предложения в тексте нет, оно возникает только при взгляде на весь текст сразу.\n\nПостроение идёт снизу вверх и повторяется. Фрагменты превращаются в векторы и группируются алгоритмом кластеризации по близости. Для каждой группы большая языковая модель пишет свод её содержания, своды сами превращаются в векторы и снова группируются, и так до тех пор, пока на верхнем уровне не останется один узел, описывающий собрание целиком. Получается дерево, где листья суть исходные фрагменты, а каждый внутренний узел суть обобщение своих потомков.\n\nИндексируются все узлы дерева наравне, поэтому поиск возвращает как отдельные фрагменты, так и своды разной степени общности, и уровень подбирается запросом сам собой. Стоимость построения складывается из вызова модели на каждую группу каждого уровня и потому растёт вместе с собранием. Своды, кроме того, остаются пересказом: сведение, потерянное при обобщении на нижнем уровне, до верхних уровней не доходит.",
+    "description_en": "RAPTOR addresses questions whose answer is contained in no single fragment. Search over fragments finds places resembling the query and serves a question about a specific fact well. A question of the form \"what is this report about at all\" cannot be served that way: the sentence being sought is not in the text and arises only when the whole text is taken together.\n\nConstruction proceeds from the bottom up and repeats. Fragments are turned into vectors and grouped by a clustering algorithm according to proximity. For each group a large language model writes a summary of its content, the summaries are themselves turned into vectors and grouped again, and so on until a single node describing the whole collection remains at the top. The result is a tree whose leaves are the original fragments and whose every internal node is a generalisation of its descendants.\n\nAll nodes of the tree are indexed alike, so search returns both individual fragments and summaries of varying generality, and the query itself settles which level applies. The cost of construction consists of a model call per group per level and therefore grows with the collection. Summaries, moreover, remain restatements: a fact lost in generalisation at a lower level never reaches the upper ones.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391463108",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=27; year=2024; citation_velocity=0.871",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://openreview.net/forum?id=GN921JHCRw",
+        "type": "publication",
+        "value": "venue=ICLR; peer_reviewed=true",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2401.18059",
+        "type": "publication",
+        "value": "arXiv:2401.18059 (2024)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "H",
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "raptor",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2401.18059",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "RAPTOR",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Куски текста рекурсивно объединяются в группы и пересказываются, и так снизу вверх строится дерево.",
+        "did_en": "Pieces of text are recursively grouped and summarised, and a tree is built bottom up in that way.",
+        "instead": "«иерархия сообществ»: она предполагает разбиение графа, а здесь группируются куски текста.",
+        "instead_en": "«community hierarchy»: it presupposes a partition of a graph, whereas here pieces of text are grouped.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "tree",
+        "why": "Индекс имеет уровни, и это дерево, а не граф: у каждого узла один родитель.",
+        "why_en": "The index has levels, and it is a tree rather than a graph: every node has one parent."
+      },
+      {
+        "code": "A1",
+        "did": "На верхних уровнях дерева лежат пересказы групп, и извлекаться могут они, а не только исходные куски.",
+        "did_en": "The upper levels of the tree hold summaries of groups, and those may be retrieved rather than only the source pieces.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "summary_node",
+        "why": "Единицей извлечения становится узел-пересказ.",
+        "why_en": "The retrieval unit becomes a summary node."
+      },
+      {
+        "code": "A3",
+        "did": "Пересказы порождаются заранее, при построении дерева.",
+        "did_en": "The summaries are produced in advance, while the tree is being built.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "summary",
+        "why": "Единица индекса несёт добавленный к ней пересказ.",
+        "why_en": "A unit of the index carries a retelling attached to it."
+      },
+      {
+        "code": "C1",
+        "did": "Извлечение работает по дереву, собирая сведения с разных уровней обобщения.",
+        "did_en": "Retrieval works over the tree, gathering material from different levels of generality.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "tree_navigation",
+        "why": "Ответ отбирается движением по уровням, а не сравнением в плоском списке.",
+        "why_en": "The answer is selected by moving through levels rather than by comparison in a flat list."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной модели переранжирования в работе не описано.",
+        "did_en": "No separate reranking model is described in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "none",
+        "why": "Порядок задаёт сам обход дерева.",
+        "why_en": "The order is set by the traversal of the tree itself."
+      },
+      {
+        "code": "A8",
+        "did": "Группы кусков вычисляются кластеризацией представлений, применяемой рекурсивно.",
+        "did_en": "The groups of pieces are computed by clustering of representations, applied recursively.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "raptor",
+        "to": "computed",
+        "why": "Структура вычислена алгоритмом: она зависит от модели представлений и может измениться при переиндексации. Тем и отличается от оглавления, при том же значении топологии.",
+        "why_en": "The structure is computed by an algorithm: it depends on the representation model and may change on reindexing. That is what distinguishes it from a table of contents at the same topology value."
+      }
+    ],
+    "prose_id": "raptor",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Дерево сводок над фрагментами: рекурсивная кластеризация с обобщением на каждом уровне.",
+    "summary_en": "A tree of summaries over fragments: recursive clustering with a summary written at every level."
+  }
+}

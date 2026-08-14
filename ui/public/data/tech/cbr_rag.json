@@ -1,0 +1,183 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "CBR-RAG"
+    ],
+    "attention": 5.627,
+    "attention_cohort": "2024",
+    "attention_raw": 3.258,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "metadata",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-13",
+    "configuration_variable": [
+      "A5"
+    ],
+    "description": "CBR-RAG соединяет извлечение с рассуждением по прецедентам, то есть с подходом, который решает новую задачу, отыскивая разобранный прежде похожий случай и перенося его решение с поправками. Подход этот старше извлечения с порождением на десятилетия и в праве применяется естественно: юридическое рассуждение и устроено ссылкой на прецедент.\n\nОтличие от обычного поиска лежит в признаке подобия. Плотный поиск считает похожими тексты, близкие в пространстве представлений, а рассуждение по прецедентам считает похожими случаи, совпадающие по разбору на признаки задачи и признаки решения. Для этого к каждому прецеденту прикладывается указательный словарь: перечень признаков, по которым прецедент отыскивается. Найденные прецеденты дополняют запрос перед порождением ответа.\n\nРабота сопоставляет несколько способов представления прецедента и несколько мер сходства между ними, не назначая одного. Она прошла рецензирование и вышла в Lecture Notes in Computer Science, набрав к августу 2026 года сто одно цитирование. Ценность записи для реестра состоит при этом не только в системе, но и в остатке: отбор по подобию прецедента схема из двадцати восьми измерений не выражает вовсе, и это целая традиция поиска, которой в реестре до сих пор не было ни одной записью.",
+    "description_en": "CBR-RAG joins retrieval to case-based reasoning, that is, to an approach that solves a new problem by finding a similar case worked out before and carrying its solution over with adjustments. The approach is older than retrieval-augmented generation by decades, and in law it applies naturally: legal reasoning is itself built on reference to precedent.\n\nWhat sets it apart from ordinary search is the criterion of likeness. Dense retrieval holds texts to be alike when they are close in the representation space, while case-based reasoning holds cases to be alike when they agree in their decomposition into features of the problem and features of the solution. To that end an indexing vocabulary is attached to every case: a list of the features by which the case is retrieved. The retrieved cases then enrich the query before the answer is generated.\n\nThe work sets several ways of representing a case and several measures of similarity against one another without settling on one. It passed peer review and appeared in Lecture Notes in Computer Science, gathering one hundred and one citations by August 2026. The value of the record for the registry therefore lies not in the system alone but also in its residual: selection by likeness of precedent is not expressed by the 28-dimension schema at all, and it is a whole tradition of retrieval that the registry has until now held no record of.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2404.04302",
+        "type": "publication",
+        "value": "arXiv:2404.04302 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399932275",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=101; year=2024; citation_velocity=3.258",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024-04",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "cbr_rag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2404.04302",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2404.04302",
+        "verified_at": null
+      }
+    ],
+    "name": "CBR-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A3",
+        "did": "К прецеденту прикладывается указательный словарь рассуждения по прецедентам: признаки задачи и признаки решения, по которым прецедент отыскивается.",
+        "did_en": "An indexing vocabulary from case-based reasoning is attached to a case: features of the problem and features of the solution by which the case is retrieved.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.04302, устройство",
+        "source_en": "arXiv:2404.04302, method",
+        "technology_id": "cbr_rag",
+        "to": "metadata",
+        "why": "Обогащение состоит в описательных полях, добавленных к единице сверх её собственного текста, и они же служат ключом отбора.",
+        "why_en": "The enrichment consists of descriptive fields added to a unit beyond its own text, and those fields also serve as the key for selection."
+      },
+      {
+        "code": "A5",
+        "did": "Сравниваются несколько способов представления прецедента и несколько мер сходства между ними.",
+        "did_en": "Several ways of representing a case and several measures of similarity between them are compared.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.04302, проверка",
+        "source_en": "arXiv:2404.04302, evaluation",
+        "technology_id": "cbr_rag",
+        "to": "dense_single",
+        "variable": true,
+        "why": "Записано преобладающее значение, а пометка переменного стоит потому, что работа не назначает одно представление, а сопоставляет их между собой.",
+        "why_en": "The prevailing value is recorded, and the run-time mark is there because the work does not settle on one representation but sets several against each other."
+      },
+      {
+        "code": "A1",
+        "did": "Единицей извлечения служит судебный прецедент либо его часть.",
+        "did_en": "The unit of retrieval is a legal case or a part of one.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.04302, устройство",
+        "source_en": "arXiv:2404.04302, method",
+        "technology_id": "cbr_rag",
+        "to": "passage",
+        "why": "Ближайшее значение схемы описывает отрезок текста; отдельного значения для документа целиком в схеме нет.",
+        "why_en": "The nearest value in the schema describes a stretch of text; the schema has no separate value for a whole document."
+      },
+      {
+        "code": "C3",
+        "did": "Способы представления сопоставляются между собой; о совместном использовании их выдач в описании не сказано.",
+        "did_en": "The representations are set against one another; the description does not say their results are used together.",
+        "question": "Возможно прочтение «приведение оценок к одной шкале», если смешанное представление в работе применяется, а не только измеряется.",
+        "question_en": "A reading of «scores brought to one scale» is possible if the hybrid representation is applied in the work rather than merely measured.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.04302, проверка",
+        "source_en": "arXiv:2404.04302, evaluation",
+        "technology_id": "cbr_rag",
+        "to": "none",
+        "why": "Записано базовое значение, потому что слияние из источника не следует, а сравнение способов не есть их объединение.",
+        "why_en": "The base value is recorded because fusion does not follow from the source, and comparing methods is not the same as combining them."
+      },
+      {
+        "did": "Прецедент отыскивается по подобию разбора на признаки задачи и решения, а не по расстоянию между представлениями.",
+        "did_en": "A case is retrieved by likeness of its decomposition into problem and solution features rather than by distance between representations.",
+        "residual": "analogical_case_retrieval",
+        "residual_term": "отбор по подобию прецедента, а не по близости представления",
+        "residual_term_en": "selection by analogy between cases rather than by closeness of representations",
+        "source": "arXiv:2404.04302, устройство",
+        "source_en": "arXiv:2404.04302, method",
+        "technology_id": "cbr_rag",
+        "why": "Оператор поиска называет действие над указателем, но признака подобия, по которому две задачи считаются схожими, схема не выражает.",
+        "why_en": "The search operator names the operation over the index, but the schema does not express the criterion of likeness by which two problems are held to be alike."
+      }
+    ],
+    "prose_id": "cbr_rag",
+    "residual": [
+      "отбор по подобию прецедента, а не по близости представления"
+    ],
+    "residual_en": [
+      "selection by analogy between cases rather than by closeness of representations"
+    ],
+    "summary": "Рассуждение по прецедентам поверх извлечения: юридический случай отыскивается по разбору на признаки, а не по близости векторов.",
+    "summary_en": "Case-based reasoning over retrieval: a legal case is found by likeness of features rather than by closeness of vectors."
+  }
+}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
@@ -14,19 +14,29 @@ import "@fontsource-variable/jetbrains-mono";
 import { DEFAULT_LANGUAGE, savedLanguage } from "./i18n/index";
 import { getTheme, type ThemeMode } from "./theme";
 import { AppLayout } from "./layouts/AppLayout";
-import { HomePage } from "./pages/HomePage";
-import { RegistryPage } from "./pages/RegistryPage";
-import { TechCardPage } from "./pages/TechCardPage";
-import { ChangesPage } from "./pages/ChangesPage";
-import { DigestPage } from "./pages/DigestPage";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { ResidualsPage } from "./pages/ResidualsPage";
-import { AboutPage } from "./pages/AboutPage";
-import { GeneralizedArticlePage } from "./pages/GeneralizedArticlePage";
 import { CommandPalette } from "./components/CommandPalette";
-import { getRegistry } from "./api/client";
-import type { FeedItem } from "./components/FeedRow";
 import { useTranslation } from "react-i18next";
+
+/*
+  Страницы грузятся по требованию, а не одним куском.
+
+  Прежде весь портал лежал в одном файле на два и семь десятых мегабайта:
+  открывший карточку технологии получал заодно разрисовщик диаграмм и
+  построитель карты, нужные совсем другим страницам. Сжатие тут не помогает,
+  потому что время съедают разбор и исполнение, а не передача.
+
+  Каркас остаётся в первом куске: шапка, тема и язык нужны немедленно, иначе
+  вместо портала читатель увидит пустой экран.
+*/
+const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
+const RegistryPage = lazy(() => import("./pages/RegistryPage").then((m) => ({ default: m.RegistryPage })));
+const TechCardPage = lazy(() => import("./pages/TechCardPage").then((m) => ({ default: m.TechCardPage })));
+const ChangesPage = lazy(() => import("./pages/ChangesPage").then((m) => ({ default: m.ChangesPage })));
+const DigestPage = lazy(() => import("./pages/DigestPage").then((m) => ({ default: m.DigestPage })));
+const ResidualsPage = lazy(() => import("./pages/ResidualsPage").then((m) => ({ default: m.ResidualsPage })));
+const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
+const GeneralizedArticlePage = lazy(() => import("./pages/GeneralizedArticlePage").then((m) => ({ default: m.GeneralizedArticlePage })));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 
 const MODE_KEY = "themeMode";
 const LANG_KEY = "lang";
@@ -53,7 +63,6 @@ function initialLang(): "ru" | "en" {
 function Shell() {
   const [mode, setMode] = useState<ThemeMode>(initialMode);
   const [lang, setLang] = useState<"ru" | "en">(initialLang);
-  const [items, setItems] = useState<(FeedItem & { aliases?: string[] })[]>([]);
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const openSearch = useRef<() => void>(() => {});
@@ -63,13 +72,6 @@ function Shell() {
     localStorage.setItem(LANG_KEY, lang);
     i18n.changeLanguage(lang);
   }, [lang, i18n]);
-
-  // Реестр загружается один раз и обслуживает поиск на всех страницах.
-  useEffect(() => {
-    getRegistry()
-      .then((r) => setItems(r.technologies as unknown as FeedItem[]))
-      .catch(() => setItems([]));
-  }, []);
 
   const toggleMode = useCallback(
     () => setMode((m) => (m === "light" ? "dark" : "light")), []
@@ -86,8 +88,12 @@ function Shell() {
         onSetLang={setLang}
         onOpenSearch={() => openSearch.current()}
       />
+      {/*
+        Реестр читает сам быстрый поиск, и читает при первом открытии, а не при
+        загрузке страницы. Прежде восемьсот килобайт тянулись на каждой
+        странице ради поиска, которым читатель мог ни разу не воспользоваться.
+      */}
       <CommandPalette
-        items={items}
         onOpen={(id) => navigate(`/tech/${id}`)}
         registerOpener={(fn) => { openSearch.current = fn; }}
       />

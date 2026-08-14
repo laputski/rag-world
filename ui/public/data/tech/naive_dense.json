@@ -1,0 +1,126 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Naive Dense описывает простейшую работоспособную цепочку извлечения с порождением и служит точкой отсчёта для всего остального. Документы режутся на фрагменты постоянной длины, каждый фрагмент превращается в один вектор, векторы кладутся в указатель приближённого поиска ближайших соседей. Запрос превращается в вектор тем же способом, из указателя берутся k ближайших фрагментов, они подаются языковой модели вместе с вопросом, и та порождает ответ.\n\nНи одного решения сверх необходимого здесь не принимается: запрос не переписывается, найденное не переранжируется, обоснованность не проверяется, состояние между запросами не сохраняется. Именно поэтому такая цепочка и нужна: она задаёт базовую конфигурацию, относительно которой измеряется вклад любого приёма.\n\nСлабые места её известны и порождают почти все остальные записи реестра. Граница фрагмента проходит произвольно и разрывает мысль. Один вектор на фрагмент размывает содержание длинного отрезка. Вопрос и документ сравниваются между собой, хотя написаны по-разному. Обращение к указателю однократно, поэтому вопрос, требующий двух шагов, остаётся без ответа. Ответ ничем не проверяется на опору в найденном.",
+    "description_en": "Naive Dense describes the simplest workable retrieval-and-generation chain and serves as the reference point for everything else. Documents are cut into fragments of constant length, each fragment is turned into a single vector, and the vectors are placed in an approximate nearest neighbour index. The query is turned into a vector the same way, the k nearest fragments are taken from the index, they are given to a language model along with the question, and the model generates an answer.\n\nNot a single decision beyond the necessary is made here: the query is not rewritten, what is found is not reranked, groundedness is not checked, and no state is kept between queries. That is exactly why such a chain is needed: it fixes the base configuration against which the contribution of any technique is measured.\n\nIts weak points are known and give rise to almost every other record in the registry. A fragment boundary falls arbitrarily and cuts a thought in half. One vector per fragment blurs the content of a long stretch. Question and document are compared with each other though written differently. The index is consulted once, so a question requiring two steps goes unanswered. The answer is checked against the retrieved material by nothing at all.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+        "type": "publication",
+        "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=6517; year=2020",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 1,
+    "family": null,
+    "first_published": null,
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "naive_dense",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2004.04906",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "Naive Dense",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Каждый пассаж кодируется одним вектором, вопрос тоже, и поиск идёт по близости этих векторов.",
+        "did_en": "Every passage is encoded as a single vector, the question likewise, and retrieval runs by closeness of those vectors.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.04906, метод",
+        "source_en": "arXiv:2004.04906, method",
+        "technology_id": "naive_dense",
+        "to": "dense_single",
+        "why": "Это базовая точка отсчёта конфигурационного пространства: запись существует, чтобы остальным было от чего отличаться.",
+        "why_en": "This is the base point of the configuration space: the record exists so that the rest have something to differ from."
+      },
+      {
+        "code": "C1",
+        "did": "Отбор ведётся приближённым поиском ближайших соседей.",
+        "did_en": "Selection is done by approximate nearest-neighbour search.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.04906, метод",
+        "source_en": "arXiv:2004.04906, method",
+        "technology_id": "naive_dense",
+        "to": "ann",
+        "why": "Оператор поиска базовый.",
+        "why_en": "The search operator is the base one."
+      }
+    ],
+    "prose_id": "naive_dense",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Простейшая полная цепочка: фрагменты постоянной длины, один вектор на фрагмент, первые k по близости.",
+    "summary_en": "The simplest complete chain: fixed-length fragments, one vector each, top k by closeness."
+  }
+}

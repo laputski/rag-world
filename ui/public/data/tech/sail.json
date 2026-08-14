@@ -1,0 +1,138 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.087,
+    "attention_cohort": "2023",
+    "attention_raw": 0.154,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "pre_gen_grounding",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "SAIL занимается тем же затруднением, что и прочие приёмы обучения с поиском, но подходит к нему со стороны разметки. Поисковая выдача содержит уместное и постороннее вперемешку, и модель, обученная на выдаче как она есть, наследует её шум.\n\nОбучающие примеры размечаются по уместности: для каждого найденного документа указывается, относится ли он к вопросу. Модель обучается на такой разметке отвечать с явным учётом этих указаний, то есть опираться на отмеченное уместным и не опираться на прочее. Тем самым отбор переносится внутрь модели: во время работы разметки нет, но приученная отличать одно от другого модель делает это сама.\n\nОтличие от донастройки на смешанных примерах состоит в том, что там нужное и постороннее различаются лишь неявно, через требуемый ответ, а здесь различие названо прямо и служит частью обучающего сигнала. Плата состоит в разметке: указания об уместности нужно откуда-то взять, а получают их либо ручным трудом, либо более сильной моделью, и во втором случае разметка наследует её ошибки.",
+    "description_en": "SAIL takes up the same difficulty as other retrieval-aware training methods but approaches it from the side of labelling. Search results contain the pertinent and the irrelevant intermixed, and a model trained on those results as they stand inherits their noise.\n\nTraining examples are labelled for relevance: for each retrieved document it is stated whether it bears on the question. The model is trained on such labels to answer with those indications explicitly in view, that is, to rely on what is marked relevant and not on the rest. Selection is thereby moved inside the model: at service time no labels exist, but a model accustomed to telling one from the other does so on its own.\n\nWhat sets this apart from fine-tuning on mixed examples is that there the relevant and the irrelevant differ only implicitly, through the required answer, whereas here the difference is stated outright and forms part of the training signal. The price is the labelling: relevance indications must come from somewhere, and they are obtained either by hand or from a stronger model, in which case the labels inherit that model's errors.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4378474184",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2023; citation_velocity=0.154",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2305.15225",
+        "type": "publication",
+        "value": "arXiv:2305.15225 (2023)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "I",
+    "first_published": "2023-05",
+    "groups": [
+      "E",
+      "G"
+    ],
+    "id": "sail",
+    "kind": "technique",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2305.15225",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "SAIL",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G3",
+        "did": "Языковая модель дообучается на выдаче поисковых систем, куда намеренно попадает шум и противоречия, и учится отличать надёжное от отвлекающего.",
+        "did_en": "The language model is fine-tuned on the output of search engines, into which noise and contradictions are deliberately allowed, and learns to tell the reliable from the distracting.",
+        "instead": "«обучаемый поисковик»: поиск здесь внешний и не меняется.",
+        "instead_en": "«trainable retriever»: retrieval here is external and does not change.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.15225, метод",
+        "source_en": "arXiv:2305.15225, method",
+        "technology_id": "sail",
+        "to": "trained_reader",
+        "why": "Обучается читатель; поисковые системы берутся готовыми.",
+        "why_en": "The reader is trained; the search engines are taken ready-made."
+      },
+      {
+        "code": "E2",
+        "did": "Модель обучена отбирать заслуживающее доверия до того, как порождать ответ.",
+        "did_en": "The model is trained to select what deserves trust before producing an answer.",
+        "instead": "«проверка после порождения»: она смотрела бы на результат, а здесь работа идёт с исходным материалом.",
+        "instead_en": "«post-hoc check»: it would look at the result, whereas here the work happens on the source material.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.15225, метод",
+        "source_en": "arXiv:2305.15225, method",
+        "technology_id": "sail",
+        "to": "pre_gen_grounding",
+        "why": "Обоснованность обеспечивается отбором на входе, а не проверкой готового текста.",
+        "why_en": "Groundedness is secured by selection at the input rather than by checking a finished text."
+      }
+    ],
+    "prose_id": "sail",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Обучение на разметке уместности: модель учат отбрасывать найденное, которое к вопросу не относится.",
+    "summary_en": "Training on relevance labels: the model learns to discard retrieved material that does not bear on the question."
+  }
+}

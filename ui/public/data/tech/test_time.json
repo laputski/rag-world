@@ -1,0 +1,264 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": "2025",
+    "attention_raw": 0.0,
+    "barriers": "Общее препятствие состоит в стоимости повторений, и оно распадается на четыре части.\n\nКаждый круг складывается из обращения к указателю и вызова языковой модели, поэтому время ответа растёт вместе с числом кругов. Момент остановки надо на чём-то основывать: ранняя остановка теряет часть ответа, поздняя тратит вычисления впустую. Рассуждение склонно замыкаться, возвращаясь к одному и тому же обстоятельству по кругу, и этот случай надо распознавать. Наконец, когда несколько исполнителей работают над вопросом вместе, их надо согласовывать между собой.",
+    "barriers_en": "The common obstacle is the cost of repetition, and it falls into four parts.\n\nEvery round consists of a consultation of the index and a language model call, so response time grows with the number of rounds. The moment to stop must rest on something: stopping early loses part of the answer, stopping late spends computation for nothing. Reasoning tends to close on itself, returning to the same circumstance in a loop, and that case must be recognised. Finally, when several agents work on a question together, they have to be coordinated.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "subquestion_decomposition",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "ensemble_fragments",
+      "E2": "external_judge",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+        "type": "repository",
+        "value": "DavidZWZ/Awesome-RAG-Reasoning: license=mit, last_push=2026-07-23, releases=no",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7077909566",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2508.18260",
+        "type": "publication",
+        "value": "arXiv:2508.18260 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7077909566",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2508.18260",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=7; year=2025",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 5,
+    "family": null,
+    "first_published": "2025-08",
+    "groups": [
+      "B",
+      "C",
+      "E"
+    ],
+    "id": "test_time",
+    "kind": "paradigm",
+    "level": "L3",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": "AlignRAG: Test-Time Critique (OpenReview, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://openreview.net/forum?id=cnUq7GkS6d",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": "MIRAGE (arXiv:2508.18260, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2508.18260",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Adaptive-RAG (NAACL, 2024, 719 cit.)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Survey of RAG-Reasoning (EMNLP, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://aclanthology.org/2025.findings-emnlp.648.pdf",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": "Awesome-RAG-Reasoning (GitHub)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранние работы, быстро переходящие в готовые средства. Adaptive RAG широко цитируется.",
+    "maturity_note_en": "Early work moving quickly into ready toolkits. Adaptive RAG is widely cited.",
+    "name": "RAG with Test-Time Reasoning",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Сложный вопрос разбивается на подвопросы, привязанные к сущностям.",
+        "did_en": "A complex question is split into sub-questions tied to entities.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "subquestion_decomposition",
+        "why": "Запрос делится заранее и осознанно.",
+        "why_en": "The query is divided in advance and deliberately."
+      },
+      {
+        "code": "A4",
+        "did": "Свидетельства собираются по графу знаний расширением соседства и переходами.",
+        "did_en": "Evidence is gathered over a knowledge graph by neighbourhood expansion and hops.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "graph",
+        "why": "Индекс связный.",
+        "why_en": "The index is connected."
+      },
+      {
+        "code": "C1",
+        "did": "Отбор идёт движением по связям графа.",
+        "did_en": "Selection proceeds by moving along the graph's edges.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "graph_traversal",
+        "why": "Ответ собирается обходом структуры.",
+        "why_en": "The answer is assembled by traversing the structure."
+      },
+      {
+        "code": "C2",
+        "did": "Глубина обхода наращивается по мере надобности, а не задана заранее.",
+        "did_en": "Traversal depth is increased as needed rather than fixed in advance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "iterative_stopping",
+        "why": "Число обращений определяется ходом рассуждения.",
+        "why_en": "The number of calls is set by the course of the reasoning."
+      },
+      {
+        "code": "E1",
+        "did": "Рассуждение ведётся несколькими цепочками параллельно.",
+        "did_en": "Reasoning runs as several chains in parallel.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "ensemble_fragments",
+        "why": "Ответ складывается из нескольких порождений, а не пишется одним.",
+        "why_en": "The answer is assembled from several productions rather than written in one."
+      },
+      {
+        "code": "E2",
+        "did": "Противоречия между цепочками разрешаются взаимной проверкой.",
+        "did_en": "Contradictions between chains are resolved by mutual checking.",
+        "question": "Проверка идёт между цепочками одной модели, а не отдельным судьёй. Возможно, ближе «проверка после порождения».",
+        "question_en": "The checking runs between chains of one model rather than by a separate judge. «Post-hoc check» may be closer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.18260, метод",
+        "source_en": "arXiv:2508.18260, method",
+        "technology_id": "test_time",
+        "to": "external_judge",
+        "why": "Обоснованность проверяется сопоставлением независимых порождений, а не самим порождающим.",
+        "why_en": "Groundedness is checked by comparing independent productions rather than by the producer itself."
+      },
+      {
+        "code": "E5",
+        "did": "Цепочки рассуждения расширяют обход графа по мере надобности.",
+        "did_en": "Chains of reasoning extend the graph traversal as needed.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "test_time",
+        "to": "mutual_loop",
+        "why": "Порождение задаёт глубину поиска.",
+        "why_en": "Production sets the depth of retrieval."
+      }
+    ],
+    "problem": "Однократное извлечение не справляется с вопросами в несколько шагов, потому что поиск и рассуждение между собой не связаны. Система не располагает способом заметить, что её собственное рассуждение разошлось с найденным.\n\nСложный вопрос требует чередования: найти, подумать, найти снова по тому, что выяснилось. Расход на такой ответ заранее неизвестен и зависит от вопроса.",
+    "problem_en": "A single retrieval does not cope with questions taking several steps, because search and reasoning are not coupled. The system has no means of noticing that its own reasoning has diverged from what was retrieved.\n\nA hard question calls for alternation: find, think, find again on what came to light. The cost of such an answer is not known in advance and depends on the question.",
+    "prose_id": "test_time",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Самооценку после каждого круга вводит AlignRAG, где модель судит о собственной уверенности и решает, продолжать ли.\n\nПоследовательность заменяют одновременностью: MIRAGE ведёт несколько путей обхода графа параллельно, отчего время ответа перестаёт расти пропорционально глубине. Разные предположения проверяют разными исполнителями одновременно, как в MA-RAG. Наиболее цитируемым остаётся простейший подход, при котором стратегия выбирается заранее по сложности вопроса.",
+    "solutions_en": "Self-assessment after each round is introduced by AlignRAG, where the model judges its own confidence and decides whether to continue.\n\nSequence is replaced by simultaneity: MIRAGE pursues several graph traversal paths in parallel, so response time stops growing in proportion to depth. Different hypotheses are tested by different agents at once, as in MA-RAG. The most cited approach remains the simplest, in which the strategy is chosen in advance from the difficulty of the question.",
+    "summary": "Рассуждение и извлечение чередуются во время ответа, и глубина определяется вопросом, а не настройкой.",
+    "summary_en": "Reasoning and retrieval alternate while the answer is produced, and depth is settled by the question rather than a setting."
+  }
+}

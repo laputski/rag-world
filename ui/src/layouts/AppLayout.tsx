@@ -1,7 +1,8 @@
-import { Box, Container, IconButton, Tooltip, Typography, MenuItem, Select, FormControl } from "@mui/material";
+import { Box, CircularProgress, Container, IconButton, Tooltip, Typography, MenuItem, Select, FormControl } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { ThemeMode } from "../theme";
@@ -193,8 +194,17 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
         </Container>
       </Box>
 
+      {/*
+        Ожидание страницы показывается вместо содержания, а не вместо всего
+        портала: шапка уже отрисована и при переходе не мигает. Страницы
+        грузятся по требованию, поэтому такое ожидание бывает, но короткое.
+      */}
       <Container maxWidth="xl" component="main" sx={{ flexGrow: 1, py: 3 }}>
-        <Outlet context={{ mode }} />
+        <Suspense
+          fallback={<CircularProgress sx={{ display: "block", mx: "auto", my: 8 }} />}
+        >
+          <Outlet context={{ mode }} />
+        </Suspense>
       </Container>
 
       <Box component="footer" sx={{ borderTop: 1, borderColor: "divider", py: 2 }}>

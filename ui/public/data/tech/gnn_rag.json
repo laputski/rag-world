@@ -1,0 +1,129 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.024,
+    "attention_cohort": "2024",
+    "attention_raw": 0.593,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "node_edge",
+      "A4": "graph",
+      "A8": "given",
+      "C1": "graph_traversal",
+      "D1": "none",
+      "E5": "none",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "GNN-RAG разделяет труд между двумя средствами по тому, что каждое умеет лучше. Языковая модель хорошо обращается с языком и плохо с многошаговой структурой: следуя по рёбрам подсказками, она сбивается тем чаще, чем длиннее цепочка. Графовая нейронная сеть, напротив, обучена именно на структуре и распространяет признаки по рёбрам согласованно, но связного текста не порождает.\n\nРазделение устроено так. Графовая нейронная сеть принимает вопрос и граф знаний и размечает вершины по их отношению к ответу, распространяя сведения от начальных вершин по рёбрам за несколько проходов. Из размеченного отбираются вершины с высокой оценкой и пути, ведущие к ним от начальных. Отобранный подграф переводится в текст, то есть в перечисление троек «субъект, отношение, объект», и подаётся языковой модели вместе с вопросом.\n\nМодель тем самым не ищет по графу вовсе, а лишь излагает найденное. Многошаговые вопросы обслуживаются лучше, чем при обходе под управлением модели, и стоят дешевле, потому что вызов модели один, а не по вызову на шаг. Плата состоит в обучении: графовую сеть нужно обучить на размеченных вопросах по этому графу, и на другой граф она переносится плохо.",
+    "description_en": "GNN-RAG divides the labour between two instruments according to what each does better. A language model handles language well and multi-step structure poorly: following edges by prompting, it goes astray the more often the longer the chain. A graph neural network, by contrast, is trained on structure precisely and propagates features along edges coherently, but it generates no connected prose.\n\nThe division works as follows. The graph neural network takes the question and the knowledge graph and labels the nodes by their bearing on the answer, propagating information from the starting nodes along the edges over several passes. High-scoring nodes and the paths leading to them from the starting points are selected from the labelling. The selected subgraph is rendered as text, that is, as an enumeration of subject, relation, object triples, and given to the language model along with the question.\n\nThe model thereby does no searching over the graph at all and merely states what was found. Multi-step questions are served better than under model-driven traversal, and more cheaply, because there is one model call rather than one per step. The price is training: the graph network must be trained on labelled questions over this graph, and it transfers to another graph poorly.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2405.20139",
+        "type": "publication",
+        "value": "arXiv:2405.20139 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399253046",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=16; year=2024; citation_velocity=0.593",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C",
+      "G"
+    ],
+    "id": "gnn_rag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2405.20139",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "GNN-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C1",
+        "did": "Графовая нейросеть отбирает кандидатов по подграфу, а затем извлекаются кратчайшие пути между сущностями вопроса и ответами.",
+        "did_en": "A graph neural network selects candidates over a subgraph, and then the shortest paths between the question's entities and the answers are extracted.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.20139, метод",
+        "source_en": "arXiv:2405.20139, method",
+        "technology_id": "gnn_rag",
+        "to": "graph_traversal",
+        "why": "Отбор идёт по структуре графа.",
+        "why_en": "Selection proceeds by the structure of the graph."
+      },
+      {
+        "code": "A1",
+        "did": "Языковой модели передаются пути графа, переведённые в текст.",
+        "did_en": "Graph paths, rendered into text, are handed to the language model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.20139, метод",
+        "source_en": "arXiv:2405.20139, method",
+        "technology_id": "gnn_rag",
+        "to": "node_edge",
+        "why": "Единица извлечения — фрагмент структуры, а не пассаж.",
+        "why_en": "The retrieval unit is a fragment of structure rather than a passage."
+      },
+      {
+        "code": "G3",
+        "did": "Отбором занимается обученная графовая нейросеть.",
+        "did_en": "Selection is done by a trained graph neural network.",
+        "question": "Аннотация не говорит прямо, обучается ли сеть в рамках работы или берётся готовой. Значение выведено из того, что графовая нейросеть без обучения не работает.",
+        "question_en": "The abstract does not say outright whether the network is trained within the work or taken ready-made. The value is inferred from the fact that a graph neural network does not work untrained.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.20139, метод",
+        "source_en": "arXiv:2405.20139, method",
+        "technology_id": "gnn_rag",
+        "to": "trained_retriever",
+        "why": "Обучается поисковая сторона; языковая модель работает как есть.",
+        "why_en": "The retrieval side is trained; the language model works as it is."
+      }
+    ],
+    "prose_id": "gnn_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Графовая нейронная сеть отбирает подграф с ответом, языковая модель формулирует ответ по нему.",
+    "summary_en": "A graph neural network selects the subgraph holding the answer; a language model states the answer from it."
+  }
+}

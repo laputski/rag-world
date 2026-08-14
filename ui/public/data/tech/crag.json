@@ -1,0 +1,204 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "Corrective RAG"
+    ],
+    "attention": 8.817,
+    "attention_cohort": "2024",
+    "attention_raw": 5.105,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "trained_classifier",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "federation",
+      "D1": "none",
+      "D2": "abstractive_compression",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "post_gen_check",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [
+      "C4"
+    ],
+    "description": "CRAG исходит из того, что поиск иногда возвращает негодное, а обычная система этого не замечает. Найденные фрагменты подаются языковой модели независимо от того, отвечают ли они на вопрос, и модель, получив постороннее, чаще строит ответ на нём, чем отвергает его.\n\nМежду извлечением и порождением ставится оценщик: небольшая обученная модель, которая читает запрос вместе с найденным и выносит одно из трёх суждений. При суждении «верно» найденное признаётся годным, но проходит очистку: фрагменты разбираются на мелкие части, части, не относящиеся к запросу, отбрасываются, оставшиеся собираются обратно. При суждении «неверно» найденное отбрасывается целиком, а запрос переписывается и направляется в веб-поиск как во внешний источник. При суждении «неопределённо» применяются оба пути сразу и результаты объединяются.\n\nОценщик мал по сравнению с порождающей моделью, поэтому проверка обходится дёшево, а приём применяется к готовой системе без её переобучения. Ограничения тоже свои: суждение оценщика само по себе является предсказанием и ошибается, а обращение к веб-поиску вводит в цепочку внешнюю службу с её задержкой, доступностью и содержимым, которое портал собрания не контролирует.",
+    "description_en": "CRAG starts from the fact that search sometimes returns unusable material and that an ordinary system does not notice. Retrieved fragments are given to the language model regardless of whether they answer the question, and the model, handed something irrelevant, more often builds an answer on it than rejects it.\n\nAn evaluator is placed between retrieval and generation: a small trained model that reads the query together with what was found and returns one of three verdicts. On \"correct\" the material is accepted but cleaned: the fragments are split into small parts, parts unrelated to the query are discarded, and what remains is reassembled. On \"incorrect\" the material is discarded entirely, and the query is rewritten and sent to web search as an external source. On \"ambiguous\" both paths are taken and their results combined.\n\nThe evaluator is small next to the generating model, so the check is cheap, and the technique applies to a ready system without retraining it. The limitations are its own as well: the evaluator's verdict is itself a prediction and can be wrong, and the recourse to web search introduces an external service into the chain, with its latency, its availability, and content the collection's curator does not control.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2401.15884",
+        "type": "publication",
+        "value": "arXiv:2401.15884 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410705984",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=91; year=2025; citation_velocity=4.789",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391418506",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.903",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410705984",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=97; year=2025; citation_velocity=5.105",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "A",
+    "first_published": "2024",
+    "groups": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "id": "crag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2401.15884",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "CRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B2",
+        "did": "Отдельная лёгкая модель оценивает, годятся ли найденные документы, и выдаёт степень уверенности; по ней выбирается дальнейшее действие.",
+        "did_en": "A separate lightweight model judges whether the retrieved documents will do and reports a degree of confidence; the next action is chosen by it.",
+        "instead": "«маршрутизация языковой моделью»: оценщик здесь отдельный и лёгкий, в этом смысл приёма.",
+        "instead_en": "«routing by a language model»: the evaluator here is separate and light, and that is the point of the technique.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.15884, метод",
+        "source_en": "arXiv:2401.15884, method",
+        "technology_id": "crag",
+        "to": "trained_classifier",
+        "why": "Маршрут задаёт отдельная модель-оценщик, а не подсказка языковой модели.",
+        "why_en": "The route is set by a separate evaluator model rather than by a prompt to the language model."
+      },
+      {
+        "code": "C4",
+        "did": "Когда найденное в своём корпусе признано негодным, система идёт в веб-поиск: корпус перестаёт быть единственным хранилищем.",
+        "did_en": "When what was found in its own corpus is judged unfit, the system goes to web search: the corpus stops being the only store.",
+        "instead": "«одно хранилище»: оно описало бы только ту ветвь, где найденное признано годным.",
+        "instead_en": "«single store»: it would describe only the branch where what was found is judged fit.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.15884, метод",
+        "source_en": "arXiv:2401.15884, method",
+        "technology_id": "crag",
+        "to": "federation",
+        "variable": true,
+        "why": "Извлечение может обращаться к внешнему источнику помимо своего, и решается это по ходу — отсюда пометка.",
+        "why_en": "Retrieval may reach an external source besides its own, and this is decided as it goes, hence the mark."
+      },
+      {
+        "code": "D2",
+        "did": "Найденные документы разбираются на части, ненужное отбрасывается, оставшееся собирается заново.",
+        "did_en": "The retrieved documents are taken apart, the unwanted is discarded, and the rest is assembled anew.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.15884, метод",
+        "source_en": "arXiv:2401.15884, method",
+        "technology_id": "crag",
+        "to": "abstractive_compression",
+        "why": "Контекст сокращается переработкой содержания, а не отбором первых k.",
+        "why_en": "The context is shortened by reworking the content rather than by taking the top k."
+      },
+      {
+        "code": "E2",
+        "did": "Годность найденного проверяется до подачи в генератор, отдельным шагом.",
+        "did_en": "The fitness of what was retrieved is checked before it is handed to the generator, as a separate step.",
+        "instead": "«проверка во время порождения»: там оценка идёт по ходу генерации, здесь до неё.",
+        "instead_en": "«check during production»: there the grading runs as generation proceeds, whereas here it happens before it.",
+        "question": "Оценивается пригодность найденного, а не обоснованность ответа. Возможно, это ближе к «предварительной проверке обоснованности», чем к проверке после порождения.",
+        "question_en": "What is graded is the fitness of what was retrieved rather than the groundedness of the answer. This may sit closer to a «pre-check of groundedness» than to a post-hoc check.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.15884, метод",
+        "source_en": "arXiv:2401.15884, method",
+        "technology_id": "crag",
+        "to": "post_gen_check",
+        "why": "Проверка выполняется вне порождения, а не встроена в него служебными словами.",
+        "why_en": "The check is performed outside production rather than built into it with control tokens."
+      },
+      {
+        "code": "D1",
+        "did": "Порядок документов не пересматривается отдельной моделью; вместо этого они переписываются.",
+        "did_en": "The order of documents is not revisited by a separate model; instead the documents are rewritten.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.15884, метод",
+        "source_en": "arXiv:2401.15884, method",
+        "technology_id": "crag",
+        "to": "none",
+        "why": "Ступени переранжирования нет.",
+        "why_en": "There is no reranking stage."
+      }
+    ],
+    "prose_id": "crag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Лёгкий оценщик проверяет найденное и при негодном результате уходит в веб-поиск либо перестраивает запрос.",
+    "summary_en": "A lightweight evaluator checks what was retrieved and, on a poor result, falls back to web search or rewrites the query."
+  }
+}

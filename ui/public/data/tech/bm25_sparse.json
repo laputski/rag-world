@@ -1,0 +1,151 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "BM25"
+    ],
+    "attention": 15.118,
+    "attention_cohort": null,
+    "attention_raw": 15.118,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "lexical",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "lexical",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "BM25 представляет собой правило оценивания, по которому документы отбираются на совпадении слов и которое остаётся основным словарным способом поиска несколько десятилетий. Указатель здесь разреженный: документ описывается тем, какие слова в нём есть и сколько раз, и большинство координат такого описания равны нулю.\n\nОценка складывается из вкладов слов запроса, встретившихся в документе, и каждый вклад определяется тремя соображениями. Слово, встречающееся в собрании редко, вносит больше, чем слово повсеместное, потому что редкое слово различает документы, а повсеместное нет. Повторное появление слова в документе увеличивает вклад, но со снижающейся отдачей, поэтому документ с сотней повторов не обгоняет документ с десятью настолько же. Длина документа учитывается поправкой, иначе длинные документы выигрывали бы уже тем, что в них больше слов.\n\nОбучения правило не требует, объяснимо построчно и работает одинаково на любой предметной области, поэтому служит точкой отсчёта, ниже которой опускаться нельзя. Ограничение прямо следует из устройства: совпадение считается по словам, и документ, отвечающий на вопрос иными словами, не находится вовсе. Отсюда происходит смешанный поиск, где BM25 работает рядом с векторным.",
+    "description_en": "BM25 is a scoring rule by which documents are selected on word overlap, and it has remained the principal lexical method of search for several decades. The index here is sparse: a document is described by which words occur in it and how often, and most coordinates of that description are zero.\n\nA score is the sum of contributions from the query words present in the document, and each contribution is settled by three considerations. A word rare in the collection contributes more than a ubiquitous one, because a rare word distinguishes documents while a ubiquitous one does not. A repeated occurrence within a document raises the contribution, but with diminishing returns, so a document with a hundred repetitions does not outrank one with ten by a corresponding margin. Document length enters as a correction, without which long documents would win merely by containing more words.\n\nThe rule requires no training, is explainable line by line, and behaves identically in any field, which is why it serves as a floor below which nothing should fall. Its limitation follows directly from its construction: overlap is counted over words, and a document answering the question in different words is not found at all. Hybrid search, where BM25 runs alongside a vector method, follows from exactly this.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://api.github.com/repos/langchain-ai/langchain",
+        "type": "framework_presence",
+        "value": "frameworks=LangChain, LlamaIndex",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4252076394",
+        "type": "publication",
+        "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3069; year=2009; citation_velocity=15.118",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": null,
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "bm25_sparse",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "paper",
+        "label": null,
+        "label_en": null,
+        "status": "guarded",
+        "url": "https://doi.org/10.1561/1500000019",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "BM25 Sparse",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Документ представлен словами и их весами, а не вектором смысла.",
+        "did_en": "A document is represented by words and their weights rather than by a vector of meaning.",
+        "instead": "«плотное представление»: приём как раз ему предшествует и служит точкой сравнения.",
+        "instead_en": "«dense representation»: the technique precedes it and serves as the point of comparison.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "Robertson & Zaragoza, 2009",
+        "source_en": "Robertson & Zaragoza, 2009",
+        "technology_id": "bm25_sparse",
+        "to": "lexical",
+        "why": "Сопоставление идёт по совпадению слов.",
+        "why_en": "Matching goes by coincidence of words."
+      },
+      {
+        "code": "C1",
+        "did": "Оператор поиска сопоставляет слова запроса словам документа с весами.",
+        "did_en": "The search operator matches the words of the query against the words of the document with weights.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "Robertson & Zaragoza, 2009",
+        "source_en": "Robertson & Zaragoza, 2009",
+        "technology_id": "bm25_sparse",
+        "to": "lexical",
+        "why": "Иного способа отбора в приёме нет.",
+        "why_en": "The technique has no other means of selection."
+      },
+      {
+        "code": "D1",
+        "did": "Порядок задаёт сама функция ранжирования.",
+        "did_en": "The order is set by the ranking function itself.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "Robertson & Zaragoza, 2009",
+        "source_en": "Robertson & Zaragoza, 2009",
+        "technology_id": "bm25_sparse",
+        "to": "none",
+        "why": "Отдельной ступени пересмотра нет.",
+        "why_en": "There is no separate stage that revisits it."
+      }
+    ],
+    "prose_id": "bm25_sparse",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Словарный поиск по совпадению слов с поправками на частоту слова и длину документа.",
+    "summary_en": "Lexical search by word overlap, corrected for word frequency and document length."
+  }
+}

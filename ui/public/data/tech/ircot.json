@@ -1,0 +1,252 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 3.417,
+    "attention_cohort": "2023",
+    "attention_raw": 6.07,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "lexical",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "lexical",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "budget_aware",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "IRCoT соединяет пошаговое рассуждение с извлечением, чередуя их. Однократное извлечение по исходному вопросу не обслуживает вопросы, где ответ собирается из нескольких документов по цепочке. Чтобы узнать, где родился режиссёр определённого фильма, нужно сначала узнать, кто он, и только потом искать место его рождения. В исходном вопросе имени режиссёра нет, поэтому поиск по нему второго документа не находит.\n\nОбработка идёт кругами. По исходному вопросу выполняется извлечение, найденное подаётся модели, и та порождает один шаг рассуждения. Этот шаг служит запросом для следующего извлечения, найденное добавляется к контексту, порождается следующий шаг, и так далее. Цикл останавливается, когда очередной шаг содержит ответ либо когда исчерпано отведённое число кругов.\n\nСущественно направление связи: не только извлечение снабжает рассуждение, но и рассуждение задаёт извлечение, поэтому промежуточная сущность, названная моделью на первом шаге, становится поисковым запросом на втором. Расход соответствует числу кругов: каждый круг стоит одного вызова модели и одного обращения к индексу, а ошибка на раннем шаге уводит все последующие, потому что запросы строятся по уже порождённому.",
+    "description_en": "IRCoT joins step-by-step reasoning to retrieval by alternating them. A single retrieval on the original question fails on questions whose answer is assembled from several documents in a chain. To learn where the director of a particular film was born, one must first learn who the director is and only then search for their place of birth. The director's name does not appear in the original question, so a search on it finds no second document.\n\nProcessing proceeds in rounds. Retrieval is performed on the original question, what is found is given to the model, and the model generates one step of reasoning. That step serves as the query for the next retrieval, what is found is added to the context, the next step is generated, and so on. The loop halts when a step contains the answer or when the allotted number of rounds is exhausted.\n\nThe direction of the coupling is what matters: retrieval feeds reasoning, but reasoning also drives retrieval, so an intermediate entity named by the model at the first step becomes the search query at the second. The expense scales with the number of rounds, each costing one model call and one consultation of the index, and an error at an early step carries every later one with it, because the queries are built from what has already been generated.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2212.10509",
+        "type": "publication",
+        "value": "arXiv:2212.10509 (2022)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385571271",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=257; year=2023; citation_velocity=5.977",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4312091845",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=18; year=2022; citation_velocity=0.409",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385571271",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=261; year=2023; citation_velocity=6.07",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "C",
+    "first_published": "2023",
+    "groups": [
+      "B",
+      "C",
+      "D"
+    ],
+    "id": "ircot",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2212.10509",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "IRCoT",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Поиск ведётся сопоставлением слов запроса со словами документов, без векторов.",
+        "did_en": "Retrieval matches the words of the query against the words of documents, without vectors.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, постановка опытов",
+        "source_en": "arXiv:2212.10509, experimental setup",
+        "technology_id": "ircot",
+        "to": "lexical",
+        "why": "Это классический словарный поиск.",
+        "why_en": "This is classic lexical search."
+      },
+      {
+        "code": "C1",
+        "did": "Оператор поиска — тот же словарный.",
+        "did_en": "The search operator is the same lexical one.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, постановка опытов",
+        "source_en": "arXiv:2212.10509, experimental setup",
+        "technology_id": "ircot",
+        "to": "lexical",
+        "why": "Иных способов извлечения в работе нет.",
+        "why_en": "The work has no other means of retrieval."
+      },
+      {
+        "code": "C2",
+        "did": "Система чередует шаги: породила предложение рассуждения — сходила в поиск — породила следующее. Цикл прекращается, когда в рассуждении появляется ответ, либо на восьмом шаге.",
+        "did_en": "The system alternates steps: it produces a sentence of reasoning, goes to retrieval, produces the next one. The loop stops when an answer appears in the reasoning, or at the eighth step.",
+        "instead": "«фиксированное число переходов»: у него нет условия остановки, а здесь оно есть и работает.",
+        "instead_en": "«fixed number of hops»: it has no stopping condition, whereas here there is one and it works.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, метод",
+        "source_en": "arXiv:2212.10509, method",
+        "technology_id": "ircot",
+        "to": "iterative_stopping",
+        "why": "Число обращений заранее неизвестно и определяется условием остановки.",
+        "why_en": "The number of calls is not known in advance and is set by a stopping condition."
+      },
+      {
+        "code": "B1",
+        "did": "Запросом каждого следующего обращения служит последнее предложение рассуждения, а не исходный вопрос.",
+        "did_en": "The query of each next call is the last sentence of the reasoning rather than the original question.",
+        "instead": "«разложение на подвопросы»: там запрос делится заранее, а здесь следующий запрос неизвестен, пока не породится рассуждение.",
+        "instead_en": "«decomposition into sub-questions»: there the query is split in advance, whereas here the next query is unknown until the reasoning produces it.",
+        "question": "Строго говоря, это не переформулирование исходного запроса, а порождение новых. Возможно, честнее оставить «без преобразования», а само чередование описать только остатком.",
+        "question_en": "Strictly speaking this is not a reformulation of the original query but the production of new ones. It may be more honest to leave «no transformation» and describe the alternation only as a residual.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, метод",
+        "source_en": "arXiv:2212.10509, method",
+        "technology_id": "ircot",
+        "to": "multi_reformulation",
+        "why": "За один заход система выдаёт несколько разных запросов вместо одного.",
+        "why_en": "In one visit the system issues several different queries instead of one."
+      },
+      {
+        "code": "D2",
+        "did": "Общее число собранных абзацев ограничено пятнадцатью, и предел выведен из размера окна модели — чтобы в него поместились ещё и примеры.",
+        "did_en": "The total number of collected paragraphs is capped at fifteen, and the cap follows from the model's window size, so that the examples fit into it as well.",
+        "instead": "«первые k»: этот предел не зависел бы от того, сколько места осталось.",
+        "instead_en": "«top k»: that limit would not depend on how much room is left.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, постановка опытов",
+        "source_en": "arXiv:2212.10509, experimental setup",
+        "technology_id": "ircot",
+        "to": "budget_aware",
+        "why": "Отбор ограничен бюджетом окна, а не числом лучших.",
+        "why_en": "Selection is bounded by the window budget rather than by a count of the best."
+      },
+      {
+        "code": "D1",
+        "did": "Собранные документы не упорядочиваются: работа отдельно оговаривает, что из-за этого к ним неприменимы обычные меры качества поиска.",
+        "did_en": "The collected documents are not ordered: the work states separately that ordinary retrieval quality measures therefore do not apply to them.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, оценка",
+        "source_en": "arXiv:2212.10509, evaluation",
+        "technology_id": "ircot",
+        "to": "none",
+        "why": "Переранжирования нет по прямому указанию источника.",
+        "why_en": "There is no reranking, by the direct statement of the source."
+      },
+      {
+        "code": "G3",
+        "did": "Ни поисковик, ни языковая модель не обучаются: метод целиком строится на подсказках.",
+        "did_en": "Neither the retriever nor the language model is trained: the method rests entirely on prompting.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, постановка опытов",
+        "source_en": "arXiv:2212.10509, experimental setup",
+        "technology_id": "ircot",
+        "to": "frozen",
+        "why": "Обучения в системе нет.",
+        "why_en": "There is no training in the system."
+      },
+      {
+        "code": "E1",
+        "did": "Рассуждение ведётся одним ходом, лишь прерываясь на извлечение. Черновика, который потом проверяют, нет.",
+        "did_en": "The reasoning runs in a single pass, merely interrupted for retrieval. There is no draft that is checked afterwards.",
+        "instead": "«черновик и проверка»: там текст сначала порождается целиком, потом пересматривается.",
+        "instead_en": "«draft and check»: there the text is first produced whole and then revised.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10509, метод",
+        "source_en": "arXiv:2212.10509, method",
+        "technology_id": "ircot",
+        "to": "single_pass",
+        "why": "Прерывание — это не второй проход по тексту.",
+        "why_en": "An interruption is not a second pass over the text."
+      },
+      {
+        "code": "E5",
+        "did": "Каждое предложение рассуждения становится запросом, а найденное меняет следующее предложение.",
+        "did_en": "Every sentence of the reasoning becomes a query, and what is found changes the next sentence.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "ircot",
+        "to": "mutual_loop",
+        "why": "Связь двусторонняя и повторяется: это цикл, а не однократное порождение запроса.",
+        "why_en": "The coupling runs both ways and repeats: this is a loop rather than a one-off production of a query."
+      }
+    ],
+    "prose_id": "ircot",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Чередование шагов рассуждения и обращений к поиску: каждая новая мысль задаёт следующий запрос.",
+    "summary_en": "Reasoning steps and retrievals alternate: each new thought becomes the next query."
+  }
+}

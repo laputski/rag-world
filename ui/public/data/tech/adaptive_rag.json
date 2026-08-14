@@ -1,0 +1,271 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 10.53,
+    "attention_cohort": "2024",
+    "attention_raw": 6.097,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "lexical",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "trained_classifier",
+      "C1": "lexical",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "budget_aware",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [
+      "B1",
+      "C2",
+      "D2"
+    ],
+    "description": "Adaptive RAG исходит из того, что вопросы неоднородны по сложности, а система обслуживает их одинаково. Вопрос о дате рождения известного лица не требует внешнего источника вовсе. Вопрос об одном факте требует одного обращения к индексу. Вопрос, ответ на который собирается из нескольких документов, требует нескольких шагов с уточнением. Единая стратегия неизбежно ошибается в двух случаях из трёх: тратит лишнее на простом либо не доходит до ответа на сложном.\n\nПеред обработкой ставится распределитель: небольшой классификатор, обученный относить вопрос к одному из трёх разрядов. Первый разряд обслуживается порождением без обращения к источникам. Второй обслуживается однократным извлечением. Третий обслуживается многошаговым извлечением, где каждый следующий запрос строится по уже найденному.\n\nОбучающая разметка получена не разметкой вручную, а наблюдением: каждый вопрос из имеющегося набора прогоняется всеми тремя способами, и разрядом объявляется самый дешёвый способ, давший верный ответ. Слабое место лежит там же, где выигрыш: ошибка распределителя стоит либо неверного ответа при заниженной оценке сложности, либо лишних вызовов при завышенной, а сам распределитель обучается на распределении вопросов, которое может не совпасть с распределением в применении.",
+    "description_en": "Adaptive RAG starts from the fact that questions differ in difficulty while the system serves them all alike. A question about a well-known person's date of birth needs no external source at all. A question about a single fact needs one consultation of the index. A question whose answer is assembled from several documents needs several steps with refinement. A single strategy is therefore wrong in two cases out of three: it spends too much on the easy question or fails to reach the answer on the hard one.\n\nA router is placed ahead of processing: a small classifier trained to assign a question to one of three classes. The first class is served by generation without consulting any source. The second is served by a single retrieval. The third is served by multi-step retrieval, where each subsequent query is built from what has already been found.\n\nThe training labels were obtained not by hand but by observation: every question in an existing set is run through all three routes, and the class declared is the cheapest route that produced a correct answer. The weak point lies where the gain does: a router error costs either a wrong answer when difficulty is underestimated or superfluous calls when it is overestimated, and the router itself is trained on a distribution of questions that may not match the one it meets in use.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2403.14403",
+        "type": "publication",
+        "value": "arXiv:2403.14403 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4401042753",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=183; year=2024; citation_velocity=5.903",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4393119012",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=10; year=2024; citation_velocity=0.345",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4401042753",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=189; year=2024; citation_velocity=6.097",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "D",
+    "first_published": "2024",
+    "groups": [
+      "B",
+      "C"
+    ],
+    "id": "adaptive_rag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2403.14403",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Adaptive RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B2",
+        "did": "Отдельная небольшая обученная модель предсказывает сложность вопроса и по ней выбирает одну из трёх стратегий.",
+        "did_en": "A separate small trained model predicts the difficulty of a question and picks one of three strategies by it.",
+        "instead": "«маршрутизация языковой моделью»: там выбор делает подсказка, а не обученная модель.",
+        "instead_en": "«routing by a language model»: there the choice is made by a prompt rather than by a trained model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "trained_classifier",
+        "why": "Маршрут выбирает обученный классификатор. Разметку для его обучения собрали автоматически: смотрели, какая стратегия дала верный ответ.",
+        "why_en": "The route is chosen by a trained classifier. Its training labels were gathered automatically, by observing which strategy produced the correct answer."
+      },
+      {
+        "code": "A5",
+        "did": "Поиск словарный.",
+        "did_en": "Retrieval is lexical.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, постановка опытов",
+        "source_en": "arXiv:2403.14403, experimental setup",
+        "technology_id": "adaptive_rag",
+        "to": "lexical",
+        "why": "Векторных представлений система не использует.",
+        "why_en": "The system uses no vector representations."
+      },
+      {
+        "code": "C1",
+        "did": "Оператор поиска — тот же словарный.",
+        "did_en": "The search operator is the same lexical one.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, постановка опытов",
+        "source_en": "arXiv:2403.14403, experimental setup",
+        "technology_id": "adaptive_rag",
+        "to": "lexical",
+        "why": "Иных способов извлечения нет.",
+        "why_en": "There are no other means of retrieval."
+      },
+      {
+        "code": "D1",
+        "did": "Ни одна из ветвей не переранжирует: простая отдаёт найденное как есть, сложная передаёт работу методу, который документы не упорядочивает.",
+        "did_en": "Neither branch reranks: the simple one hands over what it found as it is, the complex one passes the work to a method that does not order documents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "none",
+        "why": "Ступени переранжирования нет ни в одном режиме.",
+        "why_en": "There is no reranking stage in any mode."
+      },
+      {
+        "code": "C2",
+        "did": "Три ветви: не искать вовсе, сходить один раз, либо запустить чередование рассуждения с поиском. Ветвь выбирается на каждый вопрос заново.",
+        "did_en": "Three branches: do not search at all, go once, or run reasoning alternated with retrieval. The branch is chosen afresh for every question.",
+        "instead": "оставить «один заход»: это описало бы только среднюю ветвь из трёх.",
+        "instead_en": "leaving «single shot»: that would describe only the middle branch of three.",
+        "question": "Само правило спорно: записывать значение самой полной ветви либо оставлять базовое. Выбор размножится на все системы с маршрутизацией, поэтому его стоит смотреть первым.",
+        "question_en": "The rule itself is arguable: record the value of the fullest branch, or leave the default. The choice will multiply across every system with routing, and so deserves to be looked at first.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "iterative_stopping",
+        "variable": true,
+        "why": "Записано значение самой полной ветви, и измерение помечено как выбираемое на ходу — иначе запись заняла бы одну клетку пространства, а соседние выглядели бы пустыми, хотя система занимает и их.",
+        "why_en": "The value of the fullest branch is recorded, and the dimension is marked as chosen at run time. Otherwise the record would occupy one cell of the space and the neighbouring cells would look empty, although the system occupies them too."
+      },
+      {
+        "code": "B1",
+        "did": "В сложной ветви система запускает чужой метод целиком, а тот строит запросы из собственного рассуждения.",
+        "did_en": "In the complex branch the system runs another method whole, and that method builds queries out of its own reasoning.",
+        "instead": "оставить «без преобразования»: в одной из ветвей запрос действительно порождается заново.",
+        "instead_en": "leaving «no transformation»: in one of the branches the query really is produced anew.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "multi_reformulation",
+        "variable": true,
+        "why": "Вместе с глубиной обхода меняется и способ построения запроса — значит, помечать надо оба измерения.",
+        "why_en": "Traversal depth and the way the query is built change together, so both dimensions have to be marked."
+      },
+      {
+        "code": "D2",
+        "did": "В той же сложной ветви действует ограничение по размеру окна, унаследованное от заимствованного метода.",
+        "did_en": "The same complex branch carries a window-size limit inherited from the borrowed method.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "budget_aware",
+        "variable": true,
+        "why": "Правило отбора тоже зависит от ветви.",
+        "why_en": "The selection rule depends on the branch as well."
+      },
+      {
+        "code": "G3",
+        "did": "Обучается только классификатор сложности. Поисковик и читатель берутся готовыми.",
+        "did_en": "Only the difficulty classifier is trained. The retriever and the reader are taken ready-made.",
+        "instead": "«обучаемый поисковик»: обучен маршрутизатор, а поисковик как раз нет.",
+        "instead_en": "«trainable retriever»: the router is trained, and the retriever is precisely the thing that is not.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "frozen",
+        "why": "Измерение описывает обучение поисковика и читателя. Обученный маршрутизатор записан отдельным измерением и здесь не повторяется.",
+        "why_en": "The dimension describes the training of the retriever and the reader. The trained router is recorded as a separate dimension and is not repeated here."
+      },
+      {
+        "code": "E1",
+        "did": "Ветви различаются тем, сколько раз система ходит в поиск, а не тем, как порождается ответ.",
+        "did_en": "The branches differ in how many times the system goes to retrieval rather than in how the answer is produced.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.14403, метод",
+        "source_en": "arXiv:2403.14403, method",
+        "technology_id": "adaptive_rag",
+        "to": "single_pass",
+        "why": "Устройство синтеза во всех ветвях одинаково.",
+        "why_en": "Synthesis is arranged identically in every branch."
+      },
+      {
+        "code": "E5",
+        "did": "В самой полной ветви работает чередование рассуждения с поиском.",
+        "did_en": "The fullest branch runs reasoning alternated with retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "adaptive_rag",
+        "to": "mutual_loop",
+        "why": "Значение записано по самой полной ветви, как и остальные переменные измерения записи.",
+        "why_en": "The value is recorded from the fullest branch, as are the record's other run-time dimensions."
+      }
+    ],
+    "prose_id": "adaptive_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Обученный распределитель выбирает по сложности вопроса одну из трёх стратегий: без поиска, одно обращение, несколько шагов.",
+    "summary_en": "A trained router picks one of three strategies by question complexity: no retrieval, one retrieval, or several steps."
+  }
+}

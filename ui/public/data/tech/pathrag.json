@@ -1,0 +1,220 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 3.575,
+    "attention_cohort": "2025",
+    "attention_raw": 1.6,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "node_edge",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "path_pruning",
+      "D2": "top_k",
+      "D3": "reliability_ascending",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "PathRAG отвечает на дефект графового извлечения, который его авторы называют избыточностью. Обычный обход графа собирает всю окрестность найденных вершин, и вместе с нужным в контекст попадает много постороннего: соседи соседей, связи общего характера, повторяющиеся сведения. Чем шире охват обхода, тем сильнее полезное разбавляется, и в какой-то момент добавление данных ухудшает ответ.\n\nВместо окрестности PathRAG отбирает пути, то есть цепочки рёбер, соединяющие ключевые сущности запроса между собой. Каждому пути назначается оценка по правилу затухания потока: величина, приписанная начальной вершине, убывает при переходе по каждому ребру, поэтому длинный путь и путь через вершину с большим числом связей получают низкую оценку. Пути с оценкой ниже порога отбрасываются, оставшиеся упорядочиваются по надёжности.\n\nПорядок подачи выбран из наблюдения о том, что языковая модель хуже удерживает сведения из середины поданного ей текста, чем из его начала и конца. Пути подаются по возрастанию надёжности, так что самый надёжный оказывается последним и попадает в положение, которое модель удерживает лучше всего. Метод применим только там, где граф уже построен, и стоимость его построения PathRAG не снижает.",
+    "description_en": "PathRAG responds to a defect of graph retrieval that its authors call redundancy. An ordinary graph traversal collects the whole neighbourhood of the nodes it finds, so a great deal of irrelevant material enters the context alongside what is needed: neighbours of neighbours, links of a general nature, repeated facts. The wider the traversal reaches, the more the useful material is diluted, and past some point adding data makes the answer worse.\n\nInstead of a neighbourhood, PathRAG selects paths, that is, chains of edges connecting the key entities of the query to one another. Each path is scored by a rule of flow decay: a quantity assigned to the starting node diminishes at every edge it crosses, so a long path, or a path through a node with many links, receives a low score. Paths scoring below a threshold are discarded, and those that remain are ordered by reliability.\n\nThe order of presentation follows from an observation: a language model retains material from the middle of the text it is given less well than material from the beginning or the end. Paths are supplied in ascending order of reliability, so the most reliable one comes last and lands in the position the model holds best. The method applies only where a graph already exists, and it does nothing to reduce the cost of building one.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2502.14902",
+        "type": "publication",
+        "value": "arXiv:2502.14902 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7138333265",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=8; year=2026; citation_velocity=1.6",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W6948434932",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.056",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2502.14902",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=74; year=2025",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "B",
+    "first_published": "2025",
+    "groups": [
+      "A",
+      "C",
+      "D"
+    ],
+    "id": "pathrag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2502.14902",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "PathRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Индекс представляет текст графом сущностей и связей вместо набора кусков.",
+        "did_en": "The index represents the text as a graph of entities and relations instead of a set of pieces.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "graph",
+        "why": "У индекса есть связность, по которой строятся пути.",
+        "why_en": "The index has connectivity, and paths are built along it."
+      },
+      {
+        "code": "A1",
+        "did": "Возвращаются не куски текста, а пути по графу — цепочки связей, переведённые затем в текст.",
+        "did_en": "What is returned is not pieces of text but paths through the graph, chains of relations later rendered into text.",
+        "instead": "«пассаж»: он описал бы прежний подход, от которого работа отталкивается.",
+        "instead_en": "«passage»: it would describe the earlier approach the work pushes off from.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "node_edge",
+        "why": "Единица извлечения здесь фрагмент структуры, а не пассаж.",
+        "why_en": "The retrieval unit here is a fragment of structure rather than a passage."
+      },
+      {
+        "code": "C1",
+        "did": "Поиск идёт движением по связям графа.",
+        "did_en": "Retrieval proceeds by moving along the graph's edges.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "graph_traversal",
+        "why": "Ответ отбирается обходом структуры.",
+        "why_en": "The answer is selected by traversing the structure."
+      },
+      {
+        "code": "D1",
+        "did": "Лишние пути отсекаются потоковым отсевом: работа считает бедой графовых методов избыток, а не нехватку найденного.",
+        "did_en": "Superfluous paths are cut away by flow-based pruning: the work treats excess rather than shortage of retrieved material as the affliction of graph methods.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "path_pruning",
+        "why": "У схемы есть значение, описывающее именно отсечение путей; общее «переранжирование» потеряло бы суть приёма.",
+        "why_en": "The schema has a value describing exactly the pruning of paths; a general «reranking» would lose the point of the technique."
+      },
+      {
+        "code": "D3",
+        "did": "Пути размещаются в подсказке в заданном порядке, и работа связывает с ним связность ответа.",
+        "did_en": "Paths are placed into the prompt in a set order, and the work ties the coherence of the answer to it.",
+        "question": "Источник называет приём «подсказкой по путям», но точного правила порядка не раскрывает. Значение выбрано как ближайшее из имеющихся.",
+        "question_en": "The source calls the technique «path-based prompting» but does not disclose the exact ordering rule. The value was chosen as the nearest available.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "reliability_ascending",
+        "why": "Порядок задаётся сознательно, а не совпадает с порядком находки.",
+        "why_en": "The order is chosen deliberately rather than inherited from the order of discovery."
+      },
+      {
+        "code": "C2",
+        "did": "Пути отбираются за один заход; повторных обращений к индексу не описано.",
+        "did_en": "Paths are selected in one visit; no repeated calls to the index are described.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14902, метод",
+        "source_en": "arXiv:2502.14902, method",
+        "technology_id": "pathrag",
+        "to": "single_shot",
+        "why": "Многошаговость обеспечена длиной пути, а не серией запросов.",
+        "why_en": "Multi-hop behaviour comes from the length of a path rather than from a series of queries."
+      },
+      {
+        "code": "A8",
+        "did": "Граф строится по корпусу извлечением сущностей и связей.",
+        "did_en": "The graph is built over the corpus by extracting entities and relations.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "pathrag",
+        "to": "extracted",
+        "why": "Структура добыта из содержания.",
+        "why_en": "The structure is mined from the content."
+      }
+    ],
+    "prose_id": "pathrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Отбор связующих путей между сущностями с отсечением слабых маршрутов по затуханию потока.",
+    "summary_en": "Selection of the paths connecting entities, with weak routes cut off by flow decay."
+  }
+}

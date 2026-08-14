@@ -1,0 +1,165 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "C1": "ann",
+      "C3": "none",
+      "C4": "single_store",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "B1",
+      "B2",
+      "C2",
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "BGE-M3 представляет собой модель представлений, покрывающую три свойства одновременно, тогда как обычно каждое требует отдельной модели.\n\nПервое свойство состоит в многоязычности: поддержано более ста языков, и запрос на одном языке находит документ на другом, потому что представления языков сведены в общее пространство. Второе свойство состоит в длине входа: модель принимает несколько тысяч единиц текста, поэтому длинный документ не приходится дробить только ради того, чтобы он поместился. Третье свойство состоит в том, что модель выдаёт три вида представления за один проход: плотный вектор для поиска по смыслу, разреженные веса слов для поиска по совпадению и набор векторов для позднего взаимодействия.\n\nПрактическая ценность в том, что смешанный поиск обслуживается одной моделью вместо трёх, а согласовывать их между собой не требуется, поскольку все три вида получены из одного прохода и потому согласованы по построению. Плата состоит в размере и скорости: модель, обученная на всё сразу, крупнее узкой и на отдельно взятом языке уступает модели, обученной только на нём.",
+    "description_en": "BGE-M3 is a representation model covering three properties simultaneously, where each would ordinarily call for a model of its own.\n\nThe first property is multilinguality: over a hundred languages are supported, and a query in one language finds a document in another, because the languages are brought into a shared representation space. The second is input length: the model accepts several thousand units of text, so a long document need not be broken up merely to make it fit. The third is that the model produces three forms of representation in a single pass: a dense vector for search by meaning, sparse word weights for search by overlap, and a set of vectors for late interaction.\n\nThe practical value is that hybrid search is served by one model instead of three, and they need not be reconciled with one another, since all three forms come out of the same pass and are coherent by construction. The price is size and speed: a model trained for everything at once is larger than a narrow one and, on any single language, yields to a model trained on that language alone.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=601549",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=593769",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=584896",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=590199",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": null,
+    "first_published": null,
+    "groups": [
+      "A",
+      "G"
+    ],
+    "id": "bge_m3",
+    "kind": "tool",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://huggingface.co/BAAI/bge-m3",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "BGE-M3",
+    "package": "FlagEmbedding",
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Это модель представлений: она превращает текст в вектор, и на этом её роль кончается.",
+        "did_en": "This is a representation model: it turns text into a vector, and its role ends there.",
+        "question": "Модель поддерживает и разреженное, и многовекторное представление помимо плотного. Записано плотное как основное применение; строго говоря, здесь нужна пометка «выбирается на ходу».",
+        "question_en": "The model supports sparse and multi-vector representations besides the dense one. Dense is recorded as the principal use; strictly speaking a «chosen at run time» mark is needed here.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "карточка модели BAAI/bge-m3",
+        "source_en": "model card BAAI/bge-m3",
+        "technology_id": "bge_m3",
+        "to": "dense_single",
+        "why": "Запись занимает ровно одно измерение из двадцати шести — то, которое описывает способ представления.",
+        "why_en": "The record occupies exactly one dimension out of twenty-eight, the one describing the manner of representation."
+      },
+      {
+        "code": "G3",
+        "did": "Модель обучена под задачу поиска.",
+        "did_en": "The model is trained for the retrieval task.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "карточка модели BAAI/bge-m3",
+        "source_en": "model card BAAI/bge-m3",
+        "technology_id": "bge_m3",
+        "to": "trained_retriever",
+        "why": "Обучаемость относится к поисковой стороне.",
+        "why_en": "Trainability belongs to the retrieval side."
+      },
+      {
+        "code": "E1",
+        "did": "Модель ничего не порождает и запросы не преобразует.",
+        "did_en": "The model produces nothing and transforms no queries.",
+        "inapplicable": true,
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "карточка модели BAAI/bge-m3",
+        "source_en": "model card BAAI/bge-m3",
+        "technology_id": "bge_m3",
+        "why": "Она часть системы, а не система: измерения синтеза, запроса и извлечения к ней не относятся.",
+        "why_en": "It is a part of a system rather than a system: the dimensions of synthesis, query and retrieval do not apply to it."
+      }
+    ],
+    "prose_id": "bge_m3",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Одна модель представлений на сто с лишним языков, выдающая плотный, разреженный и многовекторный виды сразу.",
+    "summary_en": "One representation model over a hundred-odd languages, producing dense, sparse, and multi-vector forms at once."
+  }
+}

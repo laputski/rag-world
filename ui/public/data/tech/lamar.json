@@ -1,0 +1,173 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "Language-Aware Multilingual Alignment Reranker"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "barriers": "Просто предпочесть язык запроса нельзя: так теряется смысловая относимость, ради которой переранжировщик и нужен. Оценки относимости к тому же несопоставимы между языками.",
+    "barriers_en": "Simply preferring the query's language will not do: the semantic relevance the reranker exists for is then lost. Relevance scores are moreover not comparable across languages.",
+    "confidence": 1.0,
+    "configuration": {
+      "D1": "cross_encoder",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "B1",
+      "B2",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "D2",
+      "D3",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "F1",
+      "F2",
+      "F3",
+      "G1",
+      "G2"
+    ],
+    "configuration_reviewed": "2026-08-12",
+    "configuration_variable": [],
+    "description": "LAMAR занимается многоязычным извлечением, где поиск возвращает документы на разных языках. Переранжировщик расставляет их по смысловой относимости и языка при этом не учитывает, хотя язык найденного документа влияет на порождаемый ответ: модель, получившая источники на чужом языке, чаще отвечает неточно, а ссылка ведёт читателя к тексту, которого он не прочтёт.\n\nПрямое решение не годится. Если просто поднимать документы на языке запроса, теряется смысловая относимость, ради которой переранжировщик и заведён, и наверх выходит слабо относящийся документ на нужном языке. Складывать одно с другим тоже нельзя: оценки относимости, полученные для разных языков, лежат в несопоставимых шкалах.\n\nОбучение идёт поэтому в два захода. Сперва оценки учителя переносятся с английской пары «запрос, документ» на её смысловой двойник на другом языке, чем оценки и приводятся к общей шкале. Затем выравниванием предпочтений документ на языке запроса поднимается среди тех, что уже признаны равно относящимися, так что язык решает лишь при прочих равных и относимости не подменяет.",
+    "description_en": "LAMAR takes up multilingual retrieval, where search returns documents in several languages. A reranker orders them by semantic relevance and disregards language, although the language of a retrieved document affects the answer produced: a model handed sources in a foreign language answers imprecisely more often, and a citation leads the reader to a text they will not read.\n\nThe direct fix will not do. Simply promoting documents in the query's language loses the semantic relevance the reranker exists for, and a barely relevant document in the right language rises to the top. Adding the two together will not do either: relevance scores obtained for different languages live on incommensurable scales.\n\nTraining therefore proceeds in two passes. First the teacher's scores are carried over from an English query and document pair to its semantic counterpart in another language, which brings the scores onto a common scale. Then, by preference alignment, a document in the query's language is raised among those already judged equally relevant, so that language decides only among equals and never substitutes for relevance.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2607.22042",
+        "type": "publication",
+        "value": "arXiv:2607.22042 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7171352433",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-07",
+    "groups": [
+      "D"
+    ],
+    "id": "lamar",
+    "kind": "tool",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "LAMAR (arXiv:2607.22042, 2026)",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2607.22042",
+        "verified_at": null
+      }
+    ],
+    "name": "LAMAR",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "D1",
+        "did": "Модель читает пару «запрос и документ» вместе и выдаёт одну оценку относимости.",
+        "did_en": "The model reads the query-document pair together and produces a single relevance score.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.22042, метод",
+        "source_en": "arXiv:2607.22042, method",
+        "technology_id": "lamar",
+        "to": "cross_encoder",
+        "why": "Это перекрёстный кодировщик по определению: вторая модель поверх поиска, читающая обе стороны сразу.",
+        "why_en": "That is a cross-encoder by definition: a second model on top of retrieval, reading both sides at once."
+      },
+      {
+        "code": "G3",
+        "did": "Обучение идёт в два захода: перенос оценок учителя с английской пары на многоязычную, затем выравнивание предпочтений по языку.",
+        "did_en": "Training runs in two stages: transfer of teacher scores from an English pair to a multilingual one, then preference alignment for language.",
+        "instead": "«совместное обучение»: оно требует изменения и порождающей стороны, а её здесь нет вовсе.",
+        "instead_en": "«joint training»: it requires the producing side to change as well, and there is none here at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.22042, метод",
+        "source_en": "arXiv:2607.22042, method",
+        "technology_id": "lamar",
+        "to": "trained_retriever",
+        "why": "Обучается переранжировщик, то есть поисковая сторона; читателя работа не трогает.",
+        "why_en": "The reranker is trained, that is the retrieval side; the work does not touch the reader."
+      },
+      {
+        "did": "При равной смысловой относимости выше ставится документ, написанный на языке запроса.",
+        "did_en": "At equal semantic relevance, a document written in the query's language ranks higher.",
+        "residual": "language_coherence_ranking",
+        "residual_term": "предпочтение языку запроса при ранжировании",
+        "residual_term_en": "preference for the query's language in ranking",
+        "source": "arXiv:2607.22042, метод",
+        "source_en": "arXiv:2607.22042, method",
+        "technology_id": "lamar",
+        "why": "Схема говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Признак здесь и есть вклад работы.",
+        "why_en": "The schema says which mechanism revisits the order, and not by what criterion besides relevance. That criterion is the contribution of the work."
+      },
+      {
+        "code": "A5",
+        "did": "Своего индекса и своего представления корпуса у переранжировщика нет: он получает кандидатов от первой ступени.",
+        "did_en": "The reranker has no index and no representation of the corpus of its own: it receives candidates from the first stage.",
+        "inapplicable": true,
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "lamar",
+        "why": "Запись описывает ступень, а не систему. Значения представления знаний утверждали бы о том, чего у неё нет.",
+        "why_en": "The record describes a stage rather than a system. Values of knowledge representation would assert what it does not have."
+      }
+    ],
+    "problem": "В многоязычном извлечении поисковик возвращает документы на разных языках, и переранжировщик расставляет их по смыслу. Язык документа при этом не учитывается, хотя он влияет на порождаемый ответ.",
+    "problem_en": "In multilingual retrieval the retriever returns documents in several languages, and the reranker orders them by meaning. The language of a document is not taken into account, although it affects the answer produced.",
+    "prose_id": "lamar",
+    "residual": [
+      "предпочтение языку запроса при ранжировании"
+    ],
+    "residual_en": [
+      "preference for the query's language in ranking"
+    ],
+    "solutions": "Обучение идёт в два захода. Сперва оценки учителя переносятся с английской пары на смысловой её двойник на другом языке, чем оценки приводятся к общей шкале. Затем выравниванием предпочтений документ на языке запроса поднимается выше при сохранении относимости.",
+    "solutions_en": "Training runs in two stages. First the teacher's scores are transferred from an English pair to its semantic twin in another language, which brings the scores onto a common scale. Then preference alignment raises a document in the query's language while relevance is preserved.",
+    "summary": "Переранжировщик, который при равной смысловой относимости ставит выше документ на языке запроса.",
+    "summary_en": "A reranker that, at equal semantic relevance, places a document in the query's language higher."
+  }
+}

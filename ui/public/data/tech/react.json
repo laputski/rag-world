@@ -1,0 +1,205 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 7.024,
+    "attention_cohort": "2023",
+    "attention_raw": 12.478,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "lexical",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "lexical",
+      "C2": "agentic_open_loop",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "ReAct описывает общую схему, в которой языковая модель чередует рассуждение и действия. Извлечение оказывается здесь частным случаем: поиск суть один из инструментов, доступных модели наряду с другими.\n\nКруг состоит из трёх частей. Модель порождает мысль, то есть рассуждение о том, что известно и чего недостаёт. Затем она порождает действие, обращаясь к одному из доступных инструментов с определёнными доводами. Среда выполняет действие и возвращает наблюдение, то есть его результат. Наблюдение добавляется к контексту, и круг повторяется, пока модель не порождает действие «ответить».\n\nСхема отличается от простого пошагового рассуждения тем, что мысли проверяются внешним миром: неверное предположение о факте опровергается наблюдением на следующем же круге и не доживает до ответа. От простого вызова инструментов она отличается тем, что перед каждым действием стоит явное рассуждение о его цели. Число кругов заранее не ограничено, поэтому это открытый цикл, и его расход не предсказуем по вопросу: цикл продолжается, пока модель не сочтёт задачу решённой либо пока не сработает внешнее ограничение.",
+    "description_en": "ReAct describes a general scheme in which a language model alternates reasoning with action. Retrieval turns out to be a special case of it: search is one of the tools available to the model alongside others.\n\nA round consists of three parts. The model generates a thought, that is, reasoning about what is known and what is missing. It then generates an action, invoking one of the available tools with particular arguments. The environment carries the action out and returns an observation, that is, its result. The observation is added to the context and the round repeats, until the model generates the action \"answer\".\n\nThe scheme differs from plain step-by-step reasoning in that thoughts are checked against the outside world: a false assumption about a fact is refuted by an observation on the very next round and does not survive into the answer. It differs from plain tool invocation in that every action is preceded by explicit reasoning about its purpose. The number of rounds is not bounded in advance, which makes this an open loop, and its expense cannot be predicted from the question: the loop continues until the model judges the task solved or until an external limit intervenes.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2210.03629",
+        "type": "publication",
+        "value": "arXiv:2210.03629 (2022)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4304195432",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=573; year=2022; citation_velocity=12.457",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://openreview.net/forum?id=WE_vluYUL-X",
+        "type": "publication",
+        "value": "venue=ICLR; peer_reviewed=true",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4304195432",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=574; year=2022; citation_velocity=12.478",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "C",
+    "first_published": "2023",
+    "groups": [
+      "B",
+      "C",
+      "E"
+    ],
+    "id": "react",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "ReAct",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C2",
+        "did": "Извлечение здесь не ступень конвейера, а одно из действий: модель сама решает, искать ли, что искать и когда остановиться, чередуя рассуждение с действиями.",
+        "did_en": "Retrieval here is not a stage of a pipeline but one of the actions: the model itself decides whether to search, what to search for and when to stop, alternating reasoning with actions.",
+        "instead": "«остановка по условию»: там цикл один и условие внешнее, а здесь модель выбирает между разными действиями.",
+        "instead_en": "«stop on condition»: there the loop is single and the condition external, whereas here the model chooses between different actions.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.03629, метод",
+        "source_en": "arXiv:2210.03629, method",
+        "technology_id": "react",
+        "to": "agentic_open_loop",
+        "why": "Число и состав обращений заранее не заданы и не выводятся из условия остановки — их выбирает модель по ходу. Это и есть открытый цикл.",
+        "why_en": "Neither the number nor the composition of calls is fixed in advance, and they do not follow from a stopping condition: the model picks them as it goes. That is an open loop."
+      },
+      {
+        "code": "B1",
+        "did": "Запрос каждого поискового действия модель формулирует сама, исходя из уже выведенного.",
+        "did_en": "The query of every search action is formulated by the model itself, out of what it has already inferred.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.03629, метод",
+        "source_en": "arXiv:2210.03629, method",
+        "technology_id": "react",
+        "to": "multi_reformulation",
+        "why": "За один заход возникает несколько разных запросов вместо исходного.",
+        "why_en": "Several different queries arise in one visit instead of the original one."
+      },
+      {
+        "code": "A5",
+        "did": "Поиск идёт через простой программный доступ к справочнику — по словам, без векторов.",
+        "did_en": "Retrieval goes through simple programmatic access to a reference work, by words and without vectors.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.03629, постановка опытов",
+        "source_en": "arXiv:2210.03629, experimental setup",
+        "technology_id": "react",
+        "to": "lexical",
+        "why": "Иных способов извлечения в работе нет.",
+        "why_en": "The work has no other means of retrieval."
+      },
+      {
+        "code": "C1",
+        "did": "Оператор поиска — тот же словарный доступ к справочнику.",
+        "did_en": "The search operator is that same lexical access to the reference work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.03629, постановка опытов",
+        "source_en": "arXiv:2210.03629, experimental setup",
+        "technology_id": "react",
+        "to": "lexical",
+        "why": "Действие поиска обращается к внешнему указателю по словам.",
+        "why_en": "The search action addresses an external index by words."
+      },
+      {
+        "code": "D1",
+        "did": "Найденное подаётся модели как есть; ступени пересмотра порядка нет.",
+        "did_en": "What is found is handed to the model as it is; there is no stage that revisits the order.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.03629, метод",
+        "source_en": "arXiv:2210.03629, method",
+        "technology_id": "react",
+        "to": "none",
+        "why": "Переранжирование в работе не описано.",
+        "why_en": "No reranking is described in the work."
+      },
+      {
+        "code": "E5",
+        "did": "Рассуждение выбирает действие, результат действия меняет рассуждение.",
+        "did_en": "Reasoning chooses an action, and the result of the action changes the reasoning.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "react",
+        "to": "mutual_loop",
+        "why": "Связь двусторонняя и повторяется.",
+        "why_en": "The coupling runs both ways and repeats."
+      }
+    ],
+    "prose_id": "react",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Чередование рассуждения и действий с внешними инструментами, где результат действия возвращается в рассуждение.",
+    "summary_en": "Reasoning alternates with actions on external tools, and the result of each action returns into the reasoning."
+  }
+}

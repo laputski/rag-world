@@ -41,6 +41,18 @@ export async function getRegistry(): Promise<{
 }
 
 /** Хроника изменений реестра. */
+/**
+ * Одна запись реестра отдельным файлом.
+ *
+ * Карточка читала весь реестр ради одной записи, то есть восемьсот килобайт на
+ * страницу, куда чаще всего приходят по ссылке извне. Отдельный файл весит
+ * около десяти килобайт и несёт ровно ту же запись.
+ */
+export async function getTechnology(id: string): Promise<RegistryTechnology> {
+  const payload = await loadJson<{ technology: RegistryTechnology }>(`tech/${id}.json`);
+  return payload.technology;
+}
+
 export async function getChanges(): Promise<{
   built_at: string;
   changes: RegistryChange[];

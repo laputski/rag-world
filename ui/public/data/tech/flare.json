@@ -1,0 +1,194 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 5.328,
+    "attention_cohort": "2023",
+    "attention_raw": 9.465,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "decoding_trigger",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "FLARE отвечает на вопрос о том, когда именно нужно обращаться к поиску при порождении длинного текста. Однократное извлечение по исходному запросу обслуживает начало ответа и перестаёт помогать дальше: текст уходит к предметам, о которых в исходном запросе не было речи, и опоры для них в контексте нет.\n\nПриём работает наперёд и по частям. Модель порождает очередное предложение начерно, не обращаясь к источникам, и её собственная уверенность в выбранных словах служит признаком. Если все слова предложения порождены уверенно, оно принимается как есть. Если в нём есть слова с низкой уверенностью, предложение расценивается как содержащее сведения, которых модель не знает: слова с низкой уверенностью из него удаляются, остаток служит поисковым запросом, найденное добавляется к контексту, и предложение порождается заново.\n\nОбращения к поиску происходят столько раз, сколько раз возникла нужда, и там, где она возникла. Дополнительного обучения приём не требует, поскольку уверенность модели доступна при обычном порождении. Слабое место состоит в самой уверенности: модель бывает уверена в неверном, и такое предложение проходит без проверки, тогда как верное, но выраженное редкими словами, вызывает лишний поиск.",
+    "description_en": "FLARE addresses the question of when exactly retrieval should occur while a long text is being generated. A single retrieval on the original query serves the beginning of the answer and stops helping thereafter: the text moves on to subjects the original query never mentioned, and there is nothing in the context to support them.\n\nThe technique looks ahead and works piecewise. The model generates the next sentence as a draft without consulting any source, and its own confidence in the words it chose serves as the signal. If every word of the sentence was generated confidently, the sentence is accepted as it stands. If it contains low-confidence words, the sentence is taken to carry facts the model does not know: the low-confidence words are removed from it, what remains serves as a search query, the retrieved material is added to the context, and the sentence is generated again.\n\nRetrieval happens as many times as the need arose, and where it arose. The technique requires no additional training, since model confidence is available during ordinary generation. Its weak point lies in that confidence: a model is sometimes confident in something false, and such a sentence passes unchecked, while a true one phrased in rare words provokes a needless search.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2305.06983",
+        "type": "publication",
+        "value": "arXiv:2305.06983 (2023)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4389519118",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=398; year=2023; citation_velocity=9.256",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4376312546",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=17; year=2023; citation_velocity=0.436",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4389519118",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=407; year=2023; citation_velocity=9.465",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "A",
+    "first_published": "2023",
+    "groups": [
+      "B",
+      "C",
+      "E"
+    ],
+    "id": "flare",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2305.06983",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "FLARE",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Система предсказывает, каким будет следующее предложение ответа, и этим предсказанием ищет.",
+        "did_en": "The system predicts what the next sentence of the answer will be and searches with that prediction.",
+        "instead": "«без преобразования»: исходный вопрос здесь запросом почти не работает.",
+        "instead_en": "«no transformation»: the original question here barely acts as a query at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.06983, метод",
+        "source_en": "arXiv:2305.06983, method",
+        "technology_id": "flare",
+        "to": "multi_reformulation",
+        "why": "Запросом служит порождённый текст, и за один ответ таких запросов несколько.",
+        "why_en": "The query is the produced text, and there are several such queries per answer."
+      },
+      {
+        "code": "C2",
+        "did": "Извлечение повторяется по ходу порождения и прекращается вместе с ответом.",
+        "did_en": "Retrieval repeats as production proceeds and stops together with the answer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.06983, метод",
+        "source_en": "arXiv:2305.06983, method",
+        "technology_id": "flare",
+        "to": "iterative_stopping",
+        "why": "Число обращений заранее неизвестно и определяется течением генерации.",
+        "why_en": "The number of calls is unknown in advance and set by the course of generation."
+      },
+      {
+        "code": "E2",
+        "did": "Признаком, что нужно искать, служит низкая уверенность модели в только что порождённых словах.",
+        "did_en": "The signal that a search is needed is the model's low confidence in the words it has just produced.",
+        "instead": "«проверка после порождения»: она смотрела бы на готовый ответ, а здесь решение принимается посреди него.",
+        "instead_en": "«post-hoc check»: it would look at a finished answer, whereas here the decision is taken in the middle of one.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.06983, метод",
+        "source_en": "arXiv:2305.06983, method",
+        "technology_id": "flare",
+        "to": "decoding_trigger",
+        "why": "Сигнал берётся из самого порождения. У схемы есть ровно такое значение.",
+        "why_en": "The signal is taken from production itself. The schema has exactly such a value."
+      },
+      {
+        "code": "D1",
+        "did": "Ступени пересмотра порядка найденного в работе не описано.",
+        "did_en": "No stage that revisits the order of what was found is described in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.06983, метод",
+        "source_en": "arXiv:2305.06983, method",
+        "technology_id": "flare",
+        "to": "none",
+        "why": "Найденное подаётся в продолжение генерации напрямую.",
+        "why_en": "What is found is fed straight into the continuation of generation."
+      },
+      {
+        "code": "E5",
+        "did": "Низкая уверенность в порождаемом тексте запускает поиск, а найденное меняет продолжение.",
+        "did_en": "Low confidence in the text being produced triggers retrieval, and what is found changes the continuation.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "flare",
+        "to": "mutual_loop",
+        "why": "Порождение решает, когда искать, найденное меняет порождение.",
+        "why_en": "Production decides when to search, and what is found changes production."
+      }
+    ],
+    "prose_id": "flare",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Извлечение по требованию: обращение к поиску запускается низкой уверенностью в порождаемом предложении.",
+    "summary_en": "Retrieval on demand: a search is triggered by low confidence in the sentence being generated."
+  }
+}

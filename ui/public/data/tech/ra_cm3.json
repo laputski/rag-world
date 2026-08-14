@@ -1,0 +1,165 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.644,
+    "attention_cohort": null,
+    "attention_raw": 0.644,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "vision_language",
+      "A6": "snapshot",
+      "A7": "image",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "RA-CM3 соединяет извлечение и порождение в одной модели и распространяет это соединение на изображения наравне с текстом. Обычное устройство держит порознь три части: модель представлений для поиска, хранилище и порождающую модель, причём каждая обучалась отдельно и о задачах остальных не знает.\n\nМодель здесь одна и работает с обеими модальностями. Она принимает вход, где текст и изображения перемежаются, и порождает выход такого же смешанного вида. Извлечение выполняется той же моделью: представление запроса и представления записей хранилища берутся из неё, поэтому текст находит изображение и изображение находит текст без отдельного связующего звена. Найденное подаётся обратно на вход и участвует в порождении наравне с исходным запросом.\n\nСовмещение снимает расхождение между тем, что извлекатель считает похожим, и тем, что порождающей модели действительно полезно. Плата состоит в обучении: такую модель нужно обучать целиком и на согласованных парах изображения и текста, а не собирать из готовых частей. Обновление хранилища при этом обучения не требует, потому что записи представляются той же моделью на лету.",
+    "description_en": "RA-CM3 unites retrieval and generation in a single model and extends that union to images alongside text. The usual arrangement keeps three parts apart: a representation model for search, a store, and a generating model, each trained separately and unaware of the others' tasks.\n\nHere the model is one and works with both modalities. It takes an input in which text and images are interleaved and produces an output of the same mixed kind. Retrieval is performed by that same model: the representation of the query and the representations of the stored records are taken from it, so text finds an image and an image finds text with no separate bridging stage. What is found is fed back into the input and takes part in generation on the same footing as the original query.\n\nThe union removes the divergence between what a retriever considers similar and what actually helps the generating model. The price is training: such a model must be trained as a whole, on matched image and text pairs, rather than assembled from ready parts. Updating the store requires no training, since records are represented by the same model on the fly.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4309953147",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=29; year=2022; citation_velocity=0.644",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2211.12561",
+        "type": "publication",
+        "value": "arXiv:2211.12561 (2022)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2022-11",
+    "groups": [
+      "A",
+      "E",
+      "G"
+    ],
+    "id": "ra_cm3",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2211.12561 (исправлено: было 2204.05021 → data extraction)",
+        "label_en": "arXiv:2211.12561 (corrected: was 2204.05021, a data extraction paper)",
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2211.12561",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "RA-CM3",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A7",
+        "did": "Из памяти извлекаются и текст, и изображения.",
+        "did_en": "Both text and images are retrieved from memory.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2211.12561, постановка",
+        "source_en": "arXiv:2211.12561, problem statement",
+        "technology_id": "ra_cm3",
+        "to": "image",
+        "why": "Индексируемый материал не только текстовый.",
+        "why_en": "The indexed material is not textual alone."
+      },
+      {
+        "code": "A5",
+        "did": "Поиск ведёт готовая модель, кладущая изображения и подписи в общее пространство.",
+        "did_en": "Retrieval is done by an off-the-shelf model that places images and captions into a shared space.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2211.12561, устройство поиска",
+        "source_en": "arXiv:2211.12561, how retrieval is arranged",
+        "technology_id": "ra_cm3",
+        "to": "vision_language",
+        "why": "Представление общее для обеих модальностей.",
+        "why_en": "The representation is shared by both modalities."
+      },
+      {
+        "code": "G3",
+        "did": "Генератор обучается работать с найденным; поисковая модель берётся готовой.",
+        "did_en": "The generator is trained to work with what is retrieved; the retrieval model is taken ready-made.",
+        "instead": "«совместное обучение»: источник совместного обучения двух сторон не описывает.",
+        "instead_en": "«joint training»: the source does not describe joint training of the two sides.",
+        "question": "Обучались ли поисковик и генератор совместно, из прочитанного не следует. Записано более осторожное значение.",
+        "question_en": "Whether the retriever and the generator were trained jointly does not follow from what was read. The more cautious value is recorded.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2211.12561, обучение",
+        "source_en": "arXiv:2211.12561, training",
+        "technology_id": "ra_cm3",
+        "to": "trained_reader",
+        "why": "Обучается читатель, а не поисковик.",
+        "why_en": "It is the reader that is trained, not the retriever."
+      },
+      {
+        "code": "D1",
+        "did": "Ступени пересмотра порядка найденного в работе не описано.",
+        "did_en": "No stage that revisits the order of what was found is described in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2211.12561, метод",
+        "source_en": "arXiv:2211.12561, method",
+        "technology_id": "ra_cm3",
+        "to": "none",
+        "why": "Найденное подаётся генератору напрямую.",
+        "why_en": "What is found is handed to the generator directly."
+      }
+    ],
+    "prose_id": "ra_cm3",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Одна модель и извлекает, и порождает, причём и текст, и изображения.",
+    "summary_en": "One model both retrieves and generates, over text and images alike."
+  }
+}

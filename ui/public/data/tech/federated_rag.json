@@ -1,0 +1,229 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.706,
+    "attention_cohort": "2025",
+    "attention_raw": 0.316,
+    "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
+    "barriers_en": "The common obstacle is the tension between preserving confidentiality and producing a useful answer, and it falls into four parts.\n\nDifferential privacy, that is, the addition of calibrated noise so that an individual record cannot be recovered, degrades vector representations and thereby lowers recall. Training representations jointly requires transferring large volumes between participants, because representation models are large. Handling the query is itself unsafe: both the text of the query and the content returned can disclose protected information. Finally, data schemas differ across participants and have to be reconciled before any search can take place.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "agentic_open_loop",
+      "C3": "none",
+      "C4": "federation",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "isolated_circuit",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/DocAILab/FedE4RAG",
+        "type": "repository",
+        "value": "DocAILab/FedE4RAG: license=none, last_push=2025-12-15, releases=no",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416981893",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034993",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=5; year=2025; citation_velocity=0.263",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2504.19101",
+        "type": "publication",
+        "value": "arXiv:2504.19101 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2505.18906",
+        "type": "publication",
+        "value": "arXiv:2505.18906 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4414581785",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034993",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=6; year=2025; citation_velocity=0.316",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 7,
+    "family": null,
+    "first_published": "2025-04",
+    "groups": [
+      "C",
+      "G"
+    ],
+    "id": "federated_rag",
+    "kind": "paradigm",
+    "level": "L3",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": "Federated RAG: Systematic Mapping Study (EMNLP, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": "FedE4RAG (arXiv:2504.19101, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2504.19101",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": "FedE4RAG code (GitHub)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/DocAILab/FedE4RAG",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": "Federated RAG survey (arXiv:2505.18906, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/pdf/2505.18906",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "FD-RAG: Federated Dual-System (OpenReview)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://openreview.net/forum?id=kOUMng3ynd",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранние работы и первые прототипы. Систематический обзор, сведший направление воедино, представлен на конференции EMNLP 2025.",
+    "maturity_note_en": "Early work and first prototypes. The systematic survey that brought the direction together was presented at EMNLP 2025.",
+    "name": "Federated RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C4",
+        "did": "Несколько сторон обучают свои поисковые модели совместно, не передавая сырые данные: обмениваются только параметрами через сервер.",
+        "did_en": "Several parties train their retrieval models jointly without handing over raw data: only parameters are exchanged through a server.",
+        "instead": "«несколько своих узлов»: там узлы принадлежат одной системе, а здесь разным владельцам.",
+        "instead_en": "«several own nodes»: there the nodes belong to one system, whereas here they belong to different owners.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2504.19101, метод",
+        "source_en": "arXiv:2504.19101, method",
+        "technology_id": "federated_rag",
+        "to": "federation",
+        "why": "Хранилища остаются у сторон и независимы. Это федерация, а не кластер одного владельца.",
+        "why_en": "The stores stay with the parties and are independent. That is a federation rather than a cluster of one owner."
+      },
+      {
+        "code": "G1",
+        "did": "Сырые данные не покидают сторону; параметры защищены гомоморфным шифрованием.",
+        "did_en": "Raw data never leaves a party; the parameters are protected by homomorphic encryption.",
+        "instead": "«дифференциальная приватность»: она добавляет шум к данным, а здесь данные просто не передаются.",
+        "instead_en": "«differential privacy»: it adds noise to the data, whereas here the data is simply not transmitted.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2504.19101, метод",
+        "source_en": "arXiv:2504.19101, method",
+        "technology_id": "federated_rag",
+        "to": "isolated_circuit",
+        "why": "Приватность обеспечена устройством обмена, а не обещанием.",
+        "why_en": "Privacy is secured by how the exchange is arranged rather than by a promise."
+      },
+      {
+        "code": "G3",
+        "did": "Обучаются поисковые модели сторон; языковая модель не трогается.",
+        "did_en": "The parties' retrieval models are trained; the language model is untouched.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2504.19101, метод",
+        "source_en": "arXiv:2504.19101, method",
+        "technology_id": "federated_rag",
+        "to": "trained_retriever",
+        "why": "Обучаемость относится к поисковой стороне.",
+        "why_en": "Trainability belongs to the retrieval side."
+      }
+    ],
+    "problem": "Обычное извлечение собирает все документы в одно хранилище. Там, где действуют требования к обращению с персональными данными, требования к месту их хранения либо ограничения на раскрытие сведений, такое сведение невозможно: больницы не вправе объединить записи о пациентах, банки не вправе объединить сведения о переводах, а организации не раскрывают внутренние документы друг другу.\n\nЗапрос, который должен быть обслужен сразу несколькими собраниями, оказывается тем самым закрыт, хотя каждое собрание по отдельности ответ содержит частично.",
+    "problem_en": "Ordinary retrieval gathers all documents into one store. Where rules on the handling of personal data, requirements on where it may be held, or restrictions on disclosure apply, such gathering is impossible: hospitals may not pool patient records, banks may not pool transfer data, and organisations do not disclose internal documents to one another.\n\nA query that ought to be served by several collections at once is thereby blocked, even though each collection separately holds part of the answer.",
+    "prose_id": "federated_rag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Совместное обучение представлений без передачи документов выполнено в системе FedE4RAG.\n\nРасход бюджета приватности сокращают, добавляя шум не ко всему документу, а только к тем его частям, что признаны охраняемыми. Подход C-FedRAG выполняет поиск внутри доверенной среды исполнения, где содержимое недоступно даже владельцу вычислителя. Двухчастное устройство FD-RAG оставляет память на стороне участника, а рассуждение выносит на общий узел, так что документы места не покидают.\n\nОбзор, сведший направление воедино, представлен на конференции EMNLP 2025.",
+    "solutions_en": "Joint training of representations without transferring documents is realised in the FedE4RAG system.\n\nThe privacy budget is conserved by adding noise not to the whole document but only to those parts identified as sensitive. The C-FedRAG approach performs retrieval inside a trusted execution environment, where the content is inaccessible even to the owner of the machine. The two-part arrangement of FD-RAG keeps memory on the participant's side and moves reasoning to a shared node, so documents never leave their premises.\n\nThe survey that brought the direction together was presented at EMNLP 2025.",
+    "summary": "Извлечение из собраний нескольких владельцев без того, чтобы кто-то из них раскрывал свои документы.",
+    "summary_en": "Retrieval across the collections of several owners without any of them disclosing their documents."
+  }
+}

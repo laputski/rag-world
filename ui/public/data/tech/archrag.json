@@ -1,0 +1,183 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.341,
+    "attention_cohort": "2025",
+    "attention_raw": 0.6,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "summary_node",
+      "A2": "fixed",
+      "A3": "summary",
+      "A4": "community_hierarchy",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "computed",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "tree_navigation",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "ArchRAG выстраивает над графом сущностей многоуровневую иерархию сообществ и обращается к ней сверху вниз. Одноуровневый граф ставит систему перед выбором, который нельзя сделать заранее: подробный обход даёт точность на узких вопросах и тонет в частностях на широких, а обход по сводкам ведёт себя ровно наоборот.\n\nПостроение идёт снизу вверх. Вершины исходного графа группируются алгоритмом кластеризации в сообщества, каждому сообществу сопоставляется описание, сами сообщества снова группируются, и так до тех пор, пока на верхнем уровне не останется несколько крупных областей. Каждый уровень индексируется отдельно, поэтому поиск возможен на любой высоте иерархии.\n\nЗапрос обслуживается спуском. Система начинает с верхнего уровня, определяет область, к которой вопрос относится, и опускается внутрь неё, пока подробность не окажется достаточной для ответа. Узкий вопрос доводит спуск до отдельных сущностей, широкий останавливается на описании области. Стоимость запроса при этом зависит от глубины спуска, а не от размера собрания, но построение иерархии остаётся дорогим и повторяется при существенном изменении документов.",
+    "description_en": "ArchRAG raises a multi-level hierarchy of communities over an entity graph and consults it from the top down. A single-level graph confronts the system with a choice that cannot be made in advance: a detailed traversal is accurate on narrow questions and drowns in particulars on broad ones, while a traversal over summaries behaves in exactly the opposite way.\n\nConstruction proceeds from the bottom up. The nodes of the original graph are grouped by a clustering algorithm into communities, each community is given a description, the communities are grouped in turn, and so on until a few large areas remain at the top level. Every level is indexed separately, so search is possible at any height of the hierarchy.\n\nA query is served by descent. The system starts at the top level, determines the area the question belongs to, and descends into it until the detail suffices for an answer. A narrow question carries the descent down to individual entities; a broad one stops at the description of an area. The cost of a query then depends on the depth of the descent rather than on the size of the collection, but building the hierarchy remains expensive and has to be repeated when the documents change substantially.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2502.09891",
+        "type": "publication",
+        "value": "arXiv:2502.09891 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407632367",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=3; year=2026; citation_velocity=0.6",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2502.09891",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=34; year=2025",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "B",
+    "first_published": "2025-02",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "archrag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2502.09891",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "ArchRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Над графом строится иерархия сообществ с приписанными им свойствами, полученная кластеризацией с участием языковой модели.",
+        "did_en": "A hierarchy of communities with attributes attached is built over the graph, obtained by clustering with a language model taking part.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, метод",
+        "source_en": "arXiv:2502.09891, method",
+        "technology_id": "archrag",
+        "to": "community_hierarchy",
+        "why": "У индекса есть уровни сообществ. У схемы есть значение с этим именем.",
+        "why_en": "The index has levels of communities. The schema has a value under that name."
+      },
+      {
+        "code": "A3",
+        "did": "Каждому сообществу приписывается описание, порождённое заранее.",
+        "did_en": "Every community is given a description produced in advance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, метод",
+        "source_en": "arXiv:2502.09891, method",
+        "technology_id": "archrag",
+        "to": "summary",
+        "why": "Единица индекса несёт добавленный пересказ.",
+        "why_en": "A unit of the index carries a retelling attached to it."
+      },
+      {
+        "code": "A1",
+        "did": "Извлекаются описания сообществ.",
+        "did_en": "What is retrieved are community descriptions.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, метод",
+        "source_en": "arXiv:2502.09891, method",
+        "technology_id": "archrag",
+        "to": "summary_node",
+        "why": "Единица извлечения — узел обобщения.",
+        "why_en": "The retrieval unit is a node of generalisation."
+      },
+      {
+        "code": "C1",
+        "did": "Поиск идёт сверху вниз по уровням иерархии, чем работа и объясняет экономию обращений к модели.",
+        "did_en": "Search proceeds top down through the levels of the hierarchy, and the work explains its saving in model calls by that.",
+        "question": "Полный текст статьи получить не удалось; значения выведены из аннотации, где названы иерархический индекс сообществ и экономия при поиске. Разбор здесь беднее, чем у записей, прочитанных по разделу метода.",
+        "question_en": "The full text of the paper could not be obtained; the values are inferred from the abstract, which names a hierarchical community index and a saving during search. The parse here is poorer than for records read from a method section.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, аннотация",
+        "source_en": "arXiv:2502.09891, abstract",
+        "technology_id": "archrag",
+        "to": "tree_navigation",
+        "why": "Отбор — движение по уровням.",
+        "why_en": "Selection is movement through the levels."
+      },
+      {
+        "code": "A8",
+        "did": "Иерархия сообществ строится кластеризацией с участием языковой модели.",
+        "did_en": "The hierarchy of communities is built by clustering with a language model taking part.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "archrag",
+        "to": "computed",
+        "why": "Структура вычислена алгоритмом.",
+        "why_en": "The structure is computed by an algorithm."
+      }
+    ],
+    "prose_id": "archrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Иерархия сообществ, построенная поверх графа сущностей, с выбором уровня подробности по запросу.",
+    "summary_en": "A multi-level hierarchy of communities over an entity graph, with the level of detail chosen per query."
+  }
+}

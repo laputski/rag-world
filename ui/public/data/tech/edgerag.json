@@ -1,0 +1,163 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": "2024",
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "edge_device",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "EdgeRAG приспосабливает извлечение к устройству, у которого мало памяти. Обычный указатель держит по вектору на каждый фрагмент собрания, и объём этого указателя пропорционален размеру собрания. На телефоне или встроенном вычислителе такой указатель не помещается, а вынесение его на сервер отменяет самую причину, по которой обработку переносят на устройство: работу без сети и то, что данные с устройства не уходят.\n\nУказатель разбирается на два уровня. Фрагменты заранее группируются в кластеры, и постоянно в памяти держатся только представления кластеров, которых на порядки меньше. Представления отдельных фрагментов не хранятся вовсе. При запросе сначала отбираются подходящие кластеры, и лишь для фрагментов этих кластеров представления строятся тут же, во время запроса. Кластеры, которые обходятся дорого, дополнительно прореживаются при построении, чтобы отсев не упирался в редкие тяжёлые случаи.\n\nПамять тем самым перестаёт зависеть от размера собрания и определяется числом кластеров. Плата вносится временем ответа: построение представлений во время запроса добавляет задержку, которой при заранее построенном указателе нет. Приём поэтому целесообразен ровно там, где память ограничена жёстче, чем время.",
+    "description_en": "EdgeRAG fits retrieval to a device with little memory. An ordinary index holds one vector per fragment of the collection, and its size is proportional to the size of the collection. On a phone or an embedded computer such an index does not fit, and moving it to a server defeats the very reason processing was brought to the device: operation without a network, and the fact that data never leaves the device.\n\nThe index is taken apart into two levels. Fragments are grouped into clusters in advance, and only the cluster representations, orders of magnitude fewer, are kept in memory permanently. Representations of individual fragments are not stored at all. At query time the matching clusters are selected first, and only for the fragments of those clusters are representations built there and then, during the query. Clusters that prove expensive are additionally thinned during construction, so that selection does not stall on rare heavy cases.\n\nMemory thereby ceases to depend on the size of the collection and is settled by the number of clusters. The price is paid in response time: building representations during a query adds latency that a prebuilt index does not have. The technique is therefore worthwhile exactly where memory is constrained more tightly than time.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2412.21023",
+        "type": "publication",
+        "value": "arXiv:2412.21023 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4405957635",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "F",
+    "first_published": "2024-12",
+    "groups": [
+      "A",
+      "C",
+      "G"
+    ],
+    "id": "edgerag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2412.21023",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "EdgeRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G2",
+        "did": "Система рассчитана на работу на устройстве пользователя, где памяти мало.",
+        "did_en": "The system is designed to run on the user's device, where memory is scarce.",
+        "instead": "«сервер»: тогда описанные ухищрения с памятью были бы бессмысленны.",
+        "instead_en": "«server»: the described contrivances with memory would then be pointless.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.21023, постановка",
+        "source_en": "arXiv:2412.21023, problem statement",
+        "technology_id": "edgerag",
+        "to": "edge_device",
+        "why": "Место исполнения — устройство, и от этого пляшут все её решения.",
+        "why_en": "The locus of execution is a device, and all its decisions follow from that."
+      },
+      {
+        "code": "A4",
+        "did": "Индекс — обычные кластеры векторов; поверх них не строится ни дерева, ни графа.",
+        "did_en": "The index is ordinary clusters of vectors; neither a tree nor a graph is built over them.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.21023, метод",
+        "source_en": "arXiv:2412.21023, method",
+        "technology_id": "edgerag",
+        "to": "flat",
+        "why": "Топология остаётся плоской, а меняется то, что хранится.",
+        "why_en": "The topology stays flat, and what changes is what is stored."
+      },
+      {
+        "code": "C1",
+        "did": "Отбор — приближённый поиск ближайших соседей по кластерам.",
+        "did_en": "Selection is an approximate nearest-neighbour search over clusters.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.21023, метод",
+        "source_en": "arXiv:2412.21023, method",
+        "technology_id": "edgerag",
+        "to": "ann",
+        "why": "Оператор поиска обычный; вклад работы в другом.",
+        "why_en": "The search operator is ordinary; the contribution of the work lies elsewhere."
+      },
+      {
+        "code": "D1",
+        "did": "Ступени переранжирования в работе не описано.",
+        "did_en": "No reranking stage is described in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.21023, метод",
+        "source_en": "arXiv:2412.21023, method",
+        "technology_id": "edgerag",
+        "to": "none",
+        "why": "Найденное подаётся дальше напрямую.",
+        "why_en": "What is found is passed on directly."
+      }
+    ],
+    "prose_id": "edgerag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Извлечение на оконечном устройстве: в памяти держатся только представления кластеров, представления фрагментов строятся по требованию.",
+    "summary_en": "Retrieval on an edge device: only cluster representations stay in memory, fragment vectors are built on demand."
+  }
+}

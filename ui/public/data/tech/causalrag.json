@@ -1,0 +1,213 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.294,
+    "attention_cohort": "2025",
+    "attention_raw": 0.579,
+    "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
+    "barriers_en": "The common obstacle is constructing the causal graph, and it falls into four parts.\n\nExtracting causal links from text is unreliable: causality is disputed even among people reading the same text. Reasoning about what would have happened in the absence of a circumstance is computationally expensive. There is no accepted way to join Judea Pearl's calculus of interventions to answer generation by a language model. Finally, validating a causal graph requires knowledge of the field and therefore cannot be handed over to a machine in full.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "agentic_open_loop",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "multi_agent",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/hippoley/CausalRAG",
+        "type": "repository",
+        "value": "hippoley/CausalRAG: license=apache-2.0, last_push=2025-05-09, releases=no",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4412887679",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2503.19878",
+        "type": "publication",
+        "value": "arXiv:2503.19878 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W6948236122",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": null,
+    "first_published": "2025",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "causalrag",
+    "kind": "paradigm",
+    "level": "L3",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "CausalRAG (arXiv:2503.19878, ACL 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2503.19878",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": "CausalRAG code (GitHub)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/hippoley/CausalRAG",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Multi-Round RAG and Causal Modeling (NAACL Industry, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://aclanthology.org/2025.naacl-industry.42.pdf",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранняя работа, опубликованная в сборнике ACL Findings 2025. Тридцать пять цитирований, исходный код открыт. Высокий запас развития при малом нынешнем распространении.",
+    "maturity_note_en": "Early paper published in ACL Findings 2025. Thirty-five citations, source code open. High room for development against small present adoption.",
+    "name": "CausalRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Из документов строится граф причинных связей между понятиями.",
+        "did_en": "A graph of causal links between concepts is built from the documents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2503.19878, метод",
+        "source_en": "arXiv:2503.19878, method",
+        "technology_id": "causalrag",
+        "to": "graph",
+        "why": "Индекс связный, и связь несёт смысл причины.",
+        "why_en": "The index is connected, and an edge carries the sense of a cause."
+      },
+      {
+        "code": "A3",
+        "did": "Причинные отношения извлекаются из текста и хранятся вместе с ним.",
+        "did_en": "Causal relations are extracted from the text and stored alongside it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2503.19878, метод",
+        "source_en": "arXiv:2503.19878, method",
+        "technology_id": "causalrag",
+        "to": "extracted_triples",
+        "why": "Единица индекса несёт добытые утверждения.",
+        "why_en": "A unit of the index carries the statements mined from it."
+      },
+      {
+        "code": "C1",
+        "did": "Отбор идёт прослеживанием причинных связей, а не только близостью смысла.",
+        "did_en": "Selection proceeds by tracing causal links rather than by closeness of meaning alone.",
+        "instead": "«поиск ближайших соседей»: работа существует как возражение против него.",
+        "instead_en": "«nearest-neighbour search»: the work exists as an objection to it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2503.19878, метод",
+        "source_en": "arXiv:2503.19878, method",
+        "technology_id": "causalrag",
+        "to": "graph_traversal",
+        "why": "Ответ собирается движением по связям. В этом отличие работы от обычного поиска.",
+        "why_en": "The answer is assembled by moving along the edges. That is what sets the work apart from ordinary retrieval."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной ступени переранжирования не описано.",
+        "did_en": "No separate reranking stage is described.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2503.19878, метод",
+        "source_en": "arXiv:2503.19878, method",
+        "technology_id": "causalrag",
+        "to": "none",
+        "why": "Порядок задаёт прослеживание связей.",
+        "why_en": "The order is set by the tracing of links."
+      },
+      {
+        "code": "A8",
+        "did": "Причинные связи извлекаются из документов.",
+        "did_en": "Causal links are extracted from the documents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "causalrag",
+        "to": "extracted",
+        "why": "Структура добыта из содержания.",
+        "why_en": "The structure is mined from the content."
+      }
+    ],
+    "problem": "Обычное извлечение отбирает отрывки по сходству и тем самым переносит в ответ совпадения, принимая их за связи. Вместе с ними переносятся и общие причины, из-за которых два обстоятельства меняются вместе, не влияя друг на друга.\n\nНа вопросах о причинах это даёт поверхностный либо прямо вводящий в заблуждение ответ, потому что отбор совпадения от причины не отличает.",
+    "problem_en": "Ordinary retrieval selects passages by similarity and thereby carries coincidences into the answer, taking them for connections. Common causes are carried along too, whereby two circumstances vary together without either influencing the other.\n\nOn questions about causes this produces a shallow or outright misleading answer, because the selection does not tell coincidence from cause.",
+    "prose_id": "causalrag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Причинный граф строят рядом с обычным указателем представлений, а не вместо него, и при извлечении прослеживают по нему причинные пути.\n\nОтбор ведут не по близости к запросу, а по принадлежности к причинной цепочке. Многошаговое извлечение разбивают по устройству этой цепочки, отчего точность на вопросах о причинах растёт. Проверку графа оставляют человеку, встраивая её в ход работы, а не откладывая. Реализация CausalRAG открыта и показывает применимость подхода.",
+    "solutions_en": "The causal graph is built alongside the ordinary representation index rather than in its place, and causal paths are traced through it during retrieval.\n\nSelection proceeds by membership in a causal chain rather than by closeness to the query. Multi-step retrieval is decomposed along the structure of that chain, which raises accuracy on questions about causes. Validation of the graph is left to a person and built into the working process rather than deferred. The CausalRAG implementation is open and demonstrates that the approach is workable.",
+    "summary": "Отбор по причинным связям вместо отбора по сходству: система различает совпадение и причину.",
+    "summary_en": "Selection by causal links rather than by similarity: the system tells coincidence from cause."
+  }
+}

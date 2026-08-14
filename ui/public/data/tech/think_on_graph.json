@@ -1,0 +1,129 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.821,
+    "attention_cohort": "2023",
+    "attention_raw": 1.459,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "node_edge",
+      "A4": "graph",
+      "A8": "given",
+      "C1": "graph_traversal",
+      "C2": "iterative_stopping",
+      "D1": "none",
+      "E5": "mutual_loop"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Think-on-Graph соединяет языковую модель с готовым графом знаний так, что рассуждение идёт прямо по его рёбрам. Обычное обращение к графу переводит запрос в формальный вид, выполняет его и возвращает результат целиком; ошибка в переводе даёт пустой ответ, и исправить её по ходу нельзя.\n\nОбход разбит на шаги, и на каждом решение принимает модель. Из вопроса выделяются начальные сущности, им сопоставляются вершины графа. Далее модели показывают вершину вместе со списком исходящих из неё рёбер, и она выбирает, по какому ребру идти, исходя из того, чего недостаёт для ответа. Переход выполняется, новая вершина добавляется к пройденному пути, и шаг повторяется. Одновременно ведётся несколько путей, чтобы неудачный выбор на раннем шаге не закрывал остальные направления.\n\nОбход прекращается, когда модель признаёт собранный путь достаточным. Существенно, что ответ опирается на подлинные рёбра графа, а путь целиком виден и служит объяснением. Ограничения происходят от графа: связи, которой в нём нет, обход не найдёт, а каждый шаг требует вызова модели, поэтому длинная цепочка обходится дорого.",
+    "description_en": "Think-on-Graph couples a language model to an existing knowledge graph so that reasoning proceeds along its edges. An ordinary query to a graph translates the request into a formal form, executes it, and returns the result whole; an error in translation yields an empty answer that cannot be corrected along the way.\n\nThe traversal is broken into steps, and at each of them the model decides. Starting entities are taken from the question and matched to graph nodes. The model is then shown a node together with the list of edges leaving it, and it chooses which edge to follow, guided by what is still missing for an answer. The move is made, the new node is added to the path walked, and the step repeats. Several paths are pursued at once so that an unlucky choice at an early step does not close off the other directions.\n\nTraversal stops when the model judges the assembled path sufficient. What matters is that the answer rests on genuine edges of the graph, and that the whole path is visible and serves as the explanation. The limitations come from the graph: a connection it does not contain will not be found, and every step requires a model call, so a long chain is expensive.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2307.07697",
+        "type": "publication",
+        "value": "arXiv:2307.07697 (2023)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4384643740",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=54; year=2023; citation_velocity=1.459",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2023",
+    "groups": [
+      "A",
+      "C",
+      "E"
+    ],
+    "id": "think_on_graph",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2307.07697",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "Think-on-Graph",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C1",
+        "did": "Языковая модель шагает по графу знаний лучевым поиском, на каждом шаге выбирая, за какой связью идти дальше.",
+        "did_en": "The language model walks the knowledge graph by beam search, choosing at every step which edge to follow next.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2307.07697, метод",
+        "source_en": "arXiv:2307.07697, method",
+        "technology_id": "think_on_graph",
+        "to": "graph_traversal",
+        "why": "Отбор — движение по структуре, и направление выбирается по ходу.",
+        "why_en": "Selection is movement through the structure, and the direction is chosen as it goes."
+      },
+      {
+        "code": "A8",
+        "did": "Граф знаний берётся готовым, а не строится по корпусу.",
+        "did_en": "The knowledge graph is taken ready-made rather than built over a corpus.",
+        "instead": "«извлечена из содержания»: это описало бы построение графа по текстам, которого здесь нет.",
+        "instead_en": "«extracted from content»: that would describe building a graph over texts, which does not happen here.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2307.07697, постановка",
+        "source_en": "arXiv:2307.07697, problem statement",
+        "technology_id": "think_on_graph",
+        "to": "given",
+        "why": "Структура задана источником: работа подключается к существующему графу и ничего не извлекает.",
+        "why_en": "The structure is given by a source: the work connects to an existing graph and extracts nothing."
+      },
+      {
+        "code": "E5",
+        "did": "Рассуждение выбирает следующий шаг обхода, найденное меняет рассуждение.",
+        "did_en": "Reasoning chooses the next step of the traversal, and what is found changes the reasoning.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2307.07697, метод",
+        "source_en": "arXiv:2307.07697, method",
+        "technology_id": "think_on_graph",
+        "to": "mutual_loop",
+        "why": "Связь двусторонняя и повторяется.",
+        "why_en": "The coupling runs both ways and repeats."
+      }
+    ],
+    "prose_id": "think_on_graph",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Пошаговый обход графа знаний, где следующее ребро на каждом шаге выбирает языковая модель.",
+    "summary_en": "Step-by-step traversal of a knowledge graph, with a language model choosing the next edge at each step."
+  }
+}

@@ -108,6 +108,10 @@
   "site": "https://ragworld.org",
   "sitemap": "https://ragworld.org/sitemap.xml",
   "technologies": 69,
+  "technology": {
+    "description": "One registry record on its own, in the same shape as a row of registry.json. Use it when a single technology is wanted: the full registry costs eighty times more.",
+    "url_template": "https://ragworld.org/data/tech/{id}.json"
+  },
   "technology_ids": [
     "adaptive_rag",
     "agentic_rag",

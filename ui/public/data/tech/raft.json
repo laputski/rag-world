@@ -1,0 +1,136 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.668,
+    "attention_cohort": "2024",
+    "attention_raw": 0.966,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "fragment_level",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "RAFT готовит языковую модель к тому, с чем она встретится в работе: к контексту, где рядом с нужным документом лежат посторонние. Модель, дообученная только на верных документах, приучается доверять всему поданному и на постороннем фрагменте строит ответ так же уверенно, как на уместном.\n\nОбучающий пример поэтому составляется намеренно смешанным. К вопросу прикладывается документ, содержащий ответ, и несколько отвлекающих: похожих по предмету, но ответа не содержащих. Требуемый ответ пишется в виде рассуждения, где сначала приводится дословная выдержка из нужного документа, а затем из неё выводится заключение. Часть примеров подаётся вовсе без нужного документа, и правильным поведением на них объявляется ответ по собственным знаниям.\n\nОбязательная выдержка играет двойную роль: она заставляет модель указать, на чём именно основано заключение, и делает ответ проверяемым, потому что выдержку можно сверить с источником. Приём привязан к предметной области, для которой готовился набор примеров, и переносится на другую область хуже, чем работает на своей. Как и всякая донастройка, он требует доступа к весам модели.",
+    "description_en": "RAFT prepares a language model for what it will meet in service: a context where irrelevant documents lie beside the relevant one. A model fine-tuned only on correct documents learns to trust everything it is handed and builds an answer on an irrelevant fragment as confidently as on a pertinent one.\n\nThe training example is therefore deliberately mixed. The question is accompanied by a document containing the answer and several distractors: similar in subject but containing no answer. The required answer is written as a piece of reasoning that first quotes the relevant document verbatim and then draws a conclusion from that quotation. A portion of the examples carries no relevant document at all, and the correct behaviour on those is declared to be an answer from the model's own knowledge.\n\nThe obligatory quotation plays a double role: it forces the model to state what exactly the conclusion rests on, and it makes the answer checkable, because the quotation can be compared against the source. The technique is tied to the field for which the examples were prepared and transfers to another field less well than it works on its own. Like any fine-tuning, it requires access to the model's weights.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4392930030",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.966",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2403.10131",
+        "type": "publication",
+        "value": "arXiv:2403.10131 (2024)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "I",
+    "first_published": "2024-03",
+    "groups": [
+      "E",
+      "G"
+    ],
+    "id": "raft",
+    "kind": "technique",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2403.10131",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "RAFT",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G3",
+        "did": "Модель дообучается отвечать в присутствии отвлекающих документов: узнавать нужные и не поддаваться лишним.",
+        "did_en": "The model is fine-tuned to answer in the presence of distracting documents: to recognise the needed ones and not to yield to the superfluous.",
+        "instead": "«совместное обучение»: источник изменения поисковика не описывает.",
+        "instead_en": "«joint training»: the source describes no change to the retriever.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.10131, метод",
+        "source_en": "arXiv:2403.10131, method",
+        "technology_id": "raft",
+        "to": "trained_reader",
+        "why": "Обучается читатель; поисковик работа не трогает.",
+        "why_en": "The reader is trained; the work does not touch the retriever."
+      },
+      {
+        "code": "E3",
+        "did": "Модель учат приводить дословный отрывок нужного документа вместе с рассуждением.",
+        "did_en": "The model is taught to quote a verbatim passage of the needed document together with its reasoning.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.10131, метод",
+        "source_en": "arXiv:2403.10131, method",
+        "technology_id": "raft",
+        "to": "fragment_level",
+        "why": "Утверждение связывается с фрагментом, а не с документом целиком.",
+        "why_en": "A statement is tied to a fragment rather than to a whole document."
+      }
+    ],
+    "prose_id": "raft",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Обучение отвечать при подмешанных посторонних документах, с обязательной цитатой из нужного.",
+    "summary_en": "Training to answer with distractor documents mixed in, and to quote the relevant one verbatim."
+  }
+}

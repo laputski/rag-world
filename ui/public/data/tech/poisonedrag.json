@@ -1,0 +1,89 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.634,
+    "attention_cohort": "2024",
+    "attention_raw": 0.367,
+    "confidence": 1.0,
+    "configuration": {},
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "PoisonedRAG описывает первую систематическую атаку на собрание, из которого система извлекает. Внимание при защите обычно сосредоточено на подсказке и на модели, тогда как собрание считается доверенным. Между тем собрания часто пополняются из источников, которые владелец не проверяет: страницы сети, вики, пользовательские материалы, обращения в поддержку.\n\nНападающий выбирает вопрос и желаемый ложный ответ и составляет несколько коротких отрывков, помещаемых в собрание. Каждый отрывок должен удовлетворить двум условиям сразу. Он должен находиться поиском по выбранному вопросу, для чего в него включают формулировки, близкие к вопросу. И он должен убедить языковую модель, для чего ложное утверждение излагается связно и уверенно, как излагался бы подлинный источник.\n\nСущественны две величины. Отрывков требуется единицы на всё собрание, то есть доля отравленного исчезающе мала и глазом не обнаруживается. Доля успешных срабатываний при этом высока. Из этого следует, что происхождение содержимого собрания принадлежит к защищаемому периметру наравне с моделью, а не считается его внешней частью.",
+    "description_en": "PoisonedRAG describes the first systematic attack on the collection a system retrieves from. Defensive attention usually concentrates on the prompt and on the model, while the collection is taken to be trusted. Yet collections are often fed from sources the owner does not vet: web pages, wikis, user-contributed material, support tickets.\n\nThe attacker picks a question and a desired false answer and composes a few short passages to be placed in the collection. Each passage must satisfy two conditions at once. It must be findable by a search on the chosen question, for which wordings close to the question are worked into it. And it must persuade the language model, for which the false claim is set out coherently and confidently, as a genuine source would set it out.\n\nTwo quantities matter. Only a handful of passages are needed across the whole collection, so the poisoned share is vanishingly small and undetectable by eye. The rate at which the attack succeeds is nonetheless high. It follows that the provenance of what enters the collection belongs inside the defended perimeter alongside the model, rather than counting as external to it.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2402.07867",
+        "type": "publication",
+        "value": "arXiv:2402.07867 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391801218",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=11; year=2024; citation_velocity=0.367",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "K",
+    "first_published": "2024-02",
+    "groups": [],
+    "id": "poisonedrag",
+    "kind": "attack",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2402.07867",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "PoisonedRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "did": "Это атака на чужое хранилище, а не система извлечения: работа добавляет в базу знаний несколько подготовленных текстов так, чтобы они находились по целевому вопросу и подменяли ответ.",
+        "did_en": "This is an attack on someone else's store rather than a retrieval system: the work adds a few prepared texts to a knowledge base so that they are found for a target question and substitute the answer.",
+        "instead": "оставить род «артефакт» и снять измерения пометками: это повторялось бы у каждой такой записи, и правило жило бы в данных вместо схемы.",
+        "instead_en": "keeping the kind «artifact» and removing the dimensions with marks: that would repeat for every such record, and the rule would live in the data instead of the schema.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2402.07867, постановка",
+        "source_en": "arXiv:2402.07867, problem statement",
+        "technology_id": "poisonedrag",
+        "why": "Конфигурационное пространство описывает системы RAG. Атака действует на такую систему извне: у неё нет ни индекса, ни извлечения, ни синтеза. Поэтому запись отнесена к роду «атака», и отсутствие конфигурации следует из рода, а не из двадцати шести пометок неприменимости.",
+        "why_en": "The configuration space describes RAG systems. An attack acts on such a system from outside: it has neither an index nor retrieval nor synthesis. The record is therefore assigned to the kind «attack», and the absence of a configuration follows from the kind rather than from twenty-eight marks of inapplicability."
+      }
+    ],
+    "prose_id": "poisonedrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Отравление собрания: несколько подложных отрывков заставляют систему выдать заданный ответ на заданный вопрос.",
+    "summary_en": "Poisoning the collection: a handful of planted passages make the system return a chosen answer to a chosen question."
+  }
+}

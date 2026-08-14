@@ -1,0 +1,183 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "multiple_local",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "B1",
+      "B2"
+    ],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Qdrant представляет собой хранилище векторов с открытым исходным кодом. Оно решает одну задачу и потому устроено вокруг неё: хранить представления, искать ближайших соседей и отбирать по описательным полям.\n\nСущественная особенность состоит в том, как соединены поиск и отбор. Наивный способ отбирает после поиска, и тогда строгое условие оставляет от выдачи почти ничего: соседи нашлись, но условию не удовлетворяют. Другой наивный способ отбирает до поиска и вынуждает перебирать всё подходящее. Qdrant применяет условие во время обхода указателя, отбрасывая не подходящие под него вершины по ходу, поэтому строгий отбор не разрушает выдачу и не требует полного перебора.\n\nКроме того, поддерживается несколько представлений на одну запись, что нужно для схемы позднего взаимодействия, и разреженные векторы наравне с плотными, что позволяет вести смешанный поиск в одном хранилище. Отличие от поисковых систем, к которым векторы добавлены, состоит в предмете: здесь векторы первичны, а разбор текстового запроса и словарное оценивание развиты слабее.",
+    "description_en": "Qdrant is an open-source vector store. It solves one task and is therefore built around it: hold representations, find nearest neighbours, and filter by descriptive fields.\n\nIts notable feature is how search and filtering are joined. The naive approach filters after the search, and then a strict condition leaves almost nothing of the results: neighbours were found but do not satisfy the condition. The other naive approach filters before the search and forces a scan of everything that qualifies. Qdrant applies the condition during the traversal of the index, discarding nodes that fail it as it goes, so strict filtering neither destroys the results nor demands an exhaustive scan.\n\nSeveral representations per record are supported besides, which is what late interaction requires, and sparse vectors alongside dense ones, which allows hybrid search within a single store. What distinguishes it from search engines with vectors bolted on is its subject: here vectors come first, while text query parsing and lexical scoring are less developed.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://api.github.com/repos/langchain-ai/langchain",
+        "type": "framework_presence",
+        "value": "frameworks=LangChain, LlamaIndex",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/qdrant-client/",
+        "type": "package_downloads",
+        "value": "package=qdrant-client; version=1.19.0; downloads_last_month=20147140",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://qdrant.tech/documentation/",
+        "type": "industrial_use",
+        "value": "Qdrant: документация поставщика, версионированные выпуски, облачный сервис",
+        "value_en": "Qdrant: vendor documentation, versioned releases, cloud service"
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/qdrant-client/",
+        "type": "package_downloads",
+        "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19739994",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/qdrant-client/",
+        "type": "package_downloads",
+        "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19462751",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/qdrant-client/",
+        "type": "package_downloads",
+        "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19342980",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 6,
+    "family": null,
+    "first_published": null,
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "qdrant",
+    "kind": "tool",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://qdrant.tech/",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Qdrant",
+    "package": "qdrant-client",
+    "parse_notes": [
+      {
+        "code": "C1",
+        "did": "Хранилище отвечает на запрос поиском ближайших соседей по векторам.",
+        "did_en": "The store answers a query by nearest-neighbour search over vectors.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация Qdrant",
+        "source_en": "Qdrant documentation",
+        "technology_id": "qdrant",
+        "to": "ann",
+        "why": "Это его основная операция.",
+        "why_en": "That is its principal operation."
+      },
+      {
+        "code": "C4",
+        "did": "Данные разносятся по узлам кластера с копиями.",
+        "did_en": "Data is spread over the nodes of a cluster with replicas.",
+        "instead": "«федерация»: она означала бы обращение к чужим независимым хранилищам, а здесь узлы свои.",
+        "instead_en": "«federation»: it would mean calls to foreign independent stores, whereas here the nodes are its own.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация Qdrant",
+        "source_en": "Qdrant documentation",
+        "technology_id": "qdrant",
+        "to": "multiple_local",
+        "why": "Хранилище работает не одним экземпляром.",
+        "why_en": "The store does not run as a single instance."
+      },
+      {
+        "code": "E1",
+        "did": "Хранилище ничего не порождает: оно отдаёт найденное.",
+        "did_en": "The store produces nothing: it hands over what it found.",
+        "inapplicable": true,
+        "question": "Так же устроены все инструменты реестра: они не системы, а их части, и занимают одно-два измерения из двадцати шести. Возможно, роду «инструмент» нужно правило, а не пометки, — как это сделано для атак.",
+        "question_en": "Every tool in the registry is arranged this way: they are parts of systems rather than systems, and they occupy one or two dimensions out of twenty-eight. The kind «tool» may need a rule rather than per-record marks, as was done for attacks.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация Qdrant",
+        "source_en": "Qdrant documentation",
+        "technology_id": "qdrant",
+        "why": "Ступени синтеза нет, как и преобразования запроса: и то и другое делает система, которая хранилище использует.",
+        "why_en": "There is no synthesis stage, nor any query transformation: both are done by the system that uses the store."
+      }
+    ],
+    "prose_id": "qdrant",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Хранилище векторов с отбором по описательным полям, применяемым во время поиска, а не после него.",
+    "summary_en": "A vector store whose field filters are applied during the search rather than after it."
+  }
+}

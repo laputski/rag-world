@@ -1,0 +1,154 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.501,
+    "attention_cohort": "2024",
+    "attention_raw": 0.29,
+    "confidence": 1.0,
+    "configuration": {
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A8": "extracted",
+      "C1": "graph_traversal",
+      "C2": "agentic_open_loop",
+      "D1": "none",
+      "D2": "budget_aware",
+      "E5": "mutual_loop"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "GraphReader обращается с графом не как с указателем, а как с местностью, по которой ходит читатель. Обычный графовый поиск собирает окрестность найденных вершин за один раз, и глубина обхода задана заранее одинаково для всех вопросов.\n\nСобрание сначала превращается в граф заметок. Документы режутся на части, из каждой части языковая модель выписывает содержащиеся в ней факты, части становятся вершинами, а общие сущности задают рёбра между ними. Затем к вопросу составляется план: какие сведения нужно собрать, чтобы на него ответить.\n\nОбход ведёт сама модель. Она выбирает начальные вершины, читает их заметки, отмечает у себя то, что относится к плану, и решает, по какому ребру идти дальше и стоит ли идти вообще. Собранные записи накапливаются отдельно от посещённых вершин, поэтому пройденное не приходится держать в контексте целиком. Обход прекращается, когда план закрыт либо когда исчерпано отведённое число шагов. Глубина тем самым определяется вопросом, а не настройкой, но каждый шаг обхода стоит вызова модели, и на сложном вопросе таких вызовов набирается много.",
+    "description_en": "GraphReader treats a graph not as an index but as terrain a reader walks through. Ordinary graph search collects the neighbourhood of the nodes it finds in one go, and the depth of traversal is fixed in advance, identically for every question.\n\nThe collection is first turned into a graph of notes. Documents are cut into parts, a language model writes out the facts each part contains, the parts become nodes, and shared entities give the edges between them. A plan is then drawn up for the question: what information must be gathered in order to answer it.\n\nThe model conducts the traversal itself. It chooses the starting nodes, reads their notes, records what bears on the plan, and decides which edge to follow next and whether to go on at all. The gathered notes accumulate separately from the visited nodes, so what has been walked need not be held in the context in full. Traversal stops when the plan is closed or when the allotted number of steps is exhausted. Depth is thereby settled by the question rather than by a setting, but every step costs a model call, and on a hard question those calls add up.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2406.14550",
+        "type": "publication",
+        "value": "arXiv:2406.14550 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4404781346",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.29",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C",
+      "E"
+    ],
+    "id": "graphreader",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2406.14550",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "GraphReader",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Длинный документ превращается в граф: узлами становятся куски с выделенными из них фактами.",
+        "did_en": "A long document is turned into a graph: the nodes are pieces with the facts drawn out of them.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, метод",
+        "source_en": "arXiv:2406.14550, method",
+        "technology_id": "graphreader",
+        "to": "graph",
+        "why": "Индекс связный, и связность строится по документу.",
+        "why_en": "The index is connected, and the connectivity is built over the document."
+      },
+      {
+        "code": "A8",
+        "did": "Узлы и связи выводятся из содержания документа моделью.",
+        "did_en": "Nodes and edges are derived from the content of the document by a model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, метод",
+        "source_en": "arXiv:2406.14550, method",
+        "technology_id": "graphreader",
+        "to": "extracted",
+        "why": "Структура добыта из текста, а не задана источником и не вычислена группировкой.",
+        "why_en": "The structure is mined from the text rather than given by the source or computed by grouping."
+      },
+      {
+        "code": "C2",
+        "did": "Агент сам строит план, вызывает функции чтения узлов и соседей и решает, когда сведений достаточно.",
+        "did_en": "The agent builds its own plan, calls functions that read nodes and neighbours, and decides when it has enough.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, метод",
+        "source_en": "arXiv:2406.14550, method",
+        "technology_id": "graphreader",
+        "to": "agentic_open_loop",
+        "why": "Ни числа шагов, ни внешнего условия остановки нет — глубину выбирает агент.",
+        "why_en": "There is neither a step count nor an external stopping condition: the agent chooses the depth."
+      },
+      {
+        "code": "E5",
+        "did": "Агент ведёт записи, размышляет над ними и по ним решает, куда идти дальше.",
+        "did_en": "The agent keeps notes, reflects on them and decides by them where to go next.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, метод",
+        "source_en": "arXiv:2406.14550, method",
+        "technology_id": "graphreader",
+        "to": "mutual_loop",
+        "why": "Порождение управляет обходом, найденное меняет порождение.",
+        "why_en": "Production drives the traversal, and what is found changes production."
+      },
+      {
+        "code": "D2",
+        "did": "Приём существует ради работы в малом окне: четыре тысячи знаков против ста двадцати восьми у сравниваемой модели.",
+        "did_en": "The technique exists for the sake of working in a small window: four thousand characters against the hundred and twenty-eight thousand of the model it is compared with.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, постановка",
+        "source_en": "arXiv:2406.14550, problem statement",
+        "technology_id": "graphreader",
+        "to": "budget_aware",
+        "why": "Отбор подчинён размеру окна, и в этом смысл работы.",
+        "why_en": "Selection is subordinate to the window size, and that is the point of the work."
+      }
+    ],
+    "prose_id": "graphreader",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Модель обходит граф заметок как читатель: переходит по связям, ведёт записи и решает, когда остановиться.",
+    "summary_en": "The model walks a graph of notes like a reader: it follows links, keeps notes, and decides when to stop."
+  }
+}

@@ -1,0 +1,367 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "HippoRAG 2"
+    ],
+    "attention": 3.789,
+    "attention_cohort": "2024",
+    "attention_raw": 2.194,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "HippoRAG переносит в извлечение схему, которую нейробиология описывает для долговременной памяти человека. Кора хранит подробности, а гиппокамп хранит разреженный указатель на них и связывает разрозненные впечатления в одно воспоминание. Задача, которую эта схема решает в извлечении, состоит в том, что обычный поиск по одному запросу находит документы, похожие на запрос, но не находит документа, связанного с ним через промежуточное звено.\n\nСоответствие устроено так. При индексации большая языковая модель извлекает из текста тройки «субъект, отношение, объект» и строит по ним граф сущностей, играющий роль указателя. Векторные представления фрагментов текста остаются отдельно и играют роль подробностей. При запросе из него выделяются именованные сущности, им сопоставляются вершины графа, и от этих вершин запускается персонализированное случайное блуждание: воображаемый обходчик переходит по рёбрам и время от времени возвращается в исходные вершины, отчего вес накапливается на вершинах, связанных с запросом коротко и многими путями.\n\nНакопленный вес переносится на фрагменты текста, и они упорядочиваются по нему. Такой обход достаёт документ, отстоящий от запроса на несколько связей, за одно обращение к индексу, тогда как последовательные уточнения запроса требуют нескольких обращений и нескольких вызовов модели. Ограничением служит качество извлечённых троек: связь, которую модель при индексации не заметила, потом не восстановится.",
+    "description_en": "HippoRAG carries into retrieval a scheme that neuroscience describes for human long-term memory. The cortex stores the particulars, while the hippocampus stores a sparse index over them and binds separate impressions into a single recollection. The problem this scheme addresses in retrieval is that ordinary single-query search finds documents resembling the query but fails to find a document connected to it through an intermediate link.\n\nThe correspondence works as follows. During indexing, a large language model extracts subject, relation, object triples from the text and builds an entity graph from them, which plays the part of the index. Vector representations of the text fragments are kept separately and play the part of the particulars. At query time, named entities are taken from the query and matched to graph nodes, and from those nodes a personalised random walk is launched: an imaginary walker follows edges and from time to time restarts at the initial nodes, so weight accumulates on the nodes connected to the query by short paths and by many of them.\n\nThe accumulated weight is carried over to the text fragments, which are then ordered by it. Such a traversal reaches a document several links away from the query in a single consultation of the index, whereas successive query refinement requires several consultations and several model calls. The limit is the quality of the extracted triples: a connection the model missed during indexing will not be recovered later.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+        "type": "repository",
+        "value": "OSU-NLP-Group/HippoRAG: license=mit, last_push=2026-07-29, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/hipporag/",
+        "type": "package_downloads",
+        "value": "package=hipporag; version=2.0.0a4; downloads_last_month=2293",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2405.14831",
+        "type": "publication",
+        "value": "arXiv:2405.14831 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=66; year=2024; citation_velocity=2.129",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/hipporag/",
+        "type": "package_downloads",
+        "value": "package=hipporag; version=2.0.0a4; downloads_last_month=2097",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4398886972",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=21; year=2024; citation_velocity=0.778",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/hipporag/",
+        "type": "package_downloads",
+        "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1748",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=68; year=2024; citation_velocity=2.194",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/hipporag/",
+        "type": "package_downloads",
+        "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1641",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 9,
+    "family": "B",
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "hipporag",
+    "kind": "architecture",
+    "level": "L4",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/OSU-NLP-Group/HippoRAG",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2405.14831",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "HippoRAG",
+    "package": "hipporag",
+    "parse_notes": [
+      {
+        "code": "A3",
+        "did": "При построении индекса модель вычитывает из каждого пассажа факты вида «кто — что делает — с чем» и сохраняет их отдельно от текста.",
+        "did_en": "When the index is built, the model reads out of every passage facts of the form «who does what to what» and stores them apart from the text.",
+        "instead": "«метаданные»: они приписываются документу извне (автор, дата, раздел), а здесь факты добыты из самого содержания.",
+        "instead_en": "«metadata»: those are attached to a document from outside (author, date, section), whereas here the facts are mined from the content itself.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, построение индекса",
+        "source_en": "arXiv:2405.14831, index construction",
+        "technology_id": "hipporag",
+        "to": "extracted_triples",
+        "why": "Единица индекса несёт извлечённые из неё утверждения, а не только исходный текст, — это и есть обогащение тройками.",
+        "why_en": "A unit of the index carries the statements extracted from it and not only the source text, and that is enrichment by triples."
+      },
+      {
+        "code": "A4",
+        "did": "Из этих фактов строится сеть: узлы — упомянутые сущности, связи между ними — отношения из фактов.",
+        "did_en": "A network is built from those facts: the nodes are the entities mentioned, the edges between them are the relations from the facts.",
+        "instead": "«гиперграф»: в нём связь соединяет сразу много узлов, а здесь каждая связь соединяет ровно два.",
+        "instead_en": "«hypergraph»: there an edge joins many nodes at once, whereas here every edge joins exactly two.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, построение индекса",
+        "source_en": "arXiv:2405.14831, index construction",
+        "technology_id": "hipporag",
+        "to": "graph",
+        "why": "Индекс перестал быть списком: у него есть связность, по которой можно двигаться от сущности к сущности.",
+        "why_en": "The index has stopped being a list: it has connectivity along which one can move from entity to entity."
+      },
+      {
+        "code": "C1",
+        "did": "Поиск запускает по этой сети случайное блуждание, стартуя из узлов, названных в запросе, и смотрит, куда стекается вес.",
+        "did_en": "Retrieval launches a random walk over that network, starting from the nodes named in the query, and watches where the weight collects.",
+        "instead": "«поиск ближайших соседей»: он описал бы вспомогательный шаг вместо основного и скрыл бы главное — что работает именно связность.",
+        "instead_en": "«nearest-neighbour search»: it would describe the auxiliary step instead of the main one and would hide the point, which is that connectivity does the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "to": "graph_traversal",
+        "why": "Ответ отбирается движением по связям индекса, а не сравнением векторов. Векторное сравнение здесь тоже есть, но лишь чтобы найти стартовые узлы.",
+        "why_en": "The answer is selected by movement along the index's edges rather than by comparing vectors. Vector comparison is present too, but only to find the starting nodes."
+      },
+      {
+        "code": "D1",
+        "did": "Найденное отдаётся в том порядке, который дало блуждание. Отдельной модели, пересматривающей этот порядок, нет.",
+        "did_en": "What is found is handed over in the order the walk produced. There is no separate model that revisits that order.",
+        "instead": "«структурное переранжирование»: оно предполагает отдельный шаг после поиска, которого в работе нет.",
+        "instead_en": "«structural reranking»: it presupposes a separate step after retrieval, and the work has none.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "to": "none",
+        "why": "Переранжирование — это вторая модель поверх первой. Здесь ступень одна.",
+        "why_en": "Reranking is a second model on top of the first. Here there is only one stage."
+      },
+      {
+        "code": "A1",
+        "did": "Ранжируются узлы сети, но пользователю возвращаются целые пассажи: оценки узлов пересчитываются в оценки пассажей.",
+        "did_en": "Nodes of the network are ranked, but whole passages are returned to the user: node scores are converted into passage scores.",
+        "instead": "«узел и связь»: так было бы, если бы система возвращала фрагменты графа, а она возвращает текст.",
+        "instead_en": "«node and edge»: that would hold if the system returned fragments of the graph, and it returns text.",
+        "question": "Если считать единицей то, что ранжируется, а не то, что отдаётся, значение должно быть другим. Я выбрал «что отдаётся»: сравнение записей идёт по тому, с чем работает потребитель.",
+        "question_en": "If the unit were taken to be what is ranked rather than what is returned, the value would have to differ. I chose «what is returned»: records are compared by what the consumer works with.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "to": "passage",
+        "why": "Единица извлечения — то, что система отдаёт наружу. Сеть здесь устройство индекса, а не результат.",
+        "why_en": "The retrieval unit is what the system hands outward. The network here is how the index is built rather than what it returns."
+      },
+      {
+        "code": "A5",
+        "did": "Для привязки сущностей запроса к узлам и для поиска синонимов берётся готовая модель представлений.",
+        "did_en": "An off-the-shelf representation model is used to bind query entities to nodes and to find synonyms.",
+        "instead": "«символьное»: сеть действительно символьная, но сопоставление ведётся векторами, а измерение описывает именно способ сопоставления.",
+        "instead_en": "«symbolic»: the network is indeed symbolic, but matching is done with vectors, and this dimension describes exactly the manner of matching.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, построение индекса",
+        "source_en": "arXiv:2405.14831, index construction",
+        "technology_id": "hipporag",
+        "to": "dense_single",
+        "why": "Своей модели представления работа не вводит, а пользуется распространённой.",
+        "why_en": "The work introduces no representation model of its own and uses a widespread one."
+      },
+      {
+        "code": "C2",
+        "did": "За один заход системы к индексу происходит одно блуждание; повторных обращений к поиску нет.",
+        "did_en": "One walk happens per visit of the system to the index; there are no repeated calls to retrieval.",
+        "instead": "«фиксированное число переходов»: оно означало бы несколько обращений к поиску подряд.",
+        "instead_en": "«fixed number of hops»: that would mean several calls to retrieval in succession.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, аннотация и сравнение с итеративными методами",
+        "source_en": "arXiv:2405.14831, abstract and the comparison with iterative methods",
+        "technology_id": "hipporag",
+        "to": "single_shot",
+        "why": "Многошаговость обеспечена внутри одного обращения — движением по сети, а не серией запросов.",
+        "why_en": "Multi-hop behaviour is provided inside a single call, by movement over the network rather than by a series of queries."
+      },
+      {
+        "code": "G3",
+        "did": "Модели берутся готовыми, как есть; работа их не доучивает.",
+        "did_en": "The models are taken as they are; the work does not fine-tune them.",
+        "instead": "«обучаемый поисковик»: обучение выполнено вне этой работы.",
+        "instead_en": "«trainable retriever»: the training was done outside this work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, построение индекса",
+        "source_en": "arXiv:2405.14831, index construction",
+        "technology_id": "hipporag",
+        "to": "frozen",
+        "why": "Измерение описывает, обучает ли что-нибудь сама система. То, что кто-то обучил эти модели раньше и для других целей, её свойством не является.",
+        "why_en": "The dimension describes whether the system itself trains anything. That someone trained these models earlier and for other purposes is not a property of this system."
+      },
+      {
+        "did": "Часть связей в сети добавлена не из текста, а по близости представлений: два разных написания одной сущности соединяются автоматически.",
+        "did_en": "Part of the edges in the network is added not from the text but by closeness of representations: two different spellings of one entity are joined automatically.",
+        "residual": "synonymy_edges",
+        "residual_term": "рёбра синонимии между узлами индекса",
+        "residual_term_en": "synonymy edges between index nodes",
+        "source": "arXiv:2405.14831, построение индекса",
+        "source_en": "arXiv:2405.14831, index construction",
+        "technology_id": "hipporag",
+        "why": "Схема говорит, какого рода структура у индекса, но не откуда взялись связи. А разница существенна: связь из текста утверждает факт, связь по близости — догадку.",
+        "why_en": "The schema says what kind of structure the index has, and not where the edges came from. The difference matters: an edge from text asserts a fact, an edge from closeness asserts a guess."
+      },
+      {
+        "did": "Из запроса вынимаются имена сущностей — они служат точками входа в сеть.",
+        "did_en": "Entity names are taken out of the query and serve as entry points into the network.",
+        "residual": "query_entity_extraction",
+        "residual_term": "извлечение именованных сущностей из запроса",
+        "residual_term_en": "named entity extraction from the query",
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "why": "Запрос не переписан и не разложен на подвопросы, он разобран. Такого действия среди значений преобразования запроса нет.",
+        "why_en": "The query is neither rewritten nor split into sub-questions, it is taken apart. No value of query transformation covers such an action."
+      },
+      {
+        "did": "Вес по сети распределяется случайным блужданием с возвратом к стартовым узлам.",
+        "did_en": "Weight is distributed over the network by a random walk with return to the starting nodes.",
+        "residual": "random_walk_ranking",
+        "residual_term": "ранжирование случайным блужданием с предпочтением",
+        "residual_term_en": "personalized random-walk ranking",
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "why": "«Обход графа» говорит, что структура обходится, но не по какому правилу распределяется важность. Разные правила дают разные результаты на одном графе.",
+        "why_en": "«Graph traversal» says the structure is traversed, and not by what rule importance is distributed. Different rules give different results on the same graph."
+      },
+      {
+        "did": "Оценки узлов пересчитываются в оценки пассажей, чтобы вернуть текст.",
+        "did_en": "Node scores are converted into passage scores in order to return text.",
+        "residual": "score_transfer_to_units",
+        "residual_term": "перенос оценок узлов на единицы извлечения",
+        "residual_term_en": "transfer of node scores onto retrieval units",
+        "source": "arXiv:2405.14831, извлечение",
+        "source_en": "arXiv:2405.14831, retrieval",
+        "technology_id": "hipporag",
+        "why": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска, ни переранжирование этого перехода не описывают.",
+        "why_en": "One structure is ranked and a different one is returned. Neither the search operator nor reranking describes that transition."
+      },
+      {
+        "code": "A8",
+        "did": "Узлы и связи графа извлекаются из текста моделью.",
+        "did_en": "The nodes and edges of the graph are extracted from the text by a model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "hipporag",
+        "to": "extracted",
+        "why": "Структура добыта из содержания: она не задана источником и не вычислена группировкой, а вычитана.",
+        "why_en": "The structure is mined from the content: it is neither given by the source nor computed by clustering, it is read out."
+      }
+    ],
+    "prose_id": "hipporag",
+    "residual": [
+      "рёбра синонимии между узлами индекса",
+      "извлечение именованных сущностей из запроса",
+      "ранжирование случайным блужданием с предпочтением",
+      "перенос оценок узлов на единицы извлечения"
+    ],
+    "residual_en": [
+      "synonymy edges between index nodes",
+      "named entity extraction from the query",
+      "personalized random-walk ranking",
+      "transfer of node scores onto retrieval units"
+    ],
+    "summary": "Долговременная память по образцу гиппокампа: граф сущностей и обход методом персонализированного случайного блуждания.",
+    "summary_en": "Long-term memory after the hippocampus: an entity graph traversed by personalised random walk."
+  }
+}

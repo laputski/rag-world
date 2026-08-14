@@ -201,3 +201,51 @@ def test_keywords_are_declared_and_free_of_counts():
     words = [w.strip() for w in match.group(1).split(",") if w.strip()]
     assert len(words) >= 8, f"слов-ключей слишком мало: {len(words)}"
     assert not re.search(r"\d", match.group(1)), "счёт в словах-ключах"
+
+
+# ─── Запись отдельным файлом ─────────────────────────────────────────────────
+
+def test_every_record_is_published_on_its_own():
+    """Карточка читает одну запись, а не весь реестр.
+
+    Прежде страница технологии тянула восемьсот килобайт ради одной записи, и
+    платила за это именно та страница, на которую чаще всего приходят по ссылке
+    извне.
+    """
+    registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
+    folder = DATA / "tech"
+    assert folder.is_dir(), "записи по одной не публикуются"
+
+    published = {path.stem for path in folder.glob("*.json")}
+    expected = {tech["id"] for tech in registry["technologies"]}
+    assert published == expected, (
+        f"лишние файлы: {sorted(published - expected)}; "
+        f"недостающие: {sorted(expected - published)}"
+    )
+
+
+def test_a_single_record_matches_its_row_in_the_registry():
+    """Два описания одной записи расходятся молча, если их не сверять.
+
+    Карточка читает файл записи, а реестр читают страница списка и внешний
+    потребитель. Разойдясь, они покажут разное об одной технологии, и заметить
+    это можно будет только сравнив две страницы глазами.
+    """
+    registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
+    rows = {tech["id"]: tech for tech in registry["technologies"]}
+    mismatched: list[str] = []
+    for path in sorted((DATA / "tech").glob("*.json")):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("technology") != rows.get(path.stem):
+            mismatched.append(path.stem)
+    assert not mismatched, f"файл записи разошёлся со строкой реестра: {mismatched}"
+
+
+def test_a_single_record_is_far_smaller_than_the_registry():
+    """Смысл разделения в размере: если файл не меньше, оно бессмысленно."""
+    registry_size = (DATA / "registry.json").stat().st_size
+    largest = max(path.stat().st_size for path in (DATA / "tech").glob("*.json"))
+    assert largest * 10 < registry_size, (
+        f"самая крупная запись {largest} байт против реестра {registry_size}: "
+        "разделение перестало окупаться"
+    )

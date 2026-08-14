@@ -1,0 +1,241 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "Light-RAG"
+    ],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "episodic",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "LightRAG ставит целью удержать пользу графового представления, отказавшись от главного его расхода. В системах, строящих сообщества и отчёты по ним, добавление одного документа требует пересчёта кластеров и переписывания отчётов, поэтому собрание, которое пополняется, обходится дороже неподвижного.\n\nИзвлечение устроено в два уровня, работающих одновременно. Нижний уровень отвечает на точные вопросы: из запроса выделяются упоминания конкретных сущностей, по ним находятся вершины графа и смежные с ними рёбра. Верхний уровень отвечает на вопросы общего характера: из запроса выделяются обобщённые понятия, которым сопоставлены сводные описания групп вершин. Результаты обоих уровней объединяются в один контекст, поэтому запрос про отдельное имя и запрос про целое явление обслуживаются одной цепочкой обработки, а не двумя.\n\nПополнение собрания устроено дописыванием. Новый документ разбирается в вершины и рёбра, которые добавляются к существующему графу, а описания затрагиваемых групп обновляются точечно. Полного перестроения не происходит, и стоимость добавления не зависит от размера уже накопленного графа. Ценой служит то, что структура графа отражает порядок поступления документов: связь, которую видно только при взгляде на собрание целиком, при пошаговом дописывании может не возникнуть.",
+    "description_en": "LightRAG sets out to keep the benefit of a graph representation while giving up its principal cost. In systems that build communities and write reports over them, adding a single document requires recomputing the clusters and rewriting the reports, so a growing collection costs more than a static one.\n\nRetrieval works on two levels at once. The lower level answers precise questions: mentions of specific entities are taken from the query, and the matching graph nodes and their adjacent edges are found. The upper level answers questions of a general nature: broader notions are taken from the query and matched against summary descriptions of groups of nodes. The results of both levels are merged into one context, so a question about a single name and a question about a whole phenomenon are served by one processing chain rather than two.\n\nGrowth of the collection is handled by appending. A new document is parsed into nodes and edges that are added to the existing graph, and the descriptions of the affected groups are updated locally. No full rebuild takes place, and the cost of an addition does not depend on the size of the graph accumulated so far. The price is that the structure of the graph reflects the order in which documents arrived: a connection visible only when the collection is viewed as a whole may never arise under incremental appending.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-05, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-08, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=294411",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-09, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=295206",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-10, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=297589",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-11, releases=yes",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 8,
+    "family": "B",
+    "first_published": "2025",
+    "groups": [
+      "A",
+      "C",
+      "F"
+    ],
+    "id": "lightrag",
+    "kind": "architecture",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/HKUDS/LightRAG",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "LightRAG",
+    "package": "lightrag-hku",
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Индекс совмещает граф сущностей и связей с векторными представлениями.",
+        "did_en": "The index combines a graph of entities and relations with vector representations.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.05779, метод",
+        "source_en": "arXiv:2410.05779, method",
+        "technology_id": "lightrag",
+        "to": "graph",
+        "why": "У индекса есть связность помимо списка.",
+        "why_en": "The index has connectivity besides a list."
+      },
+      {
+        "code": "A3",
+        "did": "Из текста извлекаются сущности и отношения между ними и хранятся вместе с ним.",
+        "did_en": "Entities and the relations between them are extracted from the text and stored alongside it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.05779, метод",
+        "source_en": "arXiv:2410.05779, method",
+        "technology_id": "lightrag",
+        "to": "extracted_triples",
+        "why": "Единица индекса несёт добытые из неё утверждения.",
+        "why_en": "A unit of the index carries the statements mined from it."
+      },
+      {
+        "code": "C1",
+        "did": "Поиск идёт на двух уровнях: по конкретным сущностям и по общим темам, двигаясь по связям.",
+        "did_en": "Retrieval runs at two levels: over particular entities and over general topics, moving along the edges.",
+        "question": "Два уровня поиска работают одновременно, а не выбираются. Схема хранит один оператор, и двухуровневость в неё не помещается — возможно, это остаток.",
+        "question_en": "The two levels of retrieval work at once rather than being chosen between. The schema holds one operator, and the two-level arrangement does not fit into it, so it may be a residual.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.05779, метод",
+        "source_en": "arXiv:2410.05779, method",
+        "technology_id": "lightrag",
+        "to": "graph_traversal",
+        "why": "Отбор использует структуру индекса.",
+        "why_en": "Selection uses the structure of the index."
+      },
+      {
+        "code": "F1",
+        "did": "Новые данные добавляются в индекс без полной пересборки.",
+        "did_en": "New data is added to the index without a full rebuild.",
+        "instead": "«нет записи обратно»: она означала бы неизменный после построения индекс.",
+        "instead_en": "«no write-back»: it would mean an index unchanged after construction.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.05779, метод",
+        "source_en": "arXiv:2410.05779, method",
+        "technology_id": "lightrag",
+        "to": "episodic",
+        "why": "Состояние знаний пополняется по ходу, а не строится заново. Это запись обратно.",
+        "why_en": "The knowledge state is extended as the system runs rather than built anew. That is write-back."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной ступени пересмотра порядка не описано.",
+        "did_en": "No separate stage that revisits the order is described.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.05779, метод",
+        "source_en": "arXiv:2410.05779, method",
+        "technology_id": "lightrag",
+        "to": "none",
+        "why": "Порядок задаётся самим поиском.",
+        "why_en": "The order is set by retrieval itself."
+      },
+      {
+        "code": "A8",
+        "did": "Сущности и отношения извлекаются из текста.",
+        "did_en": "Entities and relations are extracted from the text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "lightrag",
+        "to": "extracted",
+        "why": "Структура добыта из содержания.",
+        "why_en": "The structure is mined from the content."
+      }
+    ],
+    "prose_id": "lightrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Двухуровневое извлечение из графа: точные сущности и обобщённые темы, с дописыванием новых документов без перестроения.",
+    "summary_en": "Two-level graph retrieval, precise entities and general topics at once, with new documents appended rather than rebuilt."
+  }
+}

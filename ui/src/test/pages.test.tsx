@@ -59,6 +59,21 @@ beforeAll(() => {
   globalThis.fetch = (async (input: RequestInfo | URL) => {
     const url = String(input);
     const name = url.slice(url.lastIndexOf("/") + 1);
+    /*
+      Карточка технологии просит одну запись, а не весь реестр. Ответ
+      собирается здесь из того же собранного артефакта, поэтому проверка
+      по-прежнему идёт по настоящим данным, а не по выдуманной записи.
+    */
+    if (url.includes("/tech/")) {
+      const id = name.replace(/\.json$/, "");
+      const found = (registryJson as { technologies: { id: string }[] })
+        .technologies.find((t) => t.id === id);
+      if (!found) return new Response("нет такой записи", { status: 404 });
+      return new Response(
+        JSON.stringify({ built_at: (registryJson as { built_at: string }).built_at, technology: found }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      );
+    }
     const payload = ARTIFACTS[name];
     if (payload === undefined) {
       return new Response("нет такого артефакта", { status: 404 });

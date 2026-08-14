@@ -1,0 +1,143 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 4.836,
+    "attention_cohort": "2024",
+    "attention_raw": 2.8,
+    "confidence": 1.0,
+    "configuration": {
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A8": "extracted",
+      "C1": "graph_traversal",
+      "C3": "score_normalization",
+      "D1": "none",
+      "E5": "none",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "KAG отвечает на затруднение, возникающее в областях со строгими правилами. Извлечение по сходству возвращает похожее, а в медицине, праве или расчёте льгот требуется вывод: заключение должно следовать из посылок по установленному правилу, и правдоподобие тут заменой не служит.\n\nСобрание раскладывается на две части. Одна часть образует граф знаний, где сущности и отношения приведены к общей схеме, а термины разных документов сведены к единым обозначениям. Другая часть остаётся исходным текстом, привязанным к вершинам графа, потому что не всё выражается тройками, а формулировка первоисточника нужна для проверки.\n\nВопрос разбирается на подзадачи, и каждая направляется тому средству, которое ей отвечает: обращение за фактом идёт к графу, вопрос о формулировке идёт к тексту, а шаг вывода выполняется по правилам предметной области. Промежуточные заключения проверяются на согласие с этими правилами, поэтому цепочка, где шаг правилам противоречит, отбрасывается до появления ответа. Плата состоит в подготовке: схему и правила пишет человек, знающий область, и в области, где правила не формализованы, подход неприменим.",
+    "description_en": "KAG addresses a difficulty arising in fields governed by strict rules. Retrieval by similarity returns what resembles the query, whereas medicine, law, or the computation of entitlements require inference: a conclusion must follow from premises by an established rule, and plausibility is no substitute.\n\nThe collection is laid out in two parts. One part forms a knowledge graph, where entities and relations are brought to a common schema and the terms of different documents are reduced to uniform designations. The other part remains the original text, attached to the graph's nodes, because not everything is expressible in triples and the source wording is needed for verification.\n\nA question is decomposed into subtasks, and each is routed to the instrument that answers it: a request for a fact goes to the graph, a question about wording goes to the text, and an inference step is carried out by the rules of the field. Intermediate conclusions are checked for agreement with those rules, so a chain containing a step that contradicts them is discarded before any answer appears. The price is preparation: the schema and the rules are written by someone who knows the field, and where the rules are not formalised the approach does not apply.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2409.13731",
+        "type": "publication",
+        "value": "arXiv:2409.13731 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410636953",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=42; year=2025; citation_velocity=2.8",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C",
+      "G"
+    ],
+    "id": "kag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2409.13731",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "KAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Знания предметной области хранятся графом, причём граф и исходные куски текста указывают друг на друга.",
+        "did_en": "Domain knowledge is kept as a graph, and the graph and the source pieces of text point at one another.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.13731, метод",
+        "source_en": "arXiv:2409.13731, method",
+        "technology_id": "kag",
+        "to": "graph",
+        "why": "Индекс связный, и связность двусторонняя: от факта можно вернуться к тексту.",
+        "why_en": "The index is connected, and the connectivity runs both ways: from a fact one can return to the text."
+      },
+      {
+        "code": "A8",
+        "did": "Граф строится по документам предметной области.",
+        "did_en": "The graph is built over the documents of the domain.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.13731, метод",
+        "source_en": "arXiv:2409.13731, method",
+        "technology_id": "kag",
+        "to": "extracted",
+        "why": "Структура добыта из содержания.",
+        "why_en": "The structure is mined from the content."
+      },
+      {
+        "code": "C3",
+        "did": "Обход графа сочетается с векторным поиском, и результаты сводятся вместе.",
+        "did_en": "Graph traversal is combined with vector search, and the results are brought together.",
+        "question": "Правило слияния источник не раскрывает; выбрано сведение по величинам оценок как более общее, чем ранговое.",
+        "question_en": "The source does not disclose the fusion rule; fusion by score magnitude was chosen as more general than by rank.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.13731, метод",
+        "source_en": "arXiv:2409.13731, method",
+        "technology_id": "kag",
+        "to": "score_normalization",
+        "why": "Два способа отбора работают одновременно и требуют слияния.",
+        "why_en": "Two means of selection work at once and require fusion."
+      },
+      {
+        "code": "G3",
+        "did": "Работа отдельно называет усиление модели под задачи этого подхода.",
+        "did_en": "The work separately names an enhancement of the model for the tasks of this approach.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.13731, метод",
+        "source_en": "arXiv:2409.13731, method",
+        "technology_id": "kag",
+        "to": "trained_reader",
+        "why": "Обучается порождающая сторона.",
+        "why_en": "The producing side is trained."
+      }
+    ],
+    "prose_id": "kag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Соединение графа знаний с логическим выводом: рассуждение проверяется правилами, а не только правдоподобием.",
+    "summary_en": "A knowledge graph joined to logical inference: reasoning is checked by rules, not merely by plausibility."
+  }
+}

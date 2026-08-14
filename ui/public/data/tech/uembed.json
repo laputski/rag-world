@@ -1,0 +1,197 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "Unified Embedding"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "barriers": "Разреженное представление получают из словаря модели, а у порождающей модели с причинным вниманием каждая лексема видит только предшествующие. Прямое приписывание весов всему словарю с одной позиции даёт низкое качество.",
+    "barriers_en": "A sparse representation is obtained from the model's vocabulary, and in a decoder-only model with causal attention every token sees only the past. Assigning weights over the whole vocabulary from a single position directly gives poor quality.",
+    "confidence": 1.0,
+    "configuration": {
+      "A5": "vision_language",
+      "A7": "image",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A6",
+      "A8",
+      "B1",
+      "B2",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "D1",
+      "D2",
+      "D3",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "F1",
+      "F2",
+      "F3",
+      "G1",
+      "G2"
+    ],
+    "configuration_reviewed": "2026-08-12",
+    "configuration_variable": [
+      "A5"
+    ],
+    "description": "UEmbed сводит в одну модель то, что обычно требует двух или трёх. Обученный разреженный поиск, где документ описывается весами слов словаря, до сих пор строился на двунаправленных кодировщиках, то есть на моделях, каждая позиция которых видит вход целиком. Плотный поиск по одному вектору строился отдельно. Перенос того и другого на изображения требовал ещё и связующих частей. Держать несколько моделей дорого и хлопотно вдвойне, потому что обновлять и согласовывать надо каждую.\n\nЗатруднение состоит в устройстве современных порождающих моделей. Веса словаря берутся с выходного слоя, а такая модель использует причинное внимание: каждая позиция видит только предшествующие. Приписать веса всему словарю с одной последней позиции можно, но качество получается низким, потому что одной позиции не хватает, чтобы выразить документ по всему словарю сразу.\n\nРешение состоит в разделении труда между несколькими служебными позициями. К входу приписывается несколько служебных лексем, а словарь делится между ними на непересекающиеся части: каждая отвечает за свою часть, и вместе они складываются в полный разреженный вектор. Плотное представление берётся с тех же позиций, поэтому оба представления получаются за один проход, а изображения обслуживаются той же моделью без отдельного связующего звена.",
+    "description_en": "UEmbed brings into one model what usually takes two or three. Learned sparse retrieval, where a document is described by weights over vocabulary words, had until now been built on bidirectional encoders, that is, on models each of whose positions sees the whole input. Dense retrieval over a single vector was built separately. Carrying either over to images called for further bridging parts. Maintaining several models is expensive and doubly troublesome, because each must be updated and kept in step with the others.\n\nThe difficulty lies in how modern generative models are built. Vocabulary weights are taken from the output layer, and such a model uses causal attention: each position sees only what precedes it. Assigning weights over the whole vocabulary from one final position is possible but yields poor quality, because a single position does not suffice to express a document across the entire vocabulary.\n\nThe solution divides the labour among several service positions. Several service tokens are appended to the input, and the vocabulary is split among them into disjoint parts: each is responsible for its own part, and together they compose the full sparse vector. The dense representation is taken from the same positions, so both representations come out of a single pass, and images are served by the same model with no separate bridging stage.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2608.02583",
+        "type": "publication",
+        "value": "arXiv:2608.02583 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7172392400",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-08",
+    "groups": [
+      "A"
+    ],
+    "id": "uembed",
+    "kind": "tool",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "UEmbed (arXiv:2608.02583, 2026)",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2608.02583",
+        "verified_at": null
+      },
+      {
+        "kind": "product",
+        "label": "Страница проекта",
+        "label_en": "Project page",
+        "status": "needs_review",
+        "url": "https://alibaba-nlp.github.io/UEmbed",
+        "verified_at": null
+      }
+    ],
+    "name": "UEmbed",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Представления строит декодерная мультимодальная модель: к входу приписываются N служебных лексем, словарь делится на N непересекающихся частей, и каждая лексема предсказывает веса по своей части. За тот же проход выдаётся и плотный вектор.",
+        "did_en": "Representations are built by a decoder-only multimodal model: N special tokens are appended to the input, the vocabulary is split into N disjoint subsets, and each token predicts weights over its own subset. The same pass also emits a dense vector.",
+        "instead": "«разреженное»: оно описало бы одну из двух выдач и умолчало бы о второй, тогда как работа существует ради их объединения.",
+        "instead_en": "«lexical»: it would describe one of the two outputs and pass over the second, whereas the work exists for their union.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.02583, метод",
+        "source_en": "arXiv:2608.02583, method",
+        "technology_id": "uembed",
+        "to": "vision_language",
+        "variable": true,
+        "why": "Модель читает изображение и текст вместе, поэтому значение описывает именно совместное представление. Пометка переменного стоит потому, что потребитель выбирает, каким из двух представлений пользоваться.",
+        "why_en": "The model reads image and text together, so the value describes exactly a joint representation. The run-time mark is there because the consumer chooses which of the two representations to use."
+      },
+      {
+        "code": "A7",
+        "did": "На вход принимаются изображения наравне с текстом.",
+        "did_en": "Images are accepted on the input alongside text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.02583, метод",
+        "source_en": "arXiv:2608.02583, method",
+        "technology_id": "uembed",
+        "to": "image",
+        "why": "Модальность материала перестала быть только текстовой.",
+        "why_en": "The modality of the material has stopped being textual alone."
+      },
+      {
+        "code": "G3",
+        "did": "Модель обучается под задачу поиска на открытых данных, выпущена в трёх размерах.",
+        "did_en": "The model is trained for the retrieval task on public data and released at three sizes.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.02583, метод",
+        "source_en": "arXiv:2608.02583, method",
+        "technology_id": "uembed",
+        "to": "trained_retriever",
+        "why": "Обучаемая часть относится к поисковой стороне.",
+        "why_en": "The trained part belongs to the retrieval side."
+      },
+      {
+        "did": "Разреженное лексическое и плотное представление выдаются одной моделью за один причинный проход.",
+        "did_en": "A sparse lexical representation and a dense one are emitted by one model in a single causal pass.",
+        "residual": "sparse_and_dense_one_pass",
+        "residual_term": "разреженное и плотное представление одной моделью за проход",
+        "residual_term_en": "sparse and dense representations from one model in a single pass",
+        "source": "arXiv:2608.02583, метод",
+        "source_en": "arXiv:2608.02583, method",
+        "technology_id": "uembed",
+        "why": "Схема хранит один вид представления на запись. Здесь их два, и выбор между ними делает потребитель.",
+        "why_en": "The schema holds one kind of representation per record. Here there are two, and the consumer chooses between them."
+      },
+      {
+        "code": "E1",
+        "did": "Модель ничего не порождает и запросов не преобразует: она отдаёт представления.",
+        "did_en": "The model produces nothing and transforms no queries: it hands over representations.",
+        "inapplicable": true,
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "uembed",
+        "why": "Это часть системы, а не система. Измерения синтеза, запроса и извлечения к ней не относятся, и базовые значения утверждали бы о несуществующем.",
+        "why_en": "It is a part of a system rather than a system. The dimensions of synthesis, query and retrieval do not apply to it, and the defaults would assert something that does not exist."
+      }
+    ],
+    "problem": "Обученный разреженный поиск до сих пор строился на двунаправленных кодировщиках, а перенос его на изображения требовал отдельных связующих частей. Держать две модели, разреженную и плотную, дорого и вдвойне хлопотно.",
+    "problem_en": "Learned sparse retrieval has so far rested on bidirectional encoders, and carrying it over to images required separate bridging parts. Keeping two models, a sparse one and a dense one, is expensive and twice the trouble.",
+    "prose_id": "uembed",
+    "residual": [
+      "разреженное и плотное представление одной моделью за проход"
+    ],
+    "residual_en": [
+      "sparse and dense representations from one model in a single pass"
+    ],
+    "solutions": "К входу приписываются несколько служебных лексем, а словарь делится между ними на непересекающиеся части: каждая лексема отвечает за свою часть, и вместе они складываются в полный разреженный вектор. Плотное представление берётся из того же прохода.",
+    "solutions_en": "Several special tokens are appended to the input and the vocabulary is divided between them into disjoint subsets: every token answers for its own subset, and together they add up to the full sparse vector. The dense representation comes from the same pass.",
+    "summary": "Одна модель выдаёт разреженное и плотное представление за один проход, для текста и изображений сразу.",
+    "summary_en": "One model produces a sparse and a dense representation in a single pass, for text and images alike."
+  }
+}

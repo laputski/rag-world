@@ -1,0 +1,288 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 2.513,
+    "attention_cohort": null,
+    "attention_raw": 2.513,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_multi_late_interaction",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [
+      "E1",
+      "E2",
+      "E3",
+      "E4"
+    ],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "ColBERT меняет способ, которым текст сравнивается с запросом. Обычный плотный поиск сжимает весь фрагмент в один вектор, и всё, что в нём было, приходится уместить в несколько сотен чисел. Длинный фрагмент, говорящий о нескольких предметах сразу, при таком сжатии теряет каждый из них по отдельности: усреднённый вектор не близок ни к одному частному запросу.\n\nColBERT хранит не один вектор на фрагмент, а по вектору на каждый токен, то есть на каждую единицу, на которые модель разбивает текст. Запрос кодируется так же. Сходство считается позднее, уже после того как обе стороны закодированы независимо: для каждого токена запроса берётся наибольшее скалярное произведение среди всех токенов документа, и эти величины складываются. Схема называется поздним взаимодействием, потому что запрос и документ встречаются только на последнем шаге, а не проходят через модель вместе.\n\nТакой порядок сохраняет главное преимущество плотного поиска: векторы документов вычисляются один раз при индексации, а не на каждый запрос. Совместный кодировщик, пропускающий пару «запрос, документ» через модель целиком, точнее, но требует прогона по каждому кандидату и потому применяется только к короткому списку. Плата ColBERT состоит в размере индекса: вместо одного вектора на фрагмент хранятся сотни, и хранилище растёт на порядок.",
+    "description_en": "ColBERT changes the way text is compared against a query. Ordinary dense retrieval compresses a whole fragment into a single vector, so everything the fragment contained has to fit into a few hundred numbers. A long fragment speaking about several subjects at once loses each of them under that compression: the averaged vector is close to no particular query.\n\nColBERT stores not one vector per fragment but one vector per token, that is, per unit into which the model divides the text. The query is encoded the same way. Similarity is computed late, after both sides have been encoded independently: for each query token the largest inner product across all document tokens is taken, and these quantities are summed. The scheme is called late interaction because query and document meet only at the final step rather than passing through the model together.\n\nThis order preserves the principal advantage of dense retrieval: document vectors are computed once at indexing time rather than per query. A joint encoder, which passes the query and document pair through the model as a whole, is more accurate but requires a run over every candidate and is therefore applied only to a short list. ColBERT pays for its accuracy in index size: instead of one vector per fragment it stores hundreds, and storage grows by an order of magnitude.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2004.12832",
+        "type": "publication",
+        "value": "arXiv:2004.12832 (2020)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W3034439313",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=191; year=2020; citation_velocity=2.513",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://dl.acm.org/doi/10.1145/3397271.3401075",
+        "type": "publication",
+        "value": "venue=ACM SIGIR; peer_reviewed=true",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://api.github.com/repos/run-llama/llama_index",
+        "type": "framework_presence",
+        "value": "frameworks=LlamaIndex",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=219289",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=216167",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=214026",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=215043",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 8,
+    "family": "H",
+    "first_published": "2021",
+    "groups": [
+      "A",
+      "D",
+      "G"
+    ],
+    "id": "colbert",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2004.12832",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "ColBERT",
+    "package": "colbert-ai",
+    "parse_notes": [
+      {
+        "code": "A5",
+        "did": "Запрос и документ кодируются порознь, каждое слово получает свой вектор, а близость считается уже потом — сопоставлением всех векторов со всеми.",
+        "did_en": "Query and document are encoded apart, every word gets its own vector, and closeness is computed afterwards by matching all vectors against all.",
+        "instead": "«один вектор на документ»: тогда терялась бы пословная точность, ради которой метод и создан.",
+        "instead_en": "«one vector per document»: the word-level precision the method exists for would then be lost.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, модель",
+        "source_en": "arXiv:2004.12832, model",
+        "technology_id": "colbert",
+        "to": "dense_multi_late_interaction",
+        "why": "Это и есть многовекторное представление с поздним сравнением; в нём всё содержание работы.",
+        "why_en": "This is exactly a multi-vector representation with late comparison, and the whole content of the work lies in it."
+      },
+      {
+        "code": "D1",
+        "did": "Поиск идёт в два приёма: сперва грубый отбор кандидатов, затем точный пересчёт тем же способом. Другой модели во втором приёме нет.",
+        "did_en": "Retrieval happens in two passes: a coarse shortlist first, then an exact rescoring by the same means. There is no second model in the second pass.",
+        "instead": "«перекрёстный кодировщик»: он приписал бы системе ровно ту ступень, которую она устраняет.",
+        "instead_en": "«cross-encoder»: it would attribute to the system the very stage the system removes.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, сквозной поиск",
+        "source_en": "arXiv:2004.12832, end-to-end retrieval",
+        "technology_id": "colbert",
+        "to": "none",
+        "why": "Переранжирование — это отдельная, обычно более дорогая модель поверх поиска. Работа как раз предлагает обойтись без неё.",
+        "why_en": "Reranking is a separate, usually more expensive model on top of retrieval. The work proposes precisely to do without it."
+      },
+      {
+        "code": "G3",
+        "did": "Языковая модель дообучается под задачу поиска: её учат на парах «подходящий документ — неподходящий».",
+        "did_en": "The language model is fine-tuned for retrieval: it is trained on pairs of a matching and a non-matching document.",
+        "instead": "«совместное обучение»: оно требует читателя, порождающего ответ, а его здесь нет вовсе.",
+        "instead_en": "«joint training»: it requires a reader that produces an answer, and there is none here at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, обучение",
+        "source_en": "arXiv:2004.12832, training",
+        "technology_id": "colbert",
+        "to": "trained_retriever",
+        "why": "Система обучает свой поисковик, а не берёт готовый.",
+        "why_en": "The system trains its own retriever instead of taking a ready one."
+      },
+      {
+        "code": "A4",
+        "did": "Индекс — множество векторов слов в обычном хранилище приближённого поиска.",
+        "did_en": "The index is a set of word vectors in an ordinary approximate-search store.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, сквозной поиск",
+        "source_en": "arXiv:2004.12832, end-to-end retrieval",
+        "technology_id": "colbert",
+        "to": "flat",
+        "why": "Ни дерева, ни сети над ним не строится.",
+        "why_en": "Neither a tree nor a network is built over it."
+      },
+      {
+        "code": "C1",
+        "did": "Первый приём — приближённый поиск ближайших соседей по векторам слов запроса.",
+        "did_en": "The first pass is an approximate nearest-neighbour search over the vectors of the query's words.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, сквозной поиск",
+        "source_en": "arXiv:2004.12832, end-to-end retrieval",
+        "technology_id": "colbert",
+        "to": "ann",
+        "why": "Отбор кандидатов ведётся именно так.",
+        "why_en": "That is exactly how the shortlist is selected."
+      },
+      {
+        "code": "C2",
+        "did": "Оба приёма — части одного обращения к индексу.",
+        "did_en": "Both passes are parts of a single call to the index.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, сквозной поиск",
+        "source_en": "arXiv:2004.12832, end-to-end retrieval",
+        "technology_id": "colbert",
+        "to": "single_shot",
+        "why": "Повторных заходов, зависящих от предыдущего результата, нет.",
+        "why_en": "There are no repeated visits that depend on a previous result."
+      },
+      {
+        "code": "E1",
+        "did": "Система ничего не порождает: она возвращает документы. Ступени синтеза в ней нет.",
+        "did_en": "The system produces nothing: it returns documents. It has no synthesis stage.",
+        "inapplicable": true,
+        "instead": "оставить значение по умолчанию: это тот же дефект, что ноль вместо «не измеряли».",
+        "instead_en": "leaving the default value: that is the same defect as a zero standing in for «not measured».",
+        "question": "Снята вся страта синтеза, включая контроль обоснованности, атрибуцию и политику отказа. Их значения по умолчанию формально не ложны («нет контроля», «нет атрибуции»), но говорить о них без генератора не о чем. Возможен и более узкий вариант: снять только режим генерации.",
+        "question_en": "The whole synthesis stratum is removed, including groundedness control, attribution and refusal policy. Their defaults are not formally false («no control», «no attribution»), yet there is nothing to say about them without a generator. A narrower option exists: remove only the generation mode.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2004.12832, предмет работы",
+        "source_en": "arXiv:2004.12832, subject of the work",
+        "technology_id": "colbert",
+        "why": "Значение «однопроходная генерация» утверждало бы о том, чего не существует. Поэтому значение снято, а не заменено.",
+        "why_en": "The value «single-pass generation» would assert something about a thing that does not exist. The value is therefore removed rather than replaced."
+      },
+      {
+        "did": "Два набора векторов сводятся к одной оценке так: для каждого слова запроса берётся наибольшая близость среди слов документа, и эти величины складываются.",
+        "did_en": "Two sets of vectors collapse into one score like this: for every query word the greatest closeness among the document's words is taken, and those values are summed.",
+        "residual": "max_similarity_interaction",
+        "residual_term": "сравнение по максимуму сходства между представлениями",
+        "residual_term_en": "max-similarity interaction between representations",
+        "source": "arXiv:2004.12832, модель",
+        "source_en": "arXiv:2004.12832, model",
+        "technology_id": "colbert",
+        "why": "Схема называет вид представления, но не правило свёртки. При одном и том же виде представления разные правила дают разное качество.",
+        "why_en": "The schema names the kind of representation and not the rule of collapsing. Under one and the same kind of representation, different rules give different quality."
+      },
+      {
+        "did": "Сперва дешёвый приблизительный отбор, затем дорогой точный пересчёт — но обеими ступенями работает одна модель.",
+        "did_en": "First a cheap approximate shortlist, then an expensive exact rescoring, yet one model does both stages.",
+        "residual": "approximate_then_exact",
+        "residual_term": "приближённый отбор с последующим точным пересчётом",
+        "residual_term_en": "approximate shortlist followed by exact rescoring",
+        "source": "arXiv:2004.12832, сквозной поиск",
+        "source_en": "arXiv:2004.12832, end-to-end retrieval",
+        "technology_id": "colbert",
+        "why": "Схема различает поиск и переранжирование как разные модели. Здесь модель одна, а ступени две.",
+        "why_en": "The schema distinguishes retrieval and reranking as different models. Here there is one model and two stages."
+      }
+    ],
+    "prose_id": "colbert",
+    "residual": [
+      "сравнение по максимуму сходства между представлениями",
+      "приближённый отбор с последующим точным пересчётом"
+    ],
+    "residual_en": [
+      "max-similarity interaction between representations",
+      "approximate shortlist followed by exact rescoring"
+    ],
+    "summary": "Отдельный вектор на каждый токен и позднее взаимодействие: сходство считается по лучшим совпадениям, а не по одному вектору документа.",
+    "summary_en": "One vector per token and late interaction: similarity is the sum of best matches, not the distance between two summary vectors."
+  }
+}

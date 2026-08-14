@@ -1,0 +1,95 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.412,
+    "attention_cohort": "2025",
+    "attention_raw": 0.632,
+    "confidence": 1.0,
+    "configuration": {},
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Poison-RAG переносит отравление собрания на рекомендательные системы, в которых подбор устроен извлечением. Отличие от нападения на вопросно-ответную систему лежит в цели: подменяется не ответ на вопрос, а положение объекта в выдаче, и заинтересованная сторона здесь не сторонний злоумышленник, а поставщик самого объекта.\n\nНападающий распоряжается описанием собственного товара и правит его так, чтобы векторное представление сместилось в сторону частых запросов. Правка не выглядит подлогом: меняются формулировки, добавляются признаки, переставляются ударения, причём описание остаётся правдоподобным и проверку человеком проходит. Возможно и обратное действие, при котором правка описания соперника понижает его выдачу.\n\nОпасность состоит в неразличимости. Отравляющая правка неотличима от добросовестного улучшения описания, потому что и то и другое состоит в подборе слов, а различаются они лишь намерением. Обнаружение по содержанию поэтому не работает, и защита переносится на наблюдение за поведением выдачи во времени, где резкое смещение положения после правки служит признаком.",
+    "description_en": "Poison-RAG carries collection poisoning over to recommender systems whose selection works by retrieval. What sets it apart from an attack on a question-answering system is the objective: what is subverted is not the answer to a question but an item's position in the results, and the interested party here is not an outside intruder but the supplier of the item itself.\n\nThe attacker controls the description of their own item and edits it so that its vector representation shifts toward frequent queries. The edit does not look like a forgery: wordings change, attributes are added, emphasis is rearranged, and the description stays plausible and passes human review. The converse action is possible too, where editing a competitor's description pushes it down the results.\n\nThe danger lies in the indistinguishability. A poisoning edit is indistinguishable from a good-faith improvement to a description, because both consist in the choice of words and differ only in intent. Detection by content therefore does not work, and defence moves to watching how the results behave over time, where an abrupt shift in position following an edit serves as the signal.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2501.11759",
+        "type": "publication",
+        "value": "arXiv:2501.11759 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4409166754",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4409166754",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.632",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": null,
+    "first_published": "2025",
+    "groups": [],
+    "id": "poison_rag",
+    "kind": "attack",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2501.11759",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "Poison-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "did": "Атака на данные рекомендательной системы, построенной на извлечении: подготовленные записи подмешиваются в корпус так, чтобы менять выдачу.",
+        "did_en": "An attack on the data of a recommender system built on retrieval: prepared records are mixed into the corpus so as to change what it serves.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.11759, постановка",
+        "source_en": "arXiv:2501.11759, problem statement",
+        "technology_id": "poison_rag",
+        "why": "Род «атака» не занимает места в конфигурационном пространстве: у атаки нет ни индекса, ни извлечения, ни синтеза. Отсутствие конфигурации следует из рода, а не из пометок.",
+        "why_en": "The kind «attack» occupies no place in the configuration space: an attack has neither an index nor retrieval nor synthesis. The absence of a configuration follows from the kind rather than from marks."
+      }
+    ],
+    "prose_id": "poison_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Отравление рекомендательной системы, построенной на извлечении: правка описаний товаров меняет их положение в выдаче.",
+    "summary_en": "Poisoning a retrieval-based recommender: editing item descriptions moves them up or down the results."
+  }
+}

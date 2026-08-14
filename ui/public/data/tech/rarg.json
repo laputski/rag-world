@@ -1,0 +1,255 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "Relevance-Aware RipGrep Search Agent"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "barriers": "Относимость документа не позволяет ни отыскать нужное место в нём, ни составить ответ из частей, ни проверить его. Внутри длинного документа полезный отрывок теряется среди прочего содержания и в векторном пространстве не выделяется.",
+    "barriers_en": "The relevance of a document allows neither locating the right place in it, nor composing an answer from parts, nor verifying it. Inside a long document a useful excerpt is lost among the rest of the content and does not stand out in the vector space.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A4": "flat",
+      "A5": "dense_single",
+      "B1": "multi_reformulation",
+      "C1": "lexical",
+      "C2": "agentic_open_loop",
+      "D1": "none",
+      "E1": "single_pass",
+      "E5": "mutual_loop",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-12",
+    "configuration_variable": [],
+    "description": "RARG отвечает на наблюдение, расходящееся с ожиданием: исполнитель, работающий с собранием напрямую построчным поиском, отвечает лучше, чем тот же исполнитель, которому подают выдачу векторного поиска. Прямой обход при этом расточителен, потому что файлы обходятся вслепую и нужное находится поздно.\n\nПричина расхождения лежит в том, что относимость документа отвечает не на тот вопрос. Она говорит, что документ по теме, но не указывает место внутри него, не позволяет составить ответ из частей и не даёт способа проверить составленное. Внутри длинного документа полезный отрывок теряется среди прочего содержания и в пространстве представлений отдельно не выделяется, поэтому подача выдачи целиком даёт исполнителю много лишнего.\n\nRARG применяет относимость не как канал свидетельств, а как порядок действий. Отдельным средством исполнитель получает список путей, упорядоченный по относимости, начинает с обещающих мест и переранжирует найденные построчным поиском совпадения, вынося наверх те, что лежат в относящихся файлах. Свидетельством при этом остаётся то, что исполнитель прочитал сам, поэтому проверяемость прямого обхода сохраняется, а слепота его снимается.",
+    "description_en": "RARG responds to an observation that runs against expectation: an agent working with a corpus directly by line-based search answers better than the same agent handed the output of a vector search. The direct walk is nonetheless wasteful, because files are traversed blindly and what is needed is found late.\n\nThe reason for the divergence is that document relevance answers the wrong question. It says the document is on topic, but it does not point to a place within it, does not let an answer be assembled from parts, and offers no way to verify what was assembled. Inside a long document a useful passage is lost among the rest of the content and is not separated out in representation space, so handing over the whole retrieved document gives the agent a great deal it does not need.\n\nRARG applies relevance not as a channel of evidence but as an order of operations. Through a separate tool the agent receives a list of paths ordered by relevance, starts with the promising places, and reranks the matches found by line-based search, bringing to the top those lying in relevant files. What counts as evidence remains what the agent read itself, so the verifiability of the direct walk is preserved while its blindness is removed.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2607.24223",
+        "type": "publication",
+        "value": "arXiv:2607.24223 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7171505919",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/LeqsNaN/RARG",
+        "type": "repository",
+        "value": "LeqsNaN/RARG: license=mit, last_push=2026-08-03, releases=no",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": null,
+    "first_published": "2026-07",
+    "groups": [
+      "B",
+      "C",
+      "D"
+    ],
+    "id": "rarg",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "RARG (arXiv:2607.24223, 2026)",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2607.24223",
+        "verified_at": null
+      },
+      {
+        "kind": "github",
+        "label": "LeqsNaN/RARG",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://github.com/LeqsNaN/RARG",
+        "verified_at": null
+      }
+    ],
+    "name": "RARG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C1",
+        "did": "Свидетельства ищутся построчным поиском по файлам корпуса: агенту доступны две команды, оболочка с grep и чтение куска документа.",
+        "did_en": "Evidence is sought by line-wise search over the corpus files: the agent has two commands, a shell running grep and a read of a slice of a document.",
+        "instead": "«поиск ближайших соседей»: векторный поиск в системе есть, но он подсказывает порядок обхода и свидетельств не отдаёт.",
+        "instead_en": "«nearest-neighbour search»: vector retrieval is present in the system, but it suggests the order of traversal and hands over no evidence.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "lexical",
+        "why": "Канал свидетельств словарный: совпадение ищется по буквам, а не по близости представлений.",
+        "why_en": "The evidence channel is lexical: a match is sought by letters rather than by closeness of representations."
+      },
+      {
+        "code": "C2",
+        "did": "Агент сам выбирает, какие команды выполнять и когда остановиться, и повторяет обращения, пока не сочтёт, что готов ответить.",
+        "did_en": "The agent chooses which commands to run and when to stop, repeating calls until it judges itself ready to answer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "agentic_open_loop",
+        "why": "Ни числа шагов, ни внешнего условия остановки нет: состав обращений выбирается по ходу.",
+        "why_en": "There is neither a step count nor an external stopping condition: the composition of calls is chosen as it goes."
+      },
+      {
+        "code": "A5",
+        "did": "Отдельная модель представлений ранжирует пути документов по относимости к порождённому запросу и записывает их в файл.",
+        "did_en": "A separate representation model ranks document paths by relevance to a produced query and writes them to a file.",
+        "question": "Представление здесь обслуживает порядок обхода, а не отбор ответа. Измерение не различает эти роли, и значение читается сильнее, чем есть на деле.",
+        "question_en": "The representation here serves the order of traversal rather than the selection of the answer. The dimension does not distinguish these roles, and the value reads stronger than it is.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "dense_single",
+        "why": "Модель представления в системе есть, и она одновекторная.",
+        "why_en": "The system does have a representation model, and it is single-vector."
+      },
+      {
+        "code": "A4",
+        "did": "Корпус лежит файлами, и никакой структуры над ним не строится: обход идёт по путям.",
+        "did_en": "The corpus lies as files, and no structure is built over it: traversal goes by paths.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "flat",
+        "why": "Ни дерева, ни графа нет.",
+        "why_en": "There is neither a tree nor a graph."
+      },
+      {
+        "code": "B1",
+        "did": "Языковая модель сама составляет и запросы к модели представлений, и образцы для построчного поиска, и делает это несколько раз за ответ.",
+        "did_en": "The language model composes both the queries to the representation model and the patterns for line-wise search, doing so several times per answer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "multi_reformulation",
+        "why": "За один заход возникает несколько разных запросов вместо исходного.",
+        "why_en": "Several different queries arise in one visit instead of the original one."
+      },
+      {
+        "code": "D1",
+        "did": "Совпадения построчного поиска пересматриваются той же моделью представлений, которая ранжировала пути.",
+        "did_en": "The matches of the line-wise search are revisited by the same representation model that ranked the paths.",
+        "instead": "«перекрёстный кодировщик»: он читает запрос и документ вместе, а здесь работает та же двухбашенная модель, что и ищет.",
+        "instead_en": "«cross-encoder»: it reads query and document together, whereas here the same bi-encoder that retrieves does the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "none",
+        "why": "Перекрёстного кодировщика здесь нет, а других значений для пересмотра порядка моделью схема не даёт. Значение оставлено пустым, а механизм записан остатком.",
+        "why_en": "There is no cross-encoder here, and the schema offers no other value for a model revisiting the order. The value is left empty and the mechanism is recorded as a residual."
+      },
+      {
+        "code": "E5",
+        "did": "Рассуждение задаёт следующую команду, а её вывод меняет рассуждение, и так до ответа.",
+        "did_en": "Reasoning sets the next command, and its output changes the reasoning, and so on until the answer.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "mutual_loop",
+        "why": "Связь двусторонняя и повторяется.",
+        "why_en": "The coupling runs both ways and repeats."
+      },
+      {
+        "code": "G3",
+        "did": "Ни языковая модель, ни модель представлений не обучаются: работа складывает существующие части и меняет порядок их применения.",
+        "did_en": "Neither the language model nor the representation model is trained: the work assembles existing parts and changes the order in which they are applied.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "to": "frozen",
+        "why": "Обучения в системе нет. Работа отдельно упоминает обучаемые агенты как чужой подход.",
+        "why_en": "There is no training in the system. The work separately mentions trained agents as somebody else's approach."
+      },
+      {
+        "did": "Более широкий набор совпадений пересчитывается моделью представлений, и наверх выводятся только лучшие.",
+        "did_en": "A broader pool of matches is rescored by the representation model, and only the best are surfaced.",
+        "residual": "biencoder_rerank",
+        "residual_term": "переранжирование двухбашенной моделью представлений",
+        "residual_term_en": "reranking by a bi-encoder representation model",
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "why": "Среди механизмов переранжирования схема называет перекрёстный кодировщик; двухбашенной модели в этой роли значения нет.",
+        "why_en": "Among reranking mechanisms the schema names the cross-encoder; there is no value for a bi-encoder in that role."
+      },
+      {
+        "did": "Оценка относимости задаёт, какие документы построчный поиск обойдёт первыми, и с каких мест он начнёт.",
+        "did_en": "A relevance estimate sets which documents the line-wise search visits first, and from which places it starts.",
+        "residual": "relevance_ordered_traversal",
+        "residual_term": "порядок обхода корпуса по оценке относимости",
+        "residual_term_en": "corpus traversal ordered by a relevance estimate",
+        "source": "arXiv:2607.24223, метод",
+        "source_en": "arXiv:2607.24223, method",
+        "technology_id": "rarg",
+        "why": "Оператор поиска говорит, чем ищут, управление обходом — насколько глубоко, а порядок обхода не выражает ни одно измерение. В этом порядке и состоит вклад работы.",
+        "why_en": "The search operator says what searches, traversal control says how deep, and no dimension expresses the order of traversal. That order is the contribution of the work."
+      }
+    ],
+    "problem": "Агенты, работающие с корпусом напрямую построчным поиском, находят нужное поздно: они обходят файлы вслепую. Векторный поиск знает, где искать, но подача его выдачи прямо модели работает хуже прямого обхода.",
+    "problem_en": "Agents that work with a corpus directly by line-wise search find what they need late: they walk the files blind. Vector retrieval knows where to look, but feeding its output straight to the model works worse than direct traversal.",
+    "prose_id": "rarg",
+    "residual": [
+      "переранжирование двухбашенной моделью представлений",
+      "порядок обхода корпуса по оценке относимости"
+    ],
+    "residual_en": [
+      "reranking by a bi-encoder representation model",
+      "corpus traversal ordered by a relevance estimate"
+    ],
+    "solutions": "Относимость применяется не как канал свидетельств, а как порядок действий. Отдельным средством модель получает список путей, упорядоченный по относимости, начинает с обещающих мест и переранжирует найденные совпадения, вынося наверх содержательные.",
+    "solutions_en": "Relevance is applied as an order of actions rather than as the evidence channel. Through a separate tool the model receives a list of paths ordered by relevance, starts from promising places and reranks the matches found, surfacing the substantial ones.",
+    "summary": "Агент ищет по собранию построчно, а оценка относимости задаёт порядок обхода, не подменяя собой свидетельства.",
+    "summary_en": "The agent searches the corpus line by line, while relevance sets the order of the walk rather than standing in for evidence."
+  }
+}

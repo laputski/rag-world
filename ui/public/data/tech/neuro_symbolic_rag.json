@@ -1,0 +1,217 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "neuro-symbolic"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "barriers": "Общее препятствие состоит в том, что непрерывные представления и дискретный вывод устроены по-разному, и мост между ними приходится строить, а не брать готовым.\n\nЛогический вывод на больших графах разрастается по числу вариантов чрезвычайно быстро. Онтологию либо граф знаний надо построить и согласовать с текстовым собранием, а это либо ручной труд, либо дорогое извлечение языковой моделью. Общепринятого способа соединить поиск по близости представлений с запросами на языках описания знаний нет. Наконец, смешанное решение трудно отлаживать, потому что ошибка бывает и в поиске, и в выводе, и в переходе между ними.",
+    "barriers_en": "The common obstacle is that continuous representations and discrete inference are built differently, so the bridge between them must be constructed rather than taken ready-made.\n\nLogical inference over large graphs expands in the number of alternatives extremely fast. An ontology or knowledge graph must be built and reconciled with the text collection, which means either manual labour or expensive extraction by a language model. There is no accepted way to join search by closeness of representations to queries in knowledge description languages. Finally, a mixed solution is hard to debug, because an error can lie in the search, in the inference, or in the passage between them.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "graph",
+      "A5": "symbolic",
+      "A6": "snapshot",
+      "A7": "image",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "graph_structural",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "multi_agent",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7119757052",
+        "type": "publication",
+        "value": "venue=Maryland Shared Open Access Repository (USMAI Consortium); peer_reviewed=true; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2601.04568",
+        "type": "publication",
+        "value": "arXiv:2601.04568 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7119757052",
+        "type": "publication",
+        "value": "venue=Open MIND; peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": null,
+    "first_published": "2026-01",
+    "groups": [
+      "A",
+      "C",
+      "D",
+      "G"
+    ],
+    "id": "neuro_symbolic_rag",
+    "kind": "paradigm",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "Neurosymbolic Retrievers for RAG (arXiv:2601.04568, 2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2601.04568",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Hyper-RAG (Nature Communications, 2026, +12.3% acc.)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://www.nature.com/articles/s41467-026-71411-1",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Neurosymbolic AI 2026 (kyield)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://kyield.substack.com/p/neurosymbolic-ai-2026",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "NODES 2026 (Neo4j/Kipon)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранние работы и первые прототипы. Внимание исследователей растёт резко: число работ по запросу о нейросимволическом искусственном интеллекте в Google Scholar выросло примерно со ста двенадцати до девяти тысяч пятидесяти за 2025 и 2026 годы.",
+    "maturity_note_en": "Early work and first prototypes. Research attention is rising sharply: the number of Google Scholar results for neurosymbolic artificial intelligence grew from roughly one hundred and twelve to roughly nine thousand and fifty over 2025 and 2026.",
+    "name": "Neuro-Symbolic RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Рядом с нейросетевым поиском работает граф знаний — символьная часть системы.",
+        "did_en": "A knowledge graph works alongside neural retrieval as the symbolic part of the system.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.04568, метод",
+        "source_en": "arXiv:2601.04568, method",
+        "technology_id": "neuro_symbolic_rag",
+        "to": "graph",
+        "why": "Индекс включает связную структуру.",
+        "why_en": "The index includes a connected structure."
+      },
+      {
+        "code": "A5",
+        "did": "Представление совмещает векторы с явными символьными признаками, и работа ценит это за объяснимость.",
+        "did_en": "The representation combines vectors with explicit symbolic features, and the work values that for explainability.",
+        "question": "Представление на деле смешанное: векторы уточняются символьными признаками. Схема хранит одно значение, и выбор в пользу символьного — суждение о том, что в работе главное.",
+        "question_en": "The representation is in fact mixed: vectors are refined by symbolic features. The schema holds one value, and choosing the symbolic one is a judgement about what matters most in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.04568, метод",
+        "source_en": "arXiv:2601.04568, method",
+        "technology_id": "neuro_symbolic_rag",
+        "to": "symbolic",
+        "why": "Символьная часть здесь не вспомогательная, а определяющая.",
+        "why_en": "The symbolic part here is decisive rather than auxiliary."
+      },
+      {
+        "code": "C1",
+        "did": "Один из предложенных способов обогащает запрос обходом графа знаний.",
+        "did_en": "One of the proposed ways enriches the query by traversing the knowledge graph.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.04568, метод",
+        "source_en": "arXiv:2601.04568, method",
+        "technology_id": "neuro_symbolic_rag",
+        "to": "graph_traversal",
+        "why": "Отбор использует структуру.",
+        "why_en": "Selection uses the structure."
+      },
+      {
+        "code": "D1",
+        "did": "Найденное переупорядочивается по проверенным рабочим правилам предметной области.",
+        "did_en": "What is found is reordered by verified working rules of the domain.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.04568, метод",
+        "source_en": "arXiv:2601.04568, method",
+        "technology_id": "neuro_symbolic_rag",
+        "to": "graph_structural",
+        "why": "Порядок задаётся структурой знания, а не отдельной оценивающей моделью.",
+        "why_en": "The order is set by the structure of knowledge rather than by a separate scoring model."
+      },
+      {
+        "code": "G3",
+        "did": "Обучаются сети, уточняющие представление запроса символьными признаками.",
+        "did_en": "The networks that refine the query representation with symbolic features are trained.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.04568, метод",
+        "source_en": "arXiv:2601.04568, method",
+        "technology_id": "neuro_symbolic_rag",
+        "to": "trained_retriever",
+        "why": "Обучаемая часть относится к поисковой стороне.",
+        "why_en": "The trained part belongs to the retrieval side."
+      }
+    ],
+    "problem": "Обычное извлечение непрозрачно и ограничено сходством. Отбор объяснить нечем: система не сообщает, почему выбран именно этот документ, и логического вывода не делает вовсе.\n\nНа вопросах о причинах и на вопросах, ответ на которые собирается по цепочке, это оборачивается вымыслом: проверяемого рассуждения нет, а правдоподобие ответа его не заменяет.",
+    "problem_en": "Ordinary retrieval is opaque and bounded by similarity. There is nothing by which to explain a selection: the system does not state why this particular document was chosen, and it performs no logical inference at all.\n\nOn questions about causes, and on questions whose answer is assembled along a chain, this turns into invention: there is no checkable reasoning, and the plausibility of an answer is no substitute for it.",
+    "prose_id": "neuro_symbolic_rag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Извлекатели, выдающие след рассуждения по графу знаний, обосновывают каждый шаг отбора и делают его проверяемым.\n\nСближение с графовым извлечением превращает граф знаний в символьный слой, поверх которого работает поиск по представлениям. Промышленные установки уже существуют: Kipon и Neo4j показали такое извлечение на конференции NODES 2026. Подход Hyper-RAG на гиперграфах, опубликованный в Nature Communications, дал прирост точности на двенадцать целых три десятых процента.",
+    "solutions_en": "Retrievers that emit a trace of their reasoning over a knowledge graph justify every selection step and make it checkable.\n\nConvergence with graph retrieval turns the knowledge graph into a symbolic layer over which representation search operates. Production deployments already exist: Kipon and Neo4j demonstrated such retrieval at the NODES 2026 conference. The Hyper-RAG approach over hypergraphs, published in Nature Communications, yielded an accuracy gain of twelve point three percent.",
+    "summary": "Соединение поиска по представлениям с логическим выводом: каждый шаг отбора обоснован правилом, а не сходством.",
+    "summary_en": "Representation search joined to logical inference: every selection step is justified by a rule rather than by similarity."
+  }
+}

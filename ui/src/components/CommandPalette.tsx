@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Box, Dialog, InputBase, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { getRegistry } from "../api/client";
 import { MONO } from "../theme";
 import { ConfigGlyph } from "./ConfigGlyph";
 import { LevelBadge } from "./LevelBadge";
@@ -10,13 +11,17 @@ import type { FeedItem } from "./FeedRow";
  * Быстрый поиск по реестру, открываемый сочетанием клавиш.
  *
  * Реестр умещается в память целиком, поэтому поиск идёт на клиенте и отвечает
- * мгновенно — обращаться к серверу не за чем. Совпадения ищутся по имени и
+ * мгновенно, обращаться к серверу не за чем. Совпадения ищутся по имени и
  * псевдонимам: технологии часто помнят под сокращением, а не под полным
  * названием.
+ *
+ * Реестр читается при первом открытии поиска, а не при загрузке страницы.
+ * Прежде его тянула оболочка, поэтому восемьсот килобайт приходили на каждую
+ * страницу ради поиска, которым читатель мог ни разу не воспользоваться.
+ * Прочитанное остаётся в памяти, поэтому второе открытие мгновенно.
  */
 
 interface Props {
-  items: (FeedItem & { aliases?: string[] })[];
   onOpen: (id: string) => void;
   /** Позволяет открыть поиск извне: из кнопки в шапке, а не только с клавиатуры. */
   registerOpener?: (open: () => void) => void;
@@ -24,12 +29,27 @@ interface Props {
 
 const MAX_RESULTS = 8;
 
-export function CommandPalette({ items, onOpen, registerOpener }: Props) {
+export function CommandPalette({ onOpen, registerOpener }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
+  const [items, setItems] = useState<(FeedItem & { aliases?: string[] })[]>([]);
+  const [loading, setLoading] = useState(false);
+  const requested = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Загрузка начинается при первом открытии и делается один раз: отказ сети
+  // оставляет поиск пустым, но портал работающим.
+  useEffect(() => {
+    if (!open || requested.current) return;
+    requested.current = true;
+    setLoading(true);
+    getRegistry()
+      .then((r) => setItems(r.technologies as unknown as FeedItem[]))
+      .catch(() => setItems([]))
+      .finally(() => setLoading(false));
+  }, [open]);
 
   useEffect(() => {
     registerOpener?.(() => setOpen(true));
@@ -109,9 +129,13 @@ export function CommandPalette({ items, onOpen, registerOpener }: Props) {
         />
       </Box>
       <Box sx={{ maxHeight: 420, overflowY: "auto" }}>
+        {/*
+          Пока реестр не пришёл, «ничего не найдено» было бы неправдой: искать
+          ещё не в чем. Различие видно читателю, а не только коду.
+        */}
         {results.length === 0 && (
           <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>
-            {t("search.empty")}
+            {loading ? t("search.loading") : t("search.empty")}
           </Typography>
         )}
         {results.map((item, i) => (

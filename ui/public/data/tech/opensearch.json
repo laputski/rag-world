@@ -1,0 +1,166 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "multiple_local",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "B1",
+      "B2"
+    ],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "OpenSearch представляет собой открытую поисковую систему, ответвившуюся от Elasticsearch и развиваемую отдельно. Для извлечения она существенна тем, что держит в одном хранилище оба вида поиска, которые иначе пришлось бы разносить по разным системам.\n\nСловарный поиск здесь родной и достался по наследству: обратный указатель, оценивание по BM25, разбор запроса, фильтры по описательным полям. Векторный поиск добавлен как отдельный род поля, и по нему работает приближённый поиск ближайших соседей. Поскольку оба живут в одном указателе, запрос способен сочетать их сразу: отобрать по совпадению слов и упорядочить по близости представлений либо наоборот, причём фильтр по полям применяется до поиска, а не после.\n\nСлияние выдач выполняется внутри системы, поэтому смешанный поиск не требует стороннего слоя. Обстоятельство, существенное при выборе, состоит в происхождении: это поисковая система, к которой добавлены векторы, а не хранилище векторов, к которому добавлен текст. Отсюда сильные стороны в разборе запроса и в работе с описательными полями и более скромные показатели на очень больших наборах векторов по сравнению со специализированными хранилищами.",
+    "description_en": "OpenSearch is an open search engine that branched off from Elasticsearch and is developed separately. What makes it significant for retrieval is that it holds both kinds of search in one store, which would otherwise have to be split across different systems.\n\nLexical search is native here and came by inheritance: an inverted index, BM25 scoring, query parsing, filters over descriptive fields. Vector search was added as a separate kind of field, served by approximate nearest neighbour search. Because both live in one index, a query can combine them directly: select by word overlap and order by closeness of representations, or the reverse, with field filters applied during the search rather than after it.\n\nResult merging is performed inside the system, so hybrid search needs no external layer. A circumstance that matters when choosing is provenance: this is a search engine to which vectors were added, not a vector store to which text was added. Hence its strengths in query parsing and in work with descriptive fields, and its more modest figures on very large vector sets compared with specialised stores.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://api.github.com/repos/langchain-ai/langchain",
+        "type": "framework_presence",
+        "value": "frameworks=LangChain, LlamaIndex",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53685538",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://opensearch.org/docs/latest/",
+        "type": "industrial_use",
+        "value": "OpenSearch: документация проекта, версионированные выпуски, управляемые сервисы поставщиков",
+        "value_en": "OpenSearch: project documentation, versioned releases, managed offerings"
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53087871",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=52514974",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53332648",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 6,
+    "family": null,
+    "first_published": null,
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "opensearch",
+    "kind": "tool",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://opensearch.org/",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "OpenSearch",
+    "package": "opensearch-py",
+    "parse_notes": [
+      {
+        "code": "C3",
+        "did": "Хранилище умеет выполнять словарный и векторный поиск и сливать их результаты по рангам.",
+        "did_en": "The store can perform lexical and vector retrieval and merge their results by rank.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация OpenSearch",
+        "source_en": "OpenSearch documentation",
+        "technology_id": "opensearch",
+        "to": "rrf",
+        "why": "Слияние источников встроено в сам продукт.",
+        "why_en": "Source fusion is built into the product itself."
+      },
+      {
+        "code": "C4",
+        "did": "Данные разносятся по узлам кластера.",
+        "did_en": "Data is spread over the nodes of a cluster.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация OpenSearch",
+        "source_en": "OpenSearch documentation",
+        "technology_id": "opensearch",
+        "to": "multiple_local",
+        "why": "Продукт работает распределённо.",
+        "why_en": "The product runs distributed."
+      }
+    ],
+    "prose_id": "opensearch",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Открытая поисковая система, объединяющая словарный и векторный поиск в одном хранилище.",
+    "summary_en": "An open search engine combining lexical and vector search in one store."
+  }
+}

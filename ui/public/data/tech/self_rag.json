@@ -1,0 +1,213 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "llm_router",
+      "C1": "ann",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "draft_verify",
+      "E2": "decoding_reflection",
+      "E3": "fragment_level",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [
+      "C2"
+    ],
+    "description": "Self-RAG встраивает решения об извлечении в саму генерацию. Обычная система обращается к поиску всегда и одинаково, независимо от того, нужен ли внешний источник для этого вопроса вообще. Вопрос, на который модель отвечает из собственных знаний, получает лишний контекст, а он не нейтрален: посторонний фрагмент способен увести ответ в сторону.\n\nМодель обучается порождать, наряду с обычным текстом, служебные метки, которые называются метками отражения. Первая из них решает, требуется ли обращение к поиску на текущем шаге. Дальнейшие оценивают каждый найденный фрагмент на уместность, оценивают порождённое предложение на опору в этом фрагменте и оценивают полезность ответа в целом. Метки представляют собой обычные единицы словаря, поэтому обучение идёт тем же способом, что и обучение порождению текста.\n\nСущественно то, что метки доступны во время порождения, а не только после него. Система порождает несколько продолжений, читает их оценки и продолжает то, которое опирается на источник лучше, поэтому отбор идёт по ходу, а не отбраковкой готового ответа. Плата состоит в необходимости обучения: обычная модель меток не порождает, и применить приём к готовой модели без донастройки нельзя.",
+    "description_en": "Self-RAG builds decisions about retrieval into generation itself. An ordinary system consults search always and identically, regardless of whether an external source is needed for the question at all. A question the model answers from its own knowledge receives superfluous context, and that context is not neutral: an irrelevant fragment is quite capable of leading the answer astray.\n\nThe model is trained to emit, alongside ordinary text, service tokens known as reflection tokens. The first of them decides whether retrieval is required at the current step. The rest judge each retrieved fragment for relevance, judge each generated sentence for support in that fragment, and judge the usefulness of the answer as a whole. The tokens are ordinary vocabulary items, so training proceeds in the same manner as training to generate text.\n\nWhat matters is that the tokens are available during generation rather than only after it. The system generates several continuations, reads their scores, and continues the one better supported by its source, so selection happens as the answer is built rather than by rejecting a finished one. The price is the need for training: an ordinary model emits no such tokens, and the technique cannot be applied to a ready model without fine-tuning.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://openreview.net/forum?id=hSyW5go0v8",
+        "type": "publication",
+        "value": "venue=ICLR; peer_reviewed=true",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 1,
+    "family": "A",
+    "first_published": "2023",
+    "groups": [
+      "B",
+      "C",
+      "E",
+      "G"
+    ],
+    "id": "self_rag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://selfrag.github.io/",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Self-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B2",
+        "did": "Модель сама решает на каждом шаге, нужно ли обращаться к поиску, и сообщает это особым служебным словом в порождаемом тексте.",
+        "did_en": "At every step the model decides for itself whether to go to retrieval and states it with a special control token in the text it produces.",
+        "instead": "«обученный классификатор»: там маршрут выбирает отдельная модель до генерации, здесь — сама генерирующая, по ходу.",
+        "instead_en": "«trained classifier»: there a separate model chooses the route before generation, whereas here the generating model does it as it goes.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, метод",
+        "source_en": "arXiv:2310.11511, method",
+        "technology_id": "self_rag",
+        "to": "llm_router",
+        "why": "Решение о маршруте принимает та же языковая модель, а не отдельный классификатор снаружи.",
+        "why_en": "The routing decision is made by the same language model rather than by a separate classifier outside it."
+      },
+      {
+        "code": "C2",
+        "did": "Извлечение происходит по требованию и может не происходить вовсе: для простого вопроса модель отвечает без обращения к поиску.",
+        "did_en": "Retrieval happens on demand and may not happen at all: for a simple question the model answers without going to retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, метод",
+        "source_en": "arXiv:2310.11511, method",
+        "technology_id": "self_rag",
+        "to": "iterative_stopping",
+        "variable": true,
+        "why": "Число обращений заранее не задано и решается по ходу, поэтому измерение помечено как выбираемое на ходу; записана самая полная ветвь.",
+        "why_en": "The number of calls is not fixed in advance and is decided as it goes, so the dimension is marked as chosen at run time; the fullest branch is recorded."
+      },
+      {
+        "code": "E1",
+        "did": "Модель порождает продолжение и тут же оценивает его служебными словами: подтверждается ли оно найденным и полезно ли оно.",
+        "did_en": "The model produces a continuation and immediately grades it with control tokens: whether it is supported by what was found, and whether it is useful.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, метод",
+        "source_en": "arXiv:2310.11511, method",
+        "technology_id": "self_rag",
+        "to": "draft_verify",
+        "why": "Порождение и проверка разделены внутри одного прохода — это черновик с последующей проверкой, а не однопроходная генерация.",
+        "why_en": "Production and checking are separated inside a single pass, which is a draft followed by a check rather than single-pass generation."
+      },
+      {
+        "code": "E2",
+        "did": "Обоснованность проверяется во время порождения текста: служебные слова говорят, подтверждается ли утверждение найденным отрывком.",
+        "did_en": "Groundedness is checked while the text is produced: control tokens say whether a statement is supported by the retrieved passage.",
+        "instead": "«проверка после порождения»: она смотрела бы на готовый ответ, а здесь оценка идёт по ходу.",
+        "instead_en": "«post-hoc check»: it would look at a finished answer, whereas here the grading runs as it goes.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, метод",
+        "source_en": "arXiv:2310.11511, method",
+        "technology_id": "self_rag",
+        "to": "decoding_reflection",
+        "why": "Контроль встроен в порождение, а не выполняется после него отдельной проверкой.",
+        "why_en": "The control is built into production rather than performed afterwards as a separate check."
+      },
+      {
+        "code": "E3",
+        "did": "Утверждения связываются с конкретными найденными отрывками, и работа отдельно измеряет точность таких ссылок.",
+        "did_en": "Statements are tied to particular retrieved passages, and the work measures the precision of such references separately.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, оценка",
+        "source_en": "arXiv:2310.11511, evaluation",
+        "technology_id": "self_rag",
+        "to": "fragment_level",
+        "why": "Привязка идёт к фрагменту, а не к документу целиком.",
+        "why_en": "The binding is to a fragment rather than to a whole document."
+      },
+      {
+        "code": "G3",
+        "did": "Языковая модель дообучается порождать служебные слова; поисковик берётся готовым.",
+        "did_en": "The language model is fine-tuned to produce the control tokens; the retriever is taken ready-made.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, обучение",
+        "source_en": "arXiv:2310.11511, training",
+        "technology_id": "self_rag",
+        "to": "trained_reader",
+        "why": "Обучается читатель, а не поисковик.",
+        "why_en": "It is the reader that is trained, not the retriever."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной ступени пересмотра порядка найденного нет: оценку отрывкам даёт сама модель при порождении.",
+        "did_en": "There is no separate stage that revisits the order of what was found: the model itself grades the passages while producing text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.11511, метод",
+        "source_en": "arXiv:2310.11511, method",
+        "technology_id": "self_rag",
+        "to": "none",
+        "why": "Переранжирование — это вторая модель поверх поиска; здесь её роль играет генератор.",
+        "why_en": "Reranking is a second model on top of retrieval; here the generator plays that part."
+      },
+      {
+        "code": "E5",
+        "did": "Модель решает служебными словами, обращаться ли к поиску, и оценивает найденное по ходу.",
+        "did_en": "The model decides with control tokens whether to go to retrieval, and grades what it finds as it goes.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "self_rag",
+        "to": "mutual_loop",
+        "why": "Порождение управляет поиском, а найденное влияет на продолжение.",
+        "why_en": "Production drives retrieval, and what is retrieved shapes the continuation."
+      }
+    ],
+    "prose_id": "self_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Модель сама решает, когда обращаться к поиску, и сама оценивает найденное и собственный ответ служебными метками.",
+    "summary_en": "The model decides for itself when to retrieve, then judges what it found and what it wrote using service tokens."
+  }
+}

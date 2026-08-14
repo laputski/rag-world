@@ -1,0 +1,231 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.074,
+    "attention_cohort": "2024",
+    "attention_raw": 0.043,
+    "barriers": "Общее препятствие состоит в том, что пространство представляет собой новую модальность, и приёмы, выработанные для текста, к нему прямо не переносятся.\n\nТрёхмерные данные, то есть облака точек, нужно уложить в пространство представлений так, чтобы расстояние в нём отвечало расстоянию в помещении. Указатель приближённого поиска ближайших соседей для этого не годится, и требуются структуры пространственного поиска. Указатель, кроме того, должен работать на нескольких масштабах сразу, потому что вопрос бывает и о комнате, и о предмете на столе. Зрение, язык и геометрию нужно свести в одно извлечение. Наконец, робот видит обстановку лишь частично, поэтому запись о ней всегда неполна, а неполнота должна учитываться, а не замалчиваться.",
+    "barriers_en": "The common obstacle is that space is a new modality, and techniques worked out for text do not carry over to it directly.\n\nThree-dimensional data, that is, point clouds, must be placed in a representation space so that distance within it corresponds to distance in the room. An approximate nearest neighbour index will not serve for this, and spatial search structures are required. The index must also work at several scales at once, because a question may be about a room or about an object on a table. Vision, language, and geometry must be brought into a single retrieval. Finally, a robot sees its surroundings only in part, so the record of them is always incomplete, and that incompleteness must be accounted for rather than passed over.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "summary_node",
+      "A2": "fixed",
+      "A3": "summary",
+      "A4": "tree",
+      "A5": "vision_language",
+      "A6": "snapshot",
+      "A7": "scene_3d",
+      "A8": "computed",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "tree_navigation",
+      "C2": "agentic_open_loop",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "edge_device",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403853662",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.043",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2409.18313",
+        "type": "publication",
+        "value": "arXiv:2409.18313 (2024)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024-09",
+    "groups": [
+      "A",
+      "C",
+      "G"
+    ],
+    "id": "embodied_rag",
+    "kind": "paradigm",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "Embodied-RAG (CMU, arXiv:2409.18313, 2024)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2409.18313",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Text-to-3D Spatial Retrieval (ICCV, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Feng_Partially_Matching_Submap_Helps_Uncertainty_Modeling_and_Propagation_for_Text_ICCV_2025_paper.pdf",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Прототип исследовательской лаборатории. Шестьдесят одно цитирование, более двухсот пятидесяти решённых задач прокладки пути и объяснения. Направление почти не разработано.",
+    "maturity_note_en": "Research laboratory prototype. Sixty-one citations, over two hundred and fifty path-plotting and explanation tasks solved. The direction is barely developed.",
+    "name": "Embodied RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Память об окружении хранится семантическим лесом: несколькими деревьями описаний разной степени обобщения.",
+        "did_en": "Memory of the surroundings is kept as a semantic forest: several trees of descriptions at differing degrees of generality.",
+        "instead": "«граф»: он не выразил бы уровней обобщения, ради которых лес и построен.",
+        "instead_en": "«graph»: it would not express the levels of generality the forest is built for.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, метод",
+        "source_en": "arXiv:2409.18313, method",
+        "technology_id": "embodied_rag",
+        "to": "tree",
+        "why": "Структура иерархическая, у узла один родитель.",
+        "why_en": "The structure is hierarchical, and a node has one parent."
+      },
+      {
+        "code": "A7",
+        "did": "Материал — восприятие агента в физическом окружении километрового масштаба.",
+        "did_en": "The material is the agent's perception of a physical environment on a kilometre scale.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, постановка",
+        "source_en": "arXiv:2409.18313, problem statement",
+        "technology_id": "embodied_rag",
+        "to": "scene_3d",
+        "why": "Модальность пространственная, а не текстовая.",
+        "why_en": "The modality is spatial rather than textual."
+      },
+      {
+        "code": "A5",
+        "did": "Восприятие и язык обрабатываются вместе.",
+        "did_en": "Perception and language are processed together.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, постановка",
+        "source_en": "arXiv:2409.18313, problem statement",
+        "technology_id": "embodied_rag",
+        "to": "vision_language",
+        "why": "Представление общее для изображения и описания.",
+        "why_en": "The representation is shared by image and description."
+      },
+      {
+        "code": "A3",
+        "did": "Узлы дерева хранят описания разной степени обобщения, порождённые заранее.",
+        "did_en": "Nodes of the tree hold descriptions of differing generality, produced in advance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, метод",
+        "source_en": "arXiv:2409.18313, method",
+        "technology_id": "embodied_rag",
+        "to": "summary",
+        "why": "Единица индекса несёт добавленный пересказ.",
+        "why_en": "A unit of the index carries a retelling attached to it."
+      },
+      {
+        "code": "A1",
+        "did": "Извлекаются узлы этих деревьев, а не куски текста.",
+        "did_en": "What is retrieved are nodes of those trees rather than pieces of text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, метод",
+        "source_en": "arXiv:2409.18313, method",
+        "technology_id": "embodied_rag",
+        "to": "summary_node",
+        "why": "Единица извлечения — узел обобщения.",
+        "why_en": "The retrieval unit is a node of generalisation."
+      },
+      {
+        "code": "C1",
+        "did": "Ответ ищется спуском по уровням обобщения к нужному месту.",
+        "did_en": "The answer is sought by descending the levels of generality to the place required.",
+        "question": "Аннотация не описывает оператор поиска прямо; значение выведено из устройства индекса и характера запросов о навигации.",
+        "question_en": "The abstract does not describe the search operator directly; the value is inferred from how the index is built and from the navigational character of the queries.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, метод",
+        "source_en": "arXiv:2409.18313, method",
+        "technology_id": "embodied_rag",
+        "to": "tree_navigation",
+        "why": "Отбор — движение по иерархии.",
+        "why_en": "Selection is movement through the hierarchy."
+      },
+      {
+        "code": "G2",
+        "did": "Система работает на роботе, действующем в окружении.",
+        "did_en": "The system runs on a robot acting in its surroundings.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.18313, постановка",
+        "source_en": "arXiv:2409.18313, problem statement",
+        "technology_id": "embodied_rag",
+        "to": "edge_device",
+        "why": "Место исполнения — устройство, а не сервер.",
+        "why_en": "The locus of execution is a device rather than a server."
+      },
+      {
+        "code": "A8",
+        "did": "Уровни обобщения выводятся из наблюдений агента.",
+        "did_en": "The levels of generality are derived from the agent's observations.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "embodied_rag",
+        "to": "computed",
+        "why": "Структура вычислена по данным, а не задана источником.",
+        "why_en": "The structure is computed from data rather than given by the source."
+      }
+    ],
+    "problem": "Извлечение по тексту и векторным представлениям не знает понятий физического пространства и геометрии. Робот, действующий в помещении, не может обратиться к собранию за сведениями о своём окружении для того, чтобы проложить путь, взять предмет или разобраться в обстановке.\n\nЗапросы, естественные для действующего в пространстве, остаются неразрешимыми: где ближайший предмет такого-то рода, что находится слева от такого-то предмета, можно ли пройти между двумя препятствиями.",
+    "problem_en": "Retrieval over text and vector representations has no notion of physical space or geometry. A robot acting in a room cannot consult a collection for information about its surroundings in order to plot a path, pick up an object, or make sense of a scene.\n\nQueries natural to an agent acting in space remain unanswerable: where the nearest object of a given kind is, what lies to the left of a given object, whether it is possible to pass between two obstacles.",
+    "prose_id": "embodied_rag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Облака точек кодируются так, чтобы обычное расстояние между представлениями отвечало пространственной близости, и поиск становится метрическим.\n\nОбстановка описывается графом сцены с несколькими уровнями подробности, что позволяет обслуживать вопросы разного масштаба одним указателем. Работа Text-to-3D Spatial Retrieval, представленная на конференции ICCV 2025, вводит учёт неопределённости при частичных наблюдениях.\n\nСистема Embodied-RAG Университета Карнеги-Меллона решила более двухсот пятидесяти задач прокладки пути и объяснения обстановки.",
+    "solutions_en": "Point clouds are encoded so that ordinary distance between representations corresponds to spatial proximity, which makes the search metric.\n\nSurroundings are described by a scene graph with several levels of detail, which lets one index serve questions of differing scale. The Text-to-3D Spatial Retrieval work presented at ICCV 2025 introduces a treatment of uncertainty under partial observation.\n\nThe Embodied-RAG system from Carnegie Mellon University solved over two hundred and fifty path-plotting and scene-explanation tasks.",
+    "summary": "Извлечение по трёхмерному окружению для роботов: запрос о положении и близости объектов, а не о тексте.",
+    "summary_en": "Retrieval over a three-dimensional environment for robots: queries about position and proximity rather than about text."
+  }
+}

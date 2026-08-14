@@ -1,0 +1,284 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "RAG Anything"
+    ],
+    "attention": 0.0,
+    "attention_cohort": "2025",
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "structure_aware",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "score_normalization",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "episodic",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-13",
+    "configuration_variable": [
+      "A1",
+      "A5",
+      "A7"
+    ],
+    "description": "RAG-Anything отвечает на разрыв между тем, как устроены документы, и тем, как устроено извлечение. Отчёт, статья или руководство состоят не из одного текста: в них есть таблицы с числами, схемы, формулы, снимки экрана. Обычная цепочка обработки берёт из такого документа текст, а остальное либо отбрасывает, либо пересказывает словами, и в обоих случаях сведения теряются.\n\nОбработка идёт в три шага. Сторонний разборщик выделяет элементы документа порознь и сохраняет их вложенность: заголовок, абзац, таблица, врезка. Затем большая языковая модель извлекает из элементов сущности и отношения между ними, включая отношения между элементами разных модальностей, и складывает всё в единый граф знаний. Наконец, извлечение сочетает поиск по близости представлений с обходом рёбер этого графа, а порядок выдачи учитывает род единицы: таблица и абзац сравниваются не только по близости к запросу.\n\nСистема построена поверх LightRAG и наследует от неё пополнение собрания дописыванием: новый документ добавляется к существующему графу без его перестроения. Расход при индексации остаётся высоким, потому что извлечение сущностей требует обращения к языковой модели по каждому элементу, а разбор изображений и таблиц добавляет к этому собственную стоимость. Качество разбора при этом определяется сторонним разборщиком, и ошибки его переходят в граф без исправления.",
+    "description_en": "RAG-Anything addresses the gap between how documents are built and how retrieval is built. A report, a paper, or a manual does not consist of running text alone: it has tables of figures, diagrams, equations, screenshots. An ordinary processing chain takes the text out of such a document and either discards the rest or restates it in words, and information is lost either way.\n\nProcessing runs in three steps. An external parser isolates the document's elements and preserves their nesting: heading, paragraph, table, figure. A large language model then extracts entities and the relations between them from those elements, including relations between elements of different modalities, and assembles everything into a single knowledge graph. Finally, retrieval combines search by closeness of representations with traversal of that graph's edges, and the ordering of results accounts for the kind of unit: a table and a paragraph are compared by more than closeness to the query.\n\nThe system is built on LightRAG and inherits from it the growth of a collection by appending: a new document is added to the existing graph without rebuilding it. Indexing remains expensive, because entity extraction requires a language model call per element, and parsing images and tables adds a cost of its own. The quality of that parsing is settled by the external parser, and its errors pass into the graph uncorrected.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2510.12323",
+        "type": "publication",
+        "value": "arXiv:2510.12323 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415270293",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/RAG-Anything",
+        "type": "repository",
+        "value": "HKUDS/RAG-Anything: license=mit, last_push=2026-08-13, releases=yes",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "graph_rag",
+    "first_published": "2025-10",
+    "groups": [
+      "A",
+      "C",
+      "D"
+    ],
+    "id": "rag_anything",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2510.12323",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2510.12323",
+        "verified_at": null
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://github.com/HKUDS/RAG-Anything",
+        "verified_at": null
+      }
+    ],
+    "name": "RAG-Anything",
+    "package": "raganything",
+    "parse_notes": [
+      {
+        "code": "A1",
+        "did": "Единицей извлечения служит элемент документа: отрезок текста, изображение, таблица либо формула. Разбор выделяет их порознь и сохраняет за каждым его род.",
+        "did_en": "The unit of retrieval is a document element: a stretch of text, an image, a table, or an equation. Parsing separates them and keeps the kind of each.",
+        "instead": "«вершина или ребро графа»: граф здесь надстроен над элементами и служит связями между ними, а возвращается читателю сам элемент.",
+        "instead_en": "«graph node or edge»: the graph here is raised over the elements and serves as the links between them, while what is returned to the reader is the element itself.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, устройство цепочки",
+        "source_en": "arXiv:2510.12323, pipeline description",
+        "technology_id": "rag_anything",
+        "to": "passage",
+        "variable": true,
+        "why": "Записано наиболее частое значение, а пометка переменного стоит потому, что род единицы выбирается содержимым документа, а не настройкой системы.",
+        "why_en": "The most frequent value is recorded, and the run-time mark is there because the kind of unit is settled by the content of the document rather than by a setting."
+      },
+      {
+        "code": "A2",
+        "did": "Документ разбирается сторонним разборщиком (MinerU, Docling либо PaddleOCR), который выделяет заголовки, абзацы, таблицы и врезки и сохраняет их вложенность.",
+        "did_en": "The document is parsed by an external parser (MinerU, Docling, or PaddleOCR) that isolates headings, paragraphs, tables, and figures and preserves their nesting.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, разбор документа",
+        "source_en": "arXiv:2510.12323, document parsing",
+        "technology_id": "rag_anything",
+        "to": "structure_aware",
+        "why": "Границы проводятся по устройству документа, а не по числу символов.",
+        "why_en": "Boundaries follow the structure of the document rather than a character count."
+      },
+      {
+        "code": "A3",
+        "did": "Из элементов извлекаются сущности и отношения между ними, в том числе отношения между элементами разных модальностей.",
+        "did_en": "Entities and the relations between them are extracted from the elements, including relations between elements of different modalities.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, построение графа",
+        "source_en": "arXiv:2510.12323, graph construction",
+        "technology_id": "rag_anything",
+        "to": "extracted_triples",
+        "why": "К единице добавляется то, чего в её собственном тексте нет: связи с другими единицами.",
+        "why_en": "What is added to a unit is not present in its own text: its links to other units."
+      },
+      {
+        "code": "A4",
+        "did": "Извлечённые сущности и отношения складываются в граф знаний, охватывающий все модальности разом.",
+        "did_en": "The extracted entities and relations are assembled into a knowledge graph spanning all modalities at once.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, построение графа",
+        "source_en": "arXiv:2510.12323, graph construction",
+        "technology_id": "rag_anything",
+        "to": "graph",
+        "why": "Единицы связаны рёбрами, и связь эта используется при извлечении.",
+        "why_en": "Units are joined by edges, and those edges are used during retrieval."
+      },
+      {
+        "code": "A5",
+        "did": "Текстовые элементы представляются одним плотным вектором, изображения и таблицы обрабатываются своими средствами.",
+        "did_en": "Text elements are represented by a single dense vector, while images and tables are handled by their own means.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, обработчики модальностей",
+        "source_en": "arXiv:2510.12323, modality processors",
+        "technology_id": "rag_anything",
+        "to": "dense_single",
+        "variable": true,
+        "why": "Записано значение для текста как преобладающей модальности; пометка переменного стоит потому, что род представления меняется вместе с родом элемента.",
+        "why_en": "The value recorded is the one for text as the prevailing modality; the run-time mark is there because the kind of representation changes with the kind of element."
+      },
+      {
+        "code": "A7",
+        "did": "Принимаются текст, изображения, таблицы и формулы; набор родов расширяется своими обработчиками.",
+        "did_en": "Text, images, tables, and equations are accepted, and the set of kinds is extensible with custom processors.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, поддерживаемые форматы",
+        "source_en": "arXiv:2510.12323, supported formats",
+        "technology_id": "rag_anything",
+        "to": "text",
+        "variable": true,
+        "why": "Записан текст как преобладающая модальность собрания; пометка переменного стоит потому, что в одном собрании присутствуют все перечисленные.",
+        "why_en": "Text is recorded as the prevailing modality of a collection; the run-time mark is there because all of the listed kinds occur within one collection."
+      },
+      {
+        "code": "A8",
+        "did": "Связи между единицами получены языковой моделью из содержания документов, а не заданы источником.",
+        "did_en": "The links between units are obtained by a language model from the content of the documents rather than given by the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, построение графа",
+        "source_en": "arXiv:2510.12323, graph construction",
+        "technology_id": "rag_anything",
+        "to": "extracted",
+        "why": "Происхождение структуры определяется тем, кто её построил, и здесь её построил разбор.",
+        "why_en": "The origin of the structure is settled by what built it, and here it was built by parsing."
+      },
+      {
+        "code": "C1",
+        "did": "Извлечение сочетает поиск по близости представлений с обходом рёбер графа, сохраняя связность найденного.",
+        "did_en": "Retrieval combines search by closeness of representations with traversal of graph edges, preserving the coherence of what is found.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, извлечение",
+        "source_en": "arXiv:2510.12323, retrieval",
+        "technology_id": "rag_anything",
+        "to": "graph_traversal",
+        "why": "Обход графа назван оператором потому, что именно он определяет состав выдачи: поиск по близости даёт начальные вершины, а состав окрестности решает обход.",
+        "why_en": "Graph traversal is named as the operator because it is what settles the composition of the results: similarity search supplies the starting nodes, while the traversal decides the neighbourhood."
+      },
+      {
+        "code": "C3",
+        "did": "Результаты поиска по представлениям и обхода графа сводятся в один упорядоченный список.",
+        "did_en": "The results of representation search and of graph traversal are brought into a single ordered list.",
+        "question": "Способ слияния в описании назван взвешиванием, но шкала не указана. Возможно прочтение «обученное слияние», если веса подбираются, а не задаются.",
+        "question_en": "The description calls the merge a weighting but does not name the scale. A reading of «learned fusion» is possible if the weights are fitted rather than fixed.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, извлечение",
+        "source_en": "arXiv:2510.12323, retrieval",
+        "technology_id": "rag_anything",
+        "to": "score_normalization",
+        "why": "Два оператора дают две выдачи в несопоставимых величинах, и свести их без приведения к общей шкале нельзя.",
+        "why_en": "Two operators produce two result sets in incommensurable quantities, and they cannot be joined without being brought onto a common scale."
+      },
+      {
+        "code": "F1",
+        "did": "Пополнение собрания идёт дописыванием: новые документы разбираются и добавляются к существующему графу без его перестроения.",
+        "did_en": "The collection grows by appending: new documents are parsed and added to the existing graph without rebuilding it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, надстройка над LightRAG",
+        "source_en": "arXiv:2510.12323, built on LightRAG",
+        "technology_id": "rag_anything",
+        "to": "episodic",
+        "why": "Значение унаследовано от LightRAG, поверх которого построена система, и совпадает со значением у той записи.",
+        "why_en": "The value is inherited from LightRAG, on which the system is built, and matches the value on that record."
+      },
+      {
+        "did": "Порядок выдачи учитывает род единицы: текст, таблица и изображение сравниваются не только по близости к запросу.",
+        "did_en": "The ordering of results accounts for the kind of unit: text, tables, and images are compared by more than closeness to the query.",
+        "residual": "modality_aware_ranking",
+        "residual_term": "ранжирование с учётом модальности единицы",
+        "residual_term_en": "ranking that accounts for the modality of a unit",
+        "source": "arXiv:2510.12323, ранжирование",
+        "source_en": "arXiv:2510.12323, ranking",
+        "technology_id": "rag_anything",
+        "why": "Схема называет способ пересчёта порядка измерением D1, но признака, по которому сопоставляются единицы разных модальностей, в ней нет.",
+        "why_en": "The schema names the manner of reordering in dimension D1, but it has no place for the criterion by which units of different modalities are compared."
+      }
+    ],
+    "prose_id": "rag_anything",
+    "residual": [
+      "ранжирование с учётом модальности единицы"
+    ],
+    "residual_en": [
+      "ranking that accounts for the modality of a unit"
+    ],
+    "summary": "Многомодальный граф знаний над разобранным документом: текст, таблицы, формулы и изображения в одном извлечении.",
+    "summary_en": "A multimodal knowledge graph over a parsed document: text, tables, equations, and images in one retrieval."
+  }
+}

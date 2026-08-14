@@ -1,0 +1,162 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "HybridRAG",
+      "Hybrid RAG"
+    ],
+    "attention": 3.146,
+    "attention_cohort": null,
+    "attention_raw": 3.146,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Standard HybridRAG соединяет два способа поиска, которые ошибаются по-разному. Словарный поиск отбирает документы по совпадению слов и надёжен там, где слово запроса встречается в документе буквально: имя собственное, обозначение детали, номер статьи. Синонима он не понимает, и вопрос, заданный другими словами, остаётся без ответа. Плотный поиск по векторным представлениям понимает синонимию и перифразу, но склонен подменять точное слово похожим и на редком обозначении, которого не было в обучении, промахивается.\n\nСоединение состоит в том, что оба поиска выполняются по одному запросу независимо, каждый даёт свой упорядоченный список, а списки сливаются в один. Слияние идёт либо по обратным рангам, где учитывается только место документа, либо приведением оценок к общей шкале, если шкалы известны.\n\nСхема не даёт ни новой единицы извлечения, ни нового устройства индекса и потому служит основанием, а не архитектурой: её ставят под другими приёмами и от неё отсчитывают их выигрыш. Плата состоит в двух индексах вместо одного, которые нужно строить и держать согласованными, и в двух обращениях на каждый запрос.",
+    "description_en": "Standard HybridRAG joins two kinds of search that fail in different ways. Lexical search selects documents by word overlap and is dependable where a query word appears in the document literally: a proper name, a part number, an article of a statute. It understands no synonym, so a question asked in other words goes unanswered. Dense search over vector representations understands synonymy and paraphrase, but it tends to substitute a similar word for the exact one and misses on a rare designation absent from its training.\n\nThe joining consists in running both searches on the same query independently, each producing its own ordered list, and merging the lists into one. The merge proceeds either by reciprocal rank, where only a document's position counts, or by bringing the scores onto a common scale where those scales are known.\n\nThe scheme introduces neither a new unit of retrieval nor a new index structure and therefore serves as a baseline rather than an architecture: it is placed underneath other techniques, and their gains are measured from it. It costs two indexes instead of one, which must be built and kept in step, and two consultations per query.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "manual",
+        "source": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+        "type": "industrial_use",
+        "value": "OpenSearch: смешанный поиск как штатная возможность, со слиянием выдач внутри хранилища",
+        "value_en": "OpenSearch: hybrid search as a supported feature, with result fusion inside the store"
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "manual",
+        "source": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+        "type": "industrial_use",
+        "value": "Qdrant: смешанные запросы с разреженными и плотными векторами и слиянием по обратным рангам",
+        "value_en": "Qdrant: hybrid queries over sparse and dense vectors with reciprocal rank fusion"
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W2148972377",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=645; year=2009; citation_velocity=3.146",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "D",
+    "first_published": "2009",
+    "groups": [
+      "A",
+      "C",
+      "D"
+    ],
+    "id": "standard_hybridrag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "paper",
+        "label": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+        "label_en": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
+        "status": "guarded",
+        "url": "https://doi.org/10.1145/1571941.1572114",
+        "verified_at": "2026-08-13"
+      },
+      {
+        "kind": "product",
+        "label": "OpenSearch: смешанный поиск",
+        "label_en": "OpenSearch: hybrid search",
+        "status": "verified",
+        "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
+        "verified_at": "2026-08-13"
+      },
+      {
+        "kind": "product",
+        "label": "Qdrant: смешанные запросы",
+        "label_en": "Qdrant: hybrid queries",
+        "status": "verified",
+        "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+        "verified_at": "2026-08-13"
+      }
+    ],
+    "name": "Standard HybridRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "C3",
+        "did": "Словарный и векторный поиск выполняются оба, а их списки сливаются по рангам.",
+        "did_en": "Lexical and vector retrieval are both performed, and their lists are merged by rank.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "обзор гибридного RAG, atlan.com",
+        "source_en": "a survey of hybrid RAG, atlan.com",
+        "technology_id": "standard_hybridrag",
+        "to": "rrf",
+        "why": "Слияние двух источников и есть определяющая черта сочетания.",
+        "why_en": "The fusion of two sources is the defining trait of the combination."
+      },
+      {
+        "code": "D1",
+        "did": "Поверх слитого списка работает отдельная модель переранжирования.",
+        "did_en": "A separate reranking model works over the merged list.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "обзор гибридного RAG, atlan.com",
+        "source_en": "a survey of hybrid RAG, atlan.com",
+        "technology_id": "standard_hybridrag",
+        "to": "cross_encoder",
+        "why": "Ступень пересмотра порядка присутствует и выполняется другой моделью.",
+        "why_en": "A stage that revisits the order is present and is performed by another model."
+      }
+    ],
+    "prose_id": "standard_hybridrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Словарный и векторный поиск одновременно с последующим слиянием их списков.",
+    "summary_en": "Lexical and vector search run together, with their lists merged afterwards."
+  }
+}

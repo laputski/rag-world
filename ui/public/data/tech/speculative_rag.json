@@ -1,0 +1,185 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.626,
+    "attention_cohort": "2025",
+    "attention_raw": 0.28,
+    "barriers": "Главная проблема состоит в оценке уверенности. Первая подпроблема заключается в надёжной оценке уверенности для skip-retrieval, поскольку ложноположительный пропуск ведёт к галлюцинации, а ложноотрицательный пропуск теряет оптимизацию. Вторая подпроблема состоит в избегании регрессии корректности при пропуске retrieval. Третья подпроблема заключается в накладных расходах оркестрации, поскольку параллельные гонки draft и retrieve сложнее простой последовательной схемы.",
+    "barriers_en": "The central difficulty is confidence estimation. First, a reliable confidence estimate is needed for skipping retrieval: a false positive skip leads to hallucination, a false negative loses the optimisation. Second, correctness must not regress when retrieval is skipped. Third, orchestration overhead: racing draft against retrieve in parallel is harder than a simple sequential scheme.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "budget_aware",
+      "D3": "natural_order",
+      "E1": "ensemble_fragments",
+      "E2": "external_judge",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Speculative RAG распределяет работу между двумя моделями разного размера по образцу спекулятивного порождения, где дешёвая модель предлагает, а дорогая проверяет. Затруднение, которое при этом снимается, состоит в том, что длинный контекст из многих найденных документов дорог для большой модели и одновременно ухудшает её ответ, потому что противоречивые сведения смешиваются в одном входе.\n\nНайденные документы сначала группируются по содержанию так, чтобы каждая группа отражала свой взгляд на вопрос. По каждой группе отдельно малая модель, дообученная на этом собрании, пишет черновик ответа вместе с обоснованием. Черновиков получается столько, сколько групп, и каждый опирается на короткий однородный контекст, а не на всё найденное сразу.\n\nБольшая модель черновиков не пишет, а только оценивает: она читает каждый вместе с его обоснованием и выбирает наиболее обоснованный. Проверка обходится дешевле порождения, поэтому расход на большую модель падает, а качество держится за счёт того, что каждый черновик строился на согласованном наборе документов. Плата состоит в двух моделях вместо одной и в дообучении малой из них.",
+    "description_en": "Speculative RAG splits the work between two models of different size, after the pattern of speculative decoding, where a cheap model proposes and an expensive one verifies. The difficulty removed is that a long context of many retrieved documents is expensive for a large model and at the same time worsens its answer, because contradictory material is mixed into one input.\n\nThe retrieved documents are first grouped by content so that each group reflects its own view of the question. Over each group separately, a small model fine-tuned on this collection writes a draft answer together with its rationale. There are as many drafts as groups, and each rests on a short homogeneous context rather than on everything retrieved at once.\n\nThe large model writes no drafts and only judges: it reads each one along with its rationale and selects the best supported. Verification costs less than generation, so spending on the large model falls, while quality holds because every draft was built on a coherent set of documents. The price is two models instead of one, and the fine-tuning of the smaller.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400611538",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.28",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2407.08223",
+        "type": "publication",
+        "value": "arXiv:2407.08223 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.08223",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=113; year=2024",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "A",
+    "first_published": "2025",
+    "groups": [
+      "D",
+      "E"
+    ],
+    "id": "speculative_rag",
+    "kind": "paradigm",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2407.08223",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
+        "label_en": null,
+        "status": "guarded",
+        "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
+        "verified_at": "2026-08-11"
+      },
+      {
+        "kind": "other",
+        "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Концепт и ранний архитектурный паттерн. Флагманской статьи пока нет; подход описан в архитектурных обзорах 2026 года.",
+    "maturity_note_en": "A concept and an early architectural pattern. There is no flagship paper yet; the approach is described in architectural surveys of 2026.",
+    "name": "Speculative RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "E1",
+        "did": "Меньшая специализированная модель порождает несколько черновиков ответа параллельно, каждый по своему подмножеству найденного.",
+        "did_en": "A smaller specialised model produces several draft answers in parallel, each from its own subset of what was retrieved.",
+        "instead": "«черновик и проверка»: там черновик один и правится, здесь их несколько и один выбирается.",
+        "instead_en": "«draft and check»: there the draft is single and gets corrected, whereas here there are several and one is chosen.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.08223, метод",
+        "source_en": "arXiv:2407.08223, method",
+        "technology_id": "speculative_rag",
+        "to": "ensemble_fragments",
+        "why": "Ответ складывается из нескольких порождённых частей, а не пишется одним проходом.",
+        "why_en": "The answer is assembled from several produced parts rather than written in one pass."
+      },
+      {
+        "code": "E2",
+        "did": "Большая модель одним проходом проверяет черновики и выносит решение.",
+        "did_en": "A large model checks the drafts in one pass and delivers a verdict.",
+        "instead": "«проверка после порождения»: она была бы тем же генератором, а здесь судья другой.",
+        "instead_en": "«post-hoc check»: it would be the same generator, whereas here the judge is another.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.08223, метод",
+        "source_en": "arXiv:2407.08223, method",
+        "technology_id": "speculative_rag",
+        "to": "external_judge",
+        "why": "Проверяет не тот, кто порождал: обоснованность оценивается отдельной моделью.",
+        "why_en": "The checker is not the producer: groundedness is judged by a separate model."
+      },
+      {
+        "code": "D2",
+        "did": "Найденное делится на подмножества, и каждый черновик видит только своё.",
+        "did_en": "What is retrieved is split into subsets, and every draft sees only its own.",
+        "question": "Источник объясняет деление разнообразием взглядов на свидетельства, а не бюджетом окна. Возможно, здесь нужен остаток, а не значение отбора.",
+        "question_en": "The source explains the split by diversity of perspectives on the evidence rather than by a window budget. A residual may be needed here rather than a value of selection.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.08223, метод",
+        "source_en": "arXiv:2407.08223, method",
+        "technology_id": "speculative_rag",
+        "to": "budget_aware",
+        "why": "Контекст каждого порождения ограничен намеренно, ради скорости.",
+        "why_en": "The context of every production is bounded deliberately, for the sake of speed."
+      }
+    ],
+    "problem": "RAG добавляет фиксированную retrieval-latency к каждому запросу, даже когда модель уже знает ответ из параметрических знаний. Для тривиальных вопросов retrieval представляет собой чистые издержки.",
+    "problem_en": "Retrieval adds a fixed latency to every query, even when the model already knows the answer from its parameters. For trivial questions retrieval is pure overhead.",
+    "prose_id": "speculative_rag",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Logprob-thresholded skip пропускает retrieval, если logprob draft-генерации превышает пороговое значение. Parallel draft и retrieve race выполняет оба процесса параллельно, и победителем становится тот, кто дал confident-ответ первым. Архитектурные обзоры 2026 года описывают эти паттерны как развивающиеся практики.",
+    "solutions_en": "A probability-thresholded skip omits retrieval when the draft generation is confident enough. Racing draft and retrieve in parallel lets whichever produces a confident answer first win. Architectural surveys of 2026 describe these patterns as emerging practice.",
+    "summary": "Малая модель пишет несколько черновиков по разным подмножествам найденного, большая выбирает лучший.",
+    "summary_en": "A small model writes several drafts over different subsets of the retrieved material; a large one picks the best."
+  }
+}

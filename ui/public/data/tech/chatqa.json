@@ -1,0 +1,132 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "ChatQA 2"
+    ],
+    "attention": 0.39,
+    "attention_cohort": "2024",
+    "attention_raw": 0.226,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "joint_training"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "ChatQA занимается извлечением внутри разговора, где вопрос сам по себе неполон. Реплика «а в прошлом году?» не содержит ни предмета, ни лица, о которых речь, и поиск по ней возвращает случайное. Смысл её восстанавливается только из предыдущих реплик, а обычный извлекатель предыдущих реплик не видит.\n\nДонастройка идёт в два этапа. Сначала модель обучают следовать указаниям и удерживать поданный контекст. Затем её обучают на разговорных примерах, где среди поданного намеренно есть отрывки, к вопросу не относящиеся, и часть примеров вовсе не имеет ответа в поданном: правильным поведением на них объявляется прямое признание, что ответа нет.\n\nИзвлекатель донастраивается отдельно на переписанных запросах: вопрос, зависящий от разговора, приводится к самостоятельному виду с восстановленными упоминаниями, и поиск идёт уже по нему. Тем самым разговорная зависимость снимается до обращения к указателю, а не перекладывается на него. Показано, что при такой подготовке открытая модель отвечает наравне с закрытыми того времени, а признание отсутствия ответа заметно снижает долю вымысла.",
+    "description_en": "ChatQA takes up retrieval inside a conversation, where the question on its own is incomplete. The turn \"and last year?\" contains neither the subject nor the person being discussed, and a search on it returns arbitrary results. Its meaning is recoverable only from the preceding turns, and an ordinary retriever does not see them.\n\nFine-tuning proceeds in two stages. The model is first trained to follow instructions and to hold the context it is given. It is then trained on conversational examples in which the material supplied deliberately includes passages irrelevant to the question, and a portion of the examples have no answer in the supplied material at all: the correct behaviour on those is declared to be a plain statement that no answer is present.\n\nThe retriever is fine-tuned separately on rewritten queries: a question dependent on the conversation is brought to a self-contained form with its references restored, and the search runs on that. Conversational dependence is thereby removed before the index is consulted rather than loaded onto it. It is shown that under such preparation an open model answers on a par with the closed models of its time, and that stating the absence of an answer markedly reduces the share of invention.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2401.10225",
+        "type": "publication",
+        "value": "arXiv:2401.10225 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415798682",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=7; year=2024; citation_velocity=0.226",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391047467",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": null,
+    "first_published": "2024-01",
+    "groups": [
+      "G"
+    ],
+    "id": "chatqa",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2401.10225",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "ChatQA",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G3",
+        "did": "Обучаются обе стороны: языковая модель проходит два захода настройки, а поисковик дообучается на парах «вопрос в диалоге и его контекст» вместо переписывания вопроса отдельной моделью.",
+        "did_en": "Both sides are trained: the language model goes through two passes of tuning, and the retriever is fine-tuned on pairs of a question in dialogue and its context, instead of a separate model rewriting the question.",
+        "instead": "«обучаемый читатель»: он потерял бы главное — что переписывание вопроса заменено дообучением поисковика.",
+        "instead_en": "«trainable reader»: it would lose the main point, that rewriting the question is replaced by fine-tuning the retriever.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.10225, метод",
+        "source_en": "arXiv:2401.10225, method",
+        "technology_id": "chatqa",
+        "to": "joint_training",
+        "why": "Обучены и читатель, и поисковик, причём второй под задачу первого.",
+        "why_en": "Both the reader and the retriever are trained, the second for the task of the first."
+      }
+    ],
+    "prose_id": "chatqa",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Двухэтапная донастройка для разговорного извлечения, где вопрос понятен лишь с учётом предыдущих реплик.",
+    "summary_en": "Two-stage fine-tuning for conversational retrieval, where a question makes sense only against earlier turns."
+  }
+}

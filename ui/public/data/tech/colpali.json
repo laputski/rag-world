@@ -1,0 +1,212 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.332,
+    "attention_cohort": "2024",
+    "attention_raw": 0.192,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "page_image",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "vision_language",
+      "A6": "snapshot",
+      "A7": "image",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [
+      "E1",
+      "E2",
+      "E3",
+      "E4"
+    ],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "ColPali отказывается от шага, который в обработке документов считался обязательным. Обычная цепочка сначала превращает страницу в текст: распознаёт символы, определяет границы колонок, восстанавливает порядок чтения, отделяет подписи от основного текста, разбирает таблицы. Каждый из этих шагов ошибается, ошибки накапливаются, а всё, что не выражается текстом, теряется полностью: расположение элементов, схемы, графики, оформление таблицы.\n\nColPali индексирует изображение страницы как таковое. Страница подаётся зрительно-языковой модели, то есть модели, обученной сопоставлять изображения и текст в общем пространстве представлений, и от неё берётся набор векторов по участкам изображения. Запрос остаётся текстовым и кодируется в то же пространство. Сходство считается по схеме позднего взаимодействия, унаследованной от ColBERT: каждый вектор запроса сопоставляется с наиболее близким участком страницы.\n\nЦепочка обработки сокращается до двух шагов вместо шести, и разбирать вёрстку не требуется вовсе. Ограничения соответствуют выбранному пути: индексация требует прогона зрительной модели по каждой странице и обходится дороже разбора текста, единицей извлечения служит целая страница, а не абзац, и точная цитата из найденной страницы отдельным шагом не выделяется.",
+    "description_en": "ColPali abandons a step that document processing had treated as obligatory. The usual chain first turns a page into text: it recognises characters, determines column boundaries, restores reading order, separates captions from body text, parses tables. Every one of these steps makes mistakes, the mistakes accumulate, and anything not expressible as text is lost outright: the placement of elements, diagrams, charts, the shape of a table.\n\nColPali indexes the page image as it stands. The page is given to a vision-language model, that is, a model trained to place images and text in a shared representation space, and a set of vectors over regions of the image is taken from it. The query stays textual and is encoded into the same space. Similarity is computed by the late interaction scheme inherited from ColBERT: each query vector is matched against the region of the page closest to it.\n\nThe processing chain shrinks from six steps to two, and layout need not be parsed at all. The limitations follow from the path chosen: indexing requires a run of the vision model over every page and costs more than parsing text, the unit of retrieval is a whole page rather than a paragraph, and an exact quotation from the retrieved page is not isolated by any separate step.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2407.01449",
+        "type": "publication",
+        "value": "arXiv:2407.01449 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400373146",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.192",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=189; year=2024",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "E",
+    "first_published": "2024-07",
+    "groups": [
+      "A",
+      "G"
+    ],
+    "id": "colpali",
+    "kind": "technique",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2407.01449",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "ColPali",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A1",
+        "did": "Индексируется изображение страницы целиком; текст из неё не извлекается вовсе.",
+        "did_en": "The page image is indexed whole; no text is extracted from it at all.",
+        "instead": "«пассаж»: он предполагает извлечённый текст, а работа как раз устраняет этот хрупкий шаг.",
+        "instead_en": "«passage»: it presupposes extracted text, and the work removes precisely that brittle step.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, постановка",
+        "source_en": "arXiv:2407.01449, problem statement",
+        "technology_id": "colpali",
+        "to": "page_image",
+        "why": "Единица извлечения — страница как картинка. Ступени распознавания текста в системе нет.",
+        "why_en": "The retrieval unit is the page as a picture. The system has no text-recognition stage."
+      },
+      {
+        "code": "A5",
+        "did": "Представления порождает модель, читающая изображение и текст вместе.",
+        "did_en": "Representations are produced by a model that reads image and text together.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, модель",
+        "source_en": "arXiv:2407.01449, model",
+        "technology_id": "colpali",
+        "to": "vision_language",
+        "why": "Модель представления работает с картинкой, а не с последовательностью слов.",
+        "why_en": "The representation model works on a picture rather than on a sequence of words."
+      },
+      {
+        "code": "A7",
+        "did": "Входные данные — изображения страниц документа.",
+        "did_en": "The input is images of document pages.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, постановка",
+        "source_en": "arXiv:2407.01449, problem statement",
+        "technology_id": "colpali",
+        "to": "image",
+        "why": "Модальность индексируемого материала — изображение.",
+        "why_en": "The modality of the indexed material is image."
+      },
+      {
+        "code": "D1",
+        "did": "Близость считается поздним сравнением наборов векторов; отдельной модели, пересматривающей порядок, нет.",
+        "did_en": "Closeness is computed by late comparison of sets of vectors; there is no separate model that revisits the order.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, механизм сопоставления",
+        "source_en": "arXiv:2407.01449, the matching mechanism",
+        "technology_id": "colpali",
+        "to": "none",
+        "why": "Позднее сравнение — часть самого поиска, а не вторая ступень поверх него.",
+        "why_en": "Late comparison is part of retrieval itself rather than a second stage on top of it."
+      },
+      {
+        "code": "G3",
+        "did": "Модель дообучается порождать представления страниц под задачу поиска.",
+        "did_en": "The model is fine-tuned to produce page representations for the retrieval task.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, обучение",
+        "source_en": "arXiv:2407.01449, training",
+        "technology_id": "colpali",
+        "to": "trained_retriever",
+        "why": "Система обучает свой поисковик, а не берёт готовый.",
+        "why_en": "The system trains its own retriever instead of taking a ready one."
+      },
+      {
+        "code": "E1",
+        "did": "Система ничего не порождает: она возвращает страницы документа.",
+        "did_en": "The system produces nothing: it returns pages of a document.",
+        "inapplicable": true,
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2407.01449, предмет работы",
+        "source_en": "arXiv:2407.01449, subject of the work",
+        "technology_id": "colpali",
+        "why": "Значение режима генерации утверждало бы о ступени, которой нет. Снята вся страта синтеза — по тому же правилу, что и у другого поисковика реестра.",
+        "why_en": "A value for the generation mode would assert a stage that does not exist. The whole synthesis stratum is removed, by the same rule as for the other retriever in the registry."
+      },
+      {
+        "did": "Наборы векторов страницы и запроса сводятся к одной оценке правилом наибольшей близости.",
+        "did_en": "The vector sets of page and query collapse into one score by a maximum-closeness rule.",
+        "residual": "max_similarity_interaction",
+        "residual_term": "сравнение по максимуму сходства между представлениями",
+        "residual_term_en": "max-similarity interaction between representations",
+        "source": "arXiv:2407.01449, механизм сопоставления",
+        "source_en": "arXiv:2407.01449, the matching mechanism",
+        "technology_id": "colpali",
+        "why": "Схема называет вид представления, но не правило свёртки двух наборов в число.",
+        "why_en": "The schema names the kind of representation and not the rule that collapses two sets into a number."
+      }
+    ],
+    "prose_id": "colpali",
+    "residual": [
+      "сравнение по максимуму сходства между представлениями"
+    ],
+    "residual_en": [
+      "max-similarity interaction between representations"
+    ],
+    "summary": "Поиск по изображениям страниц напрямую, без распознавания текста и разбора вёрстки.",
+    "summary_en": "Search over page images directly, with no text recognition and no layout parsing."
+  }
+}

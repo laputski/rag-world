@@ -1,0 +1,199 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.528,
+    "attention_cohort": "2025",
+    "attention_raw": 0.684,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "node_edge",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "hypergraph",
+      "A5": "lexical",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "given",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "set_cover",
+      "D2": "budget_aware",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "OG-RAG опирается на онтологию, то есть на заданное экспертами формальное описание понятий предметной области и допустимых отношений между ними. Отличие от графа, извлечённого языковой моделью из текста, состоит в источнике структуры: онтологию пишет человек, знающий область, и она задаёт, какие утверждения в этой области вообще имеют смысл.\n\nДокументы собрания раскладываются по понятиям онтологии, и извлечение работает не по сходству векторных представлений, а по отношениям, которые онтология объявила. Отбор нужного описан как задача покрытия множества: система ищет наименьший набор фактов, покрывающий все понятия, затронутые запросом. Это отсекает повторяющиеся сведения, потому что второй факт о том же понятии покрытие не расширяет.\n\nОтвет проверяется на согласие с онтологией до того, как будет показан. Утверждение, противоречащее объявленным отношениям, отбрасывается, поэтому обоснованность здесь опирается на явные правила, а не на суждение языковой модели о самой себе. Плата состоит в том, что онтологию нужно иметь: там, где её нет, метод неприменим, а там, где она неполна, верное утверждение может быть отброшено как противоречащее.",
+    "description_en": "OG-RAG rests on an ontology, that is, on a formal description, written by domain experts, of the notions of a field and the relations admissible between them. What sets it apart from a graph extracted from text by a language model is the origin of the structure: an ontology is written by someone who knows the field, and it fixes which statements in that field are meaningful at all.\n\nThe documents of the collection are laid out against the notions of the ontology, and retrieval proceeds by the relations the ontology declares rather than by similarity of vector representations. Selecting what is needed is posed as a set cover problem: the system looks for the smallest set of facts covering every notion the query touches. This cuts out repeated material, because a second fact about the same notion does not extend the cover.\n\nThe answer is checked for agreement with the ontology before it is shown. A statement contradicting the declared relations is discarded, so groundedness here rests on explicit rules rather than on a language model's judgement of itself. The price is that an ontology must exist: where there is none the method does not apply, and where it is incomplete a correct statement may be discarded as contradictory.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2412.15235",
+        "type": "publication",
+        "value": "arXiv:2412.15235 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416035296",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=13; year=2025; citation_velocity=0.684",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4405713859",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=4; year=2024; citation_velocity=0.2",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "B",
+    "first_published": "2025",
+    "groups": [
+      "A",
+      "C",
+      "D"
+    ],
+    "id": "og_rag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2412.15235",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "OG-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Документы области представляются структурой, где одна связь объединяет сразу группу фактов, собранных по онтологии предметной области.",
+        "did_en": "Domain documents are represented by a structure where one edge joins a whole group of facts, gathered according to a domain ontology.",
+        "instead": "«граф»: он предполагает связи между парами, а здесь связь охватывает целый пучок фактов.",
+        "instead_en": "«graph»: it presupposes edges between pairs, whereas here an edge spans a whole bundle of facts.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.15235, метод",
+        "source_en": "arXiv:2412.15235, method",
+        "technology_id": "og_rag",
+        "to": "hypergraph",
+        "why": "Связь соединяет не пару узлов, а множество. У схемы есть значение с этим именем, и оно точнее обычного графа.",
+        "why_en": "An edge joins not a pair of nodes but a set. The schema has a value under that name, and it is more precise than an ordinary graph."
+      },
+      {
+        "code": "A1",
+        "did": "Извлекаются эти самые групповые связи, а не куски текста.",
+        "did_en": "What is retrieved are those very group edges rather than pieces of text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.15235, метод",
+        "source_en": "arXiv:2412.15235, method",
+        "technology_id": "og_rag",
+        "to": "node_edge",
+        "why": "Единица извлечения — фрагмент структуры.",
+        "why_en": "The retrieval unit is a fragment of structure."
+      },
+      {
+        "code": "C1",
+        "did": "Отбор идёт по структуре связей.",
+        "did_en": "Selection proceeds over the structure of edges.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.15235, метод",
+        "source_en": "arXiv:2412.15235, method",
+        "technology_id": "og_rag",
+        "to": "graph_traversal",
+        "why": "Ответ собирается движением по ней, а не сравнением представлений.",
+        "why_en": "The answer is assembled by moving along it rather than by comparing representations."
+      },
+      {
+        "code": "D1",
+        "did": "Алгоритм выбирает наименьший набор связей, покрывающий вопрос: лишнее не берётся.",
+        "did_en": "The algorithm picks the smallest set of edges that covers the question: nothing superfluous is taken.",
+        "instead": "«перекрёстный кодировщик»: он менял бы порядок, а здесь решается, что вообще включить.",
+        "instead_en": "«cross-encoder»: it would change the order, whereas here what is decided is what to include at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.15235, метод",
+        "source_en": "arXiv:2412.15235, method",
+        "technology_id": "og_rag",
+        "to": "set_cover",
+        "why": "Отбор ставит задачу покрытия, а не пересчёта порядка. У схемы есть ровно такое значение.",
+        "why_en": "Selection poses a covering problem rather than a recomputation of order. The schema has exactly such a value."
+      },
+      {
+        "code": "D2",
+        "did": "Контекст ограничивается минимальным достаточным набором.",
+        "did_en": "The context is bounded by the minimal sufficient set.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2412.15235, метод",
+        "source_en": "arXiv:2412.15235, method",
+        "technology_id": "og_rag",
+        "to": "budget_aware",
+        "why": "Отбор идёт от достаточности, а не от числа лучших.",
+        "why_en": "Selection proceeds from sufficiency rather than from a count of the best."
+      },
+      {
+        "code": "A8",
+        "did": "Группы фактов собраны по онтологии предметной области, заданной заранее.",
+        "did_en": "The groups of facts are gathered by a domain ontology given in advance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "og_rag",
+        "to": "given",
+        "why": "Структура взята из источника: онтологию не выводили из корпуса, её принесли извне.",
+        "why_en": "The structure is taken from a source: the ontology was not derived from the corpus, it was brought in from outside."
+      }
+    ],
+    "prose_id": "og_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Извлечение поверх онтологии предметной области с проверкой ответа на соответствие её правилам.",
+    "summary_en": "Retrieval over a domain ontology, with the answer checked against its rules."
+  }
+}

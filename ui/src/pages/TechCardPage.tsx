@@ -5,7 +5,7 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { getRegistry } from "../api/client";
+import { getTechnology } from "../api/client";
 import { getTechProse, getDimensionLabel, getValueLabel } from "../i18n/index";
 import { LevelBadge } from "../components/LevelBadge";
 import { ConfigGlyph } from "../components/ConfigGlyph";
@@ -160,14 +160,18 @@ export function TechCardPage() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    // Реестр приходит одним артефактом; нужная запись отбирается на клиенте.
-    getRegistry()
-      .then((res) => {
-        const found = res.technologies.find((x) => x.id === id) ?? null;
+    // Запрашивается одна запись, а не весь реестр: карточка есть страница, на
+    // которую чаще всего приходят по ссылке извне, и платить за шестьдесят
+    // восемь чужих записей ей не за что.
+    getTechnology(id)
+      .then((found) => {
         setTech(found);
-        setError(found ? null : t("techCard.notFound"));
+        setError(null);
       })
-      .catch((e) => setError(String(e)))
+      .catch(() => {
+        setTech(null);
+        setError(t("techCard.notFound"));
+      })
       .finally(() => setLoading(false));
   }, [id, t]);
 

@@ -1,0 +1,128 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.083,
+    "attention_cohort": "2024",
+    "attention_raw": 0.048,
+    "confidence": 1.0,
+    "configuration": {
+      "B1": "multi_reformulation",
+      "C2": "agentic_open_loop",
+      "D1": "none",
+      "E5": "mutual_loop",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Auto-RAG переносит управление извлечением внутрь языковой модели. В системах с несколькими шагами поиска решениями о том, искать ли дальше и что именно, обычно распоряжается внешняя часть: порог уверенности, отдельный классификатор, заданное число кругов. Такие правила настраиваются вручную и переносятся на другую предметную область плохо.\n\nМодель дообучается вести извлечение самостоятельно, порождая рассуждение о состоянии поиска наравне с обычным текстом. Она называет, чего недостаёт для ответа, формулирует следующий запрос, читает найденное, оценивает, приблизило ли оно к ответу, и решает, продолжать ли. Обучающие цепочки получены наблюдением: многошаговые вопросы прогоняются с поиском, удачные ходы сохраняются как образцы.\n\nЧисло шагов тем самым определяется вопросом, а не настройкой, и меняется от одного обращения на простом вопросе до нескольких на сложном. Плата состоит в необходимости дообучения и в том, что решение об остановке остаётся суждением модели о себе самой: при завышенной уверенности она останавливается рано и отвечает на неполном основании.",
+    "description_en": "Auto-RAG moves control of retrieval inside the language model. In systems with several search steps, the decisions about whether to search again and for what are usually taken by an external part: a confidence threshold, a separate classifier, a fixed number of rounds. Such rules are tuned by hand and transfer to another field poorly.\n\nThe model is fine-tuned to conduct retrieval on its own, generating reasoning about the state of the search alongside ordinary text. It names what is missing for an answer, formulates the next query, reads what was retrieved, judges whether it brought the answer closer, and decides whether to continue. The training chains were obtained by observation: multi-step questions are run with search, and successful courses of action are kept as examples.\n\nThe number of steps is thereby settled by the question rather than by a setting, varying from a single consultation on an easy question to several on a hard one. The price is the need for fine-tuning, and the fact that the decision to stop remains the model's judgement about itself: when its confidence is too high it stops early and answers on incomplete grounds.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2411.19443",
+        "type": "publication",
+        "value": "arXiv:2411.19443 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4405030361",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.048",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "B",
+      "C",
+      "E",
+      "G"
+    ],
+    "id": "auto_rag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2411.19443",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "Auto-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "E5",
+        "did": "Модель ведёт многошаговый диалог с поисковиком, решая на каждом шаге, достаточно ли найденного.",
+        "did_en": "The model conducts a multi-step dialogue with the retriever, deciding at every step whether what it has found is enough.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "auto_rag",
+        "to": "mutual_loop",
+        "why": "Порождение управляет поиском и меняется от найденного.",
+        "why_en": "Production drives retrieval and changes with what is found."
+      },
+      {
+        "code": "C2",
+        "did": "Модель ведёт многошаговый диалог с поисковиком, сама планируя обращения и уточняя запросы, и сама решает, сколько шагов нужно, исходя из трудности вопроса.",
+        "did_en": "The model conducts a multi-step dialogue with the retriever, planning the calls and refining the queries itself, and decides how many steps are needed from the difficulty of the question.",
+        "instead": "«остановка по условию»: там условие задано снаружи, а здесь достаточность оценивает сама модель.",
+        "instead_en": "«stop on condition»: there the condition is set from outside, whereas here the model judges sufficiency itself.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2411.19443, метод",
+        "source_en": "arXiv:2411.19443, method",
+        "technology_id": "auto_rag",
+        "to": "agentic_open_loop",
+        "why": "Ни числа шагов, ни внешнего условия остановки нет: их выбирает модель.",
+        "why_en": "There is neither a step count nor an external stopping condition: the model chooses them."
+      },
+      {
+        "code": "G3",
+        "did": "Модель дообучается на самостоятельно порождённых указаниях о том, как принимать решения при итеративном поиске.",
+        "did_en": "The model is fine-tuned on instructions it produced itself about how to make decisions during iterative retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2411.19443, метод",
+        "source_en": "arXiv:2411.19443, method",
+        "technology_id": "auto_rag",
+        "to": "trained_reader",
+        "why": "Обучается порождающая сторона; поисковик не трогается.",
+        "why_en": "The producing side is trained; the retriever is untouched."
+      }
+    ],
+    "prose_id": "auto_rag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Планирование извлечения внутри самой модели: она обучена решать, что искать дальше, без внешних правил.",
+    "summary_en": "Retrieval planning inside the model itself: it is trained to decide what to search for next, with no external rules."
+  }
+}

@@ -652,6 +652,22 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     })
     # Лента односоставна по устройству: язык объявляется на канал целиком.
     # Поэтому языков две ленты, а не одна с полями на двух языках.
+    # Запись реестра отдельным файлом.
+    #
+    # Карточка технологии читала весь реестр ради одной записи: восемьсот
+    # килобайт на страницу, куда чаще всего и приходят по ссылке извне. Файл на
+    # запись стоит около десяти килобайт, а состав его тот же, поэтому
+    # потребитель, которому нужна одна технология, не платит за остальные.
+    per_record = target / "tech"
+    per_record.mkdir(parents=True, exist_ok=True)
+    stale = {path.name for path in per_record.glob("*.json")}
+    for row in registry_rows:
+        _write(per_record / f"{row['id']}.json", {"built_at": built_at, "technology": row})
+        stale.discard(f"{row['id']}.json")
+    # Запись, удалённая из реестра, не должна остаться отдаваемой по ссылке.
+    for name in stale:
+        (per_record / name).unlink()
+
     _write_feed(target / "feed.xml", changes, built_at, _issues(), "en")
     _write_feed(target / "feed.ru.xml", changes, built_at, _issues(), "ru")
     # Машиночитаемый вход: описание набора данных, карта сайта и указатель для
@@ -792,6 +808,15 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
         "technologies": len(rows),
         "technology_ids": sorted(row["id"] for row in rows),
         "datasets": datasets,
+        # Запись по одной: адрес собирается подстановкой обозначения. Читателю
+        # набора это нужнее полного перечня из шестидесяти девяти адресов.
+        "technology": {
+            "url_template": f"{SITE}/data/tech/{{id}}.json",
+            "description": "One registry record on its own, in the same shape as "
+                           "a row of registry.json. Use it when a single "
+                           "technology is wanted: the full registry costs "
+                           "eighty times more.",
+        },
         # Выпуски неизменны: ссылка на запись внутри выпуска указывает на то,
         # что не изменится, тогда как ссылка на текущий артефакт указывает на
         # движущийся объект. Для цитирования годится только первое.

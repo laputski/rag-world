@@ -1,0 +1,96 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.0,
+    "attention_cohort": "2024",
+    "attention_raw": 0.579,
+    "confidence": 1.0,
+    "configuration": {
+      "E5": "none",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "SimRAG отвечает на нехватку размеченных примеров в узких предметных областях. Донастройка требует пар «вопрос, ответ» по тому самому собранию, с которым системе предстоит работать, а в медицине, праве или технической документации организации таких пар не существует, и составление их специалистом обходится дорого.\n\nРазметка добывается из самого собрания. Модель читает документы и составляет к ним вопросы вместе с ответами, получая тем самым обучающие примеры без участия человека. Составленное так содержит и негодное: вопросы, ответ на которые в собрании не содержится, вопросы, понятные лишь при чтении исходного абзаца, ответы, не следующие из текста. Поэтому вводится отбор: каждый вопрос прогоняется через саму систему, и пример сохраняется, если найденное по нему подтверждает составленный ответ. Не подтвердившиеся отбрасываются.\n\nНа отобранном модель дообучается, после чего цикл можно повторить, поскольку улучшенная модель составляет более годные вопросы. Слабое место состоит в замкнутости: и вопросы, и отбор происходят от одной модели, поэтому её систематическая ошибка отбором не обнаруживается, а закрепляется обучением.",
+    "description_en": "SimRAG addresses the scarcity of labelled examples in narrow fields. Fine-tuning requires question and answer pairs over the very collection the system will serve, and in medicine, law, or an organisation's technical documentation no such pairs exist, while having a specialist compose them is expensive.\n\nThe labels are obtained from the collection itself. The model reads the documents and composes questions along with answers, thereby producing training examples without human involvement. What it composes includes unusable material: questions the collection does not answer, questions intelligible only while reading the source paragraph, answers that do not follow from the text. A filter is therefore introduced: each question is run through the system itself, and the example is kept if what is retrieved for it supports the composed answer. Those not supported are discarded.\n\nThe model is fine-tuned on what survives, after which the cycle may repeat, since an improved model composes more usable questions. The weak point is its closedness: both the questions and the filtering come from one model, so a systematic error of that model is not exposed by the filter but entrenched by the training.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2410.17952",
+        "type": "publication",
+        "value": "arXiv:2410.17952 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4411119264",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.579",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2024",
+    "groups": [
+      "G"
+    ],
+    "id": "simrag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2410.17952",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "SimRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G3",
+        "did": "Модель сама порождает по корпусу области вопросы и ответы, отбирает удачные и дообучается на них.",
+        "did_en": "The model produces questions and answers over the domain corpus itself, selects the successful ones and fine-tunes on them.",
+        "instead": "«обучаемый поисковик»: изменения поиска источник не описывает.",
+        "instead_en": "«trainable retriever»: the source describes no change to retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2410.17952, метод",
+        "source_en": "arXiv:2410.17952, method",
+        "technology_id": "simrag",
+        "to": "trained_reader",
+        "why": "Обучается порождающая сторона на собственных данных; поисковик работа не меняет.",
+        "why_en": "The producing side is trained on its own data; the work does not change the retriever."
+      }
+    ],
+    "prose_id": "simrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Самообучение на своих же вопросах: модель сама составляет вопросы к собранию и учится на тех, что подтверждаются.",
+    "summary_en": "Self-training on its own questions: the model composes questions over the collection and learns from those that hold up."
+  }
+}

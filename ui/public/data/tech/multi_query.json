@@ -1,0 +1,128 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Multi-Query Retrieval отвечает на хрупкость поиска по единственной формулировке. Векторное представление зависит от выбранных слов, и два способа спросить об одном и том же дают разные векторы, а значит и разные результаты. Документ, отвечающий на вопрос, но написанный другими словами, при одной формулировке не находится, и о том, что он существовал, система не узнаёт.\n\nПриём состоит в том, чтобы не полагаться на одну формулировку. Языковая модель переписывает исходный вопрос несколькими способами, меняя слова и угол зрения, но сохраняя смысл. Поиск выполняется по каждой формулировке отдельно, и полученные списки объединяются в один, причём повторы схлопываются.\n\nВыигрыш достигается за счёт полноты: документ, найденный хотя бы одной формулировкой, попадает в общий список. Проигрыш лежит в точности, потому что вместе с недостающим приходит и лишнее, а объединение без взвешивания уравнивает документ, найденный всеми формулировками, с документом, найденным одной. Приём поэтому обычно ставят перед переранжированием, которое восстанавливает порядок. Расход складывается из одного вызова модели и нескольких обращений к индексу вместо одного.",
+    "description_en": "Multi-Query Retrieval answers the fragility of search on a single formulation. A vector representation depends on the words chosen, and two ways of asking the same thing yield different vectors and therefore different results. A document that answers the question but is written in other words is not found under one formulation, and the system never learns that it existed.\n\nThe technique is to avoid relying on a single formulation. A language model rewrites the original question in several ways, varying the words and the angle while preserving the meaning. Search is performed on each formulation separately, and the resulting lists are merged into one, with duplicates collapsed.\n\nThe gain is in recall: a document found by even one formulation reaches the combined list. The loss is in precision, because the superfluous arrives along with the missing, and an unweighted merge puts a document found by every formulation on the same footing as one found by a single formulation. The technique is therefore usually placed ahead of reranking, which restores the ordering. It costs one model call and several consultations of the index instead of one.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://api.github.com/repos/langchain-ai/langchain",
+        "type": "framework_presence",
+        "value": "frameworks=LangChain",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 1,
+    "family": "G",
+    "first_published": null,
+    "groups": [
+      "B",
+      "C"
+    ],
+    "id": "multi_query",
+    "kind": "technique",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "other",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Multi-Query Retrieval",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Из одного вопроса порождается несколько переформулировок, и поиск идёт по каждой.",
+        "did_en": "Several reformulations are produced from one question, and retrieval runs on each.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация LangChain, MultiQueryRetriever",
+        "source_en": "LangChain documentation, MultiQueryRetriever",
+        "technology_id": "multi_query",
+        "to": "multi_reformulation",
+        "why": "Запрос размножается до обращения к индексу.",
+        "why_en": "The query is multiplied before the call to the index."
+      },
+      {
+        "code": "C3",
+        "did": "Найденное по разным переформулировкам сливается в один список.",
+        "did_en": "What is found by the different reformulations is merged into one list.",
+        "question": "Слияние по рангам — распространённая реализация приёма, но не единственная возможная; библиотеки допускают и простое объединение.",
+        "question_en": "Fusion by rank is a widespread implementation of the technique but not the only possible one; libraries also allow a plain union.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация LangChain, MultiQueryRetriever",
+        "source_en": "LangChain documentation, MultiQueryRetriever",
+        "technology_id": "multi_query",
+        "to": "rrf",
+        "why": "Результаты нескольких поисков надо свести, и слияние здесь по рангам.",
+        "why_en": "The results of several retrievals have to be brought together, and the fusion here is by rank."
+      }
+    ],
+    "prose_id": "multi_query",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Один вопрос переписывается в несколько формулировок, поиск идёт по каждой, результаты объединяются.",
+    "summary_en": "One question is rewritten into several formulations, each is searched, and the results are merged."
+  }
+}

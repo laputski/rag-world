@@ -1,0 +1,145 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.781,
+    "attention_cohort": "2024",
+    "attention_raw": 0.452,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "latent_compression",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "xRAG отвечает на расход, который в извлечении с порождением заметнее всего. Найденные документы занимают место во входе языковой модели, и стоимость обращения растёт вместе с их числом и длиной. Половина отведённого входа при этом уходит на документы, из которых нужны две строки.\n\nПриём переводит документ из текста в единственный вектор. Векторное представление, построенное для поиска, уже существует, и xRAG приспосабливает его к другой роли: между пространством представлений и пространством, в котором языковая модель ожидает свои входные единицы, обучается простое отображение. После него документ подаётся модели не словами, а одной единицей входа наравне с обычными.\n\nСжатие получается двузначное по числу занятых позиций, и на длинном контексте выигрыш во времени и стоимости оказывается кратным. Обучается при этом только отображение, тогда как ни языковая модель, ни модель представлений не меняются. Плата состоит в потере подробностей: из одного вектора нельзя извлечь дословную цитату, поэтому атрибуция на уровне отдельного утверждения при таком сжатии недостижима, а точные имена и числа теряются раньше прочего.",
+    "description_en": "xRAG addresses the expense most visible in retrieval-augmented generation. Retrieved documents occupy space in the language model's input, and the cost of a call grows with their number and length. Half the allotted input goes to documents from which two lines are wanted.\n\nThe technique converts a document from text into a single vector. The vector representation built for search already exists, and xRAG adapts it to another role: a simple mapping is trained between the representation space and the space in which the language model expects its input units. After that mapping, the document is given to the model not as words but as one input unit alongside the ordinary ones.\n\nThe compression is two orders of magnitude in positions occupied, and on long contexts the gain in time and cost is proportional. Only the mapping is trained, while neither the language model nor the representation model changes. The price is loss of detail: a verbatim quotation cannot be recovered from a single vector, so attribution at the level of an individual claim is unreachable under such compression, and exact names and numbers are the first things to go.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415795887",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=14; year=2024; citation_velocity=0.452",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2405.13792",
+        "type": "publication",
+        "value": "arXiv:2405.13792 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4398796143",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=3; year=2024; citation_velocity=0.111",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "F",
+    "first_published": "2024",
+    "groups": [
+      "D"
+    ],
+    "id": "xrag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2405.13792",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "xRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "D2",
+        "did": "Документ подаётся модели не текстом, а одним вектором — тем самым представлением, которое и так вычислено для поиска; переводит его в пространство модели небольшой обучаемый мост.",
+        "did_en": "A document is handed to the model not as text but as a single vector, the very representation already computed for retrieval; a small trainable bridge carries it into the model's space.",
+        "instead": "«пересказ»: там контекст сокращается словами, которые можно прочесть, а здесь читаемого текста не остаётся вовсе.",
+        "instead_en": "«retelling»: there the context is shortened into words one can read, whereas here no readable text remains at all.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.13792, метод",
+        "source_en": "arXiv:2405.13792, method",
+        "technology_id": "xrag",
+        "to": "latent_compression",
+        "why": "Сжатие происходит в пространстве представлений, а не пересказом текста. Это и есть скрытое сжатие.",
+        "why_en": "Compression happens in the space of representations rather than by retelling the text. That is latent compression."
+      },
+      {
+        "code": "G3",
+        "did": "Обучается только мост между пространствами; поисковик и языковая модель остаются неизменными.",
+        "did_en": "Only the bridge between the spaces is trained; the retriever and the language model stay unchanged.",
+        "instead": "«обучаемый читатель»: модель как раз заморожена, в этом и смысл — сохранить сменяемость частей.",
+        "instead_en": "«trainable reader»: the model is precisely frozen, and that is the point, to keep the parts replaceable.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.13792, метод",
+        "source_en": "arXiv:2405.13792, method",
+        "technology_id": "xrag",
+        "to": "frozen",
+        "why": "Измерение описывает обучение поисковика и читателя — ни то, ни другое здесь не обучается.",
+        "why_en": "The dimension describes the training of the retriever and the reader, and neither is trained here."
+      }
+    ],
+    "prose_id": "xrag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Документ сжимается в один вектор, понятный языковой модели: контекст перестаёт занимать место в тексте.",
+    "summary_en": "A document is compressed into a single vector the language model understands: context stops occupying text."
+  }
+}

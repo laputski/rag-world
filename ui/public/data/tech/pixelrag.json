@@ -1,0 +1,221 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "PIXELRAG",
+      "Pixel RAG"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "page_image",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "vision_language",
+      "A6": "snapshot",
+      "A7": "image",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "budget_aware",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-13",
+    "configuration_variable": [],
+    "description": "PixelRAG доводит до конца мысль, начатую в поиске по изображениям страниц. Обычная работа с веб-страницей начинается с приведения её к тексту: разметка разворачивается в линейную последовательность, и вместе с ней теряются расположение элементов, вид таблицы, выделения, соседство подписи и рисунка. Потеря эта происходит до всякого поиска, поэтому восстановить утраченное дальнейшими шагами нельзя.\n\nСтраница здесь остаётся снимком и никогда не превращается в текст. Снимок режется на плитки, плитки и запрос кодируются зрительно-языковой моделью в общее пространство представлений, и найденные плитки подаются многомодальной модели изображениями. Ни на индексации, ни на чтении текстовой единицы не возникает, а различие с приёмами, кодирующими страницу целиком, состоит в масштабе: указатель собран по всей Википедии и содержит порядка тридцати миллионов снимков.\n\nОтдельное следствие касается расхода. Разрешение, с которым плитка подаётся модели, меняется независимо от числа плиток, и понижение его сокращает расход входа заявленно до трёх раз при сохранении точности. Это рычаг, которого у текстовой подачи нет вовсе: там сократить можно лишь число единиц. Заявленный выигрыш в точности достигает восемнадцати процентов относительно текстовых цепочек, причём в том числе на задачах, считавшихся чисто текстовыми.",
+    "description_en": "PixelRAG carries to its conclusion an idea begun in retrieval over page images. Ordinary work with a web page starts by reducing it to text: the markup is unrolled into a linear sequence, and with it go the placement of elements, the shape of a table, emphasis, the adjacency of a caption to its figure. That loss occurs before any search takes place, so no later step can recover what was lost.\n\nHere the page stays a screenshot and never becomes text. The screenshot is cut into tiles, the tiles and the query are encoded by a vision-language model into a shared representation space, and the retrieved tiles are given to a multimodal model as images. No textual unit arises at indexing or at reading, and what sets this apart from techniques that encode a page as a whole is scale: the index was assembled over all of Wikipedia and holds on the order of thirty million screenshots.\n\nA separate consequence concerns cost. The resolution at which a tile is given to the model varies independently of the number of tiles, and lowering it reduces input spend by a reported factor of up to three at unchanged accuracy. This is a lever that textual presentation does not have at all: there, only the number of units can be cut. The reported accuracy gain reaches eighteen percent over text-based chains, including on tasks that had been taken for purely textual.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2606.28344",
+        "type": "publication",
+        "value": "arXiv:2606.28344 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-13",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7166706851",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-06",
+    "groups": [
+      "A",
+      "C",
+      "D"
+    ],
+    "id": "pixelrag",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "arXiv:2606.28344",
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2606.28344",
+        "verified_at": null
+      }
+    ],
+    "name": "PixelRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A1",
+        "did": "Единицей извлечения служит плитка снимка страницы: страница нарезается на прямоугольные участки, и найденная плитка подаётся модели изображением.",
+        "did_en": "The unit of retrieval is a tile of a page screenshot: the page is cut into rectangular regions, and the retrieved tile is given to the model as an image.",
+        "instead": "«фрагмент текста»: текста в цепочке нет вовсе, ни при индексации, ни при чтении.",
+        "instead_en": "«text fragment»: there is no text in the chain at all, neither at indexing time nor at reading time.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, устройство",
+        "source_en": "arXiv:2606.28344, method",
+        "technology_id": "pixelrag",
+        "to": "page_image",
+        "why": "Ближайшее значение схемы описывает изображение страницы; плитка есть его часть, и текстовой единицы в цепочке не возникает ни на одном шаге.",
+        "why_en": "The nearest value in the schema describes a page image; a tile is a part of one, and no textual unit arises anywhere in the chain."
+      },
+      {
+        "code": "A2",
+        "did": "Страница режется на плитки постоянного размера, без учёта того, где проходят границы разделов.",
+        "did_en": "A page is cut into tiles of constant size, without regard for where section boundaries fall.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, индексация",
+        "source_en": "arXiv:2606.28344, indexing",
+        "technology_id": "pixelrag",
+        "to": "fixed",
+        "why": "Правило деления задано геометрией снимка, а не устройством документа.",
+        "why_en": "The rule of division is set by the geometry of the screenshot rather than by the structure of the document."
+      },
+      {
+        "code": "A5",
+        "did": "Плитки и запрос кодируются зрительно-языковой моделью в общее пространство представлений.",
+        "did_en": "Tiles and the query are encoded by a vision-language model into a shared representation space.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, представления",
+        "source_en": "arXiv:2606.28344, representations",
+        "technology_id": "pixelrag",
+        "to": "vision_language",
+        "why": "Запрос остаётся текстовым, а единица изображением, и сравнение возможно только в общем пространстве.",
+        "why_en": "The query stays textual while the unit is an image, and comparison is possible only in a shared space."
+      },
+      {
+        "code": "A7",
+        "did": "Хранятся снимки страниц; собрание объёмом порядка тридцати миллионов изображений собрано по Википедии.",
+        "did_en": "Page screenshots are stored; a collection on the order of thirty million images was assembled over Wikipedia.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, набор данных",
+        "source_en": "arXiv:2606.28344, datastore",
+        "technology_id": "pixelrag",
+        "to": "image",
+        "why": "Модальность хранимого материала изобразительная, хотя исходные страницы были размечены текстом.",
+        "why_en": "The modality of the stored material is visual, although the source pages were marked up as text."
+      },
+      {
+        "code": "A8",
+        "did": "Плитки лежат плоским списком; связей между ними не строится.",
+        "did_en": "Tiles lie in a flat list; no links between them are built.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, указатель",
+        "source_en": "arXiv:2606.28344, index",
+        "technology_id": "pixelrag",
+        "to": "none",
+        "why": "Структуры нет, поэтому и происхождения у неё нет.",
+        "why_en": "There is no structure, so it has no origin."
+      },
+      {
+        "code": "D2",
+        "did": "Разрешение, с которым плитки подаются модели, понижается ради сокращения расхода входа: заявлено уменьшение до трёх раз при сохранении точности.",
+        "did_en": "The resolution at which tiles are given to the model is lowered to reduce input spend: a reduction of up to threefold at unchanged accuracy is reported.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, стоимость",
+        "source_en": "arXiv:2606.28344, cost",
+        "technology_id": "pixelrag",
+        "to": "budget_aware",
+        "why": "Состав контекста определяется отведённым расходом, а не только числом первых кандидатов.",
+        "why_en": "The composition of the context is settled by the spend allowed for it, not by a count of top candidates alone."
+      },
+      {
+        "code": "G3",
+        "did": "Используются готовая зрительно-языковая модель представлений и готовая многомодальная порождающая модель.",
+        "did_en": "A ready vision-language representation model and a ready multimodal generative model are used.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, устройство",
+        "source_en": "arXiv:2606.28344, method",
+        "technology_id": "pixelrag",
+        "to": "frozen",
+        "why": "Своего обучения работа не вводит, и выигрыш приписан представлению материала, а не донастройке.",
+        "why_en": "The work introduces no training of its own, and the gain is attributed to the representation of the material rather than to fine-tuning."
+      },
+      {
+        "did": "Разрешение подачи изменяется независимо от числа плиток и служит отдельным рычагом расхода.",
+        "did_en": "The resolution of presentation varies independently of the number of tiles and serves as a separate lever on spend.",
+        "residual": "resolution_as_cost_lever",
+        "residual_term": "разрешение изображения как рычаг стоимости",
+        "residual_term_en": "image resolution as a lever on cost",
+        "source": "arXiv:2606.28344, стоимость",
+        "source_en": "arXiv:2606.28344, cost",
+        "technology_id": "pixelrag",
+        "why": "Схема выражает, сколько единиц войдёт в контекст, но не то, во сколько обойдётся каждая из них.",
+        "why_en": "The schema expresses how many units enter the context but not what each of them costs."
+      }
+    ],
+    "prose_id": "pixelrag",
+    "residual": [
+      "разрешение изображения как рычаг стоимости"
+    ],
+    "residual_en": [
+      "image resolution as a lever on cost"
+    ],
+    "summary": "Извлечение целиком в пиксельном пространстве: страница остаётся снимком, ищутся и читаются её плитки.",
+    "summary_en": "Retrieval entirely in pixel space: the page stays a screenshot, and its tiles are what gets searched and read."
+  }
+}

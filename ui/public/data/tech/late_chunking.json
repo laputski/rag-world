@@ -1,0 +1,138 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.375,
+    "attention_cohort": "2024",
+    "attention_raw": 0.217,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "late_chunking",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "Late Chunking меняет порядок двух шагов, который до него не обсуждался. Обычно документ сначала режется на фрагменты, а затем каждый фрагмент независимо превращается в вектор. Модель, строящая вектор, при этом видит только сам фрагмент и ничего не знает о том, что стояло до и после, поэтому местоимение остаётся неразрешённым, а термин, введённый абзацем выше, воспринимается как незнакомое слово.\n\nПриём переставляет шаги местами. Документ целиком подаётся модели, обрабатывающей длинный вход, и на выходе получаются векторы по каждому токену, то есть по каждой единице разбиения текста. Только после этого проводятся границы фрагментов, и вектор фрагмента получается усреднением векторов его токенов. Поскольку каждый токен обрабатывался в присутствии всего документа, полученный вектор несёт контекст соседних частей, хотя относится к своему участку.\n\nЕдинственное, что требуется, это модель с достаточно длинным входом: документ должен помещаться в неё целиком. Никакого обращения к языковой модели при индексации не нужно, поэтому расход остаётся на уровне обычного построения векторов, а не растёт кратно, как при дописывании приставок. Документ длиннее входа модели приходится делить, и на месте деления приём даёт ровно то же, что дал бы обычный порядок.",
+    "description_en": "Late Chunking reverses the order of two steps that had not been questioned before it. Ordinarily a document is first cut into fragments, and each fragment is then turned into a vector independently. The model building the vector sees only the fragment itself and knows nothing of what stood before and after, so a pronoun goes unresolved and a term introduced a paragraph earlier reads as an unfamiliar word.\n\nThe technique swaps the steps. The whole document is given to a model that handles long inputs, and the output is a vector for every token, that is, for every unit into which the text is divided. Only then are fragment boundaries drawn, and a fragment's vector is obtained by averaging the vectors of its tokens. Because each token was processed in the presence of the entire document, the resulting vector carries the context of neighbouring parts while still describing its own stretch.\n\nThe only requirement is a model with a sufficiently long input: the document must fit into it whole. No language model call is needed at indexing time, so the expense stays at the level of ordinary vector construction rather than rising several-fold as it does when prefixes are written. A document longer than the model's input has to be divided, and at the point of division the technique yields exactly what the ordinary order would have yielded.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2409.19773",
+        "type": "publication",
+        "value": "arXiv:2409.19773 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403814295",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2409.04701",
+        "type": "publication",
+        "value": "arXiv:2409.04701 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403882995",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.217",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": "H",
+    "first_published": "2024",
+    "groups": [
+      "A"
+    ],
+    "id": "late_chunking",
+    "kind": "technique",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2409.04701",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Late Chunking",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A2",
+        "did": "Документ сперва целиком пропускается через модель с длинным контекстом, и только потом полученные представления слов режутся на куски. Резка идёт после кодирования, а не до него.",
+        "did_en": "The document is first passed whole through a long-context model, and only then are the resulting word representations cut into pieces. The cutting happens after encoding rather than before it.",
+        "instead": "«семантическая»: там границы ищут по смыслу, но сам текст режется до кодирования, и кусок теряет окружение.",
+        "instead_en": "«semantic»: there boundaries are sought by meaning, but the text itself is cut before encoding, and a piece loses its surroundings.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2409.04701, метод",
+        "source_en": "arXiv:2409.04701, method",
+        "technology_id": "late_chunking",
+        "to": "late_chunking",
+        "why": "Измерение описывает, как получаются куски. Здесь граница проводится по уже вычисленным представлениям, и каждый кусок несёт контекст всего документа — у схемы есть ровно такое значение.",
+        "why_en": "The dimension describes how the pieces are obtained. Here the boundary is drawn over already computed representations, and every piece carries the context of the whole document. The schema has exactly such a value."
+      }
+    ],
+    "prose_id": "late_chunking",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Сначала кодирование документа целиком, потом разрезание: каждый фрагмент наследует контекст соседей.",
+    "summary_en": "Encode the whole document first, cut afterwards: every fragment inherits the context of its neighbours."
+  }
+}

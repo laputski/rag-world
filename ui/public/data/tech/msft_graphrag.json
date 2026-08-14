@@ -1,0 +1,404 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [
+      "GraphRAG"
+    ],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "summary_node",
+      "A2": "fixed",
+      "A3": "summary",
+      "A4": "community_hierarchy",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "computed",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "budget_aware",
+      "D3": "hierarchical",
+      "E1": "ensemble_fragments",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [
+      "A1",
+      "A5",
+      "C1",
+      "E1"
+    ],
+    "description": "Microsoft GraphRAG строит по всему собранию документов единый граф знаний. Вершинами графа служат сущности, которые большая языковая модель извлекает из текста, а рёбрами служат отношения между этими сущностями. Затем алгоритм кластеризации разбивает граф на сообщества, то есть на группы плотно связанных вершин, и для каждого сообщества модель пишет отчёт с изложением того, о чём это сообщество говорит. Отчёты образуют иерархию: сообщества нижнего уровня объединяются в более крупные, а в корне стоит свод по всему собранию.\n\nСистема отвечает на вопрос одним из трёх способов. Локальный поиск применяется к вопросам об отдельных сущностях: система находит нужную вершину и обходит смежные с ней рёбра, собирая её окрестность. Глобальный поиск применяется к вопросам обо всём собрании сразу, на которые в отдельном документе ответа нет: модель отвечает по каждому отчёту сообщества независимо, после чего частные ответы сводятся в общий. Поиск DRIFT начинается как локальный и постепенно расширяет охват, переходя по рёбрам от найденной окрестности дальше.\n\nПлата за такое устройство вносится заранее. Построение графа требует обращения к языковой модели по каждому фрагменту текста при извлечении сущностей и по каждому сообществу при написании отчёта, поэтому индексация большого собрания обходится дорого и занимает часы. Последующие запросы дёшевы, но всякое изменение документов требует перестроить затронутую часть графа вместе с её отчётами.",
+    "description_en": "Microsoft GraphRAG builds a single knowledge graph over the entire document collection. The nodes of the graph are entities that a large language model extracts from the text, and the edges are the relations between those entities. A clustering algorithm then partitions the graph into communities, that is, into groups of densely connected nodes, and for each community the model writes a report stating what that community is about. The reports form a hierarchy: lower-level communities are combined into larger ones, and a summary of the whole collection stands at the root.\n\nThe system answers a question in one of three ways. Local search applies to questions about individual entities: the system locates the relevant node and traverses the edges adjacent to it, gathering its neighbourhood. Global search applies to questions about the collection as a whole, the kind no single document answers: the model responds over each community report independently, and the partial responses are then combined into one. DRIFT search begins as a local search and widens its reach step by step, following edges outward from the neighbourhood it has found.\n\nThe price of this arrangement is paid in advance. Building the graph requires a call to the language model for every text fragment during entity extraction and for every community when its report is written, so indexing a large collection is expensive and takes hours. Subsequent queries are cheap, but any change to the documents requires rebuilding the affected part of the graph together with its reports.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-08-05, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "manual",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "industrial_use",
+        "value": "Microsoft: выпуски с версионированием и документация поставщика",
+        "value_en": "Microsoft: versioned releases and vendor documentation"
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.1; downloads_last_month=74263",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-08-09, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2404.16130",
+        "type": "publication",
+        "value": "arXiv:2404.16130 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.1; downloads_last_month=72626",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.1; downloads_last_month=70829",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-08-11, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.1; downloads_last_month=70720",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "manual",
+    "evidence_count": 9,
+    "family": "B",
+    "first_published": "2024",
+    "groups": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "id": "msft_graphrag",
+    "kind": "architecture",
+    "level": "L5",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "manual",
+      "missing": [
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/microsoft/graphrag",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2404.16130",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Microsoft GraphRAG",
+    "package": "graphrag",
+    "parse_notes": [
+      {
+        "code": "A2",
+        "did": "Документы режутся на куски постоянного размера с перекрытием; размер куска обсуждается как размен между числом обращений к модели и полнотой.",
+        "did_en": "Documents are cut into pieces of constant size with overlap; the piece size is discussed as a trade-off between the number of model calls and completeness.",
+        "instead": "«по структуре»: тогда границы шли бы по заголовкам и разделам.",
+        "instead_en": "«by structure»: boundaries would then follow headings and sections.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, построение графа",
+        "source_en": "arXiv:2404.16130, graph construction",
+        "technology_id": "msft_graphrag",
+        "to": "fixed",
+        "why": "Границы задаются числом слов, а не структурой документа.",
+        "why_en": "Boundaries are set by a word count rather than by the structure of the document."
+      },
+      {
+        "code": "A4",
+        "did": "Над графом сущностей строится иерархия сообществ: близкие узлы группируются, группы делятся дальше, пока делятся.",
+        "did_en": "A hierarchy of communities is built over the entity graph: close nodes are grouped, and groups are split further while they can be split.",
+        "instead": "оставить «граф»: значение существует и описывает структуру подробнее.",
+        "instead_en": "leaving «graph»: the value exists and describes the structure in more detail.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, построение графа",
+        "source_en": "arXiv:2404.16130, graph construction",
+        "technology_id": "msft_graphrag",
+        "to": "community_hierarchy",
+        "why": "У схемы есть ровно такое значение, и оно точнее общего «графа»: оно сообщает, что у индекса есть уровни.",
+        "why_en": "The schema has exactly such a value, and it is more precise than a general «graph»: it reports that the index has levels."
+      },
+      {
+        "code": "C2",
+        "did": "Обзорный режим делает один проход по сводкам сообществ; точечный — один проход от найденных сущностей. Повторных заходов, зависящих от предыдущего результата, ни там, ни там нет.",
+        "did_en": "The global mode makes one pass over community summaries; the local one makes a single pass from the entities it found. Neither has repeated visits that depend on a previous result.",
+        "question": "Третий режим системы по описанию итеративен, но его устройство я по источникам не читал и потому не размечал. Пометка «выбирается на ходу» здесь может понадобиться.",
+        "question_en": "The system's third mode is iterative by its description, but I have not read how it works in the sources and therefore did not mark it. A «chosen at run time» mark may turn out to be needed here.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130 и документация обоих режимов",
+        "source_en": "arXiv:2404.16130 and the documentation of both modes",
+        "technology_id": "msft_graphrag",
+        "to": "single_shot",
+        "why": "Прежнее значение утверждало многошаговый обход, которого источники не описывают.",
+        "why_en": "The former value asserted a multi-step traversal that the sources do not describe."
+      },
+      {
+        "code": "E1",
+        "did": "Обзорный режим порождает частичные ответы по сводкам параллельно и затем сводит их в один. Точечный отвечает одним проходом.",
+        "did_en": "The global mode produces partial answers from the summaries in parallel and then reduces them into one. The local mode answers in a single pass.",
+        "instead": "оставить «один проход»: это описало бы только точечный режим.",
+        "instead_en": "leaving «single pass»: that would describe only the local mode.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, обзорный поиск",
+        "source_en": "arXiv:2404.16130, global search",
+        "technology_id": "msft_graphrag",
+        "to": "ensemble_fragments",
+        "variable": true,
+        "why": "Режимы различаются устройством синтеза, поэтому измерение помечено; записано значение обзорного режима как более полное.",
+        "why_en": "The modes differ in how synthesis is arranged, so the dimension is marked; the value of the global mode is recorded as the fuller one."
+      },
+      {
+        "code": "D2",
+        "did": "В обоих режимах отобранное добавляется в контекст, пока не кончится место в окне.",
+        "did_en": "In both modes what is selected is added to the context until the window runs out of room.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130 и документация обоих режимов",
+        "source_en": "arXiv:2404.16130 and the documentation of both modes",
+        "technology_id": "msft_graphrag",
+        "to": "budget_aware",
+        "why": "Предел задан бюджетом окна, а не числом лучших.",
+        "why_en": "The limit is set by the window budget rather than by a count of the best."
+      },
+      {
+        "code": "D1",
+        "did": "В обзорном режиме порядок сборки задаёт оценка полезности, которую языковая модель выставляет каждому частичному ответу.",
+        "did_en": "In the global mode the assembly order is set by a usefulness score that the language model assigns to every partial answer.",
+        "instead": "«структурное переранжирование»: структура графа порядок здесь не определяет.",
+        "instead_en": "«structural reranking»: the structure of the graph does not determine the order here.",
+        "question": "Документация точечного режима говорит, что кандидаты «приоритизируются», но чем именно — не раскрывает. Значение «нет» может оказаться неполным.",
+        "question_en": "The documentation of the local mode says candidates are «prioritised» but does not disclose by what. The value «none» may prove incomplete.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, обзорный поиск",
+        "source_en": "arXiv:2404.16130, global search",
+        "technology_id": "msft_graphrag",
+        "to": "none",
+        "why": "Это не структура графа и не отдельная модель переранжирования, поэтому ни одно из значений измерения не подходит, и оно остаётся пустым.",
+        "why_en": "That is neither the structure of the graph nor a separate reranking model, so none of the dimension's values fits and it stays empty."
+      },
+      {
+        "code": "A5",
+        "did": "Точечный режим находит входные сущности по смысловой близости, то есть по векторам. Обзорный не использует их вовсе — он берёт все сводки уровня.",
+        "did_en": "The local mode finds entry entities by semantic closeness, that is by vectors. The global mode does not use them at all and takes every summary of a level.",
+        "instead": "«нет модели представления»: я поставил это значение первым, разобрав систему по статье об обзорном режиме, и отверг, когда прочитал документацию точечного.",
+        "instead_en": "«no representation model»: I set that value first, having parsed the system from the paper about the global mode, and rejected it once I read the documentation of the local one.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация точечного поиска",
+        "source_en": "documentation of local search",
+        "technology_id": "msft_graphrag",
+        "to": "dense_single",
+        "variable": true,
+        "why": "Режимы различаются, поэтому измерение помечено; записано значение того режима, где представления есть.",
+        "why_en": "The modes differ, so the dimension is marked; the value of the mode that does have representations is recorded."
+      },
+      {
+        "code": "C1",
+        "did": "Точечный режим идёт от найденных сущностей по связям — к смежным сущностям, отношениям и отчётам сообществ. Обзорный берёт уровень иерархии целиком, без всякого поиска.",
+        "did_en": "The local mode moves from the entities it found along the edges, to adjacent entities, relations and community reports. The global mode takes a whole level of the hierarchy, without any search.",
+        "instead": "«навигация по дереву»: я поставил это значение первым по статье об обзорном режиме и отверг по той же причине.",
+        "instead_en": "«tree navigation»: I set that value first from the paper about the global mode and rejected it for the same reason.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация точечного поиска",
+        "source_en": "documentation of local search",
+        "technology_id": "msft_graphrag",
+        "to": "graph_traversal",
+        "variable": true,
+        "why": "Режимы различаются, поэтому измерение помечено; записан обход графа как более содержательный из двух.",
+        "why_en": "The modes differ, so the dimension is marked; graph traversal is recorded as the more substantial of the two."
+      },
+      {
+        "code": "A1",
+        "did": "Обзорный режим работает со сводками сообществ; точечный собирает и сущности, и отношения, и исходные куски текста.",
+        "did_en": "The global mode works with community summaries; the local one collects entities, relations and the source pieces of text alike.",
+        "instead": "«пассаж»: он есть в точечном режиме, но не отличает эту систему ни от чего.",
+        "instead_en": "«passage»: it is present in the local mode but distinguishes this system from nothing.",
+        "question": "Выбор в пользу сводки — суждение о том, что в системе главное, а не вывод из источника.",
+        "question_en": "Choosing the summary is a judgement about what matters most in the system rather than a conclusion drawn from the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130 и документация обоих режимов",
+        "source_en": "arXiv:2404.16130 and the documentation of both modes",
+        "technology_id": "msft_graphrag",
+        "to": "summary_node",
+        "variable": true,
+        "why": "Единица здесь смешанная. Записана сводка — то, чем эта система отличается от прочих.",
+        "why_en": "The unit here is mixed. The summary is recorded, that being what distinguishes this system from the rest."
+      },
+      {
+        "code": "A3",
+        "did": "Сводки сообществ порождаются заранее, на этапе построения индекса, а не в ответ на запрос.",
+        "did_en": "Community summaries are produced in advance, while the index is being built, rather than in response to a query.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, построение графа",
+        "source_en": "arXiv:2404.16130, graph construction",
+        "technology_id": "msft_graphrag",
+        "to": "summary",
+        "why": "Единица индекса несёт добавленный к ней пересказ.",
+        "why_en": "A unit of the index carries a retelling attached to it."
+      },
+      {
+        "code": "D3",
+        "did": "Материал в контекст складывается по уровням иерархии сообществ.",
+        "did_en": "Material is laid into the context by the levels of the community hierarchy.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, обзорный поиск",
+        "source_en": "arXiv:2404.16130, global search",
+        "technology_id": "msft_graphrag",
+        "to": "hierarchical",
+        "why": "Порядок задан структурой индекса.",
+        "why_en": "The order is set by the structure of the index."
+      },
+      {
+        "code": "G3",
+        "did": "Ничего не обучается: языковая модель применяется подсказками на всех этапах, включая построение графа.",
+        "did_en": "Nothing is trained: the language model is applied by prompting at every stage, including the construction of the graph.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130 и документация обоих режимов",
+        "source_en": "arXiv:2404.16130 and the documentation of both modes",
+        "technology_id": "msft_graphrag",
+        "to": "frozen",
+        "why": "Обучения в системе нет.",
+        "why_en": "There is no training in the system."
+      },
+      {
+        "did": "Система предлагает несколько режимов работы, и они различаются значениями измерений, а запись в реестре одна.",
+        "did_en": "The system offers several operating modes, they differ in the values of dimensions, and the registry holds one record.",
+        "residual": "multiple_modes_one_record",
+        "residual_term": "несколько режимов работы с разной конфигурацией",
+        "residual_term_en": "several operating modes with differing configurations",
+        "source": "документация обоих режимов",
+        "source_en": "documentation of both modes",
+        "technology_id": "msft_graphrag",
+        "why": "Запись — точка конфигурационного пространства. Система с режимами занимает несколько точек, и объединение подтверждённого описывает её приблизительно.",
+        "why_en": "A record is a point in the configuration space. A system with modes occupies several points, and the union of what is confirmed describes it approximately."
+      },
+      {
+        "did": "Каждому частичному ответу языковая модель сама выставляет оценку полезности, и по этим оценкам ответы выстраиваются перед сведением.",
+        "did_en": "The language model itself assigns a usefulness score to every partial answer, and the answers are ordered by those scores before being reduced.",
+        "residual": "llm_scored_partial_answers",
+        "residual_term": "оценка полезности частичных ответов моделью",
+        "residual_term_en": "model-scored usefulness of partial answers",
+        "source": "arXiv:2404.16130, обзорный поиск",
+        "source_en": "arXiv:2404.16130, global search",
+        "technology_id": "msft_graphrag",
+        "why": "Порядок задан суждением модели, а не структурой индекса и не отдельной моделью переранжирования. Ни одно значение переранжирования этого не описывает.",
+        "why_en": "The order is set by the model's own judgement rather than by the structure of the index or a separate reranking model. No value of reranking describes this."
+      },
+      {
+        "code": "A8",
+        "did": "Сообщества выделяются алгоритмом кластеризации, применяемым рекурсивно до неделимых.",
+        "did_en": "Communities are found by a clustering algorithm applied recursively down to the indivisible.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "выведено из разбора записи",
+        "source_en": "inferred from the parse of this record",
+        "technology_id": "msft_graphrag",
+        "to": "computed",
+        "why": "Структура вычислена, а не задана источником.",
+        "why_en": "The structure is computed rather than given by the source."
+      }
+    ],
+    "prose_id": "msft_graphrag",
+    "residual": [
+      "несколько режимов работы с разной конфигурацией",
+      "оценка полезности частичных ответов моделью"
+    ],
+    "residual_en": [
+      "several operating modes with differing configurations",
+      "model-scored usefulness of partial answers"
+    ],
+    "summary": "Единый граф знаний по всему собранию документов, разбитый на сообщества, с готовым отчётом по каждому сообществу.",
+    "summary_en": "A single knowledge graph over the whole collection, partitioned into communities, with a ready report for each one."
+  }
+}

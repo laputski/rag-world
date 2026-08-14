@@ -1,0 +1,150 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.911,
+    "attention_cohort": "2023",
+    "attention_raw": 1.618,
+    "confidence": 1.0,
+    "configuration": {
+      "B1": "multi_reformulation",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "B2",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "D1",
+      "D2",
+      "D3",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "F1",
+      "F2",
+      "F3",
+      "G1",
+      "G2"
+    ],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "DSPy меняет способ, которым строятся составные системы на языковых моделях. Обычно такая система состоит из подсказок, написанных руками и подобранных перебором: разработчик правит формулировку, смотрит на выдачу, правит снова. Подсказки при этом привязаны к той модели, на которой их подбирали, и при смене модели работа повторяется целиком.\n\nПрограмма на DSPy описывает не текст подсказок, а устройство цепочки. Каждый шаг объявляется сигнатурой, то есть перечнем того, что он принимает и что возвращает, с описанием на естественном языке. Шаги соединяются обычным кодом на языке программирования, поэтому ветвление, повторение и обработка ошибок выражаются средствами языка, а не описываются внутри подсказки словами.\n\nТекст подсказок получает сборщик. Ему передают набор примеров и меру качества, и он подбирает формулировки и примеры для каждого шага, оценивая целое по этой мере. Смена модели требует повторной сборки, а не переписывания. Плата состоит в том, что сборка требует и примеров, и меры качества, а меру эту для составной задачи задать труднее, чем написать подсказку.",
+    "description_en": "DSPy changes the way composite systems on language models are built. Ordinarily such a system consists of prompts written by hand and settled by trial: the developer edits a wording, looks at the output, and edits again. The prompts are thereby tied to the model they were tuned on, and a change of model repeats the work in full.\n\nA DSPy program describes not the text of prompts but the structure of the chain. Each step is declared by a signature, that is, by a list of what it takes and what it returns, with a natural-language description. Steps are joined by ordinary code in a programming language, so branching, iteration, and error handling are expressed by the language rather than described in words inside a prompt.\n\nThe prompt text is produced by a compiler. It is given a set of examples and a metric, and it fits the wordings and the examples for each step, judging the whole against that metric. A change of model calls for recompilation rather than rewriting. The price is that compilation needs both examples and a metric, and defining a metric for a composite task is harder than writing a prompt.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2310.03714",
+        "type": "publication",
+        "value": "arXiv:2310.03714 (2023)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-10",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4387430850",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.618",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2023",
+    "groups": [
+      "B",
+      "G"
+    ],
+    "id": "dspy",
+    "kind": "tool",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2310.03714",
+        "verified_at": "2026-08-11"
+      }
+    ],
+    "name": "DSPy",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Конвейер объявляется шагами, а сами подсказки к языковой модели подбираются и уточняются автоматически, вместо того чтобы писаться руками.",
+        "did_en": "A pipeline is declared as steps, while the prompts to the language model are selected and refined automatically instead of being written by hand.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.03714, метод",
+        "source_en": "arXiv:2310.03714, method",
+        "technology_id": "dspy",
+        "to": "multi_reformulation",
+        "why": "Единственное измерение, которое инструмент занимает по существу: он меняет то, как формулируется обращение к модели.",
+        "why_en": "The only dimension the tool occupies in substance: it changes how the call to the model is phrased."
+      },
+      {
+        "code": "G3",
+        "did": "Подсказки и веса шагов настраиваются компилятором по размеченным примерам.",
+        "did_en": "Prompts and step weights are tuned by a compiler over labelled examples.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.03714, метод",
+        "source_en": "arXiv:2310.03714, method",
+        "technology_id": "dspy",
+        "to": "trained_reader",
+        "why": "Настройка касается порождающей стороны конвейера.",
+        "why_en": "The tuning concerns the producing side of the pipeline."
+      },
+      {
+        "code": "A1",
+        "did": "Это способ собрать систему, а не система: у инструмента нет ни своего индекса, ни своего поиска, ни своего синтеза — их приносит тот, кто им пользуется.",
+        "did_en": "This is a way to assemble a system rather than a system: the tool has no index, no retrieval and no synthesis of its own, and whoever uses it brings those.",
+        "inapplicable": true,
+        "question": "Это третий случай подряд: атаки, хранилища и теперь средства сборки занимают одно-два измерения из двадцати восьми. Возможно, роду «инструмент» нужно правило, как оно сделано для атак, а не пометки у каждой записи.",
+        "question_en": "This is the third case in a row: attacks, stores and now means of assembly occupy one or two dimensions out of twenty-eight. The kind «tool» may need a rule, as was done for attacks, rather than marks on every record.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.03714, предмет работы",
+        "source_en": "arXiv:2310.03714, subject of the work",
+        "technology_id": "dspy",
+        "why": "Двадцать шесть измерений описывают собранную систему. У средства сборки своих значений нет, и базовые утверждали бы, что оно сегментирует документы и ищет ближайших соседей.",
+        "why_en": "The twenty-eight dimensions describe an assembled system. A means of assembly has no values of its own, and the defaults would assert that it segments documents and searches for nearest neighbours."
+      }
+    ],
+    "prose_id": "dspy",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Цепочка объявляется как программа, а текст подсказок подбирается сборщиком по мере качества, а не пишется руками.",
+    "summary_en": "The chain is declared as a program, and prompt text is fitted by a compiler against a metric rather than written by hand."
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": null,
+    "attention_cohort": null,
+    "attention_raw": null,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "RAG-Fusion продолжает приём с несколькими формулировками запроса и решает то, что тот оставляет нерешённым: как соединить полученные списки. Простое объединение теряет сведения о порядке, а сравнивать оценки напрямую нельзя, потому что оценки разных поисков лежат в разных шкалах и не сопоставимы.\n\nСлияние выполняется по обратным рангам. Документу назначается вклад, обратный его месту в списке: первое место даёт наибольший вклад, десятое малый. Вклады, полученные документом во всех списках, складываются, и общий порядок определяется этой суммой. Существенно, что в расчёт идёт только место, а не оценка, поэтому сопоставлять шкалы не требуется вовсе.\n\nПравило устроено так, что документ, найденный несколькими формулировками на средних местах, обгоняет документ, найденный одной формулировкой на первом. Это и есть искомое поведение: согласие нескольких независимых взглядов на запрос служит признаком уместности. Приём не требует обучения и применим к любым источникам, дающим упорядоченный список, поэтому им же соединяют словарный и векторный поиск. Расход остаётся тем же, что у нескольких формулировок: один вызов модели и несколько обращений к индексу.",
+    "description_en": "RAG-Fusion continues the multiple-formulation technique and settles what that technique leaves open: how to join the resulting lists. A plain merge loses the ordering, and the scores cannot be compared directly, because the scores of different searches live on different scales and are not commensurable.\n\nThe merge is by reciprocal rank. A document is assigned a contribution inversely proportional to its position in a list: first place gives the largest contribution, tenth a small one. The contributions a document receives across all lists are summed, and the overall ordering follows that sum. What matters is that only position enters the computation, not score, so no scales need be reconciled at all.\n\nThe rule is such that a document found by several formulations in middling positions overtakes a document found by one formulation in first place. That is precisely the wanted behaviour: agreement among several independent views of the query is evidence of relevance. The technique requires no training and applies to any source producing an ordered list, which is why it also serves to join lexical and vector search. The expense is that of multiple formulations: one model call and several consultations of the index.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://github.com/Raudaschl/rag-fusion",
+        "type": "repository",
+        "value": "Raudaschl/rag-fusion: license=mit, last_push=2026-04-26, releases=no",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 1,
+    "family": "G",
+    "first_published": null,
+    "groups": [
+      "B",
+      "C"
+    ],
+    "id": "rag_fusion",
+    "kind": "technique",
+    "level": "L0",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0"
+      ]
+    },
+    "links": [
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/Raudaschl/rag-fusion",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "RAG-Fusion",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "Порождается несколько вариантов запроса, поиск выполняется по каждому.",
+        "did_en": "Several variants of the query are produced, and retrieval is performed on each.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "репозиторий Raudaschl/rag-fusion",
+        "source_en": "repository Raudaschl/rag-fusion",
+        "technology_id": "rag_fusion",
+        "to": "multi_reformulation",
+        "why": "Запрос размножается до обращения к индексу.",
+        "why_en": "The query is multiplied before the call to the index."
+      },
+      {
+        "code": "C3",
+        "did": "Списки результатов сливаются взаимным ранговым слиянием; в этом всё содержание приёма.",
+        "did_en": "The result lists are merged by reciprocal rank fusion, and the whole content of the technique lies in that.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "репозиторий Raudaschl/rag-fusion",
+        "source_en": "repository Raudaschl/rag-fusion",
+        "technology_id": "rag_fusion",
+        "to": "rrf",
+        "why": "Способ слияния и есть то, чем приём отличается от простого размножения запроса.",
+        "why_en": "The manner of fusion is precisely what distinguishes the technique from a plain multiplication of the query."
+      }
+    ],
+    "prose_id": "rag_fusion",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Несколько формулировок запроса и слияние их списков по обратным рангам.",
+    "summary_en": "Several formulations of the query, with their lists merged by reciprocal rank."
+  }
+}

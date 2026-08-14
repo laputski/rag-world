@@ -1,0 +1,170 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 1.891,
+    "attention_cohort": null,
+    "attention_raw": 1.891,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "vision_language",
+      "A6": "snapshot",
+      "A7": "image",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "joint_training"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-09",
+    "configuration_variable": [],
+    "description": "MuRAG снимает разделение между текстом и изображением в извлечении. Обычная система хранит их порознь, и вопрос, ответ на который складывается из подписи и самого снимка, обслуживается двумя несвязанными поисками с ручной сшивкой результатов.\n\nПамять здесь одна. Изображения и отрезки текста кодируются в общее пространство представлений моделью, обученной сопоставлять то и другое, поэтому снимок и описывающий его абзац оказываются рядом по построению. Поиск выполняется по этому общему пространству, и выдача содержит записи обеих модальностей вперемешку, упорядоченные по одной шкале близости.\n\nПорождающая модель принимает найденное как есть, не требуя предварительного перевода изображения в текст, поэтому сведения, которые словами не выражаются, доходят до ответа. Ограничения происходят от общего пространства: его качество определяет всё, а обучение такого пространства требует большого набора согласованных пар изображения и текста. Область, для которой таких пар мало, обслуживается заметно хуже.",
+    "description_en": "MuRAG removes the separation between text and image in retrieval. An ordinary system keeps them apart, and a question whose answer is assembled from a caption and the picture itself is served by two unconnected searches with the results stitched together by hand.\n\nHere the memory is one. Images and stretches of text are encoded into a shared representation space by a model trained to match the two, so a picture and the paragraph describing it end up close together by construction. Search runs over that shared space, and the results contain records of both modalities intermixed, ordered on a single scale of closeness.\n\nThe generating model takes what is found as it stands, requiring no prior conversion of the image into text, so information that words do not express reaches the answer. The limitations come from the shared space: its quality decides everything, and training such a space requires a large set of matched image and text pairs. A field with few such pairs is served noticeably worse.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-05",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2210.02928",
+        "type": "publication",
+        "value": "arXiv:2210.02928 (2022)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385573236",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=104; year=2022; citation_velocity=1.891",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4303649072",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=9; year=2022; citation_velocity=0.196",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 3,
+    "family": "E",
+    "first_published": "2022",
+    "groups": [
+      "A",
+      "G"
+    ],
+    "id": "murag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2210.02928",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "MuRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A7",
+        "did": "Внешняя память содержит и изображения, и тексты; прежние работы этого рода умели искать только по тексту.",
+        "did_en": "The external memory holds both images and texts; earlier works of this kind could search text only.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.02928, постановка",
+        "source_en": "arXiv:2210.02928, problem statement",
+        "technology_id": "murag",
+        "to": "image",
+        "why": "Модальность индексируемого материала перестала быть только текстовой — в этом вклад работы.",
+        "why_en": "The modality of the indexed material has stopped being textual alone, and that is the contribution of the work."
+      },
+      {
+        "code": "A5",
+        "did": "Представления памяти строит модель, обученная на парах «изображение — текст» совместной функцией потерь.",
+        "did_en": "Memory representations are built by a model trained on image-text pairs with a joint loss.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.02928, предобучение",
+        "source_en": "arXiv:2210.02928, pre-training",
+        "technology_id": "murag",
+        "to": "vision_language",
+        "why": "Одна модель представляет обе модальности в общем пространстве.",
+        "why_en": "One model represents both modalities in a shared space."
+      },
+      {
+        "code": "G3",
+        "did": "Кодировщик памяти и генератор обучаются вместе, одной смесью задач: сопоставление и порождение.",
+        "did_en": "The memory encoder and the generator are trained together, on one mixture of tasks: matching and production.",
+        "instead": "«обучаемый поисковик»: он описал бы обучение только одной стороны.",
+        "instead_en": "«trainable retriever»: it would describe the training of one side only.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.02928, предобучение",
+        "source_en": "arXiv:2210.02928, pre-training",
+        "technology_id": "murag",
+        "to": "joint_training",
+        "why": "Обучаются обе стороны сразу, а не одна из них.",
+        "why_en": "Both sides are trained at once rather than one of them."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной ступени переранжирования в работе не описано.",
+        "did_en": "No separate reranking stage is described in the work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2210.02928, метод",
+        "source_en": "arXiv:2210.02928, method",
+        "technology_id": "murag",
+        "to": "none",
+        "why": "Найденное подаётся генератору напрямую.",
+        "why_en": "What is found is handed to the generator directly."
+      }
+    ],
+    "prose_id": "murag",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Единая память из текста и изображений: извлечение идёт по обеим модальностям сразу.",
+    "summary_en": "A single memory of text and images: retrieval runs over both modalities at once."
+  }
+}

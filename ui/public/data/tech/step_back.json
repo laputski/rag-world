@@ -1,0 +1,124 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.381,
+    "attention_cohort": "2023",
+    "attention_raw": 0.676,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "step_back",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "description": "Step-Back Prompting отвечает на затруднение, возникающее с узкими вопросами. Вопрос о частном случае содержит подробности, которых нет ни в одном документе именно в таком сочетании, и поиск по нему возвращает документы, похожие на вопрос словами, но не содержащие нужного правила.\n\nПриём вводит промежуточный шаг. Языковая модель по исходному вопросу порождает более общий вопрос, отступая от частностей к принципу, которым частность управляется. Вопрос об исходе конкретного опыта при определённом давлении и температуре превращается в вопрос о законе, связывающем эти величины. Поиск выполняется по общему вопросу, а найденное вместе с исходным вопросом подаётся модели для окончательного ответа.\n\nПриём годится там, где предметная область устроена по правилам, и правила эти в собрании записаны: физика, право, устав организации. Там, где ответ определяется не правилом, а единичным фактом, отступ уводит от нужного документа, потому что общий вопрос о нём ничего не сообщает. Расход состоит из одного дополнительного вызова модели, обучения приём не требует.",
+    "description_en": "Step-Back Prompting addresses a difficulty that arises with narrow questions. A question about a particular case carries details found in no single document in that exact combination, and a search on it returns documents resembling the question in wording but lacking the rule that is needed.\n\nThe technique inserts an intermediate step. From the original question a language model generates a more general one, stepping back from the particulars to the principle that governs them. A question about the outcome of a specific experiment at a given pressure and temperature becomes a question about the law relating those quantities. The search runs on the general question, and what is found is given to the model along with the original question for the final answer.\n\nThe technique suits fields organised by rules where those rules are recorded in the collection: physics, law, an organisation's regulations. Where the answer is settled not by a rule but by a single fact, the step back leads away from the needed document, because the general question says nothing about it. It costs one additional model call and requires no training.",
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2310.06117",
+        "type": "publication",
+        "value": "arXiv:2310.06117 (2023)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4387560733",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=23; year=2023; citation_velocity=0.676",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": "G",
+    "first_published": "2023-10",
+    "groups": [
+      "B"
+    ],
+    "id": "step_back",
+    "kind": "technique",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2310.06117",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "name": "Step-Back Prompting",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "B1",
+        "did": "По частному вопросу модель выводит более общий и ищет ответ на него, чтобы затем вернуться к исходному.",
+        "did_en": "From a particular question the model derives a more general one and searches for the answer to that, in order to return to the original afterwards.",
+        "instead": "«разложение на подвопросы»: там вопрос дробится вширь, а здесь поднимается на уровень выше.",
+        "instead_en": "«decomposition into sub-questions»: there the question is split sideways, whereas here it is raised a level up.",
+        "question": "Аннотация описывает приём как способ рассуждения и об извлечении говорит вскользь. Значение выведено из названия приёма и его применения в реестре, а не из явного описания поиска.",
+        "question_en": "The abstract describes the technique as a way of reasoning and mentions retrieval only in passing. The value is inferred from the name of the technique and its use in the registry rather than from an explicit description of retrieval.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.06117, метод",
+        "source_en": "arXiv:2310.06117, method",
+        "technology_id": "step_back",
+        "to": "step_back",
+        "why": "Запрос заменяется его обобщением. У схемы есть значение с этим именем.",
+        "why_en": "The query is replaced by its generalisation. The schema has a value under that name."
+      }
+    ],
+    "prose_id": "step_back",
+    "residual": [],
+    "residual_en": [],
+    "summary": "Отступ к общему вопросу: сначала находится принцип, затем по нему решается частный случай.",
+    "summary_en": "A step back to a general question: the principle is found first, then the particular case is settled by it."
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 2.235,
+    "attention_cohort": "2025",
+    "attention_raw": 1.0,
+    "barriers": "Общее препятствие состоит в управлении тем, как память меняется со временем, и оно распадается на четыре части.\n\nЗаписи нужно сводить в обобщённые и удалять устаревшие, а для этого требуется правило, по которому запись признаётся устаревшей. Между сохранёнными записями возникают противоречия, потому что положение дел меняется, и нужен порядок их разрешения. При многократном пересмотре смысл сохранённого постепенно смещается, и запись перестаёт означать то, ради чего заводилась. Наконец, поиск по изменяющейся памяти нарушает предположение, на котором стоит приближённый поиск ближайших соседей: указатель строится в расчёте на неподвижные векторы.",
+    "barriers_en": "The common obstacle is governing how memory changes over time, and it falls into four parts.\n\nRecords must be consolidated and stale ones removed, and that calls for a rule by which a record is judged stale. Contradictions arise among stored records because the state of affairs changes, and an order of resolution is needed. Under repeated revision the meaning of what is stored gradually drifts, and a record ceases to mean what it was written for. Finally, search over a changing memory violates the assumption on which approximate nearest neighbour search rests: the index is built on the premise that vectors stay put.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "episodic",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407831980",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=2; year=2025; citation_velocity=0.111",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7135244490",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2026; citation_velocity=1.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2502.14802",
+        "type": "publication",
+        "value": "arXiv:2502.14802 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2603.11768",
+        "type": "publication",
+        "value": "arXiv:2603.11768 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2502.14802",
+        "type": "publication",
+        "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=193; year=2025",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 5,
+    "family": null,
+    "first_published": "2025-02",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "rag_as_memory",
+    "kind": "paradigm",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": "From RAG to Memory (arXiv:2502.14802, 2025)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2502.14802",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "paper",
+        "label": "Survey on Memory Mechanism of LLMs (ACM, 2025, 755 cit.)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://dl.acm.org/doi/10.1145/3748302",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "ICLR 2026 Workshop on Memory for LLM Agents",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://iclr.cc/virtual/2026/workshop/10000792",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": "Governing Evolving Memory (arXiv:2603.11768, 2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2603.11768",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранний продукт при активных исследованиях. Опорная работа 2025 года набрала триста тринадцать цитирований; на конференции ICLR 2026 прошло отдельное заседание по памяти для исполнителей на языковых моделях.",
+    "maturity_note_en": "Early product with active research. The anchor paper of 2025 gathered three hundred and thirteen citations; ICLR 2026 held a dedicated workshop on memory for language-model agents.",
+    "name": "RAG as Memory",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Работа продолжает подход с графом сущностей поверх пассажей, углубляя связь графа с исходным текстом.",
+        "did_en": "The work continues the approach with an entity graph over passages, deepening the graph's tie to the source text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "graph",
+        "why": "Индекс остаётся графовым.",
+        "why_en": "The index remains a graph."
+      },
+      {
+        "code": "A3",
+        "did": "Из пассажей по-прежнему извлекаются сущности и связи.",
+        "did_en": "Entities and relations are still extracted from the passages.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "extracted_triples",
+        "why": "Единица индекса несёт добытые утверждения.",
+        "why_en": "A unit of the index carries the statements mined from it."
+      },
+      {
+        "code": "C1",
+        "did": "Ранжирование выполняет случайное блуждание с предпочтением, как в предыдущей работе.",
+        "did_en": "Ranking is done by a personalised random walk, as in the earlier work.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "graph_traversal",
+        "why": "Отбор — движение по связям.",
+        "why_en": "Selection is movement along the edges."
+      },
+      {
+        "code": "A1",
+        "did": "Возвращаются пассажи; граф остаётся устройством индекса.",
+        "did_en": "Passages are returned; the graph remains how the index is built.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "passage",
+        "why": "Единица извлечения — то, что отдаётся наружу.",
+        "why_en": "The retrieval unit is what is handed outward."
+      },
+      {
+        "code": "D1",
+        "did": "Отдельной ступени переранжирования не описано.",
+        "did_en": "No separate reranking stage is described.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "none",
+        "why": "Порядок задаёт блуждание.",
+        "why_en": "The order is set by the walk."
+      },
+      {
+        "did": "Вес распределяется случайным блужданием с возвратом к стартовым узлам.",
+        "did_en": "Weight is distributed by a random walk with return to the starting nodes.",
+        "residual": "random_walk_ranking",
+        "residual_term": "ранжирование случайным блужданием с предпочтением",
+        "residual_term_en": "personalized random-walk ranking",
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "why": "Обход графа не говорит, по какому правилу распределяется важность.",
+        "why_en": "Graph traversal does not say by what rule importance is distributed."
+      },
+      {
+        "did": "Оценки узлов переводятся в оценки пассажей.",
+        "did_en": "Node scores are converted into passage scores.",
+        "residual": "score_transfer_to_units",
+        "residual_term": "перенос оценок узлов на единицы извлечения",
+        "residual_term_en": "transfer of node scores onto retrieval units",
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "why": "Ранжируется одна структура, возвращается другая.",
+        "why_en": "One structure is ranked and a different one is returned."
+      }
+    ],
+    "problem": "Извлечение в обычном виде состояния не имеет: каждый запрос читает неподвижный снимок собрания и ничего в нём не оставляет. Система не накапливает опыт, не пересматривает прежних заключений и не учится на своих ошибках.\n\nЭтим закрыты три применения сразу. Подстройка под пользователя невозможна, потому что предыдущие обращения нигде не сохраняются. Длительная работа исполнителя над задачей невозможна, потому что найденное на первом шаге к десятому уже потеряно. Непрерывное накопление знаний без переобучения модели невозможно по той же причине.",
+    "problem_en": "Retrieval in its ordinary form is stateless: every query reads a fixed snapshot of the collection and leaves nothing behind in it. The system accumulates no experience, revises no earlier conclusions, and learns from none of its mistakes.\n\nThree applications are closed off at once. Adaptation to a user is impossible, because previous exchanges are stored nowhere. Prolonged work by an agent on a task is impossible, because what was found at the first step is already lost by the tenth. Continual accumulation of knowledge without retraining the model is impossible for the same reason.",
+    "prose_id": "rag_as_memory",
+    "residual": [
+      "ранжирование случайным блужданием с предпочтением",
+      "перенос оценок узлов на единицы извлечения"
+    ],
+    "residual_en": [
+      "personalized random-walk ranking",
+      "transfer of node scores onto retrieval units"
+    ],
+    "solutions": "Память разделяют по роду хранимого: события в исходном виде, сведённые из них устойчивые утверждения и приёмы решения задач хранятся порознь и обновляются по разным правилам.\n\nПересмотр ведут отдельным ходом, при котором система периодически перечитывает накопленное и перестраивает его; так устроены MemGPT и Generative Agents. Правила записи обратно задают явно, определяя, что именно и при каких условиях попадает в память. Изменения памяти протоколируются, чтобы всякое утверждение прослеживалось до породившего его события.",
+    "solutions_en": "Memory is divided by the kind of thing stored: events in their original form, the stable statements consolidated from them, and procedures for solving tasks are kept apart and updated by different rules.\n\nRevision is carried out as a separate pass in which the system periodically rereads what it has accumulated and reorganises it; MemGPT and Generative Agents are built this way. Write-back rules are stated explicitly, fixing what enters memory and under what conditions. Changes to memory are logged, so that every statement can be traced back to the event that produced it.",
+    "summary": "Извлечение как долговременная память: система накапливает опыт между запросами вместо чтения неподвижного снимка.",
+    "summary_en": "Retrieval as long-term memory: the system accumulates experience between queries instead of reading a fixed snapshot."
+  }
+}

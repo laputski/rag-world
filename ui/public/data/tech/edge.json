@@ -1,0 +1,180 @@
+{
+  "built_at": "2026-08-14",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "barriers": "Общее препятствие состоит в ограниченности ресурсов устройства, и оно распадается на четыре части.\n\nПамять и вычислительная мощность телефона либо встроенного вычислителя ограничивают размер языковой модели, которую там можно запустить. Указатель, помещающийся в память устройства, не вмещает большого собрания, поэтому либо собрание урезается, либо указатель перестраивается. Память о предпочтениях пользователя, ради которой обработку на устройство и переносят, требует хранения и согласования между приложениями. Наконец, соотношение между размером модели и качеством ответа на устройстве жёстче, чем в облаке: уменьшение модели обходится дороже, потому что запаса мощности нет.",
+    "barriers_en": "The common obstacle is the limited resources of a device, and it falls into four parts.\n\nThe memory and computing power of a phone or an embedded processor bound the size of the language model that can be run there. An index that fits in device memory does not hold a large collection, so either the collection is trimmed or the index is restructured. Memory of user preferences, the very thing for whose sake processing is brought onto the device, has to be stored and reconciled across applications. Finally, the trade-off between model size and answer quality is harsher on a device than in the cloud: shrinking the model costs more, because there is no reserve of capacity.",
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "fixed",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "none",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "single_shot",
+      "C3": "rrf",
+      "C4": "single_store",
+      "D1": "cross_encoder",
+      "D2": "abstractive_compression",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "F2": "none",
+      "F3": "none",
+      "G1": "open",
+      "G2": "edge_device",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-08-10",
+    "configuration_variable": [],
+    "evidence": [
+      {
+        "fetched_at": "2026-08-08",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7129328134",
+        "type": "publication",
+        "value": "venue=Open MIND; peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-09",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2602.13229",
+        "type": "publication",
+        "value": "arXiv:2602.13229 (2026)",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-02",
+    "groups": [
+      "C",
+      "D",
+      "G"
+    ],
+    "id": "edge",
+    "kind": "paradigm",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "product",
+        "label": "Google AI Edge RAG library (2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "preprint",
+        "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://arxiv.org/abs/2602.13229",
+        "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "other",
+        "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
+        "label_en": null,
+        "status": "guarded",
+        "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
+        "verified_at": "2026-08-11"
+      },
+      {
+        "kind": "product",
+        "label": "Microsoft Edge RAG (Azure Arc)",
+        "label_en": null,
+        "status": "verified",
+        "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
+        "verified_at": "2026-08-09"
+      }
+    ],
+    "maturity_note": "Ранний продукт. Библиотека Google AI Edge RAG для Android и Microsoft Edge RAG через Azure Arc доступны в предварительных версиях.",
+    "maturity_note_en": "Early product. The Google AI Edge RAG library for Android and Microsoft Edge RAG through Azure Arc are available in preview.",
+    "name": "Edge and On-Device RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "G2",
+        "did": "Система работает на телефоне без сети: небольшая модель, квантование, кэширование.",
+        "did_en": "The system runs on a phone without a network: a small model, quantisation, caching.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2602.13229, метод",
+        "source_en": "arXiv:2602.13229, method",
+        "technology_id": "edge",
+        "to": "edge_device",
+        "why": "Место исполнения — устройство, и от него пляшут все решения.",
+        "why_en": "The locus of execution is a device, and every decision follows from it."
+      },
+      {
+        "code": "C3",
+        "did": "Поиск сочетает словарный и векторный.",
+        "did_en": "Retrieval combines lexical and vector search.",
+        "question": "Источник называет поиск гибридным, но правила слияния не раскрывает. Значение выбрано как самое распространённое.",
+        "question_en": "The source calls the retrieval hybrid but does not disclose the fusion rule. The most widespread value was chosen.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2602.13229, метод",
+        "source_en": "arXiv:2602.13229, method",
+        "technology_id": "edge",
+        "to": "rrf",
+        "why": "Два источника результатов надо сливать.",
+        "why_en": "Two sources of results have to be merged."
+      },
+      {
+        "code": "D2",
+        "did": "Найденное выборочно сжимается перед подачей модели, чтобы уместиться в возможности устройства.",
+        "did_en": "What is retrieved is selectively compressed before being handed to the model, so as to fit the device's capacity.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2602.13229, метод",
+        "source_en": "arXiv:2602.13229, method",
+        "technology_id": "edge",
+        "to": "abstractive_compression",
+        "why": "Контекст сокращается переработкой, а не отбором первых k.",
+        "why_en": "The context is shortened by reworking rather than by taking the top k."
+      }
+    ],
+    "problem": "Извлечение, выполняемое в облаке, требует сетевого соединения, передаёт содержимое запроса и найденного на чужие вычислители, добавляет задержку и повременную плату. В средах без связи оно не работает вовсе, а среды такие существенны: полевая медицина, промышленные установки, оборона.\n\nОтдельно стоит вопрос распоряжения данными. Пользователь, отправляющий запрос вместе с личными документами внешней службе, теряет над ними власть и не может проверить, что с ними произошло дальше.",
+    "problem_en": "Retrieval carried out in the cloud requires a network connection, hands the contents of the query and of what is retrieved to someone else's machines, and adds latency and metered cost. In disconnected settings it does not work at all, and such settings matter: field medicine, industrial installations, defence.\n\nThere is a separate question of control over data. A user who sends a query together with personal documents to an external service loses authority over them and cannot verify what became of them afterwards.",
+    "prose_id": "edge",
+    "residual": [],
+    "residual_en": [],
+    "solutions": "Размер модели сокращают квантованием, то есть понижением разрядности весов до четырёх бит с сохранением качества, приемлемого для узких задач.\n\nОграничение указателя обходят двухуровневым устройством, при котором в памяти держатся только представления кластеров, а представления фрагментов строятся во время запроса. Обмен указателями между соседними устройствами по короткой беспроводной связи позволяет расширить доступное собрание, не обращаясь к серверу.\n\nГотовые средства уже существуют: библиотека Google AI Edge RAG выполняет извлечение на устройствах Android, а Microsoft Edge RAG через Azure Arc предлагает предварительную версию для установок вне облака.",
+    "solutions_en": "Model size is reduced by quantisation, that is, by lowering the precision of weights to four bits while keeping quality acceptable for narrow tasks.\n\nThe index limitation is worked around by a two-level arrangement in which only cluster representations are held in memory and fragment representations are built at query time. Exchanging indexes with neighbouring devices over short-range wireless links widens the reachable collection without recourse to a server.\n\nWorking implementations already exist: the Google AI Edge RAG library performs retrieval on Android devices, and Microsoft Edge RAG through Azure Arc offers a preview for deployments outside the cloud.",
+    "summary": "Извлечение целиком на устройстве пользователя, без обращения к серверу.",
+    "summary_en": "Retrieval performed entirely on the user's device, with no server involved."
+  }
+}
