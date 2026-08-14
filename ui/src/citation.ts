@@ -1,30 +1,32 @@
 /**
- * Библиографическая ссылка на реестр и его записи.
+ * A bibliographic citation of the registry and of its records.
  *
- * Ссылка всегда указывает на выпуск, а не на текущее состояние. Портал
- * меняется: запись, на которую сослались вчера, сегодня может иметь другой
- * уровень и другую конфигурацию, и ссылка подтвердит не то, что подтверждала.
- * Выпуск зафиксирован навсегда, поэтому ссылаться следует на него.
+ * A citation always points at a release rather than at the current state. The
+ * portal changes: a record cited yesterday may today carry a different level and
+ * a different configuration, and the citation would support something other than
+ * what it supported. A release is fixed for ever, so a release is what to cite.
  *
- * Два формата: BibTeX для систем вёрстки и ГОСТ Р 7.0.5 для русских работ.
+ * Two formats: BibTeX for typesetting systems, and GOST R 7.0.5 for works
+ * written in Russian.
  */
 
-// Автором значится сам портал. Реестр собирается и обновляется без участия
-// человека в каждом отдельном изменении, и подписывать его личным именем
-// значило бы приписывать человеку то, что сделало правило.
+// The portal itself stands as the author. The registry is assembled and updated
+// without a person taking part in each individual change, and signing it with a
+// personal name would credit a person with what a rule did.
 const AUTHOR = "RAG World";
 const AUTHOR_LATIN = "RAG World";
 const TITLE = "RAG World: реестр технологий Retrieval-Augmented Generation";
 const TITLE_LATIN = "RAG World: a registry of Retrieval-Augmented Generation technologies";
-// Собственное имя портала, а не адрес площадки. Ссылка живёт дольше
-// хостинга: переезд на другую площадку не должен обрывать ссылки в чужих
-// работах, а адрес вида *.onrender.com принадлежит площадке, не порталу.
+// The portal's own name rather than the address of a hosting platform. A
+// citation outlives its host: moving to another platform must not break links in
+// somebody else's work, and an address of the form *.onrender.com belongs to the
+// platform and not to the portal.
 const BASE = "https://ragworld.org";
 
 export interface CitationTarget {
-  /** Метка выпуска: без неё ссылка указывает на изменяющийся объект. */
+  /** The release tag: without it a citation points at a changing object. */
   release: string;
-  /** Запись реестра; отсутствует, если ссылаются на выпуск целиком. */
+  /** A registry record; absent when the whole release is cited. */
   technology?: { id: string; name: string };
 }
 
@@ -38,7 +40,7 @@ function year(release: string): string {
   return release.slice(0, 4);
 }
 
-/** Ссылка в формате BibTeX. */
+/** The citation in BibTeX form. */
 export function toBibTeX(target: CitationTarget): string {
   const key = target.technology
     ? `ragworld:${target.technology.id}:${target.release}`
@@ -57,7 +59,7 @@ export function toBibTeX(target: CitationTarget): string {
   ].join("\n");
 }
 
-/** Ссылка по ГОСТ Р 7.0.5. */
+/** The citation under GOST R 7.0.5. */
 export function toGost(target: CitationTarget): string {
   const what = target.technology
     ? `${target.technology.name} // ${TITLE}`
@@ -69,12 +71,12 @@ export function toGost(target: CitationTarget): string {
 }
 
 /**
- * Ссылка в общепринятом англоязычном виде.
+ * The citation in the ordinary English form.
  *
- * ГОСТ англоязычному читателю не нужен: это российский стандарт, и его
- * оформление в чужой работе выглядит ошибкой. Взамен даётся привычный порядок
- * «автор, заглавие, версия, адрес, дата обращения», годный для большинства
- * стилей.
+ * GOST is of no use to an English-speaking reader: it is a Russian standard, and
+ * its layout inside somebody else's work looks like a mistake. What is given
+ * instead is the plain order of author, title, version, address and date
+ * accessed, which suits most styles.
  */
 export function toPlain(target: CitationTarget): string {
   const what = target.technology

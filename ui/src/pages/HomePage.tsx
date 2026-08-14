@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { getChanges, getMaturityMap, getStats } from "../api/client";
 import type { MaturityArtifact, RegistryChange, RegistryStats } from "../api/types";
 /*
-  Построитель диаграмм грузится отдельно от страницы.
+  The chart builder loads apart from the page.
 
-  Он весит около мегабайта и нужен только двум представлениям, тогда как
-  остальное на главной есть текст: сводка, хроника, легенда. Без разделения
-  читатель ждал мегабайт кода, прежде чем увидеть хоть строку. Место под
-  диаграмму держится заранее, поэтому появление карты страницу не дёргает.
+  It weighs about a megabyte and is needed by two views only, while the rest of
+  the front page is text: the summary, the chronicle, the legend. Without the
+  split a reader waited a megabyte of code before seeing a single line. The room
+  for the chart is held in advance, so the map appearing does not jolt the
+  page.
 */
 const MaturityMap = lazy(() =>
   import("../components/MaturityMap").then((m) => ({ default: m.MaturityMap })));
@@ -25,12 +26,12 @@ import { useTheme } from "@mui/material/styles";
 import { useDocumentHead } from "../useDocumentHead";
 
 /**
- * Главная страница: состояние области с одного взгляда.
+ * The front page: the state of the field at a glance.
  *
- * Порядок продиктован вопросами, которые читатель задаёт по очереди: где что
- * находится (карта), что изменилось (полоса хроники), сколько всего и насколько
- * покрыто (сводка). Длинные тексты живут в статье и карточках; здесь их нет
- * намеренно.
+ * The order follows the questions a reader asks in turn: where things stand (the
+ * map), what has changed (the chronicle strip), how much there is in all and how
+ * much is covered (the summary). Long texts live in the article and on the
+ * cards; their absence here is deliberate.
  */
 
 type Projection = "map" | "grid";
@@ -75,9 +76,10 @@ export function HomePage() {
   }, [stats]);
 
   /*
-    Счёт изменений за месяц. Окно то же, что открывается по умолчанию на
-    странице хроники, поэтому число здесь и число там совпадают, а читатель,
-    перешедший по ссылке, видит продолжение, а не другую картину.
+    The count of changes over a month. The window is the same one the chronicle
+    page opens with by default, so the number here and the number there agree,
+    and a reader who follows the link sees a continuation rather than a different
+    picture.
   */
   const recent = useMemo(() => {
     const since = new Date();
@@ -114,7 +116,7 @@ export function HomePage() {
         {t("map.subtitle")}
       </Typography>
 
-      {/* Полоса состояния данных: дата сборки и признак устаревания видны всегда. */}
+      {/* The data status strip: the build date and the staleness mark, always shown. */}
       <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", alignItems: "center", mb: 1.5 }}>
         <Chip size="small" variant="outlined" label={
           `${t("common.builtAt")}: ${new Date(artifact.built_at).toLocaleDateString()}`
@@ -187,7 +189,7 @@ export function HomePage() {
         )}
       </Suspense>
 
-      {/* Легенда стратов: цвет всегда означает страту и ничего больше. */}
+      {/* The stratum legend: colour always means a stratum and nothing else. */}
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", mb: 3 }}>
         {artifact.strata.map((s) => (
           <Box key={s.code} sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
@@ -204,13 +206,15 @@ export function HomePage() {
 
       <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", alignItems: "flex-start" }}>
         {/*
-          Что изменилось: свежесть доказывается изменением, а не датой.
+          What has changed: freshness is proved by a change rather than by a
+          date.
 
-          Блок читается первым взглядом и потому начинается со счёта: сколько
-          всего произошло за месяц и было ли среди этого понижение. Прежде
-          здесь лежали шесть строк без дат и без рода изменения, а новая запись
-          показывалась как «— → L1», отчего прочерк читался уровнем. Подробности
-          уводятся ссылкой: полная хроника собрана по датам и несёт основания.
+          The block is taken in at first glance and therefore begins with the
+          counts — how much happened over a month, and whether a demotion was
+          among it. Six rows used to lie here without dates and without the kind
+          of change, and a new record was shown as "— → L1", so the dash read as
+          a level. The details are reached by a link: the full chronicle is
+          gathered by date and carries the grounds.
         */}
         <Box sx={{ flex: "1 1 380px", minWidth: 0 }}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>{t("changes.title")}</Typography>
@@ -246,9 +250,10 @@ export function HomePage() {
                   {change.name}
                 </MuiLink>
                 {/*
-                  Новая запись описывается словами, а не прочерком со стрелкой:
-                  прочерк на месте прежнего уровня читается уровнем, которого
-                  нет, и ровно так же он читался в сводке рядом.
+                  A new record is described in words rather than by a dash and
+                  an arrow: a dash in the place of a former level reads as a
+                  level that does not exist, and it read exactly so in the
+                  summary beside it.
                 */}
                 <Typography
                   variant="caption"
@@ -275,16 +280,16 @@ export function HomePage() {
           )}
         </Box>
 
-        {/* Сводка: распределение и покрытие. */}
+        {/* The summary: distribution and coverage. */}
         <Box sx={{ flex: "1 1 340px", minWidth: 0 }}>
           <Typography variant="h6" sx={{ mb: 1 }}>{t("stats.title")}</Typography>
           {levelBars.map((bar) => (
             <Box key={bar.level} sx={{ display: "flex", alignItems: "center", gap: 1, py: 0.3 }}>
               {/*
-                Строка «уровень не вычислен» стояла прочерком и читалась как
-                ещё один уровень шкалы, тем более что L6 из сводки выпадал.
-                Теперь шкала показана целиком, включая пустые уровни, а
-                непосчитанное названо словом.
+                The row for "no level computed" stood as a dash and read as one
+                more level of the scale, the more so because L6 fell out of the
+                summary entirely. The scale is now shown whole, empty levels
+                included, and what is uncounted is named in words.
               */}
               <Box sx={{ width: bar.level === "unknown" ? "auto" : 34, flexShrink: 0 }}>
                 {bar.level === "unknown"

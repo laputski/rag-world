@@ -10,11 +10,12 @@ import { MONO } from "../theme";
 import { useDocumentHead } from "../useDocumentHead";
 
 /**
- * О портале: как устроены данные и как они обновляются.
+ * About: how the data is arranged and how it is updated.
  *
- * Страница существует потому, что портал требует доверия к числам, а доверие
- * даётся не заявлением о строгости, а возможностью проверить: увидеть правило,
- * расписание сбора, перечень источников и скачать сами данные.
+ * The page exists because the portal asks to be trusted with numbers, and trust
+ * is not given by a declaration of rigour but by the chance to check: to see the
+ * rule, the collection schedule and the list of sources, and to download the
+ * data itself.
  */
 
 const DATA_FILES = [
@@ -30,19 +31,19 @@ const DATA_FILES = [
   { name: "feed.ru.xml", key: "about.fileFeedRu" },
 ];
 
-/** Постоянный адрес портала для примеров обращения. */
+/** The permanent address of the portal, for the request examples. */
 const SITE = "https://ragworld.org";
 
-/** Хранилище с исходными данными и полной историей их изменений. */
+/** The store holding the source data and the whole history of its changes. */
 const REPOSITORY = "https://github.com/laputski/rag-world";
 
-/** Источники, из которых сбор действительно идёт сегодня. */
+/** The sources collection actually runs against today. */
 const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code",
                  "Awesome-GraphRAG"];
 
 interface Release { tag: string }
 
-/** Готовая ссылка с кнопкой копирования. */
+/** A ready citation with a copy button. */
 function Snippet({ text }: { text: string }) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
@@ -73,7 +74,7 @@ export function AboutPage() {
     title: t("head.about.title"),
     description: t("head.about.description"),
   });
-  // ГОСТ англоязычному читателю не нужен: это российский стандарт.
+  // GOST is of no use to an English-speaking reader: it is a Russian standard.
   const style = i18n.language === "ru" ? toGost : toPlain;
   const [stats, setStats] = useState<RegistryStats | null>(null);
   const [release, setRelease] = useState<string | null>(null);
@@ -120,10 +121,11 @@ export function AboutPage() {
       </Typography>
 
       {/*
-        Портал утверждает, что каждое его число проверяемо. Из этого следует
-        обязательство перед читателем, который видит ошибку либо знает то, чего
-        портал не знает: сказать ему, что именно принимается и в каком виде.
-        Без такого раздела приглашение проверять остаётся приглашением молчать.
+        The portal claims that every number of its own is checkable. An
+        obligation follows towards a reader who spots an error or knows something
+        the portal does not: to tell them what is accepted and in what form.
+        Without such a section, an invitation to check stays an invitation to say
+        nothing.
       */}
       <Typography variant="h5" sx={{ mb: 1 }}>{t("about.contribute")}</Typography>
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
@@ -143,8 +145,9 @@ export function AboutPage() {
         {t("about.contributeManual")}
       </Typography>
       {/*
-        Пример свёрнут: он длиннее самого правила, и читателю, которому правила
-        хватило, мешает. Тому, кто собирается писать, разворот стоит щелчка.
+        The example is collapsed: it is longer than the rule itself and gets in
+        the way of a reader for whom the rule was enough. For anyone about to
+        write, opening it costs a click.
       */}
       <Box sx={{ mb: 1.5 }}>
         <MuiLink component="button" onClick={() => setExample((v) => !v)} variant="body2">
@@ -180,10 +183,10 @@ export function AboutPage() {
       </Box>
 
       {/*
-        Раздел говорил, что канал сообщений выбирается. Он выбран: репозиторий
-        открыт, и у сообщения есть форма. Обе дороги названы вместе с ценой:
-        заявка требует ссылки, правка — обоснования, иначе просмотр всё равно
-        вернёт её автору.
+        The section used to say a channel for reports was being chosen. It is
+        chosen: the repository is open, and a report has a form. Both roads are
+        named together with their price — a proposal needs a link and an edit
+        needs a justification, or review returns it to its author anyway.
       */}
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
         {t("about.contributeChannel")}
@@ -225,12 +228,12 @@ export function AboutPage() {
       </Box>
 
       {/*
-        Раздел о подключении к данным.
+        The section on connecting to the data.
 
-        Портал показывает те же сведения, что лежат в этих файлах, только с
-        разметкой. Кто берёт их разбором страниц, получает худшие данные и
-        ломается при первой правке вёрстки, поэтому способ обращения назван
-        прямо, с примерами, которые можно выполнить не читая ничего больше.
+        The portal shows the same information these files hold, only with markup.
+        Whoever takes it by parsing pages gets worse data and breaks at the first
+        edit to the layout, so the way to ask is stated outright, with examples
+        that can be run without reading anything else.
       */}
       <Typography variant="h5" sx={{ mb: 1 }}>{t("about.machine")}</Typography>
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
@@ -290,9 +293,9 @@ export function AboutPage() {
       </Collapse>
 
       {/*
-        Ссылаться следует на выпуск: состояние записи меняется, и ссылка на
-        текущее состояние подтвердит со временем не то, что подтверждала.
-        Поэтому метка выпуска стоит в каждом примере.
+        A release is what to cite: the state of a record changes, and a citation
+        of the current state will in time support something other than what it
+        supported. The release tag therefore stands in every example.
       */}
       {release && (
         <>
