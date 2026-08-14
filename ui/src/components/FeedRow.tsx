@@ -7,19 +7,20 @@ import { getTechProse } from "../i18n/index";
 import { VelocityStat } from "./VelocityStat";
 
 /**
- * Строка ленты технологий.
+ * A row of the technology feed.
  *
- * Строка, а не карточка: карточки заставляют глаз обходить рамки, а материал
- * здесь сравнивают по колонкам. Разделяются строки волосяной линией.
+ * A row rather than a card: cards make the eye travel round a frame, and things
+ * here are compared down columns. Rows are separated by a hairline.
  *
- * Слева отпечаток конфигурации, по центру содержание, справа величины. Такое
- * расположение позволяет листать ленту, читая только левый край и правую
- * колонку, и останавливаться на том, что заинтересовало.
+ * The configuration fingerprint is on the left, the content in the middle and
+ * attention on the right. That arrangement lets a reader page through the feed
+ * reading only the left edge or only one column, and stop at whatever catches
+ * their interest.
  */
 
 export interface FeedItem {
   id: string;
-  /** Идентификатор локализованной прозы: из неё берётся краткая суть. */
+  /** The identifier of the localised prose the short summary comes from. */
   prose_id?: string | null;
   name: string;
   kind: string;
@@ -30,7 +31,7 @@ export interface FeedItem {
   confidence?: number | null;
   evidence_basis?: string | null;
   attention?: number | null;
-  /** Год подгруппы, по которой нормировано; null — нормировать было нечем. */
+  /** The year of the subgroup it was normalised by; null when there was none. */
   attention_cohort?: string | null;
   evidence_count?: number | null;
   first_published?: string | null;
@@ -43,9 +44,9 @@ interface Props {
 
 export function FeedRow({ item, onOpen }: Props) {
   const { t, i18n } = useTranslation();
-  // Запасной вариант берётся из артефакта, а не из русского поля реестра:
-  // проза есть у всех записей, и русский абзац на английской версии остался
-  // бы там, где перевод забыли.
+  // The fallback comes from the artefact rather than from the Russian field:
+  // prose exists for every record, and a Russian paragraph in the English
+  // version would stand exactly where a translation had been forgotten.
   const short = getTechProse(item.prose_id ?? null, i18n.language).short
     ?? item.summary;
 
@@ -84,9 +85,9 @@ export function FeedRow({ item, onOpen }: Props) {
         </Box>
 
         {/*
-          Краткая суть приходит из локализованной прозы. Поле реестра остаётся
-          запасным вариантом и хранит русский текст: на английской версии он
-          показывался прямо в перечне записей.
+          The short summary comes from the localised prose. The registry field
+          stays as a fallback and holds Russian text: in the English version it
+          used to show up right inside the list of records.
         */}
         {short && (
           <Typography
@@ -116,11 +117,11 @@ export function FeedRow({ item, onOpen }: Props) {
           manual={item.evidence_basis === "manual"}
         />
         {/*
-          Нормированное и измеренное значения показываются разными единицами.
-          Подгруппа меньше пяти записей не нормируется, и её величина выражена в
-          цитированиях за месяц, а не в долях медианы. Одна подпись на оба
-          случая означала бы, что читатель сравнивает несравнимое, не зная об
-          этом.
+          The normalised and the measured value are shown in different units. A
+          subgroup of fewer than five records is not normalised, and its quantity
+          is in citations a month rather than in fractions of a median. One label
+          for both cases would mean a reader comparing what is not comparable, so
+          it is said outright.
         */}
         <VelocityStat
           value={item.attention}

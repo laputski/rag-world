@@ -6,30 +6,30 @@ import { DIMENSIONS, STRATA } from "../schema.generated";
 import { stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Глиф конфигурации: подпись технологии в схеме измерений.
+ * The configuration glyph: a technology's signature in the dimension schema.
  *
- * Двадцать шесть клеток, разложенных по семи столбцам-стратам. Клетка залита
- * цветом своей страты, если технология задаёт по этому измерению собственное
- * значение, и остаётся пустой, если значение совпадает с умолчанием либо не
- * задано вовсе.
+ * Twenty-six cells laid out in seven stratum columns. A cell is filled with the
+ * colour of its stratum when the technology sets a value of its own for that
+ * dimension, and stays empty when the value matches the default or is not set at
+ * all.
  *
- * Насыщенность заливки передаёт, какое именно значение выбрано: без этого
- * графовая и древесная топологии давали бы одинаковый отпечаток, хотя решения
- * за ними стоят разные.
+ * The saturation of the fill carries which value was chosen: otherwise a graph
+ * and a tree topology would give identical fingerprints while standing for
+ * different things.
  *
- * Смысл в том, что глиф показывает **где именно** технология принимает
- * решения. Приёмы предобработки запроса дают узкие отпечатки, полные
- * архитектуры — широкие, родственные архитектуры — похожие. В ленте это
- * работает как узнаваемая метка: строки перестают быть однородной простынёй
- * текста, а близкие технологии видно, не читая названий.
+ * The point is that a glyph shows **where exactly** a technology makes its
+ * decisions. Query preprocessing techniques give narrow fingerprints, whole
+ * architectures give wide ones, and related architectures give similar ones. In
+ * a list it works as a recognisable mark: the rows stop being a uniform sheet of
+ * text, and related technologies are visible without reading a name.
  *
- * Глиф целиком выводится из данных: ручной работы он не требует и устаревать
- * не может.
+ * The glyph is derived entirely from the data: it needs no hand work, and admits
+ * none.
  */
 
 interface Props {
   configuration: Record<string, string>;
-  /** Высота глифа в пикселях; ширина считается пропорционально. */
+  /** The height of the glyph in pixels; the width follows in proportion. */
   size?: number;
   title?: string;
 }
@@ -59,8 +59,8 @@ export function ConfigGlyph({ configuration, size = 26, title }: Props) {
         const value = configuration[dim.code];
         const isSet = Boolean(value) && value !== dim.default;
         if (isSet) filled += 1;
-        // Порядковый номер значения задаёт насыщенность, поэтому отпечаток
-        // различает не только набор решений, но и сами решения.
+        // The ordinal of the value sets the saturation, so the glyph tells
+        // apart not only which decisions were made but what they were.
         const index = isSet ? Math.max(0, dim.values.indexOf(value)) : 0;
         const span = Math.max(1, dim.values.length - 1);
         out.push({

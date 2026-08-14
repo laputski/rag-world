@@ -9,22 +9,21 @@ import type { Candidate, ResidualMechanism } from "../api/types";
 import { MONO } from "../theme";
 import { useDocumentHead } from "../useDocumentHead";
 
-//: Наибольшая оценка пригодности; совпадает с core/candidate_fit.py.
+//: The largest fitness score; it matches core/candidate_fit.py.
 const FIT_MAX = 10;
 
 /**
- * Пробелы портала: чего он о себе знает.
+ * The gaps of the portal: what it knows about itself.
  *
- * Две очереди на одной странице, и они отвечают на разные вопросы. Остатки
- * говорят о **модели**: какие механизмы схема измерений не выражает у записей,
- * которые уже разобраны. Кандидаты говорят о **реестре**: какие работы, быть
- * может, следует в него завести. Первая измеряет полноту описания, вторая
- * полноту состава, и слитые в один список они смешали бы два разных
- * утверждения.
+ * Two queues on one page, and they answer different questions. The residuals
+ * speak of the **model**: which mechanisms the dimension schema does not express
+ * among the records already read. The candidates speak of the **registry**:
+ * which records may need to be created in it. The first measures how complete
+ * the description is and the second how complete the collection is, and merged
+ * into one list they would mix two different claims.
  *
- * Вместе они держатся потому, что обе показывают предел портала, и обе малы:
- * восемь механизмов и несколько работ в неделю не стоят отдельной страницы
- * каждая.
+ * They live together because both show a limit of the portal, and eight
+ * mechanisms and a few works a week do not warrant a page each.
  */
 export function ResidualsPage() {
 
@@ -39,9 +38,9 @@ export function ResidualsPage() {
   const [threshold, setThreshold] = useState(3);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  // Вкладки, а не два раздела подряд: очереди отвечают на разные вопросы, и
-  // читателю обычно нужна одна из них. Список из восьми механизмов и двух
-  // десятков работ подряд заставлял бы прокручивать мимо ненужного.
+  // Tabs rather than two sections in a row: the queues answer different
+  // questions and a reader usually wants one of them. Eight mechanisms followed
+  // by twenty works would force scrolling past what is not wanted.
   const [tab, setTab] = useState(0);
 
   useEffect(() => {
@@ -55,8 +54,8 @@ export function ResidualsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Очередь кандидатов необязательна: артефакта может не быть, если
-  // обнаружение ещё не запускали. Её отсутствие страницу не ломает.
+  // The candidate queue is optional: the artefact may be absent when discovery
+  // has never been run. Its absence does not break the page.
   useEffect(() => {
     getCandidates()
       .then((res) => setCandidateRows(res.candidates))
@@ -155,9 +154,9 @@ export function ResidualsPage() {
       )}
 
       {/*
-        Вторая очередь: что, возможно, следует завести в реестр. Обнаружение
-        записей не заводит, поэтому здесь предположения, а не технологии, и
-        решение по каждому принимает человек.
+        The second queue: what may need to be created in the registry.
+        Discovery creates no records, so these are suppositions rather than
+        technologies, and the verdict on each is a person's.
       */}
       {tab === 1 && (
         <>
@@ -206,12 +205,12 @@ export function ResidualsPage() {
             )}
           </Box>
           {/*
-            Аннотация приводится авторская: пересказывать её своими словами
-            значило бы утверждать о работе, которую портал ещё не разбирал.
-          */}
-          {/*
-            Слагаемые оценки показываются всегда: число без них означало бы
-            «поверьте», а портал построен на обратном.
+            The abstract is given as the authors wrote it: retelling it in other
+            words would mean asserting something about a work the portal has not
+            read yet.
+
+            The terms of the score are always shown: a number without them says
+            "take my word for it", and the portal is built on the opposite.
           */}
           <Box component="ul" sx={{ pl: 2.5, m: 0, mt: 1 }}>
             {row.fit.signals.map((signal, i) => (
