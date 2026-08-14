@@ -40,11 +40,11 @@ LEVELS = {"L0", "L1", "L2", "L3", "L4", "L5", "L6"}
 
 
 def _residual_vocabulary() -> dict[str, dict]:
-    """Словарь механизмов остатка: код → запись словаря.
+    """The vocabulary of residual mechanisms: code to entry.
 
-    Читается при каждой проверке, а не один раз при загрузке модуля. Проход
-    обновления правит данные и проверяет их в том же запуске, поэтому словарь,
-    прочитанный при импорте, описывал бы состояние до правок.
+    It is read on every validation rather than once at import. The update pass
+    edits the data and validates it within one run, so a vocabulary read at
+    import time would describe the state before those edits.
     """
     path = store.DATA_DIR / "residual_vocabulary.json"
     if not path.exists():
@@ -56,14 +56,14 @@ def _residual_vocabulary() -> dict[str, dict]:
 
 
 def check_filenames() -> list[str]:
-    """Имя файла записи совпадает с идентификатором внутри неё.
+    """A record's file name matches the identifier inside it.
 
-    Расхождение не выглядит поломкой и не мешает читать реестр: записи
-    загружаются перебором файлов, а идентификатор берётся из содержимого.
-    Порча наступает при первой же записи обратно, а записывает реестр каждый
-    проход обновления, когда проверка ссылок обновляет их отметки. Сохранение
-    идёт по идентификатору, поэтому появляется второй файл, а прежний остаётся:
-    одна запись становится двумя с одним идентификатором.
+    A divergence does not look like a breakage and does not stop the registry
+    being read: records load by walking the files, and the identifier comes from
+    the content. The damage arrives with the first write back, and every update
+    pass writes the registry when the link check updates the marks. Saving goes
+    by identifier, so a second file appears while the old one stays: one record
+    becomes two under one identifier.
     """
     import json
 
@@ -74,33 +74,34 @@ def check_filenames() -> list[str]:
         try:
             declared = json.loads(path.read_text(encoding="utf-8")).get("id")
         except json.JSONDecodeError as exc:
-            problems.append(f"technologies/{path.name}: файл не разбирается: {exc}")
+            problems.append(f"technologies/{path.name}: the file does not parse: {exc}")
             continue
         if declared != path.stem:
             problems.append(
-                f"technologies/{path.name}: идентификатор внутри файла "
-                f"{declared!r} не совпадает с именем файла {path.stem!r}; "
-                "при первой записи обратно запись раздвоится"
+                f"technologies/{path.name}: the identifier inside the file "
+                f"{declared!r} does not match the file name {path.stem!r}; "
+                "the first write back would split the record in two"
             )
     return problems
 
 
 def check_registry() -> list[str]:
-    """Проверки, не требующие сети. Возвращает список нарушений."""
-    # Разбор файлов идёт первым, потому что он один называет виновника. Схема
-    # читает реестр целиком и на испорченном файле сообщает, что не сошлось,
-    # но не в каком файле. Проход идёт без человека, и разбирать его отказ
-    # придётся по журналу задним числом: имя файла там необходимо.
+    """The checks that need no network. Returns the list of problems."""
+    # Parsing the files comes first, because it alone names the culprit. The
+    # schema reads the registry whole and, on a spoiled file, reports what did
+    # not fit but not which file it was in. The pass runs without a person, and
+    # its failure has to be worked out from the log afterwards, where the file
+    # name is indispensable.
     problems: list[str] = check_filenames()
 
     try:
         technologies = store.load_technologies()
     except Exception as exc:
-        problems.append(f"реестр не читается схемой: {exc}")
+        problems.append(f"the registry does not read against the schema: {exc}")
         return problems
 
     if not technologies:
-        problems.append("реестр пуст: нет ни одной записи в data/technologies/")
+        problems.append("the registry is empty: no records in data/technologies/")
         return problems
 
     vocabulary = _residual_vocabulary()
@@ -110,58 +111,60 @@ def check_registry() -> list[str]:
 
         if not ID_RE.match(tech.id):
             problems.append(
-                f"{where}: идентификатор {tech.id!r} нарушает соглашение "
-                "(строчные латинские буквы, цифры и подчёркивание)"
+                f"{where}: the identifier {tech.id!r} breaks the convention "
+                "(lower-case Latin letters, digits and underscores)"
             )
         if tech.id in known:
-            problems.append(f"{where}: повторный идентификатор {tech.id!r}")
+            problems.append(f"{where}: the identifier {tech.id!r} is repeated")
         known.add(tech.id)
 
         if not tech.name.strip():
-            problems.append(f"{where}: пустое имя")
+            problems.append(f"{where}: the name is empty")
 
         for group in tech.groups:
             if group not in STRATA:
-                problems.append(f"{where}: неизвестная страта {group!r}")
+                problems.append(f"{where}: unknown stratum {group!r}")
 
-        # Атака действует на систему RAG, а не является ею: у неё нет ни
-        # индекса, ни извлечения, ни синтеза. Правило избавляет от пометки
-        # неприменимости у каждого измерения каждой такой записи.
+        # An attack acts upon a RAG system rather than being one: it has no
+        # index, no retrieval and no synthesis. The rule spares such a record an
+        # inapplicability mark on every single dimension.
         if tech.kind in store.KINDS_WITHOUT_CONFIGURATION and tech.configuration:
             problems.append(
-                f"{where}: род {tech.kind!r} не занимает места в конфигурационном "
-                f"пространстве, а запись несёт {len(tech.configuration)} значений"
+                f"{where}: the kind {tech.kind!r} occupies no place in the "
+                f"configuration space, yet the record carries "
+                f"{len(tech.configuration)} values"
             )
 
         for code, value in tech.configuration.items():
             if code not in ALL_VALUES:
-                problems.append(f"{where}: неизвестное измерение {code!r}")
+                problems.append(f"{where}: unknown dimension {code!r}")
             elif value not in ALL_VALUES[code]:
                 problems.append(
-                    f"{where}: измерение {code} имеет значение {value!r}, "
-                    f"которого нет в схеме"
+                    f"{where}: dimension {code} has the value {value!r}, "
+                    f"which the schema does not contain"
                 )
         if tech.configuration:
             for error in validate(tech.configuration):
-                problems.append(f"{where}: конфигурация недопустима: {error}")
+                problems.append(f"{where}: the configuration is inadmissible: {error}")
 
-        # Остаток ссылается на словарь кодом. Свободный текст отклоняется:
-        # один и тот же механизм, названный по-разному в двух записях, не
-        # сойдётся при подсчёте, и очередь остатков покажет десять редких
-        # механизмов вместо одного частого.
+        # A residual refers to the vocabulary by code. Free text is refused: one
+        # and the same mechanism worded differently in two records will not come
+        # together in the count, and the residual queue would show ten rare
+        # mechanisms instead of one frequent one.
         for mechanism in tech.residual:
             if mechanism not in vocabulary:
                 problems.append(
-                    f"{where}: остаток {mechanism!r} отсутствует в словаре "
+                    f"{where}: the residual {mechanism!r} is not in the vocabulary "
                     f"data/residual_vocabulary.json"
                 )
 
-        # Разобранная запись обязана что-то утверждать: либо значения, либо то,
-        # что измерения к ней неприменимы. Второе — не уловка: конфигурационное
-        # пространство описывает системы RAG, а в реестре есть и объекты иного
-        # рода. Атака на хранилище системой не является: у неё нет ни индекса,
-        # ни извлечения, ни синтеза, и значения измерений утверждали бы о
-        # несуществующем целиком, а не в одной страте.
+        # A reviewed record must assert something: either values, or that the
+        # dimensions do not apply to it. The second is no dodge: the
+        # configuration space describes RAG systems, and the registry holds
+        # objects of another kind too. An attack on a store is not a system: it
+        # has no index, no retrieval and no synthesis, and dimension values would
+        # assert things about what does not exist at all, not merely in one
+        # stratum.
         if (
             tech.configuration_reviewed
             and not tech.configuration
@@ -169,91 +172,98 @@ def check_registry() -> list[str]:
             and tech.kind not in store.KINDS_WITHOUT_CONFIGURATION
         ):
             problems.append(
-                f"{where}: конфигурация помечена разобранной, но запись не "
-                "утверждает ни значений, ни неприменимости"
+                f"{where}: the configuration is marked as reviewed, yet the "
+                "record asserts neither values nor inapplicability"
             )
 
         both = set(tech.configuration_variable) & set(tech.configuration_inapplicable)
         if both:
             problems.append(
-                f"{where}: измерения {sorted(both)} помечены и переменными, и "
-                "неприменимыми одновременно"
+                f"{where}: the dimensions {sorted(both)} are marked both "
+                "variable and inapplicable at once"
             )
         for code in tech.configuration_variable:
             if code not in ALL_VALUES:
-                problems.append(f"{where}: переменное измерение {code!r} вне схемы")
+                problems.append(
+                    f"{where}: the variable dimension {code!r} is outside the schema"
+                )
             elif code not in tech.configuration:
                 problems.append(
-                    f"{where}: измерение {code} помечено переменным, но значения "
-                    "не имеет; записывается значение самой полной ветви"
+                    f"{where}: dimension {code} is marked variable yet carries no "
+                    "value; the value of the fullest branch is what gets written"
                 )
         for code in tech.configuration_inapplicable:
             if code not in ALL_VALUES:
-                problems.append(f"{where}: неприменимое измерение {code!r} вне схемы")
-            elif code in tech.configuration:
-                # Значение у неприменимого измерения утверждает о несуществующем.
                 problems.append(
-                    f"{where}: измерение {code} помечено неприменимым, но несёт "
-                    f"значение {tech.configuration[code]!r}"
+                    f"{where}: the inapplicable dimension {code!r} is outside "
+                    "the schema"
+                )
+            elif code in tech.configuration:
+                # A value on an inapplicable dimension asserts something about
+                # what does not exist.
+                problems.append(
+                    f"{where}: dimension {code} is marked inapplicable yet carries "
+                    f"the value {tech.configuration[code]!r}"
                 )
 
         for link in tech.links:
             if not link.url.strip():
-                problems.append(f"{where}: источник без адреса")
-            # Дату обязаны нести обе отметки, говорящие об осмотре: и
-            # «разрешается», и «закрыт правами». Без даты нельзя узнать, когда
-            # на адрес смотрели, а отметка без этого утверждает бессрочно.
+                problems.append(f"{where}: a source without an address")
+            # Both marks that speak of an inspection must carry a date: the one
+            # saying it resolves and the one saying it is closed by rights.
+            # Without a date there is no telling when the address was looked at,
+            # and the mark asserts something open-ended.
             if link.status in ("verified", "guarded") and link.verified_at is None:
                 problems.append(
-                    f"{where}: источник {link.url} помечен как осмотренный "
-                    f"({link.status}), но дата проверки не указана"
+                    f"{where}: the source {link.url} is marked as inspected "
+                    f"({link.status}), yet no check date is given"
                 )
 
     for item in store.load_evidence():
         if item.technology_id not in known:
             problems.append(
-                f"evidence: свидетельство ссылается на неизвестную технологию "
+                f"evidence: an item refers to an unknown technology "
                 f"{item.technology_id!r}"
             )
         if not item.source.strip():
             problems.append(
-                f"evidence: свидетельство {item.type} у {item.technology_id} "
-                "не имеет источника"
+                f"evidence: the {item.type} item on {item.technology_id} "
+                "has no source"
             )
 
     for entry in store.load_levels():
         if entry.technology_id not in known:
             problems.append(
-                f"levels: запись ссылается на неизвестную технологию "
+                f"levels: an entry refers to an unknown technology "
                 f"{entry.technology_id!r}"
             )
         if entry.level not in LEVELS:
             problems.append(
-                f"levels: у {entry.technology_id} недопустимый уровень {entry.level!r}"
+                f"levels: {entry.technology_id} has the inadmissible level {entry.level!r}"
             )
         if not 0.0 <= entry.confidence <= 1.0:
             problems.append(
-                f"levels: у {entry.technology_id} уверенность {entry.confidence} "
-                "вне отрезка [0, 1]"
+                f"levels: the confidence {entry.confidence} on {entry.technology_id} "
+                "lies outside [0, 1]"
             )
 
     for point in store.load_metrics():
         if point.technology_id not in known:
             problems.append(
-                f"metrics: показатель ссылается на неизвестную технологию "
+                f"metrics: a measurement refers to an unknown technology "
                 f"{point.technology_id!r}"
             )
         if not point.source.strip():
             problems.append(
-                f"metrics: показатель {point.metric} у {point.technology_id} "
-                "не имеет источника"
+                f"metrics: the {point.metric} measurement on {point.technology_id} "
+                "has no source"
             )
 
     return problems
 
 
 def check_links() -> list[str]:
-    """Разрешимость адресов источников. Требует сети."""
+    """Whether the source addresses resolve. Needs a network."""
     from services.collectors.transport import RequestsTransport
 
     transport = RequestsTransport()
@@ -267,10 +277,10 @@ def check_links() -> list[str]:
             try:
                 status, _ = transport.get(link.url)
             except Exception as exc:
-                problems.append(f"{tech.id}: {link.url} недоступен ({exc})")
+                problems.append(f"{tech.id}: {link.url} is unreachable ({exc})")
                 continue
             if status >= 400:
-                problems.append(f"{tech.id}: {link.url} отвечает кодом {status}")
+                problems.append(f"{tech.id}: {link.url} answers with {status}")
     return problems
 
 
@@ -278,7 +288,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--check-links", action="store_true",
-        help="дополнительно проверить разрешимость адресов источников (нужна сеть)",
+        help="also check that the source addresses resolve (needs a network)",
     )
     args = parser.parse_args()
 
@@ -287,7 +297,7 @@ def main() -> int:
         problems += check_links()
 
     if problems:
-        sys.stderr.write(f"Проверка данных не пройдена: нарушений {len(problems)}\n")
+        sys.stderr.write(f"Data validation failed: {len(problems)} problems\n")
         for problem in problems:
             sys.stderr.write(f"  {problem}\n")
         return 1
@@ -296,8 +306,8 @@ def main() -> int:
     evidence = store.load_evidence()
     levels = store.load_levels()
     print(
-        f"Проверка данных пройдена: технологий {len(technologies)}, "
-        f"свидетельств {len(evidence)}, записей журнала уровней {len(levels)}"
+        f"Data validation passed: technologies {len(technologies)}, "
+        f"evidence {len(evidence)}, level journal entries {len(levels)}"
     )
     return 0
 

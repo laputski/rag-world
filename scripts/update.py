@@ -101,7 +101,7 @@ def run(
         for message in gathered.errors[:10]:
             print(f"  {message[:130]}")
         if len(gathered.errors) > 10:
-            print(f"  ещё {len(gathered.errors) - 10}")
+            print(f"  and {len(gathered.errors) - 10} more")
 
     # ─── 2. Links ────────────────────────────────────────────────────────────
     #
@@ -125,7 +125,7 @@ def run(
         for problem in links.problems[:10]:
             print(f"  {problem[:130]}")
         if len(links.problems) > 10:
-            print(f"  ещё {len(links.problems) - 10}")
+            print(f"  and {len(links.problems) - 10} more")
     else:
         links = check_links.LinkSummary()
 

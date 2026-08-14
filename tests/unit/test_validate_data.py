@@ -101,20 +101,20 @@ def test_sound_registry_produces_no_complaints(registry):
 
 
 def test_empty_registry_is_a_violation(registry):
-    assert complains_about("реестр пуст", validate_data.check_registry())
+    assert complains_about("the registry is empty", validate_data.check_registry())
 
 
 def test_unreadable_record_stops_everything(registry):
     write_raw("alpha.json", {"id": "alpha", "имя": "нет такого поля"})
     problems = validate_data.check_registry()
-    assert complains_about("реестр не читается схемой", problems)
+    assert complains_about("does not read against the schema", problems)
 
 
 def test_identifier_must_follow_the_convention(registry):
     write_raw("Alpha-1.json", {
         "id": "Alpha-1", "name": "Alpha", "kind": "architecture", "groups": ["A"],
     })
-    assert complains_about("нарушает соглашение", validate_data.check_registry())
+    assert complains_about("breaks the convention", validate_data.check_registry())
 
 
 def test_duplicate_identifier_is_caught(registry):
@@ -122,7 +122,7 @@ def test_duplicate_identifier_is_caught(registry):
     write_raw("alpha_copy.json", {
         "id": "alpha", "name": "Alpha ещё раз", "kind": "architecture", "groups": [],
     })
-    assert complains_about("повторный идентификатор", validate_data.check_registry())
+    assert complains_about("is repeated", validate_data.check_registry())
 
 
 def test_filename_must_match_the_identifier(registry):
@@ -136,7 +136,7 @@ def test_filename_must_match_the_identifier(registry):
     write_raw("foo.json", {
         "id": "bar", "name": "Bar", "kind": "architecture", "groups": ["A"],
     })
-    assert complains_about("не совпадает с именем файла",
+    assert complains_about("does not match the file name",
                            validate_data.check_registry())
 
 
@@ -149,8 +149,8 @@ def test_split_record_is_reproducible_and_caught(registry):
 
     assert [t.id for t in store.load_technologies()] == ["bar", "bar"]
     problems = validate_data.check_registry()
-    assert complains_about("повторный идентификатор", problems)
-    assert complains_about("не совпадает с именем файла", problems)
+    assert complains_about("is repeated", problems)
+    assert complains_about("does not match the file name", problems)
 
 
 def test_half_written_record_is_reported_not_swallowed(registry):
@@ -166,21 +166,21 @@ def test_half_written_record_is_reported_not_swallowed(registry):
         '{"id": "beta", "name": "Be', encoding="utf-8"
     )
     problems = validate_data.check_registry()
-    assert complains_about("не разбирается", problems)
+    assert complains_about("does not parse", problems)
     assert complains_about("beta.json", problems), "отказ обязан называть файл"
-    assert complains_about("реестр не читается схемой", problems)
+    assert complains_about("does not read against the schema", problems)
 
 
 def test_empty_name_is_a_violation(registry):
     write_raw("alpha.json", {
         "id": "alpha", "name": "   ", "kind": "architecture", "groups": [],
     })
-    assert complains_about("пустое имя", validate_data.check_registry())
+    assert complains_about("the name is empty", validate_data.check_registry())
 
 
 def test_unknown_stratum_is_a_violation(registry):
     save(groups=["A", "Z"])
-    assert complains_about("неизвестная страта", validate_data.check_registry())
+    assert complains_about("unknown stratum", validate_data.check_registry())
 
 
 # ─── Конфигурационное пространство ───────────────────────────────────────────
@@ -188,18 +188,18 @@ def test_unknown_stratum_is_a_violation(registry):
 
 def test_dimension_outside_the_schema_is_a_violation(registry):
     save(configuration={"Z9": "что угодно"})
-    assert complains_about("неизвестное измерение", validate_data.check_registry())
+    assert complains_about("unknown dimension", validate_data.check_registry())
 
 
 def test_value_outside_the_schema_is_a_violation(registry):
     save(configuration={"A4": "гиперкуб"})
-    assert complains_about("которого нет в схеме", validate_data.check_registry())
+    assert complains_about("which the schema does not contain", validate_data.check_registry())
 
 
 def test_configuration_violating_constraints_is_a_violation(registry):
     """Ограничение Φ: графовая топология требует оператора обхода графа."""
     save(configuration={"A4": "graph", "C1": "dense"})
-    assert complains_about("конфигурация недопустима",
+    assert complains_about("the configuration is inadmissible",
                            validate_data.check_registry())
 
 
@@ -207,12 +207,12 @@ def test_kind_without_configuration_may_not_carry_values(registry):
     """Атака не занимает места в конфигурационном пространстве."""
     kind = sorted(store.KINDS_WITHOUT_CONFIGURATION)[0]
     save(kind=kind, configuration={"A4": "flat"})
-    assert complains_about("не занимает места", validate_data.check_registry())
+    assert complains_about("occupies no place", validate_data.check_registry())
 
 
 def test_reviewed_record_must_assert_something(registry):
     save(configuration_reviewed=TODAY)
-    assert complains_about("не утверждает ни значений",
+    assert complains_about("asserts neither values",
                            validate_data.check_registry())
 
 
@@ -222,30 +222,30 @@ def test_reviewed_record_must_assert_something(registry):
 def test_dimension_cannot_be_variable_and_inapplicable_at_once(registry):
     save(configuration={"A4": "graph", "C1": "graph_traversal"},
          configuration_variable=["A4"], configuration_inapplicable=["A4"])
-    assert complains_about("и переменными, и", validate_data.check_registry())
+    assert complains_about("both", validate_data.check_registry())
 
 
 def test_variable_dimension_outside_the_schema_is_a_violation(registry):
     save(configuration_variable=["Z9"])
-    assert complains_about("переменное измерение", validate_data.check_registry())
+    assert complains_about("the variable dimension", validate_data.check_registry())
 
 
 def test_variable_dimension_without_a_value_is_a_violation(registry):
     """Пометка говорит, что значение не единственное, а не что его нет."""
     save(configuration_variable=["A4"])
-    assert complains_about("помечено переменным, но значения",
+    assert complains_about("is marked variable yet carries no",
                            validate_data.check_registry())
 
 
 def test_inapplicable_dimension_outside_the_schema_is_a_violation(registry):
     save(configuration_inapplicable=["Z9"])
-    assert complains_about("неприменимое измерение", validate_data.check_registry())
+    assert complains_about("the inapplicable dimension", validate_data.check_registry())
 
 
 def test_inapplicable_dimension_may_not_carry_a_value(registry):
     """Значение у неприменимого измерения утверждает о несуществующем."""
     save(configuration={"A4": "flat"}, configuration_inapplicable=["A4"])
-    assert complains_about("помечено неприменимым, но несёт",
+    assert complains_about("is marked inapplicable yet carries",
                            validate_data.check_registry())
 
 
@@ -258,7 +258,7 @@ def test_residual_outside_the_vocabulary_is_a_violation(registry):
         json.dumps({"mechanisms": [{"id": "known_one"}]}), encoding="utf-8"
     )
     save(residual=["своими словами про рёбра"])
-    assert complains_about("отсутствует в словаре", validate_data.check_registry())
+    assert complains_about("is not in the vocabulary", validate_data.check_registry())
 
 
 def test_residual_from_the_vocabulary_passes(registry):
@@ -276,7 +276,7 @@ def test_vocabulary_is_read_at_check_time_not_at_import(registry):
     и механизм, добавленный этим же проходом, был бы объявлен самоуправством.
     """
     save(residual=["added_during_the_pass"])
-    assert complains_about("отсутствует в словаре", validate_data.check_registry())
+    assert complains_about("is not in the vocabulary", validate_data.check_registry())
 
     (registry / "residual_vocabulary.json").write_text(
         json.dumps({"mechanisms": [{"id": "added_during_the_pass"}]}),
@@ -290,7 +290,7 @@ def test_vocabulary_is_read_at_check_time_not_at_import(registry):
 
 def test_link_without_an_address_is_a_violation(registry):
     save(links=[store.Link(url="   ", kind="paper")])
-    assert complains_about("источник без адреса", validate_data.check_registry())
+    assert complains_about("a source without an address", validate_data.check_registry())
 
 
 def test_verified_link_must_carry_a_date(registry):
@@ -298,7 +298,7 @@ def test_verified_link_must_carry_a_date(registry):
     save(links=[store.Link(
         url="https://arxiv.org/abs/1", kind="preprint", status="verified",
     )])
-    assert complains_about("но дата проверки не указана",
+    assert complains_about("yet no check date is given",
                            validate_data.check_registry())
 
 
@@ -312,7 +312,7 @@ def test_evidence_pointing_at_an_unknown_record(registry):
         source="https://arxiv.org/abs/1", fetched_at=TODAY,
         obtained_by="auto", verified=True,
     )])
-    assert complains_about("неизвестную технологию", validate_data.check_registry())
+    assert complains_about("an unknown technology", validate_data.check_registry())
 
 
 def test_evidence_without_a_source(registry):
@@ -321,7 +321,7 @@ def test_evidence_without_a_source(registry):
         technology_id="alpha", type="publication", value=None,
         source="   ", fetched_at=TODAY, obtained_by="auto", verified=True,
     )])
-    assert complains_about("не имеет источника", validate_data.check_registry())
+    assert complains_about("has no source", validate_data.check_registry())
 
 
 def test_level_entry_pointing_at_an_unknown_record(registry):
@@ -330,7 +330,7 @@ def test_level_entry_pointing_at_an_unknown_record(registry):
         technology_id="ghost", level="L1", confidence=0.5,
         rule_version="1.0.0", computed_at=TODAY,
     ))
-    assert complains_about("ссылается на неизвестную технологию",
+    assert complains_about("refers to an unknown technology",
                            validate_data.check_registry())
 
 
@@ -342,7 +342,7 @@ def test_level_outside_the_scale(registry):
         "rule_version": "1.0.0", "computed_at": TODAY.isoformat(),
         "evidence_snapshot": [], "evidence_basis": "computed",
     }) + "\n", encoding="utf-8")
-    assert complains_about("недопустимый уровень", validate_data.check_registry())
+    assert complains_about("the inadmissible level", validate_data.check_registry())
 
 
 def test_confidence_outside_the_unit_interval(registry):
@@ -353,7 +353,7 @@ def test_confidence_outside_the_unit_interval(registry):
         "rule_version": "1.0.0", "computed_at": TODAY.isoformat(),
         "evidence_snapshot": [], "evidence_basis": "computed",
     }) + "\n", encoding="utf-8")
-    assert complains_about("вне отрезка", validate_data.check_registry())
+    assert complains_about("lies outside [0, 1]", validate_data.check_registry())
 
 
 def test_metric_pointing_at_an_unknown_record(registry):
@@ -362,7 +362,7 @@ def test_metric_pointing_at_an_unknown_record(registry):
         technology_id="ghost", metric="citation_velocity", value=1.0,
         measured_at=TODAY, source="https://openalex.org/W1",
     )])
-    assert complains_about("показатель ссылается на неизвестную",
+    assert complains_about("a measurement refers to an unknown",
                            validate_data.check_registry())
 
 
@@ -372,7 +372,7 @@ def test_metric_without_a_source(registry):
         technology_id="alpha", metric="citation_velocity", value=1.0,
         measured_at=TODAY, source="   ",
     )])
-    assert complains_about("не имеет источника", validate_data.check_registry())
+    assert complains_about("has no source", validate_data.check_registry())
 
 
 # ─── Код возврата ────────────────────────────────────────────────────────────
