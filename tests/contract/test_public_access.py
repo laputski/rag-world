@@ -1,13 +1,12 @@
-"""Машиночитаемый вход портала: указатель наборов, карта сайта, llms.txt.
+"""The machine-readable entrance: the index, the sitemap and llms.txt.
 
-Данные лежали в открытом каталоге и раньше, но узнать об их существовании
-можно было только прочитав исходный код портала. Отсюда потребитель, которому
-нужны сведения, разбирал страницы: получал худшие данные и ломался при первой
-правке вёрстки.
+The data sat in an open directory before this too, and the only way to learn of
+it was to read the source. Whoever needed the information parsed the pages, which
+gives a worse result and breaks at the first edit to the layout.
 
-Три файла закрывают это, и все три обязаны описывать то, что действительно
-опубликовано. Указатель, обещающий набор, которого нет, хуже отсутствия
-указателя: по нему напишут обращение, и оно откажет у потребителя, а не здесь.
+Three files close that, and all three have to agree with what is actually
+published. An index promising a dataset that does not exist is worse than no
+index at all: somebody writes a request from it, and the request fails.
 """
 
 from __future__ import annotations
@@ -37,20 +36,20 @@ def index() -> dict:
 
 
 def test_every_named_dataset_exists(index):
-    """Указатель называет только то, что действительно лежит рядом."""
+    """The index names only what exists."""
     missing = [
         entry["url"]
         for entry in index["datasets"]
         if not (DATA / entry["url"].rsplit("/", 1)[-1]).exists()
     ]
     assert not missing, (
-        f"указатель обещает наборы, которых нет: {missing}. По такому "
-        "указателю напишут обращение, и откажет оно у потребителя."
+        f"the index promises datasets that are not published: {missing}. Somebody "
+        "will write a request from the index, and the request will fail."
     )
 
 
 def test_record_counts_match_the_files(index):
-    """Число записей взято из файла, а не из намерения сборки."""
+    """The record count comes from the file rather than from the build state."""
     wrong = []
     for entry in index["datasets"]:
         key = entry.get("records_at")
@@ -60,12 +59,12 @@ def test_record_counts_match_the_files(index):
         payload = json.loads((DATA / name).read_text(encoding="utf-8"))
         actual = len(payload.get(key, []))
         if actual != entry["records"]:
-            wrong.append(f"{name}: обещано {entry['records']}, лежит {actual}")
-    assert not wrong, "указатель разошёлся с наборами: " + "; ".join(wrong)
+            wrong.append(f"{name}: {entry['records']} promised, {actual} present")
+    assert not wrong, "the index has diverged from the datasets: " + "; ".join(wrong)
 
 
 def test_every_published_dataset_is_named(index):
-    """Набор, оставшийся вне указателя, для потребителя не существует."""
+    """A dataset left out of the index might as well not be published."""
     named = {entry["url"].rsplit("/", 1)[-1] for entry in index["datasets"]}
     published = {
         path.name for path in DATA.glob("*.json")
@@ -73,16 +72,16 @@ def test_every_published_dataset_is_named(index):
     }
     forgotten = published - named
     assert not forgotten, (
-        f"наборы опубликованы, но в указателе не названы: {sorted(forgotten)}"
+        f"datasets are published but absent from the index: {forgotten}"
     )
 
 
 def test_index_carries_what_an_integration_needs(index):
-    """Подключение не должно требовать чтения кода портала."""
+    """Connecting to the data must require reading no code."""
     for field in ("name", "site", "built_at", "license", "attribution",
                   "repository", "schema", "technologies", "technology_ids",
                   "datasets", "releases", "sitemap"):
-        assert field in index, f"в указателе нет поля {field}"
+        assert field in index, f"the index has no field {field!r}"
     assert index["schema"]["dimensions"] == build_artifacts.SCHEMA_SIZE
     assert index["schema"]["rule_version"] == build_artifacts.RULE_VERSION
     assert len(index["schema"]["strata"]) == 7
@@ -96,7 +95,7 @@ def test_technology_ids_match_the_registry(index):
 
 
 def test_sitemap_covers_every_card_and_section():
-    """Карточка, отсутствующая в карте сайта, не будет найдена поиском."""
+    """A card missing from the sitemap is invisible to search."""
     root = ET.fromstring((PUBLIC / "sitemap.xml").read_text(encoding="utf-8"))
     urls = {node.findtext(f"{SITEMAP_NS}loc") for node in root}
     registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
@@ -105,60 +104,60 @@ def test_sitemap_covers_every_card_and_section():
         tech["id"] for tech in registry["technologies"]
         if f"{build_artifacts.SITE}/tech/{tech['id']}" not in urls
     ]
-    assert not missing_cards, f"карточек нет в карте сайта: {missing_cards}"
+    assert not missing_cards, f"cards missing from the sitemap: {missing_cards[:5]}"
 
     missing_routes = [
         route for route in build_artifacts.STATIC_ROUTES
         if f"{build_artifacts.SITE}{route}" not in urls
     ]
-    assert not missing_routes, f"разделов нет в карте сайта: {missing_routes}"
+    assert not missing_routes, f"sections missing from the sitemap: {missing_routes}"
 
 
 def test_robots_points_at_the_sitemap():
     robots = (PUBLIC / "robots.txt").read_text(encoding="utf-8")
     assert f"Sitemap: {build_artifacts.SITE}/sitemap.xml" in robots
-    # Обходчику, которому нужны сведения, а не разметка, сказано куда идти.
+    # A crawler that wants the information should be sent to the data.
     assert "/data/index.json" in robots
 
 
 def test_llms_txt_sends_the_reader_to_the_data():
-    """Соглашение llmstxt.org: имя, изложение, ссылки на данные."""
+    """The llmstxt.org convention: a name, a summary, links to the data."""
     text = (PUBLIC / "llms.txt").read_text(encoding="utf-8")
     assert text.startswith("# RAG World")
-    assert "\n> " in text, "нет краткого изложения после заголовка"
+    assert "\n> " in text, "there is no short summary"
     assert f"{build_artifacts.SITE}/data/index.json" in text
     assert "Do not scrape" in text, (
-        "модели не сказано главное: страницы разбирать не нужно"
+        "the model is not told the main thing: the pages need not be parsed"
     )
     for name, _key, _description in build_artifacts.DATASETS:
-        assert f"/data/{name}" in text, f"в llms.txt не назван набор {name}"
+        assert f"/data/{name}" in text, f"llms.txt does not name {name}"
 
 
 def test_head_of_the_page_declares_the_dataset():
-    """Разметка schema.org: портал публикует набор данных, а не статью."""
+    """schema.org markup: what the portal publishes is a dataset."""
     html = (ROOT / "ui" / "index.html").read_text(encoding="utf-8")
     assert '"@type": "Dataset"' in html
     assert 'rel="canonical"' in html
     assert 'name="description"' in html
     assert 'property="og:title"' in html
     assert build_artifacts.LICENSE_URL in html
-    # Язык разметки, отданной сервером, совпадает с языком портала.
+    # The language of the served markup matches the default language.
     assert '<html lang="en">' in html
 
 
-# ─── Описания для поиска ─────────────────────────────────────────────────────
+# ─── The descriptions for search ─────────────────────────────────────────────
 
 def test_descriptions_carry_no_counts():
-    """Счёт в описании устаревает к следующему прогону.
+    """A count in a description goes stale by the next pass.
 
-    Описание страницы попадает в выдачу поиска и в предпросмотр ссылки, а там
-    живёт неделями после того, как перестало быть верным. Строка «реестр из
-    шестидесяти пяти технологий» была неверна уже на следующий прогон
-    обнаружения, а исправить её у площадки, закешировавшей выдачу, нельзя.
+    A page description reaches the search results and lives there for weeks after
+    the count has changed. "A registry of sixty-five technologies" was wrong
+    within a week of discovery running, and correcting it at the platform is not
+    possible.
 
-    Запрещены цифры, а не числа вообще: «двадцать восемь измерений» устареет
-    при первом же новом измерении ровно так же, поэтому счёт из описаний убран
-    целиком, а проверка ловит его самый частый вид.
+    Digits are forbidden rather than numbers as such: a written-out count goes
+    stale at the first new record just as surely, and the check catches the
+    simplest form.
     """
     import re
 
@@ -170,14 +169,14 @@ def test_descriptions_carry_no_counts():
     ):
         if re.search(r"\d", match.group(1)):
             with_digits.append(match.group(1)[:70])
-    # Разметка переносит длинные значения на свою строку, поэтому ищется и так.
+    # The markup wraps long attribute values across lines.
     for match in re.finditer(
         r'(?:name|property)="(?:description|og:description)"\s*\n\s*content="([^"]*)"',
         html, re.S,
     ):
         if re.search(r"\d", match.group(1)):
             with_digits.append(match.group(1)[:70])
-    assert not with_digits, f"счёт в описании страницы: {with_digits}"
+    assert not with_digits, f"a count in a page description: {with_digits}"
 
     for language in ("ru", "en"):
         head = json.loads(
@@ -188,48 +187,47 @@ def test_descriptions_carry_no_counts():
             for page, value in head.items()
             if re.search(r"\d", value.get("description", ""))
         ]
-        assert not stale, f"счёт в описании раздела: {stale}"
+        assert not stale, f"a count in a section description: {stale}"
 
 
 def test_keywords_are_declared_and_free_of_counts():
-    """Слова-ключи на выдачу не влияют, но устаревать им тоже незачем."""
+    """Keywords affect no ranking, but a stale count in them is still wrong."""
     import re
 
     html = INDEX.read_text(encoding="utf-8")
     match = re.search(r'name="keywords"\s*\n?\s*content="([^"]*)"', html, re.S)
-    assert match, "слова-ключи не объявлены"
+    assert match, "no keywords are declared"
     words = [w.strip() for w in match.group(1).split(",") if w.strip()]
-    assert len(words) >= 8, f"слов-ключей слишком мало: {len(words)}"
-    assert not re.search(r"\d", match.group(1)), "счёт в словах-ключах"
+    assert len(words) >= 8, f"too few keywords: {words}"
+    assert not re.search(r"\d", match.group(1)), "a count among the keywords"
 
 
-# ─── Запись отдельным файлом ─────────────────────────────────────────────────
+# ─── One record as its own file ──────────────────────────────────────────────
 
 def test_every_record_is_published_on_its_own():
-    """Карточка читает одну запись, а не весь реестр.
+    """A card reads one record rather than the whole registry.
 
-    Прежде страница технологии тянула восемьсот килобайт ради одной записи, и
-    платила за это именно та страница, на которую чаще всего приходят по ссылке
-    извне.
+    A technology page used to pull eight hundred kilobytes, and the page paying
+    for it was exactly the one people arrive at from an outside link.
     """
     registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
     folder = DATA / "tech"
-    assert folder.is_dir(), "записи по одной не публикуются"
+    assert folder.is_dir(), "records are not published one by one"
 
     published = {path.stem for path in folder.glob("*.json")}
     expected = {tech["id"] for tech in registry["technologies"]}
     assert published == expected, (
-        f"лишние файлы: {sorted(published - expected)}; "
-        f"недостающие: {sorted(expected - published)}"
+        f"extra files: {sorted(published - expected)}; "
+        f"missing: {sorted(expected - published)}"
     )
 
 
 def test_a_single_record_matches_its_row_in_the_registry():
-    """Два описания одной записи расходятся молча, если их не сверять.
+    """Two descriptions of one record drift apart.
 
-    Карточка читает файл записи, а реестр читают страница списка и внешний
-    потребитель. Разойдясь, они покажут разное об одной технологии, и заметить
-    это можно будет только сравнив две страницы глазами.
+    A card reads the record file while the registry is read by a consumer. Once
+    they diverge they show different things, and noticing it takes comparing two
+    files by hand.
     """
     registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
     rows = {tech["id"]: tech for tech in registry["technologies"]}
@@ -238,14 +236,13 @@ def test_a_single_record_matches_its_row_in_the_registry():
         payload = json.loads(path.read_text(encoding="utf-8"))
         if payload.get("technology") != rows.get(path.stem):
             mismatched.append(path.stem)
-    assert not mismatched, f"файл записи разошёлся со строкой реестра: {mismatched}"
+    assert not mismatched, f"a record file has diverged from the registry: {mismatched[:5]}"
 
 
 def test_a_single_record_is_far_smaller_than_the_registry():
-    """Смысл разделения в размере: если файл не меньше, оно бессмысленно."""
+    """The split exists for size: if a record grows, the split stops paying."""
     registry_size = (DATA / "registry.json").stat().st_size
     largest = max(path.stat().st_size for path in (DATA / "tech").glob("*.json"))
     assert largest * 10 < registry_size, (
-        f"самая крупная запись {largest} байт против реестра {registry_size}: "
-        "разделение перестало окупаться"
+        f"the largest record is {largest} bytes: the split has stopped paying"
     )
