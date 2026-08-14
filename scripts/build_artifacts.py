@@ -40,34 +40,37 @@ from services.registry import store  # noqa: E402
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "ui" / "public" / "data"
 
-#: Постоянный адрес портала. Входит в машиночитаемое описание и в карту сайта,
-#: поэтому задан здесь один раз, а не повторяется по файлам.
+#: The permanent address of the portal. It enters the machine-readable
+#: description and the sitemap, so it is written here once rather than repeated
+#: across files.
 SITE = "https://ragworld.org"
 
-#: Хранилище исходных данных. Клонирование остаётся первым способом доступа:
-#: артефакты производны, а история изменений живёт только в нём.
+#: The store of the source data. Cloning remains the first way in: the artefacts
+#: are derived, and the history of changes lives only here.
 REPOSITORY = "https://github.com/laputski/rag-world"
 
-#: Лицензия на данные и артефакты; та же, что в data/LICENSE.md.
+#: The licence of the data and the artefacts; the same as in data/LICENSE.md.
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 LICENSE_NAME = "CC BY 4.0"
 
-#: Страницы портала, существующие постоянно. Карточки технологий добавляются к
-#: ним по реестру, поэтому карта сайта не отстаёт от него на новую запись.
+#: The pages of the portal that always exist. Technology cards are added to them
+#: from the registry, so the sitemap never falls a record behind it.
 STATIC_ROUTES = ("/", "/registry", "/changes", "/digest", "/residuals",
                  "/article", "/about")
 
-#: Схема измерений для интерфейса порождается из той же декларации, что и для
-#: остального кода. Переписать её вручную значило бы завести второе описание —
-#: ровно то, что проект однажды уже пережил.
+#: The dimension schema for the interface is generated from the same declaration
+#: the rest of the code uses. Writing it out by hand would mean a second
+#: description of the same thing, which is exactly what this project has already
+#: lived through once.
 SCHEMA_MODULE = (
     Path(__file__).resolve().parent.parent / "ui" / "src" / "schema.generated.ts"
 )
 
 LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 
-#: Подписи ленты по языкам. Лента объявляет язык на канал целиком, поэтому
-#: перевод здесь не пара полей, а второй канал со своими подписями.
+#: The feed labels per language. A feed declares its language for the whole
+#: channel, so a translation here is not a pair of fields but a second channel
+#: with labels of its own.
 FEED_WORDS = {
     "en": {
         "title": "RAG World: chronicle of changes",
@@ -85,77 +88,80 @@ FEED_WORDS = {
     },
 }
 
-#: Данные считаются устаревшими, если самое свежее свидетельство старше этого
-#: срока. Признак показывается в интерфейсе всегда.
+#: The data counts as stale when the freshest evidence is older than this. The
+#: mark is always shown in the interface.
 STALE_AFTER = timedelta(days=45)
 
-#: Показатель, из которого выводится внимание.
+#: The measurement attention is derived from.
 #:
-#: Распространённости на карте нет, и это решение, а не упущение. Точка карты
-#: несла поле `prevalence`, задававшее её размер, но заполнить его было нечем:
-#: ряд с такими показателями никто не писал, поэтому размер у всех шестидесяти
-#: двух точек был одинаков, а поле молча оставалось пустым.
+#: There is no spread on the map, and that is a decision rather than an omission.
+#: A point used to carry a `prevalence` field that set its size, and there was
+#: nothing to fill it with: nobody wrote a series of such measurements, so all
+#: sixty-two points came out the same size while the field stayed quietly empty.
 #:
-#: Заполнить его честно не выходит. Загрузки пакета есть у семи записей из
-#: шестидесяти двух и различаются в тридцать тысяч раз, от полутора тысяч в
-#: месяц до пятидесяти двух миллионов. По прежней формуле все семь упирались в
-#: наибольший размер, а прочие пятьдесят пять получали размер «нет данных»,
-#: неотличимый от размера «скачивают редко»: величина превращалась в признак
-#: «есть пакет на Python». Вдобавок наибольшие загрузки принадлежат
-#: OpenSearch и Qdrant, то есть общему инструменту, а не приёму RAG, и карта
-#: утверждала бы их первенство в предметной области.
+#: Filling it honestly does not work. Package downloads exist for seven records
+#: out of sixty-two and differ by a factor of thirty thousand, from fifteen
+#: hundred a month to fifty-two million. Under the old formula all seven hit the
+#: largest size while the other fifty-five got the size for "no data",
+#: indistinguishable from the size for "rarely downloaded": the quantity turned
+#: into a mark meaning "has a Python package". On top of that the largest
+#: download counts belong to OpenSearch and Qdrant, that is, to general tools
+#: rather than to RAG techniques, and the map would have asserted their primacy
+#: in the subject.
 #:
-#: Звёзд репозитория не собирает никто, поэтому вторая половина правила
-#: описывала источник, которого нет. Складывать же загрузки со звёздами нельзя
-#: и по существу: это разные величины в разных единицах.
+#: Nobody collects repository stars, so the second half of the rule described a
+#: source that does not exist. Adding downloads to stars is inadmissible in
+#: substance too: they are different quantities in different units.
 ATTENTION_METRIC = "citation_velocity"
 
 
 def _built_at() -> str:
-    """Момент, на который собраны данные, а не момент запуска скрипта.
+    """The moment the data is current as of, not the moment the script ran.
 
-    Различие существенно для еженедельного прогона. Если брать часы, артефакты
-    отличаются при каждом запуске даже когда ничего не изменилось, и бот
-    коммитит шум, в котором тонет настоящая хроника. Дата выводится из самих
-    данных: свежайшее свидетельство, изменение уровня либо показатель.
+    The difference matters for a weekly pass. Taken from the clock, the artefacts
+    differ on every run even when nothing changed, and the bot commits noise in
+    which the real chronicle drowns. The date is derived from the data itself:
+    the freshest piece of evidence, level change or measurement.
 
-    Ответ на вопрос «когда проверяли в последний раз» даёт журнал прогонов —
-    он для того и заведён.
+    The question of when anything was last checked is answered by the run log,
+    which exists for that purpose.
     """
     stamps: list[str] = []
     stamps += [e.fetched_at.isoformat() for e in store.load_evidence()]
     stamps += [e.computed_at.isoformat() for e in store.load_levels()]
     stamps += [m.measured_at.isoformat() for m in store.load_metrics()]
     if not stamps:
-        # Данных нет вовсе: дата берётся от часов, иначе её неоткуда взять.
+        # No data at all: the date comes from the clock, there being nowhere
+        # else to take it from.
         return datetime.now(timezone.utc).date().isoformat()
     return max(stamps)
 
 
 def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None:
-    """Свежайшее измерение показателя по записи.
+    """The freshest measurement of a quantity for one record.
 
-    У записи может быть несколько работ, и каждая измеряется отдельно. Свежесть
-    поэтому считается **по каждому источнику отдельно**, а уже потом источники
-    сводятся вместе. Порядок существенен, и обратный порядок портит данные.
+    A record may have several works, and each is measured separately. Freshness
+    is therefore computed **per source**, and only then are the sources brought
+    together. The order matters, and the reverse order spoils the data.
 
-    Сначала брали свежайшую дату по всей записи, а внутри неё наибольшее
-    значение. Достаточно было одному источнику не ответить в очередной прогон,
-    и он выпадал из расчёта целиком: свежайшая дата принадлежала уже другому
-    источнику. Так у Dense X внимание упало с 1,089 до 0,101 не потому, что
-    работу перестали цитировать, а потому, что вторую её работу в тот день не
-    удалось опросить. Для прогона без человека это худший вид поломки: число
-    меняется в десять раз и выглядит как наблюдение.
+    It used to take the freshest date across the whole record and the largest
+    value within it. One source failing to answer on a given pass was enough to
+    drop it from the calculation entirely, the freshest date by then belonging to
+    another source. That is how the attention of Dense X fell from 1.089 to 0.101
+    — not because the work stopped being cited, but because its second work could
+    not be polled that day. For an unattended pass this is the worst kind of
+    breakage: the number changes tenfold and looks like an observation.
 
-    Источники сводятся наибольшим значением, и этот выбор тоже не произволен:
+    The sources are combined by taking the largest value, and that choice is not
+    arbitrary either:
 
-    * брать первый попавшийся нельзя — величина зависела бы от порядка строк в
-      файле, то есть от того, какая ссылка попала в запись раньше;
-    * складывать нельзя — препринт и его конференционная версия существуют в
-      индексе как две работы, и сумма посчитала бы одну работу дважды.
+    * taking the first one will not do, because the quantity would depend on the
+      order of lines in a file, that is, on which link entered the record first;
+    * adding them will not do, because a preprint and its conference version
+      exist in the index as two works, and a sum would count one work twice.
 
-    Наибольшее — это внимание к самой заметной работе записи. Оно не
-    завышается: такое измерение действительно существует.
+    The largest is the attention paid to the most visible work of a record. It is
+    not inflated: a measurement of that size genuinely exists.
     """
     relevant = [p for p in points if p.metric == metric]
     if not relevant:
@@ -170,19 +176,20 @@ def _latest_metric(points: list[store.MetricPoint], metric: str) -> float | None
     return max(p.value for p in by_source.values())
 
 
-#: Проза карточек: краткая суть и развёрнутое описание каждой записи.
+#: The prose of the records: a short summary and a full description of each.
 #:
-#: Тексты живут в ресурсах локализации портала, потому что пишутся вместе с
-#: ним и правятся чаще данных. В артефакт они переносятся копией: реестр,
-#: выгруженный наружу, состоял из кодов, уровней и ссылок без единого
-#: предложения о том, что это за технология, и прочитать его без портала было
-#: нельзя. Переносятся оба языка сразу, иначе выгрузка оказывается наполовину
-#: на языке, которого потребитель не знает.
+#: The texts live in the interface localisation resources, because they are
+#: written together with the interface and edited more often than the data. They
+#: are copied into the artefact: the registry, once published, consisted of
+#: codes, levels and links without a single sentence saying what a technology
+#: was, and reading it without the portal was impossible. Both languages are
+#: copied at once, or the published data comes out half in a language the
+#: consumer does not read.
 PROSE_DIR = Path(__file__).resolve().parent.parent / "ui" / "src" / "i18n"
 
-#: Поле прозы и имя, под которым оно выходит в артефакт. Краткая суть
-#: называется `summary`, а не `short`: за пределами интерфейса «короткое» не
-#: говорит, короткое что.
+#: A prose field and the name it goes out under in the artefact. The short
+#: summary is called `summary` rather than `short`: outside the interface
+#: "short" does not say short what.
 PROSE_FIELDS = (
     ("short", "summary"),
     ("full", "description"),
@@ -194,7 +201,7 @@ PROSE_FIELDS = (
 
 
 def _prose() -> dict[str, dict[str, str]]:
-    """Проза по записям на обоих языках, готовая к укладке в артефакт."""
+    """The prose per record in both languages, ready for the artefact."""
     tables = {
         language: json.loads(
             (PROSE_DIR / language / "tech.json").read_text(encoding="utf-8")
@@ -214,11 +221,12 @@ def _prose() -> dict[str, dict[str, str]]:
 
 
 def _strata_rows() -> list[dict]:
-    """Страты с названиями на обоих языках.
+    """The strata with their names in both languages.
 
-    Названия берутся из ресурсов интерфейса, а не из схемы: в схеме они только
-    русские, и артефакт получал бы половину подписи. Буквенная приставка вида
-    «A. » снимается, потому что код страты стоит рядом отдельным полем.
+    The names come from the interface resources rather than from the schema: in
+    the schema they exist in one language only, and the artefact would carry half
+    a label. The letter prefix of the form "A. " is stripped, because the stratum
+    code stands beside it as a field of its own.
     """
     names = {
         language: json.loads(
@@ -238,12 +246,13 @@ def _strata_rows() -> list[dict]:
 
 
 def _parse_notes() -> dict[str, list[dict]]:
-    """Обоснования разбора по записям.
+    """The justifications of the reading, per record.
 
-    Конфигурация — единственная часть портала, где решение принял человек, а не
-    правило. У уровня показан вывод правила, у свидетельства — источник; без
-    обоснования значение измерения остаётся утверждением, которое читателю
-    нечем проверить, и оно же — самое субъективное на карточке.
+    The configuration is the one part of the portal where a person made the
+    decision rather than a rule. A level shows the output of the rule and a piece
+    of evidence shows its source; without a justification a dimension value stays
+    a claim the reader has no means to check, and it is also the most subjective
+    thing on the card.
     """
     path = store.DATA_DIR / "parse_notes.jsonl"
     if not path.exists():
@@ -258,11 +267,12 @@ def _parse_notes() -> dict[str, list[dict]]:
 
 
 def _candidate_queue() -> list[dict]:
-    """Кандидаты, ждущие решения, свежие впереди.
+    """The candidates awaiting a verdict, the newest first.
 
-    Решённые в очередь не попадают: принятый кандидат уже стал записью реестра,
-    отклонённый записан в файл отклонений с причиной. Показывать их значило бы
-    выдавать сделанную работу за несделанную.
+    Those already decided do not enter the queue: an accepted candidate has
+    become a registry record, and a refused one is written into the file of
+    refusals with its reason. Showing them would mean passing work already done
+    off as work still to do.
     """
     path = store.DATA_DIR / "candidates.jsonl"
     if not path.exists():
@@ -276,18 +286,17 @@ def _candidate_queue() -> list[dict]:
     for row in rows:
         if row.get("verdict"):
             continue
-        # Аннотация обрезается для показа: она нужна читателю, чтобы решить,
-        # стоит ли открывать работу, а целиком остаётся в данных. Обрыв идёт
-        # по границе предложения, иначе фраза ломается на полуслове.
+        # The abstract is cut for display: a reader needs it to decide whether
+        # to open the work, and it stays whole in the data. The cut goes on a
+        # sentence boundary, or the phrase breaks mid-word.
         abstract = (row.get("abstract") or "").strip()
         if len(abstract) > CANDIDATE_ABSTRACT_LIMIT:
             cut = abstract[:CANDIDATE_ABSTRACT_LIMIT]
             stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
             abstract = (cut[: stop + 1] if stop > 200 else cut.rstrip() + "…")
         pending.append({**row, "abstract": abstract})
-    # Порядок по оценке пригодности: очередь существует ради просмотра, и
-    # смотреть надо сначала на то, что вероятнее подойдёт. При равной оценке
-    # впереди свежее.
+    # Ordered by fitness: the queue exists to be reviewed, and what is likelier
+    # to fit should be looked at first. On equal fitness the newer comes first.
     return sorted(
         pending,
         key=lambda r: ((r.get("fit") or {}).get("score", 0),
@@ -296,8 +305,9 @@ def _candidate_queue() -> list[dict]:
     )
 
 
-#: Сколько знаков аннотации показывать. Двух-трёх предложений хватает, чтобы
-#: понять, о чём работа; целиком аннотация открывается по ссылке на источник.
+#: How many characters of an abstract to show. Two or three sentences are enough
+#: to tell what a work is about; the whole abstract opens through the link to the
+#: source.
 CANDIDATE_ABSTRACT_LIMIT = 480
 
 
@@ -310,29 +320,29 @@ def _residual_vocabulary() -> dict[str, dict]:
 
 
 def _residual_term(code: str, lang: str = "ru") -> str:
-    """Формулировка механизма остатка по его коду.
+    """The wording of a residual mechanism, by its code.
 
-    Неизвестный код возвращается как есть: проверка данных такую запись не
-    пропустит, а сборка не должна молча превращать ошибку в пустое место.
+    An unknown code is returned as it is: data validation will not let such a
+    record through, and the build must not silently turn an error into a blank.
     """
     entry = _residual_vocabulary().get(code)
     return entry.get(lang, code) if entry else code
 
 
-#: Со скольких упоминаний механизм остатка считается кандидатом в измерение
-#: схемы. Три — не магия, а разумный минимум: один случай бывает у любой
-#: работы, два могут оказаться совпадением, а три раза подряд схема
-#: промахивается уже не случайно.
+#: How many mentions make a residual mechanism a candidate dimension. Three is
+#: not magic but a reasonable minimum: one case happens to any work, two may be
+#: a coincidence, and three times running the schema is no longer missing by
+#: chance.
 RESIDUAL_CANDIDATE_THRESHOLD = 3
 
 
 def _residual_queue(technologies: list[store.Technology]) -> list[dict]:
-    """Механизмы остатка с числом упоминаний и записями, где они встретились.
+    """The residual mechanisms with their counts and the records they appear in.
 
-    Смысл очереди в том, что схема должна расти от наблюдений, а не от
-    воображения. Механизм, который приходится записывать в остаток снова и
-    снова, — это место, где схема мала; механизм, встреченный однажды, —
-    частность конкретной работы.
+    The point of the queue is that the schema should grow from observation rather
+    than from imagination. A mechanism that has to be written into a residual
+    again and again marks a place where the schema is too small; a mechanism met
+    once is a particularity of one work.
     """
     vocabulary = _residual_vocabulary()
     seen: dict[str, list[dict]] = defaultdict(list)
@@ -356,9 +366,9 @@ def _residual_queue(technologies: list[store.Technology]) -> list[dict]:
     return sorted(rows, key=lambda r: (-r["count"], r["term"]))
 
 
-#: Ниже этого размера возрастная подгруппа не нормируется: медиана по трём
-#: значениям неустойчива и сдвигается от появления одной новой работы сильнее,
-#: чем от происходящего в области.
+#: Below this size an age subgroup is not normalised: a median over three values
+#: is unstable and shifts more from one new work appearing than from anything
+#: happening in the field.
 MIN_COHORT = 5
 
 
@@ -374,12 +384,12 @@ def attention_cohorts(
     technologies: list[store.Technology],
     metrics_by_tech: dict[str, list[store.MetricPoint]],
 ) -> dict[str, float]:
-    """Медиана скорости цитирования по году первой публикации.
+    """The median citation velocity by year of first publication.
 
-    Сравнивать скорости напрямую нельзя: работа двухлетней давности набирает
-    цитирования дольше, чем вышедшая позавчера, и без нормировки старое всегда
-    выглядит популярнее нового. Нормировка внутри возрастной подгруппы этот
-    перекос снимает.
+    Velocities cannot be compared directly: a work two years old has had longer
+    to gather citations than one published the day before yesterday, and without
+    normalisation the old always looks more popular than the new. Normalising
+    inside an age subgroup removes that bias.
     """
     by_year: dict[str, list[float]] = defaultdict(list)
     for tech in technologies:
@@ -402,11 +412,11 @@ def normalized_attention(
     metrics_by_tech: dict[str, list[store.MetricPoint]],
     cohorts: dict[str, float],
 ) -> dict[str, object]:
-    """Внимание в трёх видах: измеренное, нормированное и происхождение.
+    """Attention in three forms: measured, normalised, and its provenance.
 
-    Возвращаются все три, потому что каждое отвечает на свой вопрос. Читателю
-    показывается нормированное, но происхождение обязано быть доступно, а без
-    сырого значения его не проверить.
+    All three are returned because each answers a different question. What the
+    reader is shown is the normalised value, but the provenance has to be
+    available, and without the raw value there is no checking it.
     """
     raw = _latest_metric(metrics_by_tech.get(tech.id, []), ATTENTION_METRIC)
     if raw is None:
@@ -415,8 +425,9 @@ def normalized_attention(
     year = (tech.first_published or "")[:4]
     median = cohorts.get(year)
     if median is None:
-        # Подгруппа мала либо год неизвестен: нормировать нечем. Показывается
-        # измеренное значение с пометкой, а не выдуманное нормированное.
+        # The subgroup is too small or the year is unknown: there is nothing to
+        # normalise by. What is shown is the measured value with a mark, not an
+        # invented normalised one.
         return {
             "attention": raw,
             "attention_raw": raw,
@@ -430,7 +441,7 @@ def normalized_attention(
 
 
 def build(out_dir: Path | None = None) -> dict[str, int]:
-    """Собрать артефакты. `out_dir` подменяется в проверке на расхождение."""
+    """Build the artefacts. `out_dir` is substituted by the drift check."""
     technologies = store.load_technologies()
     evidence = store.load_evidence()
     levels = store.load_levels()
@@ -447,7 +458,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     level_by_tech: dict[str, store.LevelEntry] = {}
     history_by_tech: dict[str, list[store.LevelEntry]] = defaultdict(list)
     for entry in levels:
-        level_by_tech[entry.technology_id] = entry  # журнал упорядочен по времени
+        level_by_tech[entry.technology_id] = entry  # the journal is ordered in time
         history_by_tech[entry.technology_id].append(entry)
 
     cohorts = attention_cohorts(technologies, metrics_by_tech)
@@ -458,15 +469,15 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     freshest = max((e.fetched_at for e in evidence), default=None)
     stale = freshest is None or (date.today() - freshest) > STALE_AFTER
 
-    # ─── Реестр ──────────────────────────────────────────────────────────────
+    # ─── The registry ────────────────────────────────────────────────────────
     registry_rows = []
     for tech in technologies:
         entry = level_by_tech.get(tech.id)
         tech_evidence = evidence_by_tech.get(tech.id, [])
 
-        # Вывод правила прилагается к записи, чтобы карточка могла показать,
-        # почему уровень такой и чего не хватает до следующего. Без этого
-        # уровень остаётся утверждением, которое читателю нечем проверить.
+        # The output of the rule travels with the record so that a card can show
+        # why the level is what it is and what is missing for the next one.
+        # Without that a level stays a claim the reader has no means to check.
         reasoning = None
         if tech_evidence:
             result = compute_level([
@@ -486,13 +497,15 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         registry_rows.append({
             **tech.model_dump(mode="json"),
             **prose.get(tech.prose_id or "", {}),
-            # Данные хранят код механизма, читателю нужна формулировка.
-            # Подстановка на сборке, а не в реестре: тогда перевод словаря не
-            # требует переписывать записи технологий.
+            # The data stores the code of a mechanism, and the reader needs the
+            # wording. The substitution happens at build time rather than in the
+            # registry: translating the vocabulary then requires no rewriting of
+            # the technology records.
             "residual": [_residual_term(code) for code in tech.residual],
             "residual_en": [_residual_term(code, "en") for code in tech.residual],
-            # Обоснование разбора: почему у измерения такое значение. Остаток
-            # получает формулировку из словаря, чтобы карточка не показывала код.
+            # The justification of the reading: why a dimension holds the value
+            # it does. A residual gets its wording from the vocabulary so that a
+            # card never shows a bare code.
             "parse_notes": [
                 {
                     **note,
@@ -509,7 +522,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "level": entry.level if entry else None,
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,
-            # Внимание нужно и ленте реестра: по нему идёт одна из сортировок.
+            # The registry table needs attention too: one of its orderings uses it.
             **normalized_attention(tech, metrics_by_tech, cohorts),
             "evidence_count": len(tech_evidence),
             "evidence": [
@@ -526,7 +539,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "level_reason": reasoning,
         })
 
-    # ─── Карта ───────────────────────────────────────────────────────────────
+    # ─── The map ─────────────────────────────────────────────────────────────
     points = []
     for tech in technologies:
         entry = level_by_tech.get(tech.id)
@@ -534,19 +547,20 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "id": tech.id,
             "name": tech.name,
             "kind": tech.kind,
-            # Первый страт определяет цвет; полный набор нужен для отбора.
+            # The first stratum sets the colour; the whole set is for filtering.
             "group": tech.groups[0] if tech.groups else None,
             "groups": tech.groups,
-            # Отсутствие уровня остаётся отсутствием: подставлять L0 нельзя,
-            # иначе «не изучено» становится неотличимо от «гипотеза».
+            # An absent level stays absent: substituting L0 is inadmissible, or
+            # "not studied" becomes indistinguishable from "a hypothesis".
             "level": entry.level if entry else None,
             "confidence": entry.confidence if entry else None,
             "evidence_basis": entry.evidence_basis if entry else None,
             **normalized_attention(tech, metrics_by_tech, cohorts),
             "first_published": tech.first_published,
             "prose_id": tech.prose_id,
-            # История нужна карте для показа движения за период: без неё
-            # свежесть данных остаётся утверждением, а не наблюдением.
+            # The map needs the history to show movement over a period: without
+            # it the freshness of the data stays a claim rather than something
+            # observed.
             "history": [
                 {"level": h.level, "at": h.computed_at.isoformat()}
                 for h in history_by_tech.get(tech.id, [])
@@ -563,7 +577,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "stale": stale,
     }
 
-    # ─── Хроника ─────────────────────────────────────────────────────────────
+    # ─── The chronicle ───────────────────────────────────────────────────────
     order = {level: i for i, level in enumerate(LEVELS)}
     previous: dict[str, str] = {}
     changes = []
@@ -588,16 +602,17 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         })
     changes.sort(key=lambda c: c["changed_at"], reverse=True)
 
-    # ─── Сводка ──────────────────────────────────────────────────────────────
-    # Уровни перечисляются все, включая пустые.
+    # ─── The summary ─────────────────────────────────────────────────────────
+    # Every level is listed, the empty ones included.
     #
-    # Счётчик заводил ключ только там, где запись нашлась, поэтому L6 из сводки
-    # выпадал целиком: шкала выглядела кончающейся на L5, тогда как «ни одна
-    # технология не достигла отраслевого стандарта» есть, пожалуй, самое
-    # содержательное её утверждение.
+    # The counter used to create a key only where a record was found, so L6 fell
+    # out of the summary entirely: the scale looked as though it ended at L5,
+    # whereas "no technology has reached an industry standard" is arguably the
+    # most substantial thing the scale says.
     #
-    # Правилу «ноль вместо отсутствия недопустим» это не противоречит: ноль
-    # здесь и есть наблюдение, а «не знаем» живёт отдельным ключом `unknown`.
+    # This does not contradict the rule that a zero must never stand in for an
+    # absence: here the zero is the observation, and "we do not know" lives under
+    # a key of its own, `unknown`.
     counted = Counter(
         (level_by_tech[t.id].level if t.id in level_by_tech else "unknown")
         for t in technologies
@@ -623,7 +638,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "stale": stale,
     }
 
-    # ─── Запись ──────────────────────────────────────────────────────────────
+    # ─── Writing ─────────────────────────────────────────────────────────────
     target = out_dir or OUT_DIR
     target.mkdir(parents=True, exist_ok=True)
     _write(target / "registry.json", {
@@ -634,13 +649,13 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     _write(target / "map.json", map_artifact)
     _write(target / "changes.json", {"built_at": built_at, "changes": changes})
     _write(target / "stats.json", stats)
-    # Выпуски дайджеста — данные, а не производное: они дозаписываются
-    # отдельным шагом и здесь только перекладываются для чтения порталом,
-    # свежими вперёд.
+    # Digest issues are data rather than something derived: they are appended by
+    # a separate step and only laid out here for the portal to read, newest
+    # first.
     _write(target / "digest.json", {"built_at": built_at, "issues": _issues()})
-    # Очередь кандидатов: работы, найденные каталогом и ждущие решения
-    # человека. Обнаружение записей не заводит, поэтому кандидат остаётся
-    # предположением, пока владелец не примет его либо не отклонит.
+    # The candidate queue: work found by the catalogue and awaiting a person's
+    # verdict. Discovery creates no records, so a candidate stays a supposition
+    # until the owner accepts or refuses it.
     _write(target / "candidates.json", {
         "built_at": built_at,
         "candidates": _candidate_queue(),
@@ -650,29 +665,30 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
         "candidate_threshold": RESIDUAL_CANDIDATE_THRESHOLD,
         "mechanisms": _residual_queue(technologies),
     })
-    # Лента односоставна по устройству: язык объявляется на канал целиком.
-    # Поэтому языков две ленты, а не одна с полями на двух языках.
-    # Запись реестра отдельным файлом.
+    # A feed declares its language for the whole channel, so there are two feeds
+    # rather than one with fields in two languages.
     #
-    # Карточка технологии читала весь реестр ради одной записи: восемьсот
-    # килобайт на страницу, куда чаще всего и приходят по ссылке извне. Файл на
-    # запись стоит около десяти килобайт, а состав его тот же, поэтому
-    # потребитель, которому нужна одна технология, не платит за остальные.
+    # Each record is also published as a file of its own. A technology card used
+    # to read the whole registry for a single record: eight hundred kilobytes for
+    # the page people most often arrive at from an outside link. A file per
+    # record costs about ten kilobytes and holds the same thing, so a consumer
+    # who wants one technology does not pay for the rest.
     per_record = target / "tech"
     per_record.mkdir(parents=True, exist_ok=True)
     stale = {path.name for path in per_record.glob("*.json")}
     for row in registry_rows:
         _write(per_record / f"{row['id']}.json", {"built_at": built_at, "technology": row})
         stale.discard(f"{row['id']}.json")
-    # Запись, удалённая из реестра, не должна остаться отдаваемой по ссылке.
+    # A record removed from the registry must not stay reachable by a link.
     for name in stale:
         (per_record / name).unlink()
 
     _write_feed(target / "feed.xml", changes, built_at, _issues(), "en")
     _write_feed(target / "feed.ru.xml", changes, built_at, _issues(), "ru")
-    # Машиночитаемый вход: описание набора данных, карта сайта и указатель для
-    # языковых моделей. Собираются здесь, потому что зависят от тех же чисел,
-    # что и артефакты, и врозь с ними разошлись бы на первой же новой записи.
+    # The machine-readable entrance: the dataset description, the sitemap and the
+    # pointer for language models. They are built here because they depend on the
+    # same numbers as the artefacts, and built apart they would diverge from them
+    # at the first new record.
     _write(target / "index.json", _access_manifest(target, built_at, registry_rows, stats))
     _write_sitemap(target.parent / "sitemap.xml", registry_rows, built_at)
     (target.parent / "llms.txt").write_text(
@@ -690,7 +706,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
 
 
 def render_schema_module() -> str:
-    """Модуль TypeScript со схемой измерений, порождённый из декларации."""
+    """The TypeScript module of the schema, generated from the declaration."""
     strata = ",\n".join(
         f'  {{ code: "{code}", name: {json.dumps(name, ensure_ascii=False)} }}'
         for code, name in STRATA.items()
@@ -708,8 +724,9 @@ def render_schema_module() -> str:
         for d in DIMENSIONS
     )
     return (
-        "// СГЕНЕРИРОВАНО из core/dimensions_schema.py командой `make artifacts`.\n"
-        "// Не править вручную: правка потеряется и разведёт два описания схемы.\n"
+        "// GENERATED from core/dimensions_schema.py by `make artifacts`.\n"
+        "// Do not edit by hand: the edit would be lost and the schema would end\n"
+        "// up described twice.\n"
         "\n"
         "export interface DimensionSpec {\n"
         "  code: string;\n"
@@ -730,17 +747,19 @@ def render_schema_module() -> str:
         f"{dimensions},\n"
         "];\n"
         "\n"
-        "/** Коды измерений страты в порядке объявления. */\n"
+        "/** The dimensions of a stratum, in the order they are declared. */\n"
         "export function dimensionsOf(stratum: string): DimensionSpec[] {\n"
         "  return DIMENSIONS.filter((d) => d.stratum === stratum);\n"
         "}\n"
     )
 
 
-#: Наборы данных, публикуемые порталом: файл, ключ с записями и назначение.
+#: The datasets the portal publishes: the file, the key holding the records, and
+#: what each is for.
 #:
-#: Описания по-английски намеренно. Их читает не посетитель, а тот, кто
-#: подключает набор к своей системе, и в этой роли английский общий.
+#: The descriptions are in English deliberately. They are read not by a visitor
+#: but by whoever connects the dataset to their own system, and in that role
+#: English is the common language.
 DATASETS: tuple[tuple[str, str, str], ...] = (
     ("registry.json", "technologies",
      "Every technology in the registry with its configuration over the 28 "
@@ -768,16 +787,16 @@ DATASETS: tuple[tuple[str, str, str], ...] = (
 
 
 def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict) -> dict:
-    """Описание набора данных для машинного потребителя.
+    """The dataset description for a machine consumer.
 
-    Артефакты лежали в открытом каталоге и раньше, но узнать об их
-    существовании можно было только прочитав исходный код портала. Указатель
-    называет каждый набор, его назначение и число записей в нём, поэтому
-    подключение не требует ни разбора страниц, ни чтения кода.
+    The artefacts sat in an open directory before this too, but the only way to
+    learn they existed was to read the portal's source. The index names every
+    dataset, what it is for and how many records it holds, so connecting to it
+    requires neither parsing pages nor reading code.
 
-    Число записей берётся из только что записанных файлов, а не из переменных
-    сборки. Так указатель описывает опубликованное, а не задуманное, и
-    разойтись с ним не может.
+    The record counts are taken from the files just written rather than from the
+    build state. The index therefore describes what was published rather than
+    what was intended, and cannot diverge from it.
     """
     datasets = []
     for name, key, description in DATASETS:
@@ -808,8 +827,9 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
         "technologies": len(rows),
         "technology_ids": sorted(row["id"] for row in rows),
         "datasets": datasets,
-        # Запись по одной: адрес собирается подстановкой обозначения. Читателю
-        # набора это нужнее полного перечня из шестидесяти девяти адресов.
+        # One record at a time: the address is built by substitution, which is
+        # more use to a consumer of the dataset than a full list of sixty-nine
+        # addresses.
         "technology": {
             "url_template": f"{SITE}/data/tech/{{id}}.json",
             "description": "One registry record on its own, in the same shape as "
@@ -817,12 +837,13 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
                            "technology is wanted: the full registry costs "
                            "eighty times more.",
         },
-        # Выпуски неизменны: ссылка на запись внутри выпуска указывает на то,
-        # что не изменится, тогда как ссылка на текущий артефакт указывает на
-        # движущийся объект. Для цитирования годится только первое.
+        # Releases are immutable: a link to a record inside a release points at
+        # something that will not change, whereas a link to the current artefact
+        # points at a moving object. Only the first is fit for a citation.
         "releases": f"{SITE}/data/releases/index.json",
-        # Ленты названы по языкам: канал объявляет язык целиком, поэтому их
-        # две, и потребителю нужно знать, какая на каком.
+        # The feeds are named by language: a channel declares its language for
+        # all of itself, so there are two, and a consumer needs to know which is
+        # which.
         "feeds": {
             "en": f"{SITE}/data/feed.xml",
             "ru": f"{SITE}/data/feed.ru.xml",
@@ -832,7 +853,7 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
 
 
 def _write_sitemap(path: Path, rows: list[dict], built_at: str) -> None:
-    """Карта сайта по постоянным страницам и карточкам реестра."""
+    """The sitemap over the permanent pages and the registry cards."""
     day = built_at[:10]
     urls = [f"{SITE}{route}" for route in STATIC_ROUTES]
     urls += [f"{SITE}/tech/{row['id']}" for row in sorted(
@@ -851,13 +872,13 @@ def _write_sitemap(path: Path, rows: list[dict], built_at: str) -> None:
 
 
 def render_llms_txt(built_at: str, rows: list[dict], stats: dict) -> str:
-    """Указатель портала для языковых моделей.
+    """The portal's pointer for language models.
 
-    Соглашение llmstxt.org: короткий файл в корне, из которого видно, что на
-    сайте есть и где это лежит в машиночитаемом виде. Смысл его в том, чтобы
-    модель, которой нужны сведения о технологиях RAG, брала их из набора
-    данных, а не разбирала страницы: разбор страниц даёт худшие сведения и
-    ломается при первой же правке вёрстки.
+    The llmstxt.org convention: a short file at the root from which it is clear
+    what the site holds and where that sits in machine-readable form. Its point
+    is that a model needing information about RAG technologies should take it
+    from the data rather than parse the pages: parsing pages gives a worse result
+    and breaks at the first edit to the layout.
     """
     lines = [
         "# RAG World",
@@ -915,7 +936,7 @@ def _write(path: Path, payload: dict) -> None:
 
 
 def _issues() -> list[dict]:
-    """Выпуски дайджеста, свежие впереди."""
+    """The digest issues, newest first."""
     directory = store.DATA_DIR / "digest"
     if not directory.exists():
         return []
@@ -930,15 +951,15 @@ def _write_feed(
     path: Path, changes: list[dict], built_at: str,
     issues: list[dict] | None = None, language: str = "en",
 ) -> None:
-    """Лента: выпуски дайджеста и изменения уровней.
+    """The feed: digest issues and level changes.
 
-    Выпуски идут первыми: читателю ленты нужно сообщение о происходящем, а
-    отдельные изменения уровня служат его подробностью.
+    The issues come first: a reader of the feed wants the message about the pass,
+    and the individual level changes serve as its detail.
 
-    Лента односоставна по устройству: язык объявляется на канал целиком, и
-    класть в один канал поля на двух языках нельзя. Поэтому выпускается две
-    ленты, `feed.xml` по-английски и `feed.ru.xml` по-русски, а язык каждой
-    объявлен в разметке, чтобы читалка не гадала.
+    A feed carries one language by construction, declared for the whole channel,
+    so fields in two languages cannot go into one channel. Hence two feeds,
+    `feed.xml` in English and `feed.ru.xml` in Russian, each declaring its
+    language in the markup so that a reader need not guess.
     """
     words = FEED_WORDS[language]
     items = []
@@ -986,11 +1007,11 @@ def main() -> int:
     parser.parse_args()
     counts = build()
     print(
-        f"Артефакты собраны: технологий {counts['technologies']}, "
-        f"точек карты {counts['points']}, записей хроники {counts['changes']}, "
-        f"с вычисленным уровнем {counts['with_level']}"
+        f"Artefacts built: technologies {counts['technologies']}, "
+        f"map points {counts['points']}, chronicle entries {counts['changes']}, "
+        f"with a computed level {counts['with_level']}"
     )
-    print(f"Каталог: {OUT_DIR}")
+    print(f"Directory: {OUT_DIR}")
     return 0
 
 

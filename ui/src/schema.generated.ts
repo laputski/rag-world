@@ -1,5 +1,6 @@
-// СГЕНЕРИРОВАНО из core/dimensions_schema.py командой `make artifacts`.
-// Не править вручную: правка потеряется и разведёт два описания схемы.
+// GENERATED from core/dimensions_schema.py by `make artifacts`.
+// Do not edit by hand: the edit would be lost and the schema would end
+// up described twice.
 
 export interface DimensionSpec {
   code: string;
@@ -53,7 +54,7 @@ export const DIMENSIONS: DimensionSpec[] = [
   { code: "G3", name: "Trainability of components", stratum: "G", core: true, default: "frozen", values: ["frozen", "trained_retriever", "trained_reader", "joint_training"] },
 ];
 
-/** Коды измерений страты в порядке объявления. */
+/** The dimensions of a stratum, in the order they are declared. */
 export function dimensionsOf(stratum: string): DimensionSpec[] {
   return DIMENSIONS.filter((d) => d.stratum === stratum);
 }
