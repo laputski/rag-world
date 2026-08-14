@@ -1,0 +1,44 @@
+name: Report an error in the data
+description: A wrong configuration value, level, link or piece of prose.
+title: "fix: "
+labels: ["data defect"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Corrections are the most valuable contributions here. The configuration
+        is the only part of the registry where a human made the call, so it is
+        the part most likely to be wrong.
+
+  - type: input
+    id: record
+    attributes:
+      label: Which record
+      description: The page address or the identifier.
+      placeholder: https://ragworld.org/tech/pathrag
+    validations:
+      required: true
+
+  - type: dropdown
+    id: what
+    attributes:
+      label: What is wrong
+      options:
+        - a configuration value
+        - the maturity level
+        - a source link
+        - the prose
+        - something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: What it should be, and what says so
+      description: >-
+        Name the dimension and the value if it is a configuration error. Quote
+        or point at the passage of the source that supports the correction: the
+        registry changes on evidence, not on assertion.
+    validations:
+      required: true

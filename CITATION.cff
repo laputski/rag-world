@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "RAG World: a registry and maturity map of retrieval-augmented generation technologies"
+message: >-
+  If you use this registry or its data, please cite it. Cite a dated release
+  rather than the live files: the live files change every week.
+type: dataset
+authors:
+  - family-names: Laputski
+    given-names: Alexander
+repository-code: "https://github.com/laputski/rag-world"
+url: "https://ragworld.org"
+abstract: >-
+  A self-updating registry of retrieval-augmented generation technologies. Every
+  record carries a configuration over a stratified schema of twenty-eight
+  dimensions across seven strata, a maturity level from L0 to L6 derived by a
+  deterministic rule from collected evidence, and the evidence that level rests
+  on. Mechanisms the schema cannot express are recorded as residuals, and a
+  mechanism seen in three or more records becomes a candidate dimension.
+  Evidence is collected weekly from arXiv, OpenAlex, GitHub, PyPI, Papers with
+  Code and curated topic lists. No language model takes part in deriving a
+  level.
+keywords:
+  - retrieval-augmented generation
+  - information retrieval
+  - technology readiness
+  - configuration space
+  - feature model
+  - open data
+license: Apache-2.0
+license-url: "https://github.com/laputski/rag-world/blob/main/LICENSE"

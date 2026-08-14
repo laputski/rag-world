@@ -8,6 +8,10 @@ import { useTranslation } from "react-i18next";
 import type { ThemeMode } from "../theme";
 import { MONO, SERIF_FAMILY } from "../theme";
 import { Logo } from "../components/Logo";
+import { GitHubIcon, LinkedInIcon } from "../components/BrandIcons";
+
+/** Хранилище исходного кода и данных. */
+const REPOSITORY = "https://github.com/laputski/rag-world";
 
 /**
  * Каркас портала: верхняя навигация и широкое поле содержания.
@@ -172,6 +176,20 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
             </Box>
           </Tooltip>
 
+          <Tooltip title={t("nav.repository")}>
+            <IconButton
+              component="a"
+              href={REPOSITORY}
+              target="_blank"
+              rel="noopener"
+              size="small"
+              aria-label={t("nav.repository")}
+              sx={{ flexShrink: 0, color: "text.secondary" }}
+            >
+              <GitHubIcon size={17} />
+            </IconButton>
+          </Tooltip>
+
           <FormControl size="small" sx={{ flexShrink: 0 }}>
             <Select
               value={lang}
@@ -210,13 +228,33 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
       <Box component="footer" sx={{ borderTop: 1, borderColor: "divider", py: 2 }}>
         <Container maxWidth="xl" sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
           <Typography variant="caption">Alexander Laputski, 2026</Typography>
-          <Typography
-            variant="caption" component="a" href="https://www.linkedin.com/in/laputski/"
-            target="_blank" rel="noopener"
-            sx={{ color: "primary.main", textDecoration: "none" }}
+          {/*
+            Знак сети вместо слова: подвал читают взглядом, а не чтением, и
+            узнаваемый глиф находится там быстрее строки. Подпись остаётся для
+            читалки экрана, иначе ссылка для неё безымянна.
+          */}
+          <Box
+            component="a"
+            href="https://www.linkedin.com/in/laputski/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+            sx={{ display: "flex", alignItems: "center", color: "text.secondary",
+                  "&:hover": { color: "primary.main" } }}
           >
-            LinkedIn
-          </Typography>
+            <LinkedInIcon size={15} />
+          </Box>
+          <Box
+            component="a"
+            href={REPOSITORY}
+            target="_blank"
+            rel="noopener"
+            aria-label={t("nav.repository")}
+            sx={{ display: "flex", alignItems: "center", color: "text.secondary",
+                  "&:hover": { color: "primary.main" } }}
+          >
+            <GitHubIcon size={15} />
+          </Box>
           <Typography variant="caption" sx={{ ml: "auto" }}>{t("footer.data")}</Typography>
         </Container>
       </Box>

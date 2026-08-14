@@ -1,140 +1,173 @@
+<div align="center">
+
+<img src="docs/logo.svg" alt="" width="180" />
+
 # RAG World
 
-**Портал:** https://ragworld.org (площадка: https://rag-world.onrender.com)
+**A self-updating registry of retrieval-augmented generation technologies.**
+Every record carries a configuration over a stratified schema, a maturity level
+derived by a deterministic rule from collected evidence, and the evidence itself.
 
-Проверить развёрнутое: `make smoke` (требует сети).
+[![Checks](https://github.com/laputski/rag-world/actions/workflows/ci.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/ci.yml)
+[![Weekly collection](https://github.com/laputski/rag-world/actions/workflows/collect.yml/badge.svg)](https://github.com/laputski/rag-world/actions/workflows/collect.yml)
+[![Code licence: Apache 2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
+[![Data licence: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-blue.svg)](data/LICENSE.md)
 
-Сервис на площадке должен быть создан через **Blueprint**, а не как Static Site
-вручную: `render.yaml` описывает правило переписывания адресов и заголовки
-кэширования, но к сервису, заведённому вручную, они не применяются. Без правила
-переписывания прямые ссылки вида `/tech/pathrag` отвечают отсутствием страницы.
+[**Portal**](https://ragworld.org) ·
+[**Data**](https://ragworld.org/data/index.json) ·
+[**Foundations**](https://ragworld.org/article) ·
+[**Contributing**](CONTRIBUTING.md)
 
-Портал знаний о технологиях Retrieval-Augmented Generation: реестр проверяемых
-фактов, карта зрелости и научный текст, описывающий формальную модель, в которой
-эти технологии сравниваются.
-
-Портал **обновляет себя сам**: свидетельства собираются из открытых источников,
-уровень зрелости пересчитывается детерминированным правилом, представления
-пересобираются, изменения попадают в хронику. Читателю видно не только текущее
-состояние области, но и то, что изменилось и на каком основании.
-
-Аудитория — исследователи и инженеры. Первым важны происхождение каждого
-утверждения и возможность сослаться на состояние реестра; вторым — сравнение
-решений по конфигурации и понимание, что подтверждено, а что нет.
+</div>
 
 ---
 
-## Устройство
+## What this is
 
-```
-data/                версионируемый реестр: факты, свидетельства, уровни
-core/                схема измерений, конфигурация, правило зрелости
-services/collectors/ сборщики свидетельств (arXiv, OpenAlex, GitHub, PyPI)
-scripts/             точки входа: сбор, пересчёт, сборка артефактов, валидация
-ui/                  статический портал (React, TypeScript)
-public/data/         собранные артефакты, которые читает портал
-```
+Over fifty named RAG architectures have been published, and comparing them is
+hard: descriptions give a vocabulary of components but no common coordinates.
+Ask whether one system is more mature than another and you get opinions.
 
-Направление зависимостей одностороннее: представления зависят от артефактов,
-артефакты — от реестра, реестр — от свидетельств, свидетельства — от сборщиков.
-Портал не обращается к сборщикам во время работы, поэтому отказ внешнего
-источника приводит к устареванию данных, а не к отказу портала.
+RAG World answers both questions with data you can check.
 
-## Модель описания
+**Every technology is a point in a configuration space.** Twenty-eight
+dimensions across seven strata, with `requires` and `excludes` constraints
+between values. Two systems can therefore be compared coordinate by coordinate,
+and an inadmissible combination is caught by the schema rather than by review.
 
-Произвольная система RAG представляется точкой в конфигурационном пространстве из
-двадцати восьми измерений, сгруппированных по семи стратам:
+**Every maturity level is derived, not assigned.** A deterministic rule reads
+the collected evidence — publications, peer review, repository state, framework
+presence, package downloads, documented industrial use — and returns a level
+from L0 to L6. No language model takes part. The same evidence always yields the
+same level, so any value reproduces on a rerun.
 
-| Страта | Что описывает |
+**Every claim is traceable.** A level shows the rule output and the evidence
+under it. A configuration value shows why it was read that way, from which
+source. A number without provenance is not published; the field stays empty and
+the interface says so.
+
+**What the schema cannot express is recorded too.** Each record carries a
+*residual*: the mechanisms the twenty-eight dimensions do not capture. A
+mechanism seen in three or more records becomes a candidate for a new dimension.
+Two dimensions have entered the schema this way.
+
+## Data
+
+The portal renders these files and nothing else. Reading them directly is
+supported and preferred over scraping the pages.
+
+| File | What it holds |
 |---|---|
-| A | представление знаний: единица извлечения, сегментация, топология индекса, модель представления |
-| B | формулировка и маршрутизация запроса |
-| C | извлечение: оператор поиска, управление обходом, слияние источников |
-| D | формирование контекста: переранжирование, отбор и сжатие, компоновка |
-| E | синтез и контроль: режим генерации, обоснованность, атрибуция, отказ |
-| F | эволюция состояния: запись обратно, разрешение противоречий, забывание |
-| G | оболочка ограничений: приватность, место исполнения, обучаемость компонентов |
+| [`data/index.json`](https://ragworld.org/data/index.json) | index of every dataset: purpose, record count, schema version |
+| [`data/registry.json`](https://ragworld.org/data/registry.json) | every record with configuration, level, evidence and prose |
+| [`data/tech/{id}.json`](https://ragworld.org/data/tech/pathrag.json) | one record on its own, for when the whole registry is not wanted |
+| [`data/changes.json`](https://ragworld.org/data/changes.json) | append-only chronicle of level changes with their evidence |
+| [`data/residuals.json`](https://ragworld.org/data/residuals.json) | mechanisms the schema does not express |
+| [`data/candidates.json`](https://ragworld.org/data/candidates.json) | works found by discovery, awaiting a human verdict |
 
-Совместимость значений задана ограничениями Φ и проверяется автоматически, а не
-описывается списком исключений в прозе. Механизмы, которые схема не выражает,
-записываются в поле остатка: повторяясь у нескольких архитектур, они становятся
-основанием ввести новое измерение.
+Also published: [`llms.txt`](https://ragworld.org/llms.txt) for language models,
+[`sitemap.xml`](https://ragworld.org/sitemap.xml), and RSS in
+[English](https://ragworld.org/data/feed.xml) and
+[Russian](https://ragworld.org/data/feed.ru.xml).
 
-## Шкала зрелости
-
-Порядковая шкала L0–L6 вычисляется из свидетельств детерминированной функцией без
-языковой модели и сопровождается уверенностью и версией правила.
-
-| Уровень | Достаточное условие |
-|---|---|
-| L0 | описание без формальной публикации и без исходного кода |
-| L1 | препринт либо публикация в мастерской |
-| L2 | рецензирование, независимое воспроизведение либо документированное промышленное применение |
-| L3 | референсная реализация, которая собирается и выполняет описанный эксперимент |
-| L4 | реализация не авторами либо включение в широко используемый фреймворк |
-| L5 | промышленная эксплуатация с версионированием и документацией |
-| L6 | независимая реализация не менее чем тремя поставщиками |
-
-Два пути к уровню L2 существуют потому, что иначе отраслевой стандарт, описанный
-заметкой без рецензирования, оказался бы ниже препринта, никогда не покидавшего
-архив.
-
-## Команды
+Text fields carry both languages: `summary` beside `summary_en`. A Russian
+string without an English twin fails the build.
 
 ```bash
-make install-dev     # окружение и зависимости разработки
-make test            # тесты Python
-make dev             # портал на http://localhost:5174
-make build           # статическая сборка в ui/dist
+curl -s https://ragworld.org/data/index.json | jq '.datasets[] | {url, records}'
+curl -s https://ragworld.org/data/tech/pathrag.json | jq '.technology.level'
 ```
 
-Обновление данных выполняется одной цепочкой, одинаковой при ручном и при
-автоматическом запуске:
+## How it stays current
+
+Collection runs weekly from arXiv, OpenAlex, GitHub, PyPI, Papers with Code and
+curated topic lists. The run collects evidence, recomputes levels, rebuilds the
+artefacts and validates everything before anything is committed.
+
+Changes are classified before they land. A routine change is committed by the
+bot; a level crossing L3–L4, a demotion, or evidence entered by a human goes to
+a pull request instead. When the classifier cannot decide, it asks for review
+rather than guessing — the gate fails closed.
+
+The portal never contacts those sources while serving. A source going down ages
+the data; it does not break the site.
+
+## Repository layout
+
+```
+data/                the registry: one JSON file per technology, plus
+                     append-only evidence, metrics and level journals
+core/                dimension schema, configuration validation, maturity rule
+services/collectors/ evidence collectors, one per source
+scripts/             entry points: collect, recompute, build, validate
+ui/                  the static portal (React, TypeScript)
+ui/public/data/      built artefacts, the only thing the portal reads
+governance/          decision log, including decisions later reversed
+specs/               stage specifications, each marked with its state
+docs/                data schema, source list, architecture
+```
+
+Dependencies point one way: views depend on artefacts, artefacts on the
+registry, the registry on evidence, evidence on collectors.
+
+## Running it
+
+```bash
+make install-dev     # virtualenv and development dependencies
+make test            # Python tests
+make dev             # portal on http://localhost:5174
+make build           # static build into ui/dist
+```
+
+One command updates everything, and it is the same command the scheduled run
+uses:
 
 ```bash
 make collect
 ```
 
-Она собирает свидетельства, пересчитывает уровни, пересобирает артефакты и
-проверяет схему, разрешимость ссылок и происхождение чисел. Отдельные шаги
-доступны целями `levels`, `artifacts`, `validate`; знак и значки пересобирает
-цель `icons`.
+Individual steps are available as `levels`, `artifacts`, `validate`, `icons`.
 
-### Переменные окружения
+Environment variables are optional and passed by the shell; no dotenv file is
+read. `OPENALEX_MAILTO` gets a politer request pool from the open index;
+`GITHUB_TOKEN` raises the rate limit and is supplied to the scheduled run
+automatically.
 
-Файла настроек проект не читает: переменные передаются оболочкой, и все они
-необязательны. Без них прогон идёт, только медленнее и с меньшими пределами.
+## Testing
 
-| Переменная | Зачем |
-|---|---|
-| `OPENALEX_MAILTO` | адрес для связи; открытый индекс работ держит для назвавшихся отдельный поток обращений |
-| `GITHUB_TOKEN` | поднимает предел обращений к площадке репозиториев; в рабочем процессе выдаётся заданию сам |
+Coverage says a line ran. It does not say anyone would notice if it broke.
 
-## Обновление и публикация
+Alongside the usual tests, this repository keeps a curated mutation catalogue:
+each rule the project rests on is broken on purpose, one edit at a time, and the
+suite must notice. A mutant that survives marks a rule nothing guards. A mutant
+that fails to apply counts as a failure too, not as a skip — a pattern that no
+longer matches is a check that quietly stopped checking.
 
-Обновление данных — это одна и та же цепочка вне зависимости от того, кто её
-запускает. Сейчас её запускает человек командой `make collect`; после переезда
-репозитория на площадку с расписанием задач её будет вызывать задание, которое
-не содержит логики и остаётся обёрткой над теми же целями. Файлы рабочих
-процессов лежат в `.github/workflows/` заранее и до переезда не выполняются.
+```bash
+make mutate                          # the whole catalogue
+python3 scripts/mutate.py --only links
+```
 
-Портал публикуется как статический сайт (`render.yaml`). Сборка выполняет только
-команды интерфейса и Python не запускает, поэтому собранные артефакты
-`ui/public/data/` версионируются вместе с исходниками. От их расхождения с
-реестром защищает `tests/architecture/test_artifacts_in_sync.py`.
+## Citing
 
-Правило переписывания адресов продублировано в `ui/public/_redirects`: этот
-формат понимают и другие площадки, поэтому смена хостинга сводится к смене
-площадки, а не к переделке портала.
+Cite a release rather than the live files: the live files change every week.
 
-Данные реестра открыты по лицензии CC BY 4.0 — см. [data/LICENSE.md](data/LICENSE.md).
+Releases are dated, immutable snapshots listed in
+[`data/releases/index.json`](https://ragworld.org/data/releases/index.json).
+Citation formats for a release and for a single record are on the
+[About page](https://ragworld.org/about).
 
-## Документы
+## Licences
 
-| Документ | Содержание |
-|---|---|
-| [governance/CONSTITUTION.md](governance/CONSTITUTION.md) | принципы K1–K6 |
-| [governance/DECISIONS.md](governance/DECISIONS.md) | журнал архитектурных решений |
-| [registry/README.md](registry/README.md) | устройство реестра и схема данных |
-| [specs/stages/](specs/stages/) | исполняемые стадии работ |
-| [research/](research/) | исследовательские планы: определения и критерии приёмки |
+Code is Apache-2.0 ([LICENSE](LICENSE)). The registry data and the artefacts
+built from it are CC BY 4.0 ([data/LICENSE.md](data/LICENSE.md)) — attribute as
+*RAG World, https://ragworld.org*.
+
+## Contributing
+
+Corrections and new records are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
+The short version: a record needs a resolvable source, and every value that
+differs from the base configuration needs a reason with a citation.
+
+Much of the in-code commentary is still in Russian and is being translated
+progressively. New code is written in English.

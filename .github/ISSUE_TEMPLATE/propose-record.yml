@@ -1,0 +1,79 @@
+name: Propose a registry record
+description: A technology that belongs in the registry and is not there yet.
+title: "record: "
+labels: ["record proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One rule governs everything here: **nothing enters the registry without
+        a resolvable source.** A name without a link is a mention, not a
+        technology.
+
+        You do not need to fill in a configuration. Reading the source into the
+        twenty-eight dimensions is our job; pointing at the source is yours.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: As the authors write it.
+      placeholder: PathRAG
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Primary source
+      description: >-
+        A preprint, a peer-reviewed paper, or vendor documentation of a real
+        deployment. A blog explainer that cites nothing is not a primary source.
+      placeholder: https://arxiv.org/abs/2502.14902
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of object
+      description: >-
+        Levels are not comparable across kinds, so this matters. A paradigm
+        constrains some dimensions without fixing a full configuration; an
+        architecture fixes one; a technique sets a single dimension; a tool
+        implements part of the constructor.
+      options:
+        - paradigm
+        - architecture
+        - technique
+        - tool
+        - attack
+        - not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What does it do that others do not?
+      description: >-
+        Two or three sentences. What we are looking for is the mechanism, not
+        the results: which step of retrieval it changes and how.
+    validations:
+      required: true
+
+  - type: input
+    id: code
+    attributes:
+      label: Code, if any
+      placeholder: https://github.com/...
+
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched the portal and this technology is not in the registry.
+          required: true
+        - label: The source above resolves and describes the method, not just its name.
+          required: true

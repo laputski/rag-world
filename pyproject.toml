@@ -5,12 +5,29 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "rag-world"
 version = "0.2.0"
-description = "RAG World: самообновляемый реестр и карта зрелости технологий RAG."
+description = "RAG World: a self-updating registry and maturity map of RAG technologies."
+readme = "README.md"
 requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Alexander Laputski" }]
+keywords = [
+    "retrieval-augmented-generation",
+    "information-retrieval",
+    "technology-readiness",
+    "configuration-space",
+    "open-data",
+]
+
 dependencies = [
     "pydantic>=2.7",
     "requests>=2.32",
 ]
+
+[project.urls]
+Homepage = "https://ragworld.org"
+Repository = "https://github.com/laputski/rag-world"
+Dataset = "https://ragworld.org/data/index.json"
 
 [project.optional-dependencies]
 dev = [

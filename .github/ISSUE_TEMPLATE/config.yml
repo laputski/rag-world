@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the contributing guide first
+    url: https://github.com/laputski/rag-world/blob/main/CONTRIBUTING.md
+    about: What is accepted, what is not, and why a resolvable source is required.
+  - name: Browse the portal
+    url: https://ragworld.org
+    about: Check whether the technology is already in the registry.

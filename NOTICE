@@ -1,0 +1,13 @@
+RAG World
+Copyright 2026 Alexander Laputski
+
+This product includes software developed as part of the RAG World project
+(https://ragworld.org).
+
+The software in this repository is licensed under the Apache License,
+Version 2.0; see LICENSE.
+
+The registry data — everything under `data/` and the artefacts built from it
+under `ui/public/data/` — is licensed separately under Creative Commons
+Attribution 4.0 International (CC BY 4.0); see data/LICENSE.md. Attribute the
+data as: RAG World, https://ragworld.org.

@@ -10,7 +10,8 @@
     "generalized": "Foundations",
     "about": "About",
     "digest": "Digest",
-    "residuals": "Gaps"
+    "residuals": "Gaps",
+    "repository": "Source code and data on GitHub"
   },
   "common": {
     "expand": "Expand",
