@@ -261,9 +261,8 @@ MUTATIONS: tuple[Mutation, ...] = (
              'index.sort(key=lambda r: r["tag"], reverse=True)',
              'index.sort(key=lambda r: r["tag"])'),
     Mutation("scripts/make_release.py", "the description numbers come from the release",
-             "f\"{meta['released_at']}. Зафиксировано технологий: "
-             "{meta['technologies']}, \"",
-             "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+             "f\"{meta['technologies']}, evidence: {meta['evidence']}; a maturity level \"",
+             "f\"0, evidence: {meta['evidence']}; a maturity level \""),
     # The reference point has to mean the absence of a technique. The reverse
     # inverts the meaning of the whole portal: inaction is shown as a decision
     # and action as a default, and it all looks like a working page.

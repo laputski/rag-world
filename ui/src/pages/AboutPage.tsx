@@ -179,9 +179,33 @@ export function AboutPage() {
         </Collapse>
       </Box>
 
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.75 }}>
+      {/*
+        Раздел говорил, что канал сообщений выбирается. Он выбран: репозиторий
+        открыт, и у сообщения есть форма. Обе дороги названы вместе с ценой:
+        заявка требует ссылки, правка — обоснования, иначе просмотр всё равно
+        вернёт её автору.
+      */}
+      <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
         {t("about.contributeChannel")}
       </Typography>
+      <Box component="ul" sx={{ pl: 3, m: 0, mb: 3 }}>
+        <Box component="li" sx={{ mb: 0.5 }}>
+          <Typography variant="body1" sx={{ lineHeight: 1.75 }}>
+            <MuiLink href={`${REPOSITORY}/issues/new/choose`}>
+              {t("about.contributeIssueLink")}
+            </MuiLink>
+            {" — "}{t("about.contributeIssue")}
+          </Typography>
+        </Box>
+        <Box component="li">
+          <Typography variant="body1" sx={{ lineHeight: 1.75 }}>
+            <MuiLink href={`${REPOSITORY}/blob/main/CONTRIBUTING.md`}>
+              {t("about.contributePullLink")}
+            </MuiLink>
+            {" — "}{t("about.contributePull")}
+          </Typography>
+        </Box>
+      </Box>
 
       <Typography variant="h5" sx={{ mb: 1 }}>{t("about.data")}</Typography>
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>

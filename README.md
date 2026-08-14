@@ -108,7 +108,7 @@ ui/                  the static portal (React, TypeScript)
 ui/public/data/      built artefacts, the only thing the portal reads
 governance/          decision log, including decisions later reversed
 specs/               stage specifications, each marked with its state
-docs/                data layout (DATA.md) and the list of sources polled
+docs/                data layout (DATA.md), the sources polled, how to release
 research/archive/    planning documents from before the rebuild, kept as history
 ```
 
@@ -160,7 +160,9 @@ Cite a release rather than the live files: the live files change every week.
 Releases are dated, immutable snapshots listed in
 [`data/releases/index.json`](https://ragworld.org/data/releases/index.json).
 Citation formats for a release and for a single record are on the
-[About page](https://ragworld.org/about).
+[About page](https://ragworld.org/about), and
+[docs/RELEASING.md](docs/RELEASING.md) describes how a release is cut and
+deposited.
 
 ## Licences
 

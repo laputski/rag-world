@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "title": "RAG World: a registry of Retrieval-Augmented Generation technologies, release 2026-08-14",
+    "upload_type": "dataset",
+    "description": "A snapshot of the registry of Retrieval-Augmented Generation technologies as of 2026-08-14. Technologies recorded: 69, evidence: 211; a maturity level is computed for 67, and the configuration is read out of the primary sources for 69. A level is derived by a deterministic rule from the collected evidence, with no language model taking part. The configuration of each record is read out of the method section of its primary source, and the justification of every value is stored with the data.",
+    "creators": [
+      {
+        "name": "Laputski, Alexander"
+      }
+    ],
+    "publication_date": "2026-08-14",
+    "version": "2026-08-14",
+    "language": "eng",
+    "keywords": [
+      "retrieval-augmented generation",
+      "RAG",
+      "feature model",
+      "technology readiness",
+      "configuration space"
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0"
+  },
+  "files": [
+    "rag-world-2026-08-14.zip"
+  ]
+}

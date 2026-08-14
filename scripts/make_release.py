@@ -227,29 +227,29 @@ def bundle(meta: dict) -> Path:
     )
 
     description = (
-        f"Снимок реестра технологий Retrieval-Augmented Generation на "
-        f"{meta['released_at']}. Зафиксировано технологий: {meta['technologies']}, "
-        f"свидетельств: {meta['evidence']}; уровень зрелости вычислен у "
-        f"{meta['with_level']}, конфигурация выведена из первоисточников у "
-        f"{meta['reviewed']}. "
-        "Уровень вычисляется детерминированным правилом из собранных "
-        "свидетельств, без языковой модели. Конфигурация каждой записи выведена "
-        "из раздела метода первоисточника, и обоснование каждого значения "
-        "хранится вместе с данными."
+        f"A snapshot of the registry of Retrieval-Augmented Generation "
+        f"technologies as of {meta['released_at']}. Technologies recorded: "
+        f"{meta['technologies']}, evidence: {meta['evidence']}; a maturity level "
+        f"is computed for {meta['with_level']}, and the configuration is read "
+        f"out of the primary sources for {meta['reviewed']}. "
+        "A level is derived by a deterministic rule from the collected "
+        "evidence, with no language model taking part. The configuration of "
+        "each record is read out of the method section of its primary source, "
+        "and the justification of every value is stored with the data."
     )
     (releases_dir() / f"{meta['tag']}-deposit.json").write_text(
         json.dumps({
             "metadata": {
                 "title": (
-                    "RAG World: реестр технологий Retrieval-Augmented Generation, "
-                    f"выпуск {meta['tag']}"
+                    "RAG World: a registry of Retrieval-Augmented Generation "
+                    f"technologies, release {meta['tag']}"
                 ),
                 "upload_type": "dataset",
                 "description": description,
                 "creators": [{"name": "Laputski, Alexander"}],
                 "publication_date": meta["released_at"],
                 "version": meta["tag"],
-                "language": "rus",
+                "language": "eng",
                 "keywords": [
                     "retrieval-augmented generation", "RAG", "feature model",
                     "technology readiness", "configuration space",

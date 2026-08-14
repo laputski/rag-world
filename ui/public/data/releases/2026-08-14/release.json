@@ -1,0 +1,14 @@
+{
+  "evidence": 211,
+  "files": [
+    "registry.json",
+    "map.json",
+    "stats.json",
+    "residuals.json"
+  ],
+  "released_at": "2026-08-14",
+  "reviewed": 69,
+  "tag": "2026-08-14",
+  "technologies": 69,
+  "with_level": 67
+}

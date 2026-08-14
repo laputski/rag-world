@@ -288,10 +288,10 @@ def test_deposit_description_repeats_the_release_numbers(workspace):
     # числа подменены.
     description = deposit["metadata"]["description"]
     for phrase in (
-        f"технологий: {meta['technologies']}",
-        f"свидетельств: {meta['evidence']}",
-        f"вычислен у {meta['with_level']}",
-        f"первоисточников у {meta['reviewed']}",
+        f"Technologies recorded: {meta['technologies']}",
+        f"evidence: {meta['evidence']}",
+        f"computed for {meta['with_level']}",
+        f"primary sources for {meta['reviewed']}",
     ):
         assert phrase in description, f"в описании нет оборота «{phrase}»"
     assert deposit["metadata"]["version"] == meta["tag"]
