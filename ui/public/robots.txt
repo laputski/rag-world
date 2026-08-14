@@ -1,12 +1,12 @@
 # RAG World — https://ragworld.org
 #
-# Обход разрешён целиком. Портал существует для того, чтобы на него ссылались.
+# Crawling is allowed in full. The portal exists to be linked to.
 #
-# Тем, кому нужны сведения, а не страницы: разбирать разметку не нужно. Все
-# данные портала опубликованы в JSON, перечень наборов лежит по адресу
-# https://ragworld.org/data/index.json, короткое описание для языковых
-# моделей — по адресу https://ragworld.org/llms.txt. Это те же самые данные без
-# разметки, и они не ломаются при правке вёрстки.
+# If what you want is the information rather than the pages: there is no need to
+# parse any markup. All of the portal's data is published as JSON, the index of
+# datasets is at https://ragworld.org/data/index.json, and a short description
+# for language models is at https://ragworld.org/llms.txt. That is the same data
+# without the markup, and it does not break when the layout is edited.
 
 User-agent: *
 Allow: /

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--
-      Описание, заголовок и адрес заданы статически и переписываются при
-      переходе по страницам (см. `useDocumentHead`). Статические значения нужны
-      потому, что портал собирается на клиенте: обходчик, не выполняющий код,
-      увидит только то, что стоит здесь. Язык по умолчанию английский, как и у
-      самого портала.
+      The title, the description and the canonical address are set statically
+      here and rewritten as the reader moves between pages (see
+      `useDocumentHead`). The static values are needed because the portal is
+      assembled in the browser: a crawler that runs no code sees only what
+      stands here. The default language is English, as it is for the portal.
     -->
     <title>RAG World — registry of retrieval-augmented generation technologies</title>
     <meta
@@ -19,11 +19,11 @@
     <link rel="canonical" href="https://ragworld.org/" />
 
     <!--
-      Слова-ключи. Крупные поисковые системы их не учитывают с две тысячи
-      девятого года и говорят об этом прямо, поэтому на выдачу они не влияют.
-      Оставлены потому, что их читают каталоги наборов данных и часть отраслевых
-      обходчиков, а стоят они одной строки. Ни одно число сюда не попадает:
-      описание, содержащее счёт записей, устаревает к следующему прогону.
+      Keywords. The major search engines have ignored them since 2009 and say
+      so plainly, so they affect no ranking. They are kept because dataset
+      catalogues and some domain crawlers do read them, and they cost one line.
+      No number goes in here: a description that carries a count of records
+      goes stale by the next pass.
     -->
     <meta
       name="keywords"
@@ -31,11 +31,11 @@
     />
 
     <!--
-      Значок вкладки векторный и один на обе темы: палитра выбирается внутри
-      файла по теме браузера. Растровый значок так не умеет, и пришлось бы
-      выбирать палитру за читателя, отчего знак тускнел бы на половине
-      устройств. Значок для домашнего экрана растровый, потому что векторный там
-      не принимается.
+      The tab icon is vector and single for both themes: the palette is chosen
+      inside the file from the browser theme. A raster icon cannot do that, and
+      the palette would have to be chosen on the reader's behalf, leaving the
+      mark dim on half the devices. The home-screen icon is raster, because a
+      vector one is not accepted there.
     -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -59,16 +59,16 @@
 
     <link rel="alternate" type="application/rss+xml" title="RAG World" href="/data/feed.xml" />
     <!--
-      Указатель наборов данных объявлен ссылкой, а не только упомянут в тексте:
-      так его находит и потребитель, читающий разметку, и тот, кто читает
-      llms.txt.
+      The dataset index is declared as a link rather than merely mentioned in
+      the text, so that it is found both by a consumer reading the markup and by
+      one reading llms.txt.
     -->
     <link rel="alternate" type="application/json" title="RAG World datasets" href="/data/index.json" />
 
     <!--
-      Разметка набора данных по schema.org. Портал публикует именно набор
-      данных, а не статью и не программу, и объявление этого рода — то, на что
-      опираются поисковые системы и каталоги данных.
+      Dataset markup after schema.org. What the portal publishes is a dataset,
+      not an article and not a program, and a declaration of that kind is what
+      search engines and data catalogues rely on.
     -->
     <script type="application/ld+json">
       {

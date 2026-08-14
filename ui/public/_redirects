@@ -1,10 +1,10 @@
-# Клиентская маршрутизация: любой адрес отдаёт оболочку приложения с кодом 200.
+# Client-side routing: every address returns the application shell with a 200.
 #
-# Правило продублировано здесь на случай смены площадки публикации: этот формат
-# понимают Cloudflare Pages, Netlify и GitLab Pages, тогда как render.yaml
-# понимает только Render. Публикуется один каталог сборки, поэтому переезд
-# сводится к смене площадки, а не к переделке портала.
+# The rule is duplicated here in case the hosting platform changes: this format
+# is understood by Cloudflare Pages, Netlify and GitLab Pages, whereas
+# render.yaml is understood only by Render. One build directory is published,
+# so a move is a change of platform rather than a rebuild of the portal.
 #
-# Код 200, а не переадресация: адрес карточки технологии обязан остаться тем,
-# на который сослались, иначе цитировать его бессмысленно.
+# A 200 and not a redirect: the address of a record page has to stay the one
+# that was cited, or citing it is pointless.
 /*    /index.html   200
