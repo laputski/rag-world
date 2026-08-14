@@ -264,6 +264,13 @@ MUTATIONS: tuple[Mutation, ...] = (
              "f\"{meta['released_at']}. Зафиксировано технологий: "
              "{meta['technologies']}, \"",
              "f\"{meta['released_at']}. Зафиксировано технологий: 0, \""),
+    # Настоящие данные обязаны проходить проверку в обычном прогоне тестов, а
+    # не только в задании непрерывной интеграции. Пока их не читал ни один тест,
+    # правка записи проходила `make test` зелёной и падала после отправки.
+    Mutation("data/technologies/standard_hybridrag.json",
+             "настоящие данные проверяются прогоном тестов",
+             '"verified_at": "2026-08-13"', '"verified_at": null'),
+
     Mutation("scripts/collect.py", "цифровой идентификатор доходит до индекса",
              '    if "doi.org" in url:\n        return ["openalex"]', "    pass"),
 
