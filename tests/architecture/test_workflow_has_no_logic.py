@@ -120,6 +120,30 @@ def test_run_log_reaches_the_main_branch_on_every_pass():
     )
 
 
+def test_pushes_to_the_main_branch_rebase_first():
+    """Отправка в основную ветку идёт после перебазирования, а не вслепую.
+
+    Ветка выгружена в начале прогона, и за минуты, пока идёт сбор, в неё может
+    лечь чужой коммит. Тогда отправка отвергается как не-перемотка, и теряется
+    ровно то, что обязано доходить всегда: отметка о прогоне. Так этот шаг и
+    упал в первый раз — проход отработал целиком, а следа не осталось.
+    """
+    offenders = []
+    for step in _update_steps():
+        run = step.get("run", "")
+        if "git push" not in run:
+            continue
+        # Ветка на просмотр отправляется своя, новая: столкнуться ей не с чем.
+        if "checkout -b" in run:
+            continue
+        if "git pull --rebase" not in run:
+            offenders.append(step.get("name", "без имени"))
+    assert not offenders, (
+        f"шаги отправляют в основную ветку без перебазирования: {offenders}. "
+        "Чужой коммит между выгрузкой и отправкой отменит весь прогон."
+    )
+
+
 def test_review_branch_grows_from_the_recorded_pass():
     """Ветка на просмотр создаётся после фиксации прогона, а не до неё.
 

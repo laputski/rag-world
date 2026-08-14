@@ -220,6 +220,12 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/validate_data.py", "a level belongs to the scale",
              "if entry.level not in LEVELS:", "if False:"),
 
+    Mutation(".github/workflows/collect.yml",
+             "the pass is rebased onto the branch before it is pushed",
+             "          git pull --rebase --autostash origin main\n"
+             "          git push\n\n      - name: Commit the changes",
+             "          git push\n\n      - name: Commit the changes"),
+
     # ── Declared dependencies ───────────────────────────────────────────────
     Mutation("pyproject.toml", "the workflow parser dependency is declared",
              '    "pyyaml>=6.0",\n', ""),
