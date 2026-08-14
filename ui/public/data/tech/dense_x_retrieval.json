@@ -2,9 +2,9 @@
   "built_at": "2026-08-14",
   "technology": {
     "aliases": [],
-    "attention": 1.089,
+    "attention": 1.113,
     "attention_cohort": "2023",
-    "attention_raw": 1.935,
+    "attention_raw": 2.032,
     "confidence": 1.0,
     "configuration": {
       "A1": "proposition",
@@ -65,10 +65,18 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=60; year=2024; citation_velocity=1.935",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4404783040",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=63; year=2024; citation_velocity=2.032",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": "H",
     "first_published": "2023-12",
     "groups": [

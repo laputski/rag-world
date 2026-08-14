@@ -12,9 +12,9 @@
   ],
   "points": [
     {
-      "attention": 10.53,
+      "attention": 10.808,
       "attention_cohort": "2024",
-      "attention_raw": 6.097,
+      "attention_raw": 6.258,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -60,9 +60,9 @@
       "prose_id": "agentic_rag"
     },
     {
-      "attention": 1.341,
+      "attention": 1.788,
       "attention_cohort": "2025",
-      "attention_raw": 0.6,
+      "attention_raw": 0.8,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
@@ -194,9 +194,9 @@
       "prose_id": "causalrag"
     },
     {
-      "attention": 5.627,
+      "attention": 5.739,
       "attention_cohort": "2024",
-      "attention_raw": 3.258,
+      "attention_raw": 3.323,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-04",
@@ -218,9 +218,9 @@
       "prose_id": "cbr_rag"
     },
     {
-      "attention": 0.39,
+      "attention": 0.446,
       "attention_cohort": "2024",
-      "attention_raw": 0.226,
+      "attention_raw": 0.258,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-01",
@@ -245,9 +245,9 @@
       "prose_id": "chatqa"
     },
     {
-      "attention": 2.513,
+      "attention": 2.526,
       "attention_cohort": null,
-      "attention_raw": 2.513,
+      "attention_raw": 2.526,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2021",
@@ -325,9 +325,9 @@
       "prose_id": "contextual_retrieval"
     },
     {
-      "attention": 8.817,
+      "attention": 9.09,
       "attention_cohort": "2024",
-      "attention_raw": 5.105,
+      "attention_raw": 5.263,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -351,9 +351,9 @@
       "prose_id": "crag"
     },
     {
-      "attention": 1.089,
+      "attention": 1.113,
       "attention_cohort": "2023",
-      "attention_raw": 1.935,
+      "attention_raw": 2.032,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-12",
@@ -378,7 +378,7 @@
       "prose_id": "dense_x_retrieval"
     },
     {
-      "attention": 0.911,
+      "attention": 0.887,
       "attention_cohort": "2023",
       "attention_raw": 1.618,
       "confidence": 1.0,
@@ -509,9 +509,9 @@
       "prose_id": "federated_rag"
     },
     {
-      "attention": 5.328,
+      "attention": 5.288,
       "attention_cohort": "2023",
-      "attention_raw": 9.465,
+      "attention_raw": 9.651,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -588,9 +588,9 @@
       "prose_id": "graphreader"
     },
     {
-      "attention": 3.789,
+      "attention": 4.123,
       "attention_cohort": "2024",
-      "attention_raw": 2.194,
+      "attention_raw": 2.387,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -616,9 +616,9 @@
       "prose_id": "hipporag"
     },
     {
-      "attention": 6.419,
+      "attention": 6.674,
       "attention_cohort": null,
-      "attention_raw": 6.419,
+      "attention_raw": 6.674,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022",
@@ -643,9 +643,9 @@
       "prose_id": "hyde"
     },
     {
-      "attention": 3.417,
+      "attention": 3.39,
       "attention_cohort": "2023",
-      "attention_raw": 6.07,
+      "attention_raw": 6.186,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -672,9 +672,9 @@
       "prose_id": "ircot"
     },
     {
-      "attention": 4.836,
+      "attention": 5.527,
       "attention_cohort": "2024",
-      "attention_raw": 2.8,
+      "attention_raw": 3.2,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -878,9 +878,9 @@
       "prose_id": "multi_query"
     },
     {
-      "attention": 1.891,
+      "attention": 1.909,
       "attention_cohort": null,
-      "attention_raw": 1.891,
+      "attention_raw": 1.909,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022",
@@ -930,9 +930,9 @@
       "prose_id": "naive_dense"
     },
     {
-      "attention": 0.0,
+      "attention": 0.143,
       "attention_cohort": null,
-      "attention_raw": 0.0,
+      "attention_raw": 0.143,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2026-01",
@@ -956,9 +956,9 @@
       "prose_id": "neuro_symbolic_rag"
     },
     {
-      "attention": 1.528,
+      "attention": 1.647,
       "attention_cohort": "2025",
-      "attention_raw": 0.684,
+      "attention_raw": 0.737,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1013,9 +1013,9 @@
       "prose_id": "opensearch"
     },
     {
-      "attention": 3.575,
+      "attention": 4.022,
       "attention_cohort": "2025",
-      "attention_raw": 1.6,
+      "attention_raw": 1.8,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1067,9 +1067,9 @@
       "prose_id": "pixelrag"
     },
     {
-      "attention": 1.412,
+      "attention": 1.528,
       "attention_cohort": "2025",
-      "attention_raw": 0.632,
+      "attention_raw": 0.684,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1162,7 +1162,7 @@
       "prose_id": "ra_cm3"
     },
     {
-      "attention": 0.248,
+      "attention": 0.242,
       "attention_cohort": "2023",
       "attention_raw": 0.441,
       "confidence": 1.0,
@@ -1185,9 +1185,9 @@
       "prose_id": "ra_dit"
     },
     {
-      "attention": 1.672,
+      "attention": 1.727,
       "attention_cohort": "2024",
-      "attention_raw": 0.968,
+      "attention_raw": 1.0,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -1364,9 +1364,9 @@
       "prose_id": "rarg"
     },
     {
-      "attention": 7.024,
+      "attention": 6.861,
       "attention_cohort": "2023",
-      "attention_raw": 12.478,
+      "attention_raw": 12.522,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1393,9 +1393,9 @@
       "prose_id": "react"
     },
     {
-      "attention": 3.123,
+      "attention": 3.111,
       "attention_cohort": "2023",
-      "attention_raw": 5.548,
+      "attention_raw": 5.677,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1441,7 +1441,7 @@
       "prose_id": "roza_graphs"
     },
     {
-      "attention": 0.087,
+      "attention": 0.084,
       "attention_cohort": "2023",
       "attention_raw": 0.154,
       "confidence": 1.0,
@@ -1587,7 +1587,7 @@
       "prose_id": "standard_hybridrag"
     },
     {
-      "attention": 0.381,
+      "attention": 0.37,
       "attention_cohort": "2023",
       "attention_raw": 0.676,
       "confidence": 1.0,
@@ -1663,9 +1663,9 @@
       "prose_id": "test_time"
     },
     {
-      "attention": 0.821,
+      "attention": 0.814,
       "attention_cohort": "2023",
-      "attention_raw": 1.459,
+      "attention_raw": 1.486,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1759,9 +1759,9 @@
       "prose_id": "vectorless"
     },
     {
-      "attention": 0.781,
+      "attention": 0.891,
       "attention_cohort": "2024",
-      "attention_raw": 0.452,
+      "attention_raw": 0.516,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",

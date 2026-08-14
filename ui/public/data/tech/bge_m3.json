@@ -73,10 +73,18 @@
         "type": "package_downloads",
         "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=590199",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=588287",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 4,
+    "evidence_count": 5,
     "family": null,
     "first_published": null,
     "groups": [

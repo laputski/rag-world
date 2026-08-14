@@ -71,10 +71,18 @@
         "type": "repository",
         "value": "HKUDS/RAG-Anything: license=mit, last_push=2026-08-13, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/raganything/",
+        "type": "package_downloads",
+        "value": "package=raganything; version=1.3.1; downloads_last_month=31002",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": "graph_rag",
     "first_published": "2025-10",
     "groups": [
@@ -105,17 +113,17 @@
         "kind": "preprint",
         "label": "arXiv:2510.12323",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2510.12323",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       },
       {
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/HKUDS/RAG-Anything",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "RAG-Anything",

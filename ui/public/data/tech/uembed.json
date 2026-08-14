@@ -96,17 +96,17 @@
         "kind": "preprint",
         "label": "UEmbed (arXiv:2608.02583, 2026)",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2608.02583",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       },
       {
         "kind": "product",
         "label": "Страница проекта",
         "label_en": "Project page",
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://alibaba-nlp.github.io/UEmbed",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "UEmbed",

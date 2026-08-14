@@ -89,10 +89,18 @@
         "type": "package_downloads",
         "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53332648",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53132593",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": null,
     "first_published": null,
     "groups": [

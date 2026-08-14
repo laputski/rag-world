@@ -85,17 +85,17 @@
         "kind": "preprint",
         "label": "RARG (arXiv:2607.24223, 2026)",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2607.24223",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       },
       {
         "kind": "github",
         "label": "LeqsNaN/RARG",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/LeqsNaN/RARG",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "RARG",

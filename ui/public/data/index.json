@@ -38,7 +38,7 @@
     },
     {
       "description": "Digest issues, generated from the chronicle without a language model.",
-      "records": 3,
+      "records": 4,
       "records_at": "issues",
       "url": "https://ragworld.org/data/digest.json"
     }

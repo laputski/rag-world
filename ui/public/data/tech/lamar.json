@@ -94,9 +94,9 @@
         "kind": "preprint",
         "label": "LAMAR (arXiv:2607.22042, 2026)",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2607.22042",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "LAMAR",

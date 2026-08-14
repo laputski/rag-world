@@ -2,9 +2,9 @@
   "built_at": "2026-08-14",
   "technology": {
     "aliases": [],
-    "attention": 1.341,
+    "attention": 1.788,
     "attention_cohort": "2025",
-    "attention_raw": 0.6,
+    "attention_raw": 0.8,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -65,10 +65,18 @@
         "type": "publication",
         "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=34; year=2025",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407632367",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=4; year=2026; citation_velocity=0.8",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": "B",
     "first_published": "2025-02",
     "groups": [

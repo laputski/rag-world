@@ -2,9 +2,9 @@
   "built_at": "2026-08-14",
   "technology": {
     "aliases": [],
-    "attention": 2.513,
+    "attention": 2.526,
     "attention_cohort": null,
-    "attention_raw": 2.513,
+    "attention_raw": 2.526,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -105,10 +105,26 @@
         "type": "package_downloads",
         "value": "package=colbert-ai; version=0.2.22; downloads_last_month=215043",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W3034439313",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=192; year=2020; citation_velocity=2.526",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=212164",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 8,
+    "evidence_count": 10,
     "family": "H",
     "first_published": "2021",
     "groups": [

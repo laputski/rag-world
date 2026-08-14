@@ -68,10 +68,18 @@
         "type": "publication",
         "value": "venue=ACM; peer_reviewed=true; cited_by=645; year=2009; citation_velocity=3.146",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W2148972377",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=653; year=2009; citation_velocity=3.185",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": "D",
     "first_published": "2009",
     "groups": [

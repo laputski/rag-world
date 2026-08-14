@@ -4,9 +4,9 @@
     "aliases": [
       "CBR-RAG"
     ],
-    "attention": 5.627,
+    "attention": 5.739,
     "attention_cohort": "2024",
-    "attention_raw": 3.258,
+    "attention_raw": 3.323,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -61,10 +61,18 @@
         "type": "publication",
         "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=101; year=2024; citation_velocity=3.258",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399932275",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=103; year=2024; citation_velocity=3.323",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 2,
+    "evidence_count": 3,
     "family": null,
     "first_published": "2024-04",
     "groups": [
@@ -94,9 +102,9 @@
         "kind": "preprint",
         "label": "arXiv:2404.04302",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2404.04302",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "CBR-RAG",

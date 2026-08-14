@@ -4,9 +4,9 @@
     "aliases": [
       "neuro-symbolic"
     ],
-    "attention": 0.0,
+    "attention": 0.143,
     "attention_cohort": null,
-    "attention_raw": 0.0,
+    "attention_raw": 0.143,
     "barriers": "Общее препятствие состоит в том, что непрерывные представления и дискретный вывод устроены по-разному, и мост между ними приходится строить, а не брать готовым.\n\nЛогический вывод на больших графах разрастается по числу вариантов чрезвычайно быстро. Онтологию либо граф знаний надо построить и согласовать с текстовым собранием, а это либо ручной труд, либо дорогое извлечение языковой моделью. Общепринятого способа соединить поиск по близости представлений с запросами на языках описания знаний нет. Наконец, смешанное решение трудно отлаживать, потому что ошибка бывает и в поиске, и в выводе, и в переходе между ними.",
     "barriers_en": "The common obstacle is that continuous representations and discrete inference are built differently, so the bridge between them must be constructed rather than taken ready-made.\n\nLogical inference over large graphs expands in the number of alternatives extremely fast. An ontology or knowledge graph must be built and reconciled with the text collection, which means either manual labour or expensive extraction by a language model. There is no accepted way to join search by closeness of representations to queries in knowledge description languages. Finally, a mixed solution is hard to debug, because an error can lie in the search, in the inference, or in the passage between them.",
     "confidence": 1.0,
@@ -67,10 +67,18 @@
         "type": "publication",
         "value": "venue=Open MIND; peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7119922069",
+        "type": "publication",
+        "value": "venue=IEEE Intelligent Systems; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.143",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": null,
     "first_published": "2026-01",
     "groups": [

@@ -52,16 +52,18 @@
     {
       "kind": "preprint",
       "label": "arXiv:2510.12323",
-      "status": "needs_review",
+      "label_en": null,
+      "status": "verified",
       "url": "https://arxiv.org/abs/2510.12323",
-      "verified_at": null
+      "verified_at": "2026-08-14"
     },
     {
       "kind": "github",
       "label": null,
-      "status": "needs_review",
+      "label_en": null,
+      "status": "verified",
       "url": "https://github.com/HKUDS/RAG-Anything",
-      "verified_at": null
+      "verified_at": "2026-08-14"
     }
   ],
   "name": "RAG-Anything",

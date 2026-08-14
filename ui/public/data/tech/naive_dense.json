@@ -49,10 +49,26 @@
         "type": "publication",
         "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=6517; year=2020",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2004.04906",
+        "type": "publication",
+        "value": "arXiv:2004.04906 (2020)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+        "type": "publication",
+        "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=6596; year=2020",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 1,
+    "evidence_count": 3,
     "family": null,
     "first_published": null,
     "groups": [

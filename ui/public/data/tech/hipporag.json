@@ -4,9 +4,9 @@
     "aliases": [
       "HippoRAG 2"
     ],
-    "attention": 3.789,
+    "attention": 4.123,
     "attention_cohort": "2024",
-    "attention_raw": 2.194,
+    "attention_raw": 2.387,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -115,10 +115,26 @@
         "type": "package_downloads",
         "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1641",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=74; year=2024; citation_velocity=2.387",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/hipporag/",
+        "type": "package_downloads",
+        "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1351",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 11,
     "family": "B",
     "first_published": "2024",
     "groups": [

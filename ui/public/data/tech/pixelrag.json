@@ -94,9 +94,9 @@
         "kind": "preprint",
         "label": "arXiv:2606.28344",
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2606.28344",
-        "verified_at": null
+        "verified_at": "2026-08-14"
       }
     ],
     "name": "PixelRAG",

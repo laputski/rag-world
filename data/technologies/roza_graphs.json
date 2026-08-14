@@ -48,9 +48,10 @@
     {
       "kind": "preprint",
       "label": "arXiv:2604.07595",
-      "status": "needs_review",
+      "label_en": null,
+      "status": "verified",
       "url": "https://arxiv.org/abs/2604.07595",
-      "verified_at": null
+      "verified_at": "2026-08-14"
     }
   ],
   "name": "ROZA Graphs",
