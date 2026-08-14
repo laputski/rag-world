@@ -7,7 +7,7 @@ import techEn from "./en/tech.json";
 import schemaRu from "./ru/schema.json";
 import schemaEn from "./en/schema.json";
 
-/** Язык из хранилища браузера. Вне браузера (тесты, сборка) — язык по умолчанию. */
+/** The language from browser storage. Outside a browser (tests, build) the default. */
 export function savedLanguage(): "ru" | "en" | null {
   try {
     return (globalThis.localStorage?.getItem("lang") as "ru" | "en" | null) ?? null;
@@ -17,25 +17,25 @@ export function savedLanguage(): "ru" | "en" | null {
 }
 
 /**
- * Язык по умолчанию — английский, независимо от настроек браузера.
+ * The default language is English, whatever the browser is set to.
  *
- * Первичная литература по этой области английская, ссылаются на портал в
- * английских работах, и внешние потребители данных читают английские поля.
- * Догадка по языку браузера открывала русскую версию читателю с русской
- * раскладкой, хотя работает он с английскими источниками.
+ * The primary literature of this field is in English, citations are made to
+ * English works, and outside consumers of the data read English. Guessing from
+ * the browser language opened the Russian version for a reader who merely has a
+ * Russian keyboard layout while working from English sources.
  *
- * Выбор читателя, однажды сделанный, важнее умолчания: сохранённый язык
- * перекрывает его. Переключатель языка стоит в шапке всех страниц.
+ * A reader's own choice, once made, outranks the default: a saved language wins.
+ * The language switch stands in the header of every page.
  *
- * Значение вывозится наружу, потому что оболочка приложения держит язык
- * состоянием и должна начинать с того же. Пока умолчание было записано в двух
- * местах, побеждала оболочка, а настройка здесь ни на что не влияла: язык
- * браузера не учитывался никогда, хотя код для этого был написан.
+ * The value is exported because the application shell decides the initial state
+ * and has to start from the same one. While the default was written in two
+ * places, the shell won, the setting here affected nothing, and the browser
+ * language was never taken into account although the code for it was written.
  */
 export const DEFAULT_LANGUAGE: "ru" | "en" = "en";
 const saved = savedLanguage();
 
-/** Проза карточки технологии. Ключ — идентификатор записи реестра (prose_id). */
+/** The prose of a technology card. The key is a registry `prose_id`. */
 export interface TechProse {
   short?: string;
   full?: string;
@@ -50,7 +50,7 @@ const PROSE: Record<string, Record<string, TechProse>> = {
   en: techEn as Record<string, TechProse>,
 };
 
-/** Проза для записи реестра; пустой объект, если её нет ни в одном источнике. */
+/** The prose for a record; an empty object when no source has any. */
 export function getTechProse(proseId: string | null, lang: string): TechProse {
   if (!proseId) return {};
   const table = PROSE[lang] ?? PROSE.ru;
@@ -58,22 +58,24 @@ export function getTechProse(proseId: string | null, lang: string): TechProse {
 }
 
 /**
- * Подписи к схеме измерений: имена `A1..G3` и читаемые названия их значений.
+ * The labels of the dimension schema: the names `A1..G3` and readable names for
+ * their values.
  *
- * Схема живёт в `core/dimensions_schema.py` и попадает в интерфейс кодами
- * (`A1`, `passage`, `dense_multi_late_interaction`). Коды устойчивы и потому
- * годятся для данных, но читателю карточки они не говорят ничего: две колонки
- * латиницы выглядят машинным следом, а не описанием системы. Подписи держатся
- * отдельно от схемы, потому что переводятся, а коды не переводятся никогда.
+ * The schema lives in `core/dimensions_schema.py` and reaches the interface as
+ * codes (`A1`, `passage`, `dense_multi_late_interaction`). Codes are stable and
+ * therefore right for data, but they tell the reader of a card nothing: a column
+ * of Latin looks like machine residue rather than a description of a system. The
+ * labels live apart from the schema because they are translated and the codes
+ * are not.
  *
- * Полноту подписей стережёт `src/test/schemaLabels.test.ts`: измерение или
- * значение без подписи в любом из языков останавливает сборку. Без сторожа
- * новое значение в схеме молча вышло бы на страницу голым кодом.
+ * `src/test/schemaLabels.test.ts` guards their completeness: a dimension or a
+ * value without a label in either language stops the build. Otherwise a new
+ * value in the schema would quietly reach the page as a bare code.
  */
 export interface DimensionLabel {
-  /** Короткое имя измерения. */
+  /** The short name of the dimension. */
   name: string;
-  /** Одно предложение о том, что это измерение решает. */
+  /** One sentence on what this dimension decides. */
   question: string;
 }
 
@@ -91,12 +93,12 @@ function labels(lang: string): SchemaLabels {
   return SCHEMA_LABELS[lang] ?? SCHEMA_LABELS.ru;
 }
 
-/** Имя и пояснение измерения; `null`, если подписи нет. */
+/** The name and gloss of a dimension; `null` when there is no label. */
 export function getDimensionLabel(code: string, lang: string): DimensionLabel | null {
   return labels(lang).dimension[code] ?? null;
 }
 
-/** Читаемое название значения измерения; `null`, если подписи нет. */
+/** The readable name of a dimension value; `null` when there is no label. */
 export function getValueLabel(code: string, value: string, lang: string): string | null {
   return labels(lang).value[code]?.[value] ?? null;
 }

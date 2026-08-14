@@ -1,42 +1,43 @@
 import { createTheme, type Theme, type ThemeOptions } from "@mui/material/styles";
 
 /**
- * Оформление портала.
+ * The look of the portal.
  *
- * Подача научно-издательская, а не административная: содержание идёт сплошной
- * лентой с волосяными разделителями, а не набором карточек-коробок. Плотность
- * высокая, но воздух между строками сохраняется — читать приходится помногу.
+ * The manner is that of scholarly publishing rather than of an admin panel:
+ * content goes as a ribbon with hairline rules, not as a set of boxed cards.
+ * Density is high, but the air between lines stays — this is read, not scanned.
  *
- * Три гарнитуры разведены по ролям. Засечная — заголовки и тексты статей, там
- * где читают подряд. Гротеск — интерфейс, где читают выборочно. Моноширинная —
- * коды измерений (A4, C2), уровни (L3) и числа: они сравниваются глазом по
- * колонке, и переменная ширина знаков этому мешает.
+ * Three typefaces are kept to separate roles. The serif takes headings and the
+ * texts of articles, where reading runs straight through. The sans takes the
+ * interface, which is read selectively. The monospace takes dimension codes
+ * (A4, C2), levels (L3) and numbers: those are compared by eye down a column,
+ * and variable letter widths get in the way.
  *
- * Тем две: светлая и тёмная. Прежние четыре свелись к одной паре, потому что
- * четыре набора цветов невозможно держать согласованными, а выигрыша они не
- * давали.
+ * There are two themes, light and dark. The former four came down to one pair,
+ * because four sets of colours cannot be kept consistent and gave nothing in
+ * return.
  */
 
 export type ThemeMode = "light" | "dark";
 
-// ─── Палитра стратов ─────────────────────────────────────────────────────────
-// Семь оттенков, различимых при наиболее распространённых видах дальтонизма
-// (набор Окабэ и Ито). Это единственные насыщенные цвета портала: всё
-// остальное нейтрально, поэтому цвет всегда означает страту и ничего больше.
+// ─── The stratum palette ─────────────────────────────────────────────────────
+// Seven hues distinguishable under the most common forms of colour blindness
+// (the Okabe and Ito set). These are the only saturated colours on the portal:
+// everything else is neutral, so colour always means a stratum and nothing else.
 //
-// Уровень зрелости цветом НЕ кодируется. Он порядковый, а оттенок порядка не
-// передаёт: читатель не скажет, какой из двух цветов «больше». Уровень
-// показывается положением и размером.
+// A maturity level is NOT encoded by colour. It is ordinal, and a hue carries
+// no order: a reader cannot say which of two colours is the greater. A level is
+// shown by position and size.
 
 export const STRATUM_COLORS: Record<ThemeMode, Record<string, string>> = {
   light: {
-    A: "#0072B2",  // синий
-    B: "#009E73",  // зелёный
-    C: "#D55E00",  // киноварь
-    D: "#CC79A7",  // пурпурный
-    E: "#E69F00",  // оранжевый
-    F: "#56B4E9",  // небесный
-    G: "#8B6F00",  // тёмное золото: жёлтый на светлом фоне неразличим
+    A: "#0072B2",  // blue
+    B: "#009E73",  // green
+    C: "#D55E00",  // vermilion
+    D: "#CC79A7",  // purple
+    E: "#E69F00",  // orange
+    F: "#56B4E9",  // sky blue
+    G: "#8B6F00",  // dark gold: yellow is indistinguishable on a light ground
   },
   dark: {
     A: "#4EA3DC",
@@ -53,8 +54,9 @@ export function stratumColor(stratum: string, mode: ThemeMode): string {
   return STRATUM_COLORS[mode][stratum] ?? (mode === "dark" ? "#8A8F98" : "#6B7280");
 }
 
-// ─── Роды объектов ───────────────────────────────────────────────────────────
-// Род различается формой точки на карте, а не цветом: цвет уже занят стратой.
+// ─── The kinds of object ─────────────────────────────────────────────────────
+// A kind is told by the shape of a point on the map rather than by colour:
+// colour is already taken by the stratum.
 export const KIND_SYMBOLS: Record<string, string> = {
   paradigm: "circle",
   architecture: "diamond",
@@ -63,7 +65,7 @@ export const KIND_SYMBOLS: Record<string, string> = {
   artifact: "pin",
 };
 
-// ─── Гарнитуры ───────────────────────────────────────────────────────────────
+// ─── Typefaces ───────────────────────────────────────────────────────────────
 
 const SANS = '"Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif';
 const SERIF = '"Source Serif 4 Variable", "Source Serif 4", Georgia, "Times New Roman", serif';
@@ -94,7 +96,7 @@ function baseOptions(mode: ThemeMode): ThemeOptions {
     shape: { borderRadius: 6 },
     typography: {
       fontFamily: SANS,
-      // Заголовки засечные: они открывают материал, который читают подряд.
+      // Headings are serif: they open material that is read straight through.
       h1: { fontFamily: SERIF, fontWeight: 600, letterSpacing: "-0.02em", fontSize: "2.6rem" },
       h2: { fontFamily: SERIF, fontWeight: 600, letterSpacing: "-0.015em", fontSize: "2rem" },
       h3: { fontFamily: SERIF, fontWeight: 600, fontSize: "1.6rem" },
@@ -115,7 +117,7 @@ function baseOptions(mode: ThemeMode): ThemeOptions {
       divider: c.line,
     },
     components: {
-      // Разделители волосяные: содержание отделяется линией, а не тенью.
+      // Rules are hairline: content is separated by a line, not by a shadow.
       MuiPaper: {
         defaultProps: { elevation: 0 },
         styleOverrides: {
@@ -151,7 +153,7 @@ function baseOptions(mode: ThemeMode): ThemeOptions {
       },
       MuiCssBaseline: {
         styleOverrides: {
-          // Числа выравниваются по колонке: иначе таблицы нечитаемы.
+          // Numbers align down the column, or the tables are unreadable.
           "code, kbd, samp, pre": { fontFamily: MONO },
           ".tabular": { fontVariantNumeric: "tabular-nums" },
         },
@@ -169,5 +171,5 @@ export function getTheme(mode: ThemeMode): Theme {
   return themes[mode];
 }
 
-/** Засечная гарнитура для длинных текстов статьи. */
+/** The serif face for the long texts of the article. */
 export const SERIF_FAMILY = SERIF;

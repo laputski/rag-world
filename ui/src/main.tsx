@@ -3,14 +3,14 @@ import { createRoot } from "react-dom/client";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 
-// Шрифты подключаются пакетами и попадают в сборку: портал не обращается к
-// внешним источникам и одинаково выглядит без сети.
+// The fonts arrive as packages and enter the build: the portal reaches no
+// external source and looks the same without a network.
 import "@fontsource-variable/inter";
 import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/jetbrains-mono";
 
-// Ввоз настраивает локализацию побочным действием; отсюда же берётся
-// умолчание языка, чтобы оно оставалось записанным в одном месте.
+// The import configures the localisation as a side effect, and the default
+// language comes from the same place so that it stays written down once.
 import { DEFAULT_LANGUAGE, savedLanguage } from "./i18n/index";
 import { getTheme, type ThemeMode } from "./theme";
 import { AppLayout } from "./layouts/AppLayout";
@@ -18,15 +18,15 @@ import { CommandPalette } from "./components/CommandPalette";
 import { useTranslation } from "react-i18next";
 
 /*
-  Страницы грузятся по требованию, а не одним куском.
+  The pages load on demand rather than in one lump.
 
-  Прежде весь портал лежал в одном файле на два и семь десятых мегабайта:
-  открывший карточку технологии получал заодно разрисовщик диаграмм и
-  построитель карты, нужные совсем другим страницам. Сжатие тут не помогает,
-  потому что время съедают разбор и исполнение, а не передача.
+  The whole portal used to sit in one file of two and seven tenths of a
+  megabyte, and whoever opened a technology card received a diagram renderer and
+  a map builder meant for entirely different pages. Compression does not help
+  here, because what costs time is parsing and execution rather than transfer.
 
-  Каркас остаётся в первом куске: шапка, тема и язык нужны немедленно, иначе
-  вместо портала читатель увидит пустой экран.
+  The frame stays in the first chunk: the header, the theme and the language are
+  needed immediately, or instead of a portal the reader sees an empty screen.
 */
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
 const RegistryPage = lazy(() => import("./pages/RegistryPage").then((m) => ({ default: m.RegistryPage })));
@@ -48,18 +48,18 @@ function initialMode(): ThemeMode {
 }
 
 /**
- * Язык, с которого открывается портал.
+ * The language the portal opens in.
  *
- * Умолчание живёт в одном месте, в настройке локализации, и берётся
- * оттуда, а не переписывается здесь. Пока оно было записано дважды, эта
- * функция молча перекрывала настройку: язык всегда получался русским
- * независимо от того, что было объявлено в i18n.
+ * The default lives in one place, in the localisation setup, and is taken from
+ * there rather than restated here. While it was written down twice, this
+ * function quietly overrode the setting: the language always came out Russian,
+ * whatever i18n declared.
  */
 function initialLang(): "ru" | "en" {
   return savedLanguage() ?? DEFAULT_LANGUAGE;
 }
 
-/** Оболочка приложения: тема, язык и общий для всех страниц быстрый поиск. */
+/** The application shell: theme, language and the search shared by all pages. */
 function Shell() {
   const [mode, setMode] = useState<ThemeMode>(initialMode);
   const [lang, setLang] = useState<"ru" | "en">(initialLang);
@@ -89,9 +89,9 @@ function Shell() {
         onOpenSearch={() => openSearch.current()}
       />
       {/*
-        Реестр читает сам быстрый поиск, и читает при первом открытии, а не при
-        загрузке страницы. Прежде восемьсот килобайт тянулись на каждой
-        странице ради поиска, которым читатель мог ни разу не воспользоваться.
+        The registry is read by the search itself, and read when it is first
+        opened rather than on page load. Eight hundred kilobytes used to be
+        pulled on every page for a search the reader might never use once.
       */}
       <CommandPalette
         onOpen={(id) => navigate(`/tech/${id}`)}
@@ -104,9 +104,8 @@ function Shell() {
 const router = createBrowserRouter([
   {
     element: <Shell />,
-    // Ошибка внутри любой страницы не должна показывать читателю отладочный
-    // экран маршрутизатора: он обращается к разработчику и читается как
-    // сломанный портал.
+    // An error inside any page must not show the reader the router's own
+    // screen: it addresses a developer and reads as a broken portal.
     errorElement: <Shell />,
     children: [
       { path: "/", element: <HomePage /> },
@@ -117,8 +116,8 @@ const router = createBrowserRouter([
       { path: "/residuals", element: <ResidualsPage /> },
       { path: "/article", element: <GeneralizedArticlePage /> },
       { path: "/about", element: <AboutPage /> },
-      // Правило переписывания отдаёт index.html на любой адрес, поэтому
-      // опечатка доходит сюда и обязана получить внятный ответ.
+      // The rewrite rule serves index.html for any address, so every typo
+      // reaches here and has to receive an intelligible answer.
       { path: "*", element: <NotFoundPage /> },
     ],
   },

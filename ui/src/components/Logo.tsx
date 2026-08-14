@@ -3,40 +3,44 @@ import { useTheme } from "@mui/material/styles";
 import { stratumColor, type ThemeMode } from "../theme";
 
 /**
- * Знак портала: отпечаток конфигурации.
+ * The mark of the portal: a configuration fingerprint.
  *
- * Столбец отвечает страте, клетка — решению внутри неё. Это тот же способ
- * записи, что у глифа записи реестра, и знак сознательно на него похож: портал
- * о том и говорит, что систему можно записать точкой в пространстве решений.
+ * A column stands for a stratum and a cell for a decision within it. That is the
+ * same way of writing a record as the glyph of a registry entry uses, and the
+ * mark deliberately resembles it: the project says that a system can be written
+ * down as a point in a space.
  *
- * Рисунок знака **задан, а не выведен из данных**. Глиф записи меняется вместе
- * с разбором, знак меняться не должен: узнавание держится на повторении, и
- * знак, обновляющийся вместе с еженедельным прогоном, узнавать нечему.
+ * The pattern of the mark is **given, not derived from the data**. The glyph of
+ * a record changes as the reading changes; the mark must not. Recognition rests
+ * on constancy, and a mark that updates with every weekly pass is not something
+ * anyone learns to recognise.
  *
- * Три решения отличают знак от глифа записи, иначе шапка портала читалась бы
- * как ещё одна строка реестра:
+ * Three decisions tell the mark from a record glyph, or the header of the portal
+ * would read as one more row of the registry:
  *
- *  * клетки прямоугольные, тогда как у глифа скруглены;
- *  * пустые клетки не рисуются вовсе, тогда как глиф показывает их бледной
- *    заливкой, отчего он выглядит крапом, а знак — рисунком;
- *  * насыщенность постоянна, тогда как у глифа она передаёт номер значения.
+ *  * the cells are rectangular, whereas a glyph rounds them;
+ *  * empty cells are not drawn at all, whereas a glyph shows them with a pale
+ *    fill, which makes it look like a speckle while the mark looks like a
+ *    drawing;
+ *  * saturation is constant, whereas in a glyph it carries the number of the
+ *    value.
  *
- * Ниже двадцати четырёх пикселей рисунок упрощается. Двадцать восемь клеток в
- * шестнадцати пикселях дают клетку тоньше пикселя, то есть кашу, и притвориться
- * здесь нечем: показывается проекция того же отпечатка на четыре страты.
- * Упрощение объявлено, а не подогнано, потому что подогнанное расходится с
- * полным знаком при первой же правке.
+ * Below twenty-four pixels the pattern simplifies. Seven columns at sixteen
+ * pixels give a cell thinner than a pixel, that is, porridge. There is nothing
+ * to shrink here, so what is shown is a projection of the same fingerprint onto
+ * four columns. The simplification is declared rather than fitted, because a
+ * fitted drawing would diverge from the full mark at the first edit.
  */
 
-/** Страты в порядке обработки запроса; столбцы знака идут так же. */
+/** The strata in the order a query is processed; the columns follow it. */
 const STRATA = ["A", "B", "C", "D", "E", "F", "G"] as const;
 
 /**
- * Отпечаток знака: по строке на решение внутри страты.
+ * The fingerprint of the mark: one row per decision within a stratum.
  *
- * Значения выбраны как рисунок, а не срисованы с записи реестра. Взять
- * конфигурацию существующей технологии значило бы поставить одну запись выше
- * прочих знаком портала.
+ * The values are chosen as a drawing rather than copied from a registry record.
+ * Taking the configuration of an existing technology would mean marking one of
+ * them with the mark of the whole portal.
  */
 const PATTERN: Record<string, boolean[]> = {
   A: [true, true, false, true],
@@ -48,17 +52,17 @@ const PATTERN: Record<string, boolean[]> = {
   G: [true, false, false, false],
 };
 
-/** Страты и строки, остающиеся в упрощённом рисунке. */
+/** The strata and rows that survive in the simplified drawing. */
 const COMPACT_STRATA = ["A", "C", "E", "G"] as const;
 const COMPACT_ROWS = 3;
 
-/** Ниже этого размера рисуется упрощённый отпечаток. */
+/** Below this size the simplified fingerprint is drawn. */
 export const COMPACT_BELOW = 24;
 
 interface Props {
-  /** Высота знака в пикселях; ширина считается по числу столбцов. */
+  /** The height of the mark in pixels; the width follows from the columns. */
   size?: number;
-  /** Тема, если знак рисуется вне дерева темы (значок вкладки, предпросмотр). */
+  /** The theme, when the mark is drawn outside the theme tree (icons, previews). */
   mode?: ThemeMode;
   title?: string;
 }
@@ -70,14 +74,14 @@ interface Cell {
   color: string;
 }
 
-/** Клетки знака для заданного размера: полный отпечаток либо его проекция. */
+/** The cells of the mark at a given size: the full fingerprint or its projection. */
 export function logoCells(size: number, mode: ThemeMode): Cell[] {
   const compact = size < COMPACT_BELOW;
   const strata: readonly string[] = compact ? COMPACT_STRATA : STRATA;
   const rows = compact ? COMPACT_ROWS : 4;
 
-  // Клетка и просвет считаются от размера, поэтому знак остаётся собой на
-  // любом множителе плотности экрана и не полагается на растр.
+  // The cell and the gap are computed from the size, so the mark stays sharp at
+  // any screen density and relies on no raster.
   const step = size / rows;
   const gap = compact ? step * 0.16 : step * 0.2;
   const side = step - gap;
@@ -98,7 +102,7 @@ export function logoCells(size: number, mode: ThemeMode): Cell[] {
   return cells;
 }
 
-/** Ширина знака при заданной высоте. */
+/** The width of the mark at a given height. */
 export function logoWidth(size: number): number {
   const compact = size < COMPACT_BELOW;
   const rows = compact ? COMPACT_ROWS : 4;
