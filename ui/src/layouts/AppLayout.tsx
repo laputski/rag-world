@@ -9,6 +9,7 @@ import type { ThemeMode } from "../theme";
 import { MONO, SERIF_FAMILY } from "../theme";
 import { Logo } from "../components/Logo";
 import { GitHubIcon, LinkedInIcon } from "../components/BrandIcons";
+import { useMetrikaHit } from "../metrika";
 
 /** The store of the source code and the data. */
 const REPOSITORY = "https://github.com/laputski/rag-world";
@@ -42,6 +43,11 @@ interface Props {
 
 export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }: Props) {
   const { t } = useTranslation();
+
+  // The frame is what every page passes through, so the visits are counted from
+  // here: a page of its own would have to remember to do it, and a new one
+  // would be forgotten.
+  useMetrikaHit();
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>

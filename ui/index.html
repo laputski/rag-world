@@ -113,6 +113,29 @@
     </script>
   </head>
   <body>
+    <!--
+      Yandex.Metrika. The counter stands here rather than inside the interface
+      code so that it is loaded even when the bundle fails, and so that the
+      readers who run no code are still counted by the picture in `noscript`.
+
+      It counts one visit on load, and the portal is assembled in the browser:
+      moving between the sections changes no document and would otherwise be
+      invisible. The visits that follow are sent from `useMetrikaHit`, and the
+      number of the counter is written down in both places — one here, one
+      there — because a script in the markup shares nothing with the module.
+    -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111641296', 'ym');
+
+        ym(111641296, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111641296" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
