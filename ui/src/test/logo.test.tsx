@@ -1,20 +1,22 @@
 // @vitest-environment jsdom
 /**
- * Знак портала.
+ * The mark of the portal.
  *
- * Проверяется не то, как он выглядит, а три свойства, нарушение которых
- * выглядит исправным знаком и обнаруживается на чужой странице либо не
- * обнаруживается вовсе.
+ * What is checked is not how it looks but three properties whose breach still
+ * looks like a sound mark and is discovered on somebody else's page, or not at
+ * all.
  *
- * Рисунок задан и не выводится из данных. Знак, меняющийся вместе с
- * еженедельным прогоном, узнавать нечему, а подмена данными прошла бы молча.
+ * The pattern is given rather than derived from the data. A mark that changes
+ * with every weekly pass is not something anyone learns to recognise, and
+ * substituting data would make it one.
  *
- * Мелкий размер даёт упрощение, а не сжатую кашу. Двадцать восемь клеток в
- * шестнадцати пикселях дают клетку тоньше пикселя, и знак превращается в грязь
- * ровно там, где чаще всего показывается.
+ * A small size gives a simplification rather than compressed porridge. Twenty-six
+ * cells at sixteen pixels give a cell thinner than a pixel, and the mark turns
+ * into a smudge exactly where it is shown most often.
  *
- * Знак и слово рядом — одна ссылка. Две ссылки на один адрес удваивают
- * остановку при обходе с клавиатуры и заставляют читалку назвать цель дважды.
+ * The mark and the word beside it are one link. Two links to one address double
+ * the stop in keyboard traversal and make a screen reader name the target
+ * twice.
  */
 
 import { describe, expect, it } from "vitest";
@@ -29,22 +31,22 @@ import { Logo, logoCells, logoWidth, COMPACT_BELOW } from "../components/Logo";
 import { AppLayout } from "../layouts/AppLayout";
 import LOGO_SOURCE from "../components/Logo.tsx?raw";
 
-describe("рисунок знака", () => {
-  it("задан, а не выведен из реестра", () => {
+describe("the pattern of the mark", () => {
+  it("is given rather than derived from the registry", () => {
     expect(LOGO_SOURCE).not.toMatch(/getRegistry|registry\.json|configuration\[/);
     expect(LOGO_SOURCE).toContain("PATTERN");
   });
 
-  it("одинаков при каждом отображении", () => {
+  it("is the same on every render", () => {
     expect(logoCells(32, "dark")).toEqual(logoCells(32, "dark"));
   });
 
-  it("покрывает все семь страт", () => {
+  it("covers all seven strata", () => {
     const colors = new Set(logoCells(32, "dark").map((cell) => cell.color));
     expect(colors.size).toBe(7);
   });
 
-  it("клетки не наезжают друг на друга", () => {
+  it("the cells do not overlap", () => {
     const cells = logoCells(32, "dark");
     for (const cell of cells) {
       const clash = cells.find(
@@ -55,11 +57,11 @@ describe("рисунок знака", () => {
           other.y < cell.y + cell.side &&
           cell.y < other.y + other.side
       );
-      expect(clash, `клетка ${cell.x},${cell.y} перекрыта`).toBeUndefined();
+      expect(clash, `the cell ${cell.x},${cell.y} is overlapped`).toBeUndefined();
     }
   });
 
-  it("умещается в объявленные размеры", () => {
+  it("fits within the declared size", () => {
     for (const size of [16, 20, 26, 32, 96]) {
       const width = logoWidth(size);
       for (const cell of logoCells(size, "light")) {
@@ -70,28 +72,28 @@ describe("рисунок знака", () => {
   });
 });
 
-describe("мелкий размер", () => {
-  it("даёт упрощение, а не сжатую кашу", () => {
+describe("a small size", () => {
+  it("gives a simplification rather than compressed porridge", () => {
     const small = logoCells(16, "dark");
     const full = logoCells(32, "dark");
     expect(small.length).toBeLessThan(full.length);
-    // Клетка обязана оставаться видимой: доля от размера, а не остаток.
+    // A cell has to stay visible: a fraction of the size rather than a leftover.
     for (const cell of small) expect(cell.side).toBeGreaterThan(3);
   });
 
-  it("порог объявлен, а не разбросан по коду", () => {
+  it("the threshold is declared rather than scattered through the code", () => {
     expect(logoCells(COMPACT_BELOW, "dark").length)
       .toBeGreaterThan(logoCells(COMPACT_BELOW - 1, "dark").length);
   });
 
-  it("упрощение остаётся тем же отпечатком", () => {
+  it("the simplification stays the same fingerprint", () => {
     const small = new Set(logoCells(16, "dark").map((c) => c.color));
     const full = new Set(logoCells(32, "dark").map((c) => c.color));
     for (const color of small) expect(full.has(color)).toBe(true);
   });
 });
 
-describe("знак в шапке", () => {
+describe("the mark in the header", () => {
   const shell = () => (
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={getTheme("dark")}>
@@ -108,33 +110,35 @@ describe("знак в шапке", () => {
     </I18nextProvider>
   );
 
-  it("стоит слева от словесного знака", () => {
+  it("stands to the left of the wordmark", () => {
     const { container } = render(shell());
     const home = container.querySelector('a[href="/"]');
-    expect(home, "ссылки на главную нет").not.toBeNull();
+    expect(home, "there is no link to the front page").not.toBeNull();
     const svg = home!.querySelector("svg");
-    expect(svg, "знака в ссылке нет").not.toBeNull();
+    expect(svg, "there is no mark inside the link").not.toBeNull();
     expect(home!.textContent).toContain("RAG World");
     /*
-      Порядок в разметке задаёт и порядок озвучивания, и порядок обхода.
-      Сравнивается положение узлов, а не то, что знак лежит первым потомком:
-      на узком экране он обёрнут в блок, который его скрывает, и требование
-      «первый потомок» запретило бы саму обёртку.
+      The order in the markup sets both the order things are announced in and the
+      order they are traversed. What is compared is the position of the nodes
+      rather than the mark being the first child: on a narrow screen it is wrapped
+      in a box that hides it, and a demand for "first child" would forbid the
+      wrapper itself.
     */
     const word = [...home!.querySelectorAll("span")]
       .find((node) => node.textContent === "RAG World")!;
-    expect(word, "словесного знака в связке нет").toBeDefined();
+    expect(word, "there is no wordmark in the pair").toBeDefined();
     const order = svg!.compareDocumentPosition(word);
     expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   /*
-    Проверяется связка, а не весь заголовок. Пункт «карта зрелости» тоже ведёт
-    на главную, и это законно: он часть навигации. Недопустимо другое — чтобы
-    знак и слово были двумя ссылками, стоящими вплотную, потому что обход с
-    клавиатуры тогда останавливается дважды на одном и том же.
+    What is checked is the pair rather than the whole header. A navigation item
+    may also lead to the front page, and that is legitimate: it is part of the
+    navigation. What is inadmissible is the mark and the word being two links
+    standing next to each other, because keyboard traversal then stops twice on
+    the same thing.
   */
-  it("знак и слово — одна ссылка, а не две вплотную", () => {
+  it("the mark and the word are one link, not two side by side", () => {
     const { container } = render(shell());
     const lockup = container.querySelector('a[href="/"]')!;
     expect(lockup.querySelectorAll("a").length).toBe(0);
@@ -142,15 +146,15 @@ describe("знак в шапке", () => {
     expect(lockup.textContent).toBe("RAG World");
   });
 
-  it("не озвучивается отдельно от слова рядом", () => {
+  it("is not announced separately from the word beside it", () => {
     const { container } = render(shell());
     const svg = container.querySelector('a[href="/"] svg');
     expect(svg?.getAttribute("aria-hidden")).toBe("true");
   });
 });
 
-describe("знак сам по себе", () => {
-  it("называет себя, когда стоит без слова", () => {
+describe("the mark on its own", () => {
+  it("names itself when it stands without a word", () => {
     render(
       <ThemeProvider theme={getTheme("light")}>
         <Logo size={48} />
@@ -159,7 +163,7 @@ describe("знак сам по себе", () => {
     expect(screen.getByRole("img", { name: "RAG World" })).toBeInTheDocument();
   });
 
-  it("берёт палитру темы, если она не задана явно", () => {
+  it("takes the theme palette when none is given explicitly", () => {
     const light = logoCells(32, "light").map((c) => c.color);
     const dark = logoCells(32, "dark").map((c) => c.color);
     expect(light).not.toEqual(dark);

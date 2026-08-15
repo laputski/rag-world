@@ -1,9 +1,9 @@
-// Подготовка среды для тестов интерфейса.
+// Preparing the environment for the interface tests.
 import "@testing-library/jest-dom/vitest";
 
-// Наблюдатель за размерами элемента в тестовой среде не реализован, а диаграммы
-// используют его для подстройки под контейнер. Заглушка достаточна: геометрия
-// в тестах не проверяется, проверяется поведение.
+// The resize observer is not implemented in the test environment while the
+// charts use it to fit their container. A stub is enough: the layout is not what
+// the tests check, the behaviour is.
 class ResizeObserverStub {
   observe() {}
   unobserve() {}

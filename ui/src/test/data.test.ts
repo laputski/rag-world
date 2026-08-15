@@ -3,7 +3,7 @@ import ru from "../i18n/ru.json";
 import en from "../i18n/en.json";
 import techRu from "../i18n/ru/tech.json";
 
-/** Плоский список ключей вложенного словаря: "registry.title" и т. п. */
+/** A flat list of the keys of a nested dictionary: "registry.title" and so on. */
 function flatten(obj: Record<string, unknown>, prefix = ""): string[] {
   return Object.entries(obj).flatMap(([key, value]) => {
     const path = prefix ? `${prefix}.${key}` : key;
@@ -13,17 +13,17 @@ function flatten(obj: Record<string, unknown>, prefix = ""): string[] {
   });
 }
 
-describe("локализация", () => {
+describe("the localisation", () => {
   /*
-    Ключи сравниваются по основе, без окончания формы числа. Формы задаёт
-    грамматика, и она у языков разная: русскому нужны `_one`, `_few` и `_many`,
-    английскому — `_one` и `_other`. Прямое сравнение объявляло бы это
-    расхождение недостачей перевода, хотя недостачи нет.
+    The keys are compared by stem, without the plural suffix. Grammar sets the
+    forms and languages differ: Russian needs `_one`, `_few` and `_many`, English
+    needs `_one` and `_other`. A direct comparison would declare that difference a
+    missing translation when nothing is missing.
   */
   const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/;
   const base = (key: string) => key.replace(PLURAL_SUFFIX, "");
 
-  it("русский и английский словари покрывают одни и те же сообщения", () => {
+  it("the Russian and English dictionaries cover the same messages", () => {
     const ruKeys = [...new Set(flatten(ru).map(base))].sort();
     const enKeys = [...new Set(flatten(en).map(base))].sort();
     const missingInEn = ruKeys.filter((k) => !enKeys.includes(k));
@@ -31,7 +31,7 @@ describe("локализация", () => {
     expect({ missingInEn, missingInRu }).toEqual({ missingInEn: [], missingInRu: [] });
   });
 
-  it("у сообщения со счётом заданы все формы числа, нужные языку", () => {
+  it("a counted message carries every plural form its language needs", () => {
     const required = { ru: ["one", "few", "many"], en: ["one", "other"] } as const;
     for (const [locale, dict] of [["ru", ru], ["en", en]] as const) {
       const keys = flatten(dict);
@@ -43,7 +43,7 @@ describe("локализация", () => {
     }
   });
 
-  it("ни одно значение не пустое", () => {
+  it("no value is empty", () => {
     for (const [locale, dict] of [["ru", ru], ["en", en]] as const) {
       for (const key of flatten(dict)) {
         const value = key
@@ -54,34 +54,34 @@ describe("локализация", () => {
     }
   });
 
-  it("шкала зрелости описана целиком", () => {
+  it("the maturity scale is described in full", () => {
     for (const level of ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "unknown"]) {
       expect(ru.level).toHaveProperty(level);
     }
   });
 
-  it("страты описаны целиком", () => {
+  it("the strata are described in full", () => {
     for (const stratum of ["A", "B", "C", "D", "E", "F", "G"]) {
       expect(ru.stratum).toHaveProperty(stratum);
     }
   });
 });
 
-describe("проза карточек", () => {
+describe("the prose of the cards", () => {
   const prose = techRu as Record<string, Record<string, string>>;
 
-  it("непуста", () => {
+  it("is not empty", () => {
     expect(Object.keys(prose).length).toBeGreaterThan(0);
   });
 
-  it("каждая запись несёт хотя бы один текст", () => {
+  it("every record carries at least one text", () => {
     const empty = Object.entries(prose)
       .filter(([, value]) => Object.values(value).every((v) => !v || !v.trim()))
       .map(([key]) => key);
     expect(empty).toEqual([]);
   });
 
-  it("использует только известные поля", () => {
+  it("uses only known fields", () => {
     const allowed = new Set([
       "short", "full", "problem", "barriers", "solutions", "maturityNote",
     ]);

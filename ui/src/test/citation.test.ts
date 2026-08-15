@@ -2,29 +2,29 @@ import { describe, expect, it } from "vitest";
 import { toBibTeX, toGost } from "../citation";
 
 /**
- * Ссылка обязана указывать на выпуск, а не на текущее состояние.
+ * A citation has to point at a release rather than at the current state.
  *
- * Портал меняется: запись, на которую сослались вчера, сегодня может иметь
- * другой уровень. Ссылка без метки выпуска подтверждает не то, что
- * подтверждала, и хуже отсутствия ссылки — она выглядит надёжной.
+ * The portal changes: a record cited yesterday may carry a different level today.
+ * A citation without a release tag supports something other than what it
+ * supported, and is worse than no citation at all — it looks dependable.
  */
-describe("библиографическая ссылка", () => {
+describe("a bibliographic citation", () => {
   const release = "2026-08-10";
 
-  it("на запись всегда содержит метку выпуска", () => {
+  it("of a record always carries the release tag", () => {
     const target = { release, technology: { id: "pathrag", name: "PathRAG" } };
     expect(toBibTeX(target)).toContain(release);
     expect(toGost(target)).toContain(release);
     expect(toBibTeX(target)).toContain("release=2026-08-10");
   });
 
-  it("на выпуск целиком ведёт к снимку, а не к текущим данным", () => {
+  it("of a whole release leads to the snapshot, not to the current data", () => {
     const text = toGost({ release });
     expect(text).toContain(`/data/releases/${release}/`);
     expect(text).not.toContain("/data/registry.json");
   });
 
-  it("BibTeX содержит обязательные поля и закрывающую скобку", () => {
+  it("in BibTeX carries the required fields and the closing brace", () => {
     const text = toBibTeX({ release });
     for (const field of ["author", "title", "year", "howpublished"]) {
       expect(text).toContain(field);
@@ -32,7 +32,7 @@ describe("библиографическая ссылка", () => {
     expect(text.trim().endsWith("}")).toBe(true);
   });
 
-  it("ГОСТ называет дату обращения", () => {
+  it("under GOST names the date accessed", () => {
     expect(toGost({ release })).toContain("дата обращения");
   });
 });
