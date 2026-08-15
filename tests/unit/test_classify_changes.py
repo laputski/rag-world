@@ -1,11 +1,11 @@
-"""Тесты классификации изменений реестра.
+"""Tests of the classification of registry changes.
 
-Правило решает, что бот применит сам, а что покажет человеку. Ошибка в нём
-проявляется двумя способами, и оба плохи: либо через просмотр проходит всё и он
-вырождается в формальность, либо мимо просмотра проходит понижение уровня, и
-портал молча меняет утверждение о технологии.
+The rule decides what the bot applies itself and what it shows to a person. An
+error shows in two ways, and both are bad: either review is flooded until it
+degenerates into a formality, or a demotion slips past review and the portal
+silently changes a claim about a technology.
 
-Раньше это правило жило внутри описания задания и тестами не покрывалось вовсе.
+This rule used to live inside a job description and was covered by no test.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ def journal_line(tech: str, level: str, when: str, basis: str = "computed") -> s
 
 @pytest.fixture
 def repo(tmp_path):
-    """Репозиторий с зафиксированным журналом уровней."""
+    """A repository with the level journal already committed."""
     subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
     journal = tmp_path / LEVELS_PATH
     journal.parent.mkdir(parents=True)
@@ -69,7 +69,7 @@ def append(repo: Path, line: str) -> None:
         fh.write(line + "\n")
 
 
-# ─── Применяется само ────────────────────────────────────────────────────────
+# ─── Applied automatically ───────────────────────────────────────────────────
 
 
 def test_no_changes_needs_no_review():
@@ -80,7 +80,7 @@ def test_no_changes_needs_no_review():
 
 
 def test_first_computed_level_applies_itself():
-    """Уровень вычислен впервые: повышением с пустого места это не считается."""
+    """A level computed for the first time is not a promotion from nothing."""
     decision = classify([entry("demo", "L1")], previous_levels={})
     assert decision.needs_review is False
 
@@ -91,12 +91,12 @@ def test_promotion_within_lower_levels_applies_itself():
 
 
 def test_promotion_to_l3_applies_itself():
-    """L3 ещё не граница: это наличие собираемого кода, проверяемое машиной."""
+    """L3 is not yet the boundary: it is buildable code, checkable by a machine."""
     decision = classify([entry("demo", "L3")], {"demo": "L2"})
     assert decision.needs_review is False
 
 
-# ─── Требует просмотра ───────────────────────────────────────────────────────
+# ─── Needs review ────────────────────────────────────────────────────────────
 
 
 def test_downgrade_requires_review():
@@ -118,19 +118,19 @@ def test_levels_above_boundary_require_review():
 
 
 def test_manual_evidence_requires_review():
-    """Ручное свидетельство в автоматическом проходе означает правку файла."""
+    """Manual evidence in an automatic pass means somebody edited the file."""
     decision = classify([entry("demo", "L2", basis="manual")], {"demo": "L1"})
     assert decision.needs_review is True
     assert any("entered by a person" in r for r in decision.reasons)
 
 
 def test_manual_basis_wins_over_level():
-    """Ручное свидетельство показывается даже на низком уровне."""
+    """Manual evidence is shown even at a low level."""
     decision = classify([entry("demo", "L1", basis="manual")], {})
     assert decision.needs_review is True
 
 
-# ─── Разбор пачки ────────────────────────────────────────────────────────────
+# ─── A batch ─────────────────────────────────────────────────────────────────
 
 
 def test_one_suspicious_change_marks_whole_batch():
@@ -140,7 +140,7 @@ def test_one_suspicious_change_marks_whole_batch():
     )
     assert decision.needs_review is True
     assert decision.changes == 3
-    assert len(decision.reasons) == 1, "причина указывается только для виновника"
+    assert len(decision.reasons) == 1, "a reason is given only for the culprit"
 
 
 def test_all_ordinary_changes_apply_themselves():
@@ -153,7 +153,7 @@ def test_all_ordinary_changes_apply_themselves():
 
 
 def test_unknown_level_does_not_crash():
-    """Испорченная запись не должна ронять проход перед самой фиксацией."""
+    """A spoiled entry must not crash the pass just before the commit."""
     decision = classify([{"technology_id": "demo", "level": "L9"}], {"demo": "L1"})
     assert isinstance(decision.needs_review, bool)
 
@@ -163,11 +163,11 @@ def test_summary_text_mentions_count():
     assert "1" in decision.as_text()
 
 
-# ─── Разбор различий: то, чем кормится правило ───────────────────────────────
+# ─── Parsing the diff: what feeds the rule ───────────────────────────────────
 #
-# Само правило было покрыто хорошо, а разбор, который его кормит, не покрыт
-# вовсе. Между тем пустой список значит «изменений нет», и любая невозможность
-# разобрать различия превращалась в разрешение применить всё без просмотра.
+# The rule itself was well covered while the parsing that feeds it was not covered
+# at all. Meanwhile an empty list means "nothing changed", and any inability to
+# parse the diff turned into permission to apply everything.
 
 
 def test_appended_entries_are_read(repo):
@@ -176,11 +176,11 @@ def test_appended_entries_are_read(repo):
 
 
 def test_staged_change_is_still_seen(repo):
-    """Изменение, попавшее в индекс, шлюз обязан видеть.
+    """A change that has been staged must still be visible to the gate.
 
-    `git diff` без указания показывает только непроиндексированное. Пока
-    сравнение шло так, любой `git add` до шлюза скрывал от него переход в L4
-    целиком, и правило получало пустоту вместо изменения.
+    A bare `git diff` shows only what is unstaged. While the comparison worked that
+    way, any `git add` before the gate hid the whole transition from it, and the
+    rule received emptiness instead of a change.
     """
     append(repo, journal_line("alpha", "L4", "2026-08-11"))
     subprocess.run(["git", "add", LEVELS_PATH], cwd=repo, check=True,
@@ -192,7 +192,7 @@ def test_staged_change_is_still_seen(repo):
 
 
 def test_not_a_repository_is_undecidable(tmp_path):
-    """Журнал на месте, а системы версий нет: разобрать различия нечем."""
+    """The journal is there and version control is not: the diff cannot be parsed."""
     journal = tmp_path / LEVELS_PATH
     journal.parent.mkdir(parents=True)
     journal.write_text(journal_line("alpha", "L4", "2026-08-11") + "\n",
@@ -202,11 +202,11 @@ def test_not_a_repository_is_undecidable(tmp_path):
 
 
 def test_missing_journal_is_undecidable(tmp_path):
-    """Журнал переехал, а разбор смотрит на прежний путь.
+    """The journal moved and the parsing looks at the old path.
 
-    Отсутствие пути git ошибкой не считает и отвечает нулём с пустотой. Для
-    шлюза это неотличимо от «изменений нет», поэтому существование журнала
-    проверяется прямо, а не выводится из молчания git.
+    git does not treat a missing path as an error and answers with a zero and
+    nothing. To the gate that is indistinguishable from "nothing changed", so
+    existence is checked outright rather than inferred from git's silence.
     """
     subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
     (tmp_path / "readme").write_text("x", encoding="utf-8")
@@ -221,10 +221,10 @@ def test_missing_journal_is_undecidable(tmp_path):
 
 
 def test_half_written_line_is_undecidable(repo):
-    """Оборванная строка не пропускается молча.
+    """A truncated line is not passed over in silence.
 
-    Проход можно прервать на середине записи. Пропустить такую строку значит
-    не увидеть изменения уровня, которое в ней записано.
+    A pass can be interrupted in the middle of an entry. Skipping such a line means
+    not seeing the level change written in it.
     """
     with (repo / LEVELS_PATH).open("a", encoding="utf-8") as fh:
         fh.write('{"technology_id": "alpha", "level": "L4", "rule_ver')
@@ -232,7 +232,7 @@ def test_half_written_line_is_undecidable(repo):
         added_entries_from_git(repo=repo)
 
 
-# ─── Отказ закрытый ──────────────────────────────────────────────────────────
+# ─── The gate fails closed ───────────────────────────────────────────────────
 
 
 def _gate_output(monkeypatch, capsys, raises: Exception | None = None) -> str:
@@ -245,24 +245,24 @@ def _gate_output(monkeypatch, capsys, raises: Exception | None = None) -> str:
     monkeypatch.setattr(sys, "argv", ["classify_changes.py", "--github"])
     code = classify_changes.main()
     assert code == 0, (
-        "ненулевой код остановил бы задание, и отметка о прогоне не попала бы "
-        "в основную ветку"
+        "a non-zero code would stop the job and the mark of the pass would not "
+        "reach the main branch"
     )
     return capsys.readouterr().out
 
 
 def test_gate_asks_for_review_when_it_cannot_tell(monkeypatch, capsys):
-    """Незнание приравнивается к «показать человеку», а не к «изменений нет».
+    """Not knowing counts as "show it to a person", not as "nothing changed".
 
-    Цена лишнего просмотра равна одному щелчку. Цена пропущенного понижения
-    равна неверному утверждению о технологии в основной ветке.
+    The price of one review too many is a click. The price of a missed demotion is
+    a wrong claim about a technology on the main branch.
     """
-    out = _gate_output(monkeypatch, capsys, raises=Undecidable("git молчит"))
+    out = _gate_output(monkeypatch, capsys, raises=Undecidable("git says nothing"))
     assert "review=true" in out
 
 
 def test_gate_applies_itself_on_ordinary_changes(monkeypatch, capsys):
-    """Обратная сторона: обычное изменение не должно требовать просмотра."""
+    """The other side: an ordinary change must not demand review."""
     from scripts import classify_changes
 
     monkeypatch.setattr(classify_changes, "added_entries_from_git", lambda repo=None: [])
@@ -272,9 +272,9 @@ def test_gate_applies_itself_on_ordinary_changes(monkeypatch, capsys):
 
 
 def test_journal_path_follows_the_store(repo):
-    """Путь берётся у хранилища, а не пишется строкой.
+    """The path comes from the store rather than being written out.
 
-    Расхождение обошлось бы молчанием: разбор смотрел бы в несуществующий файл
-    и сообщал, что изменений нет.
+    A divergence would cost silence: the parsing would look at a file that does not
+    exist and report that nothing changed.
     """
     assert store.LEVELS_FILE == ROOT / LEVELS_PATH

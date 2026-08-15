@@ -1,10 +1,10 @@
-"""Тесты файлового реестра.
+"""Tests of the file-based registry.
 
-Проверяют поведение, на которое опираются принципы проекта: свидетельства только
-добавляются и не дублируются, журнал уровней растёт только при действительном
-изменении уровня, отсутствие уровня отличимо от уровня L0.
+They check the behaviour the principles of the project rest on: evidence is
+appended and not duplicated, the level journal grows only when a level changes,
+and an absent level is distinguishable from the level L0.
 
-Тесты работают в отдельном каталоге и настоящий реестр не трогают.
+The tests work in a directory of their own and never touch the real registry.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from services.registry import store
 
 @pytest.fixture
 def data_dir(tmp_path, monkeypatch):
-    """Подменить каталог данных на временный."""
+    """Substitute a temporary directory for the data directory."""
     monkeypatch.setattr(store, "DATA_DIR", tmp_path)
     monkeypatch.setattr(store, "TECHNOLOGIES_DIR", tmp_path / "technologies")
     monkeypatch.setattr(store, "EVIDENCE_DIR", tmp_path / "evidence")
@@ -50,7 +50,7 @@ def _evidence(tech_id: str = "demo", source: str = "https://example.org/paper"):
     )
 
 
-# ─── Технологии ──────────────────────────────────────────────────────────────
+# ─── Technologies ────────────────────────────────────────────────────────────
 
 
 def test_save_and_load_roundtrip(data_dir):
@@ -73,7 +73,7 @@ def test_load_missing_technology_returns_none(data_dir):
 
 
 def test_saved_file_is_stable_between_writes(data_dir):
-    """Повторная запись той же записи не порождает изменений в файле."""
+    """Writing the same record again produces no change in the file."""
     path = store.save_technology(_tech())
     first = path.read_text(encoding="utf-8")
     store.save_technology(_tech())
@@ -85,7 +85,7 @@ def test_unknown_field_is_rejected(data_dir):
         store.Technology(id="x", name="X", kind="tool", nonsense=1)
 
 
-# ─── Свидетельства ───────────────────────────────────────────────────────────
+# ─── Evidence ────────────────────────────────────────────────────────────────
 
 
 def test_evidence_is_appended_and_read_back(data_dir):
@@ -98,7 +98,7 @@ def test_evidence_is_appended_and_read_back(data_dir):
 def test_evidence_duplicates_are_not_stored_twice(data_dir):
     store.append_evidence([_evidence()])
     added = store.append_evidence([_evidence()])
-    assert added == 0, "повторный прогон сборщиков не должен раздувать журнал"
+    assert added == 0, "a second run of the collectors must not inflate the journal"
     assert len(store.load_evidence()) == 1
 
 
@@ -118,7 +118,7 @@ def test_evidence_filter_by_technology(data_dir):
 
 
 def test_appending_never_rewrites_existing_lines(data_dir):
-    """Принцип K6: существующее свидетельство не переписывается."""
+    """Existing evidence is never rewritten."""
     store.append_evidence([_evidence(source="first")])
     path = store.evidence_path(date(2026, 8, 1))
     before = path.read_text(encoding="utf-8")
@@ -127,7 +127,7 @@ def test_appending_never_rewrites_existing_lines(data_dir):
     assert after.startswith(before)
 
 
-# ─── Уровни ──────────────────────────────────────────────────────────────────
+# ─── Levels ──────────────────────────────────────────────────────────────────
 
 
 def _level(tech_id: str, level: str) -> store.LevelEntry:
@@ -141,7 +141,7 @@ def _level(tech_id: str, level: str) -> store.LevelEntry:
 
 
 def test_missing_level_is_distinguishable_from_l0(data_dir):
-    """Отсутствие уровня — не ноль: представления обязаны это различать."""
+    """An absent level is not a zero: the views have to tell them apart."""
     assert store.latest_level("demo") is None
     store.append_level(_level("demo", "L0"))
     entry = store.latest_level("demo")
@@ -151,7 +151,7 @@ def test_missing_level_is_distinguishable_from_l0(data_dir):
 def test_level_journal_grows_only_on_change(data_dir):
     assert store.append_level(_level("demo", "L1")) is True
     assert store.append_level(_level("demo", "L1")) is False, (
-        "пересчёт без изменения уровня не должен попадать в журнал"
+        "a recomputation that changed nothing must not reach the journal"
     )
     assert store.append_level(_level("demo", "L2")) is True
     assert [e.level for e in store.load_levels("demo")] == ["L1", "L2"]
@@ -171,7 +171,7 @@ def test_levels_of_different_technologies_do_not_mix(data_dir):
     assert store.latest_level("two").level == "L4"
 
 
-# ─── Показатели ──────────────────────────────────────────────────────────────
+# ─── Measurements ────────────────────────────────────────────────────────────
 
 
 def test_metrics_are_partitioned_by_year(data_dir):
@@ -185,11 +185,11 @@ def test_metrics_are_partitioned_by_year(data_dir):
     assert store.load_metrics("demo")[0].value == 12.0
 
 
-# ─── Разбор конфигурации: словарь остатков и дата просмотра ──────────────────
+# ─── Reading a configuration: the residual vocabulary and the review date ────
 #
-# Остаток существует ради подсчёта: механизм, встретившийся у трёх записей, —
-# кандидат в измерение схемы. Свободный текст этот подсчёт обесценивает, потому
-# что один механизм получает столько названий, сколько у него описаний.
+# A residual exists for the sake of counting: a mechanism met in three records is
+# a candidate dimension. Free text destroys that count, because one mechanism gets
+# as many names as it has authors.
 
 
 def test_residual_vocabulary_is_readable_and_unique():
@@ -201,17 +201,17 @@ def test_residual_vocabulary_is_readable_and_unique():
     mechanisms = payload["mechanisms"]
 
     codes = [m["id"] for m in mechanisms]
-    assert len(codes) == len(set(codes)), "повторяющиеся коды механизмов"
+    assert len(codes) == len(set(codes)), "repeated mechanism codes"
     for mechanism in mechanisms:
-        assert mechanism["ru"].strip(), f"{mechanism['id']}: пустая формулировка"
-        assert mechanism["en"].strip(), f"{mechanism['id']}: нет английской формы"
+        assert mechanism["ru"].strip(), f"{mechanism['id']}: the wording is empty"
+        assert mechanism["en"].strip(), f"{mechanism['id']}: no English wording"
         assert mechanism["note"].strip(), (
-            f"{mechanism['id']}: не сказано, почему схема этого не выражает"
+            f"{mechanism['id']}: it does not say why the schema fails to express it"
         )
 
 
 def test_free_text_residual_is_rejected(tmp_path, monkeypatch):
-    """Формулировка мимо словаря обязана останавливать проход."""
+    """A wording outside the vocabulary has to stop the pass."""
     import sys
     from pathlib import Path
 
@@ -226,14 +226,14 @@ def test_free_text_residual_is_rejected(tmp_path, monkeypatch):
 
     store.save_technology(store.Technology(
         id="freetext", name="Free", kind="tool", groups=["A"],
-        residual=["какой-то свой механизм своими словами"],
+        residual=["some mechanism of my own, in my own words"],
     ))
     problems = validate_data.check_registry()
     assert any("residual_vocabulary" in p for p in problems), problems
 
 
 def test_reviewed_date_distinguishes_default_from_unexamined():
-    """«Совпадает с базовой конфигурацией» и «не смотрели» — разные утверждения."""
+    """"Matches the base configuration" and "nobody looked" are different claims."""
     unexamined = store.Technology(id="a", name="A", kind="tool")
     assert unexamined.configuration_reviewed is None
 
@@ -247,12 +247,12 @@ def test_reviewed_date_distinguishes_default_from_unexamined():
 
 
 def test_variable_and_inapplicable_are_separate_statements():
-    """Три разных утверждения об измерении, а не два.
+    """Three different claims about a dimension, not two.
 
-    «Значение такое», «значение выбирается на ходу» и «измерения здесь нет» —
-    разные вещи. Схема хранит одно значение, поэтому две последние выражаются
-    пометками; без них запись занимает одну клетку пространства, хотя система
-    занимает несколько или ни одной.
+    "The value is this", "the value is chosen at run time" and "the dimension does
+    not apply" are different things. The schema stores one value, so the latter
+    two are marks; without them a record occupies one cell of the space while it
+    occupies several or none.
     """
     tech = store.Technology(
         id="x", name="X", kind="architecture",
@@ -260,24 +260,24 @@ def test_variable_and_inapplicable_are_separate_statements():
         configuration_variable=["C2"],
         configuration_inapplicable=["E1"],
     )
-    assert "C2" in tech.configuration, "у переменного измерения значение есть"
-    assert "E1" not in tech.configuration, "у неприменимого значения нет"
+    assert "C2" in tech.configuration, "a variable dimension does carry a value"
+    assert "E1" not in tech.configuration, "an inapplicable one carries none"
 
 
 def test_plain_record_carries_no_marks():
-    """Пометки — исключение; обычная запись остаётся точкой пространства."""
+    """The marks are the exception; an ordinary record stays a point of the space."""
     tech = store.Technology(id="y", name="Y", kind="architecture")
     assert tech.configuration_variable == []
     assert tech.configuration_inapplicable == []
 
 
 def test_attack_is_a_kind_without_configuration():
-    """Атака действует на систему RAG, а не является ею.
+    """An attack acts upon a RAG system rather than being one.
 
-    У неё нет ни индекса, ни извлечения, ни синтеза, и базовые значения
-    утверждали бы, что она сегментирует документы и ищет ближайших соседей.
-    Правило по роду избавляет от пометки неприменимости у каждого из двадцати
-    шести измерений каждой такой записи.
+    It has no index, no retrieval and no synthesis, and base values would assert
+    that it segments documents and searches for nearest neighbours. A rule by kind
+    spares such a record an inapplicability mark on every one of twenty-six
+    dimensions.
     """
     assert "attack" in store.KINDS_WITHOUT_CONFIGURATION
     tech = store.Technology(id="x", name="X", kind="attack")
@@ -290,11 +290,11 @@ def test_system_kinds_still_occupy_the_space():
 
 
 def test_residual_vocabulary_is_bilingual():
-    """Очередь остатков показывается читателю, а не только владельцу.
+    """The residual queue is shown to the reader, not only to the owner.
 
-    Механизм, добавленный без английской формулировки или пояснения, выведет на
-    английскую страницу русский абзац. Заметить это на странице можно только
-    глазами, а при сборке — проверкой.
+    A mechanism added without an English wording or without an explanation puts a
+    Russian paragraph on an English page. On the page that is noticed by eye; at
+    build time, by a check.
     """
     import json
     import re
@@ -306,8 +306,8 @@ def test_residual_vocabulary_is_bilingual():
 
     for mechanism in payload["mechanisms"]:
         for field in ("ru", "en", "note", "note_en"):
-            assert mechanism.get(field, "").strip(), f"{mechanism['id']}: нет поля {field}"
+            assert mechanism.get(field, "").strip(), f"{mechanism['id']}: no {field} field"
         for field in ("en", "note_en"):
             assert not cyrillic.search(mechanism[field]), (
-                f"{mechanism['id']}.{field}: в английском поле остался русский текст"
+                f"{mechanism['id']}.{field}: Russian text remains in an English field"
             )

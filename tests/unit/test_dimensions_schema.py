@@ -81,7 +81,7 @@ def test_defaults_match_dimensions():
         assert DEFAULTS[d.code] == d.default
 
 
-# ─── Ограничения Φ ───────────────────────────────────────────────────────────
+# ─── The constraints Φ ───────────────────────────────────────────────────────
 
 
 def test_constraints_are_well_formed():

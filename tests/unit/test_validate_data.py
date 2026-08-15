@@ -105,7 +105,7 @@ def test_empty_registry_is_a_violation(registry):
 
 
 def test_unreadable_record_stops_everything(registry):
-    write_raw("alpha.json", {"id": "alpha", "имя": "no such field"})
+    write_raw("alpha.json", {"id": "alpha", "unknown_field": "no such field"})
     problems = validate_data.check_registry()
     assert complains_about("does not read against the schema", problems)
 
