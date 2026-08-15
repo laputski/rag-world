@@ -3,11 +3,12 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { ThemeProvider } from "@mui/material";
 import { Outlet, RouterProvider, createMemoryRouter } from "react-router-dom";
 
-// Диаграмма рисуется на холсте, которого в тестовой среде нет. Проверяется
-// поведение страницы, а не работа чужой библиотеки рисования, поэтому она
-// заменяется отметкой о том, что место под диаграмму занято.
+// The chart is drawn on a canvas the test environment does not have. What is
+// under test is the behaviour of the page rather than the work of somebody
+// else's drawing library, so it is replaced by a marker that the space for the
+// chart is taken.
 vi.mock("echarts-for-react", () => ({
-  default: () => <div data-testid="диаграмма" />,
+  default: () => <div data-testid="diagram" />,
 }));
 import i18n from "../i18n/index";
 import { getTheme } from "../theme";
@@ -22,21 +23,22 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { GeneralizedArticlePage } from "../pages/GeneralizedArticlePage";
 
 /**
- * Страницы портала на настоящих данных.
+ * The pages of the portal over the real data.
  *
- * До этого файла читательская поверхность не проверялась ничем: двадцать три
- * теста покрывали дизайн-систему, состав словарей и оформление ссылки, и ни
- * один не отрисовывал страницу. Обе ошибки, найденные вычиткой (реестр в
- * статье и число измерений в подписи), увидел глаз, а не проверка.
+ * Before this file the reader-facing surface was checked by nothing: three tests
+ * covered the design system, the contents of the dictionaries and the formatting,
+ * and none of them rendered a page. Both errors found by proofreading (the count
+ * in the article and the number of dimensions in a label) were caught by eye
+ * rather than by a check.
  *
- * Данные берутся не выдуманные, а собранные: `fetch` отдаёт те самые файлы из
- * `public/data`, которые уходят на портал. Выдуманные данные проверяли бы, что
- * страница умеет рисовать выдуманное, тогда как ломается она на настоящем.
+ * The data is not invented but built: `fetch` returns the very files from
+ * `public/data` that go to the portal. Invented data checks that a page can draw
+ * what was invented, whereas what breaks it is the real thing.
  */
 
-// Артефакты вносятся в сборку теста как модули, а не читаются с диска: так
-// проверка не зависит от того, из какого каталога её запустили, и падает
-// внятно, если артефакт не собран.
+// The artefacts enter the test build as modules rather than being read from
+// disk, so the check does not depend on which directory it was started from and
+// fails intelligibly when an artefact is not built.
 import mapJson from "../../public/data/map.json";
 import registryJson from "../../public/data/registry.json";
 import changesJson from "../../public/data/changes.json";
@@ -60,15 +62,15 @@ beforeAll(() => {
     const url = String(input);
     const name = url.slice(url.lastIndexOf("/") + 1);
     /*
-      Карточка технологии просит одну запись, а не весь реестр. Ответ
-      собирается здесь из того же собранного артефакта, поэтому проверка
-      по-прежнему идёт по настоящим данным, а не по выдуманной записи.
+      A technology card asks for one record rather than the whole registry. The
+      answer is assembled here from the same built artefact, so the check still
+      runs over the real data and not over an invented record.
     */
     if (url.includes("/tech/")) {
       const id = name.replace(/\.json$/, "");
       const found = (registryJson as { technologies: { id: string }[] })
         .technologies.find((t) => t.id === id);
-      if (!found) return new Response("нет такой записи", { status: 404 });
+      if (!found) return new Response("no such record", { status: 404 });
       return new Response(
         JSON.stringify({ built_at: (registryJson as { built_at: string }).built_at, technology: found }),
         { status: 200, headers: { "content-type": "application/json" } },
@@ -76,7 +78,7 @@ beforeAll(() => {
     }
     const payload = ARTIFACTS[name];
     if (payload === undefined) {
-      return new Response("нет такого артефакта", { status: 404 });
+      return new Response("no such artefact", { status: 404 });
     }
     return new Response(JSON.stringify(payload), {
       status: 200,
@@ -90,16 +92,17 @@ afterEach(async () => {
 });
 
 /**
- * Страница внутри настоящего маршрутизатора данных.
+ * A page inside the real data router.
  *
- * Обёртка попроще не годится: карточка берёт идентификатор из адреса, страница
- * ненайденного — ошибку маршрута, а «Основания» — контекст оболочки. Подменять
- * это значило бы проверять не то, что видит читатель.
+ * A simpler wrapper will not do: a card takes its identifier from the route, the
+ * not-found page takes the route error, and Foundations takes the outlet context.
+ * Substituting any of that would mean checking something other than what the
+ * reader sees.
  */
 function show(node: React.ReactNode, route = "/") {
-  // Оболочка повторяет то, что даёт страницам настоящая: тему и контекст с
-  // режимом. Именно из-за расхождения имён в этом контексте схемы на странице
-  // «Основания» рисовались светлыми в тёмной теме, и типы этого не заметили.
+  // The shell repeats what the real one gives the pages: the theme with its
+  // mode. It was a mismatch of names in exactly this context that drew the
+  // Foundations diagrams light inside the dark theme, and the types said nothing.
   const Shell = () => (
     <ThemeProvider theme={getTheme("light")}>
       <Outlet context={{ mode: "light" }} />
@@ -111,8 +114,8 @@ function show(node: React.ReactNode, route = "/") {
       {
         path: "/",
         element: <Shell />,
-        // Страница ненайденного читает ошибку маршрута, а её даёт только
-        // маршрутизатор данных при несовпавшем адресе.
+        // The not-found page reads the route error, which the data router
+        // supplies when no address matches.
         errorElement: wrapped,
         children: [
           { index: true, element: node },
@@ -138,21 +141,21 @@ const registry = registryJson as unknown as {
 };
 const stats = statsJson as unknown as { total: number };
 
-// ─── Каждая страница обязана открыться ───────────────────────────────────────
+// ─── Every page has to open ──────────────────────────────────────────────────
 //
-// Самая дешёвая и самая пропущенная проверка: страница, падающая на настоящих
-// данных, обнаруживается сейчас читателем.
+// The cheapest check and the one most often skipped: a page that crashes on the
+// real data is currently discovered by the reader.
 
-describe("страницы открываются на собранных данных", () => {
+describe("the pages open over the built data", () => {
   const pages: [string, React.ReactNode, string?][] = [
-    ["главная", <HomePage />],
-    ["реестр", <RegistryPage />],
-    ["хроника", <ChangesPage />],
-    ["дайджест", <DigestPage />],
-    ["очередь остатков", <ResidualsPage />],
-    ["о портале", <AboutPage />],
-    ["основания", <GeneralizedArticlePage />],
-    ["страница не найдена", <NotFoundPage />, "/нет-такого-адреса"],
+    ["front page", <HomePage />],
+    ["registry", <RegistryPage />],
+    ["chronicle", <ChangesPage />],
+    ["digest", <DigestPage />],
+    ["residual queue", <ResidualsPage />],
+    ["about", <AboutPage />],
+    ["foundations", <GeneralizedArticlePage />],
+    ["not found", <NotFoundPage />, "/no-such-address"],
   ];
 
   it.each(pages)("%s", async (_name, node, route) => {
@@ -160,9 +163,9 @@ describe("страницы открываются на собранных дан
     await waitFor(() => {
       expect(container.textContent?.length ?? 0).toBeGreaterThan(40);
     });
-    // Полоса ошибки означает, что страница не смогла прочитать свои данные.
-    // Предупреждения и пояснения законны: страница «как ссылаться» ими и
-    // объясняет, почему ссылаться надо на выпуск, а не на запись.
+    // An error strip means the page could not read the data. Warnings and
+    // explanations are legitimate: the "how to cite" section explains why a
+    // release should be cited rather than a record.
     const errors = screen.queryAllByRole("alert").filter((el) =>
       el.className.includes("colorError") || el.className.includes("standardError")
     );
@@ -170,10 +173,10 @@ describe("страницы открываются на собранных дан
   });
 });
 
-// ─── Числа на странице приходят из данных ────────────────────────────────────
+// ─── The numbers on a page come from the data ────────────────────────────────
 
-describe("числа приходят из данных, а не из текста", () => {
-  it("реестр показывает все записи артефакта", async () => {
+describe("the numbers come from the data, not from the text", () => {
+  it("the registry shows every record of the artefact", async () => {
     show(<RegistryPage />);
     await waitFor(() => {
       expect(screen.getByText(registry.technologies[0].name)).toBeInTheDocument();
@@ -185,7 +188,7 @@ describe("числа приходят из данных, а не из текст
     expect(stats.total).toBe(registry.technologies.length);
   });
 
-  it("карточка показывает столько свидетельств, сколько их в данных", async () => {
+  it("a card shows as much evidence as the data holds", async () => {
     const tech = registry.technologies.find((t) => t.evidence_count > 3)!;
     show(<TechCardPage />, `/tech/${tech.id}`);
     await waitFor(() => {
@@ -197,12 +200,12 @@ describe("числа приходят из данных, а не из текст
   });
 });
 
-// ─── Отсутствие показывается как отсутствие ──────────────────────────────────
+// ─── An absence is shown as an absence ───────────────────────────────────────
 
-describe("отсутствие величины не подменяется нулём", () => {
-  it("запись без вычисленного уровня не выглядит как L0", async () => {
+describe("an absent quantity is never replaced by a zero", () => {
+  it("a record with no computed level does not look like L0", async () => {
     const without = registry.technologies.find((t) => t.level === null);
-    expect(without, "в реестре нет записи без уровня, проверять нечего").toBeTruthy();
+    expect(without, "the registry has no record without a level; nothing to check").toBeTruthy();
     show(<TechCardPage />, `/tech/${without!.id}`);
     await waitFor(() => {
       expect(screen.getAllByText(without!.name).length).toBeGreaterThan(0);
@@ -212,14 +215,14 @@ describe("отсутствие величины не подменяется ну
   });
 });
 
-// ─── Честность о собственных пределах ────────────────────────────────────────
+// ─── Honesty about its own limits ────────────────────────────────────────────
 
-describe("портал не выдаёт непроверенное за проверенное", () => {
-  it("источник, закрытый для робота, помечен на карточке", async () => {
+describe("the portal does not pass the unchecked off as checked", () => {
+  it("a source closed to a robot is marked on the card", async () => {
     const tech = registry.technologies.find((t) =>
       t.links.some((l) => l.status === "guarded")
     );
-    expect(tech, "в реестре нет закрытых источников, проверять нечего").toBeTruthy();
+    expect(tech, "the registry has no closed sources; nothing to check").toBeTruthy();
     show(<TechCardPage />, `/tech/${tech!.id}`);
     await waitFor(() => {
       expect(screen.getAllByText(tech!.name).length).toBeGreaterThan(0);
@@ -228,10 +231,10 @@ describe("портал не выдаёт непроверенное за про�
   });
 });
 
-// ─── Локализация видна читателю, а не только словарю ─────────────────────────
+// ─── The localisation is visible to the reader, not only to the dictionary ───
 
-describe("английская версия не показывает русский текст", () => {
-  it("карточка по-английски обходится без кириллицы", async () => {
+describe("the English version shows no Russian text", () => {
+  it("an English card does without Cyrillic", async () => {
     await i18n.changeLanguage("en");
     const tech = registry.technologies.find((t) => t.id === "hipporag")
       ?? registry.technologies[0];
@@ -239,10 +242,10 @@ describe("английская версия не показывает русск
     await waitFor(() => {
       expect(screen.getAllByText(tech.name).length).toBeGreaterThan(0);
     });
-    // Обоснования разбора остаются русскими намеренно и помечены `data-basis`;
-    // они из проверки исключаются, всё остальное обязано быть переведено.
-    // Отдельные кириллические слова могут оказаться именами собственными,
-    // поэтому ищутся связные фразы, то есть два русских слова подряд.
+    // The reading justifications stay Russian deliberately and are marked as
+    // such, so they are excluded from the check; everything else has to be
+    // English. Isolated Cyrillic words may turn out to be names, so what is
+    // looked for is connected phrases, that is, two Russian words in a row.
     const copy = container.cloneNode(true) as HTMLElement;
     copy.querySelectorAll("[data-basis]").forEach((el) => el.remove());
     const russianPhrases = (copy.textContent ?? "").match(
@@ -251,12 +254,12 @@ describe("английская версия не показывает русск
     expect(russianPhrases ?? []).toEqual([]);
   });
 
-  it("переведённое обоснование показывается по-английски", async () => {
+  it("a translated justification is shown in English", async () => {
     await i18n.changeLanguage("en");
     const tech = registry.technologies.find((x) =>
       x.parse_notes?.some((n) => n.did_en)
     );
-    expect(tech, "ни одно обоснование не переведено").toBeTruthy();
+    expect(tech, "not one justification is translated").toBeTruthy();
     show(<TechCardPage />, `/tech/${tech!.id}`);
     await waitFor(() => {
       expect(screen.getAllByText(tech!.name).length).toBeGreaterThan(0);
@@ -268,14 +271,14 @@ describe("английская версия не показывает русск
     });
   });
 
-  it("непереведённое обоснование названо непереведённым", async () => {
-    // Пустое место и молчаливый русский абзац одинаково выглядят поломкой,
-    // поэтому читателю сказано, что перевод этой записи ещё не сделан.
+  it("an untranslated justification is named as untranslated", async () => {
+    // A blank space and a silent Russian paragraph look equally like a breakage,
+    // so the reader is told that this record is not translated yet.
     await i18n.changeLanguage("en");
     const tech = registry.technologies.find((x) =>
       x.parse_notes?.length > 0 && x.parse_notes.every((n) => !n.did_en)
     );
-    if (!tech) return; // перевод закончен целиком, проверять нечего
+    if (!tech) return; // the translation is complete; nothing to check
     show(<TechCardPage />, `/tech/${tech.id}`);
     await waitFor(() => {
       expect(screen.getAllByText(tech.name).length).toBeGreaterThan(0);
@@ -288,7 +291,7 @@ describe("английская версия не показывает русск
     });
   });
 
-  it("очередь остатков по-английски обходится без кириллицы", async () => {
+  it("the residual queue in English does without Cyrillic", async () => {
     await i18n.changeLanguage("en");
     const { container } = show(<ResidualsPage />);
     await waitFor(() => {
