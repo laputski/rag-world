@@ -1,15 +1,16 @@
-"""Выгружаемые данные локализованы: у русского текста есть английский двойник.
+"""The published data is localised: Russian text has an English twin.
 
-Портал двуязычен, а его артефакты были двуязычны наполовину. Часть полей несла
-перевод рядом с оригиналом (`why` и `why_en`), часть оставалась только русской,
-и различить одно от другого можно было лишь глазами. Для потребителя, читающего
-данные без портала, это означало реестр, наполовину написанный на языке,
-которого он не знает.
+The portal is bilingual and its artefacts were bilingual by halves. Some carried
+the translation beside the original (`why` and `why_en`), some stayed Russian
+only, and telling one from the other took looking. For a consumer reading the
+data without the portal that meant a registry half-written in a language they do
+not read.
 
-Проверка обходит каждый опубликованный файл и требует: если строка содержит
-кириллицу, рядом обязано лежать поле с тем же именем и окончанием `_en`.
-Соглашение выбрано потому, что оно уже применялось в обоснованиях разбора и в
-словаре остатков; вводить второе значило бы завести два способа сказать одно.
+The check walks every published file and demands: if a string carries Cyrillic, a
+field of the same name with an `_en` suffix has to lie beside it. That convention
+was chosen because it was already used in the justifications and in the residual
+vocabulary; introducing a second one would mean two ways of saying the same
+thing.
 """
 
 from __future__ import annotations
@@ -25,21 +26,21 @@ DATA = ROOT / "ui" / "public" / "data"
 
 CYRILLIC = re.compile("[а-яА-ЯёЁ]")
 
-#: Файлы, публикуемые для внешнего потребителя.
+#: The files published for an outside consumer.
 PUBLISHED = ("registry.json", "map.json", "changes.json", "stats.json",
              "residuals.json", "candidates.json", "digest.json", "index.json")
 
-#: Поля, где кириллица законна без двойника.
+#: Fields where Cyrillic is legitimate with no twin.
 #:
-#: Имя технологии кириллицей было бы ошибкой данных, а не переводом, поэтому
-#: исключений по именам здесь нет. Единственное послабление касается полей, чьё
-#: содержимое и есть русский текст по назначению: пояснение к самому словарю
-#: остатков хранится на обоих языках отдельными записями словаря, а не парой.
+#: A technology named in Cyrillic would be an error of data rather than of
+#: translation, so there are no exceptions by name here. The one concession
+#: concerns a field whose content is Russian text by design: the note on the
+#: residual vocabulary itself is stored in both languages as separate entries.
 EXEMPT_PATHS: tuple[str, ...] = ()
 
 
 def _walk(node: object, path: str, out: list[tuple[str, str, object]]) -> None:
-    """Собрать тройки «путь, ключ, родитель» для всех строк с кириллицей."""
+    """Collect triples of path, key and parent for every Cyrillic string."""
     if isinstance(node, dict):
         for key, value in node.items():
             if isinstance(value, str) and CYRILLIC.search(value):
@@ -55,7 +56,7 @@ def _walk(node: object, path: str, out: list[tuple[str, str, object]]) -> None:
 def test_russian_text_has_an_english_twin(name):
     path = DATA / name
     if not path.exists():
-        pytest.skip(f"{name} не собран")
+        pytest.skip(f"{name} is not built")
     found: list[tuple[str, str, object]] = []
     _walk(json.loads(path.read_text(encoding="utf-8")), "", found)
 
@@ -63,30 +64,30 @@ def test_russian_text_has_an_english_twin(name):
     for where, key, parent in found:
         if where in EXEMPT_PATHS:
             continue
-        # Кириллица в поле, которое само объявлено английским, означает не
-        # недостачу двойника, а непереведённое поле. Требовать для него ещё
-        # одного двойника бессмысленно.
+        # Cyrillic in a field declared English does not mean a missing twin but an
+        # untranslated field. Demanding a twin for a twin makes no sense.
         if key.endswith("_en"):
-            missing.append(f"{where} (поле объявлено английским, но написано по-русски)")
+            missing.append(f"{where} (declared English yet written in Russian)")
             continue
         twin = f"{key}_en"
         value = parent.get(twin) if isinstance(parent, dict) else None
         if not (isinstance(value, str) and value.strip()):
-            missing.append(f"{where} (нет {twin})")
-    # Одно и то же поле повторяется по всем записям; в отчёте достаточно путей.
+            missing.append(f"{where} (no {twin})")
+    # The same field repeats across every record; naming it once is enough.
     unique = sorted({item.split(" (")[0] for item in missing})
     assert not missing, (
-        f"{name}: русский текст без английского двойника в полях {unique}. "
-        "Потребитель данных получит реестр наполовину на незнакомом языке."
+        f"{name}: Russian text with no English twin in the fields {unique}. A "
+        "consumer of the data would receive a registry half in a language they do "
+        "not read."
     )
 
 
 def test_registry_carries_descriptions_in_both_languages():
-    """Описание записи обязано быть в выгрузке, а не только на странице.
+    """A record's description belongs in the published data, not only on the page.
 
-    Проза жила в ресурсах интерфейса и в артефакты не попадала вовсе. Реестр,
-    выгруженный наружу, состоял из кодов и уровней без единого предложения о
-    том, что это за технология.
+    The prose lived in the interface resources and never reached the artefacts at
+    all: the registry, once published, consisted of codes and levels without a
+    single sentence saying what a technology was.
     """
     registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
     without: list[str] = []
@@ -97,29 +98,29 @@ def test_registry_carries_descriptions_in_both_languages():
             for field in ("problem", "barriers", "solutions")
         )
         if not (tech.get("summary") and tech.get("summary_en")):
-            without.append(f"{tech['id']}: нет краткой сути")
+            without.append(f"{tech['id']}: no short summary")
         elif not described and not rubric:
-            without.append(f"{tech['id']}: нет развёрнутого описания")
-    assert not without, "записи выгружены без описания: " + "; ".join(without)
+            without.append(f"{tech['id']}: no full description")
+    assert not without, "records published with no description: " + "; ".join(without)
 
 
 def test_feed_is_published_in_both_languages():
-    """Лента односоставна по устройству, поэтому языков две ленты, а не одна."""
+    """A feed carries one language by construction, so there are two feeds."""
     for name, language in (("feed.xml", "en"), ("feed.ru.xml", "ru")):
         path = DATA / name
-        assert path.exists(), f"нет ленты {name}"
+        assert path.exists(), f"the feed {name} is missing"
         text = path.read_text(encoding="utf-8")
         assert f"<language>{language}</language>" in text, (
-            f"{name}: язык ленты не объявлен либо объявлен неверно"
+            f"{name}: the language of the feed is undeclared or wrong"
         )
     english = (DATA / "feed.xml").read_text(encoding="utf-8")
     assert not CYRILLIC.search(english), (
-        "английская лента содержит русский текст"
+        "the English feed contains Russian text"
     )
 
 
 def test_index_names_both_feeds():
     index = json.loads((DATA / "index.json").read_text(encoding="utf-8"))
     feeds = index.get("feeds")
-    assert isinstance(feeds, dict), "указатель не называет ленты по языкам"
-    assert set(feeds) == {"en", "ru"}, f"ленты в указателе: {sorted(feeds)}"
+    assert isinstance(feeds, dict), "the index does not name the feeds by language"
+    assert set(feeds) == {"en", "ru"}, f"feeds in the index: {sorted(feeds)}"

@@ -1,16 +1,17 @@
-"""Перечень мутаций не должен гнить между прогонами.
+"""The mutation catalogue must not rot between runs.
 
-Мутационный прогон идёт двадцать с лишним минут, поэтому запускается отдельно,
-а не при каждой правке. Отсюда опасность: код меняется, образец записи
-перестаёт совпадать, и запись тихо перестаёт что-либо проверять. Перечень при
-этом выглядит внушительно и остаётся зелёным, потому что его никто не запускал.
+A mutation run takes twenty-odd minutes and is therefore started separately
+rather than on every edit. Hence the danger: the code changes, an entry's pattern
+stops matching, and the entry quietly stops checking anything. The catalogue
+looks impressive meanwhile and stays green, because nobody has run it.
 
-За один день такое случилось трижды, поэтому целостность перечня проверяется
-здесь, в обычном наборе. Проверка мгновенная: она не запускает ни одного
-мутанта, а только сверяет, что каждому есть куда примениться.
+That happened three times in one day, so the integrity of the catalogue is
+checked here, in the ordinary suite. The check is instant: it runs no mutant at
+all and only verifies that each has somewhere to apply.
 
-Разделение намеренное. Дорогое (сам прогон) идёт по расписанию, дешёвое
-(годность перечня) — при каждой правке, потому что портится именно от правок.
+The split is deliberate. The expensive part, the run itself, goes on a schedule;
+the cheap part, the soundness of the catalogue, runs on every edit, because edits
+are what spoil it.
 """
 
 from __future__ import annotations
@@ -31,14 +32,14 @@ import mutate  # noqa: E402
     "mutation", mutate.MUTATIONS, ids=lambda m: f"{m.path}::{m.rule}"
 )
 def test_every_mutation_still_applies(mutation):
-    """Образец записи по-прежнему встречается в коде, который она сторожит."""
+    """An entry's pattern still occurs in the code it guards."""
     target = ROOT / mutation.path
-    assert target.exists(), f"файл {mutation.path} не существует"
+    assert target.exists(), f"the file {mutation.path} does not exist"
     source = target.read_text(encoding="utf-8")
     assert mutation.before in source, (
-        f"образец записи «{mutation.rule}» больше не встречается в "
-        f"{mutation.path}. Запись ничего не проверяет, оставаясь в перечне и "
-        "создавая видимость охраны: поправьте образец или уберите запись."
+        f"the pattern of the entry «{mutation.rule}» no longer occurs in "
+        f"{mutation.path}. The entry checks nothing while staying in the catalogue "
+        "and creating an appearance of a guard: fix the pattern or remove the entry."
     )
 
 
@@ -46,24 +47,25 @@ def test_every_mutation_still_applies(mutation):
     "mutation", mutate.MUTATIONS, ids=lambda m: f"{m.path}::{m.rule}"
 )
 def test_every_mutation_actually_changes_something(mutation):
-    """Порча обязана менять код, иначе прогон проверяет пустоту."""
-    assert mutation.before != mutation.after, f"«{mutation.rule}» ничего не меняет"
+    """A break has to change the code, or the run checks nothing."""
+    assert mutation.before != mutation.after, f"«{mutation.rule}» changes nothing"
     source = (ROOT / mutation.path).read_text(encoding="utf-8")
     assert source.replace(mutation.before, mutation.after, 1) != source
 
 
 def test_rules_are_named_distinctly():
-    """Одинаковые имена делают отчёт нечитаемым: непонятно, что именно выжило."""
+    """Identical names make the report unreadable: which one survived?"""
     names = [m.rule for m in mutate.MUTATIONS]
     duplicates = sorted({name for name in names if names.count(name) > 1})
-    assert not duplicates, f"повторяющиеся имена правил: {duplicates}"
+    assert not duplicates, f"repeated rule names: {duplicates}"
 
 
 def test_catalogue_covers_the_load_bearing_modules():
-    """Перечень охватывает то, на чём держится автономный проход.
+    """The catalogue covers what the unattended pass rests on.
 
-    Список короткий и намеренно неполный: он называет места, отсутствие
-    которых в перечне означало бы, что прогон не смотрит на главное.
+    The list is short and deliberately incomplete: it names the places whose
+    absence from the catalogue would mean the run is not looking at the main
+    thing.
     """
     covered = {m.path for m in mutate.MUTATIONS}
     for path in (
@@ -74,31 +76,31 @@ def test_catalogue_covers_the_load_bearing_modules():
         "scripts/check_links.py",
         "services/registry/store.py",
     ):
-        assert path in covered, f"{path} не охвачен ни одной мутацией"
+        assert path in covered, f"{path} is covered by no mutation"
 
 
-# ─── Сам прогон ──────────────────────────────────────────────────────────────
+# ─── The run itself ──────────────────────────────────────────────────────────
 
 
 def test_absent_pattern_is_reported_not_skipped(tmp_path, monkeypatch):
-    """Неприменившийся мутант отличается от пойманного и от выжившего.
+    """A mutant that did not apply differs from one caught and one survived.
 
-    Пропуск выглядел бы как успех, а это ровно тот случай, ради которого
-    существует проверка выше.
+    A skip would look like a success, and that is exactly the case the check above
+    exists for.
     """
     sample = tmp_path / "sample.py"
     sample.write_text("значение = 1\n", encoding="utf-8")
     monkeypatch.setattr(mutate, "ROOT", tmp_path)
 
-    absent = mutate.Mutation("sample.py", "чего нет", "такого текста нет", "иное")
+    absent = mutate.Mutation("sample.py", "what is absent", "no such text", "other")
     assert mutate.survives(absent) is None
 
 
 def test_file_is_restored_even_when_the_run_blows_up(tmp_path, monkeypatch):
-    """Порча не должна пережить прогон ни при каком исходе.
+    """A break must not outlive the run under any outcome.
 
-    Прерывание с клавиатуры посреди прогона иначе оставило бы испорченный
-    боевой код в рабочем дереве.
+    An interrupt from the keyboard mid-run would otherwise leave the working code
+    broken in the tree.
     """
     sample = tmp_path / "sample.py"
     original = "значение = 1\n"
@@ -110,6 +112,6 @@ def test_file_is_restored_even_when_the_run_blows_up(tmp_path, monkeypatch):
 
     monkeypatch.setattr(mutate, "_pytest", boom)
     with pytest.raises(KeyboardInterrupt):
-        mutate.survives(mutate.Mutation("sample.py", "правило", "1", "2"))
+        mutate.survives(mutate.Mutation("sample.py", "a rule", "1", "2"))
 
     assert sample.read_text(encoding="utf-8") == original
