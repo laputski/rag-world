@@ -1,7 +1,7 @@
-"""Tests for the deterministic maturity level function (STAGE-6 Ф2, plan 02 §3).
+"""Tests of the deterministic maturity-level function.
 
-Покрывает: монотонность, двойной путь к L2 (02-1), manual basis для L5/L6 (02-3),
-детерминизм, уверенность (определение 5), свежесть свидетельств.
+Covered: monotonicity, the two routes to L2, the manual basis required for L5 and
+L6, determinism, confidence, and the freshness of evidence.
 """
 
 from datetime import date, timedelta
@@ -10,7 +10,7 @@ from core.maturity import RULE_VERSION, EvidenceIn, compute_level
 
 TODAY = date(2026, 8, 5)
 FRESH = TODAY - timedelta(days=30)
-STALE_PUB = TODAY - timedelta(days=365 * 5)  # публикация: свежесть 3 года → устарела
+STALE_PUB = TODAY - timedelta(days=365 * 5)  # a publication is fresh for 3 years
 
 
 def _pub(venue: str, fetched: date = FRESH, verified: bool = True) -> EvidenceIn:
@@ -21,13 +21,13 @@ def _pub(venue: str, fetched: date = FRESH, verified: bool = True) -> EvidenceIn
 
 
 def _ev(etype: str, source: str = "x", **kw) -> EvidenceIn:
-    """Свежее проверенное свидетельство произвольного типа (default)."""
+    """A fresh verified piece of evidence of an arbitrary type."""
     kw.setdefault("fetched_at", FRESH)
     kw.setdefault("verified", True)
     return EvidenceIn(type=etype, source=source, **kw)
 
 
-# ─── монотонность и базовые уровни ────────────────────────────────────────────
+# ─── Monotonicity and the base levels ────────────────────────────────────────
 
 
 def test_empty_evidence_gives_l0():
@@ -56,7 +56,7 @@ def test_peer_reviewed_reaches_l2():
 
 
 def test_monotonicity_l3_requires_l2():
-    # Репозиторий без публикации не даёт L3 (нет L1/L2).
+    # A repository without a publication does not give L3: L1 and L2 are missing.
     r = compute_level(
         [_ev("repository", "gh")],
         as_of=TODAY,
@@ -77,36 +77,36 @@ def test_full_progression_to_l4():
     assert r.satisfied == ["L0", "L1", "L2", "L3", "L4"]
 
 
-# ─── 02-1: двойной путь к L2 (Contextual Retrieval) ─────────────────────────
+# ─── The two routes to L2 ────────────────────────────────────────────────────
 
 
 def test_industrial_use_reaches_l2_without_publication():
-    """Решение 02-1: отраслевой путь к L2 без рецензирования.
+    """The industrial route to L2, with no peer review.
 
-    Contextual Retrieval опубликован как отраслевая заметка без рецензирования,
-    но применяется повсеместно. По научному пути он получил бы L0/L1 и оказался
-    ниже препринта — инверсия. Отраслевой путь поднимает его до L2.
+    Contextual Retrieval was published as an industry note without review and is
+    applied everywhere. By the scholarly route it would rank below a preprint,
+    which inverts the meaning. The industrial route raises it to where it belongs.
     """
     r = compute_level(
         [_ev("industrial_use", "anthropic.com")],
         as_of=TODAY,
     )
     assert r.level == "L2"
-    assert r.satisfied == ["L0", "L2"]  # L1 пропущен (отраслевой путь)
+    assert r.satisfied == ["L0", "L2"]  # L1 is bypassed on the industrial route
 
 
 def test_contextual_retrieval_scenario():
-    """Конкретный сценарий Contextual Retrieval: блог + industrial_use."""
+    """The concrete Contextual Retrieval case: an industry note plus industrial use."""
     ev = [
-        _pub("Anthropic blog (no peer review)"),  # blog_talk → L0 по научному
+        _pub("Anthropic blog (no peer review)"),  # L0 by the scholarly route
         _ev("industrial_use", "anthropic.com/news/contextual-retrieval"),
     ]
     r = compute_level(ev, as_of=TODAY)
-    assert r.level == "L2"  # отраслевой путь
+    assert r.level == "L2"  # the industrial route
 
 
 def test_independent_reproduction_reaches_l2():
-    """Независимое воспроизведение — тоже путь к L2 (без peer review)."""
+    """An independent reproduction is also a route to L2, with no peer review."""
     r = compute_level(
         [_ev("independent_reproduction", "third-party-paper")],
         as_of=TODAY,
@@ -114,7 +114,7 @@ def test_independent_reproduction_reaches_l2():
     assert r.level == "L2"
 
 
-# ─── 02-3: manual basis для L5/L6 ─────────────────────────────────────────────
+# ─── A manual basis is required for L5 and L6 ────────────────────────────────
 
 
 def test_l5_marked_manual_basis():
@@ -153,10 +153,10 @@ def test_l0_to_l4_is_computed_basis():
         [_pub("ICLR"), _ev("repository", "gh")],
     ]:
         r = compute_level(evidence, as_of=TODAY)
-        assert r.evidence_basis == "computed", f"{r.level} должно быть computed"
+        assert r.evidence_basis == "computed", f"{r.level} has to be computed"
 
 
-# ─── детерминизм ─────────────────────────────────────────────────────────────
+# ─── Determinism ─────────────────────────────────────────────────────────────
 
 
 def test_deterministic_same_input_same_output():
@@ -166,15 +166,15 @@ def test_deterministic_same_input_same_output():
     assert (a.level, a.confidence, a.evidence_basis) == (b.level, b.confidence, b.evidence_basis)
 
 
-# ─── уверенность и свежесть (определение 5) ──────────────────────────────────
+# ─── Confidence and freshness ────────────────────────────────────────────────
 
 
 def test_stale_evidence_lowers_confidence():
-    """Свидетельство старше периода актуальности не засчитывается в уверенность."""
+    """Evidence older than its period of relevance does not count."""
     fresh = compute_level([_pub("ICLR 2024", fetched=FRESH)], as_of=TODAY)
     stale = compute_level([_pub("ICLR 2024", fetched=STALE_PUB)], as_of=TODAY)
     assert fresh.confidence > stale.confidence
-    assert stale.confidence == 0.0  # публикация 5 лет → устарела (срок 3 года)
+    assert stale.confidence == 0.0  # five years old against a three-year window
 
 
 def test_unverified_evidence_lowers_confidence():
@@ -192,10 +192,10 @@ def test_confidence_between_zero_and_one():
         assert 0.0 <= r.confidence <= 1.0
 
 
-# ─── версия правила ──────────────────────────────────────────────────────────
+# ─── The version of the rule ─────────────────────────────────────────────────
 
 
 def test_rule_version_is_present_and_semver():
     parts = RULE_VERSION.split(".")
-    assert len(parts) == 3, "RULE_VERSION должна быть в формате semver M.m.p"
+    assert len(parts) == 3, "RULE_VERSION has to be semver, M.m.p"
     assert all(p.isdigit() for p in parts)

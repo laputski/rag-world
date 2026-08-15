@@ -1,16 +1,16 @@
-"""Тесты сборщиков присутствия во фреймворках и загрузок пакета.
+"""Tests of the framework-presence and package-download collectors.
 
-Оба открывают уровень L4, до которого иначе не дойти. Оба же легко дают ложные
-свидетельства, и оба дали их при разработке:
+Both open the level L4, unreachable otherwise. Both are also the easiest to give
+false evidence, and both did so during development:
 
-* запись «RAG as Memory» получила присутствие в фреймворке, потому что у неё
-  был псевдоним «memory», а у фреймворка — компонент с таким именем для истории
-  переписки;
-* пакет с именем «raptor» существует, но к рекурсивному древовидному индексу
-  отношения не имеет.
+* the record "RAG as Memory" received framework presence, because it had the alias
+  "memory" and the framework has a component of that name for conversation
+  history;
+* a package named "raptor" exists and has nothing to do with the recursive tree
+  architecture.
 
-Ложное свидетельство хуже отсутствующего: оно поднимает уровень и выглядит как
-факт. Тесты закрепляют защиты, поставленные после этих случаев.
+False evidence is worse than none: it raises a level and looks like a fact. These
+tests pin the protections added after those cases.
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ TODAY = date(2026, 8, 8)
 
 
 class FakeHttp:
-    """Отдаёт заранее заданные ответы по подстроке адреса."""
+    """Returns prepared answers by a substring of the address."""
 
     def __init__(self, routes: dict[str, object], status: int = 200):
         self.routes = routes
@@ -58,11 +58,11 @@ def listing(*names: str) -> list[dict]:
     return [{"name": n} for n in names]
 
 
-# ─── Разбор имён каталогов ───────────────────────────────────────────────────
+# ─── Parsing the folder names ────────────────────────────────────────────────
 
 
 def test_prefixes_are_stripped_from_integration_names():
-    """Интеграции называются по-разному; сравнивать надо со всеми вариантами."""
+    """Integrations are named in several ways; all variants take part."""
     variants = _strip_prefixes("llama-index-retrievers-bm25")
     assert "bm25" in variants
 
@@ -75,29 +75,29 @@ def test_file_stem_is_used_as_is():
     assert normalize("multi_query") in _strip_prefixes("multi_query")
 
 
-# ─── Ложные совпадения ───────────────────────────────────────────────────────
+# ─── False matches ───────────────────────────────────────────────────────────
 
 
 def test_generic_alias_does_not_produce_evidence():
-    """Главный случай: общее слово совпадает с чем угодно."""
+    """The main case: a common word matches anything."""
     assert "memory" in GENERIC_TERMS
     http = FakeHttp({"contents": listing("memory.py", "in_memory.py")})
     evidence, _ = collect_frameworks(
         [tech("rag_as_memory", "RAG as Memory", ["memory"])],
         http=http, today=TODAY,
     )
-    assert evidence == [], "общее слово не может служить ключом сопоставления"
+    assert evidence == [], "a common word cannot serve as a matching key"
 
 
 def test_short_name_does_not_produce_evidence():
-    """Трёхбуквенные имена совпадают со множеством посторонних."""
+    """Three-letter names match a multitude of unrelated ones."""
     http = FakeHttp({"contents": listing("tog.py")})
     evidence, _ = collect_frameworks([tech("tog", "ToG")], http=http, today=TODAY)
     assert evidence == []
 
 
 def test_substring_match_is_not_enough():
-    """Вхождение подстроки дало бы «RAG» внутри доброй сотни имён."""
+    """Substring matching would find "RAG" inside a good hundred names."""
     http = FakeHttp({"contents": listing("graphrag_retriever.py")})
     evidence, _ = collect_frameworks([tech("rag", "RAG")], http=http, today=TODAY)
     assert evidence == []
@@ -122,13 +122,13 @@ def test_alias_produces_evidence():
 
 
 def test_unavailable_catalog_is_reported_not_silently_empty():
-    """Переехавший каталог должен сообщать о себе, а не выглядеть отсутствием."""
+    """A folder that has moved must say so rather than look empty."""
     http = FakeHttp({"contents": 404})
     evidence, errors = collect_frameworks(
         [tech("qdrant", "Qdrant")], http=http, today=TODAY
     )
     assert evidence == []
-    assert errors, "отказ каталога обязан попасть в ошибки"
+    assert errors, "a refusal from the listing has to reach the errors"
 
 
 def test_malformed_listing_does_not_crash():
@@ -140,7 +140,7 @@ def test_malformed_listing_does_not_crash():
     assert errors
 
 
-# ─── Загрузки пакета ─────────────────────────────────────────────────────────
+# ─── Package downloads ───────────────────────────────────────────────────────
 
 
 def test_downloads_above_threshold_produce_evidence():
@@ -154,7 +154,7 @@ def test_downloads_above_threshold_produce_evidence():
 
 
 def test_downloads_below_threshold_produce_nothing():
-    """Столько даёт непрерывная интеграция самих авторов."""
+    """That many come from the authors' own continuous integration."""
     http = FakeHttp({
         "pypi.org/pypi": {"info": {"version": "1.0.0"}},
         "pypistats.org": {"data": {"last_month": MIN_MONTHLY_DOWNLOADS - 1}},
@@ -172,15 +172,15 @@ def test_missing_package_produces_nothing():
 
 
 def test_existing_package_without_statistics_produces_nothing():
-    """Существование пакета — другое утверждение, чем его загрузки."""
+    """That a package exists is a different claim from how often it is taken."""
     http = FakeHttp({"pypi.org/pypi": {"info": {"version": "1.0.0"}}})
     result = collect_pypi("demo", "demo", http=http, today=TODAY)
-    assert result.evidence == [], "тип свидетельства называется «загрузки»"
+    assert result.evidence == [], "the evidence type is called downloads"
     assert result.errors
 
 
 def test_statistics_name_is_normalized():
-    """Служба статистики знает «flagembedding», но не «FlagEmbedding»."""
+    """The statistics service knows "flagembedding" and not "FlagEmbedding"."""
     http = FakeHttp({
         "pypi.org/pypi": {"info": {"version": "1.0"}},
         "pypistats.org": {"data": {"last_month": 600000}},

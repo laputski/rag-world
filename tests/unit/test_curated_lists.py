@@ -1,15 +1,15 @@
-"""Обнаружение по курируемым спискам: разбор разметки и поведение при отказах.
+"""Discovery from curated lists: parsing the markup and behaving under failure.
 
-Источник здесь не служба с договором, а файл, который человек правит руками.
-Отсюда два рода отказа, которых у прочих сборщиков нет. Список может сменить
-форму записи, и разбор молча вернёт пустоту, выглядя при этом работающим. И
-список может содержать сотню работ, из которых новых единицы, поэтому отсев
-обязан идти **до** обращения к arXiv, иначе каждый прогон бьёт по чужой службе
-впустую.
+The source here is not a service with a contract but a file a person edits by
+hand. Hence two kinds of failure the other collectors do not have. A list can
+change the shape of its entries, and the parsing then silently returns nothing
+while looking as though it works. And a list may hold a hundred works of which a
+handful are new, so filtering has to happen **before** the archive is asked, or
+every pass hammers somebody else's service for nothing.
 
-Проверяется всё на записанной разметке. Ставить проверку в зависимость от того,
-что сегодня лежит в чужом репозитории, значит завести тест, падающий от чужой
-правки.
+Everything is checked against recorded markup. Making a check depend on what sits
+in somebody else's repository today would mean a test that fails from other
+people's edits.
 """
 
 from __future__ import annotations
@@ -58,11 +58,11 @@ def routes(**overrides) -> dict[str, SourceBehaviour]:
     return base
 
 
-# ─── Разбор разметки ─────────────────────────────────────────────────────────
+# ─── Parsing the markup ──────────────────────────────────────────────────────
 
 def test_entries_are_parsed_with_identifier_venue_and_year():
     entries = parse_entries(MARKUP.decode("utf-8"))
-    assert entries, "записанная разметка обязана разбираться"
+    assert entries, "the recorded markup has to parse"
     first = entries[0]
     assert first.arxiv_id == "2510.10114"
     assert first.venue == "ICLR 2026"
@@ -71,7 +71,7 @@ def test_entries_are_parsed_with_identifier_venue_and_year():
 
 
 def test_entry_without_a_preprint_is_skipped_silently():
-    """У работы может не быть препринта, и это не поломка списка."""
+    """A work may have no preprint, and that is not a broken list."""
     markup = (
         "- (ACL 2024) **Something Without A Preprint** [[Paper]](https://doi.org/10.1/x)\n"
         "- (ICLR 2026) **With One** [[Paper]](https://arxiv.org/abs/2510.10114)\n"
@@ -89,10 +89,10 @@ def test_repeated_identifier_is_taken_once():
 
 
 def test_free_form_lines_are_not_invented_into_entries():
-    """Разбор берёт одну объявленную форму записи и не угадывает прочие.
+    """The parsing takes one declared shape of entry and guesses nothing.
 
-    Попытка понять произвольную разметку кончается выдуманными заголовками,
-    а выдуманный заголовок доходит до очереди кандидатов и выглядит находкой.
+    Trying to understand arbitrary markup ends in invented titles, and an invented
+    title reaches the candidate queue and looks like data.
     """
     markup = (
         "Some prose mentioning https://arxiv.org/abs/2510.10114 in passing.\n"
@@ -102,10 +102,10 @@ def test_free_form_lines_are_not_invented_into_entries():
     assert parse_entries(markup) == []
 
 
-# ─── Обращение к источникам ──────────────────────────────────────────────────
+# ─── Requests to the sources ─────────────────────────────────────────────────
 
 def test_known_identifiers_are_filtered_before_arxiv_is_asked():
-    """Список велик, новых работ единицы: лишние запросы не делаются."""
+    """The list is large and the new works are few: no superfluous requests."""
     entries = parse_entries(MARKUP.decode("utf-8"))
     everything = {entry.arxiv_id for entry in entries}
     http = FakeTransport(routes())
@@ -117,12 +117,12 @@ def test_known_identifiers_are_filtered_before_arxiv_is_asked():
     assert papers == []
     assert problems == []
     assert http.calls_matching("export.arxiv.org") == [], (
-        "все работы известны, обращаться к arXiv не за чем"
+        "every work is known; there is nothing to ask the archive about"
     )
 
 
 def test_facts_come_from_arxiv_not_from_the_list():
-    """Список пишут руками; заголовок и аннотацию даёт arXiv."""
+    """The list is written by hand; the title and abstract come from the archive."""
     known = {e.arxiv_id for e in parse_entries(MARKUP.decode("utf-8"))} - {"2510.10114"}
     papers, problems = discover_from_lists(
         http=FakeTransport(routes()), lists=(LIST,), known=known
@@ -134,16 +134,16 @@ def test_facts_come_from_arxiv_not_from_the_list():
     assert paper.arxiv_id == "2510.10114"
     assert paper.abstract.startswith("Graph retrieval over a large corpus")
     assert paper.published == date(2025, 10, 11)
-    # Площадка известна только списку, поэтому берётся у него.
+    # Only the list knows the venue, so it is taken from there.
     assert paper.venue == "ICLR 2026"
     assert paper.url == "https://arxiv.org/abs/2510.10114"
 
 
 def test_a_list_that_changed_its_form_is_reported_not_passed_over():
-    """Пустой разбор при успешном ответе — отказ, а не тишина.
+    """An empty parse of a successful answer is a failure, not silence.
 
-    Молчание здесь худший исход: сборщик выглядит работающим, очередь
-    кандидатов не пополняется, и заметить это можно только через месяцы.
+    Silence is the worst outcome here: the collector looks as though it works, the
+    candidate queue does not grow, and noticing that takes months.
     """
     papers, problems = discover_from_lists(
         http=FakeTransport(routes(**{
@@ -169,7 +169,7 @@ def test_unavailable_list_is_reported_and_does_not_raise(status):
 
 
 def test_work_arxiv_does_not_return_is_reported_and_not_invented():
-    """Без аннотации кандидата нет: оценка по заголовку — догадка."""
+    """No abstract, no candidate: scoring from a title alone is a guess."""
     known = {e.arxiv_id for e in parse_entries(MARKUP.decode("utf-8"))} - {"2412.16311"}
     papers, problems = discover_from_lists(
         http=FakeTransport(routes()), lists=(LIST,), known=known
@@ -179,7 +179,7 @@ def test_work_arxiv_does_not_return_is_reported_and_not_invented():
 
 
 def test_a_host_outside_the_allowlist_is_refused():
-    """Перечень разрешённых доменов действует и на этот путь тоже."""
+    """The allowlist applies to this route as well."""
     papers, problems = discover_from_lists(
         http=FakeTransport(routes()),
         lists=(CuratedList(name="Where", readme="https://example.org/x.md", page="x"),),
@@ -189,7 +189,7 @@ def test_a_host_outside_the_allowlist_is_refused():
 
 
 def test_window_keeps_older_entries_out():
-    """Окно отсекает по году площадки, если он в списке указан."""
+    """The window cuts by the venue year, when the list states one."""
     papers, _ = discover_from_lists(
         http=FakeTransport(routes()), lists=(LIST,),
         published_after=date(2026, 1, 1),

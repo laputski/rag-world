@@ -1,14 +1,14 @@
-"""Тесты определения площадки публикации и отбора совпадений.
+"""Tests of venue detection and of match selection.
 
-Здесь закрепляются два свойства, без которых реестру нельзя доверять.
+Two properties are pinned here, and without them the registry cannot be trusted.
 
-Первое: рецензирование распознаётся даже тогда, когда индекс не заполнил
-название площадки. Иначе конференционные публикации навсегда остались бы
-препринтами и не достигали бы подтверждённого уровня.
+First: peer review is recognised even when the index has no venue name. Otherwise
+conference publications would stay preprints for ever and never reach the
+confirmed level.
 
-Второе: ненадёжное совпадение по названию не порождает свидетельства. При
-разработке сборщик успел подобрать к Self-RAG постороннюю работу; молчаливая
-подстановка чужих сведений опаснее отсутствия данных.
+Second: an unreliable match by title creates no evidence. During development the
+collector managed to pick a foreign work for Self-RAG, and substituting somebody
+else's information is more dangerous than having none.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from services.collectors.openalex import _venue_of, collect_openalex
 
 
 class FakeHttp:
-    """Заглушка транспорта: отдаёт заранее заданные ответы по подстроке адреса."""
+    """A stub transport returning prepared answers by a substring of the URL."""
 
     def __init__(self, routes: dict[str, dict], status: int = 200):
         self.routes = routes
@@ -55,7 +55,7 @@ def _work(**kwargs) -> dict:
     return base
 
 
-# ─── Распознавание площадки ──────────────────────────────────────────────────
+# ─── Recognising the venue ───────────────────────────────────────────────────
 
 
 def test_repository_source_is_not_peer_reviewed():
@@ -74,7 +74,7 @@ def test_conference_source_is_peer_reviewed():
 
 
 def test_peer_review_detected_when_venue_name_is_missing():
-    """Главный случай: тип работы и издательский префикс есть, названия нет."""
+    """The main case: a work type and a publisher prefix, and no venue name."""
     work = _work(
         type="conference-paper",
         doi="https://doi.org/10.18653/v1/2024.naacl-long.389",
@@ -91,7 +91,7 @@ def test_unknown_publisher_prefix_is_reported_as_is():
                  primary_location={"source": None}, locations=[])
     venue, reviewed = _venue_of(work)
     assert reviewed is True
-    assert "10.52202" in venue, "издатель неизвестен — показываем префикс, а не выдумку"
+    assert "10.52202" in venue, "the publisher is unknown, so the prefix is shown"
 
 
 def test_preprint_doi_never_counts_as_peer_reviewed():
@@ -100,7 +100,7 @@ def test_preprint_doi_never_counts_as_peer_reviewed():
     assert _venue_of(work)[1] is False
 
 
-# ─── Отбор совпадений ────────────────────────────────────────────────────────
+# ─── Selecting the matches ───────────────────────────────────────────────────
 
 
 def test_resolved_by_identifier_and_enriched_with_reviewed_version():
@@ -125,11 +125,11 @@ def test_resolved_by_identifier_and_enriched_with_reviewed_version():
     value = result.evidence[0].value
     assert "peer_reviewed=true" in value
     assert "venue=ACL Anthology" in value
-    assert "cited_by=183" in value, "берётся наиболее цитируемая версия работы"
+    assert "cited_by=183" in value, "the most cited version of the work is taken"
 
 
 def test_foreign_work_is_rejected_instead_of_recorded():
-    """Название не совпало — свидетельство не создаётся."""
+    """The title did not match, so no evidence is created."""
     foreign = _work(id="https://openalex.org/W9", title="CareerX: A Framework",
                     cited_by_count=500)
     http = FakeHttp({"title.search": {"results": [foreign]}})
@@ -142,7 +142,7 @@ def test_foreign_work_is_rejected_instead_of_recorded():
 
 
 def test_prefix_match_accepts_full_paper_title():
-    """Имя технологии — начало заголовка работы; это допустимое совпадение."""
+    """The technology name begins the title of the work, which is admissible."""
     work = _work(id="https://openalex.org/W3",
                  title="Self-RAG: Learning to Retrieve, Generate, and Critique")
     http = FakeHttp({"title.search": {"results": [work]}})
@@ -155,14 +155,14 @@ def test_prefix_match_accepts_full_paper_title():
 
 
 def test_title_separators_do_not_break_the_query():
-    """Запятая и двоеточие в названии разделяют условия фильтра индекса."""
+    """A comma and a colon in a title separate filter conditions."""
     work = _work(title="Self-RAG: Learning to Retrieve, Generate, and Critique")
     http = FakeHttp({"works/doi:10.48550": work, "title.search": {"results": [work]}})
     collect_openalex(
         "self_rag", "https://arxiv.org/abs/2310.11511", http=http, today=TODAY,
     )
     search_calls = [c for c in http.calls if "title.search" in c]
-    assert search_calls, "поиск по названию должен выполняться"
+    assert search_calls, "the search by title has to run"
     assert "%2C" not in search_calls[0] and "%3A" not in search_calls[0]
 
 
@@ -172,7 +172,7 @@ def test_citation_velocity_is_reported_not_raw_count_only():
     result = collect_openalex(
         "demo", "https://arxiv.org/abs/2602.00001", http=http, today=TODAY,
     )
-    # Шесть месяцев, шестьдесят цитирований — десять в месяц.
+    # Six months and sixty citations make ten a month.
     assert "citation_velocity=10.0" in result.evidence[0].value
 
 
@@ -185,12 +185,11 @@ def test_missing_work_reports_error_without_evidence():
 
 
 def test_title_with_a_question_mark_does_not_break_the_query():
-    """Знаки подстановки в названии работы делают запрос недопустимым.
+    """Wildcards in the title of a work make the request inadmissible.
 
-    Индекс считает `?` и `*` подстановкой и отвечает кодом 400, а работа молча
-    остаётся без сведений о площадке — то есть навсегда препринтом. Названий с
-    вопросительным знаком в области полно: «What Retrieval Granularity Should
-    We Use?» — одно из них.
+    The index treats `?` and `*` as wildcards and answers 400, and the record is
+    left without a venue — that is, a preprint for ever. Titles with a question
+    mark abound in this field; "What Retrieval Granularity Should We Use?" is one.
     """
     import re
 
@@ -202,4 +201,4 @@ def test_title_with_a_question_mark_does_not_break_the_query():
     ]:
         cleaned = re.sub(r"[,|:?*]+", " ", title).strip()
         assert cleaned == expected, cleaned
-        assert not set("?*:,|") & set(cleaned), f"остались разделители: {cleaned!r}"
+        assert not set("?*:,|") & set(cleaned), f"separators remain: {cleaned!r}"
