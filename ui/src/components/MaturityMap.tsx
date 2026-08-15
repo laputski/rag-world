@@ -240,7 +240,11 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       yAxis: {
         type: "value",
         min: unknownAttentionY - maxAttention * 0.06,
-        axisLine: { lineStyle: { color: line } },
+        // `onZero` is on by default, and it draws the axis at the zero of the
+        // other scale instead of at the edge of the plot. Zero is the centre of
+        // a column here, so the axis would stand inside a band and read as a
+        // boundary that cuts it in half.
+        axisLine: { onZero: false, lineStyle: { color: line } },
         splitLine: { lineStyle: { color: line, type: "dashed" as const } },
         axisLabel: {
           color: muted,
