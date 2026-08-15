@@ -7,6 +7,10 @@ type: dataset
 authors:
   - family-names: Laputski
     given-names: Alexander
+# The concept identifier: it always resolves to the newest version. A paper
+# citing one particular state should use that release's own identifier, which
+# the About page gives in every citation format.
+doi: "10.5281/zenodo.21943978"
 repository-code: "https://github.com/laputski/rag-world"
 url: "https://ragworld.org"
 abstract: >-

@@ -115,3 +115,22 @@ def test_file_is_restored_even_when_the_run_blows_up(tmp_path, monkeypatch):
         mutate.survives(mutate.Mutation("sample.py", "a rule", "1", "2"))
 
     assert sample.read_text(encoding="utf-8") == original
+
+
+def test_the_run_leaves_no_compiled_mutant_behind():
+    """A mutant must not survive in the bytecode cache.
+
+    Python calls a cached `.pyc` current by the source's modification time and
+    size. A mutation that keeps the size and is restored within the same second
+    leaves a cache both checks accept, and the next run executes the mutant while
+    the source on disk is sound.
+
+    That is the worst shape a failure can take here: the suite goes green over
+    broken bytecode, and whatever it writes is written by the mutant. It happened
+    once, and the candidate queue was rewritten with scores a mutant computed.
+    """
+    source = (ROOT / "scripts" / "mutate.py").read_text(encoding="utf-8")
+    assert "PYTHONDONTWRITEBYTECODE" in source, (
+        "the mutation run writes bytecode; a restored file can then be read from "
+        "a mutant's cache"
+    )

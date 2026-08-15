@@ -41,7 +41,7 @@ const REPOSITORY = "https://github.com/laputski/rag-world";
 const SOURCES = ["arXiv", "OpenAlex", "GitHub", "PyPI", "Papers with Code",
                  "Awesome-GraphRAG"];
 
-interface Release { tag: string }
+interface Release { tag: string; doi?: string }
 
 /** A ready citation with a copy button. */
 function Snippet({ text }: { text: string }) {
@@ -77,7 +77,7 @@ export function AboutPage() {
   // GOST is of no use to an English-speaking reader: it is a Russian standard.
   const style = i18n.language === "ru" ? toGost : toPlain;
   const [stats, setStats] = useState<RegistryStats | null>(null);
-  const [release, setRelease] = useState<string | null>(null);
+  const [release, setRelease] = useState<Release | null>(null);
   const [example, setExample] = useState(false);
   const [access, setAccess] = useState(false);
 
@@ -85,7 +85,7 @@ export function AboutPage() {
   useEffect(() => {
     fetch("/data/releases/index.json")
       .then((r) => (r.ok ? r.json() : { releases: [] }))
-      .then((d) => setRelease((d.releases as Release[])?.[0]?.tag ?? null))
+      .then((d) => setRelease((d.releases as Release[])?.[0] ?? null))
       .catch(() => setRelease(null));
   }, []);
 
@@ -302,16 +302,18 @@ export function AboutPage() {
           <Typography variant="h5" sx={{ mb: 1 }}>{t("about.cite")}</Typography>
           <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle2">{t("cite.gost")}</Typography>
-            <Snippet text={style({ release })} />
+            <Snippet text={style({ release: release.tag, doi: release.doi })} />
           </Paper>
           <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle2">{t("cite.bibtex")}</Typography>
-            <Snippet text={toBibTeX({ release })} />
+            <Snippet text={toBibTeX({ release: release.tag, doi: release.doi })} />
           </Paper>
           <Paper variant="outlined" sx={{ p: 2, mb: 3 }}>
             <Typography variant="subtitle2">{t("cite.recordTitle")}</Typography>
             <Snippet text={style({
-              release, technology: { id: "pathrag", name: "PathRAG" },
+              release: release.tag,
+              doi: release.doi,
+              technology: { id: "pathrag", name: "PathRAG" },
             })} />
           </Paper>
         </>

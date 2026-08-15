@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { toBibTeX, toGost } from "../citation";
+import { toBibTeX, toGost, toPlain } from "../citation";
 
 /**
  * A citation has to point at a release rather than at the current state.
@@ -34,5 +34,34 @@ describe("a bibliographic citation", () => {
 
   it("under GOST names the date accessed", () => {
     expect(toGost({ release })).toContain("дата обращения");
+  });
+});
+
+/**
+ * The persistent identifier of a release, once it has been deposited.
+ *
+ * A release is deposited after it is cut, so the identifier arrives later and is
+ * recorded in the release index. Every citation format has to pick it up from
+ * there: an address depends on the hosting outliving the citation, and that
+ * dependency is the whole reason the identifier exists.
+ */
+describe("the identifier of a release", () => {
+  const release = "2026-08-14";
+  const doi = "10.5281/zenodo.21943979";
+
+  it("reaches every citation format", () => {
+    expect(toBibTeX({ release, doi })).toContain(`doi          = {${doi}}`);
+    expect(toGost({ release, doi })).toContain(`DOI: ${doi}`);
+    expect(toPlain({ release, doi })).toContain(`https://doi.org/${doi}`);
+  });
+
+  it("does not displace the address, which resolves without a library", () => {
+    expect(toPlain({ release, doi })).toContain("ragworld.org");
+    expect(toGost({ release, doi })).toContain("ragworld.org");
+  });
+
+  it("is absent from a release that has not been deposited", () => {
+    expect(toBibTeX({ release })).not.toContain("doi");
+    expect(toGost({ release })).not.toContain("DOI");
   });
 });

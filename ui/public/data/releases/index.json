@@ -1,6 +1,7 @@
 {
   "releases": [
     {
+      "doi": "10.5281/zenodo.21943979",
       "evidence": 211,
       "files": [
         "registry.json",

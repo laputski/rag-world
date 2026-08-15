@@ -31,6 +31,7 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 import time
@@ -415,10 +416,26 @@ def suite_is_green() -> bool:
 
 
 def _pytest() -> subprocess.CompletedProcess:
+    # The mutant must not leave compiled bytecode behind.
+    #
+    # Python decides a cached `.pyc` is current by the source's modification time
+    # and size. A mutation that keeps the size — `add(2, ...)` becoming
+    # `add(0, ...)` — and is restored within the same second leaves a `.pyc` that
+    # both checks call valid. The next run then executes the mutant from cache
+    # while the source on disk is sound.
+    #
+    # That is the worst shape a failure can take here: the suite goes green on
+    # broken bytecode, and anything it writes is written by the mutant. It cost
+    # real data once — the candidate queue was rewritten with scores computed by
+    # a mutant, and the file looked like an ordinary edit.
+    #
+    # Writing no bytecode at all removes the whole class: the mutant is compiled
+    # in memory, and the cache on disk keeps belonging to the sound source.
+    env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
     return subprocess.run(
         [sys.executable, "-m", "pytest", "tests/", "-q", "-x", "--no-header",
          "-p", "no:cacheprovider"],
-        cwd=ROOT, capture_output=True, text=True,
+        cwd=ROOT, capture_output=True, text=True, env=env,
     )
 
 

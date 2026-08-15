@@ -28,6 +28,15 @@ export interface CitationTarget {
   release: string;
   /** A registry record; absent when the whole release is cited. */
   technology?: { id: string; name: string };
+  /**
+   * The persistent identifier of this release, once it has been deposited.
+   *
+   * It is preferred over the address wherever a citation style has room for it:
+   * the address depends on the hosting outliving the citation, and the identifier
+   * does not. The address stays beside it, because it resolves for a reader with
+   * no library behind them.
+   */
+  doi?: string;
 }
 
 function releaseUrl(target: CitationTarget): string {
@@ -38,6 +47,11 @@ function releaseUrl(target: CitationTarget): string {
 
 function year(release: string): string {
   return release.slice(0, 4);
+}
+
+/** The resolvable form of an identifier, for the styles that want a link. */
+function doiUrl(doi: string): string {
+  return `https://doi.org/${doi}`;
 }
 
 /** The citation in BibTeX form. */
@@ -54,6 +68,7 @@ export function toBibTeX(target: CitationTarget): string {
     `  title        = {${title}},`,
     `  year         = {${year(target.release)}},`,
     `  note         = {Release ${target.release}},`,
+    ...(target.doi ? [`  doi          = {${target.doi}},`] : []),
     `  howpublished = {\\url{${releaseUrl(target)}}}`,
     `}`,
   ].join("\n");
@@ -64,8 +79,9 @@ export function toGost(target: CitationTarget): string {
   const what = target.technology
     ? `${target.technology.name} // ${TITLE}`
     : TITLE;
+  const doi = target.doi ? `DOI: ${target.doi}. ` : "";
   return (
-    `${AUTHOR}. ${what} : выпуск ${target.release}. ` +
+    `${AUTHOR}. ${what} : выпуск ${target.release}. ${doi}` +
     `URL: ${releaseUrl(target)} (дата обращения: ${today("ru")}).`
   );
 }
@@ -82,8 +98,9 @@ export function toPlain(target: CitationTarget): string {
   const what = target.technology
     ? `${target.technology.name}. In ${TITLE_LATIN}`
     : TITLE_LATIN;
+  const doi = target.doi ? `${doiUrl(target.doi)}. ` : "";
   return (
-    `${AUTHOR_LATIN}. ${what}. Release ${target.release}. ` +
+    `${AUTHOR_LATIN}. ${what}. Release ${target.release}. ${doi}` +
     `Available at: ${releaseUrl(target)} (accessed ${today("en")}).`
   );
 }

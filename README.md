@@ -16,6 +16,7 @@ derived by a deterministic rule from collected evidence, and the evidence itself
 [![Mutation run](https://img.shields.io/github/actions/workflow/status/laputski/rag-world/mutation.yml?label=mutation%20run&logo=githubactions&logoColor=white)](https://github.com/laputski/rag-world/actions/workflows/mutation.yml)
 [![Code licence](https://img.shields.io/badge/code-Apache--2.0-blue?logo=apache&logoColor=white)](LICENSE)
 [![Data licence](https://img.shields.io/badge/data-CC%20BY%204.0-blue?logo=creativecommons&logoColor=white)](data/LICENSE.md)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21943978-1682D4?logo=doi&logoColor=white)](https://doi.org/10.5281/zenodo.21943978)
 
 [Foundations](https://ragworld.org/article) ·
 [Registry](https://ragworld.org/registry) ·
@@ -158,7 +159,10 @@ python3 scripts/mutate.py --only links
 Cite a release rather than the live files: the live files change every week.
 
 Releases are dated, immutable snapshots listed in
-[`data/releases/index.json`](https://ragworld.org/data/releases/index.json).
+[`data/releases/index.json`](https://ragworld.org/data/releases/index.json), and
+a deposited release carries its own persistent identifier there. The badge above
+points at the concept identifier, which always resolves to the newest release;
+cite a particular state by that release's own identifier.
 Citation formats for a release and for a single record are on the
 [About page](https://ragworld.org/about), and
 [docs/RELEASING.md](docs/RELEASING.md) describes how a release is cut and

@@ -71,17 +71,29 @@ a README, where "the current registry" is meant.
 
 ## 3. After the DOI exists
 
-Three places name it, and all three should be updated in the same commit:
+Zenodo issues two identifiers and the difference decides where each goes.
 
-- `CITATION.cff` — add `doi:` with the concept DOI, so that GitHub's own "Cite
-  this repository" widget offers it;
-- `README.md` — a DOI badge beside the licence badges;
-- the About page of the portal — the citation formats are built in
-  `ui/src/citation.ts`, which currently produces a URL to the release. A DOI
-  belongs in the same entry, not instead of the URL: the DOI resolves for a
-  reader with a library, the URL for everyone else.
+Record the **version DOI** in the release index, on the entry for that release:
 
-Until a DOI exists, the citation formats point at
+```json
+{ "tag": "2026-08-14", "doi": "10.5281/zenodo.21943979", ... }
+```
+
+It is added by hand, because the identifier exists only after the deposit and
+`make_release.py` cannot know it at the moment a release is cut. Existing entries
+survive later releases untouched, so it stays. From there every citation format
+picks it up: the About page shows it in BibTeX, in GOST and in the plain English
+form, beside the address rather than instead of it — the address resolves for a
+reader with no library behind them.
+
+Record the **concept DOI**, which always resolves to the newest release, in two
+places:
+
+- `CITATION.cff` as `doi:`, so that GitHub's own "Cite this repository" widget
+  offers it;
+- `README.md` as a badge beside the licence badges.
+
+Until a release has been deposited its citations point at
 `https://ragworld.org/data/releases/<date>/registry.json`, which is stable but
-depends on the hosting outliving the citation. That is precisely the dependency
-a DOI removes, and it is the reason to do this at all.
+depends on the hosting outliving the citation. That dependency is what an
+identifier removes, and it is the reason to do this at all.
