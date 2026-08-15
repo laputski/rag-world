@@ -1,17 +1,17 @@
-"""Дымовая проверка развёрнутого портала.
+"""A smoke check of the deployed portal.
 
-Отдельно от основного набора и в него не входит: она требует сети и проверяет
-не код, а результат развёртывания. Смешивать их нельзя — тест, падающий из-за
-чужой сети, перестают читать вместе со всеми остальными.
+Kept apart from the main suite and outside it: it needs a network and checks the
+result of a deployment rather than the code. Mixing the two is not an option — a
+test that fails because of somebody else's network stops being read, and the rest
+of the suite stops being read along with it.
 
-Запуск::
+To run::
 
-    pytest tests/smoke -m network
     make smoke
 
-Проверяется то, что ломается именно при развёртывании и не ловится ничем
-другим: правило переписывания адресов, наличие файлов данных, отсутствие
-обращений к внешним источникам и совпадение опубликованного с репозиторием.
+What is checked is what breaks at deployment and nowhere else: the address
+rewrite rule, the presence of the data files, the absence of requests to external
+sources, and the agreement of what is published with what is in the repository.
 """
 
 from __future__ import annotations
@@ -30,10 +30,10 @@ requests = pytest.importorskip("requests")
 
 pytestmark = pytest.mark.network
 
-#: Адрес развёрнутого портала. Он же указан в render.yaml и в представлении
-#: транспорта: обращаясь к чужим площадкам, портал называет себя этим адресом.
-#: Собственное имя портала. Площадка отвечает и по своему адресу
-#: (rag-world.onrender.com), но проверяется то, что видит читатель.
+#: The address of the deployed portal. The same one appears in render.yaml and in
+#: the transport's introduction: the portal names itself by its own name when it
+#: reaches other platforms. The platform also answers at its own address
+#: (rag-world.onrender.com), but what is checked is what a reader sees.
 BASE_URL = "https://ragworld.org"
 
 HEADERS = {"User-Agent": "rag-world/0.2 (smoke check)"}
@@ -51,7 +51,7 @@ def get(path: str):
     return requests.get(BASE_URL + path, headers=HEADERS, timeout=TIMEOUT)
 
 
-# ─── Доступность разделов ────────────────────────────────────────────────────
+# ─── The sections are reachable ──────────────────────────────────────────────
 
 
 @pytest.mark.parametrize("path", ["/", "/registry", "/changes", "/digest", "/article", "/about"])
@@ -60,10 +60,10 @@ def test_sections_answer(path):
 
 
 def test_direct_link_to_a_card_opens(index_html):
-    """Прямой адрес карточки — обязательное условие цитируемости.
+    """A direct address for a card is a precondition of being citable.
 
-    Без правила переписывания статический хостинг вернул бы «страницы нет», и
-    ссылка на запись из чужой работы вела бы в пустоту.
+    Without the rewrite rule the static hosting would answer "not found", and a
+    link to a record from somebody else's work would lead into nothing.
     """
     resp = get("/tech/pathrag")
     assert resp.status_code == 200
@@ -71,19 +71,20 @@ def test_direct_link_to_a_card_opens(index_html):
 
 
 def test_unknown_address_gets_a_human_answer():
-    """Правило переписывания отдаёт index.html на любой адрес.
+    """The rewrite rule serves index.html for any address.
 
-    Значит опечатка доходит до приложения, и читатель обязан увидеть внятный
-    ответ, а не отладочный экран маршрутизатора с обращением к разработчику.
-    Проверяется по собранной странице: сам текст подставляется на клиенте,
-    поэтому здесь достаточно, что адрес обслужен и отдана оболочка портала.
+    So a typo reaches the application, and the reader has to receive an
+    intelligible answer rather than the router's debug screen addressing a
+    developer. It is checked against the built page: the text itself is inserted in
+    the browser, so it is enough here that the address was served and the shell
+    returned.
     """
-    resp = get("/такого-адреса-нет")
+    resp = get("/no-such-address")
     assert resp.status_code == 200
     assert "Unexpected Application Error" not in resp.text
 
 
-# ─── Данные ──────────────────────────────────────────────────────────────────
+# ─── The data ────────────────────────────────────────────────────────────────
 
 
 @pytest.mark.parametrize("name", [
@@ -96,51 +97,52 @@ def test_data_files_are_published(name):
 
 
 def test_published_data_matches_the_repository():
-    """Развёрнуто то, что лежит в репозитории.
+    """What is deployed is what is in the repository.
 
-    Расхождение означает, что развёртывание отстало или не прошло, а портал
-    при этом выглядит исправным: он показывает данные, просто вчерашние.
+    A divergence means the deployment lagged behind or did not happen. The portal
+    looks sound meanwhile: it shows data, only yesterday's.
     """
     live = get("/data/registry.json").json()
     local = json.loads(
         (ROOT / "ui" / "public" / "data" / "registry.json").read_text(encoding="utf-8")
     )
     assert live["count"] == local["count"], (
-        f"на площадке {live['count']} записей, в репозитории {local['count']}"
+        f"the platform has {live['count']} records, the repository {local['count']}"
     )
     assert live["built_at"] == local["built_at"], (
-        f"на площадке собрано {live['built_at']}, в репозитории {local['built_at']}"
+        f"built on the platform {live['built_at']}, in the repository "
+        f"{local['built_at']}"
     )
 
 
 def test_assets_are_served_not_rewritten(index_html):
-    """Ресурсы обязаны отдаваться собой, а не оболочкой портала.
+    """Assets have to be served as themselves rather than as the portal shell.
 
-    Правило переписывания ловит любой неизвестный адрес, поэтому проверка по
-    коду ответа бессмысленна: 200 вернётся и на несуществующий файл. Смотреть
-    надо на тип содержимого.
+    The rewrite rule catches any unknown address, so checking the status code means
+    nothing: a 200 comes back for a file that does not exist. What has to be
+    checked is the content type.
     """
     assets = re.findall(r"/assets/[A-Za-z0-9._-]+\.(?:js|css)", index_html)
-    assert assets, "в собранной странице нет ссылок на ресурсы"
+    assert assets, "the built page carries no links to assets"
     for path in assets[:2]:
         resp = get(path)
         assert resp.status_code == 200, path
         assert "text/html" not in resp.headers.get("Content-Type", ""), (
-            f"{path} отдан оболочкой портала вместо файла"
+            f"{path} was served as the portal shell instead of the file"
         )
 
 
-# ─── Самодостаточность ───────────────────────────────────────────────────────
+# ─── Self-sufficiency ────────────────────────────────────────────────────────
 
 
 def test_page_asks_no_external_host(index_html):
-    """Портал не должен зависеть от чужих площадок при отрисовке.
+    """The portal must not depend on other platforms while rendering.
 
-    Шрифты и стили встроены в сборку намеренно: обращение к стороннему хосту
-    делает портал заложником его доступности и сообщает читателя третьей
-    стороне.
+    The fonts and styles are built in deliberately: reaching an external one makes
+    the portal hostage to its availability and reports the reader to a third
+    party.
     """
     external = re.findall(r'(?:src|href)="(https?://[^"]+)"', index_html)
     allowed = (BASE_URL,)
     stray = [u for u in external if not u.startswith(allowed)]
-    assert not stray, f"страница обращается наружу: {stray[:5]}"
+    assert not stray, f"the page reaches outward: {stray[:5]}"
