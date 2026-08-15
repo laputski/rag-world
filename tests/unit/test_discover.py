@@ -1,12 +1,12 @@
-"""Очередь кандидатов: обнаружение не заводит записей.
+"""The candidate queue: discovery creates no records.
 
-Найденная работа — предположение, а не технология. Правило, решающее «это новая
-архитектура, а не приложение существующей», ошибается, и цена ошибки — запись
-реестра о том, чего нет. Поэтому обнаружение только дописывает очередь, а
-решение остаётся за человеком.
+A work that has been found is a supposition, not a technology. The rule deciding
+"this is a new architecture rather than an application of an existing one" errs,
+and the price of the error is a registry record about something that does not
+exist. So discovery only appends to the queue, and the decision stays a person's.
 
-Отсев проверяется отдельно: кандидат, уже описанный реестром либо однажды
-отклонённый, не должен всплывать снова ни при каком числе прогонов.
+Filtering is checked separately: a candidate already in the registry or already
+refused must not surface again on any number of passes.
 """
 
 from __future__ import annotations
@@ -56,11 +56,11 @@ def first_paper() -> dict:
     return json.loads(load_fixture("pwc_discovery.json"))["results"][0]
 
 
-# ─── Обнаружение не трогает реестр ───────────────────────────────────────────
+# ─── Discovery does not touch the registry ───────────────────────────────────
 
 
 def test_discovery_creates_no_registry_records(workspace):
-    """Главное свойство ступени: она предлагает, а не решает."""
+    """The main property of the stage: it proposes rather than decides."""
     before = len(store.load_technologies())
     discover.run(http=feed(), today=TODAY, since_days=30)
     assert len(store.load_technologies()) == before == 0
@@ -74,7 +74,7 @@ def test_found_papers_land_in_the_queue(workspace):
     rows = discover.load_candidates()
     assert len(rows) == summary.added
     assert all(row["verdict"] is None for row in rows), (
-        "вердикт проставляет человек, а не обнаружение"
+        "the verdict is entered by a person, not by discovery"
     )
     assert all(row["found_at"] == TODAY.isoformat() for row in rows)
     assert all(row["source"].startswith("https://paperswithcode.co/") for row in rows)
@@ -85,11 +85,11 @@ def test_dry_run_writes_nothing(workspace):
     assert discover.load_candidates() == []
 
 
-# ─── Отсев ───────────────────────────────────────────────────────────────────
+# ─── Filtering ───────────────────────────────────────────────────────────────
 
 
 def test_paper_already_in_the_registry_is_skipped(workspace):
-    """Реестр узнаётся по номеру препринта в ссылке."""
+    """The registry is recognised by the preprint number in a link."""
     paper = first_paper()
     store.save_technology(store.Technology(
         id="known", name="Known", kind="architecture", groups=["A"],
@@ -103,7 +103,7 @@ def test_paper_already_in_the_registry_is_skipped(workspace):
 
 
 def test_paper_matching_a_registry_name_is_skipped(workspace):
-    """Имя работы обычно длиннее имени технологии и стоит до двоеточия."""
+    """A work's title is usually longer than a name and stands before the colon."""
     paper = first_paper()
     head = paper["title"].split(":", 1)[0].strip()
     store.save_technology(store.Technology(
@@ -114,11 +114,11 @@ def test_paper_matching_a_registry_name_is_skipped(workspace):
 
 
 def test_once_rejected_name_does_not_return(workspace):
-    """Отклонённое имя всплывало бы каждую неделю, и работа повторялась бы."""
+    """A refused name would surface every week and the work would repeat."""
     paper = first_paper()
     head = paper["title"].split(":", 1)[0].strip()
     discover.REJECTED.write_text(
-        json.dumps({"name": head, "reason": "приложение, а не архитектура"},
+        json.dumps({"name": head, "reason": "an application, not an architecture"},
                    ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
@@ -146,7 +146,7 @@ def test_second_run_does_not_duplicate_the_queue(workspace):
     assert len(discover.load_candidates()) == first
 
 
-# ─── Отказ источника ─────────────────────────────────────────────────────────
+# ─── A source refusing ───────────────────────────────────────────────────────
 
 
 def test_catalogue_refusal_does_not_break_the_pass(workspace):
@@ -154,19 +154,19 @@ def test_catalogue_refusal_does_not_break_the_pass(workspace):
     summary = discover.run(http=http, today=TODAY, since_days=30)
 
     assert summary.added == 0
-    assert summary.problems, "отказ каталога обязан попасть в отчёт"
+    assert summary.problems, "a refusal from the catalogue has to reach the report"
     assert discover.load_candidates() == []
 
 
 def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
-    """Пересчёт не должен терять признак, выведенный при находке.
+    """Recomputation must not lose a signal derived at discovery.
 
-    Оценка пересчитывается по строке очереди, а не по источнику, поэтому всё,
-    что влияет на неё, обязано лежать в самой строке и передаваться обратно.
-    Один раз так и вышло: работы, найденные по курируемым спискам, теряли
-    признак включения в список при первом же пересчёте, и оценка падала на два
-    очка без всякого события. Отказ тихий вдвойне — очередь остаётся на месте,
-    меняется только порядок просмотра.
+    The score is recomputed from the queue line rather than from the source, so
+    everything affecting it has to sit in that line and be handed back explicitly.
+    That went wrong once: works found through curated lists lost the
+    inclusion-in-a-list signal on the first recomputation, and their scores fell by
+    a point with no event behind it. The failure is doubly quiet — the queue is
+    there and only the order of review changes.
     """
     import json as _json
 
@@ -188,6 +188,6 @@ def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
     after = _json.loads(queue.read_text(encoding="utf-8").strip())
     codes = [signal["code"] for signal in after["fit"]["signals"]]
     assert "curatedList" in codes, (
-        "признак включения в курируемый список потерян при пересчёте"
+        "the curated-list signal was lost on recomputation"
     )
     assert after["fit"]["score"] >= 4

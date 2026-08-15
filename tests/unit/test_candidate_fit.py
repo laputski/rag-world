@@ -1,13 +1,11 @@
-"""Оценка пригодности кандидата: порядок просмотра, а не утверждение о работе.
+"""How well a candidate fits: an order of review, not a claim about the work.
 
-Правило существует ради одного: отделить работу об устройстве извлечения от
-применения RAG к предметной области. Все находки помечены каталогом как
-относящиеся к RAG, и по одной этой метке отличить архитектуру от применения
-нельзя.
+The rule exists for one purpose: to tell work about the make-up of RAG from work
+applying RAG to a subject area. Every find is tagged by the catalogue as relating
+to RAG, and that tag alone cannot tell an architecture from an application.
 
-Проверки строятся на настоящих находках: восстановление исторических
-документов, экономические модели мира и переранжировщик существуют, и правило
-обязано ставить их в правильном порядке.
+The checks are built on real finds: restoring historical documents, economic world
+models, and an existing reranker. The rule has to put them in the right order.
 """
 
 from __future__ import annotations
@@ -36,7 +34,7 @@ def codes(fit) -> list[str]:
     return [signal["code"] for signal in fit.signals]
 
 
-# ─── Признаки ────────────────────────────────────────────────────────────────
+# ─── The signals ─────────────────────────────────────────────────────────────
 
 
 def test_task_within_the_subject_weighs_most():
@@ -60,7 +58,7 @@ def test_mechanism_vocabulary_lifts_the_score():
 
 
 def test_foreign_field_lowers_the_score_when_the_subject_is_absent():
-    """Восстановление исторических документов помечено обработкой изображений."""
+    """Restoring historical documents is tagged as document processing."""
     fit = assess(
         title="Leveraging External Knowledge for Historical Document Restoration",
         abstract="We restore damaged manuscripts.",
@@ -71,10 +69,10 @@ def test_foreign_field_lowers_the_score_when_the_subject_is_absent():
 
 
 def test_foreign_field_does_not_lower_a_work_about_retrieval():
-    """Извлечение в мультимодальной системе остаётся извлечением.
+    """Retrieval in a multimodal system is still retrieval.
 
-    Иначе правило наказывало бы за модальность, а модальность у схемы своё
-    измерение и предметом реестра быть не перестаёт.
+    Otherwise the rule would penalise modality, and modality is a dimension of the
+    schema and does not stop being the registry's subject.
     """
     fit = assess(
         title="UEmbed: Unified Sparse and Dense Multimodal Embeddings",
@@ -85,7 +83,7 @@ def test_foreign_field_does_not_lower_a_work_about_retrieval():
     assert fit.score >= 6
 
 
-# ─── Порядок, ради которого правило существует ───────────────────────────────
+# ─── The order the rule exists for ───────────────────────────────────────────
 
 
 def test_architecture_outranks_a_domain_application():
@@ -102,7 +100,7 @@ def test_architecture_outranks_a_domain_application():
     assert architecture.score > application.score
 
 
-# ─── Свойства оценки ─────────────────────────────────────────────────────────
+# ─── Properties of the score ─────────────────────────────────────────────────
 
 
 def test_score_stays_within_bounds():
@@ -114,11 +112,11 @@ def test_score_stays_within_bounds():
     assert 0 <= everything.score <= MAX_SCORE
 
     nothing = assess(title="", abstract="", tasks=tasks("world-models"))
-    assert nothing.score == 0, "ниже нуля оценка не опускается"
+    assert nothing.score == 0, "the score never falls below zero"
 
 
 def test_signals_are_codes_and_not_phrases():
-    """Портал двуязычен, и фраза, собранная правилом, была бы на одном языке."""
+    """The portal is bilingual, and a phrase built by a rule would be in one language."""
     fit = assess(title="NAME: A thing", abstract=MECHANISM, tasks=tasks("retrieval"))
     assert fit.signals
     for signal in fit.signals:
@@ -127,13 +125,13 @@ def test_signals_are_codes_and_not_phrases():
 
 
 def test_assessment_is_reproducible():
-    """Одни и те же данные дают одну и ту же оценку: правило детерминированное."""
+    """The same data yields the same score: the rule is deterministic."""
     args = dict(title="NAME: A thing", abstract=MECHANISM, tasks=tasks("retrieval"))
     assert assess(**args).as_dict() == assess(**args).as_dict()
 
 
-@pytest.mark.parametrize("tasks_value", [None, [], [{}], ["строка"], [{"name": "x"}]])
+@pytest.mark.parametrize("tasks_value", [None, [], [{}], ["a string"], [{"name": "x"}]])
 def test_broken_task_list_does_not_raise(tasks_value):
-    """Каталог может отдать что угодно, и оценка не должна ронять проход."""
+    """The catalogue may return anything, and the scoring must not crash the pass."""
     fit = assess(title="X", abstract="", tasks=tasks_value)
     assert 0 <= fit.score <= MAX_SCORE
