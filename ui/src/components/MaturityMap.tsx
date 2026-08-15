@@ -206,13 +206,21 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       },
       xAxis: {
         type: "value",
-        // The bounds are whole numbers, or the ticks miss the integers and the
-        // level labels land beside their bands rather than on them.
-        min: -1,
-        max: levels.length,
-        interval: 1,
+        // A level is a column, and the label names the column rather than a
+        // line inside it. The bounds therefore fall on the band edges, half a
+        // step outside the outermost centres, so every column is full width and
+        // none is clipped.
+        //
+        // The dashed lines are drawn as marks below, not by the axis: the axis
+        // puts them on its ticks, and its ticks are where the labels are. A
+        // reader who sees a line through a label reads it as a boundary and
+        // splits the column in two.
+        min: -1.5,
+        max: levels.length - 0.5,
+        interval: 0.5,
         axisLine: { lineStyle: { color: line } },
-        splitLine: { lineStyle: { color: line, type: "dashed" as const } },
+        axisTick: { show: false },
+        splitLine: { show: false },
         axisLabel: {
           color: muted,
           fontFamily: MONO,
@@ -275,11 +283,18 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
             },
             lineStyle: { color: line, type: "solid" as const, width: 1 },
             data: [
-              // The zero line separates measured attention from its absence,
-              // and the vertical separates records with no computed level from
-              // the level L0.
+              // The zero line separates measured attention from its absence.
               { yAxis: 0, name: t("map.noAttention") },
-              { xAxis: 0, name: "" },
+              // The boundary between "no level" and L0 is solid: it separates
+              // two kinds of thing, not two levels of one kind.
+              { xAxis: -0.5, name: "" },
+              // The boundaries between levels, dashed, at the edges of the
+              // columns rather than through their labels.
+              ...levels.slice(0, -1).map((_, i) => ({
+                xAxis: i + 0.5,
+                name: "",
+                lineStyle: { color: line, type: "dashed" as const, width: 1 },
+              })),
             ],
           },
           z: 1,

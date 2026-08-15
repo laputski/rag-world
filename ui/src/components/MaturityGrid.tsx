@@ -63,9 +63,13 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
         const col = p.group ? columns.indexOf(p.group) : -1;
         const row = p.level ? rows.indexOf(p.level) : 0;
         return {
+          // Centred on the cell, not pushed into a corner of it. The offsets
+          // used to run from zero upwards, so every point sat above and to the
+          // right of its own label and the cell it belonged to had to be
+          // guessed.
           value: [
-            (col < 0 ? 0 : col) + stableJitter(p.id, 7) * 0.55,
-            row + stableJitter(p.id, 13) * 0.5,
+            (col < 0 ? 0 : col) + (stableJitter(p.id, 7) - 0.5) * 0.55,
+            row + (stableJitter(p.id, 13) - 0.5) * 0.5,
           ],
           point: p,
           itemStyle: {
@@ -97,13 +101,17 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
       },
       xAxis: {
         type: "value",
-        // The bounds are whole numbers: otherwise the ticks miss the integers
-        // and the stratum labels are not drawn at all.
-        min: -1,
-        max: columns.length,
-        interval: 1,
+        // A stratum is a column and the label names the column, so the bounds
+        // fall on the cell edges and the dashed lines are drawn as marks below.
+        // Drawn by the axis they would land on the ticks, and the ticks are
+        // where the labels are: a line through a label reads as a boundary and
+        // splits the cell in two.
+        min: -0.5,
+        max: columns.length - 0.5,
+        interval: 0.5,
         axisLine: { lineStyle: { color: line } },
-        splitLine: { lineStyle: { color: line, type: "dashed" as const } },
+        axisTick: { show: false },
+        splitLine: { show: false },
         axisLabel: {
           color: muted,
           fontFamily: MONO,
@@ -114,11 +122,12 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
       },
       yAxis: {
         type: "value",
-        min: -1,
-        max: rows.length,
-        interval: 1,
+        min: -0.5,
+        max: rows.length - 0.5,
+        interval: 0.5,
         axisLine: { lineStyle: { color: line } },
-        splitLine: { lineStyle: { color: line, type: "dashed" as const } },
+        axisTick: { show: false },
+        splitLine: { show: false },
         axisLabel: {
           color: muted,
           fontFamily: MONO,
@@ -127,7 +136,35 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
             Math.abs(v - Math.round(v)) > 0.01 ? "" : rows[Math.round(v)] ?? "",
         },
       },
-      series,
+      series: [
+        ...series,
+        {
+          // The cell boundaries, drawn as marks so that they fall between the
+          // labels instead of through them. The line under the lowest row is
+          // solid: it separates records with no computed level from those with
+          // one, which is a different kind of boundary than a step between two
+          // levels.
+          name: "",
+          type: "line" as const,
+          data: [],
+          silent: true,
+          markLine: {
+            silent: true,
+            symbol: "none",
+            label: { show: false },
+            lineStyle: { color: line, type: "dashed" as const, width: 1 },
+            data: [
+              ...columns.slice(0, -1).map((_, i) => ({ xAxis: i + 0.5 })),
+              ...rows.slice(1, -1).map((_, i) => ({ yAxis: i + 1.5 })),
+              {
+                yAxis: 0.5,
+                lineStyle: { color: line, type: "solid" as const, width: 1 },
+              },
+            ],
+          },
+          z: 1,
+        },
+      ],
     };
   }, [artifact, mode, theme, t, line, muted]);
 
