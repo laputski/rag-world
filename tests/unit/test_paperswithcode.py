@@ -1,12 +1,13 @@
-"""Сборщик каталога Papers with Code.
+"""The works-and-code catalogue collector.
 
-Каталог опасен ровно тем, чем полезен: он отвечает кодом 200 почти на всё.
-Часть параметров он молча игнорирует и возвращает ленту свежайших работ всей
-области, а такой ответ неотличим от осмысленного. Сборщик, доверившийся ему,
-приписывал бы записям чужие свидетельства и делал бы это тихо.
+The catalogue is dangerous in exactly the way it is useful: it answers 200 to
+almost anything. Some parameters it silently ignores, returning a feed of the
+newest work in the field, and such an answer is indistinguishable from a
+meaningful one. A collector satisfied by a 200 would attribute one work's evidence
+to another, and would do it quietly.
 
-Проверки строятся на записанных ответах: две настоящие карточки (работа с
-площадкой публикации и препринт без неё) и настоящая недельная лента.
+The checks are built on recorded answers: two real entries (one with a publication
+venue and a preprint without one) and a real week of the feed.
 """
 
 from __future__ import annotations
@@ -37,14 +38,14 @@ def routes(**overrides: SourceBehaviour) -> FakeTransport:
     return FakeTransport(base)
 
 
-# ─── Ответ обязан отвечать на заданный вопрос ────────────────────────────────
+# ─── The answer has to answer the question asked ─────────────────────────────
 
 
 def test_paper_with_another_identifier_is_refused():
-    """Каталог отвечает лентой свежайших работ на игнорируемый параметр.
+    """The catalogue answers an ignored parameter with a feed of the newest work.
 
-    Ответ выглядит осмысленным: код 200, знакомая структура, настоящая работа.
-    Не совпадает только то, ради чего обращались.
+    The answer looks meaningful: a 200, a familiar structure, real data. The only
+    thing that does not match is what was asked for.
     """
     http = routes(**{"paperswithcode.co": SourceBehaviour(fixture("pwc_paper_with_venue.json"))})
     paper, error = pwc.fetch_paper("2405.14831", http=http)
@@ -62,7 +63,7 @@ def test_paper_with_the_requested_identifier_is_accepted():
 
 
 def test_absent_paper_is_not_an_error():
-    """Работы в каталоге нет — это ответ, а не сбой прохода."""
+    """The catalogue having no such work is an answer, not a failure of the pass."""
     http = FakeTransport({"paperswithcode.co": SourceBehaviour(b"", status=404)})
     paper, error = pwc.fetch_paper("9999.99999", http=http)
     assert paper is None
@@ -70,7 +71,7 @@ def test_absent_paper_is_not_an_error():
 
 
 def test_broken_answer_does_not_raise():
-    http = FakeTransport({"paperswithcode.co": SourceBehaviour("{не json".encode())})
+    http = FakeTransport({"paperswithcode.co": SourceBehaviour("{not json".encode())})
     paper, error = pwc.fetch_paper("2405.14831", http=http)
     assert paper is None
     assert error and "malformed answer" in error
@@ -83,7 +84,7 @@ def test_refusal_is_reported_not_swallowed():
     assert error and "503" in error
 
 
-# ─── Свидетельство о площадке ────────────────────────────────────────────────
+# ─── Evidence of the venue ───────────────────────────────────────────────────
 
 
 def test_venue_becomes_evidence():
@@ -103,10 +104,11 @@ def test_venue_becomes_evidence():
 
 
 def test_preprint_without_a_venue_yields_no_evidence():
-    """Отсутствие сведения о площадке не то же самое, что сведение о её отсутствии.
+    """An absence of venue information is not information about an absent venue.
 
-    Свидетельство типа «публикация» без площадки утверждало бы ровно то, что
-    уже утверждает препринт, и второй раз засчитывалось бы в уверенность.
+    Evidence of the publication type without a venue would assert exactly what the
+    preprint already asserts, and would be counted a second time towards
+    confidence.
     """
     result = pwc.collect_venue("hipporag", "2405.14831", http=routes(), today=TODAY)
     assert result.errors == []
@@ -114,11 +116,11 @@ def test_preprint_without_a_venue_yields_no_evidence():
 
 
 def test_citation_counter_is_named_in_the_value():
-    """Каталог считает цитирования иначе, чем открытый индекс.
+    """The catalogue counts citations differently from the open index.
 
-    У HippoRAG здесь почти триста, а в открытом индексе шестьдесят шесть: это
-    разные счётчики одной работы. Не назвать счётчик значило бы показать
-    читателю два числа под одним именем.
+    HippoRAG has nearly three hundred here and sixty-odd in the open index: two
+    different counters of one work. Not naming the counter would give the reader
+    two numbers under one name.
     """
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(fixture("pwc_paper_with_venue.json"))
@@ -126,15 +128,15 @@ def test_citation_counter_is_named_in_the_value():
     value = pwc.collect_venue("x", "2005.11401", http=http, today=TODAY).evidence[0].value
     assert "citations_semantic_scholar=" in value
     assert "cited_by=" not in value, (
-        "имя поля открытого индекса означало бы, что счётчик тот же самый"
+        "the open index field name would mean the counter is the same one"
     )
 
 
 def test_citation_count_does_not_enter_the_metric_series():
-    """Внимание считается по одному счётчику, иначе величины несравнимы.
+    """Attention is computed from one counter, or the quantities are incomparable.
 
-    Правило берёт наибольшее значение по источникам; два счётчика одной работы
-    под этим правилом систематически завышали бы внимание.
+    The rule takes the largest value across sources; two counters of one work under
+    that rule would inflate attention systematically.
     """
     source = (ROOT / "services" / "collectors" / "paperswithcode.py").read_text(
         encoding="utf-8"
@@ -143,7 +145,7 @@ def test_citation_count_does_not_enter_the_metric_series():
     assert "citation_velocity" not in source
 
 
-# ─── Лента обнаружения ───────────────────────────────────────────────────────
+# ─── The discovery feed ──────────────────────────────────────────────────────
 
 
 def test_discovery_returns_the_week_of_papers():
@@ -153,13 +155,13 @@ def test_discovery_returns_the_week_of_papers():
     found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
 
     assert problems == []
-    assert found, "лента за неделю пуста, хотя в записанном ответе работы есть"
+    assert found, "the week of the feed is empty although the recorded answer has work"
     assert all(p.published >= date(2026, 8, 1) for p in found)
     assert all(p.arxiv_id for p in found)
 
 
 def test_discovery_refuses_papers_older_than_asked():
-    """Параметр даты каталог может не применить, и лента станет чужой."""
+    """The catalogue may not apply the date parameter, and the feed goes stale."""
     payload = json.loads(fixture("pwc_discovery.json"))
     payload["results"][0]["published"] = "2024-01-01T00:00:00Z"
     http = FakeTransport({
@@ -180,7 +182,7 @@ def test_discovery_survives_a_missing_list():
 
 
 def test_empty_week_is_not_a_problem():
-    """Неделя без новых работ обычное дело, и жалобы она не заслуживает."""
+    """A week without new work is ordinary and deserves no complaint."""
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(b'{"count": 0, "results": []}')
     })
@@ -190,7 +192,7 @@ def test_empty_week_is_not_a_problem():
 
 
 def test_discovery_asks_the_catalogue_by_method_and_date():
-    """Запрос идёт по метке метода: полнотекстовый поиск даёт вдесятеро больше шума."""
+    """The request goes by method tag: a full-text search yields ten times the noise."""
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(fixture("pwc_discovery.json"))
     })
@@ -202,7 +204,7 @@ def test_discovery_asks_the_catalogue_by_method_and_date():
     assert "published_after=2026-08-01" in asked[0]
 
 
-# ─── Домен под правилом сбора ────────────────────────────────────────────────
+# ─── The host under the collection rule ──────────────────────────────────────
 
 
 def test_catalogue_host_is_allowed():
@@ -224,7 +226,7 @@ def test_foreign_host_is_refused(monkeypatch):
     ("", False),
 ])
 def test_venue_year_marks_peer_review(venue, expected):
-    """Год в названии сборника отличает состоявшуюся публикацию от заготовки."""
+    """A year in the proceedings name tells a real publication from a plan."""
     payload = json.loads(fixture("pwc_paper_with_venue.json"))
     payload["proceeding"] = venue
     parsed = pwc.parse_paper(payload)

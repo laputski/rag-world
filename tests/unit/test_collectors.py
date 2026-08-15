@@ -1,7 +1,7 @@
-"""Исчерпывающие тесты сборщиков свидетельств и ступени S5 (STAGE-7 Ф8).
+"""Exhaustive tests of the evidence collectors and of the cross-check stage.
 
-Без сети: HTTP-клиент подменяется заглушкой, возвращающей предзаготовленные
-ответы (включая воспроизведение сценария 3 ошибочных ссылок из 99-review).
+Without a network: the HTTP client is replaced by a stub returning prepared
+answers, including a reproduction of the three wrong links found in review.
 """
 
 from __future__ import annotations
@@ -15,10 +15,10 @@ TODAY = date(2026, 8, 5)
 
 
 class FakeHttp(HttpGetter):
-    """Заглушка HTTP-клиента: возвращает предзаготовленный ответ по URL-шаблону.
+    """A stub HTTP client returning a prepared answer by a substring of the URL.
 
-    Совпадение: ищет САМОЕ ДЛИННОЕ совпадение подстроки (чтобы
-    '/repos/a/b/releases' не матчилось с '/repos/a/b').
+    Matching takes the LONGEST matching substring, so that '/repos/a/b/releases'
+    does not match the rule for '/repos/a/b'.
     """
 
     def __init__(self, responses: dict[str, tuple[int, bytes]]):
@@ -27,7 +27,7 @@ class FakeHttp(HttpGetter):
 
     def get(self, url: str, headers=None, timeout=20) -> tuple[int, bytes]:
         self.calls.append(url)
-        # Сортируем паттерны по длине убывающе — точные/длинные совпадают первыми.
+        # Patterns are sorted by descending length: the longer, more exact one wins.
         for pattern in sorted(self._responses, key=len, reverse=True):
             if pattern in url:
                 return self._responses[pattern]
@@ -43,7 +43,7 @@ def test_allowlist_accepts_known_hosts():
         "https://api.github.com/repos/microsoft/graphrag",
         "https://api.openalex.org/works/doi:10.1/xyz",
     ]:
-        assert is_allowed_host(url), f"{url} должно быть разрешено"
+        assert is_allowed_host(url), f"{url} should be allowed"
 
 
 def test_allowlist_rejects_unknown_hosts():
@@ -52,7 +52,7 @@ def test_allowlist_rejects_unknown_hosts():
         "https://medium.com/@someone/post",
         "https://sub.example.net/x",
     ]:
-        assert not is_allowed_host(url), f"{url} должно быть отклонено"
+        assert not is_allowed_host(url), f"{url} should be refused"
 
 
 # ─── arXiv ───────────────────────────────────────────────────────────────────
@@ -82,7 +82,7 @@ def test_arxiv_extracts_id_and_title():
     assert ev.type == "publication"
     assert "2502.14902" in ev.value
     assert "PathRAG" in ev.actual_title
-    assert ev.verified is False  # S5 решает
+    assert ev.verified is False  # the cross-check stage decides
 
 
 def test_arxiv_accepts_bare_id():
@@ -171,8 +171,8 @@ def test_github_passes_token_header():
     })
     github.collect_github("ab", "https://github.com/a/b", http=http,
                           token="ghp_secret", today=TODAY)
-    # Вызовы записаны; проверяем, что Authorization был бы добавлен (через заголовок).
-    # FakeHttp не хранит headers, но сам факт успешного вызова подтверждает путь.
+    # The calls are recorded. FakeHttp does not keep headers, so the successful
+    # call itself is what confirms the request went out.
     assert len(http.calls) >= 2
 
 
@@ -188,9 +188,8 @@ def test_openalex_extracts_citations():
     result = openalex.collect_openalex(
         "adaptive_rag", "https://doi.org/10.1/x", http=http, today=TODAY
     )
-    # doi.org не в allowlist напрямую, но OpenAlex-вызов идёт на api.openalex.org.
-    # Если query не содержит arXiv/DOI-паттерн, ищем по названию — здесь DOI.
-    # (URL строится как .../works/doi:10.1/x.)
+    # doi.org is not on the allowlist directly, but the call goes to the open
+    # index at api.openalex.org, with the URL built as .../works/doi:10.1/x.
     if result.evidence:
         assert "cited_by=719" in result.evidence[0].value
 
@@ -203,7 +202,7 @@ def test_openalex_handles_invalid_json():
     )
 
 
-# ─── S5: детерминированные проверки ──────────────────────────────────────────
+# ─── The cross-check stage: the deterministic checks ─────────────────────────
 
 
 def test_s5_title_match_passes():
@@ -219,9 +218,9 @@ def test_s5_title_match_passes():
 
 
 def test_s5_title_mismatch_reproduces_broken_links():
-    """Сценарий 3 ошибочных ссылок (99-review): id разрешается, но заголовок не тот.
+    """The three wrong links: the identifier resolves and the title does not match.
 
-    MA-RAG: id 2406.18542 → реально статья про LiDAR.
+    MA-RAG: the identifier 2406.18542 actually resolves to a paper about LiDAR.
     """
     ev = RawEvidence(
         technology_id="ma_rag", type="publication",
@@ -279,7 +278,7 @@ def test_s5_year_in_range_passes():
 
 
 def test_s5_no_titles_no_mismatch_check():
-    """Без expected/actual title проверка заголовка не выполняется."""
+    """With no expected or actual title, the title comparison does not run."""
     ev = RawEvidence(
         technology_id="x", type="repository",
         value="license=mit", source="https://github.com/a/b",
@@ -302,15 +301,15 @@ def test_s5_check_many_returns_pairs():
     assert not pairs[1][1].passed  # malicious rejected
 
 
-# ─── Диапазоны величин: образцы обязаны совпадать с тем, что пишут сборщики ───
+# ─── Ranges: the patterns have to match what the collectors actually write ───
 #
-# Проверка диапазонов однажды уже была мёртвой: она искала `cited_by_count=`,
-# а сборщик писал `cited_by=`. Такая защита выглядит существующей и не работает,
-# поэтому здесь проверяются именно те строки, которые сборщики порождают.
+# The range check was dead once already: it looked for one spelling while the
+# collector wrote another. Such a protection looks like it exists and catches
+# nothing, so what is checked here is exactly the strings the collectors write.
 
 
 def test_s5_future_year_rejected_relative_to_collection_date():
-    """Граница года берётся от даты сбора, а не зашита числом."""
+    """The bound on the year comes from the collection date, not a written-in number."""
     ev = RawEvidence(
         technology_id="x", type="publication",
         value=f"venue=X; peer_reviewed=false; cited_by=1; year={TODAY.year + 5}",
@@ -320,7 +319,7 @@ def test_s5_future_year_rejected_relative_to_collection_date():
 
 
 def test_s5_next_year_is_allowed():
-    """Работы, датированные следующим годом, обычны в конце года."""
+    """Works dated next year are ordinary at the end of a year."""
     ev = RawEvidence(
         technology_id="x", type="publication",
         value=f"venue=X; peer_reviewed=false; cited_by=1; year={TODAY.year + 1}",
@@ -330,7 +329,7 @@ def test_s5_next_year_is_allowed():
 
 
 def test_s5_checks_year_in_preprint_format():
-    """Архив препринтов пишет год в скобках, а не через `year=`."""
+    """The preprint archive writes the year in parentheses, not as `year=`."""
     ev = RawEvidence(
         technology_id="x", type="publication",
         value=f"arXiv:2403.14403 ({TODAY.year + 5})",
@@ -358,7 +357,7 @@ def test_s5_rejects_negative_velocity():
 
 
 def test_s5_accepts_ordinary_values_from_every_collector():
-    """Ложное отклонение хуже пропуска: оно теряет верные данные молча."""
+    """A false rejection is worse than a miss: it loses correct data."""
     ordinary = [
         ("publication", "venue=ACL; peer_reviewed=true; cited_by=42; "
                         "year=2024; citation_velocity=1.8",
@@ -382,7 +381,7 @@ def test_s5_accepts_ordinary_values_from_every_collector():
         assert result.passed, f"{kind}: {result.reasons}"
 
 
-# ─── Маршрутизация ссылок по сборщикам ───────────────────────────────────────
+# ─── Routing links to collectors ─────────────────────────────────────────────
 
 def _sources_for(url: str) -> list[str]:
     import sys
@@ -395,16 +394,17 @@ def _sources_for(url: str) -> list[str]:
 
 
 def test_doi_link_reaches_the_open_index():
-    """Работа, изданная не препринтом, обязана давать свидетельство публикации.
+    """A work published other than as a preprint has to yield evidence.
 
-    Открытый индекс разрешает работу по цифровому идентификатору и умел это с
-    самого начала; не хватало маршрута, и запись, чей единственный источник
-    издан журналом либо конференцией, оставалась без свидетельства публикации
-    вовсе. Так Standard HybridRAG не получал уровня, хотя приём лежит в основе
-    смешанного поиска и описан работой с шестьюстами цитированиями.
+    The open index resolves a work by its digital identifier and always could; the
+    route was missing, and a record whose only source was published in a journal or
+    at a conference was left with no publication evidence at all. That is how
+    Standard HybridRAG had no level, although the technique underlies hybrid search
+    and is described by a work with six hundred citations.
 
-    Отказ тихий: ссылка разрешима, проверка ссылок довольна, а свидетельства
-    нет, и понять это можно только сверив запись с её источником вручную.
+    The failure is quiet: the link resolves, the link check is satisfied, and there
+    is simply no evidence — which can only be understood by comparing the record
+    with its source.
     """
     assert _sources_for("https://doi.org/10.1145/1571941.1572114") == ["openalex"]
 
@@ -416,5 +416,5 @@ def test_arxiv_link_is_asked_of_three_sources():
 
 
 def test_unknown_host_is_asked_of_nobody():
-    """Ссылка на страницу поставщика источником свидетельства не является."""
+    """A link to a provider's page is not a source of evidence."""
     assert _sources_for("https://atlan.com/know/hybrid-rag/") == []
