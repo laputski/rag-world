@@ -55,6 +55,13 @@ class Mutation:
 #
 # The order is by subject rather than by importance: that makes an entry easier
 # to find by eye and easier to add next to a related one.
+#
+# An entry is only worth having if the **Python** suite can kill it: that is what
+# the run below executes. Files under `ui/` appear here, but every one of them is
+# read by a Python test — the markup by the icon contract, the localisation by
+# the schema guard, the artefacts by the drift check. Behaviour that only the
+# interface suite exercises does not belong in this catalogue: the mutant would
+# be "caught" by the catalogue's own integrity test and prove nothing.
 
 MUTATIONS: tuple[Mutation, ...] = (
     # ── The maturity scale: every rule asserts something about a technology ─

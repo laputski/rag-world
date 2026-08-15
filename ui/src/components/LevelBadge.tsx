@@ -66,7 +66,6 @@ export function LevelBadge({ level, confidence, manual, showScale = true }: Prop
                   height: i <= index ? 11 : 5,
                   borderRadius: "1px",
                   bgcolor: i <= index ? "text.primary" : theme.palette.divider,
-                  opacity: i <= index && confidence != null ? 0.35 + confidence * 0.65 : 1,
                 }}
               />
             ))}

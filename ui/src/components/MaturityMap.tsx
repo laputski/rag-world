@@ -17,9 +17,13 @@ import { KIND_SYMBOLS, MONO, stratumColor, type ThemeMode } from "../theme";
  * nothing to do with whether it works and therefore has to be an axis of its
  * own.
  *
- * The position within a level is set by confidence: a record with a full set of
- * fresh evidence stands at the right edge of its band, one with an incomplete
- * set at the left. That shows not only the level but how well it is supported.
+ * The position within a level carries nothing, and it is spread evenly on
+ * purpose. It used to be set by confidence, and confidence is 1.0 for every
+ * record with a level: the same evidence that grants a level is the evidence
+ * measured for confidence, and evidence that fails the checks is never stored.
+ * So the channel encoded a constant, and sixty-seven points piled into the same
+ * third of their bands. Even spacing says plainly that the horizontal position
+ * inside a band means nothing, and it lets a reader count what is there.
  *
  * Two separate bands are given to absent data: on the left, records with no
  * computed level; at the bottom, records with no attention data. Putting them at
@@ -35,6 +39,40 @@ interface Props {
 }
 
 const UNKNOWN_LEVEL_X = -0.75;
+
+/**
+ * Even positions inside a band, one slot per point, ordered by identifier.
+ *
+ * The order is deliberately arbitrary. Ordering by attention would put the
+ * points on a diagonal inside every band, and a reader would see a relation
+ * where there is none. An identifier carries no meaning and does not change
+ * between builds, which is exactly what is wanted from a tiebreaker.
+ *
+ * The slots run `(rank + 1) / (total + 1)`, so a band holding one point places
+ * it at the centre and a band holding many leaves a margin at both edges. The
+ * span is narrower than the band, or a point at the edge would read as
+ * belonging to the neighbouring level.
+ */
+export function bandOffsets(points: { id: string; level: string | null }[]): Map<string, number> {
+  const bands = new Map<string, string[]>();
+  for (const point of points) {
+    const key = point.level ?? "";
+    const list = bands.get(key) ?? [];
+    list.push(point.id);
+    bands.set(key, list);
+  }
+  const offsets = new Map<string, number>();
+  for (const ids of bands.values()) {
+    const ordered = [...ids].sort();
+    ordered.forEach((id, rank) => {
+      offsets.set(id, ((rank + 1) / (ordered.length + 1) - 0.5) * BAND_SPAN);
+    });
+  }
+  return offsets;
+}
+
+/** How much of a band the points may occupy; the rest is the gap between bands. */
+const BAND_SPAN = 0.76;
 
 /** A stable fractional offset from the identifier, so a point does not jump between builds. */
 function stableJitter(id: string): number {
@@ -66,15 +104,13 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
     // The "no data" band lies below zero, apart from the measured values.
     const unknownAttentionY = -maxAttention * 0.12;
 
+    // A band is centred on its own label, and the points inside it are spread
+    // evenly across it. No two share a position, so a reader can count them.
+    const offsets = bandOffsets(artifact.points);
     const xOf = (p: MaturityPoint): number => {
       const index = levelIndex(levels, p.level);
-      if (index < 0) return UNKNOWN_LEVEL_X + (stableJitter(p.id) - 0.5) * 0.3;
-      // A level band is centred on its own label, or a point at the right edge
-      // reads as belonging to the next level. Within the band the position is
-      // set by confidence, and the jitter separates coincidences while staying
-      // stable between builds.
-      const confidence = p.confidence ?? 0;
-      return index + (confidence - 0.5) * 0.62 + (stableJitter(p.id) - 0.5) * 0.14;
+      const centre = index < 0 ? UNKNOWN_LEVEL_X : index;
+      return centre + (offsets.get(p.id) ?? 0);
     };
     const yOf = (p: MaturityPoint): number =>
       p.attention != null
@@ -108,9 +144,10 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         point: p,
         itemStyle: {
           color: stratumColor(p.group ?? "", mode),
-          // Opacity carries confidence: the fewer the fresh verified pieces of
-          // evidence, the paler the point.
-          opacity: p.level ? 0.35 + (p.confidence ?? 0) * 0.6 : 0.28,
+          // Opacity tells a computed level from an absent one, and nothing
+          // else. It used to carry confidence, which is 1.0 for every record
+          // that has a level at all.
+          opacity: p.level ? 0.95 : 0.28,
           borderColor: theme.palette.background.default,
           borderWidth: 1,
         },

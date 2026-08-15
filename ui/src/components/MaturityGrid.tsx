@@ -70,7 +70,9 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
           point: p,
           itemStyle: {
             color: stratumColor(p.group ?? "", mode),
-            opacity: p.level ? 0.45 + (p.confidence ?? 0) * 0.5 : 0.3,
+            // Opacity tells a computed level from an absent one. It used to
+            // carry confidence, which is 1.0 for every record with a level.
+            opacity: p.level ? 0.95 : 0.3,
           },
         };
       }),
