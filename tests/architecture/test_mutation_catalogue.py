@@ -89,7 +89,7 @@ def test_absent_pattern_is_reported_not_skipped(tmp_path, monkeypatch):
     exists for.
     """
     sample = tmp_path / "sample.py"
-    sample.write_text("значение = 1\n", encoding="utf-8")
+    sample.write_text("value = 1\n", encoding="utf-8")
     monkeypatch.setattr(mutate, "ROOT", tmp_path)
 
     absent = mutate.Mutation("sample.py", "what is absent", "no such text", "other")
@@ -103,7 +103,7 @@ def test_file_is_restored_even_when_the_run_blows_up(tmp_path, monkeypatch):
     broken in the tree.
     """
     sample = tmp_path / "sample.py"
-    original = "значение = 1\n"
+    original = "value = 1\n"
     sample.write_text(original, encoding="utf-8")
     monkeypatch.setattr(mutate, "ROOT", tmp_path)
 

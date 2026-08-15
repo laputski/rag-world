@@ -351,7 +351,7 @@ def test_industry_path_reaches_l2_without_publication(registry, artifacts):
         json.dumps({
             "technology_id": "demo_store",
             "type": "industrial_use",
-            "value": "используется в проде",
+            "value": "in production use",
             "source": "https://github.com/demo/demo",
             "fetched_at": TODAY.isoformat(),
         }) + "\n",
@@ -375,7 +375,7 @@ def test_industry_level_is_stable_across_passes(registry, artifacts):
         json.dumps({
             "technology_id": "demo_store",
             "type": "industrial_use",
-            "value": "используется в проде",
+            "value": "in production use",
             "source": "https://github.com/demo/demo",
             "fetched_at": TODAY.isoformat(),
         }) + "\n",

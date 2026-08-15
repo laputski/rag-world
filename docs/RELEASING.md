@@ -60,18 +60,20 @@ people cite.
 repository and archive it on every GitHub Release. What it archives is the
 source tree at a tag, which is the code and not the registry snapshot, and the
 code is Apache-2.0 while the data is CC BY 4.0. Enabling it would mint DOIs for
-an object nobody in this project asks people to cite. If it is ever enabled, it
-should be described as archiving the software, separately from the dataset.
+an object nobody in this project asks people to cite.
 
-Zenodo issues two identifiers, and the difference matters when citing. The
-**version DOI** points at one deposit and never moves: this is what a paper
-should cite, because a claim about the data is a claim about one state of it.
-The **concept DOI** always resolves to the newest version and is what belongs in
-a README, where "the current registry" is meant.
+The integration is switched on for this repository, and that is harmless as long
+as no GitHub Release is cut: it archives on a release and on nothing else. Should
+one ever be cut, the record it produces has to say it archives the software,
+separately from the dataset.
 
 ## 3. After the DOI exists
 
-Zenodo issues two identifiers and the difference decides where each goes.
+Zenodo issues two identifiers, and the difference decides where each goes. The
+**version DOI** points at one deposit and never moves: it is what a paper should
+cite, because a claim about the data is a claim about one state of it. The
+**concept DOI** always resolves to the newest version, and it is what belongs
+wherever "the current registry" is meant.
 
 Record the **version DOI** in the release index, on the entry for that release:
 
