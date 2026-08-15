@@ -1,9 +1,9 @@
-"""Проверка ссылок: что она меняет и, важнее, чего не меняет.
+"""The link check: what it changes and, more importantly, what it does not.
 
-Главное свойство здесь — сдержанность. Ссылка гниёт молча, поэтому проверять
-надо; но и площадка отвечает отказом роботу, и сеть рвётся, и сервер падает на
-минуту. Проверка, принимающая временный отказ за исчезновение, испортит записи
-быстрее, чем время испортит ссылки.
+The main property here is restraint. A link rots in silence, so checking is
+needed; but a venue also refuses a robot, a network breaks, and a server falls
+over for a minute. A check that takes a temporary refusal for a disappearance
+spoils the registry faster than time spoils the links.
 """
 
 from __future__ import annotations
@@ -53,11 +53,11 @@ def run(routes: dict[str, SourceBehaviour], **kwargs):
     return check_links.run(http=FakeTransport(routes), today=TODAY, **kwargs)
 
 
-# ─── Разрешимые адреса ───────────────────────────────────────────────────────
+# ─── Addresses that resolve ──────────────────────────────────────────────────
 
 
 def test_resolvable_link_is_verified(registry):
-    """Отметка без даты ничего не сообщает: непонятно, когда её ставили."""
+    """A mark without a date says nothing: when was it set?"""
     make([store.Link(url="https://arxiv.org/abs/2405.14831", kind="preprint")])
     summary = run({"arxiv.org": SourceBehaviour(b"ok")})
 
@@ -68,21 +68,21 @@ def test_resolvable_link_is_verified(registry):
 
 
 def test_redirect_counts_as_resolvable(registry):
-    """Переезд площадки — не исчезновение источника."""
+    """A venue moving is not a source disappearing."""
     make([store.Link(url="https://example.org/moved")])
     run({"example.org": SourceBehaviour(b"", status=301)})
     assert only_link().status == "verified"
 
 
 def test_host_outside_the_collector_allowlist_is_still_checked(registry):
-    """Перечень доменов ограждает сбор свидетельств, а не проверку своих ссылок."""
+    """The allowlist guards evidence collection, not the link check."""
     make([store.Link(url="https://qdrant.tech/documentation/")])
     summary = run({"qdrant.tech": SourceBehaviour(b"ok")})
     assert summary.verified == 1
     assert only_link().status == "verified"
 
 
-# ─── Исчезнувшие адреса ──────────────────────────────────────────────────────
+# ─── Addresses that have vanished ────────────────────────────────────────────
 
 
 def test_missing_page_becomes_unresolved(registry):
@@ -92,7 +92,7 @@ def test_missing_page_becomes_unresolved(registry):
 
     link = only_link()
     assert link.status == "unresolved"
-    assert link.verified_at is None, "дата подтверждения перестала быть правдой"
+    assert link.verified_at is None, "the confirmation date has stopped being true"
     assert summary.gone == 1
 
 
@@ -102,15 +102,15 @@ def test_gone_link_is_reported_and_returns_failure(registry):
     assert any("410" in p for p in summary.problems)
 
 
-# ─── Сдержанность: чего проверка не делает ───────────────────────────────────
+# ─── Restraint: what the check does not do ───────────────────────────────────
 
 
 @pytest.mark.parametrize("status", [401, 402, 403, 429, 500, 503])
 def test_temporary_refusal_does_not_spoil_a_verified_link(registry, status):
-    """Отказ по правам или сбой сервера — не исчезновение источника.
+    """A refusal on rights or a server failure is not a vanished source.
 
-    Издательства отвечают отказом роботам постоянно. Проверка, принимающая это
-    за смерть ссылки, за один прогон пометит половину реестра испорченным.
+    Publishers refuse robots constantly. A check that takes that for the death of a
+    link would mark half the registry as broken in a single pass.
     """
     was = date(2026, 1, 1)
     make([store.Link(url="https://dl.acm.org/doi/10.1145/x", status="verified",
@@ -119,7 +119,7 @@ def test_temporary_refusal_does_not_spoil_a_verified_link(registry, status):
 
     link = only_link()
     assert link.status == "verified"
-    assert link.verified_at == was, "дата прежней проверки должна сохраниться"
+    assert link.verified_at == was, "the date of the earlier check has to be kept"
 
 
 def test_network_error_does_not_spoil_a_verified_link(registry, monkeypatch):
@@ -128,23 +128,23 @@ def test_network_error_does_not_spoil_a_verified_link(registry, monkeypatch):
 
     class Broken:
         def get(self, url, headers=None, timeout=20):
-            raise OSError("сеть недоступна")
+            raise OSError("the network is unreachable")
 
     summary = check_links.run(http=Broken(), today=TODAY)
 
     link = only_link()
     assert link.status == "verified"
     assert link.verified_at == was
-    assert summary.problems, "обрыв связи обязан попасть в отчёт"
+    assert summary.problems, "a broken connection has to reach the report"
 
 
 def test_unknown_outcome_does_not_promote_an_unchecked_link(registry):
-    """Непонятный исход не подтверждает ссылку, которую не открыли."""
+    """An unclear outcome does not confirm a link that was never opened."""
     make([store.Link(url="https://example.org/x")])
 
     class Broken:
         def get(self, url, headers=None, timeout=20):
-            raise OSError("сеть недоступна")
+            raise OSError("the network is unreachable")
 
     check_links.run(http=Broken(), today=TODAY)
     assert only_link().status == "needs_review"
@@ -152,31 +152,33 @@ def test_unknown_outcome_does_not_promote_an_unchecked_link(registry):
 
 @pytest.mark.parametrize("status", [401, 402, 403, 429])
 def test_refusal_gives_an_unchecked_link_a_way_out(registry, status):
-    """Закрытый правами адрес перестаёт выглядеть непроверенным.
+    """An address closed by rights stops looking unchecked.
 
-    Отказ по правам намеренно не считается смертью ссылки. Но пока он не менял
-    и отметку, непроверенный адрес застревал в «не смотрели» навсегда: смотрели
-    на него каждую неделю, отличить его от действительно не проверявшегося было
-    нельзя, и никто об этом не узнавал. Три адреса реестра прожили так всё
-    время его существования.
+    A refusal on rights is deliberately not counted as the death of a link. But
+    while the mark stayed unchanged too, an unchecked address stuck in "nobody
+    looked" for ever: it was looked at every week, telling it from one truly never
+    checked was impossible, and nobody learned of it. Three registry addresses
+    lived that way for the whole of the portal's existence.
 
-    Отметка `guarded` утверждает ровно наблюдённое: обращение было, адрес
-    ответил, роботу себя не показал. Подтвердить может только человек.
+    The mark `guarded` asserts exactly what was observed: the request was made, the
+    address answered, and it declined to show itself to a robot. Only a person can
+    confirm it.
     """
     make([store.Link(url="https://example.org/x")])
     summary = run({"example.org": SourceBehaviour(b"", status=status)})
 
     link = only_link()
-    assert link.status == "guarded", "отметка обязана отличаться от «не смотрели»"
-    assert link.verified_at == TODAY, "осмотр был, и его дата известна"
+    assert link.status == "guarded", "the mark has to differ from 'nobody looked'"
+    assert link.verified_at == TODAY, "the inspection happened and its date is known"
     assert summary.guarded == 1
-    assert summary.problems, "закрытый адрес обязан попасть в отчёт прохода"
+    assert summary.problems, "a closed address has to reach the report of the pass"
 
 
 def test_guarded_link_is_not_rechecked_while_fresh(registry):
-    """Площадка, отказавшая вчера, откажет и сегодня.
+    """A venue that refused yesterday will refuse today.
 
-    Лишнее обращение ради заведомо известного ответа — расход чужих ресурсов.
+    A superfluous request for an answer already known spends somebody else's
+    resources.
     """
     make([store.Link(
         url="https://example.org/x", status="guarded", verified_at=date(2026, 8, 10),
@@ -186,11 +188,11 @@ def test_guarded_link_is_not_rechecked_while_fresh(registry):
     assert http.calls_matching("example.org") == []
 
 
-# ─── Расход и повторы ────────────────────────────────────────────────────────
+# ─── Cost and repetition ─────────────────────────────────────────────────────
 
 
 def test_same_address_is_fetched_once(registry):
-    """Результат от записи не зависит, значит и обращение нужно одно."""
+    """The outcome does not depend on the record, so one request is enough."""
     url = "https://arxiv.org/abs/2405.14831"
     make([store.Link(url=url)], tech_id="one")
     make([store.Link(url=url)], tech_id="two")
@@ -201,7 +203,7 @@ def test_same_address_is_fetched_once(registry):
 
 
 def test_recently_verified_links_can_be_skipped(registry):
-    """Еженедельный прогон не должен каждый раз обходить весь реестр."""
+    """A weekly pass must not walk the whole registry every time."""
     make([store.Link(url="https://arxiv.org/abs/1", status="verified",
                      verified_at=TODAY - timedelta(days=3))])
     http = FakeTransport({"arxiv.org": SourceBehaviour(b"ok")})
@@ -222,7 +224,7 @@ def test_stale_verification_is_rechecked(registry):
 def test_dry_run_writes_nothing(registry):
     make([store.Link(url="https://example.org/gone")])
     run({"example.org": SourceBehaviour(b"", status=404)}, dry_run=True)
-    assert only_link().status == "needs_review", "пробный проход не записывает"
+    assert only_link().status == "needs_review", "a dry run writes nothing"
 
 
 def test_repeated_pass_changes_nothing(registry):
@@ -232,4 +234,4 @@ def test_repeated_pass_changes_nothing(registry):
     first = store.load_technology("demo").model_dump(mode="json")
     summary = run(routes)
     assert store.load_technology("demo").model_dump(mode="json") == first
-    assert summary.changed == 0, "второй проход не должен трогать файлы"
+    assert summary.changed == 0, "a second pass must not touch the files"

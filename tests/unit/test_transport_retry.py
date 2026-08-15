@@ -1,11 +1,12 @@
-"""Поведение транспорта при отказах и ограничении частоты.
+"""How the transport behaves under refusals and rate limits.
 
-Вежливость к источникам — не украшение: архив препринтов отвечает отказом при
-слишком частых обращениях, и автономный прогон, не умеющий ждать и повторять,
-тихо теряет данные каждую неделю. Отказ по частоте отличается от прочих тем, что
-он временный, поэтому обрабатывается иначе — повтором с растущей паузой.
+Politeness towards the sources is not decoration: the preprint archive refuses
+requests that come too often, and an unattended pass that cannot wait quietly
+loses data every week. A refusal on rate differs from any other in being
+temporary, so it is handled differently — by a retry with a growing pause.
 
-Сон и сама сеть подменяются: тест не должен ни ждать, ни ходить наружу.
+Sleep and the network itself are substituted: the test must neither wait nor
+reach out.
 """
 
 from __future__ import annotations
@@ -29,7 +30,7 @@ class FakeResponse:
 
 @pytest.fixture
 def no_sleep(monkeypatch):
-    """Паузы записываются, но не выдерживаются."""
+    """The pauses are recorded rather than held."""
     slept: list[float] = []
     monkeypatch.setattr(tr.time, "sleep", slept.append)
     return slept
@@ -37,7 +38,7 @@ def no_sleep(monkeypatch):
 
 @pytest.fixture
 def responses(monkeypatch):
-    """Очередь ответов сети; фактические обращения записываются."""
+    """A queue of network answers; the actual requests are recorded."""
     queue: list[FakeResponse] = []
     calls: list[str] = []
 
@@ -53,7 +54,7 @@ URL = "https://api.openalex.org/works/W1"
 
 
 def test_rate_limit_is_retried_until_success(no_sleep, responses):
-    """Отказ по частоте — временный, поэтому обращение повторяется."""
+    """A refusal on rate is temporary, so the request is repeated."""
     queue, calls = responses
     queue.extend([
         FakeResponse(429), FakeResponse(429), FakeResponse(200, b'{"ok": true}')
@@ -63,14 +64,14 @@ def test_rate_limit_is_retried_until_success(no_sleep, responses):
 
     assert status == 200
     assert body == b'{"ok": true}'
-    assert len(calls) == 3, "два отказа — два повтора"
+    assert len(calls) == 3, "two refusals mean two retries"
 
 
 def test_pause_grows_between_retries(no_sleep, responses, monkeypatch):
-    """Пауза растёт: повтор с той же частотой снова упрётся в тот же запрет.
+    """The pause grows: a retry at the same rate hits the same limit again.
 
-    Пауза вежливости здесь отключена, иначе она перемешивается с паузой отката
-    и запись становится нечитаемой.
+    The politeness pause is disabled here, or it mixes with the backoff and the
+    record becomes unreadable.
     """
     monkeypatch.setattr(tr.RequestsTransport, "_wait", lambda self, host: None)
     queue, _ = responses
@@ -78,23 +79,23 @@ def test_pause_grows_between_retries(no_sleep, responses, monkeypatch):
 
     tr.RequestsTransport().get(URL)
 
-    assert len(no_sleep) == 2, f"ожидались две паузы отката: {no_sleep}"
-    assert no_sleep[1] > no_sleep[0], f"паузы не растут: {no_sleep}"
+    assert len(no_sleep) == 2, f"two backoff pauses were expected: {no_sleep}"
+    assert no_sleep[1] > no_sleep[0], f"the pauses do not grow: {no_sleep}"
 
 
 def test_retries_are_bounded(no_sleep, responses):
-    """Источник, отвечающий отказом всегда, не должен держать прогон вечно."""
+    """A source that always refuses must not hold the pass for ever."""
     queue, calls = responses
     queue.extend([FakeResponse(429)] * 50)
 
     status, _ = tr.RequestsTransport().get(URL)
 
-    assert status == 429, "исчерпав повторы, транспорт отдаёт отказ, а не молчит"
+    assert status == 429, "out of retries the transport returns the refusal, not data"
     assert len(calls) == tr.RETRIES_ON_RATE_LIMIT + 1
 
 
 def test_other_failures_are_not_retried(no_sleep, responses):
-    """Отсутствующая страница повтором не появится: повтор здесь — трата."""
+    """A missing page will not appear on a retry: retrying here is waste."""
     queue, calls = responses
     queue.extend([FakeResponse(404), FakeResponse(200)])
 
@@ -105,9 +106,9 @@ def test_other_failures_are_not_retried(no_sleep, responses):
 
 
 def test_network_error_is_reported_not_raised(no_sleep, monkeypatch):
-    """Обрыв сети — отказ одного источника, а не падение всего прогона."""
+    """A broken network is one source refusing, not the whole pass failing."""
     def boom(url, headers=None, timeout=None):
-        raise tr.requests.RequestException("сеть недоступна")
+        raise tr.requests.RequestException("the network is unreachable")
 
     monkeypatch.setattr(tr.requests, "get", boom)
     status, body = tr.RequestsTransport().get(URL)
@@ -117,29 +118,29 @@ def test_network_error_is_reported_not_raised(no_sleep, monkeypatch):
 
 
 def test_foreign_host_is_never_contacted(no_sleep, responses):
-    """Перечень доменов проверяется до обращения, а не после."""
+    """The allowlist is checked before the request rather than after."""
     _, calls = responses
 
     status, _ = tr.RequestsTransport().get("https://example.invalid/steal")
 
     assert status == 403
-    assert calls == [], "к постороннему адресу обращения не было"
+    assert calls == [], "no request was made to the foreign address"
 
 
 def test_polite_delay_is_kept_between_calls(no_sleep, responses):
-    """Между обращениями к одному хосту выдерживается пауза."""
+    """A pause is held between two requests to the same host."""
     http = tr.RequestsTransport()
     http.get("https://export.arxiv.org/api/query?id_list=1")
     http.get("https://export.arxiv.org/api/query?id_list=2")
 
-    assert any(w > 0 for w in no_sleep), "второе обращение пошло без паузы"
+    assert any(w > 0 for w in no_sleep), "the second request went out with no pause"
 
 
 def test_request_identifies_itself(no_sleep, monkeypatch):
-    """Обращение без представления многие площадки отклоняют как роботское.
+    """Many venues refuse an unintroduced request as robotic.
 
-    Отказ этот неотличим от «страница закрыта», и проверка ссылок из-за него
-    показывала исправной страницу, которой не существует.
+    That refusal is indistinguishable from "the page is closed", and the link check
+    once reported a page that does not exist as sound.
     """
     seen: list[dict] = []
 
@@ -155,7 +156,7 @@ def test_request_identifies_itself(no_sleep, monkeypatch):
 
 
 def test_caller_headers_win_over_the_default(no_sleep, monkeypatch):
-    """Сборщик, которому нужно своё представление, не должен его терять."""
+    """A collector that needs its own introduction must not lose it."""
     seen: list[dict] = []
 
     def fake_get(url, headers=None, timeout=None):
@@ -164,8 +165,8 @@ def test_caller_headers_win_over_the_default(no_sleep, monkeypatch):
 
     monkeypatch.setattr(tr.requests, "get", fake_get)
     tr.RequestsTransport().get(
-        URL, headers={"User-Agent": "своё", "Accept": "application/json"}
+        URL, headers={"User-Agent": "custom", "Accept": "application/json"}
     )
 
-    assert seen[0]["User-Agent"] == "своё"
+    assert seen[0]["User-Agent"] == "custom"
     assert seen[0]["Accept"] == "application/json"
