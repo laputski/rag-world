@@ -1,13 +1,13 @@
-"""Выпуск: единственное необратимое действие в проекте.
+"""A release: the one irreversible action in this project.
 
-Всё остальное можно пересобрать. Выпуск нельзя: он фиксирует состояние
-навсегда, ссылка на него уходит в чужую работу, а описание из него подаётся во
-внешний архив публикаций и получает постоянный идентификатор. Ошибка здесь не
-исправляется, она только объясняется.
+Everything else can be rebuilt. A release cannot: it fixes a state for ever, a
+link to it goes into somebody else's work, and its description is deposited in an
+external archive and receives a permanent identifier. A mistake here is not
+corrected, only explained.
 
-До появления этого файла выпуск не был покрыт ни одним тестом. Пробы показали
-четыре способа выпустить неправду, и все четыре воспроизводились с первого
-раза. Здесь под каждый построен случай.
+Before this file existed, the release was covered by no test at all. Four ways to
+release an untruth were found, and all four reproduced on the first try. A case
+is built here for each.
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ TODAY = date(2026, 8, 11)
 
 @pytest.fixture
 def workspace(tmp_path, monkeypatch):
-    """Реестр, артефакты и каталог выпусков во временном месте."""
+    """The registry, the artefacts and the releases directory in a temporary place."""
     for name, path in (
         ("DATA_DIR", tmp_path / "data"),
         ("TECHNOLOGIES_DIR", tmp_path / "data" / "technologies"),
@@ -50,9 +50,9 @@ def workspace(tmp_path, monkeypatch):
     monkeypatch.setattr(make_release, "ARTIFACTS", artifacts)
     monkeypatch.setattr(make_release, "RELEASES", artifacts / "releases")
 
-    # Записей несколько, и числа выпуска различны намеренно. На реестре из
-    # одной записи все они равны нулю или единице, и проверка «число попало в
-    # описание» проходит по любой цифре из даты, ничего не проверяя.
+    # There are several records, and the numbers of a release differ on purpose.
+    # With one record they are all zero or one, and the check that the numbers
+    # reach the description passes on any digit of the date, verifying nothing.
     for index, tech_id in enumerate(("alpha", "beta", "gamma")):
         store.save_technology(store.Technology(
             id=tech_id, name=tech_id.title(), kind="architecture", groups=["A"],
@@ -78,21 +78,21 @@ def workspace(tmp_path, monkeypatch):
 
 
 def build_artifacts_now() -> None:
-    """Собрать артефакты в подменённый каталог, как это делает `make artifacts`."""
+    """Build the artefacts into the substituted directory, as `make artifacts` does."""
     import build_artifacts
 
     build_artifacts.build(out_dir=make_release.artifacts_dir())
 
 
-# ─── Что замораживается ──────────────────────────────────────────────────────
+# ─── What gets frozen ────────────────────────────────────────────────────────
 
 
 def test_release_refuses_stale_artifacts(workspace):
-    """Числа выпуска берутся из данных, файлы из артефактов.
+    """The numbers of a release come from the data, the files from the artefacts.
 
-    Сверки между ними не было, и расхождение получалось не теоретическое: в
-    пробе снимок утверждал шестьдесят две технологии, а лежала в нём одна.
-    Такой выпуск нельзя ни исправить, ни отозвать.
+    The two were never compared, and the divergence was not theoretical: on a
+    trial the snapshot claimed sixty-two technologies and held one. Such a release
+    can neither be corrected nor withdrawn.
     """
     build_artifacts_now()
     store.save_technology(store.Technology(
@@ -112,14 +112,14 @@ def test_release_refuses_unbuilt_artifacts(workspace):
 
 
 def test_release_refuses_broken_data(workspace):
-    """Испорченные данные нельзя зафиксировать навсегда.
+    """Spoiled data must not be fixed for ever.
 
-    Выпуск не звал проверку данных вовсе.
+    The release used to call no data validation at all.
     """
     build_artifacts_now()
     store.save_technology(store.Technology(
         id="alpha", name="Alpha", kind="architecture", groups=["A"],
-        configuration={"A4": "гиперкуб"},
+        configuration={"A4": "hypercube"},
     ))
     problems = make_release.readiness()
     assert any("does not pass validation" in p for p in problems), problems
@@ -127,27 +127,27 @@ def test_release_refuses_broken_data(workspace):
 
 
 def test_snapshot_may_not_promise_a_file_it_lacks(workspace):
-    """Отсутствующий файл снимка копировался молча.
+    """A missing snapshot file used to be copied in silence.
 
-    Выпуск при этом перечислял его в своём составе, и ссылка на него вела в
-    никуда навсегда.
+    The release listed it among its contents all the same, and the link to it led
+    nowhere for ever.
     """
     build_artifacts_now()
     (make_release.artifacts_dir() / "residuals.json").unlink()
 
-    meta = make_release.build(tag="проба", today=TODAY)
+    meta = make_release.build(tag="trial", today=TODAY)
     with pytest.raises(FileNotFoundError, match="the snapshot is incomplete"):
         make_release.publish(meta)
 
 
-# ─── Целостность записи ──────────────────────────────────────────────────────
+# ─── The integrity of the write ──────────────────────────────────────────────
 
 
 def test_interrupted_release_does_not_leave_half_of_one(workspace, monkeypatch):
-    """Прерывание оставляет черновик, а не полувыпуск.
+    """An interruption leaves a draft rather than half a release.
 
-    Каталог под меткой появляется уже целым, потому что собирается рядом и
-    переносится одним движением.
+    The directory under the tag appears already complete, because it is assembled
+    beside its destination and moved in one stroke.
     """
     build_artifacts_now()
     meta = make_release.build(tag=TODAY.isoformat(), today=TODAY)
@@ -160,17 +160,17 @@ def test_interrupted_release_does_not_leave_half_of_one(workspace, monkeypatch):
         make_release.publish(meta)
 
     target = make_release.releases_dir() / meta["tag"]
-    assert not target.exists(), "полувыпуск остался бы навсегда"
+    assert not target.exists(), "half a release would stay for ever"
     leftovers = [p for p in make_release.releases_dir().iterdir() if p.is_dir()]
-    assert leftovers == [], f"черновик не убран: {leftovers}"
+    assert leftovers == [], f"the draft was not removed: {leftovers}"
 
 
 def test_incomplete_release_is_reported_not_accepted(workspace):
-    """Пустой каталог под меткой не считается выпуском.
+    """An empty directory under a tag does not count as a release.
 
-    Прежде проверялось существование каталога, поэтому прерванный выпуск
-    навсегда оставался пустым: повтор сообщал «уже существует» и уходил,
-    архива и описания не создавалось никогда.
+    Existence of the directory used to be what was checked, so an interrupted
+    release stayed empty for ever: a second attempt reported that it already
+    existed, and the archive and the description were never created.
     """
     build_artifacts_now()
     (make_release.releases_dir() / TODAY.isoformat()).mkdir(parents=True)
@@ -180,14 +180,14 @@ def test_incomplete_release_is_reported_not_accepted(workspace):
 
 
 @pytest.mark.parametrize("part", [
-    "release.json", "registry.json", "residuals.json", "архив", "описание",
-    "перечень",
+    "release.json", "registry.json", "residuals.json", "archive", "description",
+    "index",
 ])
 def test_any_missing_part_makes_the_release_incomplete(workspace, part):
-    """Полнота спрашивается у каждой части по отдельности.
+    """Completeness is asked of each part separately.
 
-    Проверка одной части сходила бы за проверку всех, пока пример был один и
-    тот же: пустой каталог не проходит по любому признаку сразу.
+    Checking one part would pass for checking the release, and the outcome would
+    be the same: an empty directory fails on any of them.
     """
     build_artifacts_now()
     tag = TODAY.isoformat()
@@ -195,11 +195,11 @@ def test_any_missing_part_makes_the_release_incomplete(workspace, part):
     assert make_release.is_complete(tag) is True
 
     releases = make_release.releases_dir()
-    if part == "архив":
+    if part == "archive":
         (releases / f"rag-world-{tag}.zip").unlink()
-    elif part == "описание":
+    elif part == "description":
         (releases / f"{tag}-deposit.json").unlink()
-    elif part == "перечень":
+    elif part == "index":
         (releases / "index.json").write_text(
             json.dumps({"releases": []}), encoding="utf-8"
         )
@@ -207,7 +207,7 @@ def test_any_missing_part_makes_the_release_incomplete(workspace, part):
         (releases / tag / part).unlink()
 
     assert make_release.is_complete(tag) is False, (
-        f"выпуск без части «{part}» сошёл за полный"
+        f"a release missing the part «{part}» passed for complete"
     )
 
 
@@ -233,14 +233,14 @@ def test_dry_run_writes_nothing(workspace):
     assert not make_release.releases_dir().exists()
 
 
-# ─── Содержание выпуска ──────────────────────────────────────────────────────
+# ─── The content of a release ────────────────────────────────────────────────
 
 
 def test_release_numbers_match_its_own_files(workspace):
-    """Выпуск не должен спорить сам с собой.
+    """A release must not argue with itself.
 
-    Это же сверяется и на выпущенном снимке: описание для внешнего архива
-    строится из тех же чисел и получает постоянный идентификатор.
+    The same is compared on the published snapshot: the description is built from
+    the same numbers and receives a permanent identifier.
     """
     build_artifacts_now()
     make_release.run(today=TODAY)
@@ -267,10 +267,10 @@ def test_bundle_contains_every_file_the_release_promises(workspace):
 
 
 def test_deposit_description_repeats_the_release_numbers(workspace):
-    """Описание уходит во внешний архив и получает постоянный идентификатор.
+    """The description goes to an external archive and receives an identifier.
 
-    Заполнять его руками при каждом выпуске значит однажды ошибиться в числах,
-    а числа здесь и есть содержание.
+    Filling it in by hand on every release means eventually mistyping a number,
+    and the numbers here are the content.
     """
     build_artifacts_now()
     make_release.run(today=TODAY)
@@ -283,9 +283,9 @@ def test_deposit_description_repeats_the_release_numbers(workspace):
         (make_release.releases_dir() / TODAY.isoformat() / "release.json")
         .read_text(encoding="utf-8")
     )
-    # Сверяются целые обороты, а не голые числа. Подстрока «3» находится в
-    # любой дате, поэтому проверка по ней проходила бы и на описании, где все
-    # числа подменены.
+    # Whole phrases are compared rather than bare numbers. A digit occurs in any
+    # date, so a check by digit would pass on a description with every number
+    # replaced.
     description = deposit["metadata"]["description"]
     for phrase in (
         f"Technologies recorded: {meta['technologies']}",
@@ -293,7 +293,7 @@ def test_deposit_description_repeats_the_release_numbers(workspace):
         f"computed for {meta['with_level']}",
         f"primary sources for {meta['reviewed']}",
     ):
-        assert phrase in description, f"в описании нет оборота «{phrase}»"
+        assert phrase in description, f"the description lacks the phrase «{phrase}»"
     assert deposit["metadata"]["version"] == meta["tag"]
     assert deposit["files"] == [f"rag-world-{TODAY.isoformat()}.zip"]
 

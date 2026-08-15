@@ -1,12 +1,12 @@
-"""Дайджест: пересказ вычисленного, а не рассказ о нём.
+"""The digest retells what was computed rather than talking about it.
 
-Выпуск публикуется без просмотра человеком, поэтому единственное, что его
-удерживает от неправды, — отсутствие в нём выдумки. Здесь проверяется, что он
-не утверждает большего, чем есть в данных, не выходит впустую и не
-переписывается задним числом.
+An issue is published without review by a person, so the only thing keeping it
+from untruth is that there is nothing invented in it. What is checked here is
+that an issue claims no more than the data holds, does not go out empty, and is
+never rewritten after the fact.
 
-Отдельно проверяются русские числительные: «5 запись» вместо «5 записей»
-подрывает доверие ко всему тексту, включая верные числа.
+The Russian numerals are checked separately: a wrong plural form undermines trust
+in the whole text, the correct numbers included.
 """
 
 from __future__ import annotations
@@ -63,7 +63,7 @@ def add_evidence(tech_id: str, kind: str, when: date, source: str) -> None:
     )])
 
 
-# ─── Русские числительные ────────────────────────────────────────────────────
+# ─── Russian numerals ────────────────────────────────────────────────────────
 
 
 @pytest.mark.parametrize("count,expected", [
@@ -78,7 +78,7 @@ def test_plural_forms(count, expected):
     assert build_digest.plural(count, "запись", "записи", "записей") == expected
 
 
-# ─── Что попадает в выпуск ───────────────────────────────────────────────────
+# ─── What goes into an issue ─────────────────────────────────────────────────
 
 
 def test_first_issue_covers_everything(registry):
@@ -109,9 +109,9 @@ def test_promotion_and_demotion_are_named_separately(registry):
     assert [i["name"] for i in issue.demoted] == ["Beta"]
     assert "Поднялись в уровне Alpha с L1 до L2" in issue.text
     assert "Опустились в уровне Beta с L3 до L1" in issue.text, (
-        "понижение называется прямо, а не умалчивается"
+        "a demotion is named outright rather than passed over"
     )
-    assert "—" not in issue.text, "связки называются словами, а не тире"
+    assert "—" not in issue.text, "relations are named by words, not by dashes"
 
 
 def test_issue_covers_only_the_period_since_the_previous_one(registry):
@@ -123,23 +123,23 @@ def test_issue_covers_only_the_period_since_the_previous_one(registry):
     add_level("beta", "L1", TODAY)
     issue = build_digest.build(today=TODAY)
 
-    assert [i["name"] for i in issue.added] == ["Beta"], "прошлое не пересказывается"
+    assert [i["name"] for i in issue.added] == ["Beta"], "the past is not retold"
     assert issue.since == date(2026, 8, 1)
 
 
 def test_future_dated_entries_are_not_announced(registry):
-    """Запись, датированная будущим, в сегодняшний выпуск не попадает."""
+    """A record dated in the future does not enter today's issue."""
     add_tech("alpha", "Alpha")
     add_level("alpha", "L1", date(2026, 9, 1))
     issue = build_digest.build(today=TODAY)
     assert issue.added == []
 
 
-# ─── Пустой выпуск ───────────────────────────────────────────────────────────
+# ─── An empty issue ──────────────────────────────────────────────────────────
 
 
 def test_no_news_means_no_issue(registry):
-    """Полсотни сообщений «ничего не произошло» — это шум, а не дайджест."""
+    """Fifty messages saying nothing happened are noise, not a digest."""
     add_tech("alpha", "Alpha")
     issue = build_digest.build(today=TODAY)
 
@@ -158,14 +158,14 @@ def test_quiet_period_after_a_loud_one_produces_nothing(registry):
     assert len(build_digest.load_issues()) == 1
 
 
-# ─── Выпуск не переписывается ────────────────────────────────────────────────
+# ─── An issue is never rewritten ─────────────────────────────────────────────
 
 
 def test_published_issue_is_never_rewritten(registry):
-    """Выпуск утверждает, что было верно в день выхода.
+    """An issue asserts what was true on the day it came out.
 
-    Пересобрать его позже нельзя: по нынешним данным вышел бы другой текст, а
-    прошлый читатель уже видел.
+    It cannot be rebuilt later: today's data would produce a different text, and
+    the reader has already seen the old one.
     """
     add_tech("alpha", "Alpha")
     add_level("alpha", "L1", TODAY)
@@ -193,7 +193,7 @@ def test_dry_run_writes_nothing(registry):
     assert build_digest.load_issues() == []
 
 
-# ─── Текст не утверждает лишнего ─────────────────────────────────────────────
+# ─── The text claims nothing extra ───────────────────────────────────────────
 
 
 def test_text_reports_the_state_it_reached(registry):
@@ -206,7 +206,7 @@ def test_text_reports_the_state_it_reached(registry):
     assert issue.by_level == {"L2": 1, "unknown": 1}
     assert "Уровень L2 у 1 записи" in issue.text
     assert "уровень не вычислен, потому что свидетельств пока нет" in issue.text, (
-        "запись без свидетельств не должна выглядеть как L0"
+        "a record with no evidence must not look like L0"
     )
 
 
@@ -231,7 +231,7 @@ def test_long_lists_are_cut_not_dumped(registry):
     issue = build_digest.build(today=TODAY)
 
     assert "Tech 0" in issue.text
-    assert "Tech 19" not in issue.text, "выпуск — сообщение, а не выгрузка"
+    assert "Tech 19" not in issue.text, "an issue is a message, not a data dump"
     assert "и ещё 12 записей" in issue.text
 
 
@@ -244,7 +244,7 @@ def test_broken_links_are_announced(registry):
 
     assert issue.links_broken == 2
     assert "2 источника" in issue.text
-    assert issue.has_news(), "исчезнувший источник — новость"
+    assert issue.has_news(), "a vanished source is news"
 
 
 def test_issue_is_written_as_stable_json(registry):
@@ -258,25 +258,26 @@ def test_issue_is_written_as_stable_json(registry):
     assert path.read_text(encoding="utf-8").endswith("\n")
 
 
-# ─── Граница периода ─────────────────────────────────────────────────────────
+# ─── The boundary of the period ──────────────────────────────────────────────
 
 
 def test_changes_after_an_issue_on_the_same_day_are_not_lost(registry):
-    """Изменение, случившееся в день выпуска, но после него.
+    """A change that happened on the day of an issue but after it.
 
-    Граница по дате теряла такие изменения навсегда: в этот выпуск они не
-    попадали, потому что он уже вышел, а в следующий — потому что их дата не
-    была больше даты прошлого выпуска. Отказ молчаливый: портал показывал новое
-    состояние, а дайджест о нём не сообщал никогда.
+    A boundary by date lost such changes for ever: they did not enter this issue
+    because it had already gone out, nor the next one because their date was not
+    later than the previous issue's. The failure was silent: the portal showed
+    the new state and the digest never reported it.
 
-    Отметка ставится по числу записей журнала, а не по дате: журналы
-    дописываются и не переписываются, поэтому число охваченного точно.
+    The mark is set by the number of journal entries rather than by a date: the
+    journals are appended to and never rewritten, so the count of what is covered
+    is exact.
     """
     add_tech("alpha", "Alpha")
     add_level("alpha", "L1", TODAY)
     build_digest.publish(build_digest.build(today=TODAY))
 
-    # Тот же день, но после выпуска: прогон нашёл повышение и свидетельства.
+    # The same day but after the issue: the pass found a promotion and evidence.
     add_level("alpha", "L2", TODAY)
     add_evidence("alpha", "repository", TODAY, "https://github.com/x/y")
 
@@ -284,11 +285,11 @@ def test_changes_after_an_issue_on_the_same_day_are_not_lost(registry):
 
     assert [i["name"] for i in issue.promoted] == ["Alpha"]
     assert issue.evidence_added == 1
-    assert issue.has_news(), "изменения дня выпуска обязаны попасть в следующий"
+    assert issue.has_news(), "changes on the day of an issue must reach the next one"
 
 
 def test_watermarks_advance_with_each_issue(registry):
-    """Каждый выпуск отмечает, сколько журналов он охватил."""
+    """Every issue records how much of the journals it covered."""
     add_tech("alpha", "Alpha")
     add_level("alpha", "L1", TODAY)
     add_evidence("alpha", "publication", TODAY, "https://arxiv.org/abs/1")
@@ -305,7 +306,7 @@ def test_watermarks_advance_with_each_issue(registry):
 
 
 def test_nothing_is_reported_twice(registry):
-    """Охваченное прошлым выпуском не пересказывается следующим."""
+    """What the previous issue covered is not retold by the next one."""
     add_tech("alpha", "Alpha")
     add_level("alpha", "L1", TODAY)
     add_evidence("alpha", "publication", TODAY, "https://arxiv.org/abs/1")
@@ -318,11 +319,11 @@ def test_nothing_is_reported_twice(registry):
 
 
 def test_text_uses_words_instead_of_dashes(registry):
-    """Тире прячет отношение между частями фразы.
+    """A dash hides the relation between parts of a phrase.
 
-    Читателю приходится самому достраивать, перечисление это, причина или
-    уточнение. Текст порождается шаблоном и выходит без просмотра человеком,
-    поэтому догадываться он заставлять не должен.
+    The reader has to work out for themselves whether it is a list, a cause or a
+    qualification. The text is generated from a template and goes out without
+    review, so it must not make anyone guess.
     """
     for i in range(3):
         add_tech(f"t{i}", f"Tech {i}")
@@ -331,6 +332,6 @@ def test_text_uses_words_instead_of_dashes(registry):
 
     text = build_digest.build(today=TODAY).text
 
-    assert "—" not in text, f"длинное тире вместо связки: {text}"
-    assert "→" not in text, f"стрелка вместо слов: {text}"
-    assert "с L" not in text or "до L" in text, "переход уровня называется словами"
+    assert "—" not in text, f"an em dash instead of a verb: {text}"
+    assert "→" not in text, f"an arrow instead of words: {text}"
+    assert "с L" not in text or "до L" in text, "a level transition is named in words"
