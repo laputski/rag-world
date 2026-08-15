@@ -1,12 +1,13 @@
-"""Перечень ресурсов не должен расходиться с кодом сборщиков.
+"""The list of resources must not diverge from the collector code.
 
-Перечень порождается из констант самих сборщиков, поэтому написать в нём
-неправду нельзя. Но можно забыть пересборку после переезда чужого каталога, и
-тогда документ будет спокойно утверждать вчерашнее. Переезд уже случался:
-интеграции LangChain ушли из `libs/community` в `libs/langchain/langchain_classic`.
+The list is generated from the collectors' own constants, so it cannot state an
+untruth. It can, however, be left unrebuilt after somebody else's catalogue
+moves, and then the document calmly asserts yesterday's arrangement. A move has
+happened already: the LangChain integrations left `libs/community` for
+`libs/langchain/langchain_classic`.
 
-Тот же приём, что со схемой измерений для интерфейса: сгенерированный файл
-сверяется с генератором, а не проверяется на правдоподобие.
+The same device as with the dimension schema for the interface: what is generated
+is compared against its generator rather than checked for plausibility.
 """
 
 from __future__ import annotations
@@ -23,7 +24,7 @@ import build_sources  # noqa: E402
 
 def test_sources_file_exists():
     assert build_sources.OUT.exists(), (
-        "перечень ресурсов отсутствует; выполните "
+        "the list of resources is missing; run "
         "`python3 scripts/build_sources.py`"
     )
 
@@ -31,27 +32,28 @@ def test_sources_file_exists():
 def test_sources_file_matches_the_collectors():
     actual = build_sources.OUT.read_text(encoding="utf-8")
     assert actual == build_sources.render(), (
-        "перечень ресурсов разошёлся с кодом сборщиков; выполните "
-        "`python3 scripts/build_sources.py` и не правьте файл вручную"
+        "the list of resources has diverged from the collector code; run "
+        "`python3 scripts/build_sources.py` and do not edit the file by hand"
     )
 
 
 def test_every_polled_address_is_listed():
-    """Адрес, опрашиваемый кодом, обязан быть в перечне.
+    """An address the code polls has to be in the list.
 
-    Новый сборщик легко завести и легко забыть описать. Тогда портал ходит
-    туда, куда по документам не ходит, и узнать об этом можно только чтением
-    кода — ровно то состояние, ради выхода из которого перечень заведён.
+    A new collector is easy to write and easy to forget to describe. The portal
+    then goes where the documents say it does not, and the only way to learn that
+    is to read the code — exactly the state the list exists to end.
     """
     listed = build_sources.render()
     missing = [url for url in build_sources.PURPOSE if url not in listed]
-    assert not missing, f"адреса нет в перечне: {missing}"
+    assert not missing, f"an address is missing from the list: {missing}"
 
-    # Обратная сторона: перечень описывает только то, что существует в коде.
+    # The other side: the list describes only what exists.
     import re
 
-    # Перебираются все модули сборщиков, а не список имён: список пришлось бы
-    # дополнять при каждом новом сборщике, и его как раз забыли бы.
+    # Every collector module is walked rather than a list of names: such a list
+    # would have to be extended with every new collector, and that is exactly what
+    # would be forgotten.
     declared = set()
     for path in sorted((ROOT / "services" / "collectors").glob("*.py")):
         text = path.read_text(encoding="utf-8")
@@ -62,6 +64,6 @@ def test_every_polled_address_is_listed():
         if url not in build_sources.PURPOSE and url not in listed
     )
     assert not undocumented, (
-        f"сборщики ходят по адресам, которых нет в перечне: {undocumented}. "
-        "Добавьте назначение в PURPOSE и пересоберите перечень."
+        f"the collectors go to addresses absent from the list: {undocumented}. "
+        "Add the purpose to PURPOSE and rebuild the list."
     )

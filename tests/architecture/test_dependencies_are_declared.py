@@ -1,14 +1,14 @@
-"""Всё, что код ввозит, должно быть объявлено зависимостью.
+"""Everything the code imports has to be declared as a dependency.
 
-Отказ здесь особенно неприятен тем, что локально его не видно. Пакет приходит
-попутно с другим, разработчик пишет `import`, проверки у него зелёные, а на
-чистой установке набор падает. Именно так и вышло: разбор описаний рабочих
-процессов ввозил `yaml`, локально пришедший с чем-то ещё, и непрерывная
-интеграция упала на первом же прогоне после отправки.
+A failure here is especially unpleasant because it is invisible locally. A
+package arrives alongside another, the developer writes an `import`, their checks
+are green, and on a clean install the suite fails. That is exactly what happened:
+the workflow parser imported `yaml`, which locally came in with something else,
+and continuous integration failed on the first run after a push.
 
-Проверка сравнивает то, что код действительно ввозит, с тем, что объявлено в
-`pyproject.toml`, и делает это по разбору исходников, а не по установленному
-окружению: окружение и есть то, что врёт.
+The check compares what the code actually imports with what `pyproject.toml`
+declares, and it does so by parsing the sources rather than by inspecting the
+installed environment: the environment is the thing that lies.
 """
 
 from __future__ import annotations
@@ -20,13 +20,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-#: Каталоги, чьи ввозы обязаны быть обеспечены объявленными зависимостями.
+#: The directories whose imports must be covered by declared dependencies.
 WATCHED = ("core", "services", "scripts", "tests")
 
-#: Модули стандартной библиотеки ввозить можно без объявления.
+#: Standard-library modules may be imported without a declaration.
 STDLIB = set(sys.stdlib_module_names)
 
-#: Имя пакета в объявлении не всегда совпадает с именем ввозимого модуля.
+#: The declared package name does not always match the imported module name.
 DISTRIBUTION = {
     "yaml": "pyyaml",
     "dateutil": "python-dateutil",
@@ -34,7 +34,7 @@ DISTRIBUTION = {
 
 
 def _declared() -> set[str]:
-    """Имена пакетов из pyproject: и обязательных, и для разработки."""
+    """The package names from pyproject, both required and development ones."""
     import re
 
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
@@ -45,11 +45,11 @@ def _declared() -> set[str]:
 
 
 def _own_modules() -> set[str]:
-    """Свои модули, включая те, что ввозятся по короткому имени.
+    """The project's own modules, including those imported by a short name.
 
-    Точки входа лежат в `scripts/` и добавляют этот каталог в путь поиска,
-    поэтому друг друга они ввозят как `import build_artifacts`. Для проверки
-    это свой код, а не сторонний пакет.
+    The entry points live in `scripts/` and add that directory to the search path,
+    so they import one another as `import build_artifacts`. For this check that is
+    the project's own code and not a third-party package.
     """
     own = {"core", "services", "scripts", "tests"}
     for folder in ("scripts", "core", "services"):
@@ -60,7 +60,7 @@ def _own_modules() -> set[str]:
 
 
 def _imported() -> dict[str, set[str]]:
-    """Ввозимые сторонние модули и файлы, где они встретились."""
+    """The third-party modules imported, and the files they appear in."""
     found: dict[str, set[str]] = {}
     own = _own_modules()
     for folder in WATCHED:
@@ -72,7 +72,8 @@ def _imported() -> dict[str, set[str]]:
                 if isinstance(node, ast.Import):
                     modules = [alias.name for alias in node.names]
                 elif isinstance(node, ast.ImportFrom):
-                    # Относительный ввоз своего же кода объявления не требует.
+                    # A relative import of the project's own code needs no
+                    # declaration.
                     modules = [node.module] if node.level == 0 and node.module else []
                 else:
                     continue
@@ -94,15 +95,15 @@ def test_every_third_party_import_is_declared():
         if DISTRIBUTION.get(module, module).lower().replace("_", "-") not in declared
     }
     assert not missing, (
-        "код ввозит пакеты, не объявленные в pyproject.toml: "
-        f"{missing}. Локально они могли прийти попутно с другими, а на чистой "
-        "установке набор упадёт."
+        "the code imports packages not declared in pyproject.toml: "
+        f"{missing}. Locally they may have arrived alongside others, and on a "
+        "clean install the suite will fail."
     )
 
 
 def test_workflow_parser_dependency_is_declared():
-    """Отдельно назван тот случай, ради которого проверка заведена."""
+    """The case this check was created for is named outright."""
     assert "pyyaml" in _declared(), (
-        "разбор описаний рабочих процессов ввозит yaml; без объявления "
-        "непрерывная интеграция падает на чистой установке"
+        "the workflow parser imports yaml; without a declaration continuous "
+        "integration fails on a clean install"
     )

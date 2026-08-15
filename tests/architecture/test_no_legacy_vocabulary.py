@@ -1,14 +1,14 @@
-"""Сторож словаря: устаревшая модель не должна возвращаться в проект.
+"""The vocabulary guard: an abandoned model must not return to the project.
 
-Прежняя факторизация RAG («семь ортогональных осей») отменена: единственный
-контракт — двадцать восемь измерений в семи стратах. Этот тест не даёт словарю
-отменённой модели просочиться обратно ни в код, ни в тексты, ни в локализацию.
+The earlier factorisation of RAG into "seven orthogonal axes" was reversed: the
+single contract is twenty-eight dimensions in seven strata. This test does not
+let the abandoned model seep back into the code, the texts or the data.
 
-Правила намеренно точные. Запрещены **идентификаторы** отменённой модели и её
-**именные обороты**, но не английское слово `axis` само по себе: оси координат
-есть у диаграмм (`xAxis`, `yAxis`), а `d3-axis` — реальная зависимость сборки.
-По той же причине не запрещено русское «ось»: у карты зрелости две оси, и
-писать о них придётся.
+The rules are deliberately precise. What is forbidden are the **identifiers** of
+the abandoned model and its **named phrases**, not the English word `axis` by
+itself: charts have axes (`xAxis`, `yAxis`), and `d3-axis` is a real build
+dependency. For the same reason the Russian word for "axis" is not forbidden: the
+maturity map has two of them and they have to be written about.
 """
 
 from __future__ import annotations
@@ -18,15 +18,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# Каталоги, которые не являются исходниками проекта.
+# Directories that are not sources of this project.
 SKIP_DIRS = {
     ".git", ".venv", "node_modules", "__pycache__", ".pytest_cache",
     ".ruff_cache", ".idea", ".zcode", ".deepeval", "dist", "build",
     "rag_constructor.egg-info", "rag_world.egg-info",
 }
 
-# Файлы, содержимое которых мы не пишем (имена сторонних пакетов и т. п.),
-# и сам сторож: он обязан перечислять запрещённое, чтобы его искать.
+# Files whose content we do not write (the names of third-party packages), and
+# the guard itself: it has to list what is forbidden in order to look for it.
 SKIP_FILES = {"package-lock.json", "package.json", "test_no_legacy_vocabulary.py"}
 
 SUFFIXES = {
@@ -34,7 +34,7 @@ SUFFIXES = {
     ".yml", ".yaml", ".sql", ".toml", ".html", ".css",
 }
 
-# Идентификаторы отменённой модели: встречаются только в её коде и контрактах.
+# The identifiers of the abandoned model: they occur only in its own code.
 FORBIDDEN_IDENTIFIERS = (
     "AxisCoordinates",
     "AxesResponse",
@@ -49,7 +49,7 @@ FORBIDDEN_IDENTIFIERS = (
     "pre_retrieval",
 )
 
-# Именные обороты отменённой модели на обоих языках.
+# The named phrases of the abandoned model, in both languages.
 FORBIDDEN_PHRASES = (
     r"семиосев\w*",
     r"ортогональн\w*",
@@ -74,12 +74,13 @@ PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-# Файлы, ожидающие переписывания в следующих фазах. Список обязан только
-# сокращаться: тест падает и тогда, когда файл из списка уже чист, чтобы запись
-# не осталась висеть после выполнения работы.
-# Пуст: последний файл из списка разобран и удалён. Настоящие имена из него
-# заведены записями реестра, остальные отклонены с причиной в
-# data/rejected.jsonl. Реестр снова единственное место, где живут технологии.
+# Files awaiting a rewrite in later phases. The list must shrink: the test fails
+# when a file in it is already clean, so that an entry does not hang around after
+# the work is done.
+# It is empty: the last file on the list was worked through and deleted. The real
+# names became registry records and the rest were refused with a reason in
+# data/rejected.jsonl. The registry is once again the only place technologies
+# live.
 PENDING_REWRITE: frozenset[str] = frozenset()
 
 
@@ -106,7 +107,7 @@ def _violations(path: Path) -> list[str]:
 
 
 def test_legacy_vocabulary_absent_from_project():
-    """Ни один файл вне списка ожидающих переписывания не несёт старый словарь."""
+    """No file outside the pending list carries the old vocabulary."""
     offenders: dict[str, list[str]] = {}
     for rel, path in _iter_source_files():
         key = rel.as_posix()
@@ -116,29 +117,29 @@ def test_legacy_vocabulary_absent_from_project():
         if found:
             offenders[key] = sorted(set(found))[:5]
     assert not offenders, (
-        "Словарь отменённой модели вернулся в проект:\n"
+        "The vocabulary of the abandoned model has returned to the project:\n"
         + "\n".join(f"  {k}: {', '.join(v)}" for k, v in sorted(offenders.items()))
     )
 
 
 def test_pending_rewrite_list_only_shrinks():
-    """Запись остаётся в списке, только пока файл действительно не переписан."""
+    """An entry stays on the list only while the file is genuinely not clean."""
     stale = []
     for name in sorted(PENDING_REWRITE):
         path = ROOT / name
         if not path.exists():
-            continue  # файл удалён — запись убирается вместе со следующей правкой
+            continue  # the file is gone; the entry goes with the next edit
         if not _violations(path):
             stale.append(name)
     assert not stale, (
-        "Эти файлы уже очищены — уберите их из PENDING_REWRITE:\n  "
+        "These files are already clean — remove them from PENDING_REWRITE:\n  "
         + "\n  ".join(stale)
     )
 
 
 def test_replacement_model_is_declared():
-    """Отменённая модель заменена, а не просто удалена."""
+    """The abandoned model was replaced rather than merely deleted."""
     from core.dimensions_schema import DIMENSIONS, STRATA
 
-    assert len(STRATA) == 7, "ожидается семь стратов"
-    assert len(DIMENSIONS) == 28, "ожидается двадцать восемь измерений"
+    assert len(STRATA) == 7, "seven strata are expected"
+    assert len(DIMENSIONS) == 28, "twenty-eight dimensions are expected"
