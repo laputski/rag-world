@@ -27,13 +27,58 @@ interface Props {
 
 const UNKNOWN_ROW = "—";
 
-function stableJitter(id: string, salt: number): number {
-  let hash = salt;
-  for (let i = 0; i < id.length; i += 1) {
-    hash = (hash * 31 + id.charCodeAt(i)) % 997;
+/**
+ * Places inside one cell, one per point, in a small block ordered by identifier.
+ *
+ * A cell is an area rather than a line, so the map's single row of slots does
+ * not carry over. The points are laid out as a lattice: the count decides how
+ * many columns, and each row is centred on its own, so a block with a ragged
+ * last row still sits straight under the ones above it.
+ *
+ * The lattice is wider than it is tall because a cell is: a column of the grid
+ * is about twice the width of a row's height, and a square block of points
+ * would come out stretched. The order is by identifier, arbitrary and stable,
+ * for the same reason it is on the map.
+ */
+export function cellPlaces(
+  points: { id: string; group: string | null; level: string | null }[],
+): Map<string, [number, number]> {
+  const cells = new Map<string, string[]>();
+  for (const point of points) {
+    const key = `${point.group ?? ""}|${point.level ?? ""}`;
+    cells.set(key, [...(cells.get(key) ?? []), point.id]);
   }
-  return hash / 997 - 0.5;
+
+  const places = new Map<string, [number, number]>();
+  for (const ids of cells.values()) {
+    const ordered = [...ids].sort();
+    const columns = Math.min(ordered.length, Math.ceil(Math.sqrt(ordered.length * CELL_ASPECT)));
+    const rows = Math.ceil(ordered.length / columns);
+    // The span is the distance from the first point to the last, so the step
+    // divides by one less than the count. Dividing by the count leaves a margin
+    // the block does not need and packs the points tighter than the cell asks.
+    const stepX = CELL_SPAN_X / Math.max(1, columns - 1);
+    const stepY = CELL_SPAN_Y / Math.max(1, rows - 1);
+    for (let row = 0; row < rows; row += 1) {
+      const inRow = ordered.slice(row * columns, (row + 1) * columns);
+      inRow.forEach((id, i) => {
+        places.set(id, [
+          (i - (inRow.length - 1) / 2) * stepX,
+          ((rows - 1) / 2 - row) * stepY,
+        ]);
+      });
+    }
+  }
+  return places;
 }
+
+/** How much wider a cell is than it is tall, so the lattice matches its shape. */
+const CELL_ASPECT = 2;
+
+/** How much of a cell the points may occupy, leaving the rest as its margin. */
+const CELL_SPAN_X = 0.74;
+const CELL_SPAN_Y = 0.66;
+
 
 export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
   const theme = useTheme();
@@ -54,6 +99,8 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
       byKind.set(point.kind, list);
     }
 
+    const places = cellPlaces(artifact.points);
+
     const series = [...byKind.entries()].map(([kind, points]) => ({
       name: t(`kind.${kind}`, { defaultValue: kind }),
       type: "scatter" as const,
@@ -63,13 +110,12 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
         const col = p.group ? columns.indexOf(p.group) : -1;
         const row = p.level ? rows.indexOf(p.level) : 0;
         return {
-          // Centred on the cell, not pushed into a corner of it. The offsets
-          // used to run from zero upwards, so every point sat above and to the
-          // right of its own label and the cell it belonged to had to be
-          // guessed.
+          // A place of its own inside the cell. The offsets used to be random
+          // and to run from zero upwards, so points overlapped and every one of
+          // them sat above and to the right of its own label.
           value: [
-            (col < 0 ? 0 : col) + (stableJitter(p.id, 7) - 0.5) * 0.55,
-            row + (stableJitter(p.id, 13) - 0.5) * 0.5,
+            (col < 0 ? 0 : col) + (places.get(p.id)?.[0] ?? 0),
+            row + (places.get(p.id)?.[1] ?? 0),
           ],
           point: p,
           itemStyle: {
