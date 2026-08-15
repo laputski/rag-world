@@ -1,18 +1,18 @@
-"""Проверка данных: сторож последней инстанции, у которого не было сторожа.
+"""Data validation: the guard of last resort, which had no guard of its own.
 
-`check_registry` — единственное, что стоит между сбором и коммитом бота.
-Еженедельный проход идёт без человека, а коммит бота не поднимает рабочие
-процессы (так устроена площадка), поэтому ни сверка артефактов с реестром, ни
-сверка статьи с кодом на этом пути не выполняются. Остаётся эта функция.
+`check_registry` is the only thing standing between collection and a bot commit.
+The weekly pass runs unattended, and a bot commit triggers no other workflow (the
+platform works that way), so neither the artefact comparison nor the article
+guard runs on that path. This is what remains.
 
-До появления этого файла её не проверял никто. Мутационный прогон показал
-цену: девять правок подряд отключали её проверки по одной, и весь набор
-оставался зелёным. Данные в репозитории чистые, поэтому запуск проверки на них
-подтверждал только их чистоту, а не то, что нарушение будет замечено.
+Before this file existed, nobody checked it. The mutation run showed the price:
+nine edits in a row disabled its checks one at a time, and the whole suite stayed
+green. The data in the repository is clean, so running it confirmed only that
+cleanliness and not that a violation would be caught.
 
-Здесь под каждую проверку строится нарушение. Обратная сторона так же важна:
-безупречный реестр обязан давать пустой список, иначе сторож начнёт кричать на
-верные данные, и его перестанут слушать.
+A violation is built here for every check. The other side matters too: a flawless
+registry must yield an empty list, or the guard cries over correct data and stops
+being listened to.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ TODAY = date(2026, 8, 11)
 
 @pytest.fixture
 def registry(tmp_path, monkeypatch):
-    """Пустой реестр во временном каталоге."""
+    """An empty registry in a temporary directory."""
     for name, path in (
         ("DATA_DIR", tmp_path),
         ("TECHNOLOGIES_DIR", tmp_path / "technologies"),
@@ -52,7 +52,7 @@ def registry(tmp_path, monkeypatch):
 
 
 def save(**overrides) -> store.Technology:
-    """Исправная запись, если не сказано иного."""
+    """A sound record unless told otherwise."""
     payload = {
         "id": "alpha", "name": "Alpha", "kind": "architecture", "groups": ["A"],
     }
@@ -63,7 +63,7 @@ def save(**overrides) -> store.Technology:
 
 
 def write_raw(name: str, payload: dict) -> None:
-    """Записать файл в обход схемы: так порча выглядит на диске."""
+    """Write a file bypassing the schema: that is how damage looks on disk."""
     (store.TECHNOLOGIES_DIR / name).write_text(
         json.dumps(payload, ensure_ascii=False), encoding="utf-8"
     )
@@ -73,11 +73,11 @@ def complains_about(fragment: str, problems: list[str]) -> bool:
     return any(fragment in problem for problem in problems)
 
 
-# ─── Обратная сторона: исправное не должно вызывать жалоб ────────────────────
+# ─── The other side: sound data must draw no complaints ──────────────────────
 
 
 def test_sound_registry_produces_no_complaints(registry):
-    """Сторож, кричащий на верные данные, перестаёт быть сторожем."""
+    """A guard that cries over correct data stops being a guard."""
     save(configuration={"A4": "graph", "C1": "graph_traversal"},
          configuration_reviewed=TODAY)
     store.append_evidence([store.Evidence(
@@ -97,7 +97,7 @@ def test_sound_registry_produces_no_complaints(registry):
     assert validate_data.check_registry() == []
 
 
-# ─── Целостность самого реестра ──────────────────────────────────────────────
+# ─── The integrity of the registry itself ────────────────────────────────────
 
 
 def test_empty_registry_is_a_violation(registry):
@@ -105,7 +105,7 @@ def test_empty_registry_is_a_violation(registry):
 
 
 def test_unreadable_record_stops_everything(registry):
-    write_raw("alpha.json", {"id": "alpha", "имя": "нет такого поля"})
+    write_raw("alpha.json", {"id": "alpha", "имя": "no such field"})
     problems = validate_data.check_registry()
     assert complains_about("does not read against the schema", problems)
 
@@ -120,18 +120,18 @@ def test_identifier_must_follow_the_convention(registry):
 def test_duplicate_identifier_is_caught(registry):
     save()
     write_raw("alpha_copy.json", {
-        "id": "alpha", "name": "Alpha ещё раз", "kind": "architecture", "groups": [],
+        "id": "alpha", "name": "Alpha again", "kind": "architecture", "groups": [],
     })
     assert complains_about("is repeated", validate_data.check_registry())
 
 
 def test_filename_must_match_the_identifier(registry):
-    """Расхождение имени файла с идентификатором раздваивает запись.
+    """A file name diverging from the identifier splits a record in two.
 
-    Проверка ссылок обходит реестр и сохраняет записи, сохранение идёт по
-    идентификатору. Прежний файл остаётся, появляется новый, и в реестре
-    оказываются две записи с одним идентификатором. До этой проверки такое
-    состояние проходило молча.
+    The link check walks the registry and saves the records, and saving goes by
+    identifier. The old file stays, a new one appears, and the registry ends up
+    with two records under one identifier. Before this check that state passed in
+    silence.
     """
     write_raw("foo.json", {
         "id": "bar", "name": "Bar", "kind": "architecture", "groups": ["A"],
@@ -141,7 +141,7 @@ def test_filename_must_match_the_identifier(registry):
 
 
 def test_split_record_is_reproducible_and_caught(registry):
-    """Порча воспроизводится ровно тем действием, каким наступает в проходе."""
+    """The damage is reproduced by exactly the action that causes it."""
     write_raw("foo.json", {
         "id": "bar", "name": "Bar", "kind": "architecture", "groups": ["A"],
     })
@@ -154,12 +154,12 @@ def test_split_record_is_reproducible_and_caught(registry):
 
 
 def test_half_written_record_is_reported_not_swallowed(registry):
-    """Оборванная запись файла обнаруживается чтением.
+    """A truncated write is found by reading.
 
-    Проход можно прервать в любой момент, и файл останется недописанным.
-    Проверка обязана не только остановиться, но и назвать файл: разбирать
-    отказ автономного прохода придётся по журналу задним числом, а сообщение
-    схемы говорит, что не сошлось, и умалчивает, где.
+    A pass can be interrupted at any moment and leave a file unfinished. The check
+    has to stop and also name the file: the failure of an unattended pass is
+    worked out from the log afterwards, and the schema says what did not fit while
+    keeping silent about where.
     """
     save()
     (store.TECHNOLOGIES_DIR / "beta.json").write_text(
@@ -167,7 +167,7 @@ def test_half_written_record_is_reported_not_swallowed(registry):
     )
     problems = validate_data.check_registry()
     assert complains_about("does not parse", problems)
-    assert complains_about("beta.json", problems), "отказ обязан называть файл"
+    assert complains_about("beta.json", problems), "the failure has to name the file"
     assert complains_about("does not read against the schema", problems)
 
 
@@ -183,28 +183,28 @@ def test_unknown_stratum_is_a_violation(registry):
     assert complains_about("unknown stratum", validate_data.check_registry())
 
 
-# ─── Конфигурационное пространство ───────────────────────────────────────────
+# ─── The configuration space ─────────────────────────────────────────────────
 
 
 def test_dimension_outside_the_schema_is_a_violation(registry):
-    save(configuration={"Z9": "что угодно"})
+    save(configuration={"Z9": "anything"})
     assert complains_about("unknown dimension", validate_data.check_registry())
 
 
 def test_value_outside_the_schema_is_a_violation(registry):
-    save(configuration={"A4": "гиперкуб"})
+    save(configuration={"A4": "hypercube"})
     assert complains_about("which the schema does not contain", validate_data.check_registry())
 
 
 def test_configuration_violating_constraints_is_a_violation(registry):
-    """Ограничение Φ: графовая топология требует оператора обхода графа."""
+    """A constraint Φ: a graph topology requires a traversal operator."""
     save(configuration={"A4": "graph", "C1": "dense"})
     assert complains_about("the configuration is inadmissible",
                            validate_data.check_registry())
 
 
 def test_kind_without_configuration_may_not_carry_values(registry):
-    """Атака не занимает места в конфигурационном пространстве."""
+    """An attack occupies no place in the configuration space."""
     kind = sorted(store.KINDS_WITHOUT_CONFIGURATION)[0]
     save(kind=kind, configuration={"A4": "flat"})
     assert complains_about("occupies no place", validate_data.check_registry())
@@ -216,7 +216,7 @@ def test_reviewed_record_must_assert_something(registry):
                            validate_data.check_registry())
 
 
-# ─── Пометки измерений ───────────────────────────────────────────────────────
+# ─── The dimension marks ─────────────────────────────────────────────────────
 
 
 def test_dimension_cannot_be_variable_and_inapplicable_at_once(registry):
@@ -231,7 +231,7 @@ def test_variable_dimension_outside_the_schema_is_a_violation(registry):
 
 
 def test_variable_dimension_without_a_value_is_a_violation(registry):
-    """Пометка говорит, что значение не единственное, а не что его нет."""
+    """The mark says the value is not the only one, not that there is none."""
     save(configuration_variable=["A4"])
     assert complains_about("is marked variable yet carries no",
                            validate_data.check_registry())
@@ -243,21 +243,21 @@ def test_inapplicable_dimension_outside_the_schema_is_a_violation(registry):
 
 
 def test_inapplicable_dimension_may_not_carry_a_value(registry):
-    """Значение у неприменимого измерения утверждает о несуществующем."""
+    """A value on an inapplicable dimension asserts something non-existent."""
     save(configuration={"A4": "flat"}, configuration_inapplicable=["A4"])
     assert complains_about("is marked inapplicable yet carries",
                            validate_data.check_registry())
 
 
-# ─── Остаток отображения ─────────────────────────────────────────────────────
+# ─── The residual of the mapping ─────────────────────────────────────────────
 
 
 def test_residual_outside_the_vocabulary_is_a_violation(registry):
-    """Свободный текст в остатке делает подсчёт повторов бессмысленным."""
+    """Free text in a residual makes counting repetitions meaningless."""
     (registry / "residual_vocabulary.json").write_text(
         json.dumps({"mechanisms": [{"id": "known_one"}]}), encoding="utf-8"
     )
-    save(residual=["своими словами про рёбра"])
+    save(residual=["in my own words about edges"])
     assert complains_about("is not in the vocabulary", validate_data.check_registry())
 
 
@@ -270,10 +270,10 @@ def test_residual_from_the_vocabulary_passes(registry):
 
 
 def test_vocabulary_is_read_at_check_time_not_at_import(registry):
-    """Проход правит данные и проверяет их в том же запуске.
+    """A pass edits the data and validates it within the same run.
 
-    Словарь, прочитанный при загрузке модуля, описывал бы состояние до правок,
-    и механизм, добавленный этим же проходом, был бы объявлен самоуправством.
+    A vocabulary read at import time would describe the state before those edits,
+    and a mechanism added by that very pass would be declared unknown.
     """
     save(residual=["added_during_the_pass"])
     assert complains_about("is not in the vocabulary", validate_data.check_registry())
@@ -285,7 +285,7 @@ def test_vocabulary_is_read_at_check_time_not_at_import(registry):
     assert validate_data.check_registry() == []
 
 
-# ─── Источники ───────────────────────────────────────────────────────────────
+# ─── Sources ─────────────────────────────────────────────────────────────────
 
 
 def test_link_without_an_address_is_a_violation(registry):
@@ -294,7 +294,7 @@ def test_link_without_an_address_is_a_violation(registry):
 
 
 def test_verified_link_must_carry_a_date(registry):
-    """Отметка о проверке без даты не даёт узнать, когда ссылку смотрели."""
+    """A check mark without a date gives no way to know when the link was seen."""
     save(links=[store.Link(
         url="https://arxiv.org/abs/1", kind="preprint", status="verified",
     )])
@@ -302,7 +302,7 @@ def test_verified_link_must_carry_a_date(registry):
                            validate_data.check_registry())
 
 
-# ─── Ссылочная целостность ───────────────────────────────────────────────────
+# ─── Referential integrity ───────────────────────────────────────────────────
 
 
 def test_evidence_pointing_at_an_unknown_record(registry):
@@ -375,15 +375,15 @@ def test_metric_without_a_source(registry):
     assert complains_about("has no source", validate_data.check_registry())
 
 
-# ─── Код возврата ────────────────────────────────────────────────────────────
+# ─── The exit code ───────────────────────────────────────────────────────────
 #
-# Проверками сборки и целью `make validate` управляет именно он. Нулевой код
-# при найденных нарушениях означал бы зелёную сборку на испорченных данных, а
-# заметить это можно только чтением вывода, которого никто не читает.
+# The build checks and the `make validate` target are driven by exactly this. A
+# zero on found violations would mean a green build over spoiled data, and
+# noticing that would take reading output nobody reads.
 
 
 def test_exit_code_is_nonzero_when_something_is_wrong(registry, monkeypatch):
-    save(configuration={"A4": "гиперкуб"})
+    save(configuration={"A4": "hypercube"})
     monkeypatch.setattr(sys, "argv", ["validate_data.py"])
     assert validate_data.main() == 1
 

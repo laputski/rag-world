@@ -1,9 +1,9 @@
-"""Тесты стратифицированной схемы измерений и конфигурации.
+"""Tests of the stratified dimension schema and of a configuration.
 
-Покрывает: декларацию двадцати восьми измерений, каталог значений, значения по
-умолчанию, ограничения Φ (каждое несовместимое сочетание ловится автоматически),
-`Configuration` с её устойчивым идентификатором, степень независимости и мёртвые
-значения.
+Covered: the declaration of twenty-eight dimensions, the value catalogues, the
+base values, the constraints Φ (every incompatible combination is caught),
+`Configuration` with its stable identifier, the degree of independence, and dead
+values.
 """
 
 import pytest
@@ -26,7 +26,7 @@ from core.dimensions_schema import (
     validate,
 )
 
-# ─── Декларация измерений ────────────────────────────────────────────────────
+# ─── The declaration of the dimensions ───────────────────────────────────────
 
 
 def test_schema_size_matches_declaration():
@@ -43,8 +43,8 @@ def test_all_strata_a_to_g_present():
 
 def test_every_stratum_is_named_and_non_empty():
     for code, name in STRATA.items():
-        assert name, f"страт {code} без имени"
-        assert dimensions_of(code), f"страт {code} без измерений"
+        assert name, f"the stratum {code} has no name"
+        assert dimensions_of(code), f"the stratum {code} has no dimensions"
 
 
 def test_stratum_sizes():
@@ -54,19 +54,19 @@ def test_stratum_sizes():
 
 def test_dimension_codes_are_unique_and_well_formed():
     codes = [d.code for d in DIMENSIONS]
-    assert len(codes) == len(set(codes)), "дублирующие коды измерений"
+    assert len(codes) == len(set(codes)), "duplicate dimension codes"
     for code in codes:
-        assert code[0] in "ABCDEFG" and code[1:].isdigit(), f"неверный код {code}"
+        assert code[0] in "ABCDEFG" and code[1:].isdigit(), f"malformed code {code}"
 
 
 def test_every_dimension_has_nonempty_values_and_default():
     for d in DIMENSIONS:
-        assert len(d.values) >= 2, f"{d.code}: нужно не менее двух значений"
-        assert d.default in d.values, f"{d.code}: умолчание {d.default!r} не в значениях"
+        assert len(d.values) >= 2, f"{d.code}: at least two values are needed"
+        assert d.default in d.values, f"{d.code}: the base {d.default!r} is not a value"
 
 
 def test_conditional_dimensions_are_exactly_a6_c4_and_f():
-    """Условные: A6 (темпоральность), C4 (распределённость), F1–F3 (эволюция)."""
+    """The conditional ones: A6, C4 and F1–F3."""
     assert set(CONDITIONAL_CODES) == {"A6", "C4", "F1", "F2", "F3"}
 
 
@@ -91,7 +91,7 @@ def test_constraints_are_well_formed():
         assert c.dim_a in BY_CODE and c.dim_b in BY_CODE
         assert c.val_a in ALL_VALUES[c.dim_a]
         assert c.val_b in ALL_VALUES[c.dim_b]
-        assert c.reason, "у ограничения должна быть причина"
+        assert c.reason, "a constraint must carry a reason"
 
 
 def test_validate_rejects_unknown_dimension():
@@ -107,18 +107,18 @@ def test_validate_accepts_default_configuration():
 
 
 def test_tree_topology_allows_dense_representation():
-    """Дерево и векторы совместимы: запрет обобщал свойство одной системы.
+    """A tree and vectors are compatible: the ban generalised one system.
 
-    Схема запрещала это сочетание со ссылкой на то, что «Vectorless не
-    использует векторы». Не использует их Vectorless, а не древовидный индекс
-    вообще: RAPTOR строит дерево рекурсивной кластеризацией представлений и ими
-    же ищет. Свойство самой Vectorless выражается значением A5=none.
+    The schema forbade the combination on the grounds that "Vectorless uses no
+    vectors". It is Vectorless that uses none, not the tree index as such: RAPTOR
+    builds its tree by recursively clustering representations and searches by
+    them. The property of Vectorless is expressed by A5=none.
     """
-    # Происхождение структуры задаётся вместе с топологией: «структуры нет» и
-    # «индекс плоский» — одно и то же, сказанное с двух сторон.
+    # The provenance of the structure is set together with the topology: "there
+    # is no structure" and "the index is flat" are one thing said from two sides.
     cfg = {**DEFAULTS, "A4": "tree", "A5": "dense_single", "A8": "computed",
            "C1": "tree_navigation", "D1": "none"}
-    assert validate(cfg) == [], "допустимое сочетание не должно отвергаться"
+    assert validate(cfg) == [], "an admissible combination must not be refused"
 
 
 
@@ -133,17 +133,17 @@ def test_phi_cross_encoder_excludes_non_vector_models():
         if bad == "lexical":
             cfg["C1"] = "lexical"
         assert any("cross_encoder" in e for e in validate(cfg)), (
-            f"A5={bad} должно блокировать cross_encoder"
+            f"A5={bad} must block cross_encoder"
         )
     for good in ("dense_single", "dense_multi_late_interaction", "vision_language"):
         cfg = {**DEFAULTS, "A5": good, "D1": "cross_encoder"}
         assert not any("cross_encoder" in e for e in validate(cfg)), (
-            f"A5={good} не должно блокировать cross_encoder"
+            f"A5={good} must not block cross_encoder"
         )
 
 
 def test_graph_topology_with_cross_encoder_is_valid():
-    """Графовая архитектура с перекрёстным кодировщиком допустима (стиль PathRAG)."""
+    """A graph architecture with a cross-encoder is admissible, as in PathRAG."""
     cfg = Configuration(A4="graph", C1="graph_traversal", D1="cross_encoder")
     assert not any("cross_encoder" in e for e in cfg.validate()), cfg.validate()
 
@@ -154,10 +154,11 @@ def test_phi_hypergraph_excludes_path_pruning():
 
 
 def test_graph_topology_allows_a_query_language():
-    """Граф можно не обходить, а запрашивать языком запросов графовой базы.
+    """A graph need not be walked; it can be asked in a graph query language.
 
-    Ограничение «граф требует обхода» обобщало одну реализацию на всё значение
-    и дважды заставляло приписывать записи значение, которого в источнике нет.
+    The constraint "a graph requires traversal" generalised one implementation to
+    a whole value and twice forced a value onto a record that its sources do not
+    state.
     """
     cfg = {**DEFAULTS, "A4": "graph", "A8": "given", "C1": "boolean_query"}
     assert validate(cfg) == []
@@ -165,7 +166,7 @@ def test_graph_topology_allows_a_query_language():
 
 
 def test_phi_decoding_reflection_requires_trained_reader():
-    """Рефлексия на этапе декодирования требует обученного ридера."""
+    """Reflection during decoding requires a reader trained to emit it."""
     cfg = {**DEFAULTS, "E2": "decoding_reflection", "G3": "frozen"}
     assert any("E2=decoding_reflection requires G3=trained_reader" in e
                for e in validate(cfg))
@@ -183,16 +184,16 @@ def test_phi_multi_hop_requires_graph_topology():
 
 
 def test_phi_constraint_count_is_pinned():
-    """Число ограничений закреплено: новое Φ обязано приходить со своим тестом."""
+    """The count of constraints is pinned: a new Φ has to arrive with a test."""
     assert len(CONSTRAINTS) == 10, (
-        f"Φ содержит {len(CONSTRAINTS)} ограничений; добавьте тест для нового. "
-        "Список: " + ", ".join(
+        f"Φ holds {len(CONSTRAINTS)} constraints; add a test for the new one. "
+        "The list: " + ", ".join(
             f"{c.dim_a}={c.val_a} {c.kind} {c.dim_b}={c.val_b}" for c in CONSTRAINTS
         )
     )
 
 
-# ─── Конфигурация ────────────────────────────────────────────────────────────
+# ─── A configuration ─────────────────────────────────────────────────────────
 
 
 def test_configuration_defaults_match_schema():
@@ -219,17 +220,17 @@ def test_configuration_hash_changes_with_value():
 
 
 def test_config_hash_ignores_own_field():
-    """Повторное применение к уже помеченной записи даёт тот же результат."""
+    """Applying it again to an already marked record yields the same result."""
     payload = Configuration().as_dict()
     first = config_hash(payload)
     assert config_hash({**payload, "config_hash": first}) == first
 
 
 def test_configuration_validate_uses_phi():
-    """Пример берётся из действующих ограничений, а не из отменённого.
+    """The example comes from a live constraint rather than an abandoned one.
 
-    Перекрёстный кодировщик сравнивает представления, поэтому требует, чтобы
-    модель представления существовала.
+    A cross-encoder compares representations, so the representation model has to
+    exist.
     """
     cfg = Configuration(D1="cross_encoder", A5="none")
     assert cfg.validate() != []
@@ -241,13 +242,13 @@ def test_configuration_rejects_unknown_field():
         Configuration(ZZ="x")
 
 
-# ─── Свойства схемы ──────────────────────────────────────────────────────────
+# ─── Properties of the schema ────────────────────────────────────────────────
 
 
 def test_independence_degree_is_between_zero_and_one():
     deg = independence_degree()
-    assert 0.0 < deg <= 1.0, f"степень независимости {deg} вне (0, 1]"
-    assert deg < 1.0, "при активных ограничениях степень независимости меньше единицы"
+    assert 0.0 < deg <= 1.0, f"the degree of independence {deg} lies outside (0, 1]"
+    assert deg < 1.0, "with live constraints the degree cannot be one"
 
 
 def test_dead_values_returns_valid_pairs():
@@ -257,11 +258,11 @@ def test_dead_values_returns_valid_pairs():
 
 
 def test_structure_origin_is_tied_to_topology():
-    """«Структуры нет» и «индекс плоский» — одно и то же с двух сторон.
+    """"There is no structure" and "the index is flat" are one thing.
 
-    Связь двусторонняя: плоский индекс не может иметь происхождения структуры,
-    а отсутствие происхождения означает плоский индекс. Без второй половины
-    запись могла бы утверждать граф без источника его связей.
+    The link runs both ways: a flat index can have no provenance, and an absent
+    provenance means a flat index. Without the second direction a record could
+    assert a graph with no source for its edges.
     """
     assert validate({**DEFAULTS, "A4": "flat", "A8": "computed"}) != []
     assert validate({**DEFAULTS, "A4": "graph", "A8": "none", "C1": "graph_traversal"}) != []
@@ -269,15 +270,15 @@ def test_structure_origin_is_tied_to_topology():
 
 
 def test_loop_between_generation_and_retrieval_needs_repeated_calls():
-    """Цикл невозможен при однократном обращении к индексу.
+    """A loop is impossible with a single retrieval call.
 
-    Обратного ограничения нет: повторные обращения бывают и без участия
-    порождения — например, фиксированный многошаговый обход.
+    There is no converse constraint: repeated calls also happen without generation
+    taking part, as in a fixed multi-hop traversal.
     """
     assert validate({**DEFAULTS, "E5": "mutual_loop", "C2": "single_shot"}) != []
     assert validate({**DEFAULTS, "E5": "mutual_loop", "C2": "iterative_stopping"}) == []
-    # Многошаговый обход требует графа отдельным ограничением, поэтому в
-    # примере задаётся и топология с её происхождением.
+    # A multi-hop traversal requires a graph by a separate constraint, so the
+    # example sets the topology and its provenance as well.
     assert validate({**DEFAULTS, "E5": "none", "C2": "multi_hop_fixed",
                      "A4": "graph", "A8": "extracted",
                      "C1": "graph_traversal"}) == []
