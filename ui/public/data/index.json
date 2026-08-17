@@ -1,6 +1,6 @@
 {
   "attribution": "RAG World, https://ragworld.org",
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "datasets": [
     {
       "description": "Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.",
@@ -32,13 +32,13 @@
     },
     {
       "description": "Works found by weekly discovery and awaiting a human verdict, each with a deterministic fit score from 0 to 10.",
-      "records": 53,
+      "records": 54,
       "records_at": "candidates",
       "url": "https://ragworld.org/data/candidates.json"
     },
     {
       "description": "Digest issues, generated from the chronicle without a language model.",
-      "records": 4,
+      "records": 5,
       "records_at": "issues",
       "url": "https://ragworld.org/data/digest.json"
     }

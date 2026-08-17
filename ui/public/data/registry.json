@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "count": 69,
   "technologies": [
     {
       "aliases": [],
-      "attention": 10.808,
+      "attention": 10.864,
       "attention_cohort": "2024",
-      "attention_raw": 6.258,
+      "attention_raw": 6.29,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -87,10 +87,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=194; year=2024; citation_velocity=6.258",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042753",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=195; year=2024; citation_velocity=6.29",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "D",
       "first_published": "2024",
       "groups": [
@@ -392,7 +400,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.788,
+      "attention": 1.688,
       "attention_cohort": "2025",
       "attention_raw": 0.8,
       "confidence": 1.0,
@@ -784,10 +792,18 @@
           "type": "package_downloads",
           "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=588287",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads",
+          "value": "package=FlagEmbedding; version=1.4.0; downloads_last_month=565552",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": null,
       "first_published": null,
       "groups": [
@@ -877,9 +893,9 @@
       "aliases": [
         "BM25"
       ],
-      "attention": 15.118,
+      "attention": 15.197,
       "attention_cohort": null,
-      "attention_raw": 15.118,
+      "attention_raw": 15.197,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -940,10 +956,18 @@
           "type": "publication",
           "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3078; year=2009; citation_velocity=15.163",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4252076394",
+          "type": "publication",
+          "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3085; year=2009; citation_velocity=15.197",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": null,
       "first_published": null,
       "groups": [
@@ -1031,9 +1055,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.294,
+      "attention": 1.333,
       "attention_cohort": "2025",
-      "attention_raw": 0.579,
+      "attention_raw": 0.632,
       "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
       "barriers_en": "The common obstacle is constructing the causal graph, and it falls into four parts.\n\nExtracting causal links from text is unreliable: causality is disputed even among people reading the same text. Reasoning about what would have happened in the absence of a circumstance is computationally expensive. There is no accepted way to join Judea Pearl's calculus of interventions to answer generation by a language model. Finally, validating a causal graph requires knowledge of the field and therefore cannot be handed over to a machine in full.",
       "confidence": 1.0,
@@ -1102,10 +1126,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4412887679",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.632",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": "2025",
       "groups": [
@@ -1685,10 +1717,18 @@
           "type": "package_downloads",
           "value": "package=colbert-ai; version=0.2.22; downloads_last_month=212164",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/colbert-ai/",
+          "type": "package_downloads",
+          "value": "package=colbert-ai; version=0.2.22; downloads_last_month=207508",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 10,
+      "evidence_count": 11,
       "family": "H",
       "first_published": "2021",
       "groups": [
@@ -1930,10 +1970,18 @@
           "type": "publication",
           "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=189; year=2024",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+          "type": "publication",
+          "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=194; year=2024",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "E",
       "first_published": "2024-07",
       "groups": [
@@ -2189,9 +2237,9 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 9.09,
+      "attention": 9.181,
       "attention_cohort": "2024",
-      "attention_raw": 5.263,
+      "attention_raw": 5.316,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2270,10 +2318,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=100; year=2025; citation_velocity=5.263",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=101; year=2025; citation_velocity=5.316",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "A",
       "first_published": "2024",
       "groups": [
@@ -2733,10 +2789,18 @@
           "type": "publication",
           "value": "arXiv:2602.13229 (2026)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7129328134",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2026-02",
       "groups": [
@@ -3243,7 +3307,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.706,
+      "attention": 0.667,
       "attention_cohort": "2025",
       "attention_raw": 0.316,
       "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
@@ -3469,9 +3533,9 @@
     },
     {
       "aliases": [],
-      "attention": 5.288,
+      "attention": 5.301,
       "attention_cohort": "2023",
-      "attention_raw": 9.651,
+      "attention_raw": 9.674,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3548,10 +3612,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=415; year=2023; citation_velocity=9.651",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4389519118",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=416; year=2023; citation_velocity=9.674",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "A",
       "first_published": "2023",
       "groups": [
@@ -3947,9 +4019,9 @@
       "aliases": [
         "HippoRAG 2"
       ],
-      "attention": 4.123,
+      "attention": 4.345,
       "attention_cohort": "2024",
-      "attention_raw": 2.387,
+      "attention_raw": 2.516,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4074,10 +4146,26 @@
           "type": "package_downloads",
           "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1351",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415797504",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=78; year=2024; citation_velocity=2.516",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/hipporag/",
+          "type": "package_downloads",
+          "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1184",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 11,
+      "evidence_count": 13,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -4325,9 +4413,9 @@
     },
     {
       "aliases": [],
-      "attention": 6.674,
+      "attention": 6.767,
       "attention_cohort": null,
-      "attention_raw": 6.674,
+      "attention_raw": 6.767,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4404,10 +4492,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=287; year=2023; citation_velocity=6.674",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385565351",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=291; year=2023; citation_velocity=6.767",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "G",
       "first_published": "2022",
       "groups": [
@@ -4494,9 +4590,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.39,
+      "attention": 3.428,
       "attention_cohort": "2023",
-      "attention_raw": 6.186,
+      "attention_raw": 6.256,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4573,10 +4669,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=266; year=2023; citation_velocity=6.186",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385571271",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=269; year=2023; citation_velocity=6.256",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "C",
       "first_published": "2023",
       "groups": [
@@ -5325,10 +5429,26 @@
           "type": "package_downloads",
           "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=324649",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-08-17, releases=yes",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/lightrag-hku/",
+          "type": "package_downloads",
+          "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=333076",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 10,
+      "evidence_count": 12,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -5458,7 +5578,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.15,
+      "attention": 0.141,
       "attention_cohort": "2025",
       "attention_raw": 0.067,
       "confidence": 1.0,
@@ -5949,10 +6069,18 @@
           "type": "package_downloads",
           "value": "package=graphrag; version=3.1.1; downloads_last_month=68574",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads",
+          "value": "package=graphrag; version=3.1.1; downloads_last_month=63376",
+          "value_en": null
         }
       ],
       "evidence_basis": "manual",
-      "evidence_count": 11,
+      "evidence_count": 12,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -6893,7 +7021,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.647,
+      "attention": 1.555,
       "attention_cohort": "2025",
       "attention_raw": 0.737,
       "confidence": 1.0,
@@ -7192,10 +7320,18 @@
           "type": "package_downloads",
           "value": "package=opensearch-py; version=3.2.0; downloads_last_month=53132593",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads",
+          "value": "package=opensearch-py; version=3.2.0; downloads_last_month=51844105",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": null,
       "first_published": null,
       "groups": [
@@ -7268,7 +7404,7 @@
     },
     {
       "aliases": [],
-      "attention": 4.022,
+      "attention": 3.797,
       "attention_cohort": "2025",
       "attention_raw": 1.8,
       "confidence": 1.0,
@@ -7347,10 +7483,18 @@
           "type": "publication",
           "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=9; year=2026; citation_velocity=1.8",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2502.14902",
+          "type": "publication",
+          "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=76; year=2025",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -7711,7 +7855,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.528,
+      "attention": 1.443,
       "attention_cohort": "2025",
       "attention_raw": 0.684,
       "confidence": 1.0,
@@ -7984,10 +8128,18 @@
           "type": "package_downloads",
           "value": "package=qdrant-client; version=1.19.0; downloads_last_month=19342980",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/qdrant-client/",
+          "type": "package_downloads",
+          "value": "package=qdrant-client; version=1.19.0; downloads_last_month=18494312",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": null,
       "first_published": null,
       "groups": [
@@ -8358,9 +8510,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.727,
+      "attention": 1.782,
       "attention_cohort": "2024",
-      "attention_raw": 1.0,
+      "attention_raw": 1.032,
       "confidence": 1.0,
       "configuration": {
         "B1": "subquestion_decomposition",
@@ -8398,10 +8550,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=31; year=2024; citation_velocity=1.0",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4402670862",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=32; year=2024; citation_velocity=1.032",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -8713,10 +8873,18 @@
           "type": "package_downloads",
           "value": "package=raganything; version=1.3.1; downloads_last_month=31002",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/raganything/",
+          "type": "package_downloads",
+          "value": "package=raganything; version=1.3.1; downloads_last_month=29574",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": "graph_rag",
       "first_published": "2025-10",
       "groups": [
@@ -8925,7 +9093,7 @@
     },
     {
       "aliases": [],
-      "attention": 2.235,
+      "attention": 2.11,
       "attention_cohort": "2025",
       "attention_raw": 1.0,
       "barriers": "Общее препятствие состоит в управлении тем, как память меняется со временем, и оно распадается на четыре части.\n\nЗаписи нужно сводить в обобщённые и удалять устаревшие, а для этого требуется правило, по которому запись признаётся устаревшей. Между сохранёнными записями возникают противоречия, потому что положение дел меняется, и нужен порядок их разрешения. При многократном пересмотре смысл сохранённого постепенно смещается, и запись перестаёт означать то, ради чего заводилась. Наконец, поиск по изменяющейся памяти нарушает предположение, на котором стоит приближённый поиск ближайших соседей: указатель строится в расчёте на неподвижные векторы.",
@@ -9004,10 +9172,18 @@
           "type": "publication",
           "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=193; year=2025",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2502.14802",
+          "type": "publication",
+          "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=204; year=2025",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 6,
       "family": null,
       "first_published": "2025-02",
       "groups": [
@@ -9957,9 +10133,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.111,
+      "attention": 3.146,
       "attention_cohort": "2023",
-      "attention_raw": 5.677,
+      "attention_raw": 5.742,
       "confidence": 1.0,
       "configuration": {
         "C3": "score_normalization",
@@ -10004,10 +10180,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=176; year=2024; citation_velocity=5.677",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042773",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=178; year=2024; citation_velocity=5.742",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": "2023",
       "groups": [
@@ -10859,7 +11043,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.626,
+      "attention": 0.591,
       "attention_cohort": "2025",
       "attention_raw": 0.28,
       "barriers": "Главная проблема состоит в оценке уверенности. Первая подпроблема заключается в надёжной оценке уверенности для skip-retrieval, поскольку ложноположительный пропуск ведёт к галлюцинации, а ложноотрицательный пропуск теряет оптимизацию. Вторая подпроблема состоит в избегании регрессии корректности при пропуске retrieval. Третья подпроблема заключается в накладных расходах оркестрации, поскольку параллельные гонки draft и retrieve сложнее простой последовательной схемы.",
@@ -10924,10 +11108,18 @@
           "type": "publication",
           "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=113; year=2024",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2407.08223",
+          "type": "publication",
+          "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=114; year=2024",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "A",
       "first_published": "2025",
       "groups": [
@@ -11044,9 +11236,9 @@
         "HybridRAG",
         "Hybrid RAG"
       ],
-      "attention": 3.146,
+      "attention": 3.195,
       "attention_cohort": null,
-      "attention_raw": 3.146,
+      "attention_raw": 3.195,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -11115,10 +11307,18 @@
           "type": "publication",
           "value": "venue=ACM; peer_reviewed=true; cited_by=653; year=2009; citation_velocity=3.185",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W2148972377",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=655; year=2009; citation_velocity=3.195",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": "D",
       "first_published": "2009",
       "groups": [
@@ -12415,10 +12615,18 @@
           "type": "repository",
           "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-14, releases=yes",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-08-17",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-16, releases=yes",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "H",
       "first_published": null,
       "groups": [

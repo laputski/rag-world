@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "candidates": [
     {
       "abstract": "Long-term memory systems store what a user says in an external store and retrieve it when a related query arrives. This interface rests on an assumption so natural that it is rarely stated: a memory that is needed will resemble the query that needs it. World knowledge breaks the assumption. A tree-nut allergy should change the answer to a macaron request through their almond-flour ingredient, yet the two texts share no cue a retriever can see.",
@@ -391,6 +391,35 @@
       "source": "https://arxiv.org/abs/2410.13080",
       "tasks": [],
       "title": "Graph-constrained Reasoning: Faithful Reasoning on Knowledge Graphs with Large Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Turning a research idea into a complete paper requires more than text generation: the system must retrieve literature, design and execute experiments, revise claims according to evidence, produce publication-ready figures, and maintain consistency across a long generation process.",
+      "arxiv_id": "2608.11924",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "language-modeling"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-17",
+      "published": "2026-08-12",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.11924",
+      "tasks": [
+        "language-modeling"
+      ],
+      "title": "Spark-to-Paper: End-to-End Research Paper Generation as a Composable Skill",
       "verdict": null
     },
     {

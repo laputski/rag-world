@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "technology": {
     "aliases": [],
-    "attention": 5.288,
+    "attention": 5.301,
     "attention_cohort": "2023",
-    "attention_raw": 9.651,
+    "attention_raw": 9.674,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -81,10 +81,18 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=415; year=2023; citation_velocity=9.651",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-17",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4389519118",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=416; year=2023; citation_velocity=9.674",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": "A",
     "first_published": "2023",
     "groups": [
