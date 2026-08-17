@@ -68,6 +68,7 @@ def artifacts(tmp_path, monkeypatch):
     out = tmp_path / "artifacts"
     monkeypatch.setattr(build_artifacts, "OUT_DIR", out)
     monkeypatch.setattr(build_artifacts, "SCHEMA_MODULE", tmp_path / "schema.ts")
+    monkeypatch.setattr(build_artifacts, "RULE_MODULE", tmp_path / "rule.ts")
     return out
 
 

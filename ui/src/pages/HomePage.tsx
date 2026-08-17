@@ -21,6 +21,7 @@ const MaturityMap = lazy(() =>
 const MaturityGrid = lazy(() =>
   import("../components/MaturityGrid").then((m) => ({ default: m.MaturityGrid })));
 import { LevelBadge } from "../components/LevelBadge";
+import { HowToRead } from "../components/HowToRead";
 import { MONO, stratumColor, type ThemeMode } from "../theme";
 import { useTheme } from "@mui/material/styles";
 import { useDocumentHead } from "../useDocumentHead";
@@ -108,7 +109,19 @@ export function HomePage() {
     <Box>
       <Box sx={{ display: "flex", alignItems: "baseline", gap: 2, flexWrap: "wrap", mb: 0.5 }}>
         <Typography variant="h2">{t("map.title")}</Typography>
-        <Tooltip title={t("map.howToRead")}>
+        <Tooltip
+          title={<HowToRead />}
+          slotProps={{
+            tooltip: {
+              sx: {
+                maxWidth: 460, p: 2,
+                bgcolor: "background.paper", color: "text.primary",
+                border: 1, borderColor: "divider",
+                boxShadow: 3,
+              },
+            },
+          }}
+        >
           <InfoOutlinedIcon sx={{ fontSize: 18, color: "text.secondary", cursor: "help" }} />
         </Tooltip>
       </Box>

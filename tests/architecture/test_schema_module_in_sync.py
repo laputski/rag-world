@@ -17,7 +17,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from scripts.build_artifacts import SCHEMA_MODULE, render_schema_module  # noqa: E402
+from scripts.build_artifacts import (  # noqa: E402
+    RULE_MODULE,
+    SCHEMA_MODULE,
+    render_rule_module,
+    render_schema_module,
+)
 
 
 def test_generated_schema_module_matches_declaration():
@@ -28,6 +33,26 @@ def test_generated_schema_module_matches_declaration():
     expected = render_schema_module()
     assert actual == expected, (
         "the interface schema has diverged from the declaration; run "
+        "`make artifacts` and do not edit the generated module by hand"
+    )
+
+
+def test_generated_rule_module_matches_the_rule():
+    """The rule shown to a reader must be the rule the map was drawn by.
+
+    The maturity rule is declared once, in `core/maturity.py`. The interface
+    shows it — in the hint over the map and in the section on the scale — and
+    its module is generated from that same declaration. A condition edited in
+    the code without a rebuild would leave the article promising one thing while
+    the map does another, and nothing on the page would betray it.
+    """
+    assert RULE_MODULE.exists(), (
+        "the maturity rule module for the interface is missing; run `make artifacts`"
+    )
+    actual = RULE_MODULE.read_text(encoding="utf-8")
+    expected = render_rule_module()
+    assert actual == expected, (
+        "the interface rule has diverged from core/maturity.py; run "
         "`make artifacts` and do not edit the generated module by hand"
     )
 

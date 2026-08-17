@@ -35,7 +35,13 @@ from xml.sax.saxutils import escape
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from core.dimensions_schema import DIMENSIONS, SCHEMA_SIZE, STRATA  # noqa: E402
-from core.maturity import RULE_VERSION, EvidenceIn, compute_level  # noqa: E402
+from core.maturity import (  # noqa: E402
+    FRESHNESS_DAYS,
+    LEVEL_RULES,
+    RULE_VERSION,
+    EvidenceIn,
+    compute_level,
+)
 from services.registry import store  # noqa: E402
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "ui" / "public" / "data"
@@ -64,6 +70,14 @@ STATIC_ROUTES = ("/", "/registry", "/changes", "/digest", "/residuals",
 #: lived through once.
 SCHEMA_MODULE = (
     Path(__file__).resolve().parent.parent / "ui" / "src" / "schema.generated.ts"
+)
+
+#: The maturity rule for the interface, generated from the same declaration the
+#: rule itself is run from. The portal shows the rule in two places — the hint
+#: over the map and the section on the scale in the article — and a rule written
+#: out by hand in either would drift from the one that draws the map.
+RULE_MODULE = (
+    Path(__file__).resolve().parent.parent / "ui" / "src" / "rule.generated.ts"
 )
 
 LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
@@ -696,6 +710,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     )
     if out_dir is None:
         SCHEMA_MODULE.write_text(render_schema_module(), encoding="utf-8")
+        RULE_MODULE.write_text(render_rule_module(), encoding="utf-8")
 
     return {
         "technologies": len(registry_rows),
@@ -751,6 +766,67 @@ def render_schema_module() -> str:
         "export function dimensionsOf(stratum: string): DimensionSpec[] {\n"
         "  return DIMENSIONS.filter((d) => d.stratum === stratum);\n"
         "}\n"
+    )
+
+
+def render_rule_module() -> str:
+    """The TypeScript module of the maturity rule, generated from the rule.
+
+    The interface needs the conditions in order to show them; the rule needs
+    them in order to run. Both take them from `core/maturity.py`, so what a
+    reader is shown is what the map was drawn by, and not a description of it
+    that once was.
+    """
+    levels = ",\n".join(
+        "  {{ level: \"{level}\", basis: \"{basis}\", roads: [{roads}] }}".format(
+            level=rule.level,
+            basis=rule.basis,
+            roads=", ".join(
+                "{{ evidence: \"{evidence}\", venue: {venue}, requires: {requires} }}".format(
+                    evidence=road.evidence,
+                    venue=json.dumps(road.venue),
+                    requires=json.dumps(road.requires),
+                )
+                for road in rule.roads
+            ),
+        )
+        for rule in LEVEL_RULES
+    )
+    freshness = ",\n".join(
+        f'  {json.dumps(etype)}: {days}' for etype, days in FRESHNESS_DAYS.items()
+    )
+    return (
+        "// GENERATED from core/maturity.py by `make artifacts`.\n"
+        "// Do not edit by hand: the edit would be lost and the rule would end up\n"
+        "// described twice, once where it is run and once where it is shown.\n"
+        "\n"
+        "/** One sufficient way to reach a level. */\n"
+        "export interface RoadSpec {\n"
+        "  /** The type of evidence the road asks for. */\n"
+        "  evidence: string;\n"
+        "  /** For a publication, the least class of venue that counts. */\n"
+        "  venue: string | null;\n"
+        "  /** The level that must already hold; null where the road skips it. */\n"
+        "  requires: string | null;\n"
+        "}\n"
+        "\n"
+        "export interface LevelSpec {\n"
+        "  level: string;\n"
+        "  /** Any one road suffices. An empty list means the level asks for nothing. */\n"
+        "  roads: RoadSpec[];\n"
+        "  basis: \"computed\" | \"manual\";\n"
+        "}\n"
+        "\n"
+        f"export const RULE_VERSION = {json.dumps(RULE_VERSION)};\n"
+        "\n"
+        "export const LEVEL_RULES: LevelSpec[] = [\n"
+        f"{levels},\n"
+        "];\n"
+        "\n"
+        "/** How long evidence of each type stays current, in days. */\n"
+        "export const FRESHNESS_DAYS: Record<string, number> = {\n"
+        f"{freshness},\n"
+        "};\n"
     )
 
 

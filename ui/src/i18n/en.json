@@ -70,7 +70,6 @@
   "map": {
     "title": "RAG maturity map",
     "subtitle": "Position shows evidence-backed maturity and the attention a technology receives. Data is rebuilt automatically.",
-    "howToRead": "How to read this map\n\n• Horizontal position is the maturity level from L0 (hypothesis) to L6 (industry standard). The level is computed by a rule from collected evidence, never assigned by hand.\n• Vertical position is attention: citation velocity normalised within the work's age cohort. Where a cohort holds fewer than five works there is nothing to normalise against: the measured velocity is shown, and it is not comparable with normalised values. Attention is not evidence that something works.\n• Colour marks the stratum of decisions, shape marks the kind of object.\n• Opacity tells a computed level from an absent one, and nothing else.\n• Position inside a level band means nothing: the points are spread evenly so that they can be counted and none hides another.\n• This is not an adoption recommendation: the map reports confirmed maturity, it does not advise what to pick.\n• Click a point to open the technology card with its evidence and the reasoning behind its level.",
     "confidence": "confidence",
     "unavailable": "Map unavailable: data artifact not found",
     "stale": "data is stale",
@@ -90,7 +89,38 @@
     "openRegistry": "full registry →",
     "attentionRaw": "cit./mo.",
     "attentionNotNormalized": "The age cohort holds fewer than five works, so its median is unstable and no normalisation is applied. The measured citations per month are shown; they are not comparable with normalised values.",
-    "levelUnknown": "not computed"
+    "levelUnknown": "not computed",
+    "read": {
+      "title": "How to read this map",
+      "axisX": {
+        "term": "Horizontal",
+        "text": "the maturity level, from L0 (hypothesis) to L6 (industry standard). A rule computes it from collected evidence; nobody assigns it."
+      },
+      "axisY": {
+        "term": "Vertical",
+        "text": "attention: citation velocity normalised within the work's age cohort. Attention is not evidence that something works."
+      },
+      "colour": {
+        "term": "Colour and shape",
+        "text": "colour marks the stratum of decisions, shape marks the kind of object."
+      },
+      "opacity": {
+        "term": "Opacity",
+        "text": "tells a computed level from an absent one, and nothing else."
+      },
+      "inside": {
+        "term": "Within a band",
+        "text": "a point's position means nothing: points are spread evenly so they can be counted and none hides another."
+      },
+      "click": {
+        "term": "Click",
+        "text": "opens the technology card with its evidence and the reasoning behind its level."
+      },
+      "caveat": "The map does not advise what to adopt: it reports confirmed maturity.",
+      "chainTitle": "The order of the levels",
+      "chain": "L0 hypothesis → L1 preprint → L2 review or production use → L3 authors' code → L4 independent reproduction → L5 production → L6 standard",
+      "full": "The rule in full: Foundations, section 7"
+    }
   },
   "registry": {
     "title": "RAG technology registry",
@@ -417,5 +447,41 @@
     "addedCount_other": "{{count}} new records",
     "changesWindow": "Over the past month",
     "changesQuiet": "Nothing changed over the past month."
+  },
+  "rule": {
+    "title": "The rule the level is computed by",
+    "intro": "The table is generated from the same code that computes the levels, so it has no way of disagreeing with the map.",
+    "lead": "A technology sits at the highest level whose conditions all hold, under monotonicity: reaching a level requires the conditions of every level below it. A level may have several roads, and any one of them suffices. No language model takes part.",
+    "colLevel": "Level",
+    "colRoads": "Any one of these",
+    "plusLevel": "plus level {{level}}",
+    "colBasis": "Basis",
+    "noCondition": "no conditions: the technology is described at all",
+    "basis": {
+      "computed": "computed",
+      "manual": "entered by a human"
+    },
+    "basisNote": "The sufficient conditions of L5 and L6 have no machine-readable source: production use and the count of independent vendors are entered by a person, and a level resting on them is marked as such.",
+    "bypass": "Two roads to L2 skip L1. A technique used in production without peer review would otherwise sit below a preprint nobody reproduced.",
+    "freshnessTitle": "How long evidence stays current",
+    "freshnessIntro": "Evidence past its period stops counting as current and lowers confidence, but it does not by itself take the level away.",
+    "colEvidence": "Evidence",
+    "colDays": "Period, days",
+    "confidence": "Confidence is the share of evidence that is present, verified and current, averaged over the roads by which the level was actually reached. L0 has no conditions, so its confidence is 1.0 by definition.",
+    "version": "Rule version {{version}}. Changing the rule means recomputing every record, and both versions of the result stay in the level journal."
+  },
+  "evidenceType": {
+    "publication": "publication",
+    "independent_reproduction": "independent reproduction",
+    "repository": "open source from the authors",
+    "build_run": "built and run on the bench",
+    "framework_presence": "presence in a framework",
+    "package_downloads": "package downloads",
+    "industrial_use": "production use",
+    "provider_count": "three or more independent vendors"
+  },
+  "venueClass": {
+    "workshop_preprint": "preprint or workshop",
+    "peer_reviewed": "peer-reviewed venue"
   }
 }

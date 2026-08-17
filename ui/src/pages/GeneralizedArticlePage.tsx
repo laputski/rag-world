@@ -12,6 +12,14 @@ import { getGeneralizedContent } from "../generalizedData";
 import { RichText } from "../components/RichText";
 import { useDocumentHead } from "../useDocumentHead";
 import { BaseConfiguration, BASE_CONFIGURATION_ID } from "../components/BaseConfiguration";
+import { MaturityRule } from "../components/MaturityRule";
+
+/**
+ * The section the rule belongs under. The prose of the scale describes the
+ * levels; the table beneath it states the conditions, and states them from the
+ * code that computes them.
+ */
+const MATURITY_SECTION = "maturity";
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -158,6 +166,7 @@ export function GeneralizedArticlePage() {
               {s.intro}
             </Typography>
             <RichText sx={{ lineHeight: 1.8 }}>{s.content}</RichText>
+            {s.id === MATURITY_SECTION && <MaturityRule />}
             {s.diagram && <MermaidDiagram chart={s.diagram} theme={mode} />}
           </Paper>
         ))}

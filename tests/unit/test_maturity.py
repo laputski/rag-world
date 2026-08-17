@@ -6,7 +6,15 @@ L6, determinism, confidence, and the freshness of evidence.
 
 from datetime import date, timedelta
 
-from core.maturity import RULE_VERSION, EvidenceIn, compute_level
+from core.maturity import (
+    FRESHNESS_DAYS,
+    LEVEL_RULES,
+    RULE_VERSION,
+    EvidenceIn,
+    LevelRule,
+    Road,
+    compute_level,
+)
 
 TODAY = date(2026, 8, 5)
 FRESH = TODAY - timedelta(days=30)
@@ -199,3 +207,63 @@ def test_rule_version_is_present_and_semver():
     parts = RULE_VERSION.split(".")
     assert len(parts) == 3, "RULE_VERSION has to be semver, M.m.p"
     assert all(p.isdigit() for p in parts)
+
+
+# ─── The displayed rule against the executed one ─────────────────────────────
+
+
+def _evidence_for(level: str, road: Road) -> list[EvidenceIn]:
+    """Evidence that takes a technology to `level` by `road`, and no further.
+
+    The prerequisite levels are walked down through the first road of each, that
+    being the shortest way: only what the roads themselves name gets in, so the
+    result cannot accidentally satisfy a level the table did not ask for.
+    """
+    items: list[EvidenceIn] = []
+    if road.requires:
+        below = _rule_for(road.requires)
+        items += _evidence_for(below.level, below.roads[0])
+    if road.evidence == "publication":
+        items.append(_pub("NeurIPS" if road.venue == "peer_reviewed" else "arXiv preprint"))
+    else:
+        items.append(_ev(road.evidence))
+    return items
+
+
+def _rule_for(level: str) -> LevelRule:
+    return next(r for r in LEVEL_RULES if r.level == level)
+
+
+def test_rule_table_agrees_with_the_rule():
+    """Every road in the displayed table has to lead where the table says.
+
+    The table is a second description of the conditions, kept because the rule
+    has to be shown to a reader and not only run. A second description of one
+    thing is the defect this project was built to remove, so it is checked
+    rather than trusted: evidence is assembled out of each road and put through
+    the rule itself.
+    """
+    for rule in LEVEL_RULES:
+        if not rule.roads:  # L0 asks for nothing and is reached with no evidence
+            assert compute_level([], as_of=TODAY).level == rule.level
+            continue
+        for road in rule.roads:
+            result = compute_level(_evidence_for(rule.level, road), as_of=TODAY)
+            assert result.level == rule.level, (
+                f"the table promises {rule.level} by {road.evidence}, "
+                f"the rule answers {result.level}"
+            )
+            assert result.evidence_basis == rule.basis
+
+
+def test_every_level_of_the_scale_is_in_the_table():
+    """A level left out of the table disappears from the article and the map hint."""
+    assert [r.level for r in LEVEL_RULES] == ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
+
+
+def test_the_table_names_only_evidence_the_freshness_periods_cover():
+    """Evidence with no period of relevance would never count as current."""
+    named = {road.evidence for rule in LEVEL_RULES for road in rule.roads}
+    assert named <= set(FRESHNESS_DAYS), (
+        f"no freshness period declared for {sorted(named - set(FRESHNESS_DAYS))}"
+    )

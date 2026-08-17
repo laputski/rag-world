@@ -145,6 +145,78 @@ def _is_fresh(ev: EvidenceIn, as_of: date) -> bool:
     return (as_of - ev.fetched_at) <= timedelta(days=days)
 
 
+# ─── The rule, in a form that can be shown as well as run ─────────────────────
+
+
+@dataclass(frozen=True)
+class Road:
+    """One sufficient way to reach a level.
+
+    `evidence` names the type of evidence the road asks for. `venue`, for a
+    publication, names the least class of venue that counts. `requires` names
+    the level that must already hold: most roads run through the level below,
+    and the two industrial ones do not.
+    """
+
+    evidence: str
+    venue: str | None = None
+    requires: str | None = None
+
+
+@dataclass(frozen=True)
+class LevelRule:
+    """A level, the roads to it, and whether reaching it is computed or entered."""
+
+    level: str
+    roads: tuple[Road, ...]
+    basis: str  # 'computed' | 'manual'
+
+
+#: The rule written out as a table.
+#:
+#: The conditions above are executable and nothing else: a reader cannot see the
+#: rule the map is drawn by, and the portal that demands provenance for every
+#: number owed one for its own scale. The table exists so that the rule can be
+#: displayed — the interface reads it, and the article shows it as a table
+#: rather than restating it in prose for a third time.
+#:
+#: It is a second description of the same thing, which is the defect this project
+#: was built to remove, so it is not left on trust: `test_rule_table_agrees_with_
+#: the_rule` assembles evidence out of the table for every road and checks that
+#: `compute_level` answers with that level. A condition changed here and not
+#: below, or below and not here, fails the suite.
+LEVEL_RULES: tuple[LevelRule, ...] = (
+    # L0 asks for nothing: a technology described at all is at L0.
+    LevelRule("L0", (), "computed"),
+    LevelRule("L1", (Road("publication", venue="workshop_preprint"),), "computed"),
+    LevelRule(
+        "L2",
+        (
+            Road("publication", venue="peer_reviewed", requires="L1"),
+            Road("independent_reproduction"),
+            Road("industrial_use"),
+        ),
+        "computed",
+    ),
+    LevelRule(
+        "L3",
+        (Road("repository", requires="L2"), Road("build_run", requires="L2")),
+        "computed",
+    ),
+    LevelRule(
+        "L4",
+        (
+            Road("independent_reproduction", requires="L3"),
+            Road("framework_presence", requires="L3"),
+            Road("package_downloads", requires="L3"),
+        ),
+        "computed",
+    ),
+    LevelRule("L5", (Road("industrial_use", requires="L4"),), "manual"),
+    LevelRule("L6", (Road("provider_count", requires="L5"),), "manual"),
+)
+
+
 # ─── The rule itself ──────────────────────────────────────────────────────────
 
 
