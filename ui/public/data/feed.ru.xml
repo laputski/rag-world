@@ -5,7 +5,12 @@
     <description>Изменения уровней зрелости технологий RAG</description>
     <language>ru</language>
     <link>https://ragworld.org/changes</link>
-    <lastBuildDate>2026-08-14</lastBuildDate>
+    <lastBuildDate>2026-08-17</lastBuildDate>
+    <item>
+      <title>Дайджест за 2026-08-17</title>
+      <description>Собрано 26 свидетельств: 16 о публикациях, 8 о загрузках пакетов, 2 о репозиториях. Сейчас в реестре 69 записей. Уровень L0 у 6 записей, L1 у 24, L2 у 32, L3 у 3, L4 у 1, L5 у 1. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>
+      <guid isPermaLink="false">digest-2026-08-17</guid>
+    </item>
     <item>
       <title>Дайджест за 2026-08-14</title>
       <description>Впервые получили уровень 8 записей: LAMAR, RARG, UEmbed, PixelRAG, RAG-Anything, CBR-RAG, ROZA Graphs, Standard HybridRAG. Поднялись в уровне BM25 Sparse с L0 до L2. Собрано 56 свидетельств: 42 о публикациях, 7 о загрузках пакетов, 5 о репозиториях, 2 о промышленном применении. Сейчас в реестре 69 записей. Уровень L0 у 6 записей, L1 у 24, L2 у 32, L3 у 3, L4 у 1, L5 у 1. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>

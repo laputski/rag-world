@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "technology": {
     "aliases": [],
-    "attention": 1.294,
+    "attention": 1.333,
     "attention_cohort": "2025",
-    "attention_raw": 0.579,
+    "attention_raw": 0.632,
     "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
     "barriers_en": "The common obstacle is constructing the causal graph, and it falls into four parts.\n\nExtracting causal links from text is unreliable: causality is disputed even among people reading the same text. Reasoning about what would have happened in the absence of a circumstance is computationally expensive. There is no accepted way to join Judea Pearl's calculus of interventions to answer generation by a language model. Finally, validating a causal graph requires knowledge of the field and therefore cannot be handed over to a machine in full.",
     "confidence": 1.0,
@@ -73,10 +73,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-17",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4412887679",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.632",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 4,
+    "evidence_count": 5,
     "family": null,
     "first_published": "2025",
     "groups": [

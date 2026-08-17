@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "technology": {
     "aliases": [
       "GraphRAG"
@@ -136,10 +136,18 @@
         "type": "package_downloads",
         "value": "package=graphrag; version=3.1.1; downloads_last_month=68574",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-17",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.1; downloads_last_month=63376",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 11,
+    "evidence_count": 12,
     "family": "B",
     "first_published": "2024",
     "groups": [

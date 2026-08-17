@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-14",
+  "built_at": "2026-08-17",
   "technology": {
     "aliases": [],
     "attention": 2.526,
@@ -121,10 +121,18 @@
         "type": "package_downloads",
         "value": "package=colbert-ai; version=0.2.22; downloads_last_month=212164",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-17",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=207508",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": "H",
     "first_published": "2021",
     "groups": [
