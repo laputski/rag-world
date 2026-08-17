@@ -2,6 +2,7 @@ import { Box, Divider, Link as MuiLink, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MONO } from "../theme";
+import { ATTENTION_ANCHOR, MATURITY_ANCHOR } from "../anchors";
 
 /**
  * How to read the maturity map: the hint behind the (i) beside the title.
@@ -18,8 +19,23 @@ import { MONO } from "../theme";
  * given in full.
  */
 
-/** The rows of the glossary, in the order a reader meets the questions. */
-const ROWS = ["axisX", "axisY", "colour", "opacity", "inside", "click"];
+/**
+ * The rows of the glossary, in the order a reader meets the questions.
+ *
+ * The two axes carry a link onward, because they are the two rows that raise a
+ * further question rather than answer one: a hint has room to say what is
+ * measured and none to say how. The link stands in the row that raised the
+ * question, not at the foot of the hint where it would be found only by
+ * somebody already reading to the end.
+ */
+const ROWS: { key: string; to?: string }[] = [
+  { key: "axisX", to: `/article#${MATURITY_ANCHOR}` },
+  { key: "axisY", to: `/about#${ATTENTION_ANCHOR}` },
+  { key: "colour" },
+  { key: "opacity" },
+  { key: "inside" },
+  { key: "click" },
+];
 
 export function HowToRead() {
   const { t } = useTranslation();
@@ -39,12 +55,20 @@ export function HowToRead() {
         }}
       >
         {ROWS.map((row) => (
-          <Box key={row} sx={{ display: "contents" }}>
+          <Box key={row.key} sx={{ display: "contents" }}>
             <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, whiteSpace: "nowrap" }}>
-              {t(`map.read.${row}.term`)}
+              {t(`map.read.${row.key}.term`)}
             </Typography>
             <Typography sx={{ fontSize: "0.78rem", lineHeight: 1.55 }}>
-              {t(`map.read.${row}.text`)}
+              {t(`map.read.${row.key}.text`)}
+              {row.to && (
+                <>
+                  {" "}
+                  <MuiLink component={RouterLink} to={row.to} sx={{ whiteSpace: "nowrap" }}>
+                    {t("map.read.how")}
+                  </MuiLink>
+                </>
+              )}
             </Typography>
           </Box>
         ))}
@@ -64,13 +88,14 @@ export function HowToRead() {
         {t("map.read.chain")}
       </Typography>
 
-      <Typography sx={{ fontSize: "0.76rem", lineHeight: 1.55, mb: 0.75 }}>
+      {/*
+        The caveat closes the hint and carries no link onward: where to read
+        further is said in the row that raised the question, and a second link
+        to the article at the foot would only be a worse copy of the first.
+      */}
+      <Typography sx={{ fontSize: "0.76rem", lineHeight: 1.55 }}>
         {t("map.read.caveat")}
       </Typography>
-
-      <MuiLink component={RouterLink} to="/article" sx={{ fontSize: "0.76rem" }}>
-        {t("map.read.full")}
-      </MuiLink>
     </Box>
   );
 }

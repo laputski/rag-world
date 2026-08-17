@@ -8,6 +8,8 @@ import type { RegistryStats } from "../api/types";
 import { toBibTeX, toGost, toPlain } from "../citation";
 import { MONO } from "../theme";
 import { useDocumentHead } from "../useDocumentHead";
+import { ATTENTION_ANCHOR } from "../anchors";
+import { useHashScroll } from "../useHashScroll";
 
 /**
  * About: how the data is arranged and how it is updated.
@@ -76,6 +78,7 @@ export function AboutPage() {
   });
   // GOST is of no use to an English-speaking reader: it is a Russian standard.
   const style = i18n.language === "ru" ? toGost : toPlain;
+  useHashScroll();
   const [stats, setStats] = useState<RegistryStats | null>(null);
   const [release, setRelease] = useState<Release | null>(null);
   const [example, setExample] = useState(false);
@@ -100,6 +103,28 @@ export function AboutPage() {
       <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.75 }}>
         {t("about.howLevelsText")}
       </Typography>
+
+      {/*
+        The second axis of the map.
+
+        The portal explained the level and left the vertical unexplained
+        anywhere: what it measured lived in two hints over the map and in the
+        code. A reader who wondered what a point standing high meant had nowhere
+        to go, and the word for it named an interpretation rather than the
+        measurement, which for this portal is the wrong way round.
+
+        The section is the address the hint over the map points at, so its
+        identifier is part of that link and does not change lightly.
+      */}
+      <Typography variant="h5" id={ATTENTION_ANCHOR} sx={{ mb: 1, scrollMarginTop: 80 }}>
+        {t("about.howAttention")}
+      </Typography>
+      {["howAttentionText", "howAttentionNorm", "howAttentionSmall", "howAttentionNot"].map((key) => (
+        <Typography key={key} variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>
+          {t(`about.${key}`)}
+        </Typography>
+      ))}
+      <Box sx={{ mb: 3 }} />
 
       <Typography variant="h5" sx={{ mb: 1 }}>{t("about.howUpdates")}</Typography>
       <Typography variant="body1" sx={{ mb: 1.5, lineHeight: 1.75 }}>

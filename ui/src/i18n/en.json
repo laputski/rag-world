@@ -69,18 +69,18 @@
   },
   "map": {
     "title": "RAG maturity map",
-    "subtitle": "Position shows evidence-backed maturity and the attention a technology receives. Data is rebuilt automatically.",
+    "subtitle": "Position shows evidence-backed maturity and how often a technology is cited. Data is rebuilt automatically.",
     "confidence": "confidence",
     "unavailable": "Map unavailable: data artifact not found",
     "stale": "data is stale",
     "count": "technologies",
     "ruleVersion": "rule version",
     "openCard": "Open technology card",
-    "noAttention": "no attention data",
-    "attentionUnit": "× median",
-    "attentionOrigin": "Citation velocity divided by the median of works of the same year. Above one means the technology is discussed more actively than its peers.",
+    "noAttention": "no citation data",
+    "attentionUnit": "× median for the year",
+    "attentionOrigin": "Citations per month divided by the median of works first published the same year. Above one means the technology is cited more often than its peers.",
     "axisMaturity": "maturity",
-    "axisAttention": "attention (× year median or cit./mo.)",
+    "axisAttention": "citation rate (× median for the year, or cit./mo.)",
     "projection": {
       "map": "map",
       "grid": "strata grid"
@@ -88,7 +88,7 @@
     "showMovement": "show movement",
     "openRegistry": "full registry →",
     "attentionRaw": "cit./mo.",
-    "attentionNotNormalized": "The age cohort holds fewer than five works, so its median is unstable and no normalisation is applied. The measured citations per month are shown; they are not comparable with normalised values.",
+    "attentionNotNormalized": "Fewer than five works share the year, so their median is unstable and no division is applied. The measured citations per month are shown; they are not comparable with normalised values.",
     "levelUnknown": "not computed",
     "read": {
       "title": "How to read this map",
@@ -98,7 +98,7 @@
       },
       "axisY": {
         "term": "Vertical",
-        "text": "attention: citation velocity normalised within the work's age cohort. Attention is not evidence that something works."
+        "text": "citation rate: how often other works cite the technology. Citations per month are divided by the median of works first published the same year; one means “like its peers”, two means twice as often. Papers get cited whether or not they work, so the horizontal is what speaks to that."
       },
       "colour": {
         "term": "Colour and shape",
@@ -119,7 +119,7 @@
       "caveat": "The map does not advise what to adopt: it reports confirmed maturity.",
       "chainTitle": "The order of the levels",
       "chain": "L0 hypothesis → L1 preprint → L2 review or production use → L3 authors' code → L4 independent reproduction → L5 production → L6 standard",
-      "full": "The rule in full: Foundations, section 7"
+      "how": "how this is computed"
     }
   },
   "registry": {
@@ -139,7 +139,7 @@
     "builtAt": "data built",
     "sort": {
       "level": "by maturity",
-      "attention": "by attention",
+      "attention": "by citation rate",
       "recent": "newest",
       "name": "by name"
     }
@@ -224,13 +224,18 @@
   },
   "stats": {
     "title": "Summary",
-    "coverage": "A level is computed for {{withLevel}} of {{total}} records; attention data exists for {{withAttention}}. Evidence collected: {{evidence}}. Empty spots are honest gaps in data, not gaps in the picture."
+    "coverage": "A level is computed for {{withLevel}} of {{total}} records; citation data exists for {{withAttention}}. Evidence collected: {{evidence}}. Empty spots are honest gaps in data, not gaps in the picture."
   },
   "about": {
     "title": "About",
     "intro": "RAG World collects verifiable information about Retrieval-Augmented Generation technologies. The portal reports what has been proposed, what corroborates it, and how a technology's standing changes over time. Every claim comes with the evidence needed to check it yourself.",
     "howLevels": "How the level is computed",
     "howLevelsText": "The maturity level is computed by a rule from collected evidence: publications, repository state, presence in frameworks, documented production use. The same evidence always yields the same level, so any value reproduces on a repeat run. Where no machine-readable source exists, a person enters the evidence with a link to its confirmation, and such a record is marked separately.",
+    "howAttention": "What the second axis shows",
+    "howAttentionText": "The vertical of the map shows the citation rate: how often other scientific works cite the technology's source paper. The count of citations is divided by the number of months since publication, giving citations per month.",
+    "howAttentionNorm": "Those figures cannot be compared directly: a work two years old has had time to gather citations and one published the day before yesterday has not, so without a correction the old always looks more popular than the new. The measured value is therefore divided by the median of works first published in the same year. One means “like its peers”, two means twice as often.",
+    "howAttentionSmall": "Where fewer than five works share a year, their median is unstable: one new record shifts it more than anything happening in the field. Such points are shown in measured citations per month and marked as such, and they are not comparable with normalised ones. Two quantities therefore share the axis, and its label says so.",
+    "howAttentionNot": "A citation rate is not evidence that something works. Developing a method, surveying it, mentioning it for background and refuting it all count the same. A heavily cited preprint nobody reproduced will sit high on the vertical and stay at L1: what speaks to confirmation is the horizontal, and only that.",
     "howUpdates": "How data is updated",
     "howUpdatesText": "Collection runs from open sources on a weekly schedule. While serving, the portal reads pre-built files and never contacts those sources, so their failure ages the data while the portal keeps working. The build date and a staleness marker are always shown on the front page.",
     "limits": "Limits",
@@ -245,7 +250,7 @@
     "state": "Current state",
     "stateTotal": "technologies in the registry",
     "stateWithLevel": "with a computed level",
-    "stateWithAttention": "with attention data",
+    "stateWithAttention": "with citation data",
     "stateEvidence": "evidence collected",
     "stateFreshest": "freshest evidence",
     "cite": "How to cite",

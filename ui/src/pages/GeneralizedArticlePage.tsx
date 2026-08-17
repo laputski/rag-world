@@ -13,13 +13,8 @@ import { RichText } from "../components/RichText";
 import { useDocumentHead } from "../useDocumentHead";
 import { BaseConfiguration, BASE_CONFIGURATION_ID } from "../components/BaseConfiguration";
 import { MaturityRule } from "../components/MaturityRule";
-
-/**
- * The section the rule belongs under. The prose of the scale describes the
- * levels; the table beneath it states the conditions, and states them from the
- * code that computes them.
- */
-const MATURITY_SECTION = "maturity";
+import { MATURITY_ANCHOR } from "../anchors";
+import { useHashScroll } from "../useHashScroll";
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -112,6 +107,7 @@ export function GeneralizedArticlePage() {
     description: t("head.article.description"),
   });
   const { mode } = useOutletContext<OutletCtx>();
+  useHashScroll();
   const content = getGeneralizedContent(i18n.language === "ru" ? "ru" : "en");
 
   return (
@@ -166,7 +162,12 @@ export function GeneralizedArticlePage() {
               {s.intro}
             </Typography>
             <RichText sx={{ lineHeight: 1.8 }}>{s.content}</RichText>
-            {s.id === MATURITY_SECTION && <MaturityRule />}
+            {/*
+              The table of the rule belongs under the prose of the scale: the
+              prose describes the levels, the table states the conditions, and
+              states them from the code that computes them.
+            */}
+            {s.id === MATURITY_ANCHOR && <MaturityRule />}
             {s.diagram && <MermaidDiagram chart={s.diagram} theme={mode} />}
           </Paper>
         ))}
