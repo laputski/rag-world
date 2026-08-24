@@ -5,7 +5,12 @@
     <description>Maturity level changes for RAG technologies</description>
     <language>en</language>
     <link>https://ragworld.org/changes</link>
-    <lastBuildDate>2026-08-17</lastBuildDate>
+    <lastBuildDate>2026-08-24</lastBuildDate>
+    <item>
+      <title>Digest for 2026-08-24</title>
+      <description>Collected 27 pieces of evidence: 22 about publications, 5 about repositories. The registry now holds 69 records. Level L0 in 6 records, L1 in 24, L2 in 32, L3 in 3, L4 in 1, L5 in 1. For 2 records no level is computed, because there is no evidence yet.</description>
+      <guid isPermaLink="false">digest-2026-08-24</guid>
+    </item>
     <item>
       <title>Digest for 2026-08-17</title>
       <description>Collected 26 pieces of evidence: 16 about publications, 8 about package downloads, 2 about repositories. The registry now holds 69 records. Level L0 in 6 records, L1 in 24, L2 in 32, L3 in 3, L4 in 1, L5 in 1. For 2 records no level is computed, because there is no evidence yet.</description>

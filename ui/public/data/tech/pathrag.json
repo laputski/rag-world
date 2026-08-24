@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-08-17",
+  "built_at": "2026-08-24",
   "technology": {
     "aliases": [],
-    "attention": 3.797,
+    "attention": 3.6,
     "attention_cohort": "2025",
     "attention_raw": 1.8,
     "confidence": 1.0,
@@ -89,10 +89,18 @@
         "type": "publication",
         "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=76; year=2025",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-24",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2502.14902",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=79; year=2025",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": "B",
     "first_published": "2025",
     "groups": [

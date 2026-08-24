@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-08-17",
+  "built_at": "2026-08-24",
   "technology": {
     "aliases": [
       "HippoRAG 2"
     ],
-    "attention": 4.345,
+    "attention": 4.513,
     "attention_cohort": "2024",
-    "attention_raw": 2.516,
+    "attention_raw": 2.613,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -147,10 +147,26 @@
         "type": "package_downloads",
         "value": "package=hipporag; version=2.0.0a4; downloads_last_month=1184",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-24",
+        "obtained_by": "auto",
+        "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+        "type": "repository",
+        "value": "OSU-NLP-Group/HippoRAG: license=mit, last_push=2026-08-23, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-24",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=81; year=2024; citation_velocity=2.613",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 15,
     "family": "B",
     "first_published": "2024",
     "groups": [
