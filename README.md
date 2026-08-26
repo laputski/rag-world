@@ -168,6 +168,21 @@ Citation formats for a release and for a single record are on the
 [docs/RELEASING.md](docs/RELEASING.md) describes how a release is cut and
 deposited.
 
+## The map and the instrument
+
+The registry answers how mature a technique is and on what evidence. It says
+nothing about the system you are actually running.
+
+[**Causa RAG**](https://github.com/laputski/causa-rag) is the sibling project
+and answers that: it scores every question in a golden set separately, names the
+pipeline stage that failed, and compares two runs question by question, so the
+effect of a change is visible instead of assumed. It runs entirely on your own
+machine.
+
+Choose a technique with the map; find out what your own edit broke with the
+instrument. Both rest on the same principle: a claim is worth what its evidence
+is worth.
+
 ## Licences
 
 Code is Apache-2.0 ([LICENSE](LICENSE)). The registry data and the artefacts
