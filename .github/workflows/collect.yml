@@ -106,10 +106,18 @@ jobs:
           git pull --rebase --autostash origin main
           git push
 
+      # `ui/public` entire, not `ui/public/data`. The artefact build also writes
+      # sitemap.xml and llms.txt beside the data directory, and staging only the
+      # directory left both behind: for ten days the sitemap advertised a
+      # lastmod of 2026-08-14 while the data ran to 2026-08-24, and llms.txt
+      # served 247 evidence records as the current count when there were 273.
+      # A stale sitemap tells a crawler nothing has changed, and llms.txt is the
+      # machine-readable entrance this project built precisely so that numbers
+      # would not have to be guessed at.
       - name: Commit the changes
         if: steps.gate.outputs.review == 'false'
         run: |
-          git add data ui/public/data
+          git add data ui/public
           git diff --cached --quiet && echo "nothing changed" && exit 0
           git commit -m "chore(data): update pass $(date -u +%Y-%m-%d) [skip ci]"
           git pull --rebase --autostash origin main
@@ -124,7 +132,7 @@ jobs:
         run: |
           branch="data/$(date -u +%Y-%m-%d-%H%M)"
           git checkout -b "$branch"
-          git add data ui/public/data
+          git add data ui/public
           git commit -m "chore(data): changes that need review"
           git push -u origin "$branch"
           gh pr create --fill \

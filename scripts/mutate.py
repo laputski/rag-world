@@ -228,11 +228,21 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/validate_data.py", "a level belongs to the scale",
              "if entry.level not in LEVELS:", "if False:"),
 
+    # The pattern stays inside one shell block. It used to reach forward to the
+    # name of the step below, and a comment written between the steps broke it:
+    # the entry stopped applying and guarded nothing, which is the very failure
+    # this catalogue treats as an error. Between two lines of a `run:` block
+    # there is nothing to wedge apart.
+    #
+    # Two steps push, and the break lands on the first of them, the one that
+    # records the pass. That is where losing the rebase is silent: the push is
+    # refused as a non-fast-forward, and the one line that must reach the branch
+    # on every pass is the one lost.
     Mutation(".github/workflows/collect.yml",
              "the pass is rebased onto the branch before it is pushed",
              "          git pull --rebase --autostash origin main\n"
-             "          git push\n\n      - name: Commit the changes",
-             "          git push\n\n      - name: Commit the changes"),
+             "          git push",
+             "          git push"),
 
     # ── Declared dependencies ───────────────────────────────────────────────
     Mutation("pyproject.toml", "the workflow parser dependency is declared",
