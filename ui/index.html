@@ -57,7 +57,14 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <meta name="color-scheme" content="dark light" />
 
-    <link rel="alternate" type="application/rss+xml" title="RAG World" href="/data/feed.xml" />
+    <!--
+      Both feeds are declared, each with its language. A feed carries one
+      language for the whole channel, so a Russian reader given only the English
+      feed does not find the Russian one at all: it is generated on every pass
+      and was reachable from nowhere but the About page.
+    -->
+    <link rel="alternate" type="application/rss+xml" hreflang="en" title="RAG World: chronicle of changes" href="/data/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" hreflang="ru" title="RAG World: хроника изменений" href="/data/feed.ru.xml" />
     <!--
       The dataset index is declared as a link rather than merely mentioned in
       the text, so that it is found both by a consumer reading the markup and by

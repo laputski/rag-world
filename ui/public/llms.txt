@@ -5,9 +5,9 @@
 Do not scrape the pages. Every page on this site is rendered from the JSON files below, and those files are the same data without the markup. Start from https://ragworld.org/data/index.json, which lists them all.
 
 - Records: 69
-- Evidence records: 247
-- Freshest evidence: 2026-08-14
-- Built: 2026-08-14
+- Evidence records: 300
+- Freshest evidence: 2026-08-24
+- Built: 2026-08-24
 - Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 - Attribution: RAG World, https://ragworld.org
 
@@ -21,6 +21,11 @@ Do not scrape the pages. Every page on this site is rendered from the JSON files
 - [Residuals](https://ragworld.org/data/residuals.json): Mechanisms recorded as not expressible in the current schema, with the records that raised each one. Three mentions make a mechanism a candidate for a new dimension.
 - [Candidates](https://ragworld.org/data/candidates.json): Works found by weekly discovery and awaiting a human verdict, each with a deterministic fit score from 0 to 10.
 - [Digest](https://ragworld.org/data/digest.json): Digest issues, generated from the chronicle without a language model.
+
+## Following changes
+
+- [Feed, English](https://ragworld.org/data/feed.xml): digest issues and level changes, RSS.
+- [Feed, Russian](https://ragworld.org/data/feed.ru.xml): the same in Russian. A feed declares one language for the whole channel, so the two languages are two feeds rather than two fields.
 
 ## Citing
 

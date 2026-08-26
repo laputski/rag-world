@@ -28,7 +28,8 @@ import argparse
 import json
 import sys
 from collections import Counter, defaultdict
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -987,6 +988,17 @@ def render_llms_txt(built_at: str, rows: list[dict], stats: dict) -> str:
         lines.append(f"- [{title}]({SITE}/data/{name}): {description}")
     lines += [
         "",
+        # A consumer that wants to know when something changed should not have to
+        # poll the registry and diff it. The feeds say what changed and when, and
+        # a feed is the cheapest thing to follow that exists.
+        "## Following changes",
+        "",
+        f"- [Feed, English]({SITE}/data/feed.xml): digest issues and level "
+        "changes, RSS.",
+        f"- [Feed, Russian]({SITE}/data/feed.ru.xml): the same in Russian. A "
+        "feed declares one language for the whole channel, so the two languages "
+        "are two feeds rather than two fields.",
+        "",
         "## Citing",
         "",
         f"- [Releases]({SITE}/data/releases/index.json): dated, immutable "
@@ -1023,6 +1035,21 @@ def _issues() -> list[dict]:
     return sorted(issues, key=lambda i: i["issued_at"], reverse=True)
 
 
+def _rfc822(day: str) -> str:
+    """A calendar day as the date format RSS actually requires.
+
+    RSS 2.0 dates follow RFC 822, `Sun, 17 Aug 2026 00:00:00 +0000`. An ISO day
+    is not that, and a reader handed one either drops the field or refuses the
+    item; either way the reader falls back to the moment it fetched, so on a
+    first subscription twenty issues all arrive stamped today.
+
+    A day has no time in it, so midnight UTC is used. The registry works in days
+    throughout and inventing an hour would be inventing precision.
+    """
+    parsed = date.fromisoformat(day)
+    return format_datetime(datetime.combine(parsed, time.min, tzinfo=timezone.utc))
+
+
 def _write_feed(
     path: Path, changes: list[dict], built_at: str,
     issues: list[dict] | None = None, language: str = "en",
@@ -1045,6 +1072,10 @@ def _write_feed(
             "    <item>\n"
             f"      <title>{escape(words['digest'] + ' ' + issue['issued_at'])}</title>\n"
             f"      <description>{escape(text)}</description>\n"
+            # Without a link an item is a dead end: the feed carries the text out
+            # and leaves no way back to the evidence under it.
+            f"      <link>{SITE}/digest</link>\n"
+            f"      <pubDate>{escape(_rfc822(issue['issued_at']))}</pubDate>\n"
             f"      <guid isPermaLink=\"false\">digest-{escape(issue['issued_at'])}</guid>\n"
             "    </item>"
         )
@@ -1059,19 +1090,25 @@ def _write_feed(
             "    <item>\n"
             f"      <title>{escape(title)}</title>\n"
             f"      <description>{escape(body)}</description>\n"
+            f"      <link>{SITE}/tech/{escape(change['technology_id'])}</link>\n"
+            f"      <pubDate>{escape(_rfc822(change['changed_at']))}</pubDate>\n"
             f"      <guid isPermaLink=\"false\">{escape(change['technology_id'])}"
             f"-{escape(change['changed_at'])}-{escape(change['level_after'])}</guid>\n"
             "    </item>"
         )
     feed = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<rss version="2.0">\n'
+        # The Atom namespace is declared for one element: `atom:link rel="self"`
+        # is how a feed states its own address, which is what an aggregator needs
+        # to republish it and what the validator asks for.
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
         "  <channel>\n"
         f"    <title>{escape(words['title'])}</title>\n"
         f"    <description>{escape(words['description'])}</description>\n"
         f"    <language>{language}</language>\n"
         f"    <link>{SITE}/changes</link>\n"
-        f"    <lastBuildDate>{escape(built_at)}</lastBuildDate>\n"
+        f'    <atom:link href="{SITE}/data/{path.name}" rel="self" type="application/rss+xml" />\n'
+        f"    <lastBuildDate>{escape(_rfc822(built_at))}</lastBuildDate>\n"
         + "\n".join(items)
         + "\n  </channel>\n</rss>\n"
     )

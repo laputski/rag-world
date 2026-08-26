@@ -115,8 +115,25 @@ export function DigestPage() {
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1, maxWidth: "62ch" }}>
         {t("digest.subtitle")}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 4, maxWidth: "62ch" }}>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, maxWidth: "62ch" }}>
         {t("digest.provenance")}
+      </Typography>
+      {/*
+        The page that carries the digest is also where a reader decides whether
+        to keep up with it, and until now the only way to keep up was to come
+        back. The feed is offered in the language the interface is in: a channel
+        declares one language, so handing a Russian reader the English feed
+        would hand them the wrong one.
+      */}
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 4, maxWidth: "62ch" }}>
+        {t("digest.follow")}{" "}
+        <MuiLink
+          href={i18n.language.startsWith("ru") ? "/data/feed.ru.xml" : "/data/feed.xml"}
+          rel="alternate"
+          type="application/rss+xml"
+        >
+          {t("digest.followLink")}
+        </MuiLink>
       </Typography>
 
       {issues.length === 0 && (

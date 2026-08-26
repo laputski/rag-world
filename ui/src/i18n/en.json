@@ -315,7 +315,9 @@
     "hideBasis": "hide the basis",
     "moved": "rose from {{from}} to {{to}}",
     "first": "received level {{level}} for the first time",
-    "noTranslation": "This issue was published before the English localisation and exists in Russian only."
+    "noTranslation": "This issue was published before the English localisation and exists in Russian only.",
+    "follow": "Issues also come out as a feed, so a new one reaches you without a visit.",
+    "followLink": "Subscribe"
   },
   "notFound": {
     "title": "No such page",
