@@ -1,6 +1,43 @@
 {
-  "built_at": "2026-08-24",
+  "built_at": "2026-08-31",
   "candidates": [
+    {
+      "abstract": "Conversational systems, such as duplex speech language models (SLMs), still lack a streaming, accurate, and empathetic memory system as their soul. We introduce VoiceMem, a simple memory architecture with a parallel informational left brain, an emotional right brain, and streaming memory I/O mechanisms. We further build a complete pipeline for memory-aware SLM training, long-horizon evaluation, and decoupled deployment with interchangeable memory backends.",
+      "arxiv_id": "2608.26005",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 8,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "nearTask",
+            "tasks": [
+              "language-modeling"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-08-31",
+      "published": "2026-08-26",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.26005",
+      "tasks": [
+        "full-duplex-spoken-dialogue",
+        "language-modeling",
+        "retrieval"
+      ],
+      "title": "VoiceMem: Streaming Dual-Brain Memory for Real-Time Interaction",
+      "verdict": null
+    },
     {
       "abstract": "Long-term memory systems store what a user says in an external store and retrieve it when a related query arrives. This interface rests on an assumption so natural that it is rarely stated: a memory that is needed will resemble the query that needs it. World knowledge breaks the assumption. A tree-nut allergy should change the answer to a macaron request through their almond-flour ingredient, yet the two texts share no cue a retriever can see.",
       "arxiv_id": "2607.24368",
@@ -35,6 +72,40 @@
         "retrieval"
       ],
       "title": "Keep It InMind: Benchmarking the Implicit-Association Blind Spot in Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Speech-based applications pass spoken queries through automatic speech recognition (ASR) before any retrieval module, so ASR errors enter the pipeline as a fixed upstream constraint. We empirically test whether two extensions to standard retrieval-augmented generation (RAG), entity-graph linking and iterative reformulation, absorb or amplify these errors.",
+      "arxiv_id": "2608.22872",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 6,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "nearTask",
+            "tasks": [
+              "question-answering"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-08-31",
+      "published": "2026-08-24",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2608.22872",
+      "tasks": [
+        "automatic-speech-recognition",
+        "question-answering",
+        "retrieval"
+      ],
+      "title": "Better Retrieval, Worse Robustness:How Multi-hop RAG Amplifies Upstream ASR Errors",
       "verdict": null
     },
     {

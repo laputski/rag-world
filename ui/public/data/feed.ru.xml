@@ -6,7 +6,14 @@
     <language>ru</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.ru.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 24 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Дайджест за 2026-08-31</title>
+      <description>Собрано 33 свидетельства: 23 о публикациях, 7 о загрузках пакетов, 3 о репозиториях. Сейчас в реестре 69 записей. Уровень L0 у 6 записей, L1 у 24, L2 у 32, L3 у 3, L4 у 1, L5 у 1. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-08-31</guid>
+    </item>
     <item>
       <title>Дайджест за 2026-08-24</title>
       <description>Собрано 27 свидетельств: 22 о публикациях, 5 о репозиториях. Сейчас в реестре 69 записей. Уровень L0 у 6 записей, L1 у 24, L2 у 32, L3 у 3, L4 у 1, L5 у 1. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>

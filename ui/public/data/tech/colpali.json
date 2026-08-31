@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-08-24",
+  "built_at": "2026-08-31",
   "technology": {
     "aliases": [],
-    "attention": 0.332,
+    "attention": 0.324,
     "attention_cohort": "2024",
     "attention_raw": 0.192,
     "confidence": 1.0,
@@ -81,10 +81,18 @@
         "type": "publication",
         "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=201; year=2024",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-31",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=202; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": "E",
     "first_published": "2024-07",
     "groups": [

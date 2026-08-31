@@ -1,13 +1,13 @@
 {
-  "built_at": "2026-08-24",
+  "built_at": "2026-08-31",
   "technology": {
     "aliases": [
       "HybridRAG",
       "Hybrid RAG"
     ],
-    "attention": 3.239,
+    "attention": 3.283,
     "attention_cohort": null,
-    "attention_raw": 3.239,
+    "attention_raw": 3.283,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -92,10 +92,18 @@
         "type": "publication",
         "value": "venue=ACM; peer_reviewed=true; cited_by=664; year=2009; citation_velocity=3.239",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-08-31",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W2148972377",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=673; year=2009; citation_velocity=3.283",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": "D",
     "first_published": "2009",
     "groups": [
