@@ -157,6 +157,16 @@ nothing happened", and it gives the hosting platform a sign of activity: a
 schedule is disabled after sixty days without commits, and a line of this
 journal is a commit.
 
+A refusal by a source is recorded twice over: `source_errors` counts them all,
+and `failed_sources` names each source and how many times it refused. The count
+alone could not answer the question it existed for, because a pass reporting
+sixty-two refusals says nothing about whether one source was unreachable
+throughout or every source stumbled once. The messages themselves reach only the
+platform's run log, which is not kept indefinitely, so without the breakdown a
+level that failed to move became inexplicable after the fact: "the evidence does
+not exist" and "the evidence did not arrive" are different claims about the same
+unmoved scale.
+
 ## The artefacts built from it
 
 The files the portal reads are built from the registry deterministically:

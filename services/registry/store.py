@@ -184,6 +184,16 @@ class CollectionRun(BaseModel):
     levels_changed: int = 0
     #: How many requests to sources yielded nothing.
     source_errors: int = 0
+    #: Which sources yielded nothing, and how many times each.
+    #:
+    #: The count on its own could not answer the question it exists for. A pass
+    #: reporting sixty-two refusals says nothing about whether one source was
+    #: unreachable for the whole run or every source refused a little, and the
+    #: messages themselves reach only the platform's run log, which is kept for
+    #: a limited time. A level that failed to move then becomes inexplicable
+    #: after the fact: "the evidence does not exist" and "the evidence did not
+    #: arrive" are different claims, and this field is what tells them apart.
+    failed_sources: dict[str, int] = Field(default_factory=dict)
     #: How many registry addresses were checked, and how many had vanished.
     links_checked: int = 0
     links_broken: int = 0

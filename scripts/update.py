@@ -33,7 +33,11 @@ The order of the steps, and why it is this one:
 7. **The run log** — one line, always. It distinguishes "nobody looked" from
    "nothing happened" and serves as the sign of activity the platform wants: a
    schedule is disabled after sixty days without commits.
-8. **The digest** — an issue about what changed, when anything did. No language
+8. **The watch over the chronicle** — whether the level journal has moved at
+   all while the passes kept bringing evidence. It stops nothing and fails
+   nothing: a scale standing still is a legitimate state, and the watch only
+   says that it has stood still long enough to be worth asking about.
+9. **The digest** — an issue about what changed, when anything did. No language
    model takes part: an issue retells what has already been computed, and there
    is nothing in it to invent. An empty issue is not published — the question
    whether anyone looked is answered by the run log, and the digest answers the
@@ -82,6 +86,7 @@ def run(
     import collect
     import compute_levels
     import validate_data
+    import watch_chronicle
 
     today = today or date.today()
 
@@ -98,6 +103,11 @@ def run(
             f"rejected by the checks {gathered.rejected}; "
             f"sources that yielded nothing {len(gathered.errors)}"
         )
+        if gathered.failures:
+            print("  refusals by source: " + ", ".join(
+                f"{source} {count}"
+                for source, count in sorted(gathered.failures.items())
+            ))
         for message in gathered.errors[:10]:
             print(f"  {message[:130]}")
         if len(gathered.errors) > 10:
@@ -142,7 +152,8 @@ def run(
             f"discovery: found {found.found}, added to the queue "
             f"{found.added}, already in the registry {found.known}"
         )
-        gathered.errors.extend(found.problems)
+        for message in found.problems:
+            gathered.refused("discovery", message)
     else:
         found = None
 
@@ -182,6 +193,7 @@ def run(
             metrics_added=gathered.metrics_added,
             levels_changed=levels_changed,
             source_errors=len(gathered.errors),
+            failed_sources=dict(sorted(gathered.failures.items())),
             links_checked=links.checked,
             links_broken=links.gone,
             data_changed=bool(
@@ -191,7 +203,28 @@ def run(
         ))
         print(f"the pass is recorded in {store.COLLECTION_LOG.name}")
 
-        # ─── 8. The digest ───────────────────────────────────────────────────
+        # ─── 8. The watch over the chronicle ─────────────────────────────────
+        #
+        # After the run log, so that the pass just finished counts among the
+        # silent ones; a watch that lagged a week behind would report a state
+        # nobody could act on yet.
+        #
+        # It does not end the pass with an error. A chronicle standing still is
+        # not spoiled data, and stopping the pass over it would block a run that
+        # has nothing wrong with it. What it does is say so out loud, because
+        # until it is said the silence is indistinguishable from normality.
+        #
+        # It speaks in both cases, and deliberately. A watch heard only when it
+        # sounds leaves a reader of the log unable to tell a quiet watch from
+        # one that was never wired in, which is the same confusion the run log
+        # itself exists to end.
+        silence = watch_chronicle.look(store.load_runs(), store.load_levels())
+        print(
+            f"watch: {silence.message()}" if silence is not None
+            else "watch: the chronicle is moving, or nothing arrived to move it"
+        )
+
+        # ─── 9. The digest ───────────────────────────────────────────────────
         #
         # After the run log, because an issue reports the link check as well,
         # and after validation, because an issue must not be published from

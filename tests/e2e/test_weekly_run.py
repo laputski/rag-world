@@ -164,6 +164,124 @@ def test_rate_limited_source_does_not_break_the_pass(registry, artifacts):
     assert store.latest_run().source_errors > 0, "the refusal reaches the run log"
 
 
+# ─── Which source refused, not merely how many did ───────────────────────────
+#
+# The count alone left a month of passes unexplainable. Sixty-two refusals in a
+# line say nothing about whether one source was unreachable throughout or every
+# source stumbled once, and the messages live only in the platform's run log,
+# which is not kept for ever. "The evidence does not exist" and "the evidence
+# did not arrive" are different claims about a level that failed to move, and
+# only the breakdown by source tells them apart.
+
+
+def test_a_refusing_source_is_named_in_the_run_log(registry, artifacts):
+    """The package index refuses; the log has to say that it was that one."""
+    routes = standard_routes()
+    routes["pypistats.org"] = SourceBehaviour(
+        routes["pypistats.org"].body, fail_times=99
+    )
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None
+    assert run.failed_sources.get("pypi", 0) > 0, (
+        f"the refusing source is not named: {run.failed_sources}"
+    )
+
+
+def test_the_code_host_refusing_is_named_as_such(registry, artifacts):
+    """A second source, so the name comes from the collector and not from one branch."""
+    routes = standard_routes()
+    del routes["api.github.com/repos/demo/demo"]
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None
+    assert run.failed_sources.get("github", 0) > 0, (
+        f"the code host is not named among the refusals: {run.failed_sources}"
+    )
+
+
+def test_the_framework_listings_refusing_are_named_as_such(registry, artifacts):
+    """The whole-registry collector is named too, not only the per-record ones.
+
+    It is asked once for the entire registry and returns bare messages, so its
+    name reaches the log by a different route than the others. A route of its
+    own is a route that can break on its own.
+    """
+    routes = standard_routes()
+    del routes["contents"]  # the integration listings refuse
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None
+    assert run.failed_sources.get("frameworks", 0) > 0, (
+        f"the framework listings are not named among the refusals: "
+        f"{run.failed_sources}"
+    )
+
+
+def test_a_source_that_answered_is_not_named_among_the_refusals(registry, artifacts):
+    """The other side: a breakdown that accuses everyone accuses no one."""
+    routes = standard_routes()
+    routes["pypistats.org"] = SourceBehaviour(
+        routes["pypistats.org"].body, fail_times=99
+    )
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None
+    assert "arxiv" not in run.failed_sources, (
+        "the preprint archive answered and must not be listed as refusing"
+    )
+
+
+# ─── The watch over the chronicle, inside the pass ───────────────────────────
+#
+# The watch is tested on its own in tests/unit/test_watch_chronicle.py. What is
+# checked here is the other half: that the pass actually runs it. A watch that
+# is importable and never called is the exact failure it was written to prevent,
+# and it fails in silence.
+
+
+def test_the_pass_reports_the_watch_over_the_chronicle(registry, artifacts, capsys):
+    """Every pass says what the watch saw, whether it sounded or not."""
+    run_pass(FakeTransport(standard_routes()))
+    assert "watch:" in capsys.readouterr().out
+
+
+def test_a_stalled_chronicle_is_announced_by_the_pass(registry, artifacts, capsys):
+    """Three passes bringing evidence and moving no level are said out loud."""
+    for day in ("2026-07-18", "2026-07-25", "2026-08-01"):
+        store.append_run(store.CollectionRun(
+            ran_at=date.fromisoformat(day),
+            sources=["arxiv"],
+            evidence_added=20,
+            levels_changed=0,
+            data_changed=True,
+        ))
+    # No network at all, so this pass adds nothing of its own: what the watch
+    # reports comes from the passes seeded above.
+    run_pass(FakeTransport({}))
+    printed = capsys.readouterr().out
+    assert "the chronicle has not moved" in printed, printed[-800:]
+
+
+def test_the_breakdown_adds_up_to_the_count(registry, artifacts):
+    """Two numbers about the same thing must not disagree.
+
+    The total and the breakdown are written from the same pass; if they can
+    diverge, a reader has to guess which of the two to believe.
+    """
+    routes = standard_routes()
+    del routes["api.github.com/repos/demo/demo"]
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None
+    assert sum(run.failed_sources.values()) == run.source_errors
+
+
 def test_total_network_outage_changes_nothing(registry, artifacts):
     """No evidence, no levels, and no crash."""
     code = run_pass(FakeTransport({}))

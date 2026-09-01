@@ -65,6 +65,9 @@ update: collect ## Alias for `collect`
 levels: ## Recompute maturity levels from stored evidence
 	$(PYTHON) scripts/compute_levels.py
 
+watch: ## Ask whether the chronicle has stopped moving while evidence arrives
+	$(PYTHON) scripts/watch_chronicle.py
+
 artifacts: ## Rebuild public/data/*.json and the changes feed
 	$(PYTHON) scripts/build_artifacts.py
 

@@ -141,6 +141,14 @@
         "status": "verified",
         "url": "https://qdrant.tech/",
         "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://github.com/qdrant/qdrant",
+        "verified_at": null
       }
     ],
     "name": "Qdrant",

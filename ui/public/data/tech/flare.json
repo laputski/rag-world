@@ -142,6 +142,14 @@
         "status": "verified",
         "url": "https://arxiv.org/abs/2305.06983",
         "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://github.com/jzbjyb/FLARE",
+        "verified_at": null
       }
     ],
     "name": "FLARE",

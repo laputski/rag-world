@@ -31,6 +31,7 @@ import argparse
 import os
 import re
 import sys
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
@@ -78,14 +79,21 @@ def _collectors_for(url: str) -> list[str]:
 
 def _collect_one(
     tech: store.Technology, *, http, github_token: str | None, today: date
-) -> tuple[list[RawEvidence], list[str]]:
+) -> tuple[list[RawEvidence], list[tuple[str, str]]]:
+    """Poll every source that applies to a record.
+
+    The refusals come back paired with the name of the source that made them.
+    A bare message was enough to print and not enough to count: the run log kept
+    the number of refusals without their origin, so a source that had been
+    refusing for a month looked exactly like a scattering of single failures.
+    """
     from services.collectors.arxiv import _extract_arxiv_id, collect_arxiv
     from services.collectors.github import collect_github
     from services.collectors.openalex import collect_openalex
     from services.collectors.paperswithcode import collect_venue
 
     raw: list[RawEvidence] = []
-    errors: list[str] = []
+    errors: list[tuple[str, str]] = []
     for link in tech.links:
         for kind in _collectors_for(link.url):
             if kind == "arxiv":
@@ -119,7 +127,12 @@ def _collect_one(
                     expected_title=tech.name, today=today,
                 )
             raw.extend(result.evidence)
-            errors.extend(f"{tech.id}: {e}" for e in result.errors)
+            # The collector names itself, rather than the name being taken from
+            # the branch above: what the run log should record is the source
+            # that answered, and the collector is the one that knows it.
+            errors.extend(
+                (result.source_name, f"{tech.id}: {e}") for e in result.errors
+            )
     return raw, errors
 
 
@@ -175,6 +188,15 @@ class CollectSummary:
     metrics_added: int = 0
     rejected: int = 0
     errors: list[str] = field(default_factory=list)
+    #: Refusals broken down by the source that made them. `errors` holds the
+    #: messages for a person to read; this holds what the run log keeps, because
+    #: the messages themselves do not survive the pass.
+    failures: Counter[str] = field(default_factory=Counter)
+
+    def refused(self, source: str, message: str) -> None:
+        """Record one refusal, both as a message and against its source."""
+        self.errors.append(message)
+        self.failures[source] += 1
 
 
 def gather(
@@ -214,20 +236,27 @@ def gather(
         raw, tech_errors = _collect_one(
             tech, http=http, github_token=github_token, today=today
         )
-        summary.errors.extend(tech_errors)
+        for source, message in tech_errors:
+            summary.refused(source, message)
         raw_all.extend(raw)
 
     # Framework presence is asked once for the whole registry: what is read is
     # the directory listings, not one record after another.
-    from services.collectors.frameworks import collect_frameworks
+    #
+    # The wrapping form is called rather than the bare one: it returns the
+    # collector's own name along with the evidence, and the run log now records
+    # which source refused. A name written out here instead would be a second
+    # description of the same fact, free to drift from the first.
+    from services.collectors.frameworks import result_for as collect_frameworks
 
-    framework_evidence, framework_errors = collect_frameworks(
+    frameworks = collect_frameworks(
         technologies, http=http, token=github_token, today=today
     )
-    raw_all.extend(framework_evidence)
-    summary.errors.extend(framework_errors)
-    if framework_evidence or not framework_errors:
-        summary.sources.append("frameworks")
+    raw_all.extend(frameworks.evidence)
+    for message in frameworks.errors:
+        summary.refused(frameworks.source_name, message)
+    if frameworks.evidence or not frameworks.errors:
+        summary.sources.append(frameworks.source_name)
 
     # Package downloads only where a person wrote the package name down.
     from services.collectors.pypi import collect_pypi
@@ -239,7 +268,8 @@ def gather(
         polled_pypi = True
         result = collect_pypi(tech.id, tech.package, http=http, today=today)
         raw_all.extend(result.evidence)
-        summary.errors.extend(result.errors)
+        for message in result.errors:
+            summary.refused(result.source_name, message)
     if polled_pypi:
         summary.sources.append("pypi")
 

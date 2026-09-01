@@ -252,6 +252,31 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/update.py", "the pass stops on a failed validation",
              "if problems:\n        sys.stderr", "if False:\n        sys.stderr"),
 
+    # ── The watch over a chronicle that stopped moving ──────────────────────
+    Mutation("scripts/update.py", "the pass actually runs the watch",
+             "silence = watch_chronicle.look(store.load_runs(), store.load_levels())",
+             "silence = None"),
+    Mutation("scripts/watch_chronicle.py",
+             "the watch sounds only after the threshold of quiet passes",
+             "if len(quiet) < quiet_passes:", "if False:"),
+    Mutation("scripts/watch_chronicle.py",
+             "a silence with no evidence behind it is not watched",
+             "if gathered <= 0:", "if False:"),
+    Mutation("scripts/watch_chronicle.py",
+             "a pass on the day of an entry does not count as silent",
+             "run for run in runs if newest_entry is None or run.ran_at > newest_entry",
+             "run for run in runs if newest_entry is None or run.ran_at >= newest_entry"),
+
+    # ── The refusals of the sources, by name ────────────────────────────────
+    Mutation("scripts/collect.py", "a refusal is counted against its source",
+             "self.failures[source] += 1", "self.failures[source] += 0"),
+    Mutation("scripts/collect.py", "the whole-registry collector names itself too",
+             "summary.refused(frameworks.source_name, message)",
+             'summary.refused("unknown", message)'),
+    Mutation("scripts/collect.py", "the source of a refusal is the collector's own name",
+             "(result.source_name, f\"{tech.id}: {e}\") for e in result.errors",
+             "(\"unknown\", f\"{tech.id}: {e}\") for e in result.errors"),
+
     # ── The release: the one irreversible action ────────────────────────────
     Mutation("scripts/make_release.py", "a release validates the data",
              'problems = [f"the data does not pass validation: {p}" for p in\n'
