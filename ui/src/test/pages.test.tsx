@@ -136,7 +136,7 @@ const registry = registryJson as unknown as {
     level: string | null;
     evidence_count: number;
     links: { url: string; status: string }[];
-    parse_notes: { did_en?: string }[];
+    parse_notes: { did_en?: string; code?: string; unstated?: boolean }[];
   }[];
 };
 const stats = statsJson as unknown as { total: number };
@@ -252,6 +252,27 @@ describe("the English version shows no Russian text", () => {
       /[а-яё]{3,}\s+[а-яё]{3,}/gi
     );
     expect(russianPhrases ?? []).toEqual([]);
+  });
+
+  it("a dimension whose emptiness is justified stays in the table", async () => {
+    // Such a dimension carries no value and is not inapplicable: the source was
+    // read and says nothing. Dropping the row hid the justification exactly
+    // where a reader would look for it, and left the record understating what
+    // had been read.
+    await i18n.changeLanguage("en");
+    const tech = registry.technologies.find((x) =>
+      x.parse_notes?.some((n) => n.unstated)
+    );
+    if (!tech) return; // no record explains an absence; nothing to check
+    show(<TechCardPage />, `/tech/${tech.id}`);
+    await waitFor(() => {
+      expect(screen.getAllByText(tech.name).length).toBeGreaterThan(0);
+    });
+    await waitFor(() => {
+      expect(
+        screen.getAllByText(i18n.t("techCard.dimensionUnstated")).length
+      ).toBeGreaterThan(0);
+    });
   });
 
   it("a translated justification is shown in English", async () => {

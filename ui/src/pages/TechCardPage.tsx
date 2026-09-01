@@ -331,7 +331,14 @@ export function TechCardPage() {
                     (d) =>
                       d.stratum === stratum.code &&
                       (d.code in tech.configuration ||
-                        tech.configuration_inapplicable.includes(d.code))
+                        tech.configuration_inapplicable.includes(d.code) ||
+                        // A dimension whose emptiness has a justification stays
+                        // in the table. Dropping it hid the reasoning where a
+                        // reader would look for it: a source that says what a
+                        // component does and withholds how it does it leaves the
+                        // dimension unreadable, and that is worth saying rather
+                        // than passing over in silence.
+                        tech.parse_notes.some((n) => n.code === d.code && n.unstated))
                   );
                   if (rows.length === 0) return null;
                   return [
@@ -356,10 +363,11 @@ export function TechCardPage() {
                     ...rows.map((dim) => {
                       const inapplicable = tech.configuration_inapplicable.includes(dim.code);
                       const val = tech.configuration[dim.code];
+                      const unstated = val === undefined && !inapplicable;
                       const variable = tech.configuration_variable.includes(dim.code);
                       const note = tech.parse_notes.find((n) => n.code === dim.code);
                       const label = getDimensionLabel(dim.code, i18n.language);
-                      const own = !inapplicable && val !== dim.default;
+                      const own = !inapplicable && !unstated && val !== dim.default;
                       return (
                         <TableRow
                           key={dim.code}
@@ -406,6 +414,19 @@ export function TechCardPage() {
                               <Typography variant="caption" color="text.secondary">
                                 {t("techCard.dimensionInapplicable")}
                               </Typography>
+                            ) : unstated ? (
+                              <>
+                                <Typography variant="caption" color="text.secondary">
+                                  {t("techCard.dimensionUnstated")}
+                                </Typography>
+                                {/*
+                                  The reason for the emptiness is what the row
+                                  exists for. Without it the phrase is a shrug,
+                                  and a reader cannot tell which part of the
+                                  source was silent.
+                                */}
+                                {note && <ParseNoteBlock note={note} />}
+                              </>
                             ) : (
                               <>
                                 <Typography
@@ -459,7 +480,8 @@ export function TechCardPage() {
             </Table>
           </TableContainer>
           {(tech.configuration_variable.length > 0 ||
-            tech.configuration_inapplicable.length > 0) && (
+            tech.configuration_inapplicable.length > 0 ||
+            tech.parse_notes.some((n) => n.unstated)) && (
             <Typography
               variant="caption"
               color="text.secondary"
@@ -469,6 +491,8 @@ export function TechCardPage() {
               {tech.configuration_variable.length > 0 &&
                 tech.configuration_inapplicable.length > 0 && " "}
               {tech.configuration_inapplicable.length > 0 && t("techCard.inapplicableNote")}
+              {tech.parse_notes.some((n) => n.unstated) && " "}
+              {tech.parse_notes.some((n) => n.unstated) && t("techCard.unstatedNote")}
             </Typography>
           )}
         </Paper>

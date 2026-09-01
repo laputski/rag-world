@@ -205,6 +205,8 @@ export interface DigestMove {
  */
 export interface ParseNote {
   code?: string;
+  /** The dimension carries no value because the source does not state one. */
+  unstated?: boolean;
   residual?: string;
   residual_term?: string | null;
   residual_term_en?: string | null;
