@@ -1,15 +1,15 @@
 {
   "built_at": "2026-09-01",
   "by_kind": {
-    "architecture": 34,
+    "architecture": 35,
     "attack": 2,
-    "paradigm": 11,
+    "paradigm": 12,
     "technique": 17,
     "tool": 6
   },
   "by_level": {
     "L0": 4,
-    "L1": 24,
+    "L1": 26,
     "L2": 12,
     "L3": 22,
     "L4": 3,
@@ -18,19 +18,19 @@
     "unknown": 2
   },
   "by_stratum": {
-    "A": 37,
+    "A": 38,
     "B": 18,
-    "C": 45,
-    "D": 18,
-    "E": 17,
-    "F": 6,
+    "C": 47,
+    "D": 20,
+    "E": 18,
+    "F": 7,
     "G": 23
   },
-  "evidence_total": 413,
+  "evidence_total": 417,
   "freshest_evidence": "2026-09-01",
   "stale": false,
-  "total": 70,
-  "with_attention": 58,
-  "with_evidence": 68,
-  "with_level": 68
+  "total": 72,
+  "with_attention": 60,
+  "with_evidence": 70,
+  "with_level": 70
 }

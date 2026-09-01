@@ -180,6 +180,26 @@ MUTATIONS: tuple[Mutation, ...] = (
              "LEVELS_PATH = str(store.LEVELS_FILE.relative_to(ROOT))",
              'LEVELS_PATH = "data/levels/history.jsonl.old"'),
 
+    # ── The guard over the justifications ───────────────────────────────────
+    Mutation("scripts/build_review.py",
+             "a justification for an absence must carry its mark",
+             '        if note.get("unstated"):\n            if code in tech.configuration:',
+             "        if True:\n            if code in tech.configuration:"),
+    Mutation("scripts/build_review.py",
+             "an absence explained where a value stands is caught",
+             '            if code in tech.configuration:\n                problems.append(\n'
+             '                    f"{tech.id}.{code}: explained as unstated by the source yet "',
+             '            if False:\n                problems.append(\n'
+             '                    f"{tech.id}.{code}: explained as unstated by the source yet "'),
+    Mutation("scripts/build_review.py",
+             "an absence explained where inapplicability is marked is caught",
+             '            if code in tech.configuration_inapplicable:\n'
+             '                problems.append(\n'
+             '                    f"{tech.id}.{code}: explained as unstated by the source yet "',
+             '            if False:\n'
+             '                problems.append(\n'
+             '                    f"{tech.id}.{code}: explained as unstated by the source yet "'),
+
     # ── Data validation ─────────────────────────────────────────────────────
     Mutation("scripts/validate_data.py", "a dimension value exists in the schema",
              "elif value not in ALL_VALUES[code]:", "elif False:"),

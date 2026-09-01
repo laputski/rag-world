@@ -555,3 +555,5 @@
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7172392400", "technology_id": "uembed", "value": 0.0}
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7140314965", "technology_id": "unified", "value": 0.0}
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W4415795887", "technology_id": "xrag", "value": 0.5}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7170546313", "technology_id": "agentic_context_management", "value": 0.0}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7171998456", "technology_id": "ledgermind", "value": 0.0}

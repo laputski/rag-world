@@ -778,33 +778,6 @@
       "verdict": null
     },
     {
-      "abstract": "Production AI agents' failures are less often due to an inability to reason well and more often because they cannot manage what is in their reasoning context: conversation histories, large prompts, large tool definitions, and ballooning tool outputs. Agents drown in their own accumulating history while paying a token cost that grows every turn, producing missing recalls within and across conversations. The incumbent response treats this as a storage-and-retrieval problem.",
-      "arxiv_id": "2607.21503",
-      "citations": 0,
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents",
-              "summarization"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-23",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.21503",
-      "tasks": [
-        "agents",
-        "summarization"
-      ],
-      "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
-      "verdict": null
-    },
-    {
       "abstract": "Large language models (LLMs) often suffer from hallucination, generating factually incorrect statements when handling questions beyond their knowledge and perception. Retrieval-augmented generation (RAG) addresses this by retrieving query-relevant contexts from knowledge bases to support LLM reasoning. Recent advances leverage pre-constructed graphs to capture the relational connections among distributed documents, showing remarkable performance in complex tasks.",
       "arxiv_id": "2508.06105",
       "citations": null,
@@ -906,41 +879,6 @@
       "source": "https://arxiv.org/abs/2403.08593",
       "tasks": [],
       "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
-      "verdict": null
-    },
-    {
-      "abstract": "Multimodal agents for visual question answering increasingly operate as multi-step trajectories that interleave perception, retrieval, and reasoning, yet evaluation still largely reduces to final-answer accuracy. This aggregate signal cannot tell whether a correct answer was reached through grounded evidence, language priors, or accidental error cancellation.",
-      "arxiv_id": "2607.28374",
-      "citations": 0,
-      "fit": {
-        "score": 1,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "question-answering"
-            ]
-          },
-          {
-            "code": "named"
-          },
-          {
-            "code": "offTask",
-            "tasks": [
-              "image-understanding"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28374",
-      "tasks": [
-        "image-understanding",
-        "question-answering"
-      ],
-      "title": "LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger",
       "verdict": null
     },
     {

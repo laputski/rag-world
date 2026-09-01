@@ -225,6 +225,20 @@
       <guid isPermaLink="false">xrag-2026-09-01-L3</guid>
     </item>
     <item>
+      <title>Agentic Context Management: none &gt; L1</title>
+      <description>publication https://arxiv.org/abs/2607.21503, publication https://openalex.org/W7170546313</description>
+      <link>https://ragworld.org/tech/agentic_context_management</link>
+      <pubDate>Tue, 01 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">agentic_context_management-2026-09-01-L1</guid>
+    </item>
+    <item>
+      <title>LedgerMind: none &gt; L1</title>
+      <description>publication https://arxiv.org/abs/2607.28374, publication https://openalex.org/W7171998456</description>
+      <link>https://ragworld.org/tech/ledgermind</link>
+      <pubDate>Tue, 01 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">ledgermind-2026-09-01-L1</guid>
+    </item>
+    <item>
       <title>Standard HybridRAG: none &gt; L2</title>
       <description>industrial_use https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/, industrial_use https://qdrant.tech/documentation/concepts/hybrid-queries/</description>
       <link>https://ragworld.org/tech/standard_hybridrag</link>
@@ -398,20 +412,6 @@
       <link>https://ragworld.org/tech/dense_x_retrieval</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">dense_x_retrieval-2026-08-09-L2</guid>
-    </item>
-    <item>
-      <title>Edge and On-Device RAG: L0 &gt; L1</title>
-      <description>publication https://openalex.org/W7129328134, publication https://arxiv.org/abs/2602.13229</description>
-      <link>https://ragworld.org/tech/edge</link>
-      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">edge-2026-08-09-L1</guid>
-    </item>
-    <item>
-      <title>Adaptive RAG: none &gt; L1</title>
-      <description>publication https://arxiv.org/abs/2403.14403</description>
-      <link>https://ragworld.org/tech/adaptive_rag</link>
-      <pubDate>Sat, 08 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">adaptive_rag-2026-08-08-L1</guid>
     </item>
   </channel>
 </rss>

@@ -30,11 +30,25 @@
       "note_en": "What is kept between queries is how the system judged a piece of evidence, not the evidence itself. Write-back (F1) names the kind of material stored but does not distinguish a fact about the world from the system's judgement about that fact."
     },
     {
+      "id": "generated_per_agent_configuration",
+      "ru": "конфигурация памяти, порождаемая под каждого агента",
+      "en": "a memory configuration generated for each agent",
+      "note": "Запись реестра есть точка конфигурационного пространства, а пометка переменного значения говорит, что систе́ма выбирает значение среди своих режимов. Здесь ни того, ни другого: система порождает устройство памяти под назначение конкретного агента, решая, какие разряды сведений извлекать, как их хранить, извлекать и уплотнять, и порождённое устройство управляет всеми прочими стадиями. Точка пространства оказывается не выбранной из списка, а созданной.",
+      "note_en": "A registry record is a point in the configuration space, and the variable mark says the system picks a value among its own modes. Here it is neither: the system generates the memory design for the purpose of a particular agent, deciding which categories of material to extract and how to store, retrieve and compact them, and the generated design governs every other stage. The point in the space is not chosen from a list but created."
+    },
+    {
       "id": "intent_ordered_context",
       "ru": "порядок подачи, взятый из связи, которую выбрало намерение запроса",
       "en": "an assembly order taken from the relation the query intent selected",
       "note": "Порядок подачи (D3) называет естественный порядок, возрастание надёжности и иерархию. Здесь найденное упорядочивается топологической сортировкой по той связи, которую выбрало намерение: по времени для вопроса «когда», по причинности для вопроса «почему», так что причина стоит раньше следствия. Порядок задаёт не поиск и не оценка надёжности, а сама структура выбранного слоя.",
       "note_en": "Arrangement (D3) names natural order, ascending reliability and hierarchy. Here what was found is ordered by a topological sort over the relation the intent selected: by time for a «when» question, by causality for a «why» one, so that a cause precedes its effect. The order is set neither by the search nor by an estimate of reliability but by the structure of the selected layer itself."
+    },
+    {
+      "id": "intra_trajectory_state_lifecycle",
+      "ru": "жизненный цикл состояния внутри одного разбора запроса",
+      "en": "a lifecycle of state inside the handling of a single query",
+      "note": "Страта эволюции состояния (F1, F2, F3) определена для систем, хранящих память между запросами, и потому к разбору одного запроса не применяется. Здесь же состояние живёт именно внутри разбора: у записи есть срок годности, есть состояния «действующая», «устаревшая», «противоречивая» и «отброшенная», есть поле замещающей записи и есть проверки, переводящие запись из одного состояния в другое. Механизм тот же, что у памяти, а область действия иная, и схема этого различия не выражает.",
+      "note_en": "The stratum of state evolution (F1, F2, F3) is defined for systems that keep memory between queries and therefore does not apply to the handling of a single query. Here the state lives inside that handling: an entry has a time to live, states of active, stale, conflicted and dropped, a superseding-entry field, and checks that move it from one state to another. The mechanism is the one memory has, the scope is different, and the schema does not express that difference."
     },
     {
       "id": "language_coherence_ranking",
@@ -77,6 +91,13 @@
       "en": "several operating modes with differing configurations",
       "note": "Запись — точка конфигурационного пространства, но система предлагает несколько режимов, различающихся значениями измерений. Записывается объединение подтверждённого: значение ставится, если хотя бы один режим им обладает.",
       "note_en": "A record is a point in the configuration space, but the system offers several modes differing in their values. The union of what is confirmed is recorded: a value is set if at least one mode has it."
+    },
+    {
+      "id": "provenance_closed_repair",
+      "ru": "исправление, не способное внести содержание без происхождения от инструмента",
+      "en": "repair that cannot introduce content without provenance from a tool",
+      "note": "Контроль обоснованности (E2) говорит, что проверка происходит, а приписывание источника (E3) говорит, на что ссылается ответ. Ни то, ни другое не выражает запрета на пополнение состояния: здесь исправление ограничено набором типовых действий, каждое из которых либо ничего не добавляет, либо добавляет только вывод инструмента, так что ошибка остаётся прослеживаемой, а свободный текст в состояние не попадает вовсе.",
+      "note_en": "Groundedness control (E2) says that a check happens, and attribution (E3) says what the answer cites. Neither expresses a prohibition on adding to the state: here repair is restricted to a set of typed operations, each of which either adds nothing or adds only a tool output, so an error stays traceable and free-form text never enters the state at all."
     },
     {
       "id": "query_entity_extraction",
@@ -140,6 +161,13 @@
       "en": "several typed relation views over one and the same set of nodes",
       "note": "Топология указателя (A4) называет вид структуры, но не то, что структур несколько и они существуют одновременно над одними и теми же узлами: время, причина, сходство и участие сущности образуют раздельные слои рёбер, и запрос выбирает, по какому слою идти. Прочтение «граф» уравнивает такую память с графом, у которого рёбра одного рода.",
       "note_en": "Index topology (A4) names the kind of structure but not that there are several of them at once over the very same nodes: time, cause, likeness and entity participation form separate layers of edges, and a query picks which layer to walk. Reading it as «graph» equates such a memory with a graph whose edges are all of one kind."
+    },
+    {
+      "id": "validated_compaction",
+      "ru": "уплотнение контекста с проверкой на потерю сведений",
+      "en": "compaction of context checked for loss of information",
+      "note": "Отбор и сжатие (D2) называют способ сокращения найденного до размера окна, но не то, проверяется ли результат сокращения. Здесь каждое уплотнение сопровождается оценкой сохранности и коэффициентом сжатия, а при падении оценки ниже порога повторяется с меньшей силой. Различие существенно: непроверенное сжатие даёт уверенно неверный ответ, и повторное уплотнение уже уплотнённого без проверки уходит в вырождение.",
+      "note_en": "Selection and compression (D2) name the manner of reducing what was found to the size of the window, but not whether the result of the reduction is checked. Here every compaction carries a preservation score and a compression ratio, and repeats with less force when the score falls below a threshold. The difference matters: unchecked compression yields a confidently wrong answer, and compacting an already compacted context without a check degenerates."
     }
   ]
 }

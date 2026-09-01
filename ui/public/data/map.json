@@ -1,6 +1,6 @@
 {
   "built_at": "2026-09-01",
-  "count": 70,
+  "count": 72,
   "levels": [
     "L0",
     "L1",
@@ -42,6 +42,32 @@
       "level": "L3",
       "name": "Adaptive RAG",
       "prose_id": "adaptive_rag"
+    },
+    {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-07",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D",
+        "F"
+      ],
+      "history": [
+        {
+          "at": "2026-09-01",
+          "level": "L1"
+        }
+      ],
+      "id": "agentic_context_management",
+      "kind": "paradigm",
+      "level": "L1",
+      "name": "Agentic Context Management",
+      "prose_id": "agentic_context_management"
     },
     {
       "attention": null,
@@ -781,6 +807,31 @@
       "level": "L1",
       "name": "Late Chunking",
       "prose_id": "late_chunking"
+    },
+    {
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "first_published": "2026-07",
+      "group": "C",
+      "groups": [
+        "C",
+        "D",
+        "E"
+      ],
+      "history": [
+        {
+          "at": "2026-09-01",
+          "level": "L1"
+        }
+      ],
+      "id": "ledgermind",
+      "kind": "architecture",
+      "level": "L1",
+      "name": "LedgerMind",
+      "prose_id": "ledgermind"
     },
     {
       "attention": 10.385,

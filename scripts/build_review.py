@@ -90,6 +90,25 @@ def check(notes: list[dict]) -> list[str]:
             continue
 
         code = note["code"]
+        # A justification for a dimension the record leaves empty. It explains
+        # an absence rather than a value, and the two must not be confused: a
+        # source that describes what a component does and withholds how it does
+        # it leaves the dimension unreadable, which is neither a value nor an
+        # inapplicability. Without this case the guard called such a note a
+        # drift and the reason for the emptiness had nowhere to live.
+        if note.get("unstated"):
+            if code in tech.configuration:
+                problems.append(
+                    f"{tech.id}.{code}: explained as unstated by the source yet "
+                    f"the registry holds {tech.configuration[code]!r}"
+                )
+            if code in tech.configuration_inapplicable:
+                problems.append(
+                    f"{tech.id}.{code}: explained as unstated by the source yet "
+                    "marked inapplicable, which asserts something else"
+                )
+            continue
+
         if note.get("inapplicable"):
             if code not in tech.configuration_inapplicable:
                 problems.append(f"{tech.id}.{code}: not marked inapplicable")
@@ -121,6 +140,8 @@ def _kind(note: dict, tech: store.Technology) -> str:
         return "residual"
     if note.get("inapplicable"):
         return "inapplicable"
+    if note.get("unstated"):
+        return "unstated"
     if note.get("variable"):
         return "variable"
     code = note["code"]
@@ -132,6 +153,7 @@ KIND_LABEL = {
     "confirmed": "базовое значение подтверждено",
     "variable": "выбирается на ходу",
     "inapplicable": "измерение неприменимо",
+    "unstated": "источник значения не сообщает",
     "residual": "остаток: схема не выражает",
 }
 

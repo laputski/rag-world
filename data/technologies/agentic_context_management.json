@@ -1,0 +1,59 @@
+{
+  "aliases": [
+    "ACM",
+    "Maximem Synap"
+  ],
+  "configuration": {
+    "A3": "metadata",
+    "A4": "graph",
+    "A5": "dense_single",
+    "A7": "text",
+    "A8": "extracted",
+    "B1": "subquestion_decomposition",
+    "C1": "graph_traversal",
+    "C4": "multiple_local",
+    "D2": "budget_aware",
+    "F1": "consolidating",
+    "G1": "isolated_circuit",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "configuration_inapplicable": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5"
+  ],
+  "configuration_reviewed": "2026-09-01",
+  "configuration_variable": [
+    "B1"
+  ],
+  "family": null,
+  "first_published": "2026-07",
+  "groups": [
+    "A",
+    "C",
+    "D",
+    "F"
+  ],
+  "id": "agentic_context_management",
+  "kind": "paradigm",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "label_en": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2607.21503",
+      "verified_at": null
+    }
+  ],
+  "name": "Agentic Context Management",
+  "package": null,
+  "prose_id": "agentic_context_management",
+  "residual": [
+    "validated_compaction",
+    "generated_per_agent_configuration"
+  ]
+}

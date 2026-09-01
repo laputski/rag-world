@@ -1,0 +1,403 @@
+{
+  "built_at": "2026-09-01",
+  "technology": {
+    "aliases": [
+      "LEDGERMIND"
+    ],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "proposition",
+      "A2": "none",
+      "A3": "metadata",
+      "A4": "graph",
+      "A5": "lexical",
+      "A7": "image",
+      "A8": "computed",
+      "B1": "multi_reformulation",
+      "B2": "static",
+      "C1": "lexical",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "federation",
+      "D1": "none",
+      "D2": "budget_aware",
+      "E1": "draft_verify",
+      "E2": "post_gen_check",
+      "E3": "claim_level",
+      "E4": "confidence_threshold",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-09-01",
+    "configuration_variable": [
+      "B1",
+      "E1"
+    ],
+    "description": "LedgerMind отвечает на дефект оценки многошаговых агентов, работающих с изображениями. Такой агент чередует восприятие, поиск и рассуждение, а судят о нём по совпадению итогового ответа с верным. Совпадение не различает трёх случаев: ответ выведен из добытых свидетельств, ответ угадан по языковым привычкам модели, ответ получен взаимным погашением двух ошибок. Верный ответ по неверному пути остаётся верным ответом, и метрика этого не видит.\n\nВместо свободной записи хода работы система держит реестр свидетельств как состояние разбора. Каждая запись несёт свой инструмент, род познания, нормированный факт, полученный правилом, а не пересказом модели, уверенность, срок годности, положение в жизненном цикле и обратные ссылки на утверждения, которые её цитируют. Реестр держит четыре правила, и главные из них два. Утверждение состояния или решения обязано ссылаться на действующие записи, прежде чем повлияет на дальнейший ход. Ссылки при этом мало: сущности и числа вывода обязаны находиться в цитируемом, причём сущности сверяются с учётом иных написаний, а числа с допуском, точным для дат, количеств и опознавателей и мягким для показаний приборов. Проверка запускается событиями: отказ инструмента, устаревшая ссылка, противоречие свидетельств, падение уверенности, необоснованное решение, расхождение вывода со свидетельством.\n\nИсправление устроено так, что не может ухудшить прослеживаемость. Оно ограничено семью типовыми действиями, и доказано, что всякая новая запись состояния есть либо прямой вывод инструмента, либо его образ под детерминированным отображением. Свободный текст в состояние не попадает вовсе, поэтому оставшаяся ошибка привязана к явному источнику. Когда свидетельств недостаёт и бюджет исправлений исчерпан, система воздерживается от ответа. Ограничение названо авторами: реестр живёт внутри разбора одного вопроса, а перенос его на агентов с постоянной памятью остаётся открытой задачей.",
+    "description_en": "LedgerMind answers a defect in how multi-step agents working with images are judged. Such an agent alternates perception, search and reasoning, and it is judged by whether its final answer matches the right one. A match does not tell three cases apart: the answer was derived from gathered evidence, the answer was guessed from the model's habits of language, the answer arrived because two errors cancelled. A right answer by a wrong road is still a right answer, and the measure does not see it.\n\nIn place of a free-form record of the work the system keeps an evidence ledger as the state of the trajectory. Every entry carries its tool, its kind of knowing, a normalised fact obtained by a rule rather than by the model's paraphrase, a confidence, a time to live, a place in the lifecycle, and back-references to the claims that cite it. The ledger holds four rules, of which two are the principal ones. A state claim or a decision claim must cite active entries before it may influence the further course. Citing is not enough: the entities and the numbers of a conclusion must be found in what is cited, with entities compared allowing for other spellings and numbers within a tolerance that is exact for dates, counts and identifiers and lenient for readings off an instrument. The check is started by events: a tool failure, a stale reference, a conflict of evidence, a drop of confidence, an unsupported decision, a divergence of a conclusion from its evidence.\n\nRepair is arranged so that it cannot worsen traceability. It is restricted to seven typed operations, and it is proved that every new entry of the state is either a direct tool output or its image under a deterministic mapping. Free-form text never enters the state at all, so any remaining error is tied to an explicit source. When the evidence remains insufficient and the repair budget is exhausted, the system abstains from answering. The limitation is named by the authors: the ledger lives inside the handling of a single question, and carrying it over to agents with persistent memory remains an open problem.",
+    "evidence": [
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2607.28374",
+        "type": "publication",
+        "value": "arXiv:2607.28374 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7171998456",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-07",
+    "groups": [
+      "C",
+      "D",
+      "E"
+    ],
+    "id": "ledgermind",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2607.28374",
+        "verified_at": null
+      }
+    ],
+    "name": "LedgerMind",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A1",
+        "did": "Единицей служит запись реестра свидетельств: отдельное утверждение, полученное из вывода инструмента детерминированным правилом, а не пересказом модели.",
+        "did_en": "The unit is an entry of the evidence ledger: a single statement obtained from a tool output by a deterministic rule rather than by a model's paraphrase.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "proposition",
+        "why": "Записано самостоятельное утверждение, а не отрезок текста: запись несёт один нормированный факт.",
+        "why_en": "A self-contained statement is recorded rather than a stretch of text: an entry carries one normalised fact."
+      },
+      {
+        "code": "A2",
+        "did": "Единицы не нарезаются из корпуса: каждая появляется как вывод инструмента, будь то распознанный текст, выдача поиска или описание вырезанной области.",
+        "did_en": "Units are not cut from a corpus: each appears as a tool output, whether recognised text, a search result or the description of a cropped region.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение B",
+        "source_en": "arXiv:2607.28374, appendix B",
+        "technology_id": "ledgermind",
+        "to": "none",
+        "why": "Сегментации в системе нет вовсе, и это редкий случай, когда базовое значение схемы «нет сегментации» описывает устройство точно.",
+        "why_en": "There is no segmentation in the system at all, and this is a rare case where the schema's value of no segmentation describes the design exactly."
+      },
+      {
+        "code": "A5",
+        "did": "Векторных представлений в системе нет: обоснованность проверяется долей общих значимых слов, совпадением сущностей и совпадением чисел с допуском.",
+        "did_en": "There are no vector representations in the system: groundedness is checked by the share of shared content words, by agreement of entities and by agreement of numbers within a tolerance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "lexical",
+        "why": "Сопоставление ведётся по словам и значениям, то есть словарным способом.",
+        "why_en": "Matching goes by words and values, that is, lexically."
+      },
+      {
+        "code": "A7",
+        "did": "Разбор ведётся над изображениями и вопросом к ним, а инструменты включают распознавание текста, вырезание области и вопрос к зрительной модели.",
+        "did_en": "The work is done over images and a question about them, and the tools include text recognition, cropping a region and a question to a vision model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "image",
+        "why": "Записана ведущая модальность единиц; текст поиска приходит вспомогательно.",
+        "why_en": "The leading modality of the units is recorded; the text of search arrives as an auxiliary."
+      },
+      {
+        "code": "A8",
+        "did": "Связи между записями возникают из ссылок утверждений на записи и образуют граф зависимостей, по которому распространяется недействительность.",
+        "did_en": "The links between entries arise from the citations claims make to entries and form a dependency graph along which invalidation propagates.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение B",
+        "source_en": "arXiv:2607.28374, appendix B",
+        "technology_id": "ledgermind",
+        "to": "computed",
+        "why": "Структура не задана источником и не извлечена из содержания: её строит сама система по ходу разбора.",
+        "why_en": "The structure is neither given by the source nor extracted from the content: the system builds it itself as it goes."
+      },
+      {
+        "code": "B1",
+        "did": "Поиск идёт в два круга: первый строит запрос из сущностей наблюдения и слов вопроса, второй запускается для запросов, требующих глубоких знаний, и уточняет запрос по выдаче первого.",
+        "did_en": "Search runs in two rounds: the first builds a query from observation entities and the words of the question, the second runs for deep-knowledge queries and refines the query by the yield of the first.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "multi_reformulation",
+        "variable": true,
+        "why": "Запрос переписывается повторно, а не разбирается. Измерение помечено переменным: второй круг положен не всякому вопросу.",
+        "why_en": "The query is rewritten a second time rather than taken apart. The dimension is marked variable: the second round is not due to every question."
+      },
+      {
+        "code": "B2",
+        "did": "Распределитель отправляет вопрос по прямому или полному пути условиями над словами вопроса: «сколько», «термометр», «показание» и подобными перечнями.",
+        "did_en": "The dispatcher sends a question down the direct or the full path by conditions over the words of the question: «how many», «thermometer», «reading» and lists of the like.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "static",
+        "why": "Записано базовое значение: схема знает обученный классификатор, языковую модель и политику по стоимости, а словарного правила не знает. Авторы называют классификатор правиловым сами, в разделе ограничений. Механизм записан остатком.",
+        "why_en": "The base value is recorded: the schema knows a trained classifier, a language model and a cost-aware policy, and knows no lexical rule. The authors call the classifier rule-based themselves, in the section on limitations. The mechanism is recorded as a residual."
+      },
+      {
+        "code": "C1",
+        "did": "Внешние знания добываются вызовом поисковой службы, а запрос к ней собирается из сущностей и слов вопроса.",
+        "did_en": "External knowledge is obtained by calling a search service, and the query to it is assembled from entities and the words of the question.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "lexical",
+        "why": "Оператором служит словарный поиск; приближённого поиска по представлениям в системе нет.",
+        "why_en": "The operator is lexical search; there is no approximate search over representations in the system."
+      },
+      {
+        "code": "C3",
+        "did": "Поисковых служб две, но вторая включается лишь при отказе или задержке первой.",
+        "did_en": "There are two search services, but the second turns on only on a refusal or a timeout from the first.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "none",
+        "why": "Это запас на отказ, а не слияние выдач: одновременно отвечает одна служба.",
+        "why_en": "This is a reserve against failure rather than a fusion of yields: one service answers at a time."
+      },
+      {
+        "code": "C4",
+        "did": "Знания берутся у внешних поисковых служб, Serper.dev как основной и SerpAPI как запасной.",
+        "did_en": "Knowledge is taken from external search services, Serper.dev as the primary and SerpAPI as the fallback.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "federation",
+        "why": "Хранилище принадлежит не системе и спрашивается по сети, что и означает федерацию.",
+        "why_en": "The store belongs to somebody else and is asked over the network, which is what federation means."
+      },
+      {
+        "code": "C2",
+        "did": "Проверяющий срабатывает на событиях состояния, а исправление ограничено бюджетом в два действия на срабатывание и общей границей стоимости пути.",
+        "did_en": "The verifier fires on events of the state, and repair is bounded by a budget of two operations per trigger and by an overall bound on the cost of the trajectory.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение E",
+        "source_en": "arXiv:2607.28374, appendix E",
+        "technology_id": "ledgermind",
+        "to": "iterative_stopping",
+        "why": "Повторение идёт до условия остановки, а не заданное число раз.",
+        "why_en": "The repetition runs up to a stopping condition rather than a set number of times."
+      },
+      {
+        "code": "D2",
+        "did": "Прямой путь получает малый бюджет свидетельств, выдача поиска обрезается до шестисот знаков, а исправление ограничено бюджетом.",
+        "did_en": "The direct path is given a small evidence budget, the yield of search is truncated to six hundred characters, and repair is bounded by a budget.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "to": "budget_aware",
+        "why": "Сокращение управляется бюджетом на каждой стадии.",
+        "why_en": "The reduction is governed by a budget at every stage."
+      },
+      {
+        "code": "E1",
+        "did": "Полный путь строит план, извлекает наблюдения, проверяет их и исправляет по типовым действиям, прежде чем решение становится ответом; прямой путь отвечает сразу.",
+        "did_en": "The full path plans, extracts observations, checks them and repairs by typed operations before a decision becomes the answer; the direct path answers at once.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "draft_verify",
+        "variable": true,
+        "why": "Записано значение полной ветви, измерение помечено переменным: путь выбирается по вопросу.",
+        "why_en": "The value of the full branch is recorded and the dimension is marked variable: the path is chosen by the question."
+      },
+      {
+        "code": "E2",
+        "did": "Проверка обоснованности запускается событиями над уже произведёнными утверждениями: отказ инструмента, устаревшая ссылка, противоречие свидетельств, падение уверенности, необоснованное решение, расхождение вывода со свидетельством.",
+        "did_en": "The check of groundedness is started by events over claims already produced: a tool failure, a stale reference, a conflict of evidence, a drop of confidence, an unsupported decision, a divergence of a conclusion from its evidence.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение E",
+        "source_en": "arXiv:2607.28374, appendix E",
+        "technology_id": "ledgermind",
+        "to": "post_gen_check",
+        "why": "Проверка следует за порождением утверждения, а не предшествует ему.",
+        "why_en": "The check follows the production of a claim rather than preceding it."
+      },
+      {
+        "code": "E3",
+        "did": "Каждое утверждение состояния и решения обязано ссылаться на действующие записи реестра, а сущности и числа вывода обязаны находиться в опорном наборе цитируемого.",
+        "did_en": "Every state claim and decision claim must cite active ledger entries, and the entities and numbers of a conclusion must be found in the cited pool.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "claim_level",
+        "why": "Приписывание источника ведётся на уровне отдельного утверждения, а не документа и не фрагмента. Значение схемы прежде не занимала ни одна запись.",
+        "why_en": "Attribution is done at the level of the single claim and not of a document or a fragment. No record had occupied this value of the schema before."
+      },
+      {
+        "code": "E4",
+        "did": "Утверждение решения без опоры понижается ниже порога проверки, а действие «воздержаться» выдаёт пустой ответ, когда свидетельств недостаёт после исчерпания бюджета исправлений.",
+        "did_en": "A decision claim with no support is demoted below the verification threshold, and the abstain operation yields an empty answer when the evidence remains insufficient after the repair budget is exhausted.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение E",
+        "source_en": "arXiv:2607.28374, appendix E",
+        "technology_id": "ledgermind",
+        "to": "confidence_threshold",
+        "why": "Отказ управляется порогом, а не областью применения. Значение схемы прежде не занимала ни одна запись.",
+        "why_en": "The refusal is governed by a threshold rather than by a domain policy. No record had occupied this value of the schema before."
+      },
+      {
+        "code": "E5",
+        "did": "Действие «добыть» собирает свидетельство под конкретный пробел в обосновании утверждения решения, а добытое меняет само утверждение.",
+        "did_en": "The acquire operation gathers evidence for a specific gap in the grounding of a decision claim, and what is gathered changes the claim itself.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, приложение E",
+        "source_en": "arXiv:2607.28374, appendix E",
+        "technology_id": "ledgermind",
+        "to": "mutual_loop",
+        "why": "Порождённое задаёт следующий поиск, а найденное меняет порождённое, что и есть взаимный цикл.",
+        "why_en": "What was generated sets the next search and what is found changes what was generated, which is what a mutual loop is."
+      },
+      {
+        "code": "F1",
+        "did": "Реестр свидетельств живёт внутри разбора одного вопроса; перенос его на агентов с постоянной памятью авторы называют открытой задачей.",
+        "did_en": "The evidence ledger lives inside the handling of a single question; carrying it over to agents with persistent memory is named by the authors as an open problem.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "none",
+        "why": "Между запросами не хранится ничего, поэтому разрешение противоречий и забывание, определённые лишь при наличии памяти, не определены. Жизненный цикл записей внутри разбора записан остатком.",
+        "why_en": "Nothing is kept between queries, so conflict resolution and forgetting, defined only where memory exists, are undefined. The lifecycle of entries inside the handling is recorded as a residual."
+      },
+      {
+        "code": "D3",
+        "did": "Источник описывает порядок рассуждения, от свидетельства к выводу и к суждению, но не порядок подачи отобранного материала модели.",
+        "did_en": "The source describes the order of the reasoning, from evidence to inference to judgement, but not the order in which the selected material is given to the model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "unstated": true,
+        "why": "Значение не записано: описанное относится к цепочке рассуждения, а измерение спрашивает о порядке подачи.",
+        "why_en": "No value is recorded: what is described concerns the chain of reasoning, while the dimension asks about the order of presentation."
+      },
+      {
+        "did": "Исправление ограничено семью типовыми действиями в трёх слоях, и доказано, что всякая новая запись состояния есть либо прямой вывод инструмента, либо его образ под детерминированным отображением.",
+        "did_en": "Repair is restricted to seven typed operations in three layers, and it is proved that every new entry of the state is either a direct tool output or its image under a deterministic mapping.",
+        "residual": "provenance_closed_repair",
+        "residual_term": "исправление, не способное внести содержание без происхождения от инструмента",
+        "residual_term_en": "repair that cannot introduce content without provenance from a tool",
+        "source": "arXiv:2607.28374, устройство",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "why": "Контроль обоснованности говорит, что проверка происходит, но запрета на пополнение состояния свободным текстом схема не выражает.",
+        "why_en": "Groundedness control says that a check happens, but the schema does not express a prohibition on adding free-form text to the state."
+      },
+      {
+        "did": "У записи есть срок годности, состояния «действующая», «устаревшая», «противоречивая» и «отброшенная», поле замещающей записи и проверки, переводящие её из состояния в состояние.",
+        "did_en": "An entry has a time to live, the states of active, stale, conflicted and dropped, a superseding-entry field, and checks that move it from one state to another.",
+        "residual": "intra_trajectory_state_lifecycle",
+        "residual_term": "жизненный цикл состояния внутри одного разбора запроса",
+        "residual_term_en": "a lifecycle of state inside the handling of a single query",
+        "source": "arXiv:2607.28374, приложение B",
+        "source_en": "arXiv:2607.28374, appendix B",
+        "technology_id": "ledgermind",
+        "why": "Страта эволюции состояния определена для памяти между запросами, а здесь тот же механизм действует внутри разбора одного вопроса.",
+        "why_en": "The stratum of state evolution is defined for memory between queries, whereas here the same mechanism acts inside the handling of a single question."
+      },
+      {
+        "did": "Путь обработки выбирается перечнями слов вопроса, разбитыми на пять условий, и авторы называют классификатор правиловым.",
+        "did_en": "The processing path is chosen by lists of words of the question, grouped into five conditions, and the authors call the classifier rule-based.",
+        "residual": "lexical_rule_routing",
+        "residual_term": "выбор пути обработки по словарным правилам над текстом запроса",
+        "residual_term_en": "the processing path chosen by lexical rules over the text of the query",
+        "source": "arXiv:2607.28374, приложение D",
+        "source_en": "arXiv:2607.28374, appendix D",
+        "technology_id": "ledgermind",
+        "why": "Маршрутизация называет обученный классификатор, языковую модель и политику по стоимости, а словарного правила не называет.",
+        "why_en": "Routing names a trained classifier, a language model and a cost-aware policy, and names no lexical rule."
+      }
+    ],
+    "prose_id": "ledgermind",
+    "residual": [
+      "исправление, не способное внести содержание без происхождения от инструмента",
+      "жизненный цикл состояния внутри одного разбора запроса",
+      "выбор пути обработки по словарным правилам над текстом запроса"
+    ],
+    "residual_en": [
+      "repair that cannot introduce content without provenance from a tool",
+      "a lifecycle of state inside the handling of a single query",
+      "the processing path chosen by lexical rules over the text of the query"
+    ],
+    "summary": "Реестр свидетельств как состояние разбора: утверждение вправе ссылаться только на действующие записи, а исправление не может внести в состояние ничего, чего не выдал инструмент.",
+    "summary_en": "An evidence ledger as the state of a trajectory: a claim may cite only active entries, and repair cannot add to the state anything a tool did not produce."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "aliases": [
+    "LEDGERMIND"
+  ],
+  "configuration": {
+    "A1": "proposition",
+    "A2": "none",
+    "A3": "metadata",
+    "A4": "graph",
+    "A5": "lexical",
+    "A7": "image",
+    "A8": "computed",
+    "B1": "multi_reformulation",
+    "B2": "static",
+    "C1": "lexical",
+    "C2": "iterative_stopping",
+    "C3": "none",
+    "C4": "federation",
+    "D1": "none",
+    "D2": "budget_aware",
+    "E1": "draft_verify",
+    "E2": "post_gen_check",
+    "E3": "claim_level",
+    "E4": "confidence_threshold",
+    "E5": "mutual_loop",
+    "F1": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "frozen"
+  },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-09-01",
+  "configuration_variable": [
+    "B1",
+    "E1"
+  ],
+  "family": null,
+  "first_published": "2026-07",
+  "groups": [
+    "C",
+    "D",
+    "E"
+  ],
+  "id": "ledgermind",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "label_en": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2607.28374",
+      "verified_at": null
+    }
+  ],
+  "name": "LedgerMind",
+  "package": null,
+  "prose_id": "ledgermind",
+  "residual": [
+    "provenance_closed_repair",
+    "intra_trajectory_state_lifecycle",
+    "lexical_rule_routing"
+  ]
+}

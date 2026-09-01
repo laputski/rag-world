@@ -996,6 +996,42 @@
       "technology_id": "xrag"
     },
     {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2607.21503",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7170546313",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Agentic Context Management",
+      "technology_id": "agentic_context_management"
+    },
+    {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2607.28374",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7171998456",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "LedgerMind",
+      "technology_id": "ledgermind"
+    },
+    {
       "changed_at": "2026-08-14",
       "evidence": [
         {
