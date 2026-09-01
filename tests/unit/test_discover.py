@@ -158,6 +158,31 @@ def test_catalogue_refusal_does_not_break_the_pass(workspace):
     assert discover.load_candidates() == []
 
 
+def test_a_discarded_work_is_not_counted_as_a_refusal(workspace):
+    """The catalogue answers and the window check drops what it returned.
+
+    Counted as refusals, those drops made a run log say that the source had
+    yielded nothing several dozen times a week, when it had answered every time.
+    The pass now reports them apart, and the run log keeps only refusals.
+    """
+    import json as _json
+    payload = _json.loads(load_fixture("pwc_discovery.json"))
+    for row in payload["results"]:
+        row["published"] = "2020-01-01T00:00:00Z"
+    http = FakeTransport({
+        "paperswithcode.co": SourceBehaviour(_json.dumps(payload).encode())
+    })
+    summary = discover.run(http=http, today=TODAY, since_days=30)
+
+    assert summary.discarded, "the dropped works have to be reported somewhere"
+    assert "paperswithcode" not in summary.failures, (
+        f"a work the check dropped is counted as a refusal: {dict(summary.failures)}"
+    )
+    assert not any("the date parameter was not applied" in p for p in summary.problems), (
+        "a discarded work must not appear among the refusals"
+    )
+
+
 def test_a_refusal_is_counted_against_the_source_that_made_it(workspace):
     """Discovery asks two sources, and a step is not a source.
 

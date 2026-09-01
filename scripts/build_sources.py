@@ -65,15 +65,23 @@ PURPOSE = {
         "because somebody else's package with a similar name would yield false "
         "evidence.",
     ),
-    CURATED_LISTS[0].page: (
-        "A curated topic list",
-        "A second route of discovery, built on a different principle from the "
-        "catalogue. The catalogue knows about a work what whoever uploaded it "
-        "claimed, whereas inclusion in a list is the decision of a person who "
-        "works in the subject. Only the identifiers of works are taken from the "
-        "markup; what is known about them comes from the preprint archive, "
-        "because a list is written by hand and its wording cannot be trusted.",
-    ),
+    # Every curated list, not the first of them. The entry used to be written
+    # for `CURATED_LISTS[0]`, so a second list would have been polled and left
+    # undescribed: the document would say the portal goes to one address while
+    # it went to two.
+    **{
+        source.page: (
+            f"A curated topic list: {source.name}",
+            "A second route of discovery, built on a different principle from "
+            "the catalogue. The catalogue knows about a work what whoever "
+            "uploaded it claimed, whereas inclusion in a list is the decision "
+            "of a person who works in the subject. Only the identifiers of "
+            "works are taken from the markup; what is known about them comes "
+            "from the preprint archive, because a list is written by hand and "
+            "its wording cannot be trusted.",
+        )
+        for source in CURATED_LISTS
+    },
     PWC_API: (
         "The works-and-code catalogue",
         "The publication venue from a second source: while it came from the open "

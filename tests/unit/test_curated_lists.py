@@ -70,6 +70,57 @@ def test_entries_are_parsed_with_identifier_venue_and_year():
     assert first.title.startswith("LinearRAG")
 
 
+#: A list that writes the venue in square brackets and the year in two digits.
+#: The shape is not invented: it is how the survey list of graph retrieval is
+#: written, and while the parser knew one shape only, that list yielded nothing
+#: at all out of two hundred entries.
+SQUARE_MARKUP = """
+## Benchmarks
+ - [arXiv 24] **Graph Retrieval-Augmented Generation: A Survey** [[paper]](https://arxiv.org/abs/2408.08921)
+ - [NeurIPS 24] **CRAG -- Comprehensive RAG Benchmark** [[paper]](https://arxiv.org/abs/2406.04744)[[code]](https://github.com/facebookresearch/CRAG/)
+- [NAACL 21] **QA-GNN: Reasoning with Language Models and Knowledge Graphs** [[paper]](https://arxiv.org/abs/2104.06378)
+- [Some Venue] **A work with no preprint at all** [[code]](https://example.org/x)
+"""
+
+
+def test_the_square_bracket_shape_of_a_list_is_parsed():
+    """The second shape entries are written in, and the one that parsed to nothing."""
+    entries = parse_entries(SQUARE_MARKUP)
+    assert len(entries) == 3, [e.arxiv_id for e in entries]
+    first = entries[0]
+    assert first.arxiv_id == "2408.08921"
+    assert first.venue == "arXiv 24"
+    assert first.title.startswith("Graph Retrieval-Augmented Generation")
+
+
+def test_a_two_digit_year_in_the_venue_is_read():
+    """Such lists write the year in two digits, and an undated entry is asked about.
+
+    While the year stayed unread, every entry of such a list passed the window
+    filter and was sent to the archive: a hundred requests to somebody else's
+    service where a dozen were due.
+    """
+    entries = {e.arxiv_id: e for e in parse_entries(SQUARE_MARKUP)}
+    assert entries["2408.08921"].year == 2024
+    assert entries["2104.06378"].year == 2021
+
+
+def test_a_number_that_is_not_a_year_is_not_read_as_one():
+    """The other side: a bare number outside the range is not a year."""
+    entries = parse_entries(
+        "- [Workshop 5] **A work of some kind** [[paper]](https://arxiv.org/abs/2408.08921)\n"
+    )
+    assert entries and entries[0].year is None
+
+
+def test_both_shapes_parse_from_one_markup():
+    """A list may hold entries of both shapes, and neither must shut the other out."""
+    mixed = MARKUP.decode("utf-8") + SQUARE_MARKUP
+    ids = {e.arxiv_id for e in parse_entries(mixed)}
+    assert "2510.10114" in ids, "the parenthesised shape is lost"
+    assert "2408.08921" in ids, "the square-bracket shape is lost"
+
+
 def test_entry_without_a_preprint_is_skipped_silently():
     """A work may have no preprint, and that is not a broken list."""
     markup = (
@@ -195,3 +246,30 @@ def test_window_keeps_older_entries_out():
         published_after=date(2026, 1, 1),
     )
     assert all(paper.venue and "2026" in paper.venue for paper in papers)
+
+
+def test_the_window_is_applied_to_the_date_the_archive_gives():
+    """A list knows only a year, and a year is coarser than the window asked for.
+
+    The entry states 2026 and the archive says the work appeared in October
+    2025, so a window opening in March 2026 does not contain it. While only the
+    year was compared, a single list poured two years and a half into the queue
+    where two were asked for, and a season of triage was buried under it.
+    """
+    papers, _ = discover_from_lists(
+        http=FakeTransport(routes()), lists=(LIST,),
+        published_after=date(2026, 3, 1),
+    )
+    assert papers == [], (
+        "a work published before the window is taken in on the strength of the "
+        f"year its list writes: {[p.arxiv_id for p in papers]}"
+    )
+
+
+def test_a_work_inside_the_window_is_still_taken():
+    """The other side: a window that contains the work must not drop it."""
+    papers, _ = discover_from_lists(
+        http=FakeTransport(routes()), lists=(LIST,),
+        published_after=date(2025, 1, 1),
+    )
+    assert [p.arxiv_id for p in papers] == ["2510.10114"]

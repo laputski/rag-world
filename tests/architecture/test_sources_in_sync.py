@@ -37,6 +37,27 @@ def test_sources_file_matches_the_collectors():
     )
 
 
+def test_every_curated_list_is_described():
+    """A list that is polled and not described is the same defect from the other side.
+
+    The check above compares the described addresses against the rendered
+    document; it says nothing about an address the code polls and the table of
+    purposes never mentions. The entry for the lists used to be written for the
+    first of them, so a second list would have been asked for on every pass while
+    the document went on describing one.
+    """
+    from services.collectors.curated import CURATED_LISTS
+
+    missing = [
+        source.name for source in CURATED_LISTS
+        if source.page not in build_sources.PURPOSE
+    ]
+    assert not missing, (
+        f"a curated list is polled and not described: {missing}. "
+        "The portal would go where the document says it does not."
+    )
+
+
 def test_every_polled_address_is_listed():
     """An address the code polls has to be in the list.
 

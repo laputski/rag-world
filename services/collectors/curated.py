@@ -60,22 +60,64 @@ CURATED_LISTS: tuple[CuratedList, ...] = (
         page="https://github.com/DEEP-PolyU/Awesome-GraphRAG",
         survey="arXiv:2501.13958",
     ),
+    # The list kept alongside the survey of graph retrieval. It reached the
+    # registry the other way round: the survey itself was refused as a record,
+    # because a survey is not a point in the configuration space, and the note
+    # of the refusal said it would serve as a source of discovery instead. It
+    # could not until the parser learned the shape its entries are written in.
+    CuratedList(
+        name="Graph-RAG survey list",
+        readme="https://raw.githubusercontent.com/Graph-RAG/GraphRAG/main/README.md",
+        page="https://github.com/Graph-RAG/GraphRAG",
+        survey="arXiv:2501.00309",
+    ),
 )
 
-#: The shape of an entry: the venue in parentheses, the title in bold, and a
-#: link to the preprint somewhere after. Exactly this shape is parsed and
-#: everything else is passed over: trying to understand arbitrary markup ends in
-#: invented titles.
-ENTRY = re.compile(
-    r"^-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"
-    r"(?P<tail>.*?)$",
-    re.M,
+#: The shapes of an entry: the venue, the title in bold, and a link to the
+#: preprint somewhere after. Exactly these shapes are parsed and everything else
+#: is passed over: trying to understand arbitrary markup ends in invented titles.
+#:
+#: There are two of them because lists in this field write the venue in two
+#: ways, in parentheses and in square brackets, and a list written the second
+#: way parsed to nothing at all. That is not a hypothetical: the survey list of
+#: graph retrieval gave zero entries out of two hundred and one, and the
+#: collector reported it as a list whose shape had changed rather than as a list
+#: it could not read.
+ENTRY_PATTERNS = (
+    re.compile(
+        r"^\s*-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"
+        r"(?P<tail>.*?)$",
+        re.M,
+    ),
+    re.compile(
+        r"^\s*-\s*\[(?P<venue>[^\]]{1,60})\]\s*\*\*(?P<title>.+?)\*\*"
+        r"(?P<tail>.*?)$",
+        re.M,
+    ),
 )
 
 ARXIV_LINK = re.compile(r"arxiv\.org/(?:abs|pdf)/(?P<id>[0-9]{4}\.[0-9]{4,5})")
 
-#: The year inside the venue: "(ICLR 2026)" yields 2026.
+#: The year inside the venue: "(ICLR 2026)" yields 2026, and "[NeurIPS 24]"
+#: yields 2024. The short form is read because lists that write the venue in
+#: square brackets write the year in two digits, and without it every entry of
+#: such a list looked undated and was sent to the archive to be asked about.
 VENUE_YEAR = re.compile(r"\b(19|20)(\d{2})\b")
+#: A two-digit year is only read inside a range that this field's work falls in:
+#: a bare number outside it is more likely part of a venue's name than a year.
+SHORT_YEAR = re.compile(r"\b(\d{2})\b")
+SHORT_YEAR_RANGE = range(15, 36)
+
+
+def _venue_year(venue: str) -> int | None:
+    """The year of publication as the venue tag of a list gives it."""
+    full = VENUE_YEAR.search(venue)
+    if full:
+        return int(full.group(0))
+    short = SHORT_YEAR.search(venue)
+    if short and int(short.group(1)) in SHORT_YEAR_RANGE:
+        return 2000 + int(short.group(1))
+    return None
 
 #: How many identifiers are asked for in one request.
 #:
@@ -104,7 +146,8 @@ def parse_entries(markup: str) -> list[ListedEntry]:
     """
     entries: list[ListedEntry] = []
     seen: set[str] = set()
-    for match in ENTRY.finditer(markup):
+    matches = [m for pattern in ENTRY_PATTERNS for m in pattern.finditer(markup)]
+    for match in matches:
         link = ARXIV_LINK.search(match.group("tail"))
         if not link:
             # An entry without a preprint is passed over in silence: a work may
@@ -115,12 +158,11 @@ def parse_entries(markup: str) -> list[ListedEntry]:
             continue
         seen.add(arxiv_id)
         venue = match.group("venue").strip()
-        year = VENUE_YEAR.search(venue)
         entries.append(ListedEntry(
             arxiv_id=arxiv_id,
             title=re.sub(r"\s+", " ", match.group("title")).strip(),
             venue=venue,
-            year=int(year.group(0)) if year else None,
+            year=_venue_year(venue),
         ))
     return entries
 
@@ -214,6 +256,16 @@ def discover_from_lists(
                 )
                 continue
             published = detail.get("published") or ""
+            when = date.fromisoformat(published) if len(published) == 10 else None
+            # The window the caller asked for, applied to the date the archive
+            # gives rather than to the year the list writes. The list knows only
+            # a year, so the filter above admits the whole of it; here the real
+            # date is known, and a work from the January before the window is
+            # outside it. Without this the queue took in two years and a half
+            # where two were asked for, and a single list emptied a season of
+            # triage into it.
+            if published_after is not None and when is not None and when < published_after:
+                continue
             papers.append(Paper(
                 arxiv_id=entry.arxiv_id,
                 # The title comes from the archive rather than from the list:
@@ -221,7 +273,7 @@ def discover_from_lists(
                 # through the candidate queue.
                 title=detail.get("title") or entry.title,
                 abstract=detail.get("summary", ""),
-                published=date.fromisoformat(published) if len(published) == 10 else None,
+                published=when,
                 venue=entry.venue,
                 citations=None,
                 url=f"https://arxiv.org/abs/{entry.arxiv_id}",

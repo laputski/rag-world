@@ -401,6 +401,27 @@ MUTATIONS: tuple[Mutation, ...] = (
              '<meta property="og:image" content="https://ragworld.org/og-image.png" />',
              ""),
 
+    # ── What a source refused and what a check dropped ─────────────────────
+    Mutation("services/collectors/paperswithcode.py",
+             "a work dropped by the window is not a refusal",
+             "            discarded.append(\n"
+             '                f"the catalogue returned a work from ',
+             "            problems.append(\n"
+             '                f"the catalogue returned a work from '),
+    Mutation("services/collectors/curated.py",
+             "the second shape a list writes its entries in is read",
+             '        r"^\\s*-\\s*\\[(?P<venue>[^\\]]{1,60})\\]',
+             '        r"^\\s*-\\s*NEVER(?P<venue>[^\\]]{1,60})\\]'),
+    Mutation("services/collectors/curated.py",
+             "the window is applied to the date the archive gives",
+             "            if published_after is not None and when is not None "
+             "and when < published_after:",
+             "            if False:"),
+    Mutation("services/collectors/curated.py",
+             "a two-digit year in a venue tag is read",
+             "    if short and int(short.group(1)) in SHORT_YEAR_RANGE:",
+             "    if False:"),
+
     # ── Discovery from curated lists ───────────────────────────────────────
     #
     # The source here is not a service with a contract but a file people edit
@@ -416,9 +437,12 @@ MUTATIONS: tuple[Mutation, ...] = (
              "fresh = list(entries)"),
     Mutation("services/collectors/curated.py", "a work without an abstract is not entered",
              "            if not detail:", "            if False:"),
+    # The pattern moved when the parser learned a second shape of entry, and the
+    # entry below moved with it: a break that no longer occurs in the code
+    # checks nothing while looking like a guard.
     Mutation("services/collectors/curated.py", "parsing invents no entries from arbitrary lines",
-             r'    r"^-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"',
-             r'    r"^.*?(?P<venue>)(?P<title>\S+)"'),
+             r'        r"^\s*-\s*\((?P<venue>[^)]{1,60})\)\s*\*\*(?P<title>.+?)\*\*"',
+             r'        r"^.*?(?P<venue>)(?P<title>\S+)"'),
     Mutation("scripts/discover.py", "recomputation does not lose the curated-list signal",
              'curated_by=row.get("curated_by") or None,', "curated_by=None,"),
     Mutation("core/candidate_fit.py", "inclusion in a list raises fitness",

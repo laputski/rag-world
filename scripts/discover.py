@@ -70,6 +70,12 @@ class DiscoverySummary:
     decided: int = 0
     rescored: int = 0
     problems: list[str] = field(default_factory=list)
+    #: Works a source returned and a check dropped. They are not refusals: the
+    #: source answered, and the answer was examined and found to be outside what
+    #: was asked for. Counting them as refusals said that the catalogue had
+    #: yielded nothing several dozen times a week, when it had answered every
+    #: time and one of its parameters is broken.
+    discarded: list[str] = field(default_factory=list)
     #: The same refusals counted against the source that made them. Discovery
     #: asks two sources, the works-and-code catalogue and the curated lists, and
     #: a run log that recorded them under one name would say the step refused
@@ -154,14 +160,16 @@ def run(
         http = RequestsTransport()
 
     summary = DiscoverySummary()
-    papers, problems = discover(
+    papers, problems, discarded = discover(
         http=http, published_after=today - timedelta(days=since_days),
         method=RAG_METHOD,
     )
     summary.problems.extend(problems)
+    summary.discarded.extend(discarded)
     # Only a source that actually refused is named. A key standing at zero
     # would assert "this source refused nothing", and the run log has no room
-    # for a zero standing in for an absence.
+    # for a zero standing in for an absence. What a check dropped is not counted
+    # here at all: the source answered.
     if problems:
         summary.failures["paperswithcode"] += len(problems)
 

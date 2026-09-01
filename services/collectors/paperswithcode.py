@@ -222,26 +222,37 @@ def discover(
     http: HttpGetter,
     published_after: date,
     method: str = RAG_METHOD,
-) -> tuple[list[Paper], list[str]]:
+) -> tuple[list[Paper], list[str], list[str]]:
     """Work under the method tag published no earlier than the given date.
 
-    Returns what was found and the reasons for refusals. Work older than the
-    date requested is dropped with an explanation: the catalogue silently
-    ignores some parameters, and a feed of the newest work in the whole field is
-    indistinguishable from an answer to the point. An empty feed is legitimate,
-    though: a week without new work happens.
+    Returns three things, and the third exists because the first two were being
+    confused. `found` is the work inside the window. `problems` are refusals: the
+    request failed or the feed came back in a shape that cannot be read.
+    `discarded` are works the catalogue did return and the window check dropped.
+
+    The distinction is not pedantry. The mirror ignores the date it is asked for
+    and answers with the newest work of the whole field, so every pass discards
+    several dozen works. Counted as refusals, they said that the catalogue had
+    yielded nothing forty-seven times in a week, when it had answered every time
+    and one of its parameters is broken. A run log that reports the second as
+    the first sends whoever reads it looking for an outage that never happened.
+
+    An empty feed is legitimate: a week without new work happens.
     """
     query = urlencode({"method": method, "published_after": published_after.isoformat()})
     payload, error = _get_json(http, f"{PWC_API}/papers/?{query}")
     if error or payload is None:
-        return [], [error] if error else []
+        return [], [error] if error else [], []
 
     rows = payload.get("results")
     if not isinstance(rows, list):
-        return [], [f"the catalogue returned a feed without a list of works: {type(rows).__name__}"]
+        return [], [
+            f"the catalogue returned a feed without a list of works: {type(rows).__name__}"
+        ], []
 
     found: list[Paper] = []
     problems: list[str] = []
+    discarded: list[str] = []
     for row in rows:
         if not isinstance(row, dict):
             continue
@@ -249,14 +260,14 @@ def discover(
         if paper is None:
             continue
         if paper.published is None:
-            problems.append(f"a work without a date of publication: {paper.arxiv_id}")
+            discarded.append(f"a work without a date of publication: {paper.arxiv_id}")
             continue
         if paper.published < published_after:
-            problems.append(
+            discarded.append(
                 f"the catalogue returned a work from {paper.published.isoformat()} "
                 f"for a request from {published_after.isoformat()}: the date "
                 f"parameter was not applied"
             )
             continue
         found.append(paper)
-    return found, problems
+    return found, problems, discarded

@@ -152,6 +152,14 @@ def run(
             f"discovery: found {found.found}, added to the queue "
             f"{found.added}, already in the registry {found.known}"
         )
+        # What a check dropped is reported apart from what a source refused. The
+        # count is large and steady, because the mirror ignores the date it is
+        # asked for; reported as refusals it hid the handful of real ones.
+        if found.discarded:
+            print(
+                f"  works the window check dropped: {len(found.discarded)}; "
+                f"first of them: {found.discarded[0][:100]}"
+            )
         # The messages are printed here rather than with the collection ones:
         # that print has already run by now, and without this the refusals of
         # the catalogue reached the count in the run log and no eye at all.

@@ -152,33 +152,66 @@ def test_discovery_returns_the_week_of_papers():
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(fixture("pwc_discovery.json"))
     })
-    found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
 
     assert problems == []
+    assert discarded == []
     assert found, "the week of the feed is empty although the recorded answer has work"
     assert all(p.published >= date(2026, 8, 1) for p in found)
     assert all(p.arxiv_id for p in found)
 
 
-def test_discovery_refuses_papers_older_than_asked():
-    """The catalogue may not apply the date parameter, and the feed goes stale."""
+def test_a_work_outside_the_window_is_discarded_and_not_counted_as_a_refusal():
+    """The catalogue may not apply the date parameter, and the feed goes stale.
+
+    Such a work is dropped, and the dropping is not a refusal: the catalogue
+    answered. While the two were counted together, a pass reported that the
+    source had yielded nothing forty-seven times in a week, when it had answered
+    every time and one of its parameters is broken. Whoever read that went
+    looking for an outage that never happened.
+    """
     payload = json.loads(fixture("pwc_discovery.json"))
     payload["results"][0]["published"] = "2024-01-01T00:00:00Z"
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(json.dumps(payload).encode())
     })
 
-    found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
 
-    assert any("the date parameter was not applied" in p for p in problems)
+    assert any("the date parameter was not applied" in d for d in discarded)
+    assert problems == [], f"a discarded work must not be a refusal: {problems}"
     assert all(p.published >= date(2026, 8, 1) for p in found)
+
+
+def test_a_work_without_a_date_is_discarded_and_not_counted_as_a_refusal():
+    """The same for a work the catalogue returned without a date at all."""
+    payload = json.loads(fixture("pwc_discovery.json"))
+    payload["results"][0]["published"] = None
+    http = FakeTransport({
+        "paperswithcode.co": SourceBehaviour(json.dumps(payload).encode())
+    })
+
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
+
+    assert any("without a date of publication" in d for d in discarded)
+    assert problems == []
+
+
+def test_a_failed_request_stays_a_refusal():
+    """The other side: a source that did not answer is still a refusal."""
+    http = FakeTransport({"paperswithcode.co": SourceBehaviour(b"", status=503)})
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
+    assert found == []
+    assert problems, "a refusal of the request must be reported as one"
+    assert discarded == []
 
 
 def test_discovery_survives_a_missing_list():
     http = FakeTransport({"paperswithcode.co": SourceBehaviour(b'{"count": 3}')})
-    found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
     assert found == []
     assert problems and "without a list of works" in problems[0]
+    assert discarded == [], "a feed that cannot be read is a refusal, not a discard"
 
 
 def test_empty_week_is_not_a_problem():
@@ -186,9 +219,10 @@ def test_empty_week_is_not_a_problem():
     http = FakeTransport({
         "paperswithcode.co": SourceBehaviour(b'{"count": 0, "results": []}')
     })
-    found, problems = pwc.discover(http=http, published_after=date(2026, 8, 1))
+    found, problems, discarded = pwc.discover(http=http, published_after=date(2026, 8, 1))
     assert found == []
     assert problems == []
+    assert discarded == []
 
 
 def test_discovery_asks_the_catalogue_by_method_and_date():
