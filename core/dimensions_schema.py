@@ -95,13 +95,28 @@ DIMENSIONS: tuple[Dimension, ...] = (
     # clustering may turn out poor and changes on reindexing. Vectorless and
     # RAPTOR both have a tree, and without this dimension they are
     # indistinguishable.
+    # `extracted_and_computed` came out of the residual queue: three records had
+    # to write "edges added by likeness of representations" into their residual
+    # because their structure has two origins at once, part read out of the text
+    # and part guessed from closeness, and a single-valued answer hid the second
+    # half. The dimension asks where the connections came from, and "from two
+    # places" is an answer to that question rather than a new question.
     Dimension("A8", "Origin of index structure",
-              ("none", "given", "extracted", "computed"), default="none"),
+              ("none", "given", "extracted", "computed", "extracted_and_computed"),
+              default="none"),
 
     # Stratum B — Query formulation
+    # `key_extraction` came out of the residual queue as well, on four records.
+    # The dimension asks what happens to the query before the index is consulted,
+    # and `identity` answers "nothing". For a system that takes the query apart
+    # into entities, keywords or a time window and addresses the index by them,
+    # that answer is false, and it was false silently: the four records looked
+    # like a query passed through untouched. Extraction differs from
+    # decomposition into subquestions, which produces further queries rather
+    # than keys.
     Dimension("B1", "Query transformation",
               ("identity", "hyde", "multi_reformulation", "step_back",
-               "subquestion_decomposition"), default="identity"),
+               "subquestion_decomposition", "key_extraction"), default="identity"),
     Dimension("B2", "Routing",
               ("static", "trained_classifier", "llm_router", "cost_aware_policy"),
               default="static"),

@@ -10,8 +10,8 @@
     "A5": "dense_single",
     "A6": "append_only",
     "A7": "text",
-    "A8": "extracted",
-    "B1": "identity",
+    "A8": "extracted_and_computed",
+    "B1": "key_extraction",
     "B2": "static",
     "C1": "graph_traversal",
     "C2": "iterative_stopping",
@@ -76,8 +76,6 @@
   "prose_id": "magma",
   "residual": [
     "typed_relation_views",
-    "synonymy_edges",
-    "query_entity_extraction",
     "lexical_rule_routing",
     "intent_ordered_context"
   ]

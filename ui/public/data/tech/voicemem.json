@@ -15,7 +15,7 @@
       "A6": "snapshot",
       "A7": "text",
       "A8": "extracted",
-      "B1": "identity",
+      "B1": "key_extraction",
       "B2": "static",
       "C1": "graph_traversal",
       "C2": "single_shot",
@@ -177,25 +177,24 @@
         "why_en": "Traversal control says how many times the system consults the index but not when the consultation happens relative to the query."
       },
       {
+        "code": "B1",
         "did": "Из частичной расшифровки речи выделяются схемы и сущности, и найденное служит точкой входа в указатель.",
         "did_en": "Schemas and entities are drawn out of the partial transcript of speech, and what is found serves as the entry point into the index.",
-        "residual": "query_entity_extraction",
-        "residual_term": "извлечение именованных сущностей из запроса",
-        "residual_term_en": "named entity extraction from the query",
+        "residual_term": null,
+        "residual_term_en": null,
         "source": "arXiv:2608.26005, устройство",
         "source_en": "arXiv:2608.26005, method",
         "technology_id": "voicemem",
-        "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-        "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+        "to": "key_extraction",
+        "why": "Разбор на ключи идёт по ходу речи, до того как реплика закончилась, и переписыванием запроса не является.",
+        "why_en": "The decomposition into keys runs along with the speech, before the turn has ended, and is not a rewriting of the query."
       }
     ],
     "prose_id": "voicemem",
     "residual": [
-      "извлечение именованных сущностей из запроса",
       "извлечение, начатое до конца запроса"
     ],
     "residual_en": [
-      "named entity extraction from the query",
       "retrieval begun before the query has ended"
     ],
     "summary": "Память голосового собеседника в двух половинах, с поиском, начатым до конца реплики: к паузе остаётся только выбрать из отобранного.",

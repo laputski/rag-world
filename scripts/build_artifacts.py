@@ -376,7 +376,14 @@ def _residual_queue(technologies: list[store.Technology]) -> list[dict]:
             "note_en": entry.get("note_en", entry.get("note", "")),
             "count": len(users),
             "technologies": sorted(users, key=lambda u: u["name"]),
-            "candidate": len(users) >= RESIDUAL_CANDIDATE_THRESHOLD,
+            # A mechanism examined and left out of the schema stops being a
+            # candidate. Without this it would go on being offered for admission
+            # at every rebuild, and the queue would show as pending a question
+            # that was answered: the reader has no way of telling a mechanism
+            # nobody has looked at from one that was looked at and refused.
+            "candidate": (len(users) >= RESIDUAL_CANDIDATE_THRESHOLD
+                          and not entry.get("verdict")),
+            "verdict": entry.get("verdict"),
         })
     return sorted(rows, key=lambda r: (-r["count"], r["term"]))
 

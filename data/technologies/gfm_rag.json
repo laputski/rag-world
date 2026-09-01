@@ -9,8 +9,8 @@
     "A4": "graph",
     "A5": "dense_single",
     "A7": "text",
-    "A8": "extracted",
-    "B1": "identity",
+    "A8": "extracted_and_computed",
+    "B1": "key_extraction",
     "B2": "static",
     "C1": "graph_traversal",
     "C2": "single_shot",
@@ -55,8 +55,6 @@
   "prose_id": "gfm_rag",
   "residual": [
     "learned_relevance_propagation",
-    "synonymy_edges",
-    "query_entity_extraction",
     "score_transfer_to_units"
   ]
 }

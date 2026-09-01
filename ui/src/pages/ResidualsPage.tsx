@@ -123,7 +123,32 @@ export function ResidualsPage() {
                 {t("residuals.candidate")}
               </Typography>
             )}
+            {/*
+              A mechanism met often enough to be a candidate and not offered as
+              one has to say why, or the reader takes the missing mark for an
+              oversight of the queue rather than for a decision.
+            */}
+            {row.verdict && (
+              <Typography variant="caption" color="text.secondary">
+                {t("residuals.declined")}
+              </Typography>
+            )}
+            {row.verdict && (
+              <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8 }}>
+                {t("residuals.declinedOn", { date: row.verdict.decided_at })}
+              </Typography>
+            )}
           </Box>
+
+          {row.verdict && (
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 1.5, maxWidth: "64ch", fontStyle: "italic" }}
+            >
+              {i18n.language === "en" ? row.verdict.reason_en : row.verdict.reason}
+            </Typography>
+          )}
 
           {row.note && (
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, maxWidth: "64ch" }}>

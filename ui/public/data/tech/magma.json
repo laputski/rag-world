@@ -16,8 +16,8 @@
       "A5": "dense_single",
       "A6": "append_only",
       "A7": "text",
-      "A8": "extracted",
-      "B1": "identity",
+      "A8": "extracted_and_computed",
+      "B1": "key_extraction",
       "B2": "static",
       "C1": "graph_traversal",
       "C2": "iterative_stopping",
@@ -196,29 +196,29 @@
       },
       {
         "code": "A8",
-        "did": "Причинные рёбра и рёбра сущностей выводит языковая модель при уплотнении структуры.",
-        "did_en": "Causal and entity edges are inferred by a language model during structural consolidation.",
+        "did": "Причинные рёбра и рёбра сущностей выводит языковая модель при уплотнении структуры, а смысловые ставятся там, где косинус между представлениями превышает порог.",
+        "did_en": "Causal and entity edges are inferred by a language model during consolidation, while semantic ones are placed where the cosine between representations exceeds a threshold.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2601.03236, устройство",
         "source_en": "arXiv:2601.03236, method",
         "technology_id": "magma",
-        "to": "extracted",
-        "why": "Значение выбрано по тем связям, ради которых работа написана: причинность противопоставляется в ней близости представлений. Временные рёбра при этом вычисляются из отметок времени, а смысловые из порога близости, и это записано остатком.",
-        "why_en": "The value follows the relations the work was written for: it sets causality against closeness of representations. Temporal edges are meanwhile computed from timestamps and semantic ones from a closeness threshold, which is recorded as a residual."
+        "to": "extracted_and_computed",
+        "why": "Часть связей извлечена из содержания, часть вычислена по близости, и значение схемы теперь выражает оба происхождения сразу.",
+        "why_en": "Part of the links is extracted from the content and part computed from closeness, and the value of the schema now expresses both origins at once."
       },
       {
         "code": "B1",
-        "did": "Запрос не переписывается: из него извлекают намерение, временное окно, плотное представление и ключевые слова.",
-        "did_en": "The query is not rewritten: an intent, a time window, a dense representation and keywords are drawn out of it.",
+        "did": "Запрос разбирается на намерение, временное окно, ключевые слова и действующее лицо, выделенное образцами, и найденное служит точкой входа в память.",
+        "did_en": "The query is taken apart into an intent, a time window, keywords and an actor drawn out by patterns, and what is found serves as the entry point into the memory.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2601.03236, устройство",
         "source_en": "arXiv:2601.03236, method",
         "technology_id": "magma",
-        "to": "identity",
-        "why": "Разбор запроса на сигналы не создаёт нового запроса и не порождает подвопросов, поэтому записано преобразование тождественное.",
-        "why_en": "Taking a query apart into signals creates no new query and no subquestions, so the transformation is recorded as identity."
+        "to": "key_extraction",
+        "why": "Переписывания нет, есть разбор на ключи, адресующие указатель, и схема выражает это значением, а не пометкой тождественности.",
+        "why_en": "There is no rewriting, there is a decomposition into keys addressing the index, and the schema expresses it by a value rather than by a mark of identity."
       },
       {
         "code": "B2",
@@ -326,30 +326,6 @@
         "why_en": "Index topology names the kind of structure but not that there are several of them existing at once."
       },
       {
-        "did": "Смысловые рёбра ставятся там, где косинус между представлениями превышает порог.",
-        "did_en": "Semantic edges are placed where the cosine between representations exceeds a threshold.",
-        "residual": "synonymy_edges",
-        "residual_term": "рёбра синонимии между узлами индекса",
-        "residual_term_en": "synonymy edges between index nodes",
-        "source": "arXiv:2601.03236, устройство",
-        "source_en": "arXiv:2601.03236, method",
-        "technology_id": "magma",
-        "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер не извлечена, а вычислена по близости, и схема этого различия внутри одной записи не выражает.",
-        "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are not extracted but computed from closeness, and the schema does not express that difference inside one record."
-      },
-      {
-        "did": "Из запроса образцами выделяется действующее лицо, и найденное служит точкой входа в память.",
-        "did_en": "An actor is drawn out of the query by patterns, and what is found serves as an entry point into the memory.",
-        "residual": "query_entity_extraction",
-        "residual_term": "извлечение именованных сущностей из запроса",
-        "residual_term_en": "named entity extraction from the query",
-        "source": "github.com/FredJiang0324/MAGMA, реализация",
-        "source_en": "github.com/FredJiang0324/MAGMA, implementation",
-        "technology_id": "magma",
-        "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-        "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
-      },
-      {
         "did": "Путь обработки выбирается перечнем слов и образцов над текстом запроса, без обучения и без вызова модели.",
         "did_en": "The processing path is chosen by a list of words and patterns over the text of the query, with nothing trained and no model called.",
         "residual": "lexical_rule_routing",
@@ -377,15 +353,11 @@
     "prose_id": "magma",
     "residual": [
       "несколько типов связей как отдельные представления одного набора узлов",
-      "рёбра синонимии между узлами индекса",
-      "извлечение именованных сущностей из запроса",
       "выбор пути обработки по словарным правилам над текстом запроса",
       "порядок подачи, взятый из связи, которую выбрало намерение запроса"
     ],
     "residual_en": [
       "several typed relation views over one and the same set of nodes",
-      "synonymy edges between index nodes",
-      "named entity extraction from the query",
       "the processing path chosen by lexical rules over the text of the query",
       "an assembly order taken from the relation the query intent selected"
     ],

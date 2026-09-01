@@ -312,6 +312,29 @@ describe("the English version shows no Russian text", () => {
     });
   });
 
+  it("a mechanism examined and refused says so instead of standing as a candidate", async () => {
+    // A count above the threshold with no candidate mark and no reason reads as
+    // an oversight of the queue rather than as a decision that was taken.
+    await i18n.changeLanguage("en");
+    const declined = (residualsJson as unknown as {
+      mechanisms: { id: string; candidate: boolean; verdict?: { reason_en: string } | null }[];
+    }).mechanisms.filter((m) => m.verdict);
+    if (declined.length === 0) return; // nothing has been refused yet
+    expect(
+      declined.every((m) => m.candidate === false),
+      "a refused mechanism is still offered as a candidate"
+    ).toBe(true);
+    show(<ResidualsPage />);
+    await waitFor(() => {
+      expect(screen.getAllByText(i18n.t("residuals.declined")).length).toBeGreaterThan(0);
+    });
+    await waitFor(() => {
+      expect(
+        screen.getAllByText(declined[0].verdict!.reason_en).length
+      ).toBeGreaterThan(0);
+    });
+  });
+
   it("the residual queue in English does without Cyrillic", async () => {
     await i18n.changeLanguage("en");
     const { container } = show(<ResidualsPage />);

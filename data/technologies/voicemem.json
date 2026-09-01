@@ -9,7 +9,7 @@
     "A6": "snapshot",
     "A7": "text",
     "A8": "extracted",
-    "B1": "identity",
+    "B1": "key_extraction",
     "B2": "static",
     "C1": "graph_traversal",
     "C2": "single_shot",
@@ -56,7 +56,6 @@
   "package": null,
   "prose_id": "voicemem",
   "residual": [
-    "query_entity_extraction",
     "anticipatory_streaming_retrieval"
   ]
 }

@@ -73,6 +73,55 @@ def complains_about(fragment: str, problems: list[str]) -> bool:
     return any(fragment in problem for problem in problems)
 
 
+# ─── The verdict on a residual mechanism ─────────────────────────────────────
+#
+# A verdict takes a mechanism out of candidacy for a dimension, which is the
+# heaviest thing the queue can do to it: a mechanism mentioned four times stops
+# being offered for admission. A verdict without grounds would do that silently.
+
+
+def _verdict(**overrides) -> dict:
+    verdict = {"decision": "declined", "reason": "потому что", "reason_en": "because",
+               "decided_at": "2026-09-01"}
+    verdict.update(overrides)
+    return {"m": {"id": "m", "verdict": verdict}}
+
+
+def test_a_sound_verdict_draws_no_complaint():
+    assert validate_data.check_residual_verdicts(_verdict()) == []
+
+
+def test_a_mechanism_without_a_verdict_draws_no_complaint():
+    """Most mechanisms carry none, and that is the ordinary state."""
+    assert validate_data.check_residual_verdicts({"m": {"id": "m"}}) == []
+
+
+def test_an_unknown_decision_is_caught():
+    problems = validate_data.check_residual_verdicts(_verdict(decision="maybe"))
+    assert complains_about("the admissible", problems), problems
+
+
+def test_a_verdict_without_grounds_is_caught():
+    problems = validate_data.check_residual_verdicts(_verdict(reason=" "))
+    assert complains_about("no reason", problems), problems
+
+
+def test_a_verdict_without_english_grounds_is_caught():
+    """The queue is shown to a reader, and not only to the owner."""
+    problems = validate_data.check_residual_verdicts(_verdict(reason_en=""))
+    assert complains_about("no reason_en", problems), problems
+
+
+def test_a_verdict_without_a_date_is_caught():
+    problems = validate_data.check_residual_verdicts(_verdict(decided_at=None))
+    assert complains_about("no date", problems), problems
+
+
+def test_a_verdict_that_is_not_an_object_is_caught():
+    problems = validate_data.check_residual_verdicts({"m": {"id": "m", "verdict": "declined"}})
+    assert complains_about("not an object", problems), problems
+
+
 # ─── The other side: sound data must draw no complaints ──────────────────────
 
 

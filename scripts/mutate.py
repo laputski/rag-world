@@ -97,6 +97,19 @@ MUTATIONS: tuple[Mutation, ...] = (
              "by_month.setdefault(evidence_path(item.fetched_at), [])",
              "by_month.setdefault(evidence_path(date(2000, 1, 1)), [])"),
 
+    # ── The residual queue and its verdicts ─────────────────────────────────
+    Mutation("scripts/build_artifacts.py",
+             "a mechanism refused by a verdict stops being a candidate",
+             '            "candidate": (len(users) >= RESIDUAL_CANDIDATE_THRESHOLD\n'
+             '                          and not entry.get("verdict")),',
+             '            "candidate": len(users) >= RESIDUAL_CANDIDATE_THRESHOLD,'),
+    Mutation("scripts/validate_data.py",
+             "a verdict on a residual names an admissible decision",
+             "if decision not in RESIDUAL_VERDICTS:", "if False:"),
+    Mutation("scripts/validate_data.py",
+             "a verdict on a residual states its grounds",
+             'if not str(verdict.get(field) or "").strip():', "if False:"),
+
     # ── The fitness of a candidate ──────────────────────────────────────────
     Mutation("core/candidate_fit.py", "a task from the registry subject weighs more",
              'fit.add(4, "coreTask", tasks=core)', 'fit.add(2, "coreTask", tasks=core)'),

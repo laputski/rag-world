@@ -85,6 +85,44 @@ def check_filenames() -> list[str]:
     return problems
 
 
+#: What a verdict on a residual mechanism may say. `declined` means the queue
+#: was examined and the mechanism deliberately left out of the schema. There is
+#: no `admitted`: a mechanism admitted into the schema leaves the vocabulary
+#: altogether, because it is no longer a residual.
+RESIDUAL_VERDICTS = ("declined",)
+
+
+def check_residual_verdicts(vocabulary: dict[str, dict]) -> list[str]:
+    """A verdict on a residual states a decision and its grounds, in both tongues.
+
+    A verdict takes a mechanism out of candidacy for a dimension of the schema,
+    which is the heaviest thing the queue can do to it. A verdict without
+    grounds would do that silently, and a reader meeting a mechanism mentioned
+    four times and not offered for admission would have no way of learning why.
+    """
+    problems: list[str] = []
+    for code, entry in sorted(vocabulary.items()):
+        verdict = entry.get("verdict")
+        if verdict is None:
+            continue
+        where = f"residual_vocabulary.json: {code}"
+        if not isinstance(verdict, dict):
+            problems.append(f"{where}: the verdict is not an object")
+            continue
+        decision = verdict.get("decision")
+        if decision not in RESIDUAL_VERDICTS:
+            problems.append(
+                f"{where}: the verdict says {decision!r}, and the admissible "
+                f"decisions are {list(RESIDUAL_VERDICTS)}"
+            )
+        for field in ("reason", "reason_en"):
+            if not str(verdict.get(field) or "").strip():
+                problems.append(f"{where}: the verdict has no {field}")
+        if not str(verdict.get("decided_at") or "").strip():
+            problems.append(f"{where}: the verdict has no date")
+    return problems
+
+
 def check_registry() -> list[str]:
     """The checks that need no network. Returns the list of problems."""
     # Parsing the files comes first, because it alone names the culprit. The
@@ -105,6 +143,7 @@ def check_registry() -> list[str]:
         return problems
 
     vocabulary = _residual_vocabulary()
+    problems += check_residual_verdicts(vocabulary)
     known: set[str] = set()
     for tech in technologies:
         where = f"technologies/{tech.id}.json"

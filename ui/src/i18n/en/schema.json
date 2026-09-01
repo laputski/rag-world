@@ -84,14 +84,16 @@
       "none": "No structure",
       "given": "Given by the source",
       "extracted": "Extracted from the content",
-      "computed": "Computed by an algorithm"
+      "computed": "Computed by an algorithm",
+      "extracted_and_computed": "Part extracted from the content, part computed"
     },
     "B1": {
       "identity": "Query unchanged",
       "hyde": "Hypothetical answer in place of the query",
       "multi_reformulation": "Several reformulations",
       "step_back": "Step back to a more general question",
-      "subquestion_decomposition": "Decomposition into subquestions"
+      "subquestion_decomposition": "Decomposition into subquestions",
+      "key_extraction": "Keys addressing the index drawn out of the query"
     },
     "B2": {
       "static": "Single path",

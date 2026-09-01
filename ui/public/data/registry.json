@@ -4730,8 +4730,8 @@
         "A4": "graph",
         "A5": "dense_single",
         "A7": "text",
-        "A8": "extracted",
-        "B1": "identity",
+        "A8": "extracted_and_computed",
+        "B1": "key_extraction",
         "B2": "static",
         "C1": "graph_traversal",
         "C2": "single_shot",
@@ -4840,16 +4840,16 @@
         },
         {
           "code": "A8",
-          "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель.",
-          "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model.",
+          "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель, а сверх них ставятся рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
+          "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model, and above them edges are placed between semantically close entities, for example between «USA» and «United States of America».",
           "residual_term": null,
           "residual_term_en": null,
           "source": "arXiv:2502.01113, устройство",
           "source_en": "arXiv:2502.01113, method",
           "technology_id": "gfm_rag",
-          "to": "extracted",
-          "why": "Структура берётся из содержания. Дополнительные рёбра между близкими по смыслу сущностями вычислены по представлениям и записаны остатком.",
-          "why_en": "The structure is taken from the content. The further edges between semantically close entities are computed from representations and are recorded as a residual."
+          "to": "extracted_and_computed",
+          "why": "Происхождений у структуры два, и до расширения схемы вторая половина уходила в остаток.",
+          "why_en": "The structure has two origins, and before the schema was widened the second half went into the residual."
         },
         {
           "code": "C1",
@@ -4890,30 +4890,6 @@
           "why_en": "The search operator names the walk but not the rule by which weight spreads."
         },
         {
-          "did": "К извлечённым тройкам добавляются рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
-          "did_en": "Edges are added to the extracted triples between entities close in meaning, for example between «USA» and «United States of America».",
-          "residual": "synonymy_edges",
-          "residual_term": "рёбра синонимии между узлами индекса",
-          "residual_term_en": "synonymy edges between index nodes",
-          "source": "arXiv:2502.01113, устройство",
-          "source_en": "arXiv:2502.01113, method",
-          "technology_id": "gfm_rag",
-          "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер вычислена по близости представлений.",
-          "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are computed from closeness of representations."
-        },
-        {
-          "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
-          "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
-          "residual": "query_entity_extraction",
-          "residual_term": "извлечение именованных сущностей из запроса",
-          "residual_term_en": "named entity extraction from the query",
-          "source": "arXiv:2502.01113, устройство",
-          "source_en": "arXiv:2502.01113, method",
-          "technology_id": "gfm_rag",
-          "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-          "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
-        },
-        {
           "did": "Ранжируются сущности, а возвращаются документы: оценка документа складывается из весов упомянутых в нём сущностей, обратных их частоте.",
           "did_en": "Entities are ranked and documents are returned: the score of a document is the sum of the weights of the entities it mentions, inverse to their frequency.",
           "residual": "score_transfer_to_units",
@@ -4924,19 +4900,28 @@
           "technology_id": "gfm_rag",
           "why": "Ранжируется одна структура, а возвращается другая, и этого перехода не выражают ни оператор поиска, ни переранжирование.",
           "why_en": "One structure is ranked and another is returned, and neither the search operator nor reranking expresses that transition."
+        },
+        {
+          "code": "B1",
+          "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
+          "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "key_extraction",
+          "why": "Запрос служит ключом к вершинам, а не переписывается в другой запрос.",
+          "why_en": "The query serves as a key to the nodes rather than being rewritten into another query."
         }
       ],
       "prose_id": "gfm_rag",
       "residual": [
         "распространение значимости по графу обученной моделью",
-        "рёбра синонимии между узлами индекса",
-        "извлечение именованных сущностей из запроса",
         "перенос оценок узлов на единицы извлечения"
       ],
       "residual_en": [
         "propagation of relevance over the graph by a trained model",
-        "synonymy edges between index nodes",
-        "named entity extraction from the query",
         "transfer of node scores onto retrieval units"
       ],
       "summary": "Обученная графовая модель как извлекатель: значимость расходится по графу знаний передачей сообщений, зависящей от запроса, и переносится с сущностей на документы.",
@@ -5251,8 +5236,8 @@
         "A5": "dense_single",
         "A6": "snapshot",
         "A7": "text",
-        "A8": "extracted",
-        "B1": "identity",
+        "A8": "extracted_and_computed",
+        "B1": "key_extraction",
         "B2": "static",
         "C1": "graph_traversal",
         "C2": "single_shot",
@@ -5586,30 +5571,6 @@
           "why_en": "The dimension describes whether the system itself trains anything. That someone trained these models earlier and for other purposes is not a property of this system."
         },
         {
-          "did": "Часть связей в сети добавлена не из текста, а по близости представлений: два разных написания одной сущности соединяются автоматически.",
-          "did_en": "Part of the edges in the network is added not from the text but by closeness of representations: two different spellings of one entity are joined automatically.",
-          "residual": "synonymy_edges",
-          "residual_term": "рёбра синонимии между узлами индекса",
-          "residual_term_en": "synonymy edges between index nodes",
-          "source": "arXiv:2405.14831, построение индекса",
-          "source_en": "arXiv:2405.14831, index construction",
-          "technology_id": "hipporag",
-          "why": "Схема говорит, какого рода структура у индекса, но не откуда взялись связи. А разница существенна: связь из текста утверждает факт, связь по близости — догадку.",
-          "why_en": "The schema says what kind of structure the index has, and not where the edges came from. The difference matters: an edge from text asserts a fact, an edge from closeness asserts a guess."
-        },
-        {
-          "did": "Из запроса вынимаются имена сущностей — они служат точками входа в сеть.",
-          "did_en": "Entity names are taken out of the query and serve as entry points into the network.",
-          "residual": "query_entity_extraction",
-          "residual_term": "извлечение именованных сущностей из запроса",
-          "residual_term_en": "named entity extraction from the query",
-          "source": "arXiv:2405.14831, извлечение",
-          "source_en": "arXiv:2405.14831, retrieval",
-          "technology_id": "hipporag",
-          "why": "Запрос не переписан и не разложен на подвопросы, он разобран. Такого действия среди значений преобразования запроса нет.",
-          "why_en": "The query is neither rewritten nor split into sub-questions, it is taken apart. No value of query transformation covers such an action."
-        },
-        {
           "did": "Вес по сети распределяется случайным блужданием с возвратом к стартовым узлам.",
           "did_en": "Weight is distributed over the network by a random walk with return to the starting nodes.",
           "residual": "random_walk_ranking",
@@ -5635,28 +5596,37 @@
         },
         {
           "code": "A8",
-          "did": "Узлы и связи графа извлекаются из текста моделью.",
-          "did_en": "The nodes and edges of the graph are extracted from the text by a model.",
+          "did": "Узлы и связи графа извлекаются из текста моделью, а сверх них ставятся рёбра между разными написаниями одной сущности, найденные по близости представлений.",
+          "did_en": "The nodes and links of the graph are extracted from the text by a model, and above them edges are placed between differing spellings of one entity, found by closeness of representations.",
           "residual_term": null,
           "residual_term_en": null,
           "source": "выведено из разбора записи",
           "source_en": "inferred from the parse of this record",
           "technology_id": "hipporag",
-          "to": "extracted",
-          "why": "Структура добыта из содержания: она не задана источником и не вычислена группировкой, а вычитана.",
-          "why_en": "The structure is mined from the content: it is neither given by the source nor computed by clustering, it is read out."
+          "to": "extracted_and_computed",
+          "why": "Происхождений у структуры два сразу, и односоставный ответ прятал вторую половину. Прежде это писалось в остаток; после разбора очереди у измерения появилось значение для такого случая.",
+          "why_en": "The structure has two origins at once, and a single-part answer hid the second half. This used to be written into the residual; after the queue was examined the dimension gained a value for such a case."
+        },
+        {
+          "code": "B1",
+          "did": "Из запроса вынимаются имена сущностей, и они служат точками входа в сеть.",
+          "did_en": "The names of entities are drawn out of the query, and they serve as the entry points into the network.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2405.14831, устройство",
+          "source_en": "arXiv:2405.14831, method",
+          "technology_id": "hipporag",
+          "to": "key_extraction",
+          "why": "Запрос не переписывается, но и нетронутым не остаётся: он разбирается на ключи, адресующие указатель. Прежде это писалось в остаток; после разбора очереди у измерения появилось значение для такого случая.",
+          "why_en": "The query is not rewritten yet does not stay untouched either: it is taken apart into keys addressing the index. This used to be written into the residual; after the queue was examined the dimension gained a value for such a case."
         }
       ],
       "prose_id": "hipporag",
       "residual": [
-        "рёбра синонимии между узлами индекса",
-        "извлечение именованных сущностей из запроса",
         "ранжирование случайным блужданием с предпочтением",
         "перенос оценок узлов на единицы извлечения"
       ],
       "residual_en": [
-        "synonymy edges between index nodes",
-        "named entity extraction from the query",
         "personalized random-walk ranking",
         "transfer of node scores onto retrieval units"
       ],
@@ -7831,8 +7801,8 @@
         "A5": "dense_single",
         "A6": "append_only",
         "A7": "text",
-        "A8": "extracted",
-        "B1": "identity",
+        "A8": "extracted_and_computed",
+        "B1": "key_extraction",
         "B2": "static",
         "C1": "graph_traversal",
         "C2": "iterative_stopping",
@@ -8011,29 +7981,29 @@
         },
         {
           "code": "A8",
-          "did": "Причинные рёбра и рёбра сущностей выводит языковая модель при уплотнении структуры.",
-          "did_en": "Causal and entity edges are inferred by a language model during structural consolidation.",
+          "did": "Причинные рёбра и рёбра сущностей выводит языковая модель при уплотнении структуры, а смысловые ставятся там, где косинус между представлениями превышает порог.",
+          "did_en": "Causal and entity edges are inferred by a language model during consolidation, while semantic ones are placed where the cosine between representations exceeds a threshold.",
           "residual_term": null,
           "residual_term_en": null,
           "source": "arXiv:2601.03236, устройство",
           "source_en": "arXiv:2601.03236, method",
           "technology_id": "magma",
-          "to": "extracted",
-          "why": "Значение выбрано по тем связям, ради которых работа написана: причинность противопоставляется в ней близости представлений. Временные рёбра при этом вычисляются из отметок времени, а смысловые из порога близости, и это записано остатком.",
-          "why_en": "The value follows the relations the work was written for: it sets causality against closeness of representations. Temporal edges are meanwhile computed from timestamps and semantic ones from a closeness threshold, which is recorded as a residual."
+          "to": "extracted_and_computed",
+          "why": "Часть связей извлечена из содержания, часть вычислена по близости, и значение схемы теперь выражает оба происхождения сразу.",
+          "why_en": "Part of the links is extracted from the content and part computed from closeness, and the value of the schema now expresses both origins at once."
         },
         {
           "code": "B1",
-          "did": "Запрос не переписывается: из него извлекают намерение, временное окно, плотное представление и ключевые слова.",
-          "did_en": "The query is not rewritten: an intent, a time window, a dense representation and keywords are drawn out of it.",
+          "did": "Запрос разбирается на намерение, временное окно, ключевые слова и действующее лицо, выделенное образцами, и найденное служит точкой входа в память.",
+          "did_en": "The query is taken apart into an intent, a time window, keywords and an actor drawn out by patterns, and what is found serves as the entry point into the memory.",
           "residual_term": null,
           "residual_term_en": null,
           "source": "arXiv:2601.03236, устройство",
           "source_en": "arXiv:2601.03236, method",
           "technology_id": "magma",
-          "to": "identity",
-          "why": "Разбор запроса на сигналы не создаёт нового запроса и не порождает подвопросов, поэтому записано преобразование тождественное.",
-          "why_en": "Taking a query apart into signals creates no new query and no subquestions, so the transformation is recorded as identity."
+          "to": "key_extraction",
+          "why": "Переписывания нет, есть разбор на ключи, адресующие указатель, и схема выражает это значением, а не пометкой тождественности.",
+          "why_en": "There is no rewriting, there is a decomposition into keys addressing the index, and the schema expresses it by a value rather than by a mark of identity."
         },
         {
           "code": "B2",
@@ -8141,30 +8111,6 @@
           "why_en": "Index topology names the kind of structure but not that there are several of them existing at once."
         },
         {
-          "did": "Смысловые рёбра ставятся там, где косинус между представлениями превышает порог.",
-          "did_en": "Semantic edges are placed where the cosine between representations exceeds a threshold.",
-          "residual": "synonymy_edges",
-          "residual_term": "рёбра синонимии между узлами индекса",
-          "residual_term_en": "synonymy edges between index nodes",
-          "source": "arXiv:2601.03236, устройство",
-          "source_en": "arXiv:2601.03236, method",
-          "technology_id": "magma",
-          "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер не извлечена, а вычислена по близости, и схема этого различия внутри одной записи не выражает.",
-          "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are not extracted but computed from closeness, and the schema does not express that difference inside one record."
-        },
-        {
-          "did": "Из запроса образцами выделяется действующее лицо, и найденное служит точкой входа в память.",
-          "did_en": "An actor is drawn out of the query by patterns, and what is found serves as an entry point into the memory.",
-          "residual": "query_entity_extraction",
-          "residual_term": "извлечение именованных сущностей из запроса",
-          "residual_term_en": "named entity extraction from the query",
-          "source": "github.com/FredJiang0324/MAGMA, реализация",
-          "source_en": "github.com/FredJiang0324/MAGMA, implementation",
-          "technology_id": "magma",
-          "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-          "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
-        },
-        {
           "did": "Путь обработки выбирается перечнем слов и образцов над текстом запроса, без обучения и без вызова модели.",
           "did_en": "The processing path is chosen by a list of words and patterns over the text of the query, with nothing trained and no model called.",
           "residual": "lexical_rule_routing",
@@ -8192,15 +8138,11 @@
       "prose_id": "magma",
       "residual": [
         "несколько типов связей как отдельные представления одного набора узлов",
-        "рёбра синонимии между узлами индекса",
-        "извлечение именованных сущностей из запроса",
         "выбор пути обработки по словарным правилам над текстом запроса",
         "порядок подачи, взятый из связи, которую выбрало намерение запроса"
       ],
       "residual_en": [
         "several typed relation views over one and the same set of nodes",
-        "synonymy edges between index nodes",
-        "named entity extraction from the query",
         "the processing path chosen by lexical rules over the text of the query",
         "an assembly order taken from the relation the query intent selected"
       ],
@@ -15812,7 +15754,7 @@
         "A6": "snapshot",
         "A7": "text",
         "A8": "extracted",
-        "B1": "identity",
+        "B1": "key_extraction",
         "B2": "static",
         "C1": "graph_traversal",
         "C2": "single_shot",
@@ -15974,25 +15916,24 @@
           "why_en": "Traversal control says how many times the system consults the index but not when the consultation happens relative to the query."
         },
         {
+          "code": "B1",
           "did": "Из частичной расшифровки речи выделяются схемы и сущности, и найденное служит точкой входа в указатель.",
           "did_en": "Schemas and entities are drawn out of the partial transcript of speech, and what is found serves as the entry point into the index.",
-          "residual": "query_entity_extraction",
-          "residual_term": "извлечение именованных сущностей из запроса",
-          "residual_term_en": "named entity extraction from the query",
+          "residual_term": null,
+          "residual_term_en": null,
           "source": "arXiv:2608.26005, устройство",
           "source_en": "arXiv:2608.26005, method",
           "technology_id": "voicemem",
-          "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-          "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+          "to": "key_extraction",
+          "why": "Разбор на ключи идёт по ходу речи, до того как реплика закончилась, и переписыванием запроса не является.",
+          "why_en": "The decomposition into keys runs along with the speech, before the turn has ended, and is not a rewriting of the query."
         }
       ],
       "prose_id": "voicemem",
       "residual": [
-        "извлечение именованных сущностей из запроса",
         "извлечение, начатое до конца запроса"
       ],
       "residual_en": [
-        "named entity extraction from the query",
         "retrieval begun before the query has ended"
       ],
       "summary": "Память голосового собеседника в двух половинах, с поиском, начатым до конца реплики: к паузе остаётся только выбрать из отобранного.",

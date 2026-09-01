@@ -15,8 +15,8 @@
       "A4": "graph",
       "A5": "dense_single",
       "A7": "text",
-      "A8": "extracted",
-      "B1": "identity",
+      "A8": "extracted_and_computed",
+      "B1": "key_extraction",
       "B2": "static",
       "C1": "graph_traversal",
       "C2": "single_shot",
@@ -125,16 +125,16 @@
       },
       {
         "code": "A8",
-        "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель.",
-        "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model.",
+        "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель, а сверх них ставятся рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
+        "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model, and above them edges are placed between semantically close entities, for example between «USA» and «United States of America».",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2502.01113, устройство",
         "source_en": "arXiv:2502.01113, method",
         "technology_id": "gfm_rag",
-        "to": "extracted",
-        "why": "Структура берётся из содержания. Дополнительные рёбра между близкими по смыслу сущностями вычислены по представлениям и записаны остатком.",
-        "why_en": "The structure is taken from the content. The further edges between semantically close entities are computed from representations and are recorded as a residual."
+        "to": "extracted_and_computed",
+        "why": "Происхождений у структуры два, и до расширения схемы вторая половина уходила в остаток.",
+        "why_en": "The structure has two origins, and before the schema was widened the second half went into the residual."
       },
       {
         "code": "C1",
@@ -175,30 +175,6 @@
         "why_en": "The search operator names the walk but not the rule by which weight spreads."
       },
       {
-        "did": "К извлечённым тройкам добавляются рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
-        "did_en": "Edges are added to the extracted triples between entities close in meaning, for example between «USA» and «United States of America».",
-        "residual": "synonymy_edges",
-        "residual_term": "рёбра синонимии между узлами индекса",
-        "residual_term_en": "synonymy edges between index nodes",
-        "source": "arXiv:2502.01113, устройство",
-        "source_en": "arXiv:2502.01113, method",
-        "technology_id": "gfm_rag",
-        "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер вычислена по близости представлений.",
-        "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are computed from closeness of representations."
-      },
-      {
-        "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
-        "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
-        "residual": "query_entity_extraction",
-        "residual_term": "извлечение именованных сущностей из запроса",
-        "residual_term_en": "named entity extraction from the query",
-        "source": "arXiv:2502.01113, устройство",
-        "source_en": "arXiv:2502.01113, method",
-        "technology_id": "gfm_rag",
-        "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
-        "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
-      },
-      {
         "did": "Ранжируются сущности, а возвращаются документы: оценка документа складывается из весов упомянутых в нём сущностей, обратных их частоте.",
         "did_en": "Entities are ranked and documents are returned: the score of a document is the sum of the weights of the entities it mentions, inverse to their frequency.",
         "residual": "score_transfer_to_units",
@@ -209,19 +185,28 @@
         "technology_id": "gfm_rag",
         "why": "Ранжируется одна структура, а возвращается другая, и этого перехода не выражают ни оператор поиска, ни переранжирование.",
         "why_en": "One structure is ranked and another is returned, and neither the search operator nor reranking expresses that transition."
+      },
+      {
+        "code": "B1",
+        "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
+        "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "key_extraction",
+        "why": "Запрос служит ключом к вершинам, а не переписывается в другой запрос.",
+        "why_en": "The query serves as a key to the nodes rather than being rewritten into another query."
       }
     ],
     "prose_id": "gfm_rag",
     "residual": [
       "распространение значимости по графу обученной моделью",
-      "рёбра синонимии между узлами индекса",
-      "извлечение именованных сущностей из запроса",
       "перенос оценок узлов на единицы извлечения"
     ],
     "residual_en": [
       "propagation of relevance over the graph by a trained model",
-      "synonymy edges between index nodes",
-      "named entity extraction from the query",
       "transfer of node scores onto retrieval units"
     ],
     "summary": "Обученная графовая модель как извлекатель: значимость расходится по графу знаний передачей сообщений, зависящей от запроса, и переносится с сущностей на документы.",

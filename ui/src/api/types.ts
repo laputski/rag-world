@@ -248,6 +248,18 @@ export interface ResidualMechanism {
   technologies: { id: string; name: string }[];
   /** It reached the threshold of mentions and is proposed as a dimension. */
   candidate: boolean;
+  /**
+   * The queue was examined and the mechanism deliberately left out of the
+   * schema. Such a mechanism stops being a candidate however often it recurs,
+   * and the reason stands beside it: a count above the threshold with no mark
+   * would otherwise read as an oversight.
+   */
+  verdict?: {
+    decision: string;
+    reason: string;
+    reason_en: string;
+    decided_at: string;
+  } | null;
 }
 
 /**

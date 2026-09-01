@@ -3,34 +3,7 @@
   "candidate_threshold": 3,
   "mechanisms": [
     {
-      "candidate": true,
-      "count": 4,
-      "id": "query_entity_extraction",
-      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
-      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing.",
-      "technologies": [
-        {
-          "id": "gfm_rag",
-          "name": "GFM-RAG"
-        },
-        {
-          "id": "hipporag",
-          "name": "HippoRAG"
-        },
-        {
-          "id": "magma",
-          "name": "MAGMA"
-        },
-        {
-          "id": "voicemem",
-          "name": "VoiceMem"
-        }
-      ],
-      "term": "извлечение именованных сущностей из запроса",
-      "term_en": "named entity extraction from the query"
-    },
-    {
-      "candidate": true,
+      "candidate": false,
       "count": 3,
       "id": "score_transfer_to_units",
       "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
@@ -50,30 +23,13 @@
         }
       ],
       "term": "перенос оценок узлов на единицы извлечения",
-      "term_en": "transfer of node scores onto retrieval units"
-    },
-    {
-      "candidate": true,
-      "count": 3,
-      "id": "synonymy_edges",
-      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
-      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts.",
-      "technologies": [
-        {
-          "id": "gfm_rag",
-          "name": "GFM-RAG"
-        },
-        {
-          "id": "hipporag",
-          "name": "HippoRAG"
-        },
-        {
-          "id": "magma",
-          "name": "MAGMA"
-        }
-      ],
-      "term": "рёбра синонимии между узлами индекса",
-      "term_en": "synonymy edges between index nodes"
+      "term_en": "transfer of node scores onto retrieval units",
+      "verdict": {
+        "decided_at": "2026-09-01",
+        "decision": "declined",
+        "reason": "Механизм повторяется, но измерением не становится: выразить его значило бы завести измерение «над чем построен указатель», отличное от «что возвращается» (A1). Такое измерение обязывает проставить значение у каждой записи реестра, то есть перечитать все источники, а сам перенос оценок есть следствие отсутствующей координаты, а не координата. Ввод измерения под следствие закрепил бы признак вместо причины. Пересмотреть решение стоит тогда, когда владелец готов заполнить «над чем построен указатель» по всему реестру: тогда перенос оценок станет выводимым как случай, где эта координата расходится с A1.",
+        "reason_en": "The mechanism recurs but does not become a dimension: expressing it would mean introducing a dimension of what the index is built over, distinct from what is returned (A1). Such a dimension obliges a value on every record of the registry, that is a rereading of every source, while the transfer of scores is itself a consequence of the missing coordinate rather than a coordinate. Introducing a dimension for the consequence would enshrine the symptom instead of the cause. The decision is worth revisiting when the owner is ready to fill in what the index is built over across the registry: the transfer of scores will then be derivable as the case where that coordinate diverges from A1."
+      }
     },
     {
       "candidate": false,
@@ -92,7 +48,8 @@
         }
       ],
       "term": "выбор пути обработки по словарным правилам над текстом запроса",
-      "term_en": "the processing path chosen by lexical rules over the text of the query"
+      "term_en": "the processing path chosen by lexical rules over the text of the query",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -111,7 +68,8 @@
         }
       ],
       "term": "ранжирование случайным блужданием с предпочтением",
-      "term_en": "personalized random-walk ranking"
+      "term_en": "personalized random-walk ranking",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -130,7 +88,8 @@
         }
       ],
       "term": "распространение значимости по графу обученной моделью",
-      "term_en": "propagation of relevance over the graph by a trained model"
+      "term_en": "propagation of relevance over the graph by a trained model",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -149,7 +108,8 @@
         }
       ],
       "term": "сравнение по максимуму сходства между представлениями",
-      "term_en": "max-similarity interaction between representations"
+      "term_en": "max-similarity interaction between representations",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -164,7 +124,8 @@
         }
       ],
       "term": "жизненный цикл состояния внутри одного разбора запроса",
-      "term_en": "a lifecycle of state inside the handling of a single query"
+      "term_en": "a lifecycle of state inside the handling of a single query",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -179,7 +140,8 @@
         }
       ],
       "term": "извлечение, начатое до конца запроса",
-      "term_en": "retrieval begun before the query has ended"
+      "term_en": "retrieval begun before the query has ended",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -194,7 +156,8 @@
         }
       ],
       "term": "исправление, не способное внести содержание без происхождения от инструмента",
-      "term_en": "repair that cannot introduce content without provenance from a tool"
+      "term_en": "repair that cannot introduce content without provenance from a tool",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -209,7 +172,8 @@
         }
       ],
       "term": "конфигурация памяти, порождаемая под каждого агента",
-      "term_en": "a memory configuration generated for each agent"
+      "term_en": "a memory configuration generated for each agent",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -224,7 +188,8 @@
         }
       ],
       "term": "несколько режимов работы с разной конфигурацией",
-      "term_en": "several operating modes with differing configurations"
+      "term_en": "several operating modes with differing configurations",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -239,7 +204,8 @@
         }
       ],
       "term": "несколько слоёв узлов разного рода под одним указателем",
-      "term_en": "several layers of nodes of differing kinds under one index"
+      "term_en": "several layers of nodes of differing kinds under one index",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -254,7 +220,8 @@
         }
       ],
       "term": "несколько типов связей как отдельные представления одного набора узлов",
-      "term_en": "several typed relation views over one and the same set of nodes"
+      "term_en": "several typed relation views over one and the same set of nodes",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -269,7 +236,8 @@
         }
       ],
       "term": "отбор по подобию прецедента, а не по близости представления",
-      "term_en": "selection by analogy between cases rather than by closeness of representations"
+      "term_en": "selection by analogy between cases rather than by closeness of representations",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -284,7 +252,8 @@
         }
       ],
       "term": "оценка полезности частичных ответов моделью",
-      "term_en": "model-scored usefulness of partial answers"
+      "term_en": "model-scored usefulness of partial answers",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -299,7 +268,8 @@
         }
       ],
       "term": "переранжирование двухбашенной моделью представлений",
-      "term_en": "reranking by a bi-encoder representation model"
+      "term_en": "reranking by a bi-encoder representation model",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -314,7 +284,8 @@
         }
       ],
       "term": "порядок обхода корпуса по оценке относимости",
-      "term_en": "corpus traversal ordered by a relevance estimate"
+      "term_en": "corpus traversal ordered by a relevance estimate",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -329,7 +300,8 @@
         }
       ],
       "term": "порядок подачи, взятый из связи, которую выбрало намерение запроса",
-      "term_en": "an assembly order taken from the relation the query intent selected"
+      "term_en": "an assembly order taken from the relation the query intent selected",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -344,7 +316,8 @@
         }
       ],
       "term": "порядок разрешения подвопросов по их взаимной зависимости",
-      "term_en": "an order of resolving subquestions by their dependence on one another"
+      "term_en": "an order of resolving subquestions by their dependence on one another",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -359,7 +332,8 @@
         }
       ],
       "term": "постоянное исключение отвергнутых кандидатов из выдачи",
-      "term_en": "permanent exclusion of rejected candidates from future results"
+      "term_en": "permanent exclusion of rejected candidates from future results",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -374,7 +348,8 @@
         }
       ],
       "term": "предпочтение языку запроса при ранжировании",
-      "term_en": "preference for the query's language in ranking"
+      "term_en": "preference for the query's language in ranking",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -389,7 +364,8 @@
         }
       ],
       "term": "приближённый отбор с последующим точным пересчётом",
-      "term_en": "approximate shortlist followed by exact rescoring"
+      "term_en": "approximate shortlist followed by exact rescoring",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -404,7 +380,8 @@
         }
       ],
       "term": "разреженное и плотное представление одной моделью за проход",
-      "term_en": "sparse and dense representations from one model in a single pass"
+      "term_en": "sparse and dense representations from one model in a single pass",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -419,7 +396,8 @@
         }
       ],
       "term": "разрешение изображения как рычаг стоимости",
-      "term_en": "image resolution as a lever on cost"
+      "term_en": "image resolution as a lever on cost",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -434,7 +412,8 @@
         }
       ],
       "term": "ранжирование с учётом модальности единицы",
-      "term_en": "ranking that accounts for the modality of a unit"
+      "term_en": "ranking that accounts for the modality of a unit",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -449,7 +428,8 @@
         }
       ],
       "term": "уплотнение контекста с проверкой на потерю сведений",
-      "term_en": "compaction of context checked for loss of information"
+      "term_en": "compaction of context checked for loss of information",
+      "verdict": null
     },
     {
       "candidate": false,
@@ -464,7 +444,8 @@
         }
       ],
       "term": "хранение решений об оценке, а не самих сведений",
-      "term_en": "storing evaluation decisions rather than the facts themselves"
+      "term_en": "storing evaluation decisions rather than the facts themselves",
+      "verdict": null
     }
   ]
 }

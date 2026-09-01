@@ -16,8 +16,8 @@
       "A5": "dense_single",
       "A6": "snapshot",
       "A7": "text",
-      "A8": "extracted",
-      "B1": "identity",
+      "A8": "extracted_and_computed",
+      "B1": "key_extraction",
       "B2": "static",
       "C1": "graph_traversal",
       "C2": "single_shot",
@@ -351,30 +351,6 @@
         "why_en": "The dimension describes whether the system itself trains anything. That someone trained these models earlier and for other purposes is not a property of this system."
       },
       {
-        "did": "Часть связей в сети добавлена не из текста, а по близости представлений: два разных написания одной сущности соединяются автоматически.",
-        "did_en": "Part of the edges in the network is added not from the text but by closeness of representations: two different spellings of one entity are joined automatically.",
-        "residual": "synonymy_edges",
-        "residual_term": "рёбра синонимии между узлами индекса",
-        "residual_term_en": "synonymy edges between index nodes",
-        "source": "arXiv:2405.14831, построение индекса",
-        "source_en": "arXiv:2405.14831, index construction",
-        "technology_id": "hipporag",
-        "why": "Схема говорит, какого рода структура у индекса, но не откуда взялись связи. А разница существенна: связь из текста утверждает факт, связь по близости — догадку.",
-        "why_en": "The schema says what kind of structure the index has, and not where the edges came from. The difference matters: an edge from text asserts a fact, an edge from closeness asserts a guess."
-      },
-      {
-        "did": "Из запроса вынимаются имена сущностей — они служат точками входа в сеть.",
-        "did_en": "Entity names are taken out of the query and serve as entry points into the network.",
-        "residual": "query_entity_extraction",
-        "residual_term": "извлечение именованных сущностей из запроса",
-        "residual_term_en": "named entity extraction from the query",
-        "source": "arXiv:2405.14831, извлечение",
-        "source_en": "arXiv:2405.14831, retrieval",
-        "technology_id": "hipporag",
-        "why": "Запрос не переписан и не разложен на подвопросы, он разобран. Такого действия среди значений преобразования запроса нет.",
-        "why_en": "The query is neither rewritten nor split into sub-questions, it is taken apart. No value of query transformation covers such an action."
-      },
-      {
         "did": "Вес по сети распределяется случайным блужданием с возвратом к стартовым узлам.",
         "did_en": "Weight is distributed over the network by a random walk with return to the starting nodes.",
         "residual": "random_walk_ranking",
@@ -400,28 +376,37 @@
       },
       {
         "code": "A8",
-        "did": "Узлы и связи графа извлекаются из текста моделью.",
-        "did_en": "The nodes and edges of the graph are extracted from the text by a model.",
+        "did": "Узлы и связи графа извлекаются из текста моделью, а сверх них ставятся рёбра между разными написаниями одной сущности, найденные по близости представлений.",
+        "did_en": "The nodes and links of the graph are extracted from the text by a model, and above them edges are placed between differing spellings of one entity, found by closeness of representations.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "выведено из разбора записи",
         "source_en": "inferred from the parse of this record",
         "technology_id": "hipporag",
-        "to": "extracted",
-        "why": "Структура добыта из содержания: она не задана источником и не вычислена группировкой, а вычитана.",
-        "why_en": "The structure is mined from the content: it is neither given by the source nor computed by clustering, it is read out."
+        "to": "extracted_and_computed",
+        "why": "Происхождений у структуры два сразу, и односоставный ответ прятал вторую половину. Прежде это писалось в остаток; после разбора очереди у измерения появилось значение для такого случая.",
+        "why_en": "The structure has two origins at once, and a single-part answer hid the second half. This used to be written into the residual; after the queue was examined the dimension gained a value for such a case."
+      },
+      {
+        "code": "B1",
+        "did": "Из запроса вынимаются имена сущностей, и они служат точками входа в сеть.",
+        "did_en": "The names of entities are drawn out of the query, and they serve as the entry points into the network.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2405.14831, устройство",
+        "source_en": "arXiv:2405.14831, method",
+        "technology_id": "hipporag",
+        "to": "key_extraction",
+        "why": "Запрос не переписывается, но и нетронутым не остаётся: он разбирается на ключи, адресующие указатель. Прежде это писалось в остаток; после разбора очереди у измерения появилось значение для такого случая.",
+        "why_en": "The query is not rewritten yet does not stay untouched either: it is taken apart into keys addressing the index. This used to be written into the residual; after the queue was examined the dimension gained a value for such a case."
       }
     ],
     "prose_id": "hipporag",
     "residual": [
-      "рёбра синонимии между узлами индекса",
-      "извлечение именованных сущностей из запроса",
       "ранжирование случайным блужданием с предпочтением",
       "перенос оценок узлов на единицы извлечения"
     ],
     "residual_en": [
-      "synonymy edges between index nodes",
-      "named entity extraction from the query",
       "personalized random-walk ranking",
       "transfer of node scores onto retrieval units"
     ],
