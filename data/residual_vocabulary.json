@@ -9,6 +9,13 @@
       "note_en": "Cases are matched by their decomposition into problem and solution features rather than by distance between vectors. The search operator (C1) names the operation over the index but not the criterion of similarity by which two problems are held to be alike."
     },
     {
+      "id": "anticipatory_streaming_retrieval",
+      "ru": "извлечение, начатое до конца запроса",
+      "en": "retrieval begun before the query has ended",
+      "note": "Управление обходом (C2) говорит, сколько раз система обращается к указателю, но не то, когда обращение происходит относительно запроса. Здесь сопоставление и расширение идут, пока говорящий ещё говорит, и к моменту паузы остаётся только поиск в отобранном, отчего задержка ответа почти не растёт.",
+      "note_en": "Traversal control (C2) says how many times the system consults the index but not when the consultation happens relative to the query. Here matching and expansion run while the speaker is still speaking, and by the pause only the search within what was selected is left, so the delay before the reply barely grows."
+    },
+    {
       "id": "approximate_then_exact",
       "ru": "приближённый отбор с последующим точным пересчётом",
       "en": "approximate shortlist followed by exact rescoring",
@@ -58,6 +65,20 @@
       "note_en": "Reranking says which mechanism revisits the order, and not by what criterion besides relevance. Here, at equal relevance, a document in the query's language ranks higher, and the schema does not express that property."
     },
     {
+      "id": "layered_typed_graph",
+      "ru": "несколько слоёв узлов разного рода под одним указателем",
+      "en": "several layers of nodes of differing kinds under one index",
+      "note": "Топология указателя (A4) называет вид структуры, но не то, что узлы бывают разного рода и уложены слоями с переходами между ними: признак, сущность, документ, сообщество. Прочтение «граф» уравнивает такой указатель с графом, у которого узлы однородны, и теряет то, что выдача берётся по слоям разной крупности.",
+      "note_en": "Index topology (A4) names the kind of structure but not that nodes come in differing kinds laid out in layers with passages between them: attribute, entity, document, community. Reading it as «graph» equates such an index with one whose nodes are uniform and loses that the yield is taken by layers of differing grain."
+    },
+    {
+      "id": "learned_relevance_propagation",
+      "ru": "распространение значимости по графу обученной моделью",
+      "en": "propagation of relevance over the graph by a trained model",
+      "note": "Оператор поиска (C1) говорит, что структура обходится, но не то, по какому правилу вес расходится по вершинам. Случайное блуждание и обученная передача сообщений дают на одном графе разные ответы, а обучаемость компонентов (G3) говорит лишь о том, что извлекатель обучен, не называя, что именно обучено делать.",
+      "note_en": "The search operator (C1) says the structure is walked but not by what rule weight spreads across the nodes. A random walk and a trained message passing give different answers on one graph, while the trainability of components (G3) says only that the retriever is trained and does not name what it was trained to do."
+    },
+    {
       "id": "lexical_rule_routing",
       "ru": "выбор пути обработки по словарным правилам над текстом запроса",
       "en": "the processing path chosen by lexical rules over the text of the query",
@@ -98,6 +119,13 @@
       "en": "repair that cannot introduce content without provenance from a tool",
       "note": "Контроль обоснованности (E2) говорит, что проверка происходит, а приписывание источника (E3) говорит, на что ссылается ответ. Ни то, ни другое не выражает запрета на пополнение состояния: здесь исправление ограничено набором типовых действий, каждое из которых либо ничего не добавляет, либо добавляет только вывод инструмента, так что ошибка остаётся прослеживаемой, а свободный текст в состояние не попадает вовсе.",
       "note_en": "Groundedness control (E2) says that a check happens, and attribution (E3) says what the answer cites. Neither expresses a prohibition on adding to the state: here repair is restricted to a set of typed operations, each of which either adds nothing or adds only a tool output, so an error stays traceable and free-form text never enters the state at all."
+    },
+    {
+      "id": "query_dependency_ordering",
+      "ru": "порядок разрешения подвопросов по их взаимной зависимости",
+      "en": "an order of resolving subquestions by their dependence on one another",
+      "note": "Преобразование запроса (B1) называет разбиение на подвопросы, но не то, что между ними строится граф зависимостей и что топологическая сортировка задаёт порядок, в котором они разрешаются, так что ответ на один подвопрос входит в формулировку следующего.",
+      "note_en": "Query transformation (B1) names the splitting into subquestions but not that a graph of dependencies is built between them and that a topological sort sets the order in which they are resolved, so that the answer to one subquestion enters the wording of the next."
     },
     {
       "id": "query_entity_extraction",

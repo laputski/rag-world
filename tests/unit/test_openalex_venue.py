@@ -94,6 +94,56 @@ def test_unknown_publisher_prefix_is_reported_as_is():
     assert "10.52202" in venue, "the publisher is unknown, so the prefix is shown"
 
 
+def test_the_archive_is_not_named_as_the_venue_of_a_reviewed_work():
+    """A conference paper whose only named location is the preprint archive.
+
+    The index often carries no venue for such a work while the work type and the
+    publisher prefix say plainly that it was reviewed. The name of the archive
+    then used to be written as the venue, giving "venue=arXiv (Cornell
+    University); peer_reviewed=true": a contradiction on its face, which sends a
+    reader checking the evidence to the archive instead of to the conference.
+    """
+    work = _work(
+        type="conference-paper",
+        doi="https://doi.org/10.52202/085713-1222",
+        primary_location={"source": None},
+        locations=[{"source": {"display_name": "arXiv (Cornell University)",
+                               "type": "repository"}}],
+    )
+    venue, reviewed = _venue_of(work)
+    assert reviewed is True, "the work type and the prefix say it was reviewed"
+    assert "arxiv" not in venue.lower(), (
+        f"the archive is named as the venue of a reviewed work: {venue!r}"
+    )
+    assert "10.52202" in venue, "what is known is the publisher prefix"
+
+
+def test_a_known_publisher_still_wins_over_the_archive_name():
+    """The other side: a recognised prefix keeps naming the venue."""
+    work = _work(
+        type="conference-paper",
+        doi="https://doi.org/10.18653/v1/2026.acl-long.1709",
+        primary_location={"source": None},
+        locations=[{"source": {"display_name": "arXiv (Cornell University)",
+                               "type": "repository"}}],
+    )
+    assert _venue_of(work) == ("ACL Anthology", True)
+
+
+def test_a_real_venue_name_is_not_discarded():
+    """The other side again: a name that is not an archive is kept."""
+    work = _work(
+        type="conference-paper",
+        doi="https://doi.org/10.52202/085713-1222",
+        primary_location={"source": None},
+        locations=[{"source": {"display_name": "Proceedings of Something",
+                               "type": "conference"}}],
+    )
+    venue, reviewed = _venue_of(work)
+    assert reviewed is True
+    assert venue == "Proceedings of Something"
+
+
 def test_preprint_doi_never_counts_as_peer_reviewed():
     work = _work(type="article", doi="https://doi.org/10.48550/arxiv.2403.14403",
                  primary_location={"source": None}, locations=[])

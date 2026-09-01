@@ -151,7 +151,15 @@ def _venue_of(work: dict) -> tuple[str, bool]:
         best_name = best_name or name
 
     if not is_preprint_doi and work_type in PEER_REVIEWED_WORK_TYPES:
-        venue = DOI_PREFIX_VENUES.get(prefix) or best_name or f"DOI {prefix}"
+        # The name of a preprint archive must not stand as the venue of a
+        # reviewed work. `best_name` keeps such a name as a last resort, and on
+        # this path it used to win over the publisher prefix, producing the value
+        # "venue=arXiv (Cornell University); peer_reviewed=true": a contradiction
+        # on its face, which sends a reader checking the evidence to the archive
+        # instead of to the conference. The review itself is not in doubt here,
+        # the work type and the publisher prefix say so; only the name was wrong.
+        named = "" if _is_preprint_venue(best_name) else best_name
+        venue = DOI_PREFIX_VENUES.get(prefix) or named or f"DOI {prefix}"
         return venue, True
 
     return best_name, False

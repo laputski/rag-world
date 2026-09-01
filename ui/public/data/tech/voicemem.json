@@ -1,0 +1,204 @@
+{
+  "built_at": "2026-09-01",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": null,
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "proposition",
+      "A2": "none",
+      "A3": "metadata",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A6": "snapshot",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "multiple_local",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "consolidating",
+      "F2": "explicit_reconciliation",
+      "F3": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_reader"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-09-01",
+    "configuration_variable": [],
+    "description": "VoiceMem отвечает на два ограничения живого разговора голосом. Первое временное: обычная цепочка обращения к памяти занимает две или три секунды, тогда как естественная смена реплик оставляет на добавку сто или двести миллисекунд. Второе ёмкостное: голосовая модель не удержит сотню найденных записей, а выбор пяти из плотного и однообразного набора легко промахивается, потому что одна и та же сущность занимает всю выдачу разными неважными упоминаниями.\n\nПамять разделена надвое. Левая половина помнит, что происходило: над хранилищем надстроен указатель из схем для грубой маршрутизации и сущностей для точного попадания, связанных между собой. Правая половина помнит, кто перед системой: устойчивые свойства человека и его отношение к конкретным людям и предметам, причём отношение хранится отдельно от свойства, иначе разовая вспышка чувства превратилась бы в черту характера.\n\nЗадержку снимает порядок работы. Пока человек говорит, по частичной расшифровке уже идёт сопоставление схем и сущностей; на паузе в двести миллисекунд достраивается окрестность в обеих половинах; и только последние сто миллисекунд уходят на поиск внутри отобранного, а не по всей памяти. После реплики обновляющая часть извлекает новые сведения и сводит их с соседними записями действиями «добавить», «изменить», «удалить» и «оставить». Речевые модели при этом дообучаются перегонкой от более крупных учителей.",
+    "description_en": "VoiceMem answers two limits of a live conversation by voice. The first is of time: an ordinary chain of consulting memory takes two or three seconds, whereas a natural changing of turns leaves a hundred or two hundred milliseconds to add. The second is of capacity: a speech model will not hold a hundred found entries, and choosing five from a dense and uniform set misses easily, because one and the same entity takes the whole yield with differing unimportant mentions.\n\nThe memory is divided in two. The left half remembers what happened: above the store an index is built of schemas for coarse routing and entities for precise landing, linked to one another. The right half remembers who is before the system: the stable properties of the person and their attitude to particular people and things, with the attitude held apart from the property, or a single flare of feeling would turn into a trait of character.\n\nThe delay is removed by the order of the work. While the person speaks, the matching of schemas and entities already runs over a partial transcript; in the pause of two hundred milliseconds the neighbourhood is built out in both halves; and only the last hundred milliseconds go on searching within what was selected rather than over the whole memory. After the turn the updating part extracts new material and reconciles it with neighbouring entries by the operations of add, update, delete and keep. The speech models are meanwhile further trained by distillation from larger teachers.",
+    "evidence": [
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2608.26005",
+        "type": "publication",
+        "value": "arXiv:2608.26005 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7204606869",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2026-08",
+    "groups": [
+      "A",
+      "C",
+      "F"
+    ],
+    "id": "voicemem",
+    "kind": "architecture",
+    "level": "L1",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2608.26005",
+        "verified_at": null
+      }
+    ],
+    "name": "VoiceMem",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Над хранилищем памяти надстроен указатель из двух уровней: схемы для грубой смысловой маршрутизации и сущности для точного попадания, со связями между сущностями и между схемами.",
+        "did_en": "Above the memory store an index of two levels is built: schemas for coarse semantic routing and entities for precise landing, with links between entities and between schemas.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "to": "graph",
+        "why": "Записан граф; двухуровневость указателя видна из связей обоих родов.",
+        "why_en": "A graph is recorded; the two levels of the index show in the links of both kinds."
+      },
+      {
+        "code": "A7",
+        "did": "Взаимодействие идёт голосом, но единицами памяти служат извлечённые словесные утверждения, а речь приходит распознанной в текст.",
+        "did_en": "The interaction goes by voice, but the units of memory are extracted verbal statements, and speech arrives recognised into text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "to": "text",
+        "why": "Модальность спрашивается о единице, а не о способе общения. Записывать звук значило бы утверждать, что хранится звук.",
+        "why_en": "The modality is asked of the unit and not of the manner of communication. Recording audio would assert that audio is stored."
+      },
+      {
+        "code": "C4",
+        "did": "Хранилищ два и они устроены по-разному: левое полушарие держит события и сущности, правое держит устойчивые свойства человека и его отношение к людям и предметам.",
+        "did_en": "There are two stores and they are made differently: the left brain holds events and entities, the right holds the stable properties of the person and their attitude to people and things.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "to": "multiple_local",
+        "why": "Оба принадлежат системе и опрашиваются порознь, а выдачи складываются в одну подсказку.",
+        "why_en": "Both belong to the system and are asked separately, and their yields are put into one prompt."
+      },
+      {
+        "code": "F2",
+        "did": "После каждой реплики обновляющая часть извлекает новые сведения и сводит их с соседними записями действиями «добавить», «изменить», «удалить» и «оставить».",
+        "did_en": "After every turn the updating part extracts new material and reconciles it with neighbouring entries by the operations of add, update, delete and keep.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "to": "explicit_reconciliation",
+        "why": "Противоречие разрешается отдельным сведением, а не по времени и не по надёжности источника. Значение схемы прежде не занимала ни одна запись.",
+        "why_en": "A contradiction is resolved by a separate reconciliation and not by time or by the reliability of a source. No record had occupied this value of the schema before."
+      },
+      {
+        "code": "G3",
+        "did": "Речевые модели дообучаются перегонкой от проприетарных учителей на построенном мире памяти синтетических пользователей.",
+        "did_en": "The speech models are further trained by distillation from proprietary teachers on a constructed memory world of synthetic users.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "to": "trained_reader",
+        "why": "Обучается читающая модель, а извлекатель остаётся неизменным.",
+        "why_en": "The reading model is trained while the retriever stays untouched."
+      },
+      {
+        "did": "Сопоставление схем и сущностей идёт по частичной расшифровке, пока человек ещё говорит, расширение графа выполняется в паузе на двухстах миллисекундах, и к моменту ответа остаётся только поиск в отобранном.",
+        "did_en": "The matching of schemas and entities runs over a partial transcript while the person is still speaking, the expansion of the graph is done in the pause at two hundred milliseconds, and by the time of the reply only the search within what was selected is left.",
+        "residual": "anticipatory_streaming_retrieval",
+        "residual_term": "извлечение, начатое до конца запроса",
+        "residual_term_en": "retrieval begun before the query has ended",
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "why": "Управление обходом говорит, сколько раз система обращается к указателю, но не когда обращение происходит относительно запроса.",
+        "why_en": "Traversal control says how many times the system consults the index but not when the consultation happens relative to the query."
+      },
+      {
+        "did": "Из частичной расшифровки речи выделяются схемы и сущности, и найденное служит точкой входа в указатель.",
+        "did_en": "Schemas and entities are drawn out of the partial transcript of speech, and what is found serves as the entry point into the index.",
+        "residual": "query_entity_extraction",
+        "residual_term": "извлечение именованных сущностей из запроса",
+        "residual_term_en": "named entity extraction from the query",
+        "source": "arXiv:2608.26005, устройство",
+        "source_en": "arXiv:2608.26005, method",
+        "technology_id": "voicemem",
+        "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
+        "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+      }
+    ],
+    "prose_id": "voicemem",
+    "residual": [
+      "извлечение именованных сущностей из запроса",
+      "извлечение, начатое до конца запроса"
+    ],
+    "residual_en": [
+      "named entity extraction from the query",
+      "retrieval begun before the query has ended"
+    ],
+    "summary": "Память голосового собеседника в двух половинах, с поиском, начатым до конца реплики: к паузе остаётся только выбрать из отобранного.",
+    "summary_en": "The memory of a voice companion in two halves, with the search begun before the turn ends: by the pause only the choosing from what was selected is left."
+  }
+}

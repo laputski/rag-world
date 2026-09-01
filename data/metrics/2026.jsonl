@@ -557,3 +557,7 @@
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W4415795887", "technology_id": "xrag", "value": 0.5}
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7170546313", "technology_id": "agentic_context_management", "value": 0.0}
 {"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7171998456", "technology_id": "ledgermind", "value": 0.0}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W4407129024", "technology_id": "gfm_rag", "value": 0.0}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W4415336418", "technology_id": "g_reasoner", "value": 0.0}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W4415192589", "technology_id": "logicrag", "value": 0.0}
+{"measured_at": "2026-09-01", "metric": "citation_velocity", "source": "https://openalex.org/W7204606869", "technology_id": "voicemem", "value": 0.0}

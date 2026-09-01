@@ -4,19 +4,19 @@
   "datasets": [
     {
       "description": "Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.",
-      "records": 72,
+      "records": 76,
       "records_at": "technologies",
       "url": "https://ragworld.org/data/registry.json"
     },
     {
       "description": "Maturity level against attention for every record, as plotted on the maturity map.",
-      "records": 72,
+      "records": 76,
       "records_at": "points",
       "url": "https://ragworld.org/data/map.json"
     },
     {
       "description": "Append-only chronicle: every level change with its date and the evidence that caused it.",
-      "records": 118,
+      "records": 123,
       "records_at": "changes",
       "url": "https://ragworld.org/data/changes.json"
     },
@@ -26,13 +26,13 @@
     },
     {
       "description": "Mechanisms recorded as not expressible in the current schema, with the records that raised each one. Three mentions make a mechanism a candidate for a new dimension.",
-      "records": 24,
+      "records": 28,
       "records_at": "mechanisms",
       "url": "https://ragworld.org/data/residuals.json"
     },
     {
       "description": "Works found by weekly discovery and awaiting a human verdict, each with a deterministic fit score from 0 to 10.",
-      "records": 32,
+      "records": 27,
       "records_at": "candidates",
       "url": "https://ragworld.org/data/candidates.json"
     },
@@ -107,7 +107,7 @@
   },
   "site": "https://ragworld.org",
   "sitemap": "https://ragworld.org/sitemap.xml",
-  "technologies": 72,
+  "technologies": 76,
   "technology": {
     "description": "One registry record on its own, in the same shape as a row of registry.json. Use it when a single technology is wanted: the full registry costs eighty times more.",
     "url_template": "https://ragworld.org/data/tech/{id}.json"
@@ -134,6 +134,8 @@
     "embodied_rag",
     "federated_rag",
     "flare",
+    "g_reasoner",
+    "gfm_rag",
     "gnn_rag",
     "graphreader",
     "hipporag",
@@ -144,6 +146,7 @@
     "late_chunking",
     "ledgermind",
     "lightrag",
+    "logicrag",
     "ma_rag",
     "magma",
     "memorag",
@@ -184,6 +187,7 @@
     "uembed",
     "unified",
     "vectorless",
+    "voicemem",
     "xrag"
   ]
 }

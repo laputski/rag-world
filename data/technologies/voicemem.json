@@ -1,0 +1,62 @@
+{
+  "aliases": [],
+  "configuration": {
+    "A1": "proposition",
+    "A2": "none",
+    "A3": "metadata",
+    "A4": "graph",
+    "A5": "dense_single",
+    "A6": "snapshot",
+    "A7": "text",
+    "A8": "extracted",
+    "B1": "identity",
+    "B2": "static",
+    "C1": "graph_traversal",
+    "C2": "single_shot",
+    "C3": "none",
+    "C4": "multiple_local",
+    "D1": "none",
+    "D2": "top_k",
+    "D3": "natural_order",
+    "E1": "single_pass",
+    "E2": "none",
+    "E3": "none",
+    "E4": "no_refusal",
+    "E5": "none",
+    "F1": "consolidating",
+    "F2": "explicit_reconciliation",
+    "F3": "none",
+    "G1": "open",
+    "G2": "server",
+    "G3": "trained_reader"
+  },
+  "configuration_inapplicable": [],
+  "configuration_reviewed": "2026-09-01",
+  "configuration_variable": [],
+  "family": null,
+  "first_published": "2026-08",
+  "groups": [
+    "A",
+    "C",
+    "F"
+  ],
+  "id": "voicemem",
+  "kind": "architecture",
+  "links": [
+    {
+      "kind": "preprint",
+      "label": null,
+      "label_en": null,
+      "status": "needs_review",
+      "url": "https://arxiv.org/abs/2608.26005",
+      "verified_at": null
+    }
+  ],
+  "name": "VoiceMem",
+  "package": null,
+  "prose_id": "voicemem",
+  "residual": [
+    "query_entity_extraction",
+    "anticipatory_streaming_retrieval"
+  ]
+}

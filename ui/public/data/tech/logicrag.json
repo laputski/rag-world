@@ -1,0 +1,223 @@
+{
+  "built_at": "2026-09-01",
+  "technology": {
+    "aliases": [],
+    "attention": 0.0,
+    "attention_cohort": "2025",
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A3": "none",
+      "A4": "flat",
+      "A5": "dense_single",
+      "A7": "text",
+      "A8": "none",
+      "B1": "subquestion_decomposition",
+      "B2": "static",
+      "C1": "ann",
+      "C2": "iterative_stopping",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "abstractive_compression",
+      "D3": "natural_order",
+      "E1": "ensemble_fragments",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "mutual_loop",
+      "F1": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "frozen"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-09-01",
+    "configuration_variable": [],
+    "description": "LogicRAG отвечает на цену графового извлечения. Чтобы построить граф над корпусом, его нужно целиком пропустить через языковую модель, что стоит разметки и устаревает при каждом пополнении корпуса. Вторая беда тоньше: построенный граф отражает устройство корпуса, а не устройство вопроса, и сложный вопрос всё равно приходится разбирать заново.\n\nЗдесь графа над корпусом нет вовсе, указатель остаётся плоским. Граф строится над запросом: языковая модель разбивает вопрос на подвопросы и выводит между ними рёбра логического предшествования, получая направленный ациклический граф. Топологическая сортировка задаёт порядок, в котором подвопросы разрешаются, так что каждый разрешается после тех, от чьих ответов зависит его формулировка. Если найденного не хватает, модель дополняет граф новыми подвопросами по ходу.\n\nДва сокращения удерживают стоимость. Накопленный контекст держится катящимся пересказом: после каждого подвопроса найденное и ответ пересказываются и сливаются с прежним пересказом, отчего контекст не растёт вместе с числом шагов. Подвопросы одного ранга сливаются в один запрос, отчего число обращений к указателю падает. Ответ складывается из ответов на подвопросы по логике графа.",
+    "description_en": "LogicRAG answers the price of graph retrieval. To build a graph over a corpus the whole of it must be passed through a language model, which costs tokens and goes stale with every addition to the corpus. The second trouble is subtler: the graph that is built reflects the make of the corpus and not the make of the question, and a complex question still has to be taken apart afresh.\n\nHere there is no graph over the corpus at all, the index stays flat. The graph is built over the query: a language model splits the question into subquestions and infers edges of logical precedence between them, obtaining a directed acyclic graph. A topological sort sets the order in which the subquestions are resolved, so that each is resolved after those whose answers its wording depends on. When what is found does not suffice, the model augments the graph with new subquestions as it goes.\n\nTwo reductions hold the cost down. The accumulated context is held as a rolling restatement: after every subquestion what was found and the answer are restated and merged with the earlier restatement, so the context does not grow with the number of steps. Subquestions of one rank are merged into a single query, so the number of consultations of the index falls. The answer is assembled from the answers to the subquestions by the logic of the graph.",
+    "evidence": [
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2508.06105",
+        "type": "publication",
+        "value": "arXiv:2508.06105 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415192589",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=28; year=2025",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/chensyCN/LogicRAG",
+        "type": "repository",
+        "value": "chensyCN/LogicRAG: license=gpl-3.0, last_push=2026-07-19, releases=no",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 4,
+    "family": null,
+    "first_published": "2025-08",
+    "groups": [
+      "B",
+      "C",
+      "D"
+    ],
+    "id": "logicrag",
+    "kind": "architecture",
+    "level": "L3",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2508.06105",
+        "verified_at": null
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://github.com/chensyCN/LogicRAG",
+        "verified_at": null
+      }
+    ],
+    "name": "LogicRAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A4",
+        "did": "Граф над корпусом не строится вовсе: работа названа отрицанием предпостроенных графов, а структура строится над запросом.",
+        "did_en": "No graph over the corpus is built at all: the work is named as a denial of pre-built graphs, and the structure is built over the query instead.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "flat",
+        "why": "Указатель плоский, отчего и происхождение структуры записано как отсутствующее.",
+        "why_en": "The index is flat, which is why the origin of the structure is recorded as absent."
+      },
+      {
+        "code": "B1",
+        "did": "Запрос разбивается языковой моделью на подвопросы, между которыми выводятся рёбра логической зависимости, образующие направленный ациклический граф.",
+        "did_en": "The query is split by a language model into subquestions, between which edges of logical dependence are inferred, forming a directed acyclic graph.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "subquestion_decomposition",
+        "why": "Разбиение на подвопросы схема выражает; порядок их разрешения по зависимостям записан остатком.",
+        "why_en": "The splitting into subquestions the schema expresses; the order of resolving them by dependence is recorded as a residual."
+      },
+      {
+        "code": "C2",
+        "did": "Подвопросы разрешаются один за другим в топологическом порядке, а при нехватке найденного языковая модель дополняет граф новыми подвопросами.",
+        "did_en": "Subquestions are resolved one after another in topological order, and when what was found does not suffice the language model augments the graph with new subquestions.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "iterative_stopping",
+        "why": "Повторение идёт до исчерпания графа, а не заданное число раз.",
+        "why_en": "The repetition runs until the graph is exhausted rather than a set number of times."
+      },
+      {
+        "code": "D2",
+        "did": "Накопленный контекст держится в виде катящейся памяти: после каждого подвопроса найденное и ответ пересказываются языковой моделью и сливаются с прежним пересказом.",
+        "did_en": "The accumulated context is held as a rolling memory: after each subquestion what was found and the answer are restated by the language model and merged with the earlier restatement.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "abstractive_compression",
+        "why": "Сокращение идёт пересказом найденного, а не отбором первых k.",
+        "why_en": "The reduction goes by restating what was found rather than by taking the first k."
+      },
+      {
+        "code": "E1",
+        "did": "Ответ складывается из ответов на подвопросы по логике графа зависимостей.",
+        "did_en": "The answer is assembled from the answers to the subquestions by the logic of the dependency graph.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "ensemble_fragments",
+        "why": "Порождение идёт по частям и собирается, а не одним проходом по всему найденному.",
+        "why_en": "Generation goes by parts and is assembled rather than in one pass over everything found."
+      },
+      {
+        "code": "E5",
+        "did": "Извлечение для подвопроса зависит от ответов на его предшественников, а найденное меняет формулировку следующего подвопроса.",
+        "did_en": "Retrieval for a subquestion depends on the answers to its predecessors, and what is found changes the wording of the next subquestion.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "to": "mutual_loop",
+        "why": "Порождённое задаёт следующий поиск, а найденное меняет порождённое.",
+        "why_en": "What was generated sets the next search and what is found changes what was generated."
+      },
+      {
+        "did": "Между подвопросами строится направленный ациклический граф, топологическая сортировка задаёт порядок разрешения, а подвопросы одного ранга сливаются в один запрос.",
+        "did_en": "A directed acyclic graph is built between the subquestions, a topological sort sets the order of resolution, and subquestions of one rank are merged into a single query.",
+        "residual": "query_dependency_ordering",
+        "residual_term": "порядок разрешения подвопросов по их взаимной зависимости",
+        "residual_term_en": "an order of resolving subquestions by their dependence on one another",
+        "source": "arXiv:2508.06105, устройство",
+        "source_en": "arXiv:2508.06105, method",
+        "technology_id": "logicrag",
+        "why": "Преобразование запроса называет разбиение, но не зависимость между частями и не порядок их разрешения.",
+        "why_en": "Query transformation names the splitting but neither the dependence between the parts nor the order of resolving them."
+      }
+    ],
+    "prose_id": "logicrag",
+    "residual": [
+      "порядок разрешения подвопросов по их взаимной зависимости"
+    ],
+    "residual_en": [
+      "an order of resolving subquestions by their dependence on one another"
+    ],
+    "summary": "Граф строится не над корпусом, а над запросом: подвопросы упорядочиваются по зависимости, а найденное держится катящимся пересказом.",
+    "summary_en": "The graph is built not over the corpus but over the query: subquestions are ordered by dependence, and what is found is held as a rolling restatement."
+  }
+}

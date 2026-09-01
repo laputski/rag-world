@@ -28,6 +28,8 @@
   <url><loc>https://ragworld.org/tech/embodied_rag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/federated_rag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/flare</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ragworld.org/tech/g_reasoner</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ragworld.org/tech/gfm_rag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/gnn_rag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/graphreader</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/hipporag</loc><lastmod>2026-09-01</lastmod></url>
@@ -38,6 +40,7 @@
   <url><loc>https://ragworld.org/tech/late_chunking</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/ledgermind</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/lightrag</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ragworld.org/tech/logicrag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/ma_rag</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/magma</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/memorag</loc><lastmod>2026-09-01</lastmod></url>
@@ -78,5 +81,6 @@
   <url><loc>https://ragworld.org/tech/uembed</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/unified</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/vectorless</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ragworld.org/tech/voicemem</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://ragworld.org/tech/xrag</loc><lastmod>2026-09-01</lastmod></url>
 </urlset>

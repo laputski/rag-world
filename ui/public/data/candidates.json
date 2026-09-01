@@ -2,43 +2,6 @@
   "built_at": "2026-09-01",
   "candidates": [
     {
-      "abstract": "Conversational systems, such as duplex speech language models (SLMs), still lack a streaming, accurate, and empathetic memory system as their soul. We introduce VoiceMem, a simple memory architecture with a parallel informational left brain, an emotional right brain, and streaming memory I/O mechanisms. We further build a complete pipeline for memory-aware SLM training, long-horizon evaluation, and decoupled deployment with interchangeable memory backends.",
-      "arxiv_id": "2608.26005",
-      "citations": 0,
-      "curated_by": [],
-      "fit": {
-        "score": 8,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "nearTask",
-            "tasks": [
-              "language-modeling"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-31",
-      "published": "2026-08-26",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.26005",
-      "tasks": [
-        "full-duplex-spoken-dialogue",
-        "language-modeling",
-        "retrieval"
-      ],
-      "title": "VoiceMem: Streaming Dual-Brain Memory for Real-Time Interaction",
-      "verdict": null
-    },
-    {
       "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
       "arxiv_id": "2510.10114",
       "citations": null,
@@ -266,36 +229,6 @@
       "verdict": null
     },
     {
-      "abstract": "Recent advances in AI agents have increasingly internalized native capabilities into their underlying foundation models, giving rise to multimodal foundation models and large reasoning models. However, agent memory is still primarily implemented through external modules, leaving the native memory capability largely unexplored.",
-      "arxiv_id": "2607.26760",
-      "citations": 0,
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents",
-              "reasoning"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-29",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.26760",
-      "tasks": [
-        "agents",
-        "reasoning"
-      ],
-      "title": "Metis: Memory Foundation Model",
-      "verdict": null
-    },
-    {
       "abstract": "Multi-step retrieval-augmented generation (RAG) has become a widely adopted strategy for enhancing large language models (LLMs) on tasks that demand global comprehension and intensive reasoning. Although many RAG systems incorporate a working memory to consolidate information, existing designs primarily function as a passive storage for isolated facts.",
       "arxiv_id": "2512.23959",
       "citations": null,
@@ -412,35 +345,6 @@
       "verdict": null
     },
     {
-      "abstract": "Large language models (LLMs) excel at complex reasoning but remain limited by static and incomplete parametric knowledge. Retrieval-augmented generation (RAG) mitigates this by incorporating external knowledge, yet existing RAGs struggle with knowledge-intensive tasks due to fragmented information and weak modeling of knowledge structure.",
-      "arxiv_id": "2509.24276",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-09-29",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2509.24276",
-      "tasks": [],
-      "title": "G-reasoner: Foundation Models for Unified Reasoning over Graph-structured Knowledge",
-      "verdict": null
-    },
-    {
       "abstract": "Graph Retrieval-Augmented Generation (GraphRAG) enhances factual reasoning in LLMs by structurally modeling knowledge through graph-based representations. However, existing GraphRAG approaches face two core limitations: shallow retrieval that fails to surface all critical evidence, and inefficient utilization of pre-constructed structural graph data, which hinders effective reasoning from complex queries.",
       "arxiv_id": "2509.22009",
       "citations": null,
@@ -496,35 +400,6 @@
       "source": "https://arxiv.org/abs/2508.19855",
       "tasks": [],
       "title": "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning",
-      "verdict": null
-    },
-    {
-      "abstract": "Retrieval-augmented generation (RAG) has proven effective in integrating knowledge into large language models (LLMs). However, conventional RAGs struggle to capture complex relationships between pieces of knowledge, limiting their performance in intricate reasoning that requires integrating knowledge from multiple sources.",
-      "arxiv_id": "2502.01113",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-02-03",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2502.01113",
-      "tasks": [],
-      "title": "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
       "verdict": null
     },
     {
@@ -775,32 +650,6 @@
       "source": "https://paperswithcode.co/api/v1/papers/2607.25614",
       "tasks": [],
       "title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
-      "verdict": null
-    },
-    {
-      "abstract": "Large language models (LLMs) often suffer from hallucination, generating factually incorrect statements when handling questions beyond their knowledge and perception. Retrieval-augmented generation (RAG) addresses this by retrieving query-relevant contexts from knowledge bases to support LLM reasoning. Recent advances leverage pre-constructed graphs to capture the relational connections among distributed documents, showing remarkable performance in complex tasks.",
-      "arxiv_id": "2508.06105",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-08-08",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2508.06105",
-      "tasks": [],
-      "title": "You Don't Need Pre-built Graphs for RAG: Retrieval Augmented Generation with Adaptive Reasoning Structures",
       "verdict": null
     },
     {

@@ -1,0 +1,230 @@
+{
+  "built_at": "2026-09-01",
+  "technology": {
+    "aliases": [
+      "Graph Foundation Model for RAG"
+    ],
+    "attention": 0.0,
+    "attention_cohort": "2025",
+    "attention_raw": 0.0,
+    "confidence": 1.0,
+    "configuration": {
+      "A1": "passage",
+      "A2": "none",
+      "A3": "extracted_triples",
+      "A4": "graph",
+      "A5": "dense_single",
+      "A7": "text",
+      "A8": "extracted",
+      "B1": "identity",
+      "B2": "static",
+      "C1": "graph_traversal",
+      "C2": "single_shot",
+      "C3": "none",
+      "C4": "single_store",
+      "D1": "none",
+      "D2": "top_k",
+      "D3": "natural_order",
+      "E1": "single_pass",
+      "E2": "none",
+      "E3": "none",
+      "E4": "no_refusal",
+      "E5": "none",
+      "F1": "none",
+      "G1": "open",
+      "G2": "server",
+      "G3": "trained_retriever"
+    },
+    "configuration_inapplicable": [],
+    "configuration_reviewed": "2026-09-01",
+    "configuration_variable": [],
+    "description": "GFM-RAG отвечает на два ограничения сразу. Указатель из отдельных представлений хранит документы порознь и связей между ними не выражает, отчего вопрос, ответ на который собирается из нескольких источников, распадается на несвязанные попадания. Графовый указатель связи выражает, но модели, обученные рассуждать поверх графа, привязаны к тому графу, на котором обучены, и на незнакомый корпус не переносятся.\n\nУказатель строится открытым извлечением сущностей и отношений из документов, к которому добавляются рёбра между сущностями, близкими по смыслу, и обратный указатель, помнящий, какие сущности упомянуты в каком документе. Поверх него работает извлекатель на восемь миллионов параметров: признаки сущностей, названных в запросе, задаются вложением запроса, прочие обнуляются, и за несколько слоёв передачи сообщений, зависящей от запроса, значимость расходится по графу. Первые сущности по значимости переносят свой вес на документы, причём вес делится на частоту сущности, чтобы вездесущие имена не тянули на себя всю выдачу.\n\nСущественно здесь не устройство графа, а то, что извлекатель обучен один раз на шестидесяти графах знаний с четырнадцатью миллионами троек и применяется к незнакомым наборам без дообучения. Читающая модель при этом не обучается вовсе. Обращение к указателю однократно: цикла рассуждения, меняющего запрос по ходу, работа не содержит.",
+    "description_en": "GFM-RAG answers two limits at once. An index of separate representations stores documents apart and expresses no relations between them, so a question whose answer is assembled from several sources falls into unconnected hits. A graph index expresses the relations, but models trained to reason over a graph are tied to the graph they were trained on and do not carry over to an unfamiliar corpus.\n\nThe index is built by open extraction of entities and relations from the documents, to which edges between semantically close entities are added along with an inverted index remembering which entities are mentioned in which document. Over it works a retriever of eight million parameters: the features of the entities named in the query are set to the embedding of the query, the rest are zeroed, and across several layers of query-dependent message passing relevance spreads over the graph. The leading entities by relevance carry their weight onto documents, with the weight divided by the frequency of the entity so that ubiquitous names do not pull the whole yield onto themselves.\n\nWhat matters here is not the make of the graph but that the retriever is trained once on sixty knowledge graphs with fourteen million triples and applied to unfamiliar sets without further training. The reading model is not trained at all. The index is consulted once: the work contains no loop of reasoning that changes the query as it goes.",
+    "evidence": [
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2502.01113",
+        "type": "publication",
+        "value": "arXiv:2502.01113 (2025)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407129024",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=0; year=2025; citation_velocity=0.0",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 2,
+    "family": null,
+    "first_published": "2025-02",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "id": "gfm_rag",
+    "kind": "architecture",
+    "level": "L2",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    "links": [
+      {
+        "kind": "preprint",
+        "label": null,
+        "label_en": null,
+        "status": "needs_review",
+        "url": "https://arxiv.org/abs/2502.01113",
+        "verified_at": null
+      }
+    ],
+    "name": "GFM-RAG",
+    "package": null,
+    "parse_notes": [
+      {
+        "code": "A1",
+        "did": "Возвращаются документы: оценки сущностей переносятся на документы обратным указателем, и первые K документов подаются модели.",
+        "did_en": "Documents are returned: the scores of entities are carried onto documents by an inverted index, and the first K documents are given to the model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "passage",
+        "why": "Граф служит указателем над документами, а единицей выдачи остаётся документ.",
+        "why_en": "The graph serves as an index over documents, while the unit returned stays the document."
+      },
+      {
+        "code": "A2",
+        "did": "Входом служит готовый набор документов; резки на части работа не выполняет.",
+        "did_en": "The input is a ready set of documents; the work performs no cutting into parts.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "none",
+        "why": "Записано отсутствие сегментации, а не базовое значение по умолчанию: сегментации здесь нет как ступени.",
+        "why_en": "The absence of segmentation is recorded rather than a default: there is no such stage here."
+      },
+      {
+        "code": "A8",
+        "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель.",
+        "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "extracted",
+        "why": "Структура берётся из содержания. Дополнительные рёбра между близкими по смыслу сущностями вычислены по представлениям и записаны остатком.",
+        "why_en": "The structure is taken from the content. The further edges between semantically close entities are computed from representations and are recorded as a residual."
+      },
+      {
+        "code": "C1",
+        "did": "Значимость расходится от сущностей запроса по графу передачей сообщений, зависящей от запроса, за L слоёв.",
+        "did_en": "Relevance spreads from the entities of the query over the graph by query-dependent message passing across L layers.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "graph_traversal",
+        "why": "Обход графа есть операция, дающая выдачу. Правило, по которому вес расходится, обучено и записано остатком.",
+        "why_en": "Walking the graph is the operation that yields the result. The rule by which weight spreads is trained and is recorded as a residual."
+      },
+      {
+        "code": "G3",
+        "did": "Извлекатель на восемь миллионов параметров обучается в две стадии на шестидесяти графах знаний с четырнадцатью миллионами троек и семьюстами тысячами документов и применяется к незнакомым наборам без дообучения.",
+        "did_en": "The retriever of eight million parameters is trained in two stages on sixty knowledge graphs with fourteen million triples and seven hundred thousand documents and is applied to unseen sets without further training.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "to": "trained_retriever",
+        "why": "Обучен извлекатель, а читающая модель остаётся неизменной.",
+        "why_en": "The retriever is trained while the reading model stays untouched."
+      },
+      {
+        "did": "Вес расходится по графу обученной передачей сообщений, зависящей от запроса, а не правилом случайного блуждания.",
+        "did_en": "Weight spreads over the graph by trained query-dependent message passing rather than by a rule of random walking.",
+        "residual": "learned_relevance_propagation",
+        "residual_term": "распространение значимости по графу обученной моделью",
+        "residual_term_en": "propagation of relevance over the graph by a trained model",
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "why": "Оператор поиска называет обход, но не правило, по которому расходится вес.",
+        "why_en": "The search operator names the walk but not the rule by which weight spreads."
+      },
+      {
+        "did": "К извлечённым тройкам добавляются рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
+        "did_en": "Edges are added to the extracted triples between entities close in meaning, for example between «USA» and «United States of America».",
+        "residual": "synonymy_edges",
+        "residual_term": "рёбра синонимии между узлами индекса",
+        "residual_term_en": "synonymy edges between index nodes",
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер вычислена по близости представлений.",
+        "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are computed from closeness of representations."
+      },
+      {
+        "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
+        "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
+        "residual": "query_entity_extraction",
+        "residual_term": "извлечение именованных сущностей из запроса",
+        "residual_term_en": "named entity extraction from the query",
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
+        "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+      },
+      {
+        "did": "Ранжируются сущности, а возвращаются документы: оценка документа складывается из весов упомянутых в нём сущностей, обратных их частоте.",
+        "did_en": "Entities are ranked and documents are returned: the score of a document is the sum of the weights of the entities it mentions, inverse to their frequency.",
+        "residual": "score_transfer_to_units",
+        "residual_term": "перенос оценок узлов на единицы извлечения",
+        "residual_term_en": "transfer of node scores onto retrieval units",
+        "source": "arXiv:2502.01113, устройство",
+        "source_en": "arXiv:2502.01113, method",
+        "technology_id": "gfm_rag",
+        "why": "Ранжируется одна структура, а возвращается другая, и этого перехода не выражают ни оператор поиска, ни переранжирование.",
+        "why_en": "One structure is ranked and another is returned, and neither the search operator nor reranking expresses that transition."
+      }
+    ],
+    "prose_id": "gfm_rag",
+    "residual": [
+      "распространение значимости по графу обученной моделью",
+      "рёбра синонимии между узлами индекса",
+      "извлечение именованных сущностей из запроса",
+      "перенос оценок узлов на единицы извлечения"
+    ],
+    "residual_en": [
+      "propagation of relevance over the graph by a trained model",
+      "synonymy edges between index nodes",
+      "named entity extraction from the query",
+      "transfer of node scores onto retrieval units"
+    ],
+    "summary": "Обученная графовая модель как извлекатель: значимость расходится по графу знаний передачей сообщений, зависящей от запроса, и переносится с сущностей на документы.",
+    "summary_en": "A trained graph model as the retriever: relevance spreads over the knowledge graph by query-dependent message passing and is carried from entities onto documents."
+  }
+}

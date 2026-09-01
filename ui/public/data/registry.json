@@ -1,6 +1,6 @@
 {
   "built_at": "2026-09-01",
-  "count": 72,
+  "count": 76,
   "technologies": [
     {
       "aliases": [],
@@ -834,7 +834,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.026,
+      "attention": 2.344,
       "attention_cohort": "2025",
       "attention_raw": 0.667,
       "confidence": 1.0,
@@ -1561,7 +1561,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.0,
+      "attention": 2.285,
       "attention_cohort": "2025",
       "attention_raw": 0.65,
       "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
@@ -4029,7 +4029,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.462,
+      "attention": 1.054,
       "attention_cohort": "2025",
       "attention_raw": 0.3,
       "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
@@ -4507,6 +4507,440 @@
       "residual_en": [],
       "summary": "Извлечение по требованию: обращение к поиску запускается низкой уверенностью в порождаемом предложении.",
       "summary_en": "Retrieval on demand: a search is triggered by low confidence in the sentence being generated."
+    },
+    {
+      "aliases": [
+        "QuadGraph"
+      ],
+      "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "node_edge",
+        "A2": "none",
+        "A3": "metadata",
+        "A4": "graph",
+        "A5": "dense_single",
+        "A7": "text",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "graph_traversal",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "hierarchical",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "none",
+        "F1": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_retriever"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-09-01",
+      "configuration_variable": [],
+      "description": "G-reasoner отвечает на дробность графового извлечения. Одни работы строят граф знаний из сущностей и отношений, другие граф документов по сходству содержания или ссылкам, третьи иерархию сообществ. Модель, обученная рассуждать над одним таким устройством, к другому не применима, и обобщение упирается не в качество рассуждения, а в несовпадение видов графа.\n\nПредложен единый вид, приводящий разные знания к четырём слоям: признаки, сущности с тройками между ними, документы с их текстом и сообщества, объединяющие связанные вершины. Слои соединены переходами вида «имеет признак», «входит в», «принадлежит», так что граф знаний, граф документов и иерархия сообществ оказываются частными случаями одного устройства. Поверх работает обученная графовая модель с передачей сообщений, зависящей от запроса, причём в рассуждение входит не только устройство связей, но и смысл текста вершин, закодированный готовой моделью представлений.\n\nВыдача берётся по слоям: из каждого рода вершин отбираются первые k по предсказанной значимости, и отобранное складывается в подсказку языковой модели. Тем самым система выбирает крупность сама, беря где признак, где документ, где сообщество, вместо того чтобы работать на одном уровне подробности. Обучен здесь извлекатель, а читающая модель остаётся неизменной.",
+      "description_en": "G-reasoner answers the fragmentation of graph retrieval. Some works build a knowledge graph of entities and relations, others a document graph by likeness of content or by citation, others a hierarchy of communities. A model trained to reason over one such make does not apply to another, and generalisation runs not into the quality of the reasoning but into the mismatch of graph forms.\n\nA single form is proposed that brings differing knowledge to four layers: attributes, entities with the triples between them, documents with their text, and communities joining related nodes. The layers are connected by passages of the kind has attribute, included in, belongs to, so that a knowledge graph, a document graph and a hierarchy of communities turn out to be particular cases of one make. Over it works a trained graph model with query-dependent message passing, and into the reasoning enters not only the make of the relations but also the meaning of the text of the nodes, encoded by a ready model of representations.\n\nThe yield is taken by layers: from every kind of node the first k by predicted relevance are selected, and what is selected is assembled into the prompt to the language model. The system thereby chooses the grain itself, taking an attribute here, a document there, a community elsewhere, instead of working at one level of detail. What is trained here is the retriever, while the reading model stays untouched.",
+      "evidence": [
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2509.24276",
+          "type": "publication",
+          "value": "arXiv:2509.24276 (2025)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415336418",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2509.24276",
+          "type": "publication",
+          "value": "venue=ICLR 2026; peer_reviewed=true; citations_semantic_scholar=10; year=2026",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 3,
+      "family": null,
+      "first_published": "2025-09",
+      "groups": [
+        "A",
+        "C",
+        "D"
+      ],
+      "id": "g_reasoner",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2509.24276",
+          "verified_at": null
+        }
+      ],
+      "name": "G-reasoner",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A1",
+          "did": "Отбираются первые k вершин каждого рода, признаковых, сущностных, документных и сообществных, и все они складываются в подсказку модели.",
+          "did_en": "The first k nodes of each kind are selected, attribute, entity, document and community, and all of them are assembled into the prompt to the model.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "to": "node_edge",
+          "why": "Единицей выдачи служит вершина графа, причём не одного рода.",
+          "why_en": "The unit returned is a node of the graph, and not of one kind."
+        },
+        {
+          "code": "A4",
+          "did": "Указатель сведён к четырёхслойному графу: признаки, сущности с тройками, документы и сообщества, со связями между слоями.",
+          "did_en": "The index is reduced to a four-layer graph: attributes, entities with triples, documents and communities, with relations across the layers.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "to": "graph",
+          "why": "Записан граф как вид структуры; слоистость и разнородность вершин записаны остатком, потому что схема их не выражает.",
+          "why_en": "The graph is recorded as the kind of structure; the layering and the differing kinds of node are recorded as a residual, because the schema does not express them."
+        },
+        {
+          "code": "A8",
+          "did": "Источник задаёт единый вид для графов, построенных другими способами, и о собственном построении не говорит.",
+          "did_en": "The source defines a single form for graphs built by other means and says nothing of a construction of its own.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "unstated": true,
+          "why": "Значение не записано: происхождение структуры зависит от того, какой граф приведён к этому виду.",
+          "why_en": "No value is recorded: the origin of the structure depends on which graph was brought to this form."
+        },
+        {
+          "code": "D3",
+          "did": "Отобранное подаётся по слоям разной крупности: признак, сущность, документ, сообщество.",
+          "did_en": "What is selected is given by layers of differing grain: attribute, entity, document, community.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "to": "hierarchical",
+          "why": "Порядок подачи следует уровням указателя, а не порядку выдачи поиска.",
+          "why_en": "The order of presentation follows the levels of the index rather than the order the search returned."
+        },
+        {
+          "code": "G3",
+          "did": "Основанием служит обученная графовая модель, объединяющая топологию и смысл текста вершин и переносимая на графы иного устройства без дообучения.",
+          "did_en": "The foundation is a trained graph model joining topology with the meaning of the text of nodes and carried over to graphs of another make without further training.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "to": "trained_retriever",
+          "why": "Обучен извлекатель, читающая модель остаётся неизменной.",
+          "why_en": "The retriever is trained, the reading model stays untouched."
+        },
+        {
+          "did": "Знания разного устройства, граф знаний, граф документов и иерархия сообществ, приводятся к одному указателю из четырёх слоёв с переходами между ними.",
+          "did_en": "Knowledge of differing makes, a knowledge graph, a document graph and a hierarchy of communities, is brought to one index of four layers with passages between them.",
+          "residual": "layered_typed_graph",
+          "residual_term": "несколько слоёв узлов разного рода под одним указателем",
+          "residual_term_en": "several layers of nodes of differing kinds under one index",
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "why": "Топология указателя называет вид структуры, но не разнородность вершин и не слоистость.",
+          "why_en": "Index topology names the kind of structure but neither the differing kinds of node nor the layering."
+        },
+        {
+          "did": "Значимость вершин предсказывает обученная графовая модель с передачей сообщений, зависящей от запроса.",
+          "did_en": "The relevance of nodes is predicted by a trained graph model with query-dependent message passing.",
+          "residual": "learned_relevance_propagation",
+          "residual_term": "распространение значимости по графу обученной моделью",
+          "residual_term_en": "propagation of relevance over the graph by a trained model",
+          "source": "arXiv:2509.24276, устройство",
+          "source_en": "arXiv:2509.24276, method",
+          "technology_id": "g_reasoner",
+          "why": "Оператор поиска называет обход, но не правило, по которому расходится вес.",
+          "why_en": "The search operator names the walk but not the rule by which weight spreads."
+        }
+      ],
+      "prose_id": "g_reasoner",
+      "residual": [
+        "распространение значимости по графу обученной моделью",
+        "несколько слоёв узлов разного рода под одним указателем"
+      ],
+      "residual_en": [
+        "propagation of relevance over the graph by a trained model",
+        "several layers of nodes of differing kinds under one index"
+      ],
+      "summary": "Единый вид для графов разного устройства и обученная графовая модель поверх него, выдающая вершины любого рода на любом слое.",
+      "summary_en": "A single form for graphs of differing makes and a trained graph model over it, yielding nodes of any kind on any layer."
+    },
+    {
+      "aliases": [
+        "Graph Foundation Model for RAG"
+      ],
+      "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A2": "none",
+        "A3": "extracted_triples",
+        "A4": "graph",
+        "A5": "dense_single",
+        "A7": "text",
+        "A8": "extracted",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "graph_traversal",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "none",
+        "F1": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_retriever"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-09-01",
+      "configuration_variable": [],
+      "description": "GFM-RAG отвечает на два ограничения сразу. Указатель из отдельных представлений хранит документы порознь и связей между ними не выражает, отчего вопрос, ответ на который собирается из нескольких источников, распадается на несвязанные попадания. Графовый указатель связи выражает, но модели, обученные рассуждать поверх графа, привязаны к тому графу, на котором обучены, и на незнакомый корпус не переносятся.\n\nУказатель строится открытым извлечением сущностей и отношений из документов, к которому добавляются рёбра между сущностями, близкими по смыслу, и обратный указатель, помнящий, какие сущности упомянуты в каком документе. Поверх него работает извлекатель на восемь миллионов параметров: признаки сущностей, названных в запросе, задаются вложением запроса, прочие обнуляются, и за несколько слоёв передачи сообщений, зависящей от запроса, значимость расходится по графу. Первые сущности по значимости переносят свой вес на документы, причём вес делится на частоту сущности, чтобы вездесущие имена не тянули на себя всю выдачу.\n\nСущественно здесь не устройство графа, а то, что извлекатель обучен один раз на шестидесяти графах знаний с четырнадцатью миллионами троек и применяется к незнакомым наборам без дообучения. Читающая модель при этом не обучается вовсе. Обращение к указателю однократно: цикла рассуждения, меняющего запрос по ходу, работа не содержит.",
+      "description_en": "GFM-RAG answers two limits at once. An index of separate representations stores documents apart and expresses no relations between them, so a question whose answer is assembled from several sources falls into unconnected hits. A graph index expresses the relations, but models trained to reason over a graph are tied to the graph they were trained on and do not carry over to an unfamiliar corpus.\n\nThe index is built by open extraction of entities and relations from the documents, to which edges between semantically close entities are added along with an inverted index remembering which entities are mentioned in which document. Over it works a retriever of eight million parameters: the features of the entities named in the query are set to the embedding of the query, the rest are zeroed, and across several layers of query-dependent message passing relevance spreads over the graph. The leading entities by relevance carry their weight onto documents, with the weight divided by the frequency of the entity so that ubiquitous names do not pull the whole yield onto themselves.\n\nWhat matters here is not the make of the graph but that the retriever is trained once on sixty knowledge graphs with fourteen million triples and applied to unfamiliar sets without further training. The reading model is not trained at all. The index is consulted once: the work contains no loop of reasoning that changes the query as it goes.",
+      "evidence": [
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2502.01113",
+          "type": "publication",
+          "value": "arXiv:2502.01113 (2025)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4407129024",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=0; year=2025; citation_velocity=0.0",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2025-02",
+      "groups": [
+        "A",
+        "C"
+      ],
+      "id": "gfm_rag",
+      "kind": "architecture",
+      "level": "L2",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2502.01113",
+          "verified_at": null
+        }
+      ],
+      "name": "GFM-RAG",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A1",
+          "did": "Возвращаются документы: оценки сущностей переносятся на документы обратным указателем, и первые K документов подаются модели.",
+          "did_en": "Documents are returned: the scores of entities are carried onto documents by an inverted index, and the first K documents are given to the model.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "passage",
+          "why": "Граф служит указателем над документами, а единицей выдачи остаётся документ.",
+          "why_en": "The graph serves as an index over documents, while the unit returned stays the document."
+        },
+        {
+          "code": "A2",
+          "did": "Входом служит готовый набор документов; резки на части работа не выполняет.",
+          "did_en": "The input is a ready set of documents; the work performs no cutting into parts.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "none",
+          "why": "Записано отсутствие сегментации, а не базовое значение по умолчанию: сегментации здесь нет как ступени.",
+          "why_en": "The absence of segmentation is recorded rather than a default: there is no such stage here."
+        },
+        {
+          "code": "A8",
+          "did": "Сущности и отношения извлекаются из документов открытым извлечением, которое выполняет языковая модель.",
+          "did_en": "Entities and relations are extracted from the documents by open information extraction performed by a language model.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "extracted",
+          "why": "Структура берётся из содержания. Дополнительные рёбра между близкими по смыслу сущностями вычислены по представлениям и записаны остатком.",
+          "why_en": "The structure is taken from the content. The further edges between semantically close entities are computed from representations and are recorded as a residual."
+        },
+        {
+          "code": "C1",
+          "did": "Значимость расходится от сущностей запроса по графу передачей сообщений, зависящей от запроса, за L слоёв.",
+          "did_en": "Relevance spreads from the entities of the query over the graph by query-dependent message passing across L layers.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "graph_traversal",
+          "why": "Обход графа есть операция, дающая выдачу. Правило, по которому вес расходится, обучено и записано остатком.",
+          "why_en": "Walking the graph is the operation that yields the result. The rule by which weight spreads is trained and is recorded as a residual."
+        },
+        {
+          "code": "G3",
+          "did": "Извлекатель на восемь миллионов параметров обучается в две стадии на шестидесяти графах знаний с четырнадцатью миллионами троек и семьюстами тысячами документов и применяется к незнакомым наборам без дообучения.",
+          "did_en": "The retriever of eight million parameters is trained in two stages on sixty knowledge graphs with fourteen million triples and seven hundred thousand documents and is applied to unseen sets without further training.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "to": "trained_retriever",
+          "why": "Обучен извлекатель, а читающая модель остаётся неизменной.",
+          "why_en": "The retriever is trained while the reading model stays untouched."
+        },
+        {
+          "did": "Вес расходится по графу обученной передачей сообщений, зависящей от запроса, а не правилом случайного блуждания.",
+          "did_en": "Weight spreads over the graph by trained query-dependent message passing rather than by a rule of random walking.",
+          "residual": "learned_relevance_propagation",
+          "residual_term": "распространение значимости по графу обученной моделью",
+          "residual_term_en": "propagation of relevance over the graph by a trained model",
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "why": "Оператор поиска называет обход, но не правило, по которому расходится вес.",
+          "why_en": "The search operator names the walk but not the rule by which weight spreads."
+        },
+        {
+          "did": "К извлечённым тройкам добавляются рёбра между сущностями, близкими по смыслу, например между «США» и «Соединённые Штаты Америки».",
+          "did_en": "Edges are added to the extracted triples between entities close in meaning, for example between «USA» and «United States of America».",
+          "residual": "synonymy_edges",
+          "residual_term": "рёбра синонимии между узлами индекса",
+          "residual_term_en": "synonymy edges between index nodes",
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "why": "Происхождение структуры записано как извлечение из содержания, но часть рёбер вычислена по близости представлений.",
+          "why_en": "The origin of the structure is recorded as extraction from the content, yet some edges are computed from closeness of representations."
+        },
+        {
+          "did": "Сущности, упомянутые в запросе, отыскиваются в графе, и их признаки задаются вложением запроса, а прочие обнуляются.",
+          "did_en": "The entities mentioned in the query are found in the graph, and their features are set to the embedding of the query while the rest are zeroed.",
+          "residual": "query_entity_extraction",
+          "residual_term": "извлечение именованных сущностей из запроса",
+          "residual_term_en": "named entity extraction from the query",
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
+          "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+        },
+        {
+          "did": "Ранжируются сущности, а возвращаются документы: оценка документа складывается из весов упомянутых в нём сущностей, обратных их частоте.",
+          "did_en": "Entities are ranked and documents are returned: the score of a document is the sum of the weights of the entities it mentions, inverse to their frequency.",
+          "residual": "score_transfer_to_units",
+          "residual_term": "перенос оценок узлов на единицы извлечения",
+          "residual_term_en": "transfer of node scores onto retrieval units",
+          "source": "arXiv:2502.01113, устройство",
+          "source_en": "arXiv:2502.01113, method",
+          "technology_id": "gfm_rag",
+          "why": "Ранжируется одна структура, а возвращается другая, и этого перехода не выражают ни оператор поиска, ни переранжирование.",
+          "why_en": "One structure is ranked and another is returned, and neither the search operator nor reranking expresses that transition."
+        }
+      ],
+      "prose_id": "gfm_rag",
+      "residual": [
+        "распространение значимости по графу обученной моделью",
+        "рёбра синонимии между узлами индекса",
+        "извлечение именованных сущностей из запроса",
+        "перенос оценок узлов на единицы извлечения"
+      ],
+      "residual_en": [
+        "propagation of relevance over the graph by a trained model",
+        "synonymy edges between index nodes",
+        "named entity extraction from the query",
+        "transfer of node scores onto retrieval units"
+      ],
+      "summary": "Обученная графовая модель как извлекатель: значимость расходится по графу знаний передачей сообщений, зависящей от запроса, и переносится с сущностей на документы.",
+      "summary_en": "A trained graph model as the retriever: relevance spreads over the knowledge graph by query-dependent message passing and is carried from entities onto documents."
     },
     {
       "aliases": [],
@@ -6648,7 +7082,7 @@
       "aliases": [
         "Light-RAG"
       ],
-      "attention": 10.385,
+      "attention": 23.726,
       "attention_cohort": "2025",
       "attention_raw": 6.75,
       "confidence": 1.0,
@@ -6980,7 +7414,227 @@
     },
     {
       "aliases": [],
-      "attention": 0.095,
+      "attention": 0.0,
+      "attention_cohort": "2025",
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "passage",
+        "A3": "none",
+        "A4": "flat",
+        "A5": "dense_single",
+        "A7": "text",
+        "A8": "none",
+        "B1": "subquestion_decomposition",
+        "B2": "static",
+        "C1": "ann",
+        "C2": "iterative_stopping",
+        "C3": "none",
+        "C4": "single_store",
+        "D1": "none",
+        "D2": "abstractive_compression",
+        "D3": "natural_order",
+        "E1": "ensemble_fragments",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "mutual_loop",
+        "F1": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "frozen"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-09-01",
+      "configuration_variable": [],
+      "description": "LogicRAG отвечает на цену графового извлечения. Чтобы построить граф над корпусом, его нужно целиком пропустить через языковую модель, что стоит разметки и устаревает при каждом пополнении корпуса. Вторая беда тоньше: построенный граф отражает устройство корпуса, а не устройство вопроса, и сложный вопрос всё равно приходится разбирать заново.\n\nЗдесь графа над корпусом нет вовсе, указатель остаётся плоским. Граф строится над запросом: языковая модель разбивает вопрос на подвопросы и выводит между ними рёбра логического предшествования, получая направленный ациклический граф. Топологическая сортировка задаёт порядок, в котором подвопросы разрешаются, так что каждый разрешается после тех, от чьих ответов зависит его формулировка. Если найденного не хватает, модель дополняет граф новыми подвопросами по ходу.\n\nДва сокращения удерживают стоимость. Накопленный контекст держится катящимся пересказом: после каждого подвопроса найденное и ответ пересказываются и сливаются с прежним пересказом, отчего контекст не растёт вместе с числом шагов. Подвопросы одного ранга сливаются в один запрос, отчего число обращений к указателю падает. Ответ складывается из ответов на подвопросы по логике графа.",
+      "description_en": "LogicRAG answers the price of graph retrieval. To build a graph over a corpus the whole of it must be passed through a language model, which costs tokens and goes stale with every addition to the corpus. The second trouble is subtler: the graph that is built reflects the make of the corpus and not the make of the question, and a complex question still has to be taken apart afresh.\n\nHere there is no graph over the corpus at all, the index stays flat. The graph is built over the query: a language model splits the question into subquestions and infers edges of logical precedence between them, obtaining a directed acyclic graph. A topological sort sets the order in which the subquestions are resolved, so that each is resolved after those whose answers its wording depends on. When what is found does not suffice, the model augments the graph with new subquestions as it goes.\n\nTwo reductions hold the cost down. The accumulated context is held as a rolling restatement: after every subquestion what was found and the answer are restated and merged with the earlier restatement, so the context does not grow with the number of steps. Subquestions of one rank are merged into a single query, so the number of consultations of the index falls. The answer is assembled from the answers to the subquestions by the logic of the graph.",
+      "evidence": [
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2508.06105",
+          "type": "publication",
+          "value": "arXiv:2508.06105 (2025)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415192589",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2025; citation_velocity=0.0",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+          "type": "publication",
+          "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=28; year=2025",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/chensyCN/LogicRAG",
+          "type": "repository",
+          "value": "chensyCN/LogicRAG: license=gpl-3.0, last_push=2026-07-19, releases=no",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 4,
+      "family": null,
+      "first_published": "2025-08",
+      "groups": [
+        "B",
+        "C",
+        "D"
+      ],
+      "id": "logicrag",
+      "kind": "architecture",
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2508.06105",
+          "verified_at": null
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://github.com/chensyCN/LogicRAG",
+          "verified_at": null
+        }
+      ],
+      "name": "LogicRAG",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Граф над корпусом не строится вовсе: работа названа отрицанием предпостроенных графов, а структура строится над запросом.",
+          "did_en": "No graph over the corpus is built at all: the work is named as a denial of pre-built graphs, and the structure is built over the query instead.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "flat",
+          "why": "Указатель плоский, отчего и происхождение структуры записано как отсутствующее.",
+          "why_en": "The index is flat, which is why the origin of the structure is recorded as absent."
+        },
+        {
+          "code": "B1",
+          "did": "Запрос разбивается языковой моделью на подвопросы, между которыми выводятся рёбра логической зависимости, образующие направленный ациклический граф.",
+          "did_en": "The query is split by a language model into subquestions, between which edges of logical dependence are inferred, forming a directed acyclic graph.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "subquestion_decomposition",
+          "why": "Разбиение на подвопросы схема выражает; порядок их разрешения по зависимостям записан остатком.",
+          "why_en": "The splitting into subquestions the schema expresses; the order of resolving them by dependence is recorded as a residual."
+        },
+        {
+          "code": "C2",
+          "did": "Подвопросы разрешаются один за другим в топологическом порядке, а при нехватке найденного языковая модель дополняет граф новыми подвопросами.",
+          "did_en": "Subquestions are resolved one after another in topological order, and when what was found does not suffice the language model augments the graph with new subquestions.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "iterative_stopping",
+          "why": "Повторение идёт до исчерпания графа, а не заданное число раз.",
+          "why_en": "The repetition runs until the graph is exhausted rather than a set number of times."
+        },
+        {
+          "code": "D2",
+          "did": "Накопленный контекст держится в виде катящейся памяти: после каждого подвопроса найденное и ответ пересказываются языковой моделью и сливаются с прежним пересказом.",
+          "did_en": "The accumulated context is held as a rolling memory: after each subquestion what was found and the answer are restated by the language model and merged with the earlier restatement.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "abstractive_compression",
+          "why": "Сокращение идёт пересказом найденного, а не отбором первых k.",
+          "why_en": "The reduction goes by restating what was found rather than by taking the first k."
+        },
+        {
+          "code": "E1",
+          "did": "Ответ складывается из ответов на подвопросы по логике графа зависимостей.",
+          "did_en": "The answer is assembled from the answers to the subquestions by the logic of the dependency graph.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "ensemble_fragments",
+          "why": "Порождение идёт по частям и собирается, а не одним проходом по всему найденному.",
+          "why_en": "Generation goes by parts and is assembled rather than in one pass over everything found."
+        },
+        {
+          "code": "E5",
+          "did": "Извлечение для подвопроса зависит от ответов на его предшественников, а найденное меняет формулировку следующего подвопроса.",
+          "did_en": "Retrieval for a subquestion depends on the answers to its predecessors, and what is found changes the wording of the next subquestion.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "to": "mutual_loop",
+          "why": "Порождённое задаёт следующий поиск, а найденное меняет порождённое.",
+          "why_en": "What was generated sets the next search and what is found changes what was generated."
+        },
+        {
+          "did": "Между подвопросами строится направленный ациклический граф, топологическая сортировка задаёт порядок разрешения, а подвопросы одного ранга сливаются в один запрос.",
+          "did_en": "A directed acyclic graph is built between the subquestions, a topological sort sets the order of resolution, and subquestions of one rank are merged into a single query.",
+          "residual": "query_dependency_ordering",
+          "residual_term": "порядок разрешения подвопросов по их взаимной зависимости",
+          "residual_term_en": "an order of resolving subquestions by their dependence on one another",
+          "source": "arXiv:2508.06105, устройство",
+          "source_en": "arXiv:2508.06105, method",
+          "technology_id": "logicrag",
+          "why": "Преобразование запроса называет разбиение, но не зависимость между частями и не порядок их разрешения.",
+          "why_en": "Query transformation names the splitting but neither the dependence between the parts nor the order of resolving them."
+        }
+      ],
+      "prose_id": "logicrag",
+      "residual": [
+        "порядок разрешения подвопросов по их взаимной зависимости"
+      ],
+      "residual_en": [
+        "an order of resolving subquestions by their dependence on one another"
+      ],
+      "summary": "Граф строится не над корпусом, а над запросом: подвопросы упорядочиваются по зависимости, а найденное держится катящимся пересказом.",
+      "summary_en": "The graph is built not over the corpus but over the query: subquestions are ordered by dependence, and what is found is held as a rolling restatement."
+    },
+    {
+      "aliases": [],
+      "attention": 0.218,
       "attention_cohort": "2025",
       "attention_raw": 0.062,
       "confidence": 1.0,
@@ -8927,7 +9581,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.231,
+      "attention": 2.812,
       "attention_cohort": "2025",
       "attention_raw": 0.8,
       "confidence": 1.0,
@@ -9390,7 +10044,7 @@
     },
     {
       "aliases": [],
-      "attention": 2.565,
+      "attention": 5.859,
       "attention_cohort": "2025",
       "attention_raw": 1.667,
       "confidence": 1.0,
@@ -9889,7 +10543,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.077,
+      "attention": 2.46,
       "attention_cohort": "2025",
       "attention_raw": 0.7,
       "confidence": 1.0,
@@ -11263,7 +11917,7 @@
     },
     {
       "aliases": [],
-      "attention": 1.282,
+      "attention": 2.928,
       "attention_cohort": "2025",
       "attention_raw": 0.833,
       "barriers": "Общее препятствие состоит в управлении тем, как память меняется со временем, и оно распадается на четыре части.\n\nЗаписи нужно сводить в обобщённые и удалять устаревшие, а для этого требуется правило, по которому запись признаётся устаревшей. Между сохранёнными записями возникают противоречия, потому что положение дел меняется, и нужен порядок их разрешения. При многократном пересмотре смысл сохранённого постепенно смещается, и запись перестаёт означать то, ради чего заводилась. Наконец, поиск по изменяющейся памяти нарушает предположение, на котором стоит приближённый поиск ближайших соседей: указатель строится в расчёте на неподвижные векторы.",
@@ -13373,7 +14027,7 @@
     },
     {
       "aliases": [],
-      "attention": 0.414,
+      "attention": 0.946,
       "attention_cohort": "2025",
       "attention_raw": 0.269,
       "barriers": "Главная проблема состоит в оценке уверенности. Первая подпроблема заключается в надёжной оценке уверенности для skip-retrieval, поскольку ложноположительный пропуск ведёт к галлюцинации, а ложноотрицательный пропуск теряет оптимизацию. Вторая подпроблема состоит в избегании регрессии корректности при пропуске retrieval. Третья подпроблема заключается в накладных расходах оркестрации, поскольку параллельные гонки draft и retrieve сложнее простой последовательной схемы.",
@@ -15142,6 +15796,207 @@
       "residual_en": [],
       "summary": "Обход дерева оглавления языковой моделью вместо поиска по векторным представлениям.",
       "summary_en": "A language model descends a table-of-contents tree instead of searching vector representations."
+    },
+    {
+      "aliases": [],
+      "attention": 0.0,
+      "attention_cohort": null,
+      "attention_raw": 0.0,
+      "confidence": 1.0,
+      "configuration": {
+        "A1": "proposition",
+        "A2": "none",
+        "A3": "metadata",
+        "A4": "graph",
+        "A5": "dense_single",
+        "A6": "snapshot",
+        "A7": "text",
+        "A8": "extracted",
+        "B1": "identity",
+        "B2": "static",
+        "C1": "graph_traversal",
+        "C2": "single_shot",
+        "C3": "none",
+        "C4": "multiple_local",
+        "D1": "none",
+        "D2": "top_k",
+        "D3": "natural_order",
+        "E1": "single_pass",
+        "E2": "none",
+        "E3": "none",
+        "E4": "no_refusal",
+        "E5": "none",
+        "F1": "consolidating",
+        "F2": "explicit_reconciliation",
+        "F3": "none",
+        "G1": "open",
+        "G2": "server",
+        "G3": "trained_reader"
+      },
+      "configuration_inapplicable": [],
+      "configuration_reviewed": "2026-09-01",
+      "configuration_variable": [],
+      "description": "VoiceMem отвечает на два ограничения живого разговора голосом. Первое временное: обычная цепочка обращения к памяти занимает две или три секунды, тогда как естественная смена реплик оставляет на добавку сто или двести миллисекунд. Второе ёмкостное: голосовая модель не удержит сотню найденных записей, а выбор пяти из плотного и однообразного набора легко промахивается, потому что одна и та же сущность занимает всю выдачу разными неважными упоминаниями.\n\nПамять разделена надвое. Левая половина помнит, что происходило: над хранилищем надстроен указатель из схем для грубой маршрутизации и сущностей для точного попадания, связанных между собой. Правая половина помнит, кто перед системой: устойчивые свойства человека и его отношение к конкретным людям и предметам, причём отношение хранится отдельно от свойства, иначе разовая вспышка чувства превратилась бы в черту характера.\n\nЗадержку снимает порядок работы. Пока человек говорит, по частичной расшифровке уже идёт сопоставление схем и сущностей; на паузе в двести миллисекунд достраивается окрестность в обеих половинах; и только последние сто миллисекунд уходят на поиск внутри отобранного, а не по всей памяти. После реплики обновляющая часть извлекает новые сведения и сводит их с соседними записями действиями «добавить», «изменить», «удалить» и «оставить». Речевые модели при этом дообучаются перегонкой от более крупных учителей.",
+      "description_en": "VoiceMem answers two limits of a live conversation by voice. The first is of time: an ordinary chain of consulting memory takes two or three seconds, whereas a natural changing of turns leaves a hundred or two hundred milliseconds to add. The second is of capacity: a speech model will not hold a hundred found entries, and choosing five from a dense and uniform set misses easily, because one and the same entity takes the whole yield with differing unimportant mentions.\n\nThe memory is divided in two. The left half remembers what happened: above the store an index is built of schemas for coarse routing and entities for precise landing, linked to one another. The right half remembers who is before the system: the stable properties of the person and their attitude to particular people and things, with the attitude held apart from the property, or a single flare of feeling would turn into a trait of character.\n\nThe delay is removed by the order of the work. While the person speaks, the matching of schemas and entities already runs over a partial transcript; in the pause of two hundred milliseconds the neighbourhood is built out in both halves; and only the last hundred milliseconds go on searching within what was selected rather than over the whole memory. After the turn the updating part extracts new material and reconciles it with neighbouring entries by the operations of add, update, delete and keep. The speech models are meanwhile further trained by distillation from larger teachers.",
+      "evidence": [
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2608.26005",
+          "type": "publication",
+          "value": "arXiv:2608.26005 (2026)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7204606869",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 2,
+      "family": null,
+      "first_published": "2026-08",
+      "groups": [
+        "A",
+        "C",
+        "F"
+      ],
+      "id": "voicemem",
+      "kind": "architecture",
+      "level": "L1",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1"
+        ]
+      },
+      "links": [
+        {
+          "kind": "preprint",
+          "label": null,
+          "label_en": null,
+          "status": "needs_review",
+          "url": "https://arxiv.org/abs/2608.26005",
+          "verified_at": null
+        }
+      ],
+      "name": "VoiceMem",
+      "package": null,
+      "parse_notes": [
+        {
+          "code": "A4",
+          "did": "Над хранилищем памяти надстроен указатель из двух уровней: схемы для грубой смысловой маршрутизации и сущности для точного попадания, со связями между сущностями и между схемами.",
+          "did_en": "Above the memory store an index of two levels is built: schemas for coarse semantic routing and entities for precise landing, with links between entities and between schemas.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "to": "graph",
+          "why": "Записан граф; двухуровневость указателя видна из связей обоих родов.",
+          "why_en": "A graph is recorded; the two levels of the index show in the links of both kinds."
+        },
+        {
+          "code": "A7",
+          "did": "Взаимодействие идёт голосом, но единицами памяти служат извлечённые словесные утверждения, а речь приходит распознанной в текст.",
+          "did_en": "The interaction goes by voice, but the units of memory are extracted verbal statements, and speech arrives recognised into text.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "to": "text",
+          "why": "Модальность спрашивается о единице, а не о способе общения. Записывать звук значило бы утверждать, что хранится звук.",
+          "why_en": "The modality is asked of the unit and not of the manner of communication. Recording audio would assert that audio is stored."
+        },
+        {
+          "code": "C4",
+          "did": "Хранилищ два и они устроены по-разному: левое полушарие держит события и сущности, правое держит устойчивые свойства человека и его отношение к людям и предметам.",
+          "did_en": "There are two stores and they are made differently: the left brain holds events and entities, the right holds the stable properties of the person and their attitude to people and things.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "to": "multiple_local",
+          "why": "Оба принадлежат системе и опрашиваются порознь, а выдачи складываются в одну подсказку.",
+          "why_en": "Both belong to the system and are asked separately, and their yields are put into one prompt."
+        },
+        {
+          "code": "F2",
+          "did": "После каждой реплики обновляющая часть извлекает новые сведения и сводит их с соседними записями действиями «добавить», «изменить», «удалить» и «оставить».",
+          "did_en": "After every turn the updating part extracts new material and reconciles it with neighbouring entries by the operations of add, update, delete and keep.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "to": "explicit_reconciliation",
+          "why": "Противоречие разрешается отдельным сведением, а не по времени и не по надёжности источника. Значение схемы прежде не занимала ни одна запись.",
+          "why_en": "A contradiction is resolved by a separate reconciliation and not by time or by the reliability of a source. No record had occupied this value of the schema before."
+        },
+        {
+          "code": "G3",
+          "did": "Речевые модели дообучаются перегонкой от проприетарных учителей на построенном мире памяти синтетических пользователей.",
+          "did_en": "The speech models are further trained by distillation from proprietary teachers on a constructed memory world of synthetic users.",
+          "residual_term": null,
+          "residual_term_en": null,
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "to": "trained_reader",
+          "why": "Обучается читающая модель, а извлекатель остаётся неизменным.",
+          "why_en": "The reading model is trained while the retriever stays untouched."
+        },
+        {
+          "did": "Сопоставление схем и сущностей идёт по частичной расшифровке, пока человек ещё говорит, расширение графа выполняется в паузе на двухстах миллисекундах, и к моменту ответа остаётся только поиск в отобранном.",
+          "did_en": "The matching of schemas and entities runs over a partial transcript while the person is still speaking, the expansion of the graph is done in the pause at two hundred milliseconds, and by the time of the reply only the search within what was selected is left.",
+          "residual": "anticipatory_streaming_retrieval",
+          "residual_term": "извлечение, начатое до конца запроса",
+          "residual_term_en": "retrieval begun before the query has ended",
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "why": "Управление обходом говорит, сколько раз система обращается к указателю, но не когда обращение происходит относительно запроса.",
+          "why_en": "Traversal control says how many times the system consults the index but not when the consultation happens relative to the query."
+        },
+        {
+          "did": "Из частичной расшифровки речи выделяются схемы и сущности, и найденное служит точкой входа в указатель.",
+          "did_en": "Schemas and entities are drawn out of the partial transcript of speech, and what is found serves as the entry point into the index.",
+          "residual": "query_entity_extraction",
+          "residual_term": "извлечение именованных сущностей из запроса",
+          "residual_term_en": "named entity extraction from the query",
+          "source": "arXiv:2608.26005, устройство",
+          "source_en": "arXiv:2608.26005, method",
+          "technology_id": "voicemem",
+          "why": "Преобразование запроса описывает переписывание, а не разбор на точки входа.",
+          "why_en": "Query transformation describes rewriting and not a decomposition into entry points."
+        }
+      ],
+      "prose_id": "voicemem",
+      "residual": [
+        "извлечение именованных сущностей из запроса",
+        "извлечение, начатое до конца запроса"
+      ],
+      "residual_en": [
+        "named entity extraction from the query",
+        "retrieval begun before the query has ended"
+      ],
+      "summary": "Память голосового собеседника в двух половинах, с поиском, начатым до конца реплики: к паузе остаётся только выбрать из отобранного.",
+      "summary_en": "The memory of a voice companion in two halves, with the search begun before the turn ends: by the pause only the choosing from what was selected is left."
     },
     {
       "aliases": [],

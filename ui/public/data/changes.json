@@ -1032,6 +1032,112 @@
       "technology_id": "ledgermind"
     },
     {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2509.24276",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415336418",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2509.24276",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "G-reasoner",
+      "technology_id": "g_reasoner"
+    },
+    {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2502.01113",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4407129024",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "GFM-RAG",
+      "technology_id": "gfm_rag"
+    },
+    {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2508.06105",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415192589",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L2",
+      "level_before": null,
+      "name": "LogicRAG",
+      "technology_id": "logicrag"
+    },
+    {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2608.26005",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7204606869",
+          "type": "publication"
+        }
+      ],
+      "kind": "added",
+      "level_after": "L1",
+      "level_before": null,
+      "name": "VoiceMem",
+      "technology_id": "voicemem"
+    },
+    {
+      "changed_at": "2026-09-01",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2508.06105",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4415192589",
+          "type": "publication"
+        },
+        {
+          "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+          "type": "publication"
+        },
+        {
+          "source": "https://github.com/chensyCN/LogicRAG",
+          "type": "repository"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L3",
+      "level_before": "L2",
+      "name": "LogicRAG",
+      "technology_id": "logicrag"
+    },
+    {
       "changed_at": "2026-08-14",
       "evidence": [
         {

@@ -3,6 +3,79 @@
   "candidate_threshold": 3,
   "mechanisms": [
     {
+      "candidate": true,
+      "count": 4,
+      "id": "query_entity_extraction",
+      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
+      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing.",
+      "technologies": [
+        {
+          "id": "gfm_rag",
+          "name": "GFM-RAG"
+        },
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        },
+        {
+          "id": "magma",
+          "name": "MAGMA"
+        },
+        {
+          "id": "voicemem",
+          "name": "VoiceMem"
+        }
+      ],
+      "term": "извлечение именованных сущностей из запроса",
+      "term_en": "named entity extraction from the query"
+    },
+    {
+      "candidate": true,
+      "count": 3,
+      "id": "score_transfer_to_units",
+      "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
+      "note_en": "One structure is ranked and a different one is returned. Neither the search operator (C1) nor reranking (D1) expresses that transition.",
+      "technologies": [
+        {
+          "id": "gfm_rag",
+          "name": "GFM-RAG"
+        },
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        },
+        {
+          "id": "rag_as_memory",
+          "name": "RAG as Memory"
+        }
+      ],
+      "term": "перенос оценок узлов на единицы извлечения",
+      "term_en": "transfer of node scores onto retrieval units"
+    },
+    {
+      "candidate": true,
+      "count": 3,
+      "id": "synonymy_edges",
+      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
+      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts.",
+      "technologies": [
+        {
+          "id": "gfm_rag",
+          "name": "GFM-RAG"
+        },
+        {
+          "id": "hipporag",
+          "name": "HippoRAG"
+        },
+        {
+          "id": "magma",
+          "name": "MAGMA"
+        }
+      ],
+      "term": "рёбра синонимии между узлами индекса",
+      "term_en": "synonymy edges between index nodes"
+    },
+    {
       "candidate": false,
       "count": 2,
       "id": "lexical_rule_routing",
@@ -20,44 +93,6 @@
       ],
       "term": "выбор пути обработки по словарным правилам над текстом запроса",
       "term_en": "the processing path chosen by lexical rules over the text of the query"
-    },
-    {
-      "candidate": false,
-      "count": 2,
-      "id": "query_entity_extraction",
-      "note": "Запрос не переформулируется, а разбирается на опорные точки индекса. Преобразование запроса (B1) описывает переписывание, а не разбор.",
-      "note_en": "The query is not rewritten but taken apart into entry points for the index. Query transformation (B1) describes rewriting, not parsing.",
-      "technologies": [
-        {
-          "id": "hipporag",
-          "name": "HippoRAG"
-        },
-        {
-          "id": "magma",
-          "name": "MAGMA"
-        }
-      ],
-      "term": "извлечение именованных сущностей из запроса",
-      "term_en": "named entity extraction from the query"
-    },
-    {
-      "candidate": false,
-      "count": 2,
-      "id": "score_transfer_to_units",
-      "note": "Ранжируется одна структура, а возвращается другая. Ни оператор поиска (C1), ни переранжирование (D1) этого перехода не выражают.",
-      "note_en": "One structure is ranked and a different one is returned. Neither the search operator (C1) nor reranking (D1) expresses that transition.",
-      "technologies": [
-        {
-          "id": "hipporag",
-          "name": "HippoRAG"
-        },
-        {
-          "id": "rag_as_memory",
-          "name": "RAG as Memory"
-        }
-      ],
-      "term": "перенос оценок узлов на единицы извлечения",
-      "term_en": "transfer of node scores onto retrieval units"
     },
     {
       "candidate": false,
@@ -81,21 +116,21 @@
     {
       "candidate": false,
       "count": 2,
-      "id": "synonymy_edges",
-      "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
-      "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts.",
+      "id": "learned_relevance_propagation",
+      "note": "Оператор поиска (C1) говорит, что структура обходится, но не то, по какому правилу вес расходится по вершинам. Случайное блуждание и обученная передача сообщений дают на одном графе разные ответы, а обучаемость компонентов (G3) говорит лишь о том, что извлекатель обучен, не называя, что именно обучено делать.",
+      "note_en": "The search operator (C1) says the structure is walked but not by what rule weight spreads across the nodes. A random walk and a trained message passing give different answers on one graph, while the trainability of components (G3) says only that the retriever is trained and does not name what it was trained to do.",
       "technologies": [
         {
-          "id": "hipporag",
-          "name": "HippoRAG"
+          "id": "g_reasoner",
+          "name": "G-reasoner"
         },
         {
-          "id": "magma",
-          "name": "MAGMA"
+          "id": "gfm_rag",
+          "name": "GFM-RAG"
         }
       ],
-      "term": "рёбра синонимии между узлами индекса",
-      "term_en": "synonymy edges between index nodes"
+      "term": "распространение значимости по графу обученной моделью",
+      "term_en": "propagation of relevance over the graph by a trained model"
     },
     {
       "candidate": false,
@@ -130,6 +165,21 @@
       ],
       "term": "жизненный цикл состояния внутри одного разбора запроса",
       "term_en": "a lifecycle of state inside the handling of a single query"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "anticipatory_streaming_retrieval",
+      "note": "Управление обходом (C2) говорит, сколько раз система обращается к указателю, но не то, когда обращение происходит относительно запроса. Здесь сопоставление и расширение идут, пока говорящий ещё говорит, и к моменту паузы остаётся только поиск в отобранном, отчего задержка ответа почти не растёт.",
+      "note_en": "Traversal control (C2) says how many times the system consults the index but not when the consultation happens relative to the query. Here matching and expansion run while the speaker is still speaking, and by the pause only the search within what was selected is left, so the delay before the reply barely grows.",
+      "technologies": [
+        {
+          "id": "voicemem",
+          "name": "VoiceMem"
+        }
+      ],
+      "term": "извлечение, начатое до конца запроса",
+      "term_en": "retrieval begun before the query has ended"
     },
     {
       "candidate": false,
@@ -175,6 +225,21 @@
       ],
       "term": "несколько режимов работы с разной конфигурацией",
       "term_en": "several operating modes with differing configurations"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "layered_typed_graph",
+      "note": "Топология указателя (A4) называет вид структуры, но не то, что узлы бывают разного рода и уложены слоями с переходами между ними: признак, сущность, документ, сообщество. Прочтение «граф» уравнивает такой указатель с графом, у которого узлы однородны, и теряет то, что выдача берётся по слоям разной крупности.",
+      "note_en": "Index topology (A4) names the kind of structure but not that nodes come in differing kinds laid out in layers with passages between them: attribute, entity, document, community. Reading it as «graph» equates such an index with one whose nodes are uniform and loses that the yield is taken by layers of differing grain.",
+      "technologies": [
+        {
+          "id": "g_reasoner",
+          "name": "G-reasoner"
+        }
+      ],
+      "term": "несколько слоёв узлов разного рода под одним указателем",
+      "term_en": "several layers of nodes of differing kinds under one index"
     },
     {
       "candidate": false,
@@ -265,6 +330,21 @@
       ],
       "term": "порядок подачи, взятый из связи, которую выбрало намерение запроса",
       "term_en": "an assembly order taken from the relation the query intent selected"
+    },
+    {
+      "candidate": false,
+      "count": 1,
+      "id": "query_dependency_ordering",
+      "note": "Преобразование запроса (B1) называет разбиение на подвопросы, но не то, что между ними строится граф зависимостей и что топологическая сортировка задаёт порядок, в котором они разрешаются, так что ответ на один подвопрос входит в формулировку следующего.",
+      "note_en": "Query transformation (B1) names the splitting into subquestions but not that a graph of dependencies is built between them and that a topological sort sets the order in which they are resolved, so that the answer to one subquestion enters the wording of the next.",
+      "technologies": [
+        {
+          "id": "logicrag",
+          "name": "LogicRAG"
+        }
+      ],
+      "term": "порядок разрешения подвопросов по их взаимной зависимости",
+      "term_en": "an order of resolving subquestions by their dependence on one another"
     },
     {
       "candidate": false,

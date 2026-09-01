@@ -130,6 +130,11 @@ MUTATIONS: tuple[Mutation, ...] = (
              '{"method": method, "published_after": published_after.isoformat()}',
              '{"q": method}'),
 
+    Mutation("services/collectors/openalex.py",
+             "the archive is not named as the venue of a reviewed work",
+             'named = "" if _is_preprint_venue(best_name) else best_name',
+             "named = best_name"),
+
     # ── The checks of the collection stage ──────────────────────────────────
     Mutation("services/collectors/s5.py", "the lower bound on a year",
              "MIN_YEAR = 1900", "MIN_YEAR = 0"),
