@@ -39,201 +39,6 @@
       "verdict": null
     },
     {
-      "abstract": "Long-term memory systems store what a user says in an external store and retrieve it when a related query arrives. This interface rests on an assumption so natural that it is rarely stated: a memory that is needed will resemble the query that needs it. World knowledge breaks the assumption. A tree-nut allergy should change the answer to a macaron request through their almond-flour ingredient, yet the two texts share no cue a retriever can see.",
-      "arxiv_id": "2607.24368",
-      "citations": 0,
-      "fit": {
-        "score": 7,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 3
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-27",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.24368",
-      "tasks": [
-        "agents",
-        "retrieval"
-      ],
-      "title": "Keep It InMind: Benchmarking the Implicit-Association Blind Spot in Agent Memory",
-      "verdict": null
-    },
-    {
-      "abstract": "Speech-based applications pass spoken queries through automatic speech recognition (ASR) before any retrieval module, so ASR errors enter the pipeline as a fixed upstream constraint. We empirically test whether two extensions to standard retrieval-augmented generation (RAG), entity-graph linking and iterative reformulation, absorb or amplify these errors.",
-      "arxiv_id": "2608.22872",
-      "citations": 0,
-      "curated_by": [],
-      "fit": {
-        "score": 6,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "nearTask",
-            "tasks": [
-              "question-answering"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-31",
-      "published": "2026-08-24",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.22872",
-      "tasks": [
-        "automatic-speech-recognition",
-        "question-answering",
-        "retrieval"
-      ],
-      "title": "Better Retrieval, Worse Robustness:How Multi-hop RAG Amplifies Upstream ASR Errors",
-      "verdict": null
-    },
-    {
-      "abstract": "The web is increasingly accessed by AI agents rather than humans. Every agent needs knowledge, especially in the life-sciences, where agentic pipelines are growing fast. Access to the literature is a crucial part of that need, and resources such as Europe PMC, with over 40M indexed records, are widely used to meet it.",
-      "arxiv_id": "2607.28229",
-      "citations": 0,
-      "fit": {
-        "score": 6,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents",
-              "question-answering"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28229",
-      "tasks": [
-        "agents",
-        "question-answering",
-        "retrieval"
-      ],
-      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Modern Greek is absent from NVIDIA's Nemotron retrieval models and from major multilingual retrieval benchmarks, despite being important for retrieval-augmented generation (RAG) in legal, energy, financial, and medical applications. We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmark called HERA.",
-      "arxiv_id": "2608.05138",
-      "citations": 0,
-      "fit": {
-        "score": 5,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 5
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-08-05",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.05138",
-      "tasks": [
-        "retrieval"
-      ],
-      "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
-      "verdict": null
-    },
-    {
-      "abstract": "Chemistry literature synthesis often requires assembling specific findings scattered across many publications, yet existing literature-search systems primarily return ranked document lists. As a result, scientists and AI agents need to locate relevant information, verify their provenance, and assemble cross-paper answers manually. We present AskChem, a claim-centered infrastructure for cross-paper chemistry search.",
-      "arxiv_id": "2607.28618",
-      "citations": 0,
-      "fit": {
-        "score": 5,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents"
-            ]
-          },
-          {
-            "code": "named"
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 3
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.28618",
-      "tasks": [
-        "agents"
-      ],
-      "title": "AskChem: Claim-Centered Infrastructure for Chemistry Literature Synthesis",
-      "verdict": null
-    },
-    {
-      "abstract": "Retrieval-augmented generation (RAG) spans lexical and dense retrieval, graph-based indexing, and agentic search, but these paradigms are usually evaluated on different benchmarks at one corpus size, leaving their accuracy-cost scaling unclear. To bridge this gap, we present a controlled study that varies corpus size along 28 strictly nested tiers spanning roughly 450-fold, while holding questions and a fixed bedrock of relevant and adversarial documents unchanged.",
-      "arxiv_id": "2607.26497",
-      "citations": 0,
-      "fit": {
-        "score": 5,
-        "signals": [
-          {
-            "code": "coreTask",
-            "tasks": [
-              "retrieval"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 5
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-30",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.26497",
-      "tasks": [
-        "reinforcement-learning",
-        "retrieval"
-      ],
-      "title": "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms",
-      "verdict": null
-    },
-    {
       "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
       "arxiv_id": "2510.10114",
       "citations": null,
@@ -399,39 +204,6 @@
       "verdict": null
     },
     {
-      "abstract": "Efficiently processing and interpreting network data is critical for the operation of increasingly complex networks. Recent advances in Large Language Models (LLM) and Retrieval-Augmented Generation (RAG) techniques have improved data processing in network management. However, existing RAG methods like VectorRAG and GraphRAG struggle with the complexity and implicit nature of semi-structured technical data, leading to inefficiencies in time, cost, and retrieval.",
-      "arxiv_id": "2411.13773",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 5,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 3
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-11-21",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2411.13773",
-      "tasks": [],
-      "title": "FastRAG: Retrieval Augmented Generation for Semi-structured Data",
-      "verdict": null
-    },
-    {
       "abstract": "Large language models (LLMs) have demonstrated impressive reasoning abilities, but they still struggle with faithful reasoning due to knowledge gaps and hallucinations. To address these issues, knowledge graphs (KGs) have been utilized to enhance LLM reasoning through their structured knowledge. However, existing KG-enhanced methods, either retrieval-based or agent-based, encounter difficulties in accurately retrieving knowledge and efficiently traversing KGs at scale.",
       "arxiv_id": "2410.13080",
       "citations": null,
@@ -462,35 +234,6 @@
       "source": "https://arxiv.org/abs/2410.13080",
       "tasks": [],
       "title": "Graph-constrained Reasoning: Faithful Reasoning on Knowledge Graphs with Large Language Models",
-      "verdict": null
-    },
-    {
-      "abstract": "Turning a research idea into a complete paper requires more than text generation: the system must retrieve literature, design and execute experiments, revise claims according to evidence, produce publication-ready figures, and maintain consistency across a long generation process.",
-      "arxiv_id": "2608.11924",
-      "citations": 0,
-      "curated_by": [],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "language-modeling"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-17",
-      "published": "2026-08-12",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.11924",
-      "tasks": [
-        "language-modeling"
-      ],
-      "title": "Spark-to-Paper: End-to-End Research Paper Generation as a Composable Skill",
       "verdict": null
     },
     {
@@ -756,35 +499,6 @@
       "verdict": null
     },
     {
-      "abstract": "Retrieval-augmented generation (RAG) is a well-suited technique for retrieving privacy-sensitive Electronic Health Records (EHR). It can serve as a key module of the healthcare copilot, helping reduce misdiagnosis for healthcare practitioners and patients. However, the diagnostic accuracy and specificity of existing heuristic-based RAG models used in the medical domain are inadequate, particularly for diseases with similar manifestations.",
-      "arxiv_id": "2502.04413",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-02-06",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2502.04413",
-      "tasks": [],
-      "title": "MedRAG: Enhancing Retrieval-augmented Generation with Knowledge Graph-Elicited Reasoning for Healthcare Copilot",
-      "verdict": null
-    },
-    {
       "abstract": "Retrieval-augmented generation (RAG) has proven effective in integrating knowledge into large language models (LLMs). However, conventional RAGs struggle to capture complex relationships between pieces of knowledge, limiting their performance in intricate reasoning that requires integrating knowledge from multiple sources.",
       "arxiv_id": "2502.01113",
       "citations": null,
@@ -872,35 +586,6 @@
       "verdict": null
     },
     {
-      "abstract": "GraphRAG integrates (knowledge) graphs with large language models (LLMs) to improve reasoning accuracy and contextual relevance. Despite its promising applications and strong relevance to multiple research communities, such as databases and natural language processing, GraphRAG currently lacks modular workflow analysis, systematic solution frameworks, and insightful empirical studies.",
-      "arxiv_id": "2411.05844",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-11-06",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2411.05844",
-      "tasks": [],
-      "title": "LEGO-GraphRAG: Modularizing Graph-based Retrieval-Augmented Generation for Design Space Exploration",
-      "verdict": null
-    },
-    {
       "abstract": "Large Language Models (LLMs) have shown remarkable reasoning capabilities on complex tasks, but they still suffer from out-of-date knowledge, hallucinations, and opaque decision-making. In contrast, Knowledge Graphs (KGs) can provide explicit and editable knowledge for LLMs to alleviate these issues. Existing paradigm of KG-augmented LLM manually predefines the breadth of exploration space and requires flawless navigation in KGs.",
       "arxiv_id": "2410.23875",
       "citations": null,
@@ -927,35 +612,6 @@
       "source": "https://arxiv.org/abs/2410.23875",
       "tasks": [],
       "title": "Plan-on-Graph: Self-Correcting Adaptive Planning of Large Language Model on Knowledge Graphs",
-      "verdict": null
-    },
-    {
-      "abstract": "The increasing reliance on Large Language Models (LLMs) for health information seeking can pose severe risks due to the potential for misinformation and the complexity of these topics. This paper introduces KNOWNET a visualization system that integrates LLMs with Knowledge Graphs (KG) to provide enhanced accuracy and structured exploration.",
-      "arxiv_id": "2407.13598",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 4,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "named"
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-07-18",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2407.13598",
-      "tasks": [],
-      "title": "KNOWNET: Guided Health Information Seeking from LLMs via Knowledge Graph Integration",
       "verdict": null
     },
     {
@@ -1009,96 +665,6 @@
       "source": "https://paperswithcode.co/api/v1/papers/2607.25180",
       "tasks": [],
       "title": "Bekko Embedding: Parameter-Efficient Multilingual Retrieval with Ultra-Compact Encoders",
-      "verdict": null
-    },
-    {
-      "abstract": "Graph-based Retrieval-Augmented Generation (GraphRAG) enhances Large Language Models (LLMs) by incorporating external knowledge from linearized subgraphs retrieved from knowledge graphs. However, LLMs struggle to interpret the relational and topological information in these inputs, resulting in hallucinations that are inconsistent with the retrieved knowledge.",
-      "arxiv_id": "2512.09148",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 3,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 3
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-12-09",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2512.09148",
-      "tasks": [],
-      "title": "Detecting Hallucinations in Graph Retrieval-Augmented Generation via Attention Patterns and Semantic Alignment",
-      "verdict": null
-    },
-    {
-      "abstract": "We propose a novel framework for persona-based language model system, motivated by the need for personalized AI agents that adapt to individual user preferences. In our approach, the agent embodies the user's \"persona\" (e.g. user profile or taste) and is powered by a large language model (LLM).",
-      "arxiv_id": "2511.17467",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 3,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 3
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-11-21",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2511.17467",
-      "tasks": [],
-      "title": "PersonaAgent with GraphRAG: Community-Aware Knowledge Graphs for Personalized LLM",
-      "verdict": null
-    },
-    {
-      "abstract": "Retrieval-Augmented Generation (RAG) systems combine Large Language Models (LLMs) with external knowledge, and their performance depends heavily on how that knowledge is represented. This study investigates how different Knowledge Graph (KG) construction strategies influence RAG performance. We compare a variety of approaches: standard vector-based RAG, GraphRAG, and retrieval over KGs built from ontologies derived either from relational databases or textual corpora.",
-      "arxiv_id": "2511.05991",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 3,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          },
-          {
-            "code": "mechanismWeak",
-            "count": 4
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-11-08",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2511.05991",
-      "tasks": [],
-      "title": "Ontology Learning and Knowledge Graph Construction: A Comparison of Approaches and Their Impact on RAG Performance",
       "verdict": null
     },
     {
@@ -1239,32 +805,6 @@
       "verdict": null
     },
     {
-      "abstract": "Accurate healthcare prediction is critical for improving patient outcomes and reducing operational costs. Bolstered by growing reasoning capabilities, large language models (LLMs) offer a promising path to enhance healthcare predictions by drawing on their rich parametric knowledge. However, LLMs are prone to factual inaccuracies due to limitations in the reliability and coverage of their embedded knowledge.",
-      "arxiv_id": "2511.13293",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2025-11-17",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2511.13293",
-      "tasks": [],
-      "title": "Grounded by Experience: Generative Healthcare Prediction Augmented with Hierarchical Agentic Retrieval",
-      "verdict": null
-    },
-    {
       "abstract": "Large language models (LLMs) often suffer from hallucination, generating factually incorrect statements when handling questions beyond their knowledge and perception. Retrieval-augmented generation (RAG) addresses this by retrieving query-relevant contexts from knowledge bases to support LLM reasoning. Recent advances leverage pre-constructed graphs to capture the relational connections among distributed documents, showing remarkable performance in complex tasks.",
       "arxiv_id": "2508.06105",
       "citations": null,
@@ -1343,84 +883,6 @@
       "verdict": null
     },
     {
-      "abstract": "Retrieval-augmented generation (RAG) is a powerful technique that enhances downstream task execution by retrieving additional information, such as knowledge, skills, and tools from external sources. Graph, by its intrinsic \"nodes connected by edges\" nature, encodes massive heterogeneous and relational information, making it a golden resource for RAG in tremendous real-world applications.",
-      "arxiv_id": "2501.00309",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-12-31",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2501.00309",
-      "tasks": [],
-      "title": "Retrieval-Augmented Generation with Graphs (GraphRAG)",
-      "verdict": null
-    },
-    {
-      "abstract": "Language Models (LMs) are increasingly challenging the dominance of domain-specific models, such as Graph Neural Networks (GNNs) and Graph Transformers (GTs), in graph learning tasks. Following this trend, we propose a novel approach that empowers off-the-shelf LMs to achieve performance comparable to state-of-the-art (SOTA) GNNs on node classification tasks, without requiring any architectural modification.",
-      "arxiv_id": "2410.02296",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-10-03",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2410.02296",
-      "tasks": [],
-      "title": "How to Make LMs Strong Node Classifiers?",
-      "verdict": null
-    },
-    {
-      "abstract": "We introduce a novel graph-based Retrieval-Augmented Generation (RAG) framework specifically designed for the medical domain, called \\textbf{MedGraphRAG}, aimed at enhancing Large Language Model (LLM) capabilities for generating evidence-based medical responses, thereby improving safety and reliability when handling private medical data.",
-      "arxiv_id": "2408.04187",
-      "citations": null,
-      "curated_by": [
-        "Awesome-GraphRAG"
-      ],
-      "fit": {
-        "score": 2,
-        "signals": [
-          {
-            "code": "curatedList",
-            "lists": [
-              "Awesome-GraphRAG"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-13",
-      "published": "2024-08-08",
-      "repositories": [],
-      "source": "https://arxiv.org/abs/2408.04187",
-      "tasks": [],
-      "title": "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
-      "verdict": null
-    },
-    {
       "abstract": "Large Language Models (LLMs) have shown potential in reasoning over structured environments, e.g., knowledge graph and table. Such tasks typically require multi-hop reasoning, i.e., match natural language utterance with instances in the environment. Previous methods leverage LLMs to incrementally build a reasoning path, where the LLMs either invoke tools or pick up schemas by step-by-step interacting with the environment.",
       "arxiv_id": "2403.08593",
       "citations": null,
@@ -1444,43 +906,6 @@
       "source": "https://arxiv.org/abs/2403.08593",
       "tasks": [],
       "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
-      "verdict": null
-    },
-    {
-      "abstract": "Enterprise question answering requires models to acquire proprietary knowledge without discarding general capabilities. We present Wnuan, a three-stage pipeline that constructs task-oriented supervision from documents, performs supervised fine-tuning with general-data replay, and applies reinforcement learning to residual errors.",
-      "arxiv_id": "2608.01862",
-      "citations": 0,
-      "fit": {
-        "score": 1,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "question-answering"
-            ]
-          },
-          {
-            "code": "named"
-          },
-          {
-            "code": "offTask",
-            "tasks": [
-              "instruction-following",
-              "reinforcement-learning"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-08-03",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.01862",
-      "tasks": [
-        "instruction-following",
-        "question-answering",
-        "reinforcement-learning"
-      ],
-      "title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
       "verdict": null
     },
     {
@@ -1516,38 +941,6 @@
         "question-answering"
       ],
       "title": "LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger",
-      "verdict": null
-    },
-    {
-      "abstract": "Economic World Models (EWMs) are generative economic models that simulate how economies evolve from within by modeling heterogeneous agents, their beliefs and actions, and the market and institutional mechanisms through which their interactions produce aggregate outcomes.",
-      "arxiv_id": "2608.06020",
-      "citations": 0,
-      "fit": {
-        "score": 0,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "agents"
-            ]
-          },
-          {
-            "code": "offTask",
-            "tasks": [
-              "world-models"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-08-06",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2608.06020",
-      "tasks": [
-        "agents",
-        "world-models"
-      ],
-      "title": "From Economic Agents to Agentic Economies: A Systems Blueprint for Economic World Models",
       "verdict": null
     },
     {
@@ -1606,71 +999,6 @@
         "reinforcement-learning"
       ],
       "title": "Harness-G: A Graph-Structured Harness for Search Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Modern coding agents are usually evaluated by whether they eventually produce a correct patch, but patch generation depends on an earlier context-acquisition stage: finding the repository files needed for the task. We introduce Agent Retrieval Bench, a file-level benchmark for this upstream retrieval problem.",
-      "arxiv_id": "2607.24882",
-      "citations": 0,
-      "fit": {
-        "score": 0,
-        "signals": [
-          {
-            "code": "mechanismWeak",
-            "count": 5
-          },
-          {
-            "code": "offTask",
-            "tasks": [
-              "coding-agents",
-              "reinforcement-learning"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-27",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.24882",
-      "tasks": [
-        "coding-agents",
-        "reinforcement-learning"
-      ],
-      "title": "Agent Retrieval Bench: Evaluating Repository Context Retrieval for Coding Agents",
-      "verdict": null
-    },
-    {
-      "abstract": "Historical documents act as invaluable knowledge archives but often suffer from illegibility due to physical deterioration and damage. While existing restoration methods based on masked language modeling effectively utilize local context, they struggle to restore named entities that require external historical knowledge.",
-      "arxiv_id": "2607.21936",
-      "citations": 0,
-      "fit": {
-        "score": 0,
-        "signals": [
-          {
-            "code": "nearTask",
-            "tasks": [
-              "document-understanding",
-              "language-modeling"
-            ]
-          },
-          {
-            "code": "offTask",
-            "tasks": [
-              "image-restoration"
-            ]
-          }
-        ]
-      },
-      "found_at": "2026-08-12",
-      "published": "2026-07-24",
-      "repositories": [],
-      "source": "https://paperswithcode.co/api/v1/papers/2607.21936",
-      "tasks": [
-        "document-understanding",
-        "image-restoration",
-        "language-modeling"
-      ],
-      "title": "Leveraging External Knowledge for Historical Document Restoration via Retrieval-Augmented Large Language Models",
       "verdict": null
     }
   ]
