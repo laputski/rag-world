@@ -30,11 +30,25 @@
       "note_en": "What is kept between queries is how the system judged a piece of evidence, not the evidence itself. Write-back (F1) names the kind of material stored but does not distinguish a fact about the world from the system's judgement about that fact."
     },
     {
+      "id": "intent_ordered_context",
+      "ru": "порядок подачи, взятый из связи, которую выбрало намерение запроса",
+      "en": "an assembly order taken from the relation the query intent selected",
+      "note": "Порядок подачи (D3) называет естественный порядок, возрастание надёжности и иерархию. Здесь найденное упорядочивается топологической сортировкой по той связи, которую выбрало намерение: по времени для вопроса «когда», по причинности для вопроса «почему», так что причина стоит раньше следствия. Порядок задаёт не поиск и не оценка надёжности, а сама структура выбранного слоя.",
+      "note_en": "Arrangement (D3) names natural order, ascending reliability and hierarchy. Here what was found is ordered by a topological sort over the relation the intent selected: by time for a «when» question, by causality for a «why» one, so that a cause precedes its effect. The order is set neither by the search nor by an estimate of reliability but by the structure of the selected layer itself."
+    },
+    {
       "id": "language_coherence_ranking",
       "ru": "предпочтение языку запроса при ранжировании",
       "en": "preference for the query's language in ranking",
       "note": "Переранжирование говорит, какой механизм пересматривает порядок, но не по какому признаку помимо относимости. Здесь при равной относимости выше ставится документ на языке запроса, и это свойство схема не выражает.",
       "note_en": "Reranking says which mechanism revisits the order, and not by what criterion besides relevance. Here, at equal relevance, a document in the query's language ranks higher, and the schema does not express that property."
+    },
+    {
+      "id": "lexical_rule_routing",
+      "ru": "выбор пути обработки по словарным правилам над текстом запроса",
+      "en": "the processing path chosen by lexical rules over the text of the query",
+      "note": "Маршрутизация (B2) называет обученный классификатор, языковую модель и политику по стоимости. Здесь путь выбирается перечнем слов и образцов: вопрос со словом «почему» ведёт к одному слою связей, со словом «когда» к другому. Ничего не обучено и никакая модель не вызвана, поэтому записано базовое значение, а сам механизм остаётся здесь.",
+      "note_en": "Routing (B2) names a trained classifier, a language model and a cost-aware policy. Here the path is chosen by a list of words and patterns: a question containing «why» leads to one layer of relations, one containing «when» to another. Nothing is trained and no model is called, so the base value is recorded and the mechanism stays here."
     },
     {
       "id": "llm_scored_partial_answers",
@@ -119,6 +133,13 @@
       "en": "synonymy edges between index nodes",
       "note": "Связи, добавленные по близости представлений, а не извлечённые из текста. Топология индекса (A4) фиксирует род структуры, но не происхождение рёбер.",
       "note_en": "Edges added by similarity of representations rather than extracted from text. Index topology (A4) fixes the kind of structure, and origin of structure (A8) says where it came from, but neither says that some edges are guesses while others are facts."
+    },
+    {
+      "id": "typed_relation_views",
+      "ru": "несколько типов связей как отдельные представления одного набора узлов",
+      "en": "several typed relation views over one and the same set of nodes",
+      "note": "Топология указателя (A4) называет вид структуры, но не то, что структур несколько и они существуют одновременно над одними и теми же узлами: время, причина, сходство и участие сущности образуют раздельные слои рёбер, и запрос выбирает, по какому слою идти. Прочтение «граф» уравнивает такую память с графом, у которого рёбра одного рода.",
+      "note_en": "Index topology (A4) names the kind of structure but not that there are several of them at once over the very same nodes: time, cause, likeness and entity participation form separate layers of edges, and a query picks which layer to walk. Reading it as «graph» equates such a memory with a graph whose edges are all of one kind."
     }
   ]
 }

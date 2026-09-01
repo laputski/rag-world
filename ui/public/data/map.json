@@ -1,6 +1,6 @@
 {
   "built_at": "2026-08-31",
-  "count": 69,
+  "count": 70,
   "levels": [
     "L0",
     "L1",
@@ -791,6 +791,27 @@
       "level": "L1",
       "name": "MA-RAG",
       "prose_id": "ma_rag"
+    },
+    {
+      "attention": null,
+      "attention_cohort": null,
+      "attention_raw": null,
+      "confidence": null,
+      "evidence_basis": null,
+      "first_published": "2026-01",
+      "group": "A",
+      "groups": [
+        "A",
+        "C",
+        "D",
+        "F"
+      ],
+      "history": [],
+      "id": "magma",
+      "kind": "architecture",
+      "level": null,
+      "name": "MAGMA",
+      "prose_id": "magma"
     },
     {
       "attention": null,

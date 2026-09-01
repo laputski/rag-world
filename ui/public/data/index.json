@@ -4,13 +4,13 @@
   "datasets": [
     {
       "description": "Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.",
-      "records": 69,
+      "records": 70,
       "records_at": "technologies",
       "url": "https://ragworld.org/data/registry.json"
     },
     {
       "description": "Maturity level against attention for every record, as plotted on the maturity map.",
-      "records": 69,
+      "records": 70,
       "records_at": "points",
       "url": "https://ragworld.org/data/map.json"
     },
@@ -26,7 +26,7 @@
     },
     {
       "description": "Mechanisms recorded as not expressible in the current schema, with the records that raised each one. Three mentions make a mechanism a candidate for a new dimension.",
-      "records": 17,
+      "records": 20,
       "records_at": "mechanisms",
       "url": "https://ragworld.org/data/residuals.json"
     },
@@ -107,7 +107,7 @@
   },
   "site": "https://ragworld.org",
   "sitemap": "https://ragworld.org/sitemap.xml",
-  "technologies": 69,
+  "technologies": 70,
   "technology": {
     "description": "One registry record on its own, in the same shape as a row of registry.json. Use it when a single technology is wanted: the full registry costs eighty times more.",
     "url_template": "https://ragworld.org/data/tech/{id}.json"
@@ -143,6 +143,7 @@
     "late_chunking",
     "lightrag",
     "ma_rag",
+    "magma",
     "memorag",
     "msft_graphrag",
     "multi_query",
