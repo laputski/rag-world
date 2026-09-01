@@ -10,7 +10,7 @@ No key and no account is required anywhere. A hosting token is used when one is 
 
 | Resource | Address | What is taken |
 | --- | --- | --- |
-| Preprints | `http://export.arxiv.org/api/query` | Confirms that a preprint exists and compares its title with the one claimed. Yields the level L1. |
+| Preprints | `http://export.arxiv.org/api/query` | Confirms that a preprint exists and compares its title with the one claimed. Yields the level L1. The same address is asked a second way, for discovery: a feed by category and by the phrases that name the subject, of which only work that names itself in its title is taken. This is the one route that does not wait for somebody else to have classified a work first. |
 | The open index of works | `https://api.openalex.org` | The publication venue, whether it was peer-reviewed, the citation count and the citation velocity. Yields the level L2 by the scholarly route, and all the attention shown on the map. |
 | Repositories | `https://api.github.com` | The licence, the date of the last edit, whether releases exist. Yields the level L3. The same address serves the integration listings below. |
 | The package index | `https://pypi.org/pypi` | That a package exists, and its version. It is asked only where the package name was written down by a person: guessing is inadmissible, because somebody else's package with a similar name would yield false evidence. |

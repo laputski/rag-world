@@ -401,6 +401,23 @@ MUTATIONS: tuple[Mutation, ...] = (
              '<meta property="og:image" content="https://ragworld.org/og-image.png" />',
              ""),
 
+    # ── The third route of discovery ────────────────────────────────────────
+    Mutation("services/collectors/arxiv_feed.py",
+             "only work that names itself is taken from the feed",
+             "if not _NAMED.match(title):", "if False:"),
+    Mutation("services/collectors/arxiv_feed.py",
+             "an unnamed work is a discard and not a refusal",
+             'discarded.append(f"the work does not name itself',
+             'problems.append(f"the work does not name itself'),
+    Mutation("services/collectors/arxiv_feed.py",
+             "truncation is reported only where it hides work",
+             "if not reached_the_edge and len(entries) >= max_results:",
+             "if len(entries) >= max_results:"),
+    Mutation("services/collectors/arxiv_feed.py",
+             "the phrases are searched in the abstract, not in the whole record",
+             'terms = " OR ".join(f\'abs:"{p}"\' for p in phrases)',
+             'terms = " OR ".join(f\'all:"{p}"\' for p in phrases)'),
+
     # ── What a source refused and what a check dropped ─────────────────────
     Mutation("services/collectors/paperswithcode.py",
              "a work dropped by the window is not a refusal",

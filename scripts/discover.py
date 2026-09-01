@@ -199,7 +199,23 @@ def run(
     if listed_problems:
         summary.failures["curated_lists"] += len(listed_problems)
     curated_source = {paper.arxiv_id for paper in listed}
-    papers = papers + listed
+
+    # The third route: the archive itself, by category and by the phrases that
+    # name the subject. The two routes above both depend on somebody having
+    # classified the work first, and a work nobody classified reaches neither.
+    # That is not hypothetical: the record for MAGMA was entered by hand because
+    # no tag and no list held it.
+    from services.collectors.arxiv_feed import discover_from_archive
+
+    archived, archive_problems, archive_discarded = discover_from_archive(
+        http=http, published_after=today - timedelta(days=since_days),
+    )
+    summary.problems.extend(archive_problems)
+    summary.discarded.extend(archive_discarded)
+    if archive_problems:
+        summary.failures["arxiv"] += len(archive_problems)
+    archive_source = {paper.arxiv_id for paper in archived} - curated_source
+    papers = papers + listed + archived
     summary.found = len(papers)
 
     fresh: list[dict] = []
@@ -235,6 +251,12 @@ def run(
             # corroborated by different things, and knowing which is more use to
             # a person than a single fitness number.
             "curated_by": curated,
+            # The route a work came in by. The fitness rule reads the task tags
+            # of the catalogue, and a work from the archive carries none, so its
+            # score rests on the title and the abstract alone. Without this mark
+            # a reader could not tell a thin score from a low one.
+            "found_by": ("archive" if paper.arxiv_id in archive_source
+                         else "curated" if curated else "catalogue"),
             "verdict": None,
         })
 

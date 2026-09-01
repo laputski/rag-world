@@ -45,7 +45,11 @@ PURPOSE = {
     ARXIV_API: (
         "Preprints",
         "Confirms that a preprint exists and compares its title with the one "
-        "claimed. Yields the level L1.",
+        "claimed. Yields the level L1. The same address is asked a second way, "
+        "for discovery: a feed by category and by the phrases that name the "
+        "subject, of which only work that names itself in its title is taken. "
+        "This is the one route that does not wait for somebody else to have "
+        "classified a work first.",
     ),
     OPENALEX_API: (
         "The open index of works",
