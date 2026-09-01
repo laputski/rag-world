@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 0.56,
+    "attention": 0.414,
     "attention_cohort": "2025",
-    "attention_raw": 0.28,
+    "attention_raw": 0.269,
     "barriers": "Главная проблема состоит в оценке уверенности. Первая подпроблема заключается в надёжной оценке уверенности для skip-retrieval, поскольку ложноположительный пропуск ведёт к галлюцинации, а ложноотрицательный пропуск теряет оптимизацию. Вторая подпроблема состоит в избегании регрессии корректности при пропуске retrieval. Третья подпроблема заключается в накладных расходах оркестрации, поскольку параллельные гонки draft и retrieve сложнее простой последовательной схемы.",
     "barriers_en": "The central difficulty is confidence estimation. First, a reliable confidence estimate is needed for skipping retrieval: a false positive skip leads to hallucination, a false negative loses the optimisation. Second, correctness must not regress when retrieval is skipped. Third, orchestration overhead: racing draft against retrieve in parallel is harder than a simple sequential scheme.",
     "confidence": 1.0,
@@ -91,10 +91,18 @@
         "type": "publication",
         "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=117; year=2024",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400611538",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.269",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": "A",
     "first_published": "2025",
     "groups": [

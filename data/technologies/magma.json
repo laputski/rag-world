@@ -50,25 +50,25 @@
       "kind": "preprint",
       "label": null,
       "label_en": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2601.03236",
-      "verified_at": null
+      "verified_at": "2026-09-01"
     },
     {
       "kind": "paper",
       "label": null,
       "label_en": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://doi.org/10.18653/v1/2026.acl-long.1709",
-      "verified_at": null
+      "verified_at": "2026-09-01"
     },
     {
       "kind": "github",
       "label": null,
       "label_en": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://github.com/FredJiang0324/MAGMA",
-      "verified_at": null
+      "verified_at": "2026-09-01"
     }
   ],
   "name": "MAGMA",

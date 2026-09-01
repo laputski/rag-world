@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [
       "Light-RAG"
     ],
-    "attention": null,
-    "attention_cohort": null,
-    "attention_raw": null,
+    "attention": 10.385,
+    "attention_cohort": "2025",
+    "attention_raw": 6.75,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -163,10 +163,42 @@
         "type": "package_downloads",
         "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=308244",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-09-01, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2410.05779",
+        "type": "publication",
+        "value": "arXiv:2410.05779 (2024)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034797",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=135; year=2025; citation_velocity=6.75",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=304179",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 15,
+    "evidence_count": 19,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -176,20 +208,20 @@
     ],
     "id": "lightrag",
     "kind": "architecture",
-    "level": "L0",
+    "level": "L4",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L1",
-        "L2",
-        "L3",
-        "L4",
         "L5",
         "L6"
       ],
       "satisfied": [
-        "L0"
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
       ]
     },
     "links": [
@@ -205,9 +237,9 @@
         "kind": "preprint",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2410.05779",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "LightRAG",

@@ -268,6 +268,15 @@ MUTATIONS: tuple[Mutation, ...] = (
              "run for run in runs if newest_entry is None or run.ran_at >= newest_entry"),
 
     # ── The refusals of the sources, by name ────────────────────────────────
+    Mutation("scripts/discover.py", "a refusal names the source and not the step",
+             'summary.failures["paperswithcode"] += len(problems)',
+             'summary.failures["discovery"] += len(problems)'),
+    Mutation("scripts/discover.py", "a refusal count of zero is not written down",
+             "    if problems:\n        summary.failures[\"paperswithcode\"]",
+             "    if True:\n        summary.failures[\"paperswithcode\"]"),
+    Mutation("scripts/discover.py", "the curated lists are counted as a source too",
+             'summary.failures["curated_lists"] += len(listed_problems)',
+             'summary.failures["curated_lists"] += 0'),
     Mutation("scripts/collect.py", "a refusal is counted against its source",
              "self.failures[source] += 1", "self.failures[source] += 0"),
     Mutation("scripts/collect.py", "the whole-registry collector names itself too",

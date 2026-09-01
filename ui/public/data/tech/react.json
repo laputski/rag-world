@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 6.87,
+    "attention": 6.935,
     "attention_cohort": "2023",
-    "attention_raw": 12.652,
+    "attention_raw": 12.383,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -97,10 +97,26 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=582; year=2022; citation_velocity=12.652",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4304195432",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=582; year=2022; citation_velocity=12.383",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/ysymyth/ReAct",
+        "type": "repository",
+        "value": "ysymyth/ReAct: license=mit, last_push=2024-02-06, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 9,
     "family": "C",
     "first_published": "2023",
     "groups": [
@@ -110,12 +126,11 @@
     ],
     "id": "react",
     "kind": "architecture",
-    "level": "L2",
+    "level": "L3",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L3",
         "L4",
         "L5",
         "L6"
@@ -123,7 +138,8 @@
       "satisfied": [
         "L0",
         "L1",
-        "L2"
+        "L2",
+        "L3"
       ]
     },
     "links": [
@@ -134,6 +150,14 @@
         "status": "verified",
         "url": "https://arxiv.org/abs/2210.03629",
         "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/ysymyth/ReAct",
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "ReAct",

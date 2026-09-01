@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -105,10 +105,18 @@
         "type": "package_downloads",
         "value": "package=qdrant-client; version=1.19.0; downloads_last_month=16839198",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/qdrant/qdrant",
+        "type": "repository",
+        "value": "qdrant/qdrant: license=apache-2.0, last_push=2026-09-01, releases=yes",
+        "value_en": null
       }
     ],
-    "evidence_basis": "computed",
-    "evidence_count": 8,
+    "evidence_basis": "manual",
+    "evidence_count": 9,
     "family": null,
     "first_published": null,
     "groups": [
@@ -117,20 +125,20 @@
     ],
     "id": "qdrant",
     "kind": "tool",
-    "level": "L2",
+    "level": "L5",
     "level_reason": {
       "confidence": 1.0,
-      "evidence_basis": "computed",
+      "evidence_basis": "manual",
       "missing": [
         "L1",
-        "L3",
-        "L4",
-        "L5",
         "L6"
       ],
       "satisfied": [
         "L0",
-        "L2"
+        "L2",
+        "L3",
+        "L4",
+        "L5"
       ]
     },
     "links": [
@@ -146,9 +154,9 @@
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/qdrant/qdrant",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "Qdrant",

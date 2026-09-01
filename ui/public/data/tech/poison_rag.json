@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 1.474,
+    "attention": 1.077,
     "attention_cohort": "2025",
-    "attention_raw": 0.737,
+    "attention_raw": 0.7,
     "confidence": 1.0,
     "configuration": {},
     "configuration_inapplicable": [],
@@ -52,21 +52,36 @@
         "type": "publication",
         "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=14; year=2025; citation_velocity=0.737",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4409166754",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=14; year=2025; citation_velocity=0.7",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/atenanaz/Poison-RAG",
+        "type": "repository",
+        "value": "atenanaz/Poison-RAG: license=none, last_push=2025-01-19, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 7,
     "family": null,
     "first_published": "2025",
     "groups": [],
     "id": "poison_rag",
     "kind": "attack",
-    "level": "L2",
+    "level": "L3",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L3",
         "L4",
         "L5",
         "L6"
@@ -74,7 +89,8 @@
       "satisfied": [
         "L0",
         "L1",
-        "L2"
+        "L2",
+        "L3"
       ]
     },
     "links": [
@@ -85,6 +101,14 @@
         "status": "verified",
         "url": "https://arxiv.org/abs/2501.11759",
         "verified_at": "2026-08-11"
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/atenanaz/Poison-RAG",
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "Poison-RAG",

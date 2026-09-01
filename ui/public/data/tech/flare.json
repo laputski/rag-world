@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 5.38,
+    "attention": 5.423,
     "attention_cohort": "2023",
-    "attention_raw": 9.907,
+    "attention_raw": 9.682,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -105,10 +105,26 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=426; year=2023; citation_velocity=9.907",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4389519118",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=426; year=2023; citation_velocity=9.682",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/jzbjyb/FLARE",
+        "type": "repository",
+        "value": "jzbjyb/FLARE: license=mit, last_push=2023-11-20, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 8,
+    "evidence_count": 10,
     "family": "A",
     "first_published": "2023",
     "groups": [
@@ -118,12 +134,11 @@
     ],
     "id": "flare",
     "kind": "architecture",
-    "level": "L2",
+    "level": "L3",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L3",
         "L4",
         "L5",
         "L6"
@@ -131,7 +146,8 @@
       "satisfied": [
         "L0",
         "L1",
-        "L2"
+        "L2",
+        "L3"
       ]
     },
     "links": [
@@ -147,9 +163,9 @@
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/jzbjyb/FLARE",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "FLARE",

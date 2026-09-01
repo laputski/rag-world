@@ -53,6 +53,14 @@
       "status": "verified",
       "url": "https://arxiv.org/abs/2404.04302",
       "verified_at": "2026-08-14"
+    },
+    {
+      "kind": "github",
+      "label": null,
+      "label_en": null,
+      "status": "verified",
+      "url": "https://github.com/rgu-iit-bt/cbr-for-legal-rag",
+      "verified_at": "2026-09-01"
     }
   ],
   "name": "CBR-RAG",

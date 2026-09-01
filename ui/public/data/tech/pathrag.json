@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 4.0,
+    "attention": 2.565,
     "attention_cohort": "2025",
-    "attention_raw": 2.0,
+    "attention_raw": 1.667,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -113,10 +113,26 @@
         "type": "publication",
         "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=83; year=2025",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7138333265",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=10; year=2026; citation_velocity=1.667",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/BUPT-GAMMA/PathRAG",
+        "type": "repository",
+        "value": "BUPT-GAMMA/PathRAG: license=none, last_push=2025-12-17, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 11,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -126,12 +142,11 @@
     ],
     "id": "pathrag",
     "kind": "architecture",
-    "level": "L2",
+    "level": "L3",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L3",
         "L4",
         "L5",
         "L6"
@@ -139,7 +154,8 @@
       "satisfied": [
         "L0",
         "L1",
-        "L2"
+        "L2",
+        "L3"
       ]
     },
     "links": [
@@ -155,9 +171,9 @@
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/BUPT-GAMMA/PathRAG",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "PathRAG",

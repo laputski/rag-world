@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
-    "attention": 0.073,
+    "attention": 0.074,
     "attention_cohort": "2024",
-    "attention_raw": 0.043,
+    "attention_raw": 0.042,
     "barriers": "Общее препятствие состоит в том, что пространство представляет собой новую модальность, и приёмы, выработанные для текста, к нему прямо не переносятся.\n\nТрёхмерные данные, то есть облака точек, нужно уложить в пространство представлений так, чтобы расстояние в нём отвечало расстоянию в помещении. Указатель приближённого поиска ближайших соседей для этого не годится, и требуются структуры пространственного поиска. Указатель, кроме того, должен работать на нескольких масштабах сразу, потому что вопрос бывает и о комнате, и о предмете на столе. Зрение, язык и геометрию нужно свести в одно извлечение. Наконец, робот видит обстановку лишь частично, поэтому запись о ней всегда неполна, а неполнота должна учитываться, а не замалчиваться.",
     "barriers_en": "The common obstacle is that space is a new modality, and techniques worked out for text do not carry over to it directly.\n\nThree-dimensional data, that is, point clouds, must be placed in a representation space so that distance within it corresponds to distance in the room. An approximate nearest neighbour index will not serve for this, and spatial search structures are required. The index must also work at several scales at once, because a question may be about a room or about an object on a table. Vision, language, and geometry must be brought into a single retrieval. Finally, a robot sees its surroundings only in part, so the record of them is always incomplete, and that incompleteness must be accounted for rather than passed over.",
     "confidence": 1.0,
@@ -57,10 +57,18 @@
         "type": "publication",
         "value": "arXiv:2409.18313 (2024)",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403853662",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.042",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 2,
+    "evidence_count": 3,
     "family": null,
     "first_published": "2024-09",
     "groups": [

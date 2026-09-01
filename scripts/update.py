@@ -152,8 +152,20 @@ def run(
             f"discovery: found {found.found}, added to the queue "
             f"{found.added}, already in the registry {found.known}"
         )
-        for message in found.problems:
-            gathered.refused("discovery", message)
+        # The messages are printed here rather than with the collection ones:
+        # that print has already run by now, and without this the refusals of
+        # the catalogue reached the count in the run log and no eye at all.
+        for message in found.problems[:10]:
+            print(f"  {message[:130]}")
+        if len(found.problems) > 10:
+            print(f"  and {len(found.problems) - 10} more")
+        # The refusals are attributed to the source that made them rather than
+        # to the step: discovery asks the works-and-code catalogue and the
+        # curated lists, and a step is not a source. The messages and the counts
+        # are added apart, because discovery already knows which source each
+        # count belongs to while the messages carry no such mark.
+        gathered.errors.extend(found.problems)
+        gathered.failures.update(found.failures)
     else:
         found = None
 

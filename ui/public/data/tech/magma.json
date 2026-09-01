@@ -1,13 +1,13 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [
       "Multi-Graph based Agentic Memory Architecture"
     ],
-    "attention": null,
+    "attention": 0.125,
     "attention_cohort": null,
-    "attention_raw": null,
-    "confidence": null,
+    "attention_raw": 0.125,
+    "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
       "A2": "semantic",
@@ -43,9 +43,50 @@
     "configuration_variable": [],
     "description": "MAGMA отвечает на дефект памяти агентов, который её авторы называют смешением отношений. Обычная память диалогового помощника складывает прошедшие взаимодействия в единое хранилище и достаёт их по близости представлений. Такой поиск отвечает на вопрос о том, что произошло, но плохо отвечает на вопрос о том, почему это произошло: время, причина и участие лица уложены в одну меру подобия и различить их при извлечении нечем.\n\nВместо единого хранилища MAGMA держит четыре раздельных слоя связей над одним и тем же набором вершин. Вершиной служит событие, выделенное из беседы по границам смысла и несущее содержание, отметку времени, векторное представление и набор признаков. Временной слой связывает события в неизменяемую хронологическую цепочку, причинный ставит рёбра логического следования, смысловой соединяет близкие по содержанию события, сущностный присоединяет события к участникам. Запрос сначала разбирается на намерение, временное окно, ключевые слова и векторное представление. Намерение решает, по какому слою идти: вопрос со словом «почему» повышает вес причинных рёбер, вопрос со словом «когда» временных. Точки входа собираются слиянием рангов из векторного поиска, словарного совпадения и отбора по времени, после чего лучевой поиск расширяет окрестность, оценивая каждый переход суммой соответствия типа ребра намерению и близости к запросу.\n\nСобранный подграф подаётся модели не как список находок, а как упорядоченный текст: для вопроса о времени события выстраиваются по отметкам, для вопроса о причине топологической сортировкой, так что причина стоит раньше следствия. Каждое событие снабжается отметкой времени и ссылкой на свою вершину, а объём подачи ограничивается запасом, при котором события с низкой оценкой сворачиваются в краткие пометки. Запись в память разведена на два пути: быстрый добавляет событие и продлевает временную цепочку без обращения к модели, медленный работает в фоне и достраивает причинные и сущностные рёбра. Ограничение метода названо самими авторами: качество построенного слоя связей зависит от точности вывода модели, и ошибочная связь, поставленная при уплотнении, достаётся извлечению как достоверная.",
     "description_en": "MAGMA answers a defect of agent memory that its authors call the entangling of relations. The usual memory of a conversational assistant piles past interactions into one store and draws them out by closeness of representations. Such a search answers the question of what happened and answers poorly the question of why it happened: time, cause and the participation of a person are packed into a single measure of likeness, and retrieval has nothing left to tell them apart with.\n\nIn place of one store MAGMA keeps four separate layers of relations over the very same set of nodes. A node is an event cut out of the conversation at boundaries of meaning and carrying its content, a timestamp, a vector representation and a set of attributes. The temporal layer binds events into an immutable chronological chain, the causal one places edges of logical entailment, the semantic one joins events close in content, and the entity one attaches events to their participants. A query is first taken apart into an intent, a time window, keywords and a vector representation. The intent settles which layer to walk: a question containing «why» raises the weight of causal edges, one containing «when» the weight of temporal ones. Entry points are gathered by fusing the ranks of vector search, keyword matching and filtering by time, after which a beam search widens the neighbourhood, scoring every step by the match of the edge type to the intent plus closeness to the query.\n\nThe collected subgraph reaches the model not as a list of findings but as ordered text: for a question about time the events line up by their timestamps, for a question about cause by a topological sort, so that a cause stands before its effect. Every event carries its timestamp and a reference to its node, and the volume given is held to a budget under which low-scoring events collapse into brief markers. Writing to memory runs on two paths: the fast one appends an event and extends the temporal chain without calling the model, the slow one works in the background and builds the causal and entity edges. The limitation is named by the authors themselves: the quality of the constructed layer of relations depends on the accuracy of the model's inference, and a wrong link placed during consolidation reaches retrieval as a trustworthy one.",
-    "evidence": [],
-    "evidence_basis": null,
-    "evidence_count": 0,
+    "evidence": [
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://arxiv.org/abs/2601.03236",
+        "type": "publication",
+        "value": "arXiv:2601.03236 (2026)",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7118792438",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2601.03236",
+        "type": "publication",
+        "value": "venue=ACL 2026; peer_reviewed=true; citations_semantic_scholar=47; year=2026",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7166853577",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/FredJiang0324/MAGMA",
+        "type": "repository",
+        "value": "FredJiang0324/MAGMA: license=mit, last_push=2026-07-10, releases=no",
+        "value_en": null
+      }
+    ],
+    "evidence_basis": "computed",
+    "evidence_count": 5,
     "family": null,
     "first_published": "2026-01",
     "groups": [
@@ -56,32 +97,46 @@
     ],
     "id": "magma",
     "kind": "architecture",
-    "level": null,
-    "level_reason": null,
+    "level": "L3",
+    "level_reason": {
+      "confidence": 1.0,
+      "evidence_basis": "computed",
+      "missing": [
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "satisfied": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
     "links": [
       {
         "kind": "preprint",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2601.03236",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       },
       {
         "kind": "paper",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://doi.org/10.18653/v1/2026.acl-long.1709",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       },
       {
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/FredJiang0324/MAGMA",
-        "verified_at": null
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "MAGMA",

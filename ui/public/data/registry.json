@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "count": 70,
   "technologies": [
     {
       "aliases": [],
-      "attention": 10.988,
+      "attention": 11.054,
       "attention_cohort": "2024",
-      "attention_raw": 6.516,
+      "attention_raw": 6.312,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -111,10 +111,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=202; year=2024; citation_velocity=6.516",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042753",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=202; year=2024; citation_velocity=6.312",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/starsuzi/Adaptive-RAG",
+          "type": "repository",
+          "value": "starsuzi/Adaptive-RAG: license=apache-2.0, last_push=2024-05-02, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 10,
       "family": "D",
       "first_published": "2024",
       "groups": [
@@ -123,12 +139,11 @@
       ],
       "id": "adaptive_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -136,7 +151,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -152,9 +168,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/starsuzi/Adaptive-RAG",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "Adaptive RAG",
@@ -424,9 +440,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.6,
+      "attention": 1.026,
       "attention_cohort": "2025",
-      "attention_raw": 0.8,
+      "attention_raw": 0.667,
       "confidence": 1.0,
       "configuration": {
         "A1": "summary_node",
@@ -495,10 +511,26 @@
           "type": "publication",
           "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=4; year=2026; citation_velocity=0.8",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4407632367",
+          "type": "publication",
+          "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=4; year=2026; citation_velocity=0.667",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/sam234990/ArchRAG",
+          "type": "repository",
+          "value": "sam234990/ArchRAG: license=none, last_push=2025-11-27, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 6,
       "family": "B",
       "first_published": "2025-02",
       "groups": [
@@ -507,12 +539,11 @@
       ],
       "id": "archrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -520,7 +551,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -531,6 +563,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2502.09891",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/sam234990/ArchRAG",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "ArchRAG",
@@ -612,9 +652,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.081,
+      "attention": 0.079,
       "attention_cohort": "2024",
-      "attention_raw": 0.048,
+      "attention_raw": 0.045,
       "confidence": 1.0,
       "configuration": {
         "B1": "multi_reformulation",
@@ -644,10 +684,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.048",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4405030361",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.045",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -832,10 +880,18 @@
           "type": "package_downloads",
           "value": "package=FlagEmbedding; version=1.4.2; downloads_last_month=522796",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/FlagEmbedding/",
+          "type": "package_downloads",
+          "value": "package=FlagEmbedding; version=1.4.2; downloads_last_month=526260",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": null,
       "first_published": null,
       "groups": [
@@ -925,9 +981,9 @@
       "aliases": [
         "BM25"
       ],
-      "attention": 15.35,
+      "attention": 15.275,
       "attention_cohort": null,
-      "attention_raw": 15.35,
+      "attention_raw": 15.275,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1012,10 +1068,18 @@
           "type": "publication",
           "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3116; year=2009; citation_velocity=15.35",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4252076394",
+          "type": "publication",
+          "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3116; year=2009; citation_velocity=15.275",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": null,
       "first_published": null,
       "groups": [
@@ -1103,9 +1167,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.368,
+      "attention": 1.0,
       "attention_cohort": "2025",
-      "attention_raw": 0.684,
+      "attention_raw": 0.65,
       "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
       "barriers_en": "The common obstacle is constructing the causal graph, and it falls into four parts.\n\nExtracting causal links from text is unreliable: causality is disputed even among people reading the same text. Reasoning about what would have happened in the absence of a circumstance is computationally expensive. There is no accepted way to join Judea Pearl's calculus of interventions to answer generation by a language model. Finally, validating a causal graph requires knowledge of the field and therefore cannot be handed over to a machine in full.",
       "confidence": 1.0,
@@ -1190,10 +1254,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=13; year=2025; citation_velocity=0.684",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4412887679",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=13; year=2025; citation_velocity=0.65",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": null,
       "first_published": "2025",
       "groups": [
@@ -1331,9 +1403,9 @@
       "aliases": [
         "CBR-RAG"
       ],
-      "attention": 5.821,
+      "attention": 5.856,
       "attention_cohort": "2024",
-      "attention_raw": 3.452,
+      "attention_raw": 3.344,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1412,10 +1484,26 @@
           "type": "publication",
           "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=107; year=2024; citation_velocity=3.452",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4399932275",
+          "type": "publication",
+          "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=107; year=2024; citation_velocity=3.344",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/rgu-iit-bt/cbr-for-legal-rag",
+          "type": "repository",
+          "value": "rgu-iit-bt/cbr-for-legal-rag: license=none, last_push=2025-02-20, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 7,
       "family": null,
       "first_published": "2024-04",
       "groups": [
@@ -1424,12 +1512,11 @@
       ],
       "id": "cbr_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -1437,7 +1524,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -1448,6 +1536,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2404.04302",
           "verified_at": "2026-08-14"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/rgu-iit-bt/cbr-for-legal-rag",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "CBR-RAG",
@@ -1535,7 +1631,7 @@
       "aliases": [
         "ChatQA 2"
       ],
-      "attention": 0.489,
+      "attention": 0.508,
       "attention_cohort": "2024",
       "attention_raw": 0.29,
       "confidence": 1.0,
@@ -1678,9 +1774,9 @@
     },
     {
       "aliases": [],
-      "attention": 2.526,
+      "attention": 2.494,
       "attention_cohort": null,
-      "attention_raw": 2.526,
+      "attention_raw": 2.494,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -1813,10 +1909,34 @@
           "type": "package_downloads",
           "value": "package=colbert-ai; version=0.2.22; downloads_last_month=179942",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W3034439313",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=192; year=2020; citation_velocity=2.494",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/stanford-futuredata/ColBERT",
+          "type": "repository",
+          "value": "stanford-futuredata/ColBERT: license=mit, last_push=2025-10-14, releases=yes",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/colbert-ai/",
+          "type": "package_downloads",
+          "value": "package=colbert-ai; version=0.2.22; downloads_last_month=177760",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 12,
+      "evidence_count": 15,
       "family": "H",
       "first_published": "2021",
       "groups": [
@@ -1826,20 +1946,20 @@
       ],
       "id": "colbert",
       "kind": "technique",
-      "level": "L2",
+      "level": "L4",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
-          "L4",
           "L5",
           "L6"
         ],
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3",
+          "L4"
         ]
       },
       "links": [
@@ -1855,9 +1975,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/stanford-futuredata/ColBERT",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "ColBERT",
@@ -2005,7 +2125,7 @@
       "aliases": [],
       "attention": 0.324,
       "attention_cohort": "2024",
-      "attention_raw": 0.192,
+      "attention_raw": 0.185,
       "confidence": 1.0,
       "configuration": {
         "A1": "page_image",
@@ -2090,10 +2210,26 @@
           "type": "publication",
           "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=202; year=2024",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4400373146",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.185",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/illuin-tech/colpali",
+          "type": "repository",
+          "value": "illuin-tech/colpali: license=mit, last_push=2026-08-24, releases=yes",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 8,
       "family": "E",
       "first_published": "2024-07",
       "groups": [
@@ -2102,12 +2238,11 @@
       ],
       "id": "colpali",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -2115,7 +2250,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -2126,6 +2262,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2407.01449",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/illuin-tech/colpali",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "ColPali",
@@ -2349,9 +2493,9 @@
       "aliases": [
         "Corrective RAG"
       ],
-      "attention": 9.585,
+      "attention": 9.457,
       "attention_cohort": "2024",
-      "attention_raw": 5.684,
+      "attention_raw": 5.4,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -2454,10 +2598,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=108; year=2025; citation_velocity=5.684",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=108; year=2025; citation_velocity=5.4",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 9,
       "family": "A",
       "first_published": "2024",
       "groups": [
@@ -2580,9 +2732,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.121,
+      "attention": 1.12,
       "attention_cohort": "2023",
-      "attention_raw": 2.065,
+      "attention_raw": 2.0,
       "confidence": 1.0,
       "configuration": {
         "A1": "proposition",
@@ -2659,10 +2811,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=64; year=2024; citation_velocity=2.065",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4404783040",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=64; year=2024; citation_velocity=2.0",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/chentong0/factoid-wiki",
+          "type": "repository",
+          "value": "chentong0/factoid-wiki: license=apache-2.0, last_push=2024-01-08, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 7,
       "family": "H",
       "first_published": "2023-12",
       "groups": [
@@ -2670,12 +2838,11 @@
       ],
       "id": "dense_x_retrieval",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -2683,7 +2850,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -2694,6 +2862,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2312.06648",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/chentong0/factoid-wiki",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "Dense X",
@@ -2723,9 +2899,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.879,
+      "attention": 0.88,
       "attention_cohort": "2023",
-      "attention_raw": 1.618,
+      "attention_raw": 1.571,
       "confidence": 1.0,
       "configuration": {
         "B1": "multi_reformulation",
@@ -2779,10 +2955,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.618",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.571",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2023",
       "groups": [
@@ -3215,9 +3399,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.073,
+      "attention": 0.074,
       "attention_cohort": "2024",
-      "attention_raw": 0.043,
+      "attention_raw": 0.042,
       "barriers": "Общее препятствие состоит в том, что пространство представляет собой новую модальность, и приёмы, выработанные для текста, к нему прямо не переносятся.\n\nТрёхмерные данные, то есть облака точек, нужно уложить в пространство представлений так, чтобы расстояние в нём отвечало расстоянию в помещении. Указатель приближённого поиска ближайших соседей для этого не годится, и требуются структуры пространственного поиска. Указатель, кроме того, должен работать на нескольких масштабах сразу, потому что вопрос бывает и о комнате, и о предмете на столе. Зрение, язык и геометрию нужно свести в одно извлечение. Наконец, робот видит обстановку лишь частично, поэтому запись о ней всегда неполна, а неполнота должна учитываться, а не замалчиваться.",
       "barriers_en": "The common obstacle is that space is a new modality, and techniques worked out for text do not carry over to it directly.\n\nThree-dimensional data, that is, point clouds, must be placed in a representation space so that distance within it corresponds to distance in the room. An approximate nearest neighbour index will not serve for this, and spatial search structures are required. The index must also work at several scales at once, because a question may be about a room or about an object on a table. Vision, language, and geometry must be brought into a single retrieval. Finally, a robot sees its surroundings only in part, so the record of them is always incomplete, and that incompleteness must be accounted for rather than passed over.",
       "confidence": 1.0,
@@ -3270,10 +3454,18 @@
           "type": "publication",
           "value": "arXiv:2409.18313 (2024)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4403853662",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2024; citation_velocity=0.042",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2024-09",
       "groups": [
@@ -3443,9 +3635,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.632,
+      "attention": 0.462,
       "attention_cohort": "2025",
-      "attention_raw": 0.316,
+      "attention_raw": 0.3,
       "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
       "barriers_en": "The common obstacle is the tension between preserving confidentiality and producing a useful answer, and it falls into four parts.\n\nDifferential privacy, that is, the addition of calibrated noise so that an individual record cannot be recovered, degrades vector representations and thereby lowers recall. Training representations jointly requires transferring large volumes between participants, because representation models are large. Handling the query is itself unsafe: both the text of the query and the content returned can disclose protected information. Finally, data schemas differ across participants and have to be reconciled before any search can take place.",
       "confidence": 1.0,
@@ -3538,10 +3730,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=6; year=2025; citation_velocity=0.316",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416034993",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=6; year=2025; citation_velocity=0.3",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": null,
       "first_published": "2025-04",
       "groups": [
@@ -3669,9 +3869,9 @@
     },
     {
       "aliases": [],
-      "attention": 5.38,
+      "attention": 5.423,
       "attention_cohort": "2023",
-      "attention_raw": 9.907,
+      "attention_raw": 9.682,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -3772,10 +3972,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=426; year=2023; citation_velocity=9.907",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4389519118",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=426; year=2023; citation_velocity=9.682",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/jzbjyb/FLARE",
+          "type": "repository",
+          "value": "jzbjyb/FLARE: license=mit, last_push=2023-11-20, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 10,
       "family": "A",
       "first_published": "2023",
       "groups": [
@@ -3785,12 +4001,11 @@
       ],
       "id": "flare",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -3798,7 +4013,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -3814,9 +4030,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/jzbjyb/FLARE",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "FLARE",
@@ -3902,7 +4118,7 @@
       "aliases": [],
       "attention": 1.0,
       "attention_cohort": "2024",
-      "attention_raw": 0.593,
+      "attention_raw": 0.571,
       "confidence": 1.0,
       "configuration": {
         "A1": "node_edge",
@@ -3934,10 +4150,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=16; year=2024; citation_velocity=0.593",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4399253046",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=16; year=2024; citation_velocity=0.571",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -4026,9 +4250,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.489,
+      "attention": 0.492,
       "attention_cohort": "2024",
-      "attention_raw": 0.29,
+      "attention_raw": 0.281,
       "confidence": 1.0,
       "configuration": {
         "A3": "extracted_triples",
@@ -4061,10 +4285,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.29",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4404781346",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.281",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -4179,9 +4411,9 @@
       "aliases": [
         "HippoRAG 2"
       ],
-      "attention": 4.788,
+      "attention": 4.816,
       "attention_cohort": "2024",
-      "attention_raw": 2.839,
+      "attention_raw": 2.75,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4346,10 +4578,18 @@
           "type": "publication",
           "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=88; year=2024; citation_velocity=2.839",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415797504",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=88; year=2024; citation_velocity=2.75",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 16,
+      "evidence_count": 17,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -4597,9 +4837,9 @@
     },
     {
       "aliases": [],
-      "attention": 6.93,
+      "attention": 6.773,
       "attention_cohort": null,
-      "attention_raw": 6.93,
+      "attention_raw": 6.773,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4700,10 +4940,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=298; year=2023; citation_velocity=6.93",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385565351",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=298; year=2023; citation_velocity=6.773",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/texttron/hyde",
+          "type": "repository",
+          "value": "texttron/hyde: license=none, last_push=2024-12-06, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 10,
       "family": "G",
       "first_published": "2022",
       "groups": [
@@ -4711,12 +4967,11 @@
       ],
       "id": "hyde",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -4724,7 +4979,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -4735,6 +4991,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2212.10496",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/texttron/hyde",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "HyDE",
@@ -4790,9 +5054,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.587,
+      "attention": 3.615,
       "attention_cohort": "2023",
-      "attention_raw": 6.605,
+      "attention_raw": 6.455,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -4893,10 +5157,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=284; year=2023; citation_velocity=6.605",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385571271",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=284; year=2023; citation_velocity=6.455",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/StonyBrookNLP/ircot",
+          "type": "repository",
+          "value": "StonyBrookNLP/ircot: license=apache-2.0, last_push=2024-06-12, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 10,
       "family": "C",
       "first_published": "2023",
       "groups": [
@@ -4906,12 +5186,11 @@
       ],
       "id": "ircot",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -4919,7 +5198,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -4935,9 +5215,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/StonyBrookNLP/ircot",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "IRCoT",
@@ -5079,9 +5359,9 @@
     },
     {
       "aliases": [],
-      "attention": 5.509,
+      "attention": 5.363,
       "attention_cohort": "2024",
-      "attention_raw": 3.267,
+      "attention_raw": 3.062,
       "confidence": 1.0,
       "configuration": {
         "A3": "extracted_triples",
@@ -5130,10 +5410,26 @@
           "type": "publication",
           "value": "venue=ACM; peer_reviewed=true; cited_by=49; year=2025; citation_velocity=3.267",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410636953",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=49; year=2025; citation_velocity=3.062",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/OpenSPG/KAG",
+          "type": "repository",
+          "value": "OpenSPG/KAG: license=apache-2.0, last_push=2026-01-28, releases=yes",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 6,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -5143,12 +5439,11 @@
       ],
       "id": "kag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -5156,7 +5451,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -5167,6 +5463,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2409.13731",
           "verified_at": "2026-08-11"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/OpenSPG/KAG",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "KAG",
@@ -5405,9 +5709,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.366,
+      "attention": 0.364,
       "attention_cohort": "2024",
-      "attention_raw": 0.217,
+      "attention_raw": 0.208,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -5476,10 +5780,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.217",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4403882995",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.208",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": "H",
       "first_published": "2024",
       "groups": [
@@ -5542,9 +5854,9 @@
       "aliases": [
         "Light-RAG"
       ],
-      "attention": null,
-      "attention_cohort": null,
-      "attention_raw": null,
+      "attention": 10.385,
+      "attention_cohort": "2025",
+      "attention_raw": 6.75,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -5701,10 +6013,42 @@
           "type": "package_downloads",
           "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=308244",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/HKUDS/LightRAG",
+          "type": "repository",
+          "value": "HKUDS/LightRAG: license=mit, last_push=2026-09-01, releases=yes",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2410.05779",
+          "type": "publication",
+          "value": "arXiv:2410.05779 (2024)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416034797",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=135; year=2025; citation_velocity=6.75",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/lightrag-hku/",
+          "type": "package_downloads",
+          "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=304179",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 15,
+      "evidence_count": 19,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -5714,20 +6058,20 @@
       ],
       "id": "lightrag",
       "kind": "architecture",
-      "level": "L0",
+      "level": "L4",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L1",
-          "L2",
-          "L3",
-          "L4",
           "L5",
           "L6"
         ],
         "satisfied": [
-          "L0"
+          "L0",
+          "L1",
+          "L2",
+          "L3",
+          "L4"
         ]
       },
       "links": [
@@ -5743,9 +6087,9 @@
           "kind": "preprint",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2410.05779",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "LightRAG",
@@ -5842,9 +6186,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.134,
+      "attention": 0.095,
       "attention_cohort": "2025",
-      "attention_raw": 0.067,
+      "attention_raw": 0.062,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -5897,10 +6241,18 @@
           "type": "publication",
           "value": "arXiv:2505.20096 (2025)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4414588074",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.062",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "C",
       "first_published": "2025-05",
       "groups": [
@@ -6019,10 +6371,10 @@
       "aliases": [
         "Multi-Graph based Agentic Memory Architecture"
       ],
-      "attention": null,
+      "attention": 0.125,
       "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
+      "attention_raw": 0.125,
+      "confidence": 1.0,
       "configuration": {
         "A1": "node_edge",
         "A2": "semantic",
@@ -6058,9 +6410,50 @@
       "configuration_variable": [],
       "description": "MAGMA отвечает на дефект памяти агентов, который её авторы называют смешением отношений. Обычная память диалогового помощника складывает прошедшие взаимодействия в единое хранилище и достаёт их по близости представлений. Такой поиск отвечает на вопрос о том, что произошло, но плохо отвечает на вопрос о том, почему это произошло: время, причина и участие лица уложены в одну меру подобия и различить их при извлечении нечем.\n\nВместо единого хранилища MAGMA держит четыре раздельных слоя связей над одним и тем же набором вершин. Вершиной служит событие, выделенное из беседы по границам смысла и несущее содержание, отметку времени, векторное представление и набор признаков. Временной слой связывает события в неизменяемую хронологическую цепочку, причинный ставит рёбра логического следования, смысловой соединяет близкие по содержанию события, сущностный присоединяет события к участникам. Запрос сначала разбирается на намерение, временное окно, ключевые слова и векторное представление. Намерение решает, по какому слою идти: вопрос со словом «почему» повышает вес причинных рёбер, вопрос со словом «когда» временных. Точки входа собираются слиянием рангов из векторного поиска, словарного совпадения и отбора по времени, после чего лучевой поиск расширяет окрестность, оценивая каждый переход суммой соответствия типа ребра намерению и близости к запросу.\n\nСобранный подграф подаётся модели не как список находок, а как упорядоченный текст: для вопроса о времени события выстраиваются по отметкам, для вопроса о причине топологической сортировкой, так что причина стоит раньше следствия. Каждое событие снабжается отметкой времени и ссылкой на свою вершину, а объём подачи ограничивается запасом, при котором события с низкой оценкой сворачиваются в краткие пометки. Запись в память разведена на два пути: быстрый добавляет событие и продлевает временную цепочку без обращения к модели, медленный работает в фоне и достраивает причинные и сущностные рёбра. Ограничение метода названо самими авторами: качество построенного слоя связей зависит от точности вывода модели, и ошибочная связь, поставленная при уплотнении, достаётся извлечению как достоверная.",
       "description_en": "MAGMA answers a defect of agent memory that its authors call the entangling of relations. The usual memory of a conversational assistant piles past interactions into one store and draws them out by closeness of representations. Such a search answers the question of what happened and answers poorly the question of why it happened: time, cause and the participation of a person are packed into a single measure of likeness, and retrieval has nothing left to tell them apart with.\n\nIn place of one store MAGMA keeps four separate layers of relations over the very same set of nodes. A node is an event cut out of the conversation at boundaries of meaning and carrying its content, a timestamp, a vector representation and a set of attributes. The temporal layer binds events into an immutable chronological chain, the causal one places edges of logical entailment, the semantic one joins events close in content, and the entity one attaches events to their participants. A query is first taken apart into an intent, a time window, keywords and a vector representation. The intent settles which layer to walk: a question containing «why» raises the weight of causal edges, one containing «when» the weight of temporal ones. Entry points are gathered by fusing the ranks of vector search, keyword matching and filtering by time, after which a beam search widens the neighbourhood, scoring every step by the match of the edge type to the intent plus closeness to the query.\n\nThe collected subgraph reaches the model not as a list of findings but as ordered text: for a question about time the events line up by their timestamps, for a question about cause by a topological sort, so that a cause stands before its effect. Every event carries its timestamp and a reference to its node, and the volume given is held to a budget under which low-scoring events collapse into brief markers. Writing to memory runs on two paths: the fast one appends an event and extends the temporal chain without calling the model, the slow one works in the background and builds the causal and entity edges. The limitation is named by the authors themselves: the quality of the constructed layer of relations depends on the accuracy of the model's inference, and a wrong link placed during consolidation reaches retrieval as a trustworthy one.",
-      "evidence": [],
-      "evidence_basis": null,
-      "evidence_count": 0,
+      "evidence": [
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2601.03236",
+          "type": "publication",
+          "value": "arXiv:2601.03236 (2026)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7118792438",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://paperswithcode.co/api/v1/papers/2601.03236",
+          "type": "publication",
+          "value": "venue=ACL 2026; peer_reviewed=true; citations_semantic_scholar=47; year=2026",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7166853577",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/FredJiang0324/MAGMA",
+          "type": "repository",
+          "value": "FredJiang0324/MAGMA: license=mit, last_push=2026-07-10, releases=no",
+          "value_en": null
+        }
+      ],
+      "evidence_basis": "computed",
+      "evidence_count": 5,
       "family": null,
       "first_published": "2026-01",
       "groups": [
@@ -6071,32 +6464,46 @@
       ],
       "id": "magma",
       "kind": "architecture",
-      "level": null,
-      "level_reason": null,
+      "level": "L3",
+      "level_reason": {
+        "confidence": 1.0,
+        "evidence_basis": "computed",
+        "missing": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "satisfied": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
       "links": [
         {
           "kind": "preprint",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2601.03236",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         },
         {
           "kind": "paper",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://doi.org/10.18653/v1/2026.acl-long.1709",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         },
         {
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/FredJiang0324/MAGMA",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "MAGMA",
@@ -6354,9 +6761,9 @@
     },
     {
       "aliases": [],
-      "attention": null,
+      "attention": 1.353,
       "attention_cohort": null,
-      "attention_raw": null,
+      "attention_raw": 1.353,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -6401,10 +6808,26 @@
           "type": "repository",
           "value": "qhjqhj00/MemoRAG: license=apache-2.0, last_push=2025-09-11, releases=yes",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://arxiv.org/abs/2409.05591",
+          "type": "publication",
+          "value": "arXiv:2409.05591 (2024)",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4410089611",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=23; year=2025; citation_velocity=1.353",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 3,
       "family": "F",
       "first_published": null,
       "groups": [
@@ -6416,20 +6839,20 @@
       ],
       "id": "memorag",
       "kind": "architecture",
-      "level": "L0",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L1",
-          "L2",
-          "L3",
           "L4",
           "L5",
           "L6"
         ],
         "satisfied": [
-          "L0"
+          "L0",
+          "L1",
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -6445,9 +6868,9 @@
           "kind": "preprint",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://arxiv.org/abs/2409.05591",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "MemoRAG",
@@ -6710,10 +7133,18 @@
           "type": "package_downloads",
           "value": "package=graphrag; version=3.1.2; downloads_last_month=55416",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/graphrag/",
+          "type": "package_downloads",
+          "value": "package=graphrag; version=3.1.2; downloads_last_month=55397",
+          "value_en": null
         }
       ],
       "evidence_basis": "manual",
-      "evidence_count": 15,
+      "evidence_count": 16,
       "family": "B",
       "first_published": "2024",
       "groups": [
@@ -7118,9 +7549,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.982,
+      "attention": 1.946,
       "attention_cohort": null,
-      "attention_raw": 1.982,
+      "attention_raw": 1.946,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -7205,10 +7636,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=109; year=2022; citation_velocity=1.982",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4385573236",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=109; year=2022; citation_velocity=1.946",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "E",
       "first_published": "2022",
       "groups": [
@@ -7466,9 +7905,9 @@
       "aliases": [
         "neuro-symbolic"
       ],
-      "attention": 0.143,
+      "attention": 0.125,
       "attention_cohort": null,
-      "attention_raw": 0.143,
+      "attention_raw": 0.125,
       "barriers": "Общее препятствие состоит в том, что непрерывные представления и дискретный вывод устроены по-разному, и мост между ними приходится строить, а не брать готовым.\n\nЛогический вывод на больших графах разрастается по числу вариантов чрезвычайно быстро. Онтологию либо граф знаний надо построить и согласовать с текстовым собранием, а это либо ручной труд, либо дорогое извлечение языковой моделью. Общепринятого способа соединить поиск по близости представлений с запросами на языках описания знаний нет. Наконец, смешанное решение трудно отлаживать, потому что ошибка бывает и в поиске, и в выводе, и в переходе между ними.",
       "barriers_en": "The common obstacle is that continuous representations and discrete inference are built differently, so the bridge between them must be constructed rather than taken ready-made.\n\nLogical inference over large graphs expands in the number of alternatives extremely fast. An ontology or knowledge graph must be built and reconciled with the text collection, which means either manual labour or expensive extraction by a language model. There is no accepted way to join search by closeness of representations to queries in knowledge description languages. Finally, a mixed solution is hard to debug, because an error can lie in the search, in the inference, or in the passage between them.",
       "confidence": 1.0,
@@ -7537,10 +7976,18 @@
           "type": "publication",
           "value": "venue=IEEE Intelligent Systems; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.143",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7119922069",
+          "type": "publication",
+          "value": "venue=IEEE Intelligent Systems; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 5,
       "family": null,
       "first_published": "2026-01",
       "groups": [
@@ -7686,9 +8133,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.684,
+      "attention": 1.231,
       "attention_cohort": "2025",
-      "attention_raw": 0.842,
+      "attention_raw": 0.8,
       "confidence": 1.0,
       "configuration": {
         "A1": "node_edge",
@@ -7781,10 +8228,26 @@
           "type": "publication",
           "value": "venue=EMNLP 2025; peer_reviewed=true; citations_semantic_scholar=46; year=2024",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4416035296",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=16; year=2025; citation_velocity=0.8",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/microsoft/ograg2",
+          "type": "repository",
+          "value": "microsoft/ograg2: license=mit, last_push=2026-03-12, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 9,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -7794,12 +8257,11 @@
       ],
       "id": "og_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -7807,7 +8269,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -7818,6 +8281,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2412.15235",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/microsoft/ograg2",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "OG-RAG",
@@ -8025,10 +8496,26 @@
           "type": "package_downloads",
           "value": "package=opensearch-py; version=3.2.0; downloads_last_month=48249848",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/opensearch-project/OpenSearch",
+          "type": "repository",
+          "value": "opensearch-project/OpenSearch: license=apache-2.0, last_push=2026-09-01, releases=yes",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://pypi.org/project/opensearch-py/",
+          "type": "package_downloads",
+          "value": "package=opensearch-py; version=3.2.0; downloads_last_month=48063379",
+          "value_en": null
         }
       ],
-      "evidence_basis": "computed",
-      "evidence_count": 9,
+      "evidence_basis": "manual",
+      "evidence_count": 11,
       "family": null,
       "first_published": null,
       "groups": [
@@ -8037,20 +8524,20 @@
       ],
       "id": "opensearch",
       "kind": "tool",
-      "level": "L2",
+      "level": "L5",
       "level_reason": {
         "confidence": 1.0,
-        "evidence_basis": "computed",
+        "evidence_basis": "manual",
         "missing": [
           "L1",
-          "L3",
-          "L4",
-          "L5",
           "L6"
         ],
         "satisfied": [
           "L0",
-          "L2"
+          "L2",
+          "L3",
+          "L4",
+          "L5"
         ]
       },
       "links": [
@@ -8066,9 +8553,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/opensearch-project/OpenSearch",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "OpenSearch",
@@ -8109,9 +8596,9 @@
     },
     {
       "aliases": [],
-      "attention": 4.0,
+      "attention": 2.565,
       "attention_cohort": "2025",
-      "attention_raw": 2.0,
+      "attention_raw": 1.667,
       "confidence": 1.0,
       "configuration": {
         "A1": "node_edge",
@@ -8220,10 +8707,26 @@
           "type": "publication",
           "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=83; year=2025",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7138333265",
+          "type": "publication",
+          "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=10; year=2026; citation_velocity=1.667",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/BUPT-GAMMA/PathRAG",
+          "type": "repository",
+          "value": "BUPT-GAMMA/PathRAG: license=none, last_push=2025-12-17, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 9,
+      "evidence_count": 11,
       "family": "B",
       "first_published": "2025",
       "groups": [
@@ -8233,12 +8736,11 @@
       ],
       "id": "pathrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -8246,7 +8748,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -8262,9 +8765,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/BUPT-GAMMA/PathRAG",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "PathRAG",
@@ -8592,9 +9095,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.474,
+      "attention": 1.077,
       "attention_cohort": "2025",
-      "attention_raw": 0.737,
+      "attention_raw": 0.7,
       "confidence": 1.0,
       "configuration": {},
       "configuration_inapplicable": [],
@@ -8642,21 +9145,36 @@
           "type": "publication",
           "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=14; year=2025; citation_velocity=0.737",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4409166754",
+          "type": "publication",
+          "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=14; year=2025; citation_velocity=0.7",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/atenanaz/Poison-RAG",
+          "type": "repository",
+          "value": "atenanaz/Poison-RAG: license=none, last_push=2025-01-19, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 5,
+      "evidence_count": 7,
       "family": null,
       "first_published": "2025",
       "groups": [],
       "id": "poison_rag",
       "kind": "attack",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -8664,7 +9182,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -8675,6 +9194,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2501.11759",
           "verified_at": "2026-08-11"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/atenanaz/Poison-RAG",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "Poison-RAG",
@@ -8700,9 +9227,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.675,
+      "attention": 0.678,
       "attention_cohort": "2024",
-      "attention_raw": 0.4,
+      "attention_raw": 0.387,
       "confidence": 1.0,
       "configuration": {},
       "configuration_inapplicable": [],
@@ -8734,10 +9261,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=12; year=2024; citation_velocity=0.4",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4391801218",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=12; year=2024; citation_velocity=0.387",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": "K",
       "first_published": "2024-02",
       "groups": [],
@@ -8897,10 +9432,18 @@
           "type": "package_downloads",
           "value": "package=qdrant-client; version=1.19.0; downloads_last_month=16839198",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/qdrant/qdrant",
+          "type": "repository",
+          "value": "qdrant/qdrant: license=apache-2.0, last_push=2026-09-01, releases=yes",
+          "value_en": null
         }
       ],
-      "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_basis": "manual",
+      "evidence_count": 9,
       "family": null,
       "first_published": null,
       "groups": [
@@ -8909,20 +9452,20 @@
       ],
       "id": "qdrant",
       "kind": "tool",
-      "level": "L2",
+      "level": "L5",
       "level_reason": {
         "confidence": 1.0,
-        "evidence_basis": "computed",
+        "evidence_basis": "manual",
         "missing": [
           "L1",
-          "L3",
-          "L4",
-          "L5",
           "L6"
         ],
         "satisfied": [
           "L0",
-          "L2"
+          "L2",
+          "L3",
+          "L4",
+          "L5"
         ]
       },
       "links": [
@@ -8938,9 +9481,9 @@
           "kind": "github",
           "label": null,
           "label_en": null,
-          "status": "needs_review",
+          "status": "verified",
           "url": "https://github.com/qdrant/qdrant",
-          "verified_at": null
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "Qdrant",
@@ -8998,9 +9541,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.644,
+      "attention": 0.63,
       "attention_cohort": null,
-      "attention_raw": 0.644,
+      "attention_raw": 0.63,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -9053,10 +9596,18 @@
           "type": "publication",
           "value": "arXiv:2211.12561 (2022)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=29; year=2022; citation_velocity=0.63",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": null,
       "first_published": "2022-11",
       "groups": [
@@ -9160,9 +9711,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.239,
+      "attention": 0.24,
       "attention_cohort": "2023",
-      "attention_raw": 0.441,
+      "attention_raw": 0.429,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -9215,10 +9766,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=15; year=2023; citation_velocity=0.441",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=15; year=2023; citation_velocity=0.429",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "I",
       "first_published": "2023-10",
       "groups": [
@@ -9279,9 +9838,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.74,
+      "attention": 1.751,
       "attention_cohort": "2024",
-      "attention_raw": 1.032,
+      "attention_raw": 1.0,
       "confidence": 1.0,
       "configuration": {
         "B1": "subquestion_decomposition",
@@ -9327,10 +9886,26 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=32; year=2024; citation_velocity=1.032",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4402670862",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=32; year=2024; citation_velocity=1.0",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/OceannTwT/ra-isf",
+          "type": "repository",
+          "value": "OceannTwT/ra-isf: license=none, last_push=2024-09-10, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 6,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -9340,12 +9915,11 @@
       ],
       "id": "ra_isf",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -9353,7 +9927,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -9364,6 +9939,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2403.06840",
           "verified_at": "2026-08-11"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/OceannTwT/ra-isf",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "RA-ISF",
@@ -9432,9 +10015,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.629,
+      "attention": 1.634,
       "attention_cohort": "2024",
-      "attention_raw": 0.966,
+      "attention_raw": 0.933,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -9487,10 +10070,18 @@
           "type": "publication",
           "value": "arXiv:2403.10131 (2024)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4392930030",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.933",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "I",
       "first_published": "2024-03",
       "groups": [
@@ -9878,9 +10469,9 @@
     },
     {
       "aliases": [],
-      "attention": 2.0,
+      "attention": 1.282,
       "attention_cohort": "2025",
-      "attention_raw": 1.0,
+      "attention_raw": 0.833,
       "barriers": "Общее препятствие состоит в управлении тем, как память меняется со временем, и оно распадается на четыре части.\n\nЗаписи нужно сводить в обобщённые и удалять устаревшие, а для этого требуется правило, по которому запись признаётся устаревшей. Между сохранёнными записями возникают противоречия, потому что положение дел меняется, и нужен порядок их разрешения. При многократном пересмотре смысл сохранённого постепенно смещается, и запись перестаёт означать то, ради чего заводилась. Наконец, поиск по изменяющейся памяти нарушает предположение, на котором стоит приближённый поиск ближайших соседей: указатель строится в расчёте на неподвижные векторы.",
       "barriers_en": "The common obstacle is governing how memory changes over time, and it falls into four parts.\n\nRecords must be consolidated and stale ones removed, and that calls for a rule by which a record is judged stale. Contradictions arise among stored records because the state of affairs changes, and an order of resolution is needed. Under repeated revision the meaning of what is stored gradually drifts, and a record ceases to mean what it was written for. Finally, search over a changing memory violates the assumption on which approximate nearest neighbour search rests: the index is built on the premise that vectors stay put.",
       "confidence": 1.0,
@@ -9981,10 +10572,26 @@
           "type": "publication",
           "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=218; year=2025",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4407831980",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=2; year=2025; citation_velocity=0.105",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W7135244490",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2026; citation_velocity=0.833",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 8,
+      "evidence_count": 10,
       "family": null,
       "first_published": "2025-02",
       "groups": [
@@ -10279,9 +10886,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.469,
+      "attention": 1.478,
       "attention_cohort": "2024",
-      "attention_raw": 0.871,
+      "attention_raw": 0.844,
       "confidence": 1.0,
       "configuration": {
         "A1": "summary_node",
@@ -10342,10 +10949,26 @@
           "type": "publication",
           "value": "arXiv:2401.18059 (2024)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4391463108",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=27; year=2024; citation_velocity=0.844",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/parthsarthi03/raptor",
+          "type": "repository",
+          "value": "parthsarthi03/raptor: license=mit, last_push=2024-09-03, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 5,
       "family": "H",
       "first_published": "2024",
       "groups": [
@@ -10354,12 +10977,11 @@
       ],
       "id": "raptor",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -10367,7 +10989,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -10378,6 +11001,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2401.18059",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/parthsarthi03/raptor",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "RAPTOR",
@@ -10724,9 +11355,9 @@
     },
     {
       "aliases": [],
-      "attention": 6.87,
+      "attention": 6.935,
       "attention_cohort": "2023",
-      "attention_raw": 12.652,
+      "attention_raw": 12.383,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -10819,10 +11450,26 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=582; year=2022; citation_velocity=12.652",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4304195432",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=582; year=2022; citation_velocity=12.383",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/ysymyth/ReAct",
+          "type": "repository",
+          "value": "ysymyth/ReAct: license=mit, last_push=2024-02-06, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 9,
       "family": "C",
       "first_published": "2023",
       "groups": [
@@ -10832,12 +11479,11 @@
       ],
       "id": "react",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -10845,7 +11491,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -10856,6 +11503,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2210.03629",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/ysymyth/ReAct",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "ReAct",
@@ -10950,9 +11605,9 @@
     },
     {
       "aliases": [],
-      "attention": 3.241,
+      "attention": 3.238,
       "attention_cohort": "2023",
-      "attention_raw": 5.968,
+      "attention_raw": 5.781,
       "confidence": 1.0,
       "configuration": {
         "C3": "score_normalization",
@@ -11021,10 +11676,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=185; year=2024; citation_velocity=5.968",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4401042773",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=185; year=2024; citation_velocity=5.781",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": null,
       "first_published": "2023",
       "groups": [
@@ -11308,7 +11971,7 @@
       "aliases": [],
       "attention": 0.084,
       "attention_cohort": "2023",
-      "attention_raw": 0.154,
+      "attention_raw": 0.15,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -11361,10 +12024,18 @@
           "type": "publication",
           "value": "arXiv:2305.15225 (2023)",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4378474184",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2023; citation_velocity=0.15",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "I",
       "first_published": "2023-05",
       "groups": [
@@ -11622,10 +12293,18 @@
           "type": "publication",
           "value": "venue=ICLR; peer_reviewed=true",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/AkariAsai/self-rag",
+          "type": "repository",
+          "value": "AkariAsai/self-rag: license=mit, last_push=2024-05-25, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 1,
+      "evidence_count": 2,
       "family": "A",
       "first_published": "2023",
       "groups": [
@@ -11636,12 +12315,11 @@
       ],
       "id": "self_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -11649,7 +12327,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -11660,6 +12339,14 @@
           "status": "verified",
           "url": "https://selfrag.github.io/",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/AkariAsai/self-rag",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "Self-RAG",
@@ -11783,9 +12470,9 @@
     },
     {
       "aliases": [],
-      "attention": 1.066,
+      "attention": 1.051,
       "attention_cohort": "2024",
-      "attention_raw": 0.632,
+      "attention_raw": 0.6,
       "confidence": 1.0,
       "configuration": {
         "E5": "none",
@@ -11820,10 +12507,18 @@
           "type": "publication",
           "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.632",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4411119264",
+          "type": "publication",
+          "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.6",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": null,
       "first_published": "2024",
       "groups": [
@@ -11884,9 +12579,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.56,
+      "attention": 0.414,
       "attention_cohort": "2025",
-      "attention_raw": 0.28,
+      "attention_raw": 0.269,
       "barriers": "Главная проблема состоит в оценке уверенности. Первая подпроблема заключается в надёжной оценке уверенности для skip-retrieval, поскольку ложноположительный пропуск ведёт к галлюцинации, а ложноотрицательный пропуск теряет оптимизацию. Вторая подпроблема состоит в избегании регрессии корректности при пропуске retrieval. Третья подпроблема заключается в накладных расходах оркестрации, поскольку параллельные гонки draft и retrieve сложнее простой последовательной схемы.",
       "barriers_en": "The central difficulty is confidence estimation. First, a reliable confidence estimate is needed for skipping retrieval: a false positive skip leads to hallucination, a false negative loses the optimisation. Second, correctness must not regress when retrieval is skipped. Third, orchestration overhead: racing draft against retrieve in parallel is harder than a simple sequential scheme.",
       "confidence": 1.0,
@@ -11973,10 +12668,18 @@
           "type": "publication",
           "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=117; year=2024",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4400611538",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.269",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 6,
+      "evidence_count": 7,
       "family": "A",
       "first_published": "2025",
       "groups": [
@@ -12093,9 +12796,9 @@
         "HybridRAG",
         "Hybrid RAG"
       ],
-      "attention": 3.283,
+      "attention": 3.267,
       "attention_cohort": null,
-      "attention_raw": 3.283,
+      "attention_raw": 3.267,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -12188,10 +12891,18 @@
           "type": "publication",
           "value": "venue=ACM; peer_reviewed=true; cited_by=673; year=2009; citation_velocity=3.283",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W2148972377",
+          "type": "publication",
+          "value": "venue=ACM; peer_reviewed=true; cited_by=673; year=2009; citation_velocity=3.267",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 7,
+      "evidence_count": 8,
       "family": "D",
       "first_published": "2009",
       "groups": [
@@ -12281,9 +12992,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.367,
+      "attention": 0.368,
       "attention_cohort": "2023",
-      "attention_raw": 0.676,
+      "attention_raw": 0.657,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -12336,10 +13047,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=23; year=2023; citation_velocity=0.676",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=23; year=2023; citation_velocity=0.657",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 2,
+      "evidence_count": 3,
       "family": "G",
       "first_published": "2023-10",
       "groups": [
@@ -12877,9 +13596,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.807,
+      "attention": 0.81,
       "attention_cohort": "2023",
-      "attention_raw": 1.486,
+      "attention_raw": 1.447,
       "confidence": 1.0,
       "configuration": {
         "A1": "node_edge",
@@ -12919,10 +13638,18 @@
           "type": "publication",
           "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.486",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication",
+          "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=55; year=2023; citation_velocity=1.447",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 3,
+      "evidence_count": 4,
       "family": null,
       "first_published": "2023",
       "groups": [
@@ -13512,10 +14239,18 @@
           "type": "repository",
           "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-31, releases=yes",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/VectifyAI/PageIndex",
+          "type": "repository",
+          "value": "VectifyAI/PageIndex: license=mit, last_push=2026-09-01, releases=yes",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 9,
+      "evidence_count": 10,
       "family": "H",
       "first_published": null,
       "groups": [
@@ -13616,9 +14351,9 @@
     },
     {
       "aliases": [],
-      "attention": 0.87,
+      "attention": 0.876,
       "attention_cohort": "2024",
-      "attention_raw": 0.516,
+      "attention_raw": 0.5,
       "confidence": 1.0,
       "configuration": {
         "A1": "passage",
@@ -13687,10 +14422,26 @@
           "type": "publication",
           "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=16; year=2024; citation_velocity=0.516",
           "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://openalex.org/W4415795887",
+          "type": "publication",
+          "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=16; year=2024; citation_velocity=0.5",
+          "value_en": null
+        },
+        {
+          "fetched_at": "2026-09-01",
+          "obtained_by": "auto",
+          "source": "https://github.com/Hannibal046/xRAG",
+          "type": "repository",
+          "value": "Hannibal046/xRAG: license=none, last_push=2024-07-04, releases=no",
+          "value_en": null
         }
       ],
       "evidence_basis": "computed",
-      "evidence_count": 4,
+      "evidence_count": 6,
       "family": "F",
       "first_published": "2024",
       "groups": [
@@ -13698,12 +14449,11 @@
       ],
       "id": "xrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "level_reason": {
         "confidence": 1.0,
         "evidence_basis": "computed",
         "missing": [
-          "L3",
           "L4",
           "L5",
           "L6"
@@ -13711,7 +14461,8 @@
         "satisfied": [
           "L0",
           "L1",
-          "L2"
+          "L2",
+          "L3"
         ]
       },
       "links": [
@@ -13722,6 +14473,14 @@
           "status": "verified",
           "url": "https://arxiv.org/abs/2405.13792",
           "verified_at": "2026-08-09"
+        },
+        {
+          "kind": "github",
+          "label": null,
+          "label_en": null,
+          "status": "verified",
+          "url": "https://github.com/Hannibal046/xRAG",
+          "verified_at": "2026-09-01"
         }
       ],
       "name": "xRAG",

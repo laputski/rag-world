@@ -158,6 +158,56 @@ def test_catalogue_refusal_does_not_break_the_pass(workspace):
     assert discover.load_candidates() == []
 
 
+def test_a_refusal_is_counted_against_the_source_that_made_it(workspace):
+    """Discovery asks two sources, and a step is not a source.
+
+    The run log records which source yielded nothing. While both routes were
+    counted under one name, a pass reporting forty-seven refusals said that
+    «discovery» had refused, when what had happened was that one catalogue
+    ignored the date it was asked for.
+    """
+    http = FakeTransport({"paperswithcode.co": SourceBehaviour(b"", status=503)})
+    summary = discover.run(http=http, today=TODAY, since_days=30)
+
+    assert "paperswithcode" in summary.failures, (
+        f"the refusing source is not named: {dict(summary.failures)}"
+    )
+    assert "discovery" not in summary.failures, (
+        "the name of the step must not stand in for the name of a source"
+    )
+
+
+def test_the_counts_of_refusals_add_up_to_their_messages(workspace):
+    """Two numbers about the same events must not disagree.
+
+    The messages go to a person reading the pass, the counts go to the run log,
+    and if they can diverge a reader has to guess which of the two to believe.
+    """
+    http = FakeTransport({"paperswithcode.co": SourceBehaviour(b"", status=503)})
+    summary = discover.run(http=http, today=TODAY, since_days=30)
+
+    assert sum(summary.failures.values()) == len(summary.problems)
+
+
+def test_a_source_that_answered_is_not_named_among_the_refusals(workspace):
+    """The other side: a breakdown that accuses everyone accuses no one.
+
+    Under the standard answers the catalogue replies and only the markup of the
+    curated list is missing, so exactly one of the two may be named. A key
+    standing at zero would be the same fault in another form: it asserts that a
+    source refused nothing, where nothing is what should be said.
+    """
+    summary = discover.run(http=feed(), today=TODAY, since_days=30)
+
+    assert sum(summary.failures.values()) == len(summary.problems)
+    assert "paperswithcode" not in summary.failures, (
+        f"the catalogue answered and must not be listed: {dict(summary.failures)}"
+    )
+    assert all(count > 0 for count in summary.failures.values()), (
+        f"a refusal count standing at zero: {dict(summary.failures)}"
+    )
+
+
 def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
     """Recomputation must not lose a signal derived at discovery.
 

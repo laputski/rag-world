@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "count": 70,
   "levels": [
     "L0",
@@ -12,9 +12,9 @@
   ],
   "points": [
     {
-      "attention": 10.988,
+      "attention": 11.054,
       "attention_cohort": "2024",
-      "attention_raw": 6.516,
+      "attention_raw": 6.312,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -31,11 +31,15 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "adaptive_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "Adaptive RAG",
       "prose_id": "adaptive_rag"
     },
@@ -60,9 +64,9 @@
       "prose_id": "agentic_rag"
     },
     {
-      "attention": 1.6,
+      "attention": 1.026,
       "attention_cohort": "2025",
-      "attention_raw": 0.8,
+      "attention_raw": 0.667,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
@@ -79,18 +83,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "archrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "ArchRAG",
       "prose_id": "archrag"
     },
     {
-      "attention": 0.081,
+      "attention": 0.079,
       "attention_cohort": "2024",
-      "attention_raw": 0.048,
+      "attention_raw": 0.045,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -138,9 +146,9 @@
       "prose_id": "bge_m3"
     },
     {
-      "attention": 15.35,
+      "attention": 15.275,
       "attention_cohort": null,
-      "attention_raw": 15.35,
+      "attention_raw": 15.275,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
@@ -166,9 +174,9 @@
       "prose_id": "bm25_sparse"
     },
     {
-      "attention": 1.368,
+      "attention": 1.0,
       "attention_cohort": "2025",
-      "attention_raw": 0.684,
+      "attention_raw": 0.65,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -194,9 +202,9 @@
       "prose_id": "causalrag"
     },
     {
-      "attention": 5.821,
+      "attention": 5.856,
       "attention_cohort": "2024",
-      "attention_raw": 3.452,
+      "attention_raw": 3.344,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-04",
@@ -209,16 +217,20 @@
         {
           "at": "2026-08-13",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "cbr_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "CBR-RAG",
       "prose_id": "cbr_rag"
     },
     {
-      "attention": 0.489,
+      "attention": 0.508,
       "attention_cohort": "2024",
       "attention_raw": 0.29,
       "confidence": 1.0,
@@ -245,9 +257,9 @@
       "prose_id": "chatqa"
     },
     {
-      "attention": 2.526,
+      "attention": 2.494,
       "attention_cohort": null,
-      "attention_raw": 2.526,
+      "attention_raw": 2.494,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2021",
@@ -265,18 +277,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L4"
         }
       ],
       "id": "colbert",
       "kind": "technique",
-      "level": "L2",
+      "level": "L4",
       "name": "ColBERT",
       "prose_id": "colbert"
     },
     {
       "attention": 0.324,
       "attention_cohort": "2024",
-      "attention_raw": 0.192,
+      "attention_raw": 0.185,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-07",
@@ -293,11 +309,15 @@
         {
           "at": "2026-08-12",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "colpali",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "name": "ColPali",
       "prose_id": "colpali"
     },
@@ -325,9 +345,9 @@
       "prose_id": "contextual_retrieval"
     },
     {
-      "attention": 9.585,
+      "attention": 9.457,
       "attention_cohort": "2024",
-      "attention_raw": 5.684,
+      "attention_raw": 5.4,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -351,9 +371,9 @@
       "prose_id": "crag"
     },
     {
-      "attention": 1.121,
+      "attention": 1.12,
       "attention_cohort": "2023",
-      "attention_raw": 2.065,
+      "attention_raw": 2.0,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-12",
@@ -369,18 +389,22 @@
         {
           "at": "2026-08-09",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "dense_x_retrieval",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "name": "Dense X",
       "prose_id": "dense_x_retrieval"
     },
     {
-      "attention": 0.879,
+      "attention": 0.88,
       "attention_cohort": "2023",
-      "attention_raw": 1.618,
+      "attention_raw": 1.571,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -456,9 +480,9 @@
       "prose_id": "edgerag"
     },
     {
-      "attention": 0.073,
+      "attention": 0.074,
       "attention_cohort": "2024",
-      "attention_raw": 0.043,
+      "attention_raw": 0.042,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-09",
@@ -481,9 +505,9 @@
       "prose_id": "embodied_rag"
     },
     {
-      "attention": 0.632,
+      "attention": 0.462,
       "attention_cohort": "2025",
-      "attention_raw": 0.316,
+      "attention_raw": 0.3,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-04",
@@ -509,9 +533,9 @@
       "prose_id": "federated_rag"
     },
     {
-      "attention": 5.38,
+      "attention": 5.423,
       "attention_cohort": "2023",
-      "attention_raw": 9.907,
+      "attention_raw": 9.682,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -529,18 +553,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "flare",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "FLARE",
       "prose_id": "flare"
     },
     {
       "attention": 1.0,
       "attention_cohort": "2024",
-      "attention_raw": 0.593,
+      "attention_raw": 0.571,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -563,9 +591,9 @@
       "prose_id": "gnn_rag"
     },
     {
-      "attention": 0.489,
+      "attention": 0.492,
       "attention_cohort": "2024",
-      "attention_raw": 0.29,
+      "attention_raw": 0.281,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -588,9 +616,9 @@
       "prose_id": "graphreader"
     },
     {
-      "attention": 4.788,
+      "attention": 4.816,
       "attention_cohort": "2024",
-      "attention_raw": 2.839,
+      "attention_raw": 2.75,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -616,9 +644,9 @@
       "prose_id": "hipporag"
     },
     {
-      "attention": 6.93,
+      "attention": 6.773,
       "attention_cohort": null,
-      "attention_raw": 6.93,
+      "attention_raw": 6.773,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022",
@@ -634,18 +662,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "hyde",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "name": "HyDE",
       "prose_id": "hyde"
     },
     {
-      "attention": 3.587,
+      "attention": 3.615,
       "attention_cohort": "2023",
-      "attention_raw": 6.605,
+      "attention_raw": 6.455,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -663,18 +695,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "ircot",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "IRCoT",
       "prose_id": "ircot"
     },
     {
-      "attention": 5.509,
+      "attention": 5.363,
       "attention_cohort": "2024",
-      "attention_raw": 3.267,
+      "attention_raw": 3.062,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -688,11 +724,15 @@
         {
           "at": "2026-08-10",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "kag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "KAG",
       "prose_id": "kag"
     },
@@ -720,9 +760,9 @@
       "prose_id": "lamar"
     },
     {
-      "attention": 0.366,
+      "attention": 0.364,
       "attention_cohort": "2024",
-      "attention_raw": 0.217,
+      "attention_raw": 0.208,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -743,9 +783,9 @@
       "prose_id": "late_chunking"
     },
     {
-      "attention": null,
-      "attention_cohort": null,
-      "attention_raw": null,
+      "attention": 10.385,
+      "attention_cohort": "2025",
+      "attention_raw": 6.75,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -759,18 +799,22 @@
         {
           "at": "2026-08-08",
           "level": "L0"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L4"
         }
       ],
       "id": "lightrag",
       "kind": "architecture",
-      "level": "L0",
+      "level": "L4",
       "name": "LightRAG",
       "prose_id": "lightrag"
     },
     {
-      "attention": 0.134,
+      "attention": 0.095,
       "attention_cohort": "2025",
-      "attention_raw": 0.067,
+      "attention_raw": 0.062,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-05",
@@ -793,11 +837,11 @@
       "prose_id": "ma_rag"
     },
     {
-      "attention": null,
+      "attention": 0.125,
       "attention_cohort": null,
-      "attention_raw": null,
-      "confidence": null,
-      "evidence_basis": null,
+      "attention_raw": 0.125,
+      "confidence": 1.0,
+      "evidence_basis": "computed",
       "first_published": "2026-01",
       "group": "A",
       "groups": [
@@ -806,17 +850,22 @@
         "D",
         "F"
       ],
-      "history": [],
+      "history": [
+        {
+          "at": "2026-09-01",
+          "level": "L3"
+        }
+      ],
       "id": "magma",
       "kind": "architecture",
-      "level": null,
+      "level": "L3",
       "name": "MAGMA",
       "prose_id": "magma"
     },
     {
-      "attention": null,
+      "attention": 1.353,
       "attention_cohort": null,
-      "attention_raw": null,
+      "attention_raw": 1.353,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
@@ -832,11 +881,15 @@
         {
           "at": "2026-08-08",
           "level": "L0"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "memorag",
       "kind": "architecture",
-      "level": "L0",
+      "level": "L3",
       "name": "MemoRAG",
       "prose_id": "memorag"
     },
@@ -899,9 +952,9 @@
       "prose_id": "multi_query"
     },
     {
-      "attention": 1.982,
+      "attention": 1.946,
       "attention_cohort": null,
-      "attention_raw": 1.982,
+      "attention_raw": 1.946,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022",
@@ -951,9 +1004,9 @@
       "prose_id": "naive_dense"
     },
     {
-      "attention": 0.143,
+      "attention": 0.125,
       "attention_cohort": null,
-      "attention_raw": 0.143,
+      "attention_raw": 0.125,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2026-01",
@@ -977,9 +1030,9 @@
       "prose_id": "neuro_symbolic_rag"
     },
     {
-      "attention": 1.684,
+      "attention": 1.231,
       "attention_cohort": "2025",
-      "attention_raw": 0.842,
+      "attention_raw": 0.8,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -997,11 +1050,15 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "og_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "OG-RAG",
       "prose_id": "og_rag"
     },
@@ -1010,7 +1067,7 @@
       "attention_cohort": null,
       "attention_raw": null,
       "confidence": 1.0,
-      "evidence_basis": "computed",
+      "evidence_basis": "manual",
       "first_published": null,
       "group": "A",
       "groups": [
@@ -1025,18 +1082,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L5"
         }
       ],
       "id": "opensearch",
       "kind": "tool",
-      "level": "L2",
+      "level": "L5",
       "name": "OpenSearch",
       "prose_id": "opensearch"
     },
     {
-      "attention": 4.0,
+      "attention": 2.565,
       "attention_cohort": "2025",
-      "attention_raw": 2.0,
+      "attention_raw": 1.667,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1054,11 +1115,15 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "pathrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "PathRAG",
       "prose_id": "pathrag"
     },
@@ -1088,9 +1153,9 @@
       "prose_id": "pixelrag"
     },
     {
-      "attention": 1.474,
+      "attention": 1.077,
       "attention_cohort": "2025",
-      "attention_raw": 0.737,
+      "attention_raw": 0.7,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1100,18 +1165,22 @@
         {
           "at": "2026-08-10",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "poison_rag",
       "kind": "attack",
-      "level": "L2",
+      "level": "L3",
       "name": "Poison-RAG",
       "prose_id": "poison_rag"
     },
     {
-      "attention": 0.675,
+      "attention": 0.678,
       "attention_cohort": "2024",
-      "attention_raw": 0.4,
+      "attention_raw": 0.387,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-02",
@@ -1134,7 +1203,7 @@
       "attention_cohort": null,
       "attention_raw": null,
       "confidence": 1.0,
-      "evidence_basis": "computed",
+      "evidence_basis": "manual",
       "first_published": null,
       "group": "A",
       "groups": [
@@ -1149,18 +1218,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L5"
         }
       ],
       "id": "qdrant",
       "kind": "tool",
-      "level": "L2",
+      "level": "L5",
       "name": "Qdrant",
       "prose_id": "qdrant"
     },
     {
-      "attention": 0.644,
+      "attention": 0.63,
       "attention_cohort": null,
-      "attention_raw": 0.644,
+      "attention_raw": 0.63,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2022-11",
@@ -1183,9 +1256,9 @@
       "prose_id": "ra_cm3"
     },
     {
-      "attention": 0.239,
+      "attention": 0.24,
       "attention_cohort": "2023",
-      "attention_raw": 0.441,
+      "attention_raw": 0.429,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-10",
@@ -1206,9 +1279,9 @@
       "prose_id": "ra_dit"
     },
     {
-      "attention": 1.74,
+      "attention": 1.751,
       "attention_cohort": "2024",
-      "attention_raw": 1.032,
+      "attention_raw": 1.0,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -1222,18 +1295,22 @@
         {
           "at": "2026-08-10",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "ra_isf",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "RA-ISF",
       "prose_id": "ra_isf"
     },
     {
-      "attention": 1.629,
+      "attention": 1.634,
       "attention_cohort": "2024",
-      "attention_raw": 0.966,
+      "attention_raw": 0.933,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024-03",
@@ -1280,9 +1357,9 @@
       "prose_id": "rag_anything"
     },
     {
-      "attention": 2.0,
+      "attention": 1.282,
       "attention_cohort": "2025",
-      "attention_raw": 1.0,
+      "attention_raw": 0.833,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
@@ -1332,9 +1409,9 @@
       "prose_id": "rag_fusion"
     },
     {
-      "attention": 1.469,
+      "attention": 1.478,
       "attention_cohort": "2024",
-      "attention_raw": 0.871,
+      "attention_raw": 0.844,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -1351,11 +1428,15 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "raptor",
       "kind": "technique",
-      "level": "L2",
+      "level": "L3",
       "name": "RAPTOR",
       "prose_id": "raptor"
     },
@@ -1385,9 +1466,9 @@
       "prose_id": "rarg"
     },
     {
-      "attention": 6.87,
+      "attention": 6.935,
       "attention_cohort": "2023",
-      "attention_raw": 12.652,
+      "attention_raw": 12.383,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1405,18 +1486,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "react",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "ReAct",
       "prose_id": "react"
     },
     {
-      "attention": 3.241,
+      "attention": 3.238,
       "attention_cohort": "2023",
-      "attention_raw": 5.968,
+      "attention_raw": 5.781,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1464,7 +1549,7 @@
     {
       "attention": 0.084,
       "attention_cohort": "2023",
-      "attention_raw": 0.154,
+      "attention_raw": 0.15,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-05",
@@ -1523,18 +1608,22 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "self_rag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "Self-RAG",
       "prose_id": "self_rag"
     },
     {
-      "attention": 1.066,
+      "attention": 1.051,
       "attention_cohort": "2024",
-      "attention_raw": 0.632,
+      "attention_raw": 0.6,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -1555,9 +1644,9 @@
       "prose_id": "simrag"
     },
     {
-      "attention": 0.56,
+      "attention": 0.414,
       "attention_cohort": "2025",
-      "attention_raw": 0.28,
+      "attention_raw": 0.269,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025",
@@ -1583,9 +1672,9 @@
       "prose_id": "speculative_rag"
     },
     {
-      "attention": 3.283,
+      "attention": 3.267,
       "attention_cohort": null,
-      "attention_raw": 3.283,
+      "attention_raw": 3.267,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2009",
@@ -1608,9 +1697,9 @@
       "prose_id": "standard_hybridrag"
     },
     {
-      "attention": 0.367,
+      "attention": 0.368,
       "attention_cohort": "2023",
-      "attention_raw": 0.676,
+      "attention_raw": 0.657,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-10",
@@ -1684,9 +1773,9 @@
       "prose_id": "test_time"
     },
     {
-      "attention": 0.807,
+      "attention": 0.81,
       "attention_cohort": "2023",
-      "attention_raw": 1.486,
+      "attention_raw": 1.447,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1780,9 +1869,9 @@
       "prose_id": "vectorless"
     },
     {
-      "attention": 0.87,
+      "attention": 0.876,
       "attention_cohort": "2024",
-      "attention_raw": 0.516,
+      "attention_raw": 0.5,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2024",
@@ -1794,11 +1883,15 @@
         {
           "at": "2026-08-08",
           "level": "L2"
+        },
+        {
+          "at": "2026-09-01",
+          "level": "L3"
         }
       ],
       "id": "xrag",
       "kind": "architecture",
-      "level": "L2",
+      "level": "L3",
       "name": "xRAG",
       "prose_id": "xrag"
     }

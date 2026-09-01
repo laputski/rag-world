@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [
       "PageIndex"
@@ -115,10 +115,18 @@
         "type": "repository",
         "value": "VectifyAI/PageIndex: license=mit, last_push=2026-08-31, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-09-01, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": "H",
     "first_published": null,
     "groups": [

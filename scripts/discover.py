@@ -29,6 +29,7 @@ import argparse
 import json
 import re
 import sys
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 from pathlib import Path
@@ -69,6 +70,12 @@ class DiscoverySummary:
     decided: int = 0
     rescored: int = 0
     problems: list[str] = field(default_factory=list)
+    #: The same refusals counted against the source that made them. Discovery
+    #: asks two sources, the works-and-code catalogue and the curated lists, and
+    #: a run log that recorded them under one name would say the step refused
+    #: rather than which source did. The messages stay in `problems`; this holds
+    #: what survives the pass.
+    failures: Counter[str] = field(default_factory=Counter)
 
 
 def load_candidates() -> list[dict]:
@@ -152,6 +159,11 @@ def run(
         method=RAG_METHOD,
     )
     summary.problems.extend(problems)
+    # Only a source that actually refused is named. A key standing at zero
+    # would assert "this source refused nothing", and the run log has no room
+    # for a zero standing in for an absence.
+    if problems:
+        summary.failures["paperswithcode"] += len(problems)
 
     arxiv_ids = _registry_arxiv_ids()
     names = _registry_names() | _rejected_names()
@@ -176,6 +188,8 @@ def run(
         known=arxiv_ids | seen | decided,
     )
     summary.problems.extend(listed_problems)
+    if listed_problems:
+        summary.failures["curated_lists"] += len(listed_problems)
     curated_source = {paper.arxiv_id for paper in listed}
     papers = papers + listed
     summary.found = len(papers)

@@ -1,6 +1,6 @@
 {
   "attribution": "RAG World, https://ragworld.org",
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "datasets": [
     {
       "description": "Every technology in the registry with its configuration over the 28 dimensions, maturity level, the rule output behind that level, and the evidence records the level stands on.",
@@ -16,7 +16,7 @@
     },
     {
       "description": "Append-only chronicle: every level change with its date and the evidence that caused it.",
-      "records": 93,
+      "records": 116,
       "records_at": "changes",
       "url": "https://ragworld.org/data/changes.json"
     },
@@ -38,7 +38,7 @@
     },
     {
       "description": "Digest issues, generated from the chronicle without a language model.",
-      "records": 7,
+      "records": 8,
       "records_at": "issues",
       "url": "https://ragworld.org/data/digest.json"
     }

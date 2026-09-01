@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "technology": {
     "aliases": [],
     "attention": 0.324,
     "attention_cohort": "2024",
-    "attention_raw": 0.192,
+    "attention_raw": 0.185,
     "confidence": 1.0,
     "configuration": {
       "A1": "page_image",
@@ -89,10 +89,26 @@
         "type": "publication",
         "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=202; year=2024",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400373146",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=5; year=2024; citation_velocity=0.185",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-01",
+        "obtained_by": "auto",
+        "source": "https://github.com/illuin-tech/colpali",
+        "type": "repository",
+        "value": "illuin-tech/colpali: license=mit, last_push=2026-08-24, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 8,
     "family": "E",
     "first_published": "2024-07",
     "groups": [
@@ -101,12 +117,11 @@
     ],
     "id": "colpali",
     "kind": "technique",
-    "level": "L2",
+    "level": "L3",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L3",
         "L4",
         "L5",
         "L6"
@@ -114,7 +129,8 @@
       "satisfied": [
         "L0",
         "L1",
-        "L2"
+        "L2",
+        "L3"
       ]
     },
     "links": [
@@ -125,6 +141,14 @@
         "status": "verified",
         "url": "https://arxiv.org/abs/2407.01449",
         "verified_at": "2026-08-09"
+      },
+      {
+        "kind": "github",
+        "label": null,
+        "label_en": null,
+        "status": "verified",
+        "url": "https://github.com/illuin-tech/colpali",
+        "verified_at": "2026-09-01"
       }
     ],
     "name": "ColPali",

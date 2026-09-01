@@ -1,6 +1,176 @@
 {
-  "built_at": "2026-08-31",
+  "built_at": "2026-09-01",
   "issues": [
+    {
+      "added": [
+        {
+          "level_after": "L3",
+          "level_before": null,
+          "name": "MAGMA",
+          "technology_id": "magma"
+        }
+      ],
+      "by_level": {
+        "L0": 4,
+        "L1": 24,
+        "L2": 12,
+        "L3": 22,
+        "L4": 3,
+        "L5": 3,
+        "unknown": 2
+      },
+      "demoted": [],
+      "evidence_added": 80,
+      "evidence_by_type": {
+        "package_downloads": 5,
+        "publication": 52,
+        "repository": 23
+      },
+      "evidence_seen": 413,
+      "issued_at": "2026-09-01",
+      "levels_seen": 116,
+      "links_broken": 0,
+      "links_checked": 25,
+      "promoted": [
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "Adaptive RAG",
+          "technology_id": "adaptive_rag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "ArchRAG",
+          "technology_id": "archrag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "CBR-RAG",
+          "technology_id": "cbr_rag"
+        },
+        {
+          "level_after": "L4",
+          "level_before": "L2",
+          "name": "ColBERT",
+          "technology_id": "colbert"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "ColPali",
+          "technology_id": "colpali"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "Dense X",
+          "technology_id": "dense_x_retrieval"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "FLARE",
+          "technology_id": "flare"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "HyDE",
+          "technology_id": "hyde"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "IRCoT",
+          "technology_id": "ircot"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "KAG",
+          "technology_id": "kag"
+        },
+        {
+          "level_after": "L4",
+          "level_before": "L0",
+          "name": "LightRAG",
+          "technology_id": "lightrag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L0",
+          "name": "MemoRAG",
+          "technology_id": "memorag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "OG-RAG",
+          "technology_id": "og_rag"
+        },
+        {
+          "level_after": "L5",
+          "level_before": "L2",
+          "name": "OpenSearch",
+          "technology_id": "opensearch"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "PathRAG",
+          "technology_id": "pathrag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "Poison-RAG",
+          "technology_id": "poison_rag"
+        },
+        {
+          "level_after": "L5",
+          "level_before": "L2",
+          "name": "Qdrant",
+          "technology_id": "qdrant"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "RA-ISF",
+          "technology_id": "ra_isf"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "RAPTOR",
+          "technology_id": "raptor"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "ReAct",
+          "technology_id": "react"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "Self-RAG",
+          "technology_id": "self_rag"
+        },
+        {
+          "level_after": "L3",
+          "level_before": "L2",
+          "name": "xRAG",
+          "technology_id": "xrag"
+        }
+      ],
+      "runs_seen": 15,
+      "since": "2026-08-31",
+      "text": "Впервые получили уровень 1 запись: MAGMA. Поднялись в уровне Adaptive RAG с L2 до L3, ArchRAG с L2 до L3, CBR-RAG с L2 до L3, ColBERT с L2 до L4, ColPali с L2 до L3, Dense X с L2 до L3, FLARE с L2 до L3, HyDE с L2 до L3, а также ещё 14 записей. Собрано 80 свидетельств: 52 о публикациях, 23 о репозиториях, 5 о загрузках пакетов. Сейчас в реестре 70 записей. Уровень L0 у 4 записей, L1 у 24, L2 у 12, L3 у 22, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+      "text_en": "Received a level for the first time: 1 record, namely MAGMA. Rose in level: Adaptive RAG from L2 to L3, ArchRAG from L2 to L3, CBR-RAG from L2 to L3, ColBERT from L2 to L4, ColPali from L2 to L3, Dense X from L2 to L3, FLARE from L2 to L3, HyDE from L2 to L3, plus 14 records. Collected 80 pieces of evidence: 52 about publications, 23 about repositories, 5 about package downloads. The registry now holds 70 records. Level L0 in 4 records, L1 in 24, L2 in 12, L3 in 22, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+      "total": 70
+    },
     {
       "added": [],
       "by_level": {
