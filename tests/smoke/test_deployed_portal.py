@@ -26,6 +26,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
+from tests.support.external_hosts import stray_hosts  # noqa: E402
+
 requests = pytest.importorskip("requests")
 
 pytestmark = pytest.mark.network
@@ -140,9 +142,13 @@ def test_page_asks_no_external_host(index_html):
 
     The fonts and styles are built in deliberately: reaching an external one makes
     the portal hostage to its availability and reports the reader to a third
-    party.
+    party. One exception is granted, to the visit counter, and its grounds are
+    written down beside the rule.
+
+    The deciding lives in `tests.support.external_hosts` and is exercised by the
+    fast suite, because this check needs a network and is therefore kept out of
+    it. A rule that runs only where nobody watches quietly stops holding: this one
+    spent seventeen days contradicting the deployed page before it was run.
     """
-    external = re.findall(r'(?:src|href)="(https?://[^"]+)"', index_html)
-    allowed = (BASE_URL,)
-    stray = [u for u in external if not u.startswith(allowed)]
+    stray = stray_hosts(index_html)
     assert not stray, f"the page reaches outward: {stray[:5]}"

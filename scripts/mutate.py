@@ -401,6 +401,17 @@ MUTATIONS: tuple[Mutation, ...] = (
              '<meta property="og:image" content="https://ragworld.org/og-image.png" />',
              ""),
 
+    # ── The outside hosts a page may name ───────────────────────────────────
+    Mutation("tests/support/external_hosts.py",
+             "the outside host is compared as a host, not as a prefix",
+             'host = (urlsplit(address).hostname or "").lower()',
+             'host = address.lower().removeprefix("https://").removeprefix("http://")'),
+    Mutation("tests/support/external_hosts.py",
+             "the permitted set holds the counter and nothing more",
+             "ALLOWED_HOSTS: tuple[str, ...] = (PORTAL_HOST, COUNTER_HOST)",
+             'ALLOWED_HOSTS: tuple[str, ...] = (PORTAL_HOST, COUNTER_HOST, '
+             '"fonts.googleapis.com")'),
+
     # ── The third route of discovery ────────────────────────────────────────
     Mutation("services/collectors/arxiv_feed.py",
              "only work that names itself is taken from the feed",
