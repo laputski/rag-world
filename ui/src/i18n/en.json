@@ -68,28 +68,23 @@
     "unknown": "no data"
   },
   "map": {
-    "title": "RAG maturity map",
-    "subtitle": "Position shows evidence-backed maturity and how often a technology is cited. Data is rebuilt automatically.",
-    "confidence": "confidence",
-    "unavailable": "Map unavailable: data artifact not found",
-    "stale": "data is stale",
-    "count": "technologies",
-    "ruleVersion": "rule version",
-    "openCard": "Open technology card",
-    "noAttention": "no citation data",
-    "attentionUnit": "× median for the year",
+    "attentionNotNormalized": "Fewer than five works share the year, so their median is unstable and no division is applied. The measured citations per month are shown; they are not comparable with normalised values.",
     "attentionOrigin": "Citations per month divided by the median of works first published the same year. Above one means the technology is cited more often than its peers.",
-    "axisMaturity": "maturity",
+    "attentionRaw": "cit./mo.",
+    "attentionUnit": "× median for the year",
     "axisAttention": "citation rate (× median for the year, or cit./mo.)",
+    "axisMaturity": "maturity",
+    "confidence": "confidence",
+    "count": "technologies",
+    "levelUnknown": "not computed",
+    "medianLine": "median of the year",
+    "noAttention": "no citation data",
+    "openCard": "Open technology card",
+    "openRegistry": "full registry →",
     "projection": {
       "map": "map",
       "grid": "strata grid"
     },
-    "showMovement": "show movement",
-    "openRegistry": "full registry →",
-    "attentionRaw": "cit./mo.",
-    "attentionNotNormalized": "Fewer than five works share the year, so their median is unstable and no division is applied. The measured citations per month are shown; they are not comparable with normalised values.",
-    "levelUnknown": "not computed",
     "read": {
       "title": "How to read this map",
       "axisX": {
@@ -120,7 +115,18 @@
       "chainTitle": "The order of the levels",
       "chain": "L0 hypothesis → L1 preprint → L2 review or production use → L3 authors' code → L4 independent reproduction → L5 production → L6 standard",
       "how": "how this is computed"
-    }
+    },
+    "ruleVersion": "rule version",
+    "scale": {
+      "log": "logarithmic",
+      "linear": "linear"
+    },
+    "showMovement": "show movement",
+    "stale": "data is stale",
+    "subtitle": "Position shows evidence-backed maturity and how often a technology is cited. Data is rebuilt automatically.",
+    "title": "RAG maturity map",
+    "unavailable": "Map unavailable: data artifact not found",
+    "zeroCitations": "cited nothing yet"
   },
   "registry": {
     "title": "RAG technology registry",

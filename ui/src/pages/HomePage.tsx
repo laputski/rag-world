@@ -18,6 +18,8 @@ import type { MaturityArtifact, RegistryChange, RegistryStats } from "../api/typ
 */
 const MaturityMap = lazy(() =>
   import("../components/MaturityMap").then((m) => ({ default: m.MaturityMap })));
+
+type AttentionScale = "log" | "linear";
 const MaturityGrid = lazy(() =>
   import("../components/MaturityGrid").then((m) => ({ default: m.MaturityGrid })));
 import { LevelBadge } from "../components/LevelBadge";
@@ -51,6 +53,14 @@ export function HomePage() {
   const [changes, setChanges] = useState<RegistryChange[]>([]);
   const [projection, setProjection] = useState<Projection>("map");
   const [movement, setMovement] = useState(false);
+  /*
+    The two placements of the attention axis answer different questions, so both
+    are offered rather than one being chosen for the reader. The logarithm shows
+    where a record stands among its peers, which is what the quantity is: a ratio
+    to the median of its year. The linear placement shows how far the leaders
+    stand above everybody else, which the logarithm compresses on purpose.
+  */
+  const [scale, setScale] = useState<AttentionScale>("log");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -162,6 +172,21 @@ export function HomePage() {
             {t(`map.projection.${p}`)}
           </Typography>
         ))}
+        {projection === "map" &&
+          (["log", "linear"] as AttentionScale[]).map((value, index) => (
+            <Typography
+              key={value}
+              onClick={() => setScale(value)}
+              sx={{
+                fontSize: "0.85rem", cursor: "pointer",
+                ml: index === 0 ? 1 : 0,
+                color: scale === value ? "text.primary" : "text.secondary",
+                fontWeight: scale === value ? 600 : 400,
+              }}
+            >
+              {t(`map.scale.${value}`)}
+            </Typography>
+          ))}
         {projection === "map" && (
           <Typography
             onClick={() => setMovement((m) => !m)}
@@ -195,6 +220,7 @@ export function HomePage() {
           <MaturityMap
             artifact={artifact}
             showMovement={movement}
+            scale={scale}
             onSelect={(id) => navigate(`/tech/${id}`)}
           />
         ) : (

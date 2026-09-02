@@ -30,11 +30,36 @@ import { KIND_SYMBOLS, MONO, stratumColor, type ThemeMode } from "../theme";
  * zero is inadmissible: a zero would mean a measured quantity.
  */
 
+/**
+ * The values marked on the attention axis. They are values of the quantity
+ * rather than steps of its logarithm: a ratio is read as "a third of the
+ * median" and "three times the median", and those two have to sit at equal
+ * distances from one.
+ */
+const LANDMARKS = [0.1, 0.3, 1, 3, 10];
+
+/**
+ * How the attention axis lays a value out on the height.
+ *
+ * `log` is the placement the quantity asks for: it is a ratio to the median of
+ * its year, so half the median and twice the median are the same distance apart
+ * and only a logarithm draws them so.
+ *
+ * `linear` is the placement the map had before, kept because the two answer
+ * different questions. A linear axis shows how far the leaders stand above
+ * everybody else, which a logarithm deliberately compresses; a logarithm shows
+ * where a record stands among its peers, which a linear axis crushes into the
+ * bottom tenth. Neither is the truer picture of the same number.
+ */
+export type AttentionScale = "log" | "linear";
+
 interface Props {
   artifact: MaturityArtifact;
   height?: number;
   /** Show level movement: a line from the former position to the current one. */
   showMovement?: boolean;
+  /** How the attention axis is laid out. Logarithmic unless told otherwise. */
+  scale?: AttentionScale;
   onSelect?: (id: string) => void;
 }
 
@@ -87,7 +112,9 @@ function levelIndex(levels: string[], level: string | null): number {
   return level ? levels.indexOf(level) : -1;
 }
 
-export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: Props) {
+export function MaturityMap({
+  artifact, height = 460, showMovement, scale = "log", onSelect,
+}: Props) {
   const theme = useTheme();
   const { t } = useTranslation();
   const mode = theme.palette.mode as ThemeMode;
@@ -101,8 +128,60 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       .map((p) => p.attention)
       .filter((a): a is number => a != null);
     const maxAttention = attentions.length ? Math.max(...attentions) : 1;
-    // The "no data" band lies below zero, apart from the measured values.
-    const unknownAttentionY = -maxAttention * 0.12;
+
+    /*
+      The quantity is a ratio: citations a month divided by the median of the
+      year, so its median inside every age group is exactly one by construction
+      and its tail runs far to the right. A linear axis draws such a quantity
+      wrongly, and not merely tightly: half the median and twice the median are
+      the same distance apart in the quantity, and on a linear axis they are not.
+      The placement is therefore the decimal logarithm, on which they are, and
+      the line at one is drawn because that is where the quantity has its
+      meaning.
+
+      The transform touches the position and nothing else. The value, the rule
+      that computes it and the number in the tooltip are as they were: this is
+      how one and the same number is laid out on the height.
+
+      `log(1 + a)` was tried first and rejected. It admits a zero, which is
+      convenient, but it breaks the very symmetry the change was made for: under
+      it the step from one to a half is 0.125 and from one to two is 0.176.
+    */
+    const yScale = (a: number): number => (logarithmic ? Math.log10(a) : a);
+
+    /*
+      Three states below the scale, each with a band of its own, because they are
+      three different assertions and one of them is not a small number.
+
+      A record cited nothing has a measured zero, which the logarithm has no
+      place for; it goes into a band under the scale. A record with no citation
+      data at all goes lower still. Putting either at the foot of the scale
+      would say a thing was rarely cited where the truth is that it was never
+      cited, or that nobody counted.
+
+      Both bands sit at a constant depth rather than at a share of the highest
+      value. While the depth was a share, every new outlier pushed the bands down
+      and squeezed everything else, for a reason having nothing to do with the
+      records inside them.
+    */
+    const logarithmic = scale !== "linear";
+
+    /*
+      On the linear placement the bands are what they were before the logarithm
+      arrived: one band, for an absent value, at a share of the highest value. A
+      measured zero needs no band there, because a linear axis has a place for
+      zero and the logarithm has not. Keeping the old arrangement is the point of
+      keeping the old view: a second rendering that quietly differed in its
+      bands would not be the view it is offered as.
+    */
+    const ZERO_BAND = logarithmic
+      ? Math.log10(LANDMARKS[0]) - 0.30
+      : 0;
+    const UNKNOWN_BAND = logarithmic
+      ? ZERO_BAND - 0.36
+      : -maxAttention * 0.12;
+    const BAND_SPREAD = logarithmic ? 0.09 : maxAttention * 0.06;
+    const unknownAttentionY = UNKNOWN_BAND;
 
     // A band is centred on its own label, and the points inside it are spread
     // evenly across it. No two share a position, so a reader can count them.
@@ -112,10 +191,17 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       const centre = index < 0 ? UNKNOWN_LEVEL_X : index;
       return centre + (offsets.get(p.id) ?? 0);
     };
-    const yOf = (p: MaturityPoint): number =>
-      p.attention != null
-        ? p.attention
-        : unknownAttentionY + (stableJitter(p.id) - 0.5) * maxAttention * 0.06;
+    const yOf = (p: MaturityPoint): number => {
+      if (p.attention == null) {
+        return UNKNOWN_BAND + (stableJitter(p.id) - 0.5) * BAND_SPREAD;
+      }
+      // A measured zero has a band of its own only where the scale has no place
+      // for it. On the linear placement it sits at zero, where it belongs.
+      if (logarithmic && p.attention <= 0) {
+        return ZERO_BAND + (stableJitter(p.id) - 0.5) * BAND_SPREAD;
+      }
+      return yScale(p.attention);
+    };
 
     // The size of a point encodes nothing and is the same for all.
     //
@@ -126,6 +212,22 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
     // same ceiling: not knowing and knowing a small value could not be told
     // apart by eye. The portal is obliged to show that difference, not hide it.
     const POINT_SIZE = 11;
+
+    /*
+      The names of the few most cited records are drawn on the map itself. A
+      point at the top of the axis is the one a reader asks about first, and
+      asking meant hovering over it. Only the top few are named: a label on every
+      point turns the map into a wall of text, and the rest are a hover away as
+      before.
+    */
+    const NAMED_AT_TOP = 5;
+    const namedIds = new Set(
+      artifact.points
+        .filter((p) => p.attention != null)
+        .sort((a, b) => (b.attention ?? 0) - (a.attention ?? 0))
+        .slice(0, NAMED_AT_TOP)
+        .map((p) => p.id)
+    );
 
     const byKind = new Map<string, MaturityPoint[]>();
     for (const point of artifact.points) {
@@ -142,6 +244,16 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       data: points.map((p) => ({
         value: [xOf(p), yOf(p)],
         point: p,
+        label: namedIds.has(p.id)
+          ? {
+              show: true,
+              formatter: p.name,
+              position: "right" as const,
+              distance: 6,
+              color: muted,
+              fontSize: 11,
+            }
+          : { show: false },
         itemStyle: {
           color: stratumColor(p.group ?? "", mode),
           // Opacity tells a computed level from an absent one, and nothing
@@ -153,6 +265,9 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         },
       })),
       emphasis: { focus: "series" as const, scale: 1.25 },
+      // A label that would collide with another is dropped rather than drawn
+      // over it: two names on top of each other are worse than one.
+      labelLayout: { hideOverlap: true },
       z: 3,
     }));
 
@@ -239,21 +354,60 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
       },
       yAxis: {
         type: "value",
-        min: unknownAttentionY - maxAttention * 0.06,
+        min: UNKNOWN_BAND - BAND_SPREAD,
+        max: logarithmic
+          ? yScale(Math.max(maxAttention, LANDMARKS[LANDMARKS.length - 1])) + 0.12
+          : undefined,
         // `onZero` is on by default, and it draws the axis at the zero of the
         // other scale instead of at the edge of the plot. Zero is the centre of
         // a column here, so the axis would stand inside a band and read as a
         // boundary that cuts it in half.
         axisLine: { onZero: false, lineStyle: { color: line } },
-        splitLine: { lineStyle: { color: line, type: "dashed" as const } },
+        /*
+          The marks stand at values of the quantity, not at even steps of the
+          logarithm: a reader of a ratio wants a tenth, a third, one, three, ten,
+          and a tenth and ten have to be equally far from one. Even steps of the
+          logarithm would put marks at 0, 9, 99 and say nothing.
+        */
         axisLabel: {
           color: muted,
           fontFamily: MONO,
           fontSize: 11,
-          formatter: (value: number) =>
-            value < 0 ? "" : String(Math.round(value)),
+          ...(logarithmic
+            ? {
+                customValues: LANDMARKS.map(yScale),
+                formatter: (value: number) => {
+                  const original = 10 ** value;
+                  return original < 1
+                    ? String(Math.round(original * 100) / 100)
+                    : String(Math.round(original));
+                },
+              }
+            : {
+                formatter: (value: number) =>
+                  value < 0 ? "" : String(Math.round(value)),
+              }),
         },
-        name: t("map.axisAttention"),
+        splitLine: {
+          show: true,
+          // One is left out of the marks: a dotted line of its own is drawn
+          // there and named, and two lines at one height is ink spent twice on
+          // one fact.
+          ...(logarithmic
+            ? { customValues: LANDMARKS.filter((v) => v !== 1).map(yScale) }
+            : {}),
+          lineStyle: { color: line, type: "dashed" as const },
+        },
+        ...(logarithmic ? { axisTick: { customValues: LANDMARKS.map(yScale) } } : {}),
+        /*
+          The name says which placement is in force. Saying it in one of the two
+          and not the other would be worse than saying it in neither: a reader
+          who learned that the axis is logarithmic would carry that over to the
+          view where it is not.
+        */
+        name: `${t("map.axisAttention")}, ${
+          logarithmic ? t("map.scale.log") : t("map.scale.linear")
+        }`,
         nameLocation: "middle" as const,
         nameGap: 38,
         nameRotate: 90,
@@ -287,8 +441,28 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
             },
             lineStyle: { color: line, type: "solid" as const, width: 1 },
             data: [
-              // The zero line separates measured attention from its absence.
-              { yAxis: 0, name: t("map.noAttention") },
+              // Under the logarithm three states live below the scale and a
+              // reader must not take one for another, so each gets a line. On
+              // the linear placement a measured zero sits at zero and one line
+              // is enough, which is how the map read before.
+              ...(logarithmic
+                ? [{
+                    yAxis: (ZERO_BAND + Math.log10(LANDMARKS[0])) / 2,
+                    name: t("map.zeroCitations"),
+                  }]
+                : []),
+              {
+                yAxis: logarithmic ? (ZERO_BAND + UNKNOWN_BAND) / 2 : 0,
+                name: t("map.noAttention"),
+              },
+              // One is the median of the year: the whole point of the quantity
+              // is which side of it a record falls on, so the line is drawn.
+              {
+                yAxis: yScale(1),
+                name: t("map.medianLine"),
+                label: { position: "insideEndTop" as const },
+                lineStyle: { color: line, type: "dotted" as const, width: 1 },
+              },
               // The boundary between "no level" and L0 is solid: it separates
               // two kinds of thing, not two levels of one kind.
               { xAxis: -0.5, name: "" },
@@ -305,7 +479,7 @@ export function MaturityMap({ artifact, height = 460, showMovement, onSelect }: 
         },
       ],
     };
-  }, [artifact, showMovement, mode, theme, t, line, muted, text]);
+  }, [artifact, showMovement, scale, mode, theme, t, line, muted, text]);
 
   return (
     <Box sx={{ width: "100%" }}>
