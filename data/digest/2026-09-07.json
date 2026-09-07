@@ -1,0 +1,74 @@
+{
+  "added": [
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "Agentic Context Management",
+      "technology_id": "agentic_context_management"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "LedgerMind",
+      "technology_id": "ledgermind"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "G-reasoner",
+      "technology_id": "g_reasoner"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "GFM-RAG",
+      "technology_id": "gfm_rag"
+    },
+    {
+      "level_after": "L2",
+      "level_before": null,
+      "name": "LogicRAG",
+      "technology_id": "logicrag"
+    },
+    {
+      "level_after": "L1",
+      "level_before": null,
+      "name": "VoiceMem",
+      "technology_id": "voicemem"
+    }
+  ],
+  "by_level": {
+    "L0": 4,
+    "L1": 27,
+    "L2": 14,
+    "L3": 23,
+    "L4": 3,
+    "L5": 3,
+    "unknown": 2
+  },
+  "demoted": [],
+  "evidence_added": 52,
+  "evidence_by_type": {
+    "package_downloads": 7,
+    "publication": 36,
+    "repository": 9
+  },
+  "evidence_seen": 465,
+  "issued_at": "2026-09-07",
+  "levels_seen": 123,
+  "links_broken": 0,
+  "links_checked": 7,
+  "promoted": [
+    {
+      "level_after": "L3",
+      "level_before": "L2",
+      "name": "LogicRAG",
+      "technology_id": "logicrag"
+    }
+  ],
+  "runs_seen": 16,
+  "since": "2026-09-01",
+  "text": "Впервые получили уровень 6 записей: Agentic Context Management, LedgerMind, G-reasoner, GFM-RAG, LogicRAG, VoiceMem. Поднялись в уровне LogicRAG с L2 до L3. Собрано 52 свидетельства: 36 о публикациях, 9 о репозиториях, 7 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 27, L2 у 14, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+  "text_en": "Received a level for the first time: 6 records, namely Agentic Context Management, LedgerMind, G-reasoner, GFM-RAG, LogicRAG, VoiceMem. Rose in level: LogicRAG from L2 to L3. Collected 52 pieces of evidence: 36 about publications, 9 about repositories, 7 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 27, L2 in 14, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+  "total": 76
+}

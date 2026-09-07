@@ -45,9 +45,9 @@
       "kind": "preprint",
       "label": null,
       "label_en": null,
-      "status": "needs_review",
+      "status": "verified",
       "url": "https://arxiv.org/abs/2502.01113",
-      "verified_at": null
+      "verified_at": "2026-09-07"
     }
   ],
   "name": "GFM-RAG",

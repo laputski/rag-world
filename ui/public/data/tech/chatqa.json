@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [
       "ChatQA 2"
     ],
-    "attention": 0.508,
+    "attention": 0.492,
     "attention_cohort": "2024",
-    "attention_raw": 0.29,
+    "attention_raw": 0.281,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -83,10 +83,18 @@
         "type": "publication",
         "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.29",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415798682",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=9; year=2024; citation_velocity=0.281",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": null,
     "first_published": "2024-01",
     "groups": [

@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [
       "Light-RAG"
     ],
-    "attention": 23.726,
+    "attention": 24.077,
     "attention_cohort": "2025",
-    "attention_raw": 6.75,
+    "attention_raw": 6.85,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -195,10 +195,34 @@
         "type": "package_downloads",
         "value": "package=lightrag-hku; version=1.5.6; downloads_last_month=304179",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-09-07, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034797",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=137; year=2025; citation_velocity=6.85",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.7; downloads_last_month=257275",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 19,
+    "evidence_count": 22,
     "family": "B",
     "first_published": "2025",
     "groups": [

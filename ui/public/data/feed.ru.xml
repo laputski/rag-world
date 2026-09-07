@@ -6,7 +6,14 @@
     <language>ru</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.ru.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 01 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Дайджест за 2026-09-07</title>
+      <description>Впервые получили уровень 6 записей: Agentic Context Management, LedgerMind, G-reasoner, GFM-RAG, LogicRAG, VoiceMem. Поднялись в уровне LogicRAG с L2 до L3. Собрано 52 свидетельства: 36 о публикациях, 9 о репозиториях, 7 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 27, L2 у 14, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-09-07</guid>
+    </item>
     <item>
       <title>Дайджест за 2026-09-01</title>
       <description>Впервые получили уровень 1 запись: MAGMA. Поднялись в уровне Adaptive RAG с L2 до L3, ArchRAG с L2 до L3, CBR-RAG с L2 до L3, ColBERT с L2 до L4, ColPali с L2 до L3, Dense X с L2 до L3, FLARE с L2 до L3, HyDE с L2 до L3, а также ещё 14 записей. Собрано 80 свидетельств: 52 о публикациях, 23 о репозиториях, 5 о загрузках пакетов. Сейчас в реестре 70 записей. Уровень L0 у 4 записей, L1 у 24, L2 у 12, L3 у 22, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>

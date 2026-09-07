@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "candidates": [
     {
       "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
@@ -167,6 +167,42 @@
       "verdict": null
     },
     {
+      "abstract": "Large language models with retrieval-augmented generation encounter a pivotal challenge in intricate retrieval tasks, e.g., multi-hop question answering, which requires the model to navigate across multiple documents and generate comprehensive responses based on fragmented information. To tackle this challenge, we introduce a novel Knowledge Graph-based RAG framework with a hierarchical knowledge retriever, termed KG-Retriever.",
+      "arxiv_id": "2412.05547",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2024-12-07",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2412.05547",
+      "tasks": [],
+      "title": "KG-Retriever: Efficient Knowledge Indexing for Retrieval-Augmented Large Language Models",
+      "verdict": null
+    },
+    {
       "abstract": "Large language models (LLMs) have demonstrated impressive reasoning abilities, but they still struggle with faithful reasoning due to knowledge gaps and hallucinations. To address these issues, knowledge graphs (KGs) have been utilized to enhance LLM reasoning through their structured knowledge. However, existing KG-enhanced methods, either retrieval-based or agent-based, encounter difficulties in accurately retrieving knowledge and efficiently traversing KGs at scale.",
       "arxiv_id": "2410.13080",
       "citations": null,
@@ -197,6 +233,68 @@
       "source": "https://arxiv.org/abs/2410.13080",
       "tasks": [],
       "title": "Graph-constrained Reasoning: Faithful Reasoning on Knowledge Graphs with Large Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "The ability to form, retrieve, and reason about memories in response to stimuli serves as the cornerstone for general intelligence - shaping entities capable of learning, adaptation, and intuitive insight. Large Language Models (LLMs) have proven their ability, given the proper memories or context, to reason and respond meaningfully to stimuli.",
+      "arxiv_id": "2409.15566",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2024-09-23",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2409.15566",
+      "tasks": [],
+      "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) has made dense retrieval over large document collections a standard building block. Organizations increasingly outsource vector indexes to untrusted clouds, exposing proprietary corpora and user queries. Cryptographic protection is challenging because each query searches corpus-scale state, causing computation, correlated randomness, and communication to grow with the corpus.",
+      "arxiv_id": "2609.03376",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 7
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.03376",
+      "tasks": [],
+      "title": "Spruce: Scalable Private Outsourced Retrieval Using Compact Embeddings",
       "verdict": null
     },
     {
@@ -403,6 +501,70 @@
       "verdict": null
     },
     {
+      "abstract": "Standard Retrieval-Augmented Generation (RAG) relies on chunk-based retrieval, whereas GraphRAG advances this approach by graph-based knowledge representation. However, existing graph-based RAG approaches are constrained by binary relations, as each edge in an ordinary graph connects only two entities, limiting their ability to represent the n-ary relations (n >= 2) in real-world knowledge.",
+      "arxiv_id": "2503.21322",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-03-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2503.21322",
+      "tasks": [],
+      "title": "HyperGraphRAG: Retrieval-Augmented Generation via Hypergraph-Structured Knowledge Representation",
+      "verdict": null
+    },
+    {
+      "abstract": "Recent advances in graph learning have paved the way for innovative retrieval-augmented generation (RAG) systems that leverage the inherent relational structures in graph data. However, many existing approaches suffer from rigid, fixed settings and significant engineering overhead, limiting their adaptability and scalability.",
+      "arxiv_id": "2503.19314",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-03-25",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2503.19314",
+      "tasks": [],
+      "title": "RGL: A Graph-Centric, Modular Framework for Efficient Retrieval-Augmented Generation on Graphs",
+      "verdict": null
+    },
+    {
       "abstract": "Despite notable advancements in Retrieval-Augmented Generation (RAG) systems that expand large language model (LLM) capabilities through external retrieval, these systems often struggle to meet the complex and diverse needs of real-world industrial applications. The reliance on retrieval alone proves insufficient for extracting deep, domain-specific knowledge performing in logical reasoning from specialized corpora.",
       "arxiv_id": "2501.11551",
       "citations": null,
@@ -490,6 +652,70 @@
       "verdict": null
     },
     {
+      "abstract": "Fake news threatens democracy and exacerbates the polarization and divisions in society; therefore, accurately detecting online misinformation is the foundation of addressing this issue. We present CrediRAG, the first fake news detection model that combines language models with access to a rich external political knowledge base with a dense social network to detect fake news across social media at scale.",
+      "arxiv_id": "2410.12061",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2024-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2410.12061",
+      "tasks": [],
+      "title": "CrediRAG: Network-Augmented Credibility-Based Retrieval for Misinformation Detection in Reddit",
+      "verdict": null
+    },
+    {
+      "abstract": "Embodied Everyday Task is a popular task in the embodied AI community, requiring agents to make a sequence of actions based on natural language instructions and visual observations. Traditional learning-based approaches face two challenges. Firstly, natural language instructions often lack explicit task planning. Secondly, extensive training is required to equip models with knowledge of the task environment.",
+      "arxiv_id": "2409.11279",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2024-09-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2409.11279",
+      "tasks": [],
+      "title": "P-RAG: Progressive Retrieval Augmented Generation For Planning on Embodied Everyday Task",
+      "verdict": null
+    },
+    {
       "abstract": "Naive Retrieval-Augmented Generation (RAG) focuses on individual documents during retrieval and, as a result, falls short in handling networked documents which are very popular in many applications such as citation graphs, social media, and knowledge graphs.",
       "arxiv_id": "2405.16506",
       "citations": null,
@@ -516,6 +742,240 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Dense retrieval systems are core components of modern search engines, recommendation platforms, and retrieval-augmented generation pipelines. They encode documents and queries into dense embeddings, enabling efficient semantic search via vector similarity. However, because document embeddings are computed offline and stored in static indexes, these systems struggle to adapt to user feedback or evolving search intent.",
+      "arxiv_id": "2609.05110",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.05110",
+      "tasks": [],
+      "title": "Embedding Surgery: Localized Updates for Adaptive Ranking Correction in Dense Retrieval",
+      "verdict": null
+    },
+    {
+      "abstract": "Traditional Retrieval-Augmented Generation (RAG) systems score each passage independently against the query, assembling context sets that may be individually relevant yet collectively incoherent. We introduce Coherence-Aware Graph Encoding (CAGE), a reranking framework that models \"between-chunk coherence\" across four dimensions: Intra-Domain Relevance, Noise Resistance, Informational Bonding, and Factual Consistency.",
+      "arxiv_id": "2609.04647",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.04647",
+      "tasks": [],
+      "title": "CAGE: Coherence-Aware Graph Encoding for Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Automated short-answer grading research has historically focused on exams consisting solely of questions pertaining to a single topic. Automatic grading of exams containing questions about more than one topic remains less explored. In this work, a Graph-Retrieval Automated Scoring Pipeline (GRASP) is introduced for grading label-free multi-topic science exams.",
+      "arxiv_id": "2609.03857",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.03857",
+      "tasks": [],
+      "title": "GRASP: Graph-Retrieval Automated Scoring Pipeline for Label-Free Multi-Topic Essay Grading",
+      "verdict": null
+    },
+    {
+      "abstract": "Neural ranking models have become core components of modern information retrieval systems and important building blocks of AI systems such as retrieval-augmented generation (RAG) pipelines. However, their robustness remains insufficiently understood in the presence of large language models (LLMs), which can generate fluent and deceptive content at scale.",
+      "arxiv_id": "2609.01325",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.01325",
+      "tasks": [],
+      "title": "VerTox: Verifiable Reward-Guided Corpus Poisoning Against Neural Ranking Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) mitigates large language models (LLMs) hallucinations, yet conventional dense retrieval struggles with the complex reasoning paths of multi-hop question answering (QA). Graph-based RAG captures multi-step relationships but suffers from severe semantic drift and high online latency due to noisy global graph traversals. Thus, we propose ISO-RAG (ISOperimetric Retrieval-Augmented Generation), a geometry-aware RAG framework.",
+      "arxiv_id": "2609.00513",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00513",
+      "tasks": [],
+      "title": "ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "For emerging scientific research domains, local Small Language Models (SLMs) are becoming more attractive, as they offer stronger privacy control and more stable deployment pipelines than Large Language Models. However, in practice, scientific question-answering on SLMs often operates under inevitable constraints: small literature collections, fragmented evidence, limited context window and reasoning abilities.",
+      "arxiv_id": "2609.00479",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00479",
+      "tasks": [],
+      "title": "EGT-KG: Evidence-Grounded Typed KG Retrieval for Practical Scientific QA with Small Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) grounds large language models in external corpora, but implicit trust in retrieved documents creates a critical attack surface: PoisonedRAG shows that a handful of crafted passages can dominate dense retrieval and steer generation toward attacker-chosen answers.",
+      "arxiv_id": "2609.00470",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00470",
+      "tasks": [],
+      "title": "TRIS: A Tri-Layer Retrieval Integrity Sieve Against Knowledge Poisoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Ontology alignment (OA) has evolved through several methodological paradigms, ranging from lexical and structural aligners to knowledge graph embedding (KGE) models and, more recently, Large Language Model (LLM)-based approaches. Although modern OA frameworks provide unified ecosystems for deploying these heterogeneous aligners, mechanisms for systematically reconciling their complementary and sometimes conflicting predictions remain relatively underexplored.",
+      "arxiv_id": "2608.31137",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.31137",
+      "tasks": [],
+      "title": "OntoAligner-Ensemble: Voting-Based Fusion across Heterogeneous Ontology Alignment Techniques",
+      "verdict": null
+    },
+    {
+      "abstract": "Flat retrieval-augmented generation treats a corpus as a bag of chunks, discarding document hierarchy and cross document structure. We introduce SearchWiki, a harness framework that synthesizes a corpus into a hierarchical, typed, navigable wiki and trains an agent, WikiResearcher-9B, to retrieve information through multi-turn tool use.",
+      "arxiv_id": "2608.29953",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.29953",
+      "tasks": [],
+      "title": "SearchWiki: Learning to Build and Navigate Knowledge Wikis for Active Information Seeking",
       "verdict": null
     },
     {
@@ -573,6 +1033,39 @@
       "verdict": null
     },
     {
+      "abstract": "Retrieval-Augmented Generation (RAG) improves large language models (LLMs) by retrieving relevant information from external sources and has been widely adopted for text-based tasks. For structured data, such as knowledge graphs, Graph Retrieval-Augmented Generation (GraphRAG) retrieves and aggregates information along graph structures.",
+      "arxiv_id": "2502.11371",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-02-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2502.11371",
+      "tasks": [],
+      "title": "RAG vs. GraphRAG: A Systematic Evaluation and Key Insights",
+      "verdict": null
+    },
+    {
       "abstract": "Retrieval-augmented generation (RAG) has emerged as a promising technology for addressing hallucination issues in the responses generated by large language models (LLMs). Existing studies on RAG primarily focus on applying semantic-based approaches to retrieve isolated relevant chunks, which ignore their intrinsic relationships.",
       "arxiv_id": "2502.06864",
       "citations": null,
@@ -603,6 +1096,39 @@
       "verdict": null
     },
     {
+      "abstract": "GraphRAG advances retrieval-augmented generation (RAG) by structuring external knowledge as multi-scale knowledge graphs, enabling language models to integrate both broad context and granular details in their generation. While GraphRAG has demonstrated success across domains, its security implications remain largely unexplored.",
+      "arxiv_id": "2501.14050",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-01-23",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.14050",
+      "tasks": [],
+      "title": "GraphRAG under Fire",
+      "verdict": null
+    },
+    {
       "abstract": "Graph Retrieval-Augmented Generation (GRAG or Graph RAG) architectures aim to enhance language understanding and generation by leveraging external knowledge. However, effectively capturing and integrating the rich semantic information present in textual and structured data remains a challenge.",
       "arxiv_id": "2412.18644",
       "citations": null,
@@ -630,6 +1156,545 @@
       "source": "https://arxiv.org/abs/2412.18644",
       "tasks": [],
       "title": "DynaGRAG | Exploring the Topology of Information for Advancing Language Understanding and Generation in Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) demonstrate strong reasoning abilities but face limitations such as hallucinations and outdated knowledge. Knowledge Graph (KG)-based Retrieval-Augmented Generation (RAG) addresses these issues by grounding LLM outputs in structured external knowledge from KGs.",
+      "arxiv_id": "2410.20724",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2024-10-28",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2410.20724",
+      "tasks": [],
+      "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-form literary narratives pose a distinctive information-processing challenge for retrieval-augmented generation: relevant evidence is distributed across chapters, relations evolve over narrative time, and correct answers may depend jointly on temporal, spatial, and relational constraints.",
+      "arxiv_id": "2609.05139",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.05139",
+      "tasks": [],
+      "title": "NS-ST-GraphRAG: Neuro-Symbolic Spatio-Temporal GraphRAG for Literary Knowledge Processing",
+      "verdict": null
+    },
+    {
+      "abstract": "We introduce PetQA, a Korean long-form question-answering (QA) benchmark for evaluating veterinary knowledge and clinical reasoning in large language models (LLMs) and large vision-language models (LVLMs). PetQA contains 10,076 text-only and 8,751 multimodal QA pairs derived from real-world questions about dogs and cats, paired with answers from expert veterinarians. Its test split, PetQA-Bench, further includes annotations for question types and clinical conditions.",
+      "arxiv_id": "2609.04598",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.04598",
+      "tasks": [],
+      "title": "PetQA: Benchmarking Veterinary Knowledge and Clinical Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Latent entity extraction (LEE) tackles the challenge of identifying implicit, contextually inferred entities within free text-an area where traditional entity extraction methods fall short. In this paper, we introduce LentEx, a novel framework for latent entity extraction that leverages synthetic data generation and instruction fine-tuning to optimize smaller, efficient large language models (LLMs).",
+      "arxiv_id": "2609.04511",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.04511",
+      "tasks": [],
+      "title": "LentEx: Generalizable Latent Entity Extraction via Synthetic Data and Instruction-Tuned LLMs",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models deployed in high-stakes settings frequently generate plausible but ungrounded claims. Standard retrieval-augmented generation (RAG) pipelines offer limited remedy, since they retrieve isolated passages without tracking cross-document evidence relationships or quantifying uncertainty.",
+      "arxiv_id": "2609.04442",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.04442",
+      "tasks": [],
+      "title": "GRACE: Graph-Grounded Reflective Agent Copilot Engine for Expert-in-the-Loop Knowledge Expansion",
+      "verdict": null
+    },
+    {
+      "abstract": "Early-onset colorectal cancer is increasing among younger adults, yet red-flag symptoms in this age group have no evidence-based guidelines for follow-up testing, and structured encounter data do not capture the detail needed to support early detection and inform follow-up, including symptom duration, context, and fam- ily history, an established colorectal-cancer risk factor.",
+      "arxiv_id": "2609.04366",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.04366",
+      "tasks": [],
+      "title": "VERGE: Verification-Enhanced Refinement for Grounded Extraction of Early-Onset Colorectal Cancer Symptoms in Clinical Notes",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) complements parametric models with retrieved external evidence. The same idea is attractive for continuous-output regression, but directly reusing retrieved target values is often not robust when samples differ in output level, numerical scale, or local dynamics.",
+      "arxiv_id": "2609.03937",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.03937",
+      "tasks": [],
+      "title": "RATL: Learning from Retrieved Residuals for Robust Multivariate Time-Series Forecasting",
+      "verdict": null
+    },
+    {
+      "abstract": "Third-party retrieval-augmented generation (RAG) marketplaces create a new auditing problem: data providers may license corpora to a RAG operator, yet later have no visibility into whether their documents are being reused without compensation. Auditing this misuse is difficult because the operator is non-cooperative, answers are paraphrased by the generator, and one response may combine evidence from many providers.",
+      "arxiv_id": "2609.03749",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.03749",
+      "tasks": [],
+      "title": "Rent-a-RAG: Embedding-Space Watermarks for Auditing Third-Party RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Identifying the issues disputed between litigating parties is a crucial component of real-world litigation. However, legal issues remain comparatively underexplored in legal AI research. In this work, we study the computational modelling of legal issue identification in litigation.",
+      "arxiv_id": "2609.02954",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.02954",
+      "tasks": [],
+      "title": "LexIssue: Benchmarking Legal Issue Identification in Chinese Civil Litigation",
+      "verdict": null
+    },
+    {
+      "abstract": "Document Visual Question Answering (DocVQA) often leverages Retrieval-Augmented Generation (RAG), where late-interaction encoders are commonly used to identify document pages relevant to a user query, before answer generation by a Large Vision-Language Model (LVLM). Existing approaches typically retrieve a fixed top-$k$ number of pages regardless of query complexity, which increases LVLM latency and may degrade answer accuracy.",
+      "arxiv_id": "2609.02486",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.02486",
+      "tasks": [],
+      "title": "ViSAR: Training-Free Adaptive-$k$ Retrieval for Visual Document Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "Named Entity Recognition (NER) has achieved substantial progress since the advent of large language models (LLMs). Nevertheless, the recognition of long-tail and domain-specific entities remains challenging due to the deficiency in parametric knowledge. Retrieval-augmented generation (RAG) offers a promising remedy by injecting external knowledge, but it also introduces noise and unnecessary cost when dealing with familiar cases.",
+      "arxiv_id": "2609.02366",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.02366",
+      "tasks": [],
+      "title": "NE-R1: Enhancing Named Entity Recognition Model via Reinforcement Learning",
+      "verdict": null
+    },
+    {
+      "abstract": "The browser has become a first-class database host: applications increasingly want to store, query, and reason over structured data entirely on the client - for privacy, offline operation, local-first collaboration, and, most recently, as durable memory for in-browser AI agents. One way to get SQL in the browser, compiling PostgreSQL to WebAssembly (PGlite), inherits PostgreSQL's process model: a single backend connection that executes one statement at a time and blocks.",
+      "arxiv_id": "2609.01818",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.01818",
+      "tasks": [],
+      "title": "Zeta-Lite: A Concurrent, Branchable In-Browser SQL Database for Agentic Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "MutMem V1 introduced retention-preserving, cryptographically authorized mutation for persistent agent memory but did not provide a complete portable verification contract or clean-install reproduction path. MutMem V2 closes that publication gap without introducing a second memory engine.",
+      "arxiv_id": "2609.01235",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.01235",
+      "tasks": [],
+      "title": "MutMem-V2: Cryptographically Authorized Mutation in Persistent Agent Memory Portable Verification and Reproducible Evidence",
+      "verdict": null
+    },
+    {
+      "abstract": "Clinical LLM assistants must reason over multi-visit patient trajectories, yet whether the compact history representations used to scale them---retrieval, structured timelines, LLM summaries, agentic memory---preserve the longitudinal signal clinical reasoning needs has not been measured.",
+      "arxiv_id": "2609.01111",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.01111",
+      "tasks": [],
+      "title": "ClinTraceBench: Source-Verifiable Longitudinal Clinical Reasoning over EHR-Derived Dialogues",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) is highly sensitive to retrieval noise: when retrieved documents mix informative and irrelevant context, LLMs are easily distracted, leading to hallucinations. To overcome this, we propose SCoNE (Selective Context-aware Neuron Editing), a training-free model editing approach that improves retrieval noise robustness by selectively strengthening context-aware FFN neurons that are identified by both high attribution and high cross-input varia…",
+      "arxiv_id": "2609.00689",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00689",
+      "tasks": [],
+      "title": "SCoNE: Selective Context-aware Neuron Editing for Robust Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Vision-Language Models (LVLMs) achieve strong performance on image-grounded text generation and visual question answering. However, it remains difficult for them to comprehensively and accurately describe the factual relations among the entities and concepts associated with the objects depicted in an image.",
+      "arxiv_id": "2609.00629",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00629",
+      "tasks": [],
+      "title": "ExpArt-KG: Artwork Image Description Generation through Iterative Exploration of Knowledge Graphs",
+      "verdict": null
+    },
+    {
+      "abstract": "The growing complexity of cyber-physical attack surfaces in advanced manufacturing has made cyber threat intelligence analysis increasingly difficult. Although large language models and retrieval-augmented generation have improved CTI workflows, text-based approaches remain vulnerable to hallucinations and provide limited support for structured reasoning over interconnected threats.",
+      "arxiv_id": "2609.00604",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-09-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00604",
+      "tasks": [],
+      "title": "NeuroGraph: An AI Graph-Driven Neuro-Symbolic Framework for Explainable Threat Reasoning in Advanced Manufacturing",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation enhances Large Language Models by grounding responses in external knowledge, but multi-hop reasoning remains vulnerable to error propagation, where early retrieval failures confound subsequent steps. Standard outcome-based optimization only rewards the final answer, leaving intermediate retrieval and reasoning errors undetected.",
+      "arxiv_id": "2609.01658",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.01658",
+      "tasks": [],
+      "title": "PRO-Step: Step-level Process Reward Optimization for Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "The exponential growth of wireless devices is driving unprecedented spectrum demand, pushing spectrum management toward more fine-grained decisions across space, time, and device constraints. As a result, spectrum policymakers and engineers must process large volumes of data that come from diverse sources and take many different forms, such as text and tables.",
+      "arxiv_id": "2609.00427",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.00427",
+      "tasks": [],
+      "title": "SpecMind: Enabling Spectrum Intelligence via Multi-Agent Hybrid Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Missing institutional context during meetings can impede effective participation. Retrieving relevant information, often scattered across heterogeneous internal and external sources, requires costly task-switching that disrupts both individual focus and collective conversational flow, particularly detrimental during cognitively demanding tasks such as decision-making.",
+      "arxiv_id": "2608.31115",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.31115",
+      "tasks": [],
+      "title": "InsightToast: Proactive Information Retrieval & Glanceable Visualization in the Side Channel of Data-Rich Meetings",
+      "verdict": null
+    },
+    {
+      "abstract": "Multimodal Large Language Models (MLLMs) have shown remarkable success in STEM domains, where progress is often driven by vertical, step-by-step deduction under relatively stable symbol systems. Their horizontal, interdisciplinary cultural reasoning, however, remains underexplored.We propose CM2, a multi-agent framework grounded in the cognitive pathway of human cultural interpretation.",
+      "arxiv_id": "2608.30498",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.30498",
+      "tasks": [],
+      "title": "CM2: Multimodal Cultural Reasoning via an Integrated Multi-Agent Framework",
+      "verdict": null
+    },
+    {
+      "abstract": "Real-world knowledge resides in multimodal documents, necessitating retrieval-augmented generation (RAG) for accurate question answering. However, existing multimodal RAG models are primarily designed for single-image or closed-document settings and exhibit limited accuracy in realistic multi-image scenarios. Moreover, processing numerous retrieved images incurs substantial computational overhead from irrelevant visual tokens.",
+      "arxiv_id": "2608.30163",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.30163",
+      "tasks": [],
+      "title": "Doc-REFRAG: Rethinking Multimodal Document Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Multi-hop question answering in retrieval-augmented gener?ation (RAG) often benefits from retrieving beyond the few candidates that will finally be read: narrow retrieval can miss an indispensable hop, while expanded retrieval introduces topical distractors. This challenge is not tied to a particu?lar knowledge-base format. Candidate pools may come from standalone retrievers, standard RAG backends, or graph-based retrieval pipelines.",
+      "arxiv_id": "2608.29753",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.29753",
+      "tasks": [],
+      "title": "PAGE-RAG: Provenance-Aware Graph Evidence Promotion for Fixed-Budget Multi-hop Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) improves the factuality of large language models (LLMs), yet existing RAG systems often struggle with complex, multi-step reasoning that requires adaptive retrieval and continuous revision of intermediate contexts.",
+      "arxiv_id": "2608.29622",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "archive",
+      "published": "2026-08-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2608.29622",
+      "tasks": [],
+      "title": "AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing",
       "verdict": null
     },
     {
@@ -702,6 +1767,93 @@
       "source": "https://arxiv.org/abs/2503.10150",
       "tasks": [],
       "title": "Retrieval-Augmented Generation with Hierarchical Knowledge",
+      "verdict": null
+    },
+    {
+      "abstract": "Despite significant advancements in Large Language Models (LLMs), developing advanced reasoning capabilities in LLMs remains a key challenge. Process Reward Models (PRMs) have demonstrated exceptional promise in enhancing reasoning by providing step-wise feedback, particularly in the context of mathematical reasoning.",
+      "arxiv_id": "2503.00845",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-03-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2503.00845",
+      "tasks": [],
+      "title": "Rewarding Graph Reasoning Process makes LLMs more Generalized Reasoners",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) have demonstrated remarkable capabilities in a wide range of tasks, yet their application to specialized domains remains challenging due to the need for deep expertise. Retrieval-Augmented generation (RAG) has emerged as a promising solution to customize LLMs for professional fields by seamlessly integrating external knowledge bases, enabling real-time access to domain-specific expertise during inference.",
+      "arxiv_id": "2501.13958",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-01-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.13958",
+      "tasks": [],
+      "title": "A Survey of Graph Retrieval-Augmented Generation for Customized Large Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Recommender systems have become increasingly vital in our daily lives, helping to alleviate the problem of information overload across various user-oriented online services. The emergence of Large Language Models (LLMs) has yielded remarkable achievements, demonstrating their potential for the development of next-generation recommender systems.",
+      "arxiv_id": "2501.02226",
+      "citations": null,
+      "curated_by": [
+        "Awesome-GraphRAG",
+        "Graph-RAG survey list"
+      ],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "curatedList",
+            "lists": [
+              "Awesome-GraphRAG",
+              "Graph-RAG survey list"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-09-07",
+      "found_by": "curated",
+      "published": "2025-01-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2501.02226",
+      "tasks": [],
+      "title": "Knowledge Graph Retrieval-Augmented Generation for LLM-based Recommendation",
       "verdict": null
     },
     {

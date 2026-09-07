@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [],
-    "attention": 6.773,
+    "attention": 6.841,
     "attention_cohort": null,
-    "attention_raw": 6.773,
+    "attention_raw": 6.841,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -121,10 +121,18 @@
         "type": "repository",
         "value": "texttron/hyde: license=none, last_push=2024-12-06, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385565351",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=301; year=2023; citation_velocity=6.841",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": "G",
     "first_published": "2022",
     "groups": [

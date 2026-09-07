@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [],
-    "attention": 2.46,
+    "attention": 2.636,
     "attention_cohort": "2025",
-    "attention_raw": 0.7,
+    "attention_raw": 0.75,
     "confidence": 1.0,
     "configuration": {},
     "configuration_inapplicable": [],
@@ -68,10 +68,18 @@
         "type": "repository",
         "value": "atenanaz/Poison-RAG: license=none, last_push=2025-01-19, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4409166754",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=15; year=2025; citation_velocity=0.75",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 8,
     "family": null,
     "first_published": "2025",
     "groups": [],

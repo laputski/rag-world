@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [],
-    "attention": 6.935,
+    "attention": 6.971,
     "attention_cohort": "2023",
-    "attention_raw": 12.383,
+    "attention_raw": 12.447,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -113,10 +113,18 @@
         "type": "repository",
         "value": "ysymyth/ReAct: license=mit, last_push=2024-02-06, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-07",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4304195432",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=585; year=2022; citation_velocity=12.447",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": "C",
     "first_published": "2023",
     "groups": [

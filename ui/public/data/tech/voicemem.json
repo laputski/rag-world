@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [],
     "attention": 0.0,
@@ -91,9 +91,9 @@
         "kind": "preprint",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2608.26005",
-        "verified_at": null
+        "verified_at": "2026-09-07"
       }
     ],
     "name": "VoiceMem",

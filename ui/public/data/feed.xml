@@ -6,7 +6,14 @@
     <language>en</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 01 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Digest for 2026-09-07</title>
+      <description>Received a level for the first time: 6 records, namely Agentic Context Management, LedgerMind, G-reasoner, GFM-RAG, LogicRAG, VoiceMem. Rose in level: LogicRAG from L2 to L3. Collected 52 pieces of evidence: 36 about publications, 9 about repositories, 7 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 27, L2 in 14, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-09-07</guid>
+    </item>
     <item>
       <title>Digest for 2026-09-01</title>
       <description>Received a level for the first time: 1 record, namely MAGMA. Rose in level: Adaptive RAG from L2 to L3, ArchRAG from L2 to L3, CBR-RAG from L2 to L3, ColBERT from L2 to L4, ColPali from L2 to L3, Dense X from L2 to L3, FLARE from L2 to L3, HyDE from L2 to L3, plus 14 records. Collected 80 pieces of evidence: 52 about publications, 23 about repositories, 5 about package downloads. The registry now holds 70 records. Level L0 in 4 records, L1 in 24, L2 in 12, L3 in 22, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>

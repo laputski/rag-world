@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [],
     "attention": 0.0,
@@ -103,17 +103,17 @@
         "kind": "preprint",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2508.06105",
-        "verified_at": null
+        "verified_at": "2026-09-07"
       },
       {
         "kind": "github",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://github.com/chensyCN/LogicRAG",
-        "verified_at": null
+        "verified_at": "2026-09-07"
       }
     ],
     "name": "LogicRAG",

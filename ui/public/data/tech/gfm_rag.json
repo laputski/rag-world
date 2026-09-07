@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-01",
+  "built_at": "2026-09-07",
   "technology": {
     "aliases": [
       "Graph Foundation Model for RAG"
@@ -89,9 +89,9 @@
         "kind": "preprint",
         "label": null,
         "label_en": null,
-        "status": "needs_review",
+        "status": "verified",
         "url": "https://arxiv.org/abs/2502.01113",
-        "verified_at": null
+        "verified_at": "2026-09-07"
       }
     ],
     "name": "GFM-RAG",
