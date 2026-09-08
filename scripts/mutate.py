@@ -265,6 +265,8 @@ MUTATIONS: tuple[Mutation, ...] = (
              "if not link.url.strip():", "if False:"),
     Mutation("scripts/validate_data.py", "a level belongs to the scale",
              "if entry.level not in LEVELS:", "if False:"),
+    Mutation("scripts/validate_data.py", "a claim of fusion rests on a source",
+             "if fusion not in (None, FUSION_NONE) and", "if False and"),
 
     # The pattern stays inside one shell block. It used to reach forward to the
     # name of the step below, and a comment written between the steps broke it:

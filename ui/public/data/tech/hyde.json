@@ -19,7 +19,7 @@
       "B2": "static",
       "C1": "ann",
       "C2": "single_shot",
-      "C3": "rrf",
+      "C3": "none",
       "C4": "single_store",
       "D1": "cross_encoder",
       "D2": "top_k",
@@ -204,6 +204,21 @@
         "to": "frozen",
         "why": "Приём складывает существующие части, ничего не доучивая.",
         "why_en": "The technique assembles existing parts without fine-tuning anything."
+      },
+      {
+        "code": "C3",
+        "did": "Несколько порождённых вымышленных ответов кодируются и усредняются в один вектор, после чего выполняется один поиск.",
+        "did_en": "Several generated hypothetical answers are encoded and averaged into one vector, after which a single search is run.",
+        "instead": "Значение «слияние по обратным рангам» приписывало приёму объединение выдач, которого в нём нет.",
+        "instead_en": "The value of reciprocal rank fusion credited the technique with a merging of result lists that it does not perform.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2212.10496, формулы 6 и 7; реализация авторов src/hyde/hyde.py, строка avg_emb_c = np.mean(all_emb_c, axis=0)",
+        "source_en": "arXiv:2212.10496, equations 6 and 7; the authors' implementation src/hyde/hyde.py, line avg_emb_c = np.mean(all_emb_c, axis=0)",
+        "technology_id": "hyde",
+        "to": "none",
+        "why": "Сливать нечего: усреднение происходит над представлениями до обращения к указателю, и нескольких упорядоченных выдач не возникает.",
+        "why_en": "There is nothing to merge: the averaging happens over representations before the index is consulted, and no several ranked lists arise."
       },
       {
         "code": "E5",

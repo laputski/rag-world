@@ -12,7 +12,9 @@ What is checked without a network:
   under the constraints Φ;
 * the strata of a record belong to A–G;
 * evidence and level-journal entries refer to technologies that exist;
-* every source has an address, and its check status agrees with its date.
+* every source has an address, and its check status agrees with its date;
+* a record that claims to merge the results of several sources says on what
+  source that claim rests.
 
 Whether the addresses resolve requires a network and is enabled separately::
 
@@ -37,6 +39,39 @@ from services.registry import store  # noqa: E402
 
 ID_RE = re.compile(r"^[a-z0-9_]+$")
 LEVELS = {"L0", "L1", "L2", "L3", "L4", "L5", "L6"}
+
+#: The dimension of source fusion and the value that asserts no fusion at all.
+#: They are named rather than written into the rule below, because the rule
+#: reads as a sentence about fusion and not as a comparison of two strings.
+FUSION_CODE = "C3"
+FUSION_NONE = "none"
+
+
+def _justified_dimensions() -> set[tuple[str, str]]:
+    """The pairs of record and dimension for which a justification is written.
+
+    The justifications live beside the registry rather than inside a record, so
+    a rule about their presence has to read their file itself. Whether a
+    justification agrees with the value it explains is settled elsewhere, by the
+    sweep in `scripts/build_review.py`; here only its presence is asked about.
+
+    The file is read on every validation for the same reason the vocabulary is:
+    the update pass edits the data and validates it within one run.
+    """
+    path = store.DATA_DIR / "parse_notes.jsonl"
+    if not path.exists():
+        return set()
+    import json
+
+    pairs: set[tuple[str, str]] = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        note = json.loads(line)
+        if note.get("code"):
+            pairs.add((note.get("technology_id", ""), note["code"]))
+    return pairs
 
 
 def _residual_vocabulary() -> dict[str, dict]:
@@ -144,6 +179,13 @@ def check_registry() -> list[str]:
 
     vocabulary = _residual_vocabulary()
     problems += check_residual_verdicts(vocabulary)
+    # A spoiled file of justifications is reported rather than raised: the pass
+    # runs unattended, and a traceback in its log names no file.
+    try:
+        justified = _justified_dimensions()
+    except ValueError as exc:
+        problems.append(f"data/parse_notes.jsonl does not read as JSON lines: {exc}")
+        justified = set()
     known: set[str] = set()
     for tech in technologies:
         where = f"technologies/{tech.id}.json"
@@ -185,6 +227,30 @@ def check_registry() -> list[str]:
         if tech.configuration:
             for error in validate(tech.configuration):
                 problems.append(f"{where}: the configuration is inadmissible: {error}")
+
+        # Any departure from "no fusion" asserts that the results of more than
+        # one source are merged. That is a claim about the behaviour of a system,
+        # and it can be checked only against the source: no other value of the
+        # record implies it, and no collector observes it.
+        #
+        # The rule is narrow deliberately. Justifying every departure from the
+        # base configuration is the eventual goal and is not reachable today,
+        # seventy-one values standing without one. This dimension is singled out
+        # because the harm was observed rather than imagined: of the two records
+        # asserting a fusion that nobody had justified, one named an arithmetic
+        # its own source contradicts, and the error had stood since the record
+        # was first read.
+        #
+        # A justification does not make a value right. It makes an unchecked
+        # value visible, which is the most a rule can do about a claim that only
+        # a person reading the source can settle.
+        fusion = tech.configuration.get(FUSION_CODE)
+        if fusion not in (None, FUSION_NONE) and (tech.id, FUSION_CODE) not in justified:
+            problems.append(
+                f"{where}: {FUSION_CODE}={fusion!r} asserts that the results of "
+                "several sources are merged, and no justification says which "
+                "source that rests on"
+            )
 
         # A residual refers to the vocabulary by code. Free text is refused: one
         # and the same mechanism worded differently in two records will not come

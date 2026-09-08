@@ -424,6 +424,83 @@ def test_metric_without_a_source(registry):
     assert complains_about("has no source", validate_data.check_registry())
 
 
+# ─── A fusion of sources rests on a source ───────────────────────────────────
+#
+# A value of C3 other than "none" says that the results of more than one source
+# are merged. Nothing else in a record implies it and no collector observes it,
+# so the only thing it can rest on is somebody having read the source. The rule
+# exists because two records asserted a fusion nobody had justified, and one of
+# them named an arithmetic its own source contradicts.
+#
+# The bait below is the whole point of these tests. A rule nobody has seen fail
+# guards nothing that anyone can demonstrate: the violation is planted here on
+# purpose, and the rule has to catch it.
+
+
+def justify(technology_id: str, code: str, to: str) -> None:
+    """Write a justification for one dimension of one record."""
+    line = json.dumps(
+        {"technology_id": technology_id, "code": code, "to": to,
+         "did": "делает", "why": "потому", "source": "источник"},
+        ensure_ascii=False, sort_keys=True,
+    )
+    path = store.DATA_DIR / "parse_notes.jsonl"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(line + "\n")
+
+
+FUSION_COMPLAINT = "asserts that the results of several sources are merged"
+
+
+def test_a_fusion_nobody_justified_is_refused(registry):
+    """The bait: a claim of fusion with nothing behind it."""
+    save(configuration={"C3": "rrf"})
+    assert complains_about(FUSION_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_justified_fusion_passes(registry):
+    """And the rule stays silent where the justification exists.
+
+    Without this the rule could refuse every record alike and still look like a
+    guard: a check that always fires proves nothing about the data.
+    """
+    save(configuration={"C3": "rrf"})
+    justify("alpha", "C3", "rrf")
+    assert not complains_about(FUSION_COMPLAINT, validate_data.check_registry())
+
+
+def test_the_absence_of_a_fusion_needs_no_justification(registry):
+    """Only a departure asserts anything; "no fusion" is what the schema assumes."""
+    save(configuration={"C3": "none"})
+    assert not complains_about(FUSION_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_justification_of_another_dimension_does_not_count(registry):
+    """A justification is asked for this dimension, not for the record at large.
+
+    Sixteen justifications on a record say nothing about the seventeenth value,
+    and a rule satisfied by any of them would pass exactly the case it exists
+    for: MAGMA carried thirteen justifications and none for its fusion.
+    """
+    save(configuration={"C3": "rrf"})
+    justify("alpha", "B1", "identity")
+    assert complains_about(FUSION_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_justification_of_another_record_does_not_count(registry):
+    """The pair of record and dimension is what the rule reads."""
+    save(configuration={"C3": "rrf"})
+    justify("beta", "C3", "rrf")
+    assert complains_about(FUSION_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_spoiled_file_of_justifications_is_reported_not_raised(registry):
+    """The pass runs unattended, and a traceback in its log names no file."""
+    save(configuration={"C3": "none"})
+    (store.DATA_DIR / "parse_notes.jsonl").write_text("{not json\n", encoding="utf-8")
+    assert complains_about("does not read as JSON lines", validate_data.check_registry())
+
+
 # ─── The exit code ───────────────────────────────────────────────────────────
 #
 # The build checks and the `make validate` target are driven by exactly this. A

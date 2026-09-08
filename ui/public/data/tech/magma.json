@@ -348,6 +348,19 @@
         "technology_id": "magma",
         "why": "Порядок подачи называет естественный порядок, возрастание надёжности и иерархию, а порядка, взятого из структуры выбранного слоя, не называет.",
         "why_en": "Arrangement names natural order, ascending reliability and hierarchy, and names no order taken from the structure of the selected layer."
+      },
+      {
+        "code": "C3",
+        "did": "Точки входа для обхода отбираются слиянием трёх сигналов: плотного поиска по смыслу, словарного совпадения и отбора по времени.",
+        "did_en": "The entry points for traversal are chosen by fusing three signals: dense semantic retrieval, lexical keyword matching and temporal filtering.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.03236, отбор точек входа, формула S_anchor",
+        "source_en": "arXiv:2601.03236, the selection of entry points, formula S_anchor",
+        "technology_id": "magma",
+        "to": "rrf",
+        "why": "Работа называет слияние обратными рангами и записывает его формулой суммы величин, обратных сумме постоянной и ранга сигнала.",
+        "why_en": "The work names the fusion as reciprocal rank fusion and writes it as a sum of quantities inverse to a constant plus the rank in each signal."
       }
     ],
     "prose_id": "magma",
