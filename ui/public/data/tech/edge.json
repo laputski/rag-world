@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
     "attention": 0.0,
@@ -101,7 +101,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "preprint",
@@ -109,7 +109,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2602.13229",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "other",
@@ -117,7 +117,7 @@
         "label_en": null,
         "status": "guarded",
         "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
-        "verified_at": "2026-08-11"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "product",
@@ -125,7 +125,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       }
     ],
     "maturity_note": "Ранний продукт. Библиотека Google AI Edge RAG для Android и Microsoft Edge RAG через Azure Arc доступны в предварительных версиях.",

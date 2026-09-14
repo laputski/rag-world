@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
-    "attention": 3.515,
+    "attention": 3.231,
     "attention_cohort": "2025",
     "attention_raw": 1.0,
     "barriers": "Общее препятствие состоит в управлении тем, как память меняется со временем, и оно распадается на четыре части.\n\nЗаписи нужно сводить в обобщённые и удалять устаревшие, а для этого требуется правило, по которому запись признаётся устаревшей. Между сохранёнными записями возникают противоречия, потому что положение дел меняется, и нужен порядок их разрешения. При многократном пересмотре смысл сохранённого постепенно смещается, и запись перестаёт означать то, ради чего заводилась. Наконец, поиск по изменяющейся памяти нарушает предположение, на котором стоит приближённый поиск ближайших соседей: указатель строится в расчёте на неподвижные векторы.",
@@ -137,10 +137,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2026; citation_velocity=1.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2502.14802",
+        "type": "publication",
+        "value": "venue=ICML 2025; peer_reviewed=true; citations_semantic_scholar=224; year=2025",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2025-02",
     "groups": [
@@ -172,7 +180,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2502.14802",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "paper",
@@ -188,7 +196,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://iclr.cc/virtual/2026/workshop/10000792",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "preprint",
@@ -196,7 +204,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2603.11768",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       }
     ],
     "maturity_note": "Ранний продукт при активных исследованиях. Опорная работа 2025 года набрала триста тринадцать цитирований; на конференции ICLR 2026 прошло отдельное заседание по памяти для исполнителей на языковых моделях.",

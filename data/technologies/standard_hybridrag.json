@@ -52,7 +52,7 @@
       "label_en": "Cormack, Clarke, Büttcher. Reciprocal rank fusion. SIGIR 2009",
       "status": "guarded",
       "url": "https://doi.org/10.1145/1571941.1572114",
-      "verified_at": "2026-08-13"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "product",
@@ -60,7 +60,7 @@
       "label_en": "OpenSearch: hybrid search",
       "status": "verified",
       "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
-      "verified_at": "2026-08-13"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "product",
@@ -68,7 +68,7 @@
       "label_en": "Qdrant: hybrid queries",
       "status": "verified",
       "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
-      "verified_at": "2026-08-13"
+      "verified_at": "2026-09-14"
     }
   ],
   "name": "Standard HybridRAG",

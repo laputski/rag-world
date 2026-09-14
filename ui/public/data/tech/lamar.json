@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [
       "Language-Aware Multilingual Alignment Reranker"
@@ -96,7 +96,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2607.22042",
-        "verified_at": "2026-08-14"
+        "verified_at": "2026-09-14"
       }
     ],
     "name": "LAMAR",

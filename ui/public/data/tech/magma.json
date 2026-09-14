@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [
       "Multi-Graph based Agentic Memory Architecture"
     ],
-    "attention": 0.125,
+    "attention": 0.25,
     "attention_cohort": null,
-    "attention_raw": 0.125,
+    "attention_raw": 0.25,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -83,10 +83,26 @@
         "type": "repository",
         "value": "FredJiang0324/MAGMA: license=mit, last_push=2026-07-10, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7166853577",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=2; year=2026; citation_velocity=0.25",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2601.03236",
+        "type": "publication",
+        "value": "venue=ACL 2026; peer_reviewed=true; citations_semantic_scholar=49; year=2026",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 7,
     "family": null,
     "first_published": "2026-01",
     "groups": [

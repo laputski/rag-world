@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -113,10 +113,18 @@
         "type": "package_downloads",
         "value": "package=FlagEmbedding; version=1.4.2; downloads_last_month=525410",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/FlagEmbedding/",
+        "type": "package_downloads",
+        "value": "package=FlagEmbedding; version=1.4.2; downloads_last_month=522404",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": null,
     "first_published": null,
     "groups": [
@@ -148,7 +156,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://huggingface.co/BAAI/bge-m3",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       }
     ],
     "name": "BGE-M3",

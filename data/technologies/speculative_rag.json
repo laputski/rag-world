@@ -45,23 +45,26 @@
     {
       "kind": "preprint",
       "label": null,
+      "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2407.08223",
-      "verified_at": "2026-08-09"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "other",
       "label": "RAG in 2026: Architecture Shifts (Medium, 2026)",
-      "status": "guarded",
+      "label_en": null,
+      "status": "verified",
       "url": "https://medium.com/@elammarisoufiane/rag-in-2026-architecture-shifts-emerging-patterns-and-what-it-means-for-java-developers-6f2803e39787",
-      "verified_at": "2026-08-11"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "other",
       "label": "HTEC: Speculative RAG and RAG-Fusion (2026)",
+      "label_en": null,
       "status": "verified",
       "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
-      "verified_at": "2026-08-09"
+      "verified_at": "2026-09-14"
     }
   ],
   "name": "Speculative RAG",

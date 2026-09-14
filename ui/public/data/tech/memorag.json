@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
     "attention": 1.353,
@@ -103,7 +103,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/qhjqhj00/MemoRAG",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "preprint",

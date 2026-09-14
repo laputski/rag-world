@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
     "attention": 0.0,
@@ -69,10 +69,18 @@
         "type": "repository",
         "value": "chensyCN/LogicRAG: license=gpl-3.0, last_push=2026-07-19, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=30; year=2025",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 4,
+    "evidence_count": 5,
     "family": null,
     "first_published": "2025-08",
     "groups": [

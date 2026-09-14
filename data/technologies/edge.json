@@ -46,30 +46,34 @@
     {
       "kind": "product",
       "label": "Google AI Edge RAG library (2026)",
+      "label_en": null,
       "status": "verified",
       "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
-      "verified_at": "2026-08-09"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "preprint",
       "label": "Pocket RAG: Offline Mobile (arXiv:2602.13229, 2026)",
+      "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2602.13229",
-      "verified_at": "2026-08-09"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "other",
       "label": "Edge-RAG over Bluetooth Mesh (ScienceDirect, 2026)",
+      "label_en": null,
       "status": "guarded",
       "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
-      "verified_at": "2026-08-11"
+      "verified_at": "2026-09-14"
     },
     {
       "kind": "product",
       "label": "Microsoft Edge RAG (Azure Arc)",
+      "label_en": null,
       "status": "verified",
       "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
-      "verified_at": "2026-08-09"
+      "verified_at": "2026-09-14"
     }
   ],
   "name": "Edge and On-Device RAG",

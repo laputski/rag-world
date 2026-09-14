@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [
       "CBR-RAG"
     ],
-    "attention": 5.856,
+    "attention": 5.911,
     "attention_cohort": "2024",
-    "attention_raw": 3.344,
+    "attention_raw": 3.375,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -101,10 +101,18 @@
         "type": "repository",
         "value": "rgu-iit-bt/cbr-for-legal-rag: license=none, last_push=2025-02-20, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399932275",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=108; year=2024; citation_velocity=3.375",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 8,
     "family": null,
     "first_published": "2024-04",
     "groups": [
@@ -136,7 +144,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2404.04302",
-        "verified_at": "2026-08-14"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "github",

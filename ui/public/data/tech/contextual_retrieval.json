@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -83,7 +83,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://www.anthropic.com/news/contextual-retrieval",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       }
     ],
     "name": "Contextual Retrieval",

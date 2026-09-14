@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-07",
+  "built_at": "2026-09-14",
   "technology": {
     "aliases": [
       "GraphRAG"
@@ -192,10 +192,26 @@
         "type": "package_downloads",
         "value": "package=graphrag; version=3.1.2; downloads_last_month=51140",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-09-14, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-14",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.1.2; downloads_last_month=49014",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 18,
+    "evidence_count": 20,
     "family": "B",
     "first_published": "2024",
     "groups": [
@@ -229,7 +245,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/microsoft/graphrag",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       },
       {
         "kind": "preprint",
@@ -237,7 +253,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2404.16130",
-        "verified_at": "2026-08-09"
+        "verified_at": "2026-09-14"
       }
     ],
     "name": "Microsoft GraphRAG",
