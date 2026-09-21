@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [
       "QuadGraph"
@@ -71,10 +71,18 @@
         "type": "publication",
         "value": "venue=ICLR 2026; peer_reviewed=true; citations_semantic_scholar=11; year=2026",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2509.24276",
+        "type": "publication",
+        "value": "venue=ICLR 2026; peer_reviewed=true; citations_semantic_scholar=12; year=2026",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 4,
+    "evidence_count": 5,
     "family": null,
     "first_published": "2025-09",
     "groups": [

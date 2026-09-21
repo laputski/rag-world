@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [],
     "attention": 0.324,
@@ -137,10 +137,18 @@
         "type": "repository",
         "value": "illuin-tech/colpali: license=mit, last_push=2026-09-07, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=223; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": "E",
     "first_published": "2024-07",
     "groups": [

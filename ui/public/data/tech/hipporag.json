@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [
       "HippoRAG 2"
     ],
-    "attention": 5.035,
+    "attention": 5.363,
     "attention_cohort": "2024",
-    "attention_raw": 2.875,
+    "attention_raw": 3.062,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -195,10 +195,18 @@
         "type": "publication",
         "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=92; year=2024; citation_velocity=2.875",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=98; year=2024; citation_velocity=3.062",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 19,
+    "evidence_count": 20,
     "family": "B",
     "first_published": "2024",
     "groups": [

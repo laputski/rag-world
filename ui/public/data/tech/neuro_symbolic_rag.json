@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [
       "neuro-symbolic"
@@ -83,10 +83,18 @@
         "type": "publication",
         "value": "venue=IEEE Intelligent Systems; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7119757052",
+        "type": "publication",
+        "value": "venue=IEEE Intelligent Systems; peer_reviewed=true; cited_by=1; year=2026; citation_velocity=0.125",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": null,
     "first_published": "2026-01",
     "groups": [

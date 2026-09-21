@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "by_kind": {
     "architecture": 39,
     "attack": 2,
@@ -26,8 +26,8 @@
     "F": 8,
     "G": 23
   },
-  "evidence_total": 506,
-  "freshest_evidence": "2026-09-14",
+  "evidence_total": 547,
+  "freshest_evidence": "2026-09-21",
   "stale": false,
   "total": 76,
   "with_attention": 64,

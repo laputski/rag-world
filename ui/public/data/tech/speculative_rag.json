@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [],
     "attention": 0.869,
@@ -99,10 +99,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.269",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.08223",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=118; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 8,
     "family": "A",
     "first_published": "2025",
     "groups": [

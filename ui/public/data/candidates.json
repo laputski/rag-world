@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "candidates": [
     {
       "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
@@ -269,6 +269,32 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "An advanced retrieval-augmented generation pipeline is typically assembled from three or four independently operated systems: an approximate nearest-neighbour index, a full-text search engine, a graph database, and a relational document store. Each contributes its own deployment surface, configuration model, and failure modes, and the integration logic that binds them is written anew in every project.",
+      "arxiv_id": "2609.18248",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 6
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.18248",
+      "tasks": [],
+      "title": "Quanta: A Self-Contained Python Library for Hybrid Retrieval over Quantised Embeddings, Lexical Indexes, and Knowledge Graphs",
       "verdict": null
     },
     {
@@ -745,6 +771,162 @@
       "verdict": null
     },
     {
+      "abstract": "Retrieval-Augmented Generation (RAG) improves large language models by grounding outputs in external knowledge sources, but this dependency also creates a surface for poisoning attacks. This paper introduces Micro-Collaborative Poisoning, a distributed attack in which a false target claim is divided across multiple locally plausible documents instead of being concentrated in a single malicious passage.",
+      "arxiv_id": "2609.21573",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.21573",
+      "tasks": [],
+      "title": "Micro-Collaborative Poisoning: A Distributed Attack on RAG Systems",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) is increasingly used to ground large language model (LLM) outputs in scientific literature. However, in open-ended literature exploration, the evidence context used for generation is often produced through hidden retrieval, reranking, assessment, and filtering steps.",
+      "arxiv_id": "2609.19601",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.19601",
+      "tasks": [],
+      "title": "FootprintRAG: Visual Analytics for Evidence Context Refinement in RAG-based Scientific Literature Exploration",
+      "verdict": null
+    },
+    {
+      "abstract": "Real-world agents fundamentally require persistent non-parametric knowledge for dynamic reasoning, i.e., long-term memory and retrieval-augmented generation. While graphs have shown reliable advantages in providing structured evidence, the sparse graph representations naturally restrict machine readability and semantic density required for complex agentic workflows.",
+      "arxiv_id": "2609.18182",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.18182",
+      "tasks": [],
+      "title": "WFM: Wiki Foundation Model for Complex Agentic Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Language models face unique challenges in analyzing interdisciplinary scientific research literature. In biophysics research, faithful answers require grounding observed data in source evidence, interpreting it through a quantitative physics model, and linking it to a biological mechanism. To address this challenge, we introduce BioPhys-Bridge, a novel benchmark dataset for evidence-grounded scientific reasoning over biophysical literature.",
+      "arxiv_id": "2609.19180",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.19180",
+      "tasks": [],
+      "title": "BioPhys-Bridge: A Benchmark for Interdisciplinary Scientific Reasoning in Physics-Grounded Biological Research",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) pipelines typically rely on a fixed indexing and retrieval configuration determined at preprocessing time. This one-size-fits-all design is ill-suited to domain-expert settings, where heterogeneous queries require different chunking granularities, metadata constraints, and source-selection strategies. As a result, configurations that are effective for one family of queries often perform poorly for others.",
+      "arxiv_id": "2609.17012",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.17012",
+      "tasks": [],
+      "title": "ORDER: Task-Conditioned Routing for Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) has emerged as a powerful paradigm for improving the quality of generated contents of Large Language Models (LLMs) by grounding responses in external knowledge, thus reducing hallucinations and factual errors. However, recent studies have highlighted a critical vulnerability: adversaries can exploit the retrieval process to extract personally identifiable information (PII) from the underlying corpus.",
+      "arxiv_id": "2609.16095",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.16095",
+      "tasks": [],
+      "title": "RAG-CT: Mitigating Privacy Risks on Retrieval-Augmented Generation Systems via Scanning Prompt Distribution",
+      "verdict": null
+    },
+    {
       "abstract": "Dense retrieval systems are core components of modern search engines, recommendation platforms, and retrieval-augmented generation pipelines. They encode documents and queries into dense embeddings, enabling efficient semantic search via vector similarity. However, because document embeddings are computed offline and stored in static indexes, these systems struggle to adapt to user feedback or evolving search intent.",
       "arxiv_id": "2609.05110",
       "citations": null,
@@ -1189,6 +1371,182 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Empirical evaluation is central to recommender-systems (RecSys) research, but turning experimental designs into executable code remains a manual and error-prone task. We present AutoRecLab, a Python-based autonomous RecSys lab that automates RecSys experiments from natural-language prompts. Given a research idea, AutoRecLab derives explicit experiment requirements, builds and validates a prototype, and iteratively expands it into the requested full experiment.",
+      "arxiv_id": "2609.21863",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.21863",
+      "tasks": [],
+      "title": "AutoRecLab: Describe the Experiment, Get the Code!",
+      "verdict": null
+    },
+    {
+      "abstract": "Scientific research increasingly relies on large, heterogeneous data sources, motivating interest in retrieval-augmented generation (RAG) systems that provide natural language access to scientific knowledge and research workflows. Researchers are exploring the viability of these systems as natural language interfaces for document search and for generating analysis code and pipeline components.",
+      "arxiv_id": "2609.16519",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.16519",
+      "tasks": [],
+      "title": "AquiLLM: Evaluating Faithfulness in Open-Weight RAG-LLM Systems for Scientific Research",
+      "verdict": null
+    },
+    {
+      "abstract": "Medical knowledge evolves continuously, whereas the parametric knowledge encoded in large language models (LLMs) is fixed at training time. External retrieval, including retrieval-augmented generation (RAG), can provide access to newly available evidence, but retrieved information may be irrelevant, incomplete, or conflicting. As a result, external retrieval can in turn degrade the factual accuracy and evidence grounding of LLM outputs.",
+      "arxiv_id": "2609.16301",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.16301",
+      "tasks": [],
+      "title": "CLEAR: Cross-Source Evidence Adjudication for Large Language Models in Medicine",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) can improve access to complex information; however, retrieving evidence alone does not ensure that answers are grounded, citation-valid, or appropriately refused. This paper introduces CiteGuard-RAG, a validation-centered AI system for evidence-grounded question answering. The system integrates hybrid semantic-lexical retrieval, citation-constrained generation, sentence-level grounding validation, and single-pass regeneration.",
+      "arxiv_id": "2609.15830",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.15830",
+      "tasks": [],
+      "title": "CiteGuard-RAG: A Validation-Centered AI System for Evidence-Grounded Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) grounds a language model's answers on retrieved external knowledge and returns each answer with citations that identify its sources. Those citations are the user's audit trail: they let a reader verify a claim without trusting the model. Prior security work on RAG asks whether an attacker can corrupt the answer, leaving the citation channel unexplored. We show that this channel is a new and practical attack surface.",
+      "arxiv_id": "2609.15660",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.15660",
+      "tasks": [],
+      "title": "CiteShade: Citation Laundering in Multi-Source Retrieval-Augmented Generation and Its Counterfactual Defense",
+      "verdict": null
+    },
+    {
+      "abstract": "Recently, Large Language Models (LLMs) have gained significant attention due to their strong language understanding and generation capabilities, demonstrating impressive reasoning abilities as well as effective utilization of external knowledge. Many studies have proposed methods that specialize in improving performance for individual tasks. However, ironically, only a limited number of attempts have explored general-purpose, task-agnostic methods.",
+      "arxiv_id": "2609.15234",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.15234",
+      "tasks": [],
+      "title": "CWM: Controllable White-Box Meta-Prompting for Adaptive Retrieval-Augmented Generation and Reasoning Ability",
+      "verdict": null
+    },
+    {
+      "abstract": "Cloud-hosted large language models (LLMs) are increasingly used for root cause analysis (RCA) in AIOps pipelines, but they introduce data privacy risk, network latency, and per-query cost that scale poorly with production log volumes.",
+      "arxiv_id": "2609.14762",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.14762",
+      "tasks": [],
+      "title": "TriCalRAG: A Three-Strategy, Retrieval-Augmented Benchmark for On-Premise LLM-Based Root Cause Analysis in AIOps",
+      "verdict": null
+    },
+    {
+      "abstract": "Teaching abstract theoretical computer science (TCS) concepts such as algorithm analysis and complexity theory is challenging because students must handle formal proofs and asymptotic reasoning that conventional resources rarely explain in an adaptive, on-demand way. We present AlgoRAG, a specialized Retrieval-Augmented Generation (RAG) system that couples a large language model (LLM) with a curated, domain-specific knowledge base to address these challenges.",
+      "arxiv_id": "2609.14572",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-09-21",
+      "found_by": "archive",
+      "published": "2026-09-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2609.14572",
+      "tasks": [],
+      "title": "AlgoRAG: Retrieval-Augmented Generation for Theoretical Computer Science Education -- A Comprehensive Evaluation Framework for Algorithm Analysis and Complexity Theory",
       "verdict": null
     },
     {

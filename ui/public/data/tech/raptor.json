@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-14",
+  "built_at": "2026-09-21",
   "technology": {
     "aliases": [],
-    "attention": 1.478,
+    "attention": 1.532,
     "attention_cohort": "2024",
-    "attention_raw": 0.844,
+    "attention_raw": 0.875,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -81,10 +81,18 @@
         "type": "repository",
         "value": "parthsarthi03/raptor: license=mit, last_push=2024-09-03, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-21",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391463108",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.875",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": "H",
     "first_published": "2024",
     "groups": [
