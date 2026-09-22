@@ -4,6 +4,11 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+// Loaded with the frame rather than on demand. It is what the reader sees when
+// a page fails, and the commonest failure is a page's own chunk that no longer
+// exists after a redeploy; a page that explains the failure cannot depend on
+// another chunk loading.
+import { NotFoundPage } from "../pages/NotFoundPage";
 import { useTranslation } from "react-i18next";
 import type { ThemeMode } from "../theme";
 import { MONO, SERIF_FAMILY } from "../theme";
@@ -39,9 +44,15 @@ interface Props {
   lang: "ru" | "en";
   onSetLang: (lang: "ru" | "en") => void;
   onOpenSearch: () => void;
+  /**
+   * The frame is drawn as the router's error element: a page failed. The frame
+   * then has no page to hold, and its outlet stayed empty, so the reader got a
+   * header and a footer with nothing between them.
+   */
+  failed?: boolean;
 }
 
-export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }: Props) {
+export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch, failed = false }: Props) {
   const { t } = useTranslation();
 
   // The frame is what every page passes through, so the visits are counted from
@@ -231,7 +242,7 @@ export function AppLayout({ mode, onToggleMode, lang, onSetLang, onOpenSearch }:
         <Suspense
           fallback={<CircularProgress sx={{ display: "block", mx: "auto", my: 8 }} />}
         >
-          <Outlet context={{ mode }} />
+          {failed ? <NotFoundPage /> : <Outlet context={{ mode }} />}
         </Suspense>
       </Container>
 

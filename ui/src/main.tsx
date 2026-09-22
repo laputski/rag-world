@@ -1,7 +1,7 @@
 import { lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useNavigate, useRouteError } from "react-router-dom";
 
 // The fonts arrive as packages and enter the build: the portal reaches no
 // external source and looks the same without a network.
@@ -66,6 +66,8 @@ function Shell() {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const openSearch = useRef<() => void>(() => {});
+  // Set when this shell is drawn as the error element of the router.
+  const failed = Boolean(useRouteError());
 
   useEffect(() => { localStorage.setItem(MODE_KEY, mode); }, [mode]);
   useEffect(() => {
@@ -87,6 +89,7 @@ function Shell() {
         lang={lang}
         onSetLang={setLang}
         onOpenSearch={() => openSearch.current()}
+        failed={failed}
       />
       {/*
         The registry is read by the search itself, and read when it is first

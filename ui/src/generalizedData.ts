@@ -118,7 +118,7 @@ const DIAG_STRATA = `flowchart TD
     classDef cond fill:#fff3e0,stroke:#f57c00,stroke-dasharray: 5 5`;
 
 const DIAG_PATHRAG = `flowchart LR
-    subgraph PR ["[PathRAG](https://arxiv.org/abs/2502.14902) [1]"]
+    subgraph PR ["PathRAG [1]"]
       P1["Граф путей над корпусом"]
       P2["Прунинг путей\\nпо затуханию надёжности"]
       P3["Компоновка фрагментов\\nпо возрастанию надёжности"]
@@ -297,7 +297,7 @@ const DIAG_STRATA_EN = `flowchart TD
     classDef cond fill:#fff3e0,stroke:#f57c00,stroke-dasharray: 5 5`;
 
 const DIAG_PATHRAG_EN = `flowchart LR
-    subgraph PR ["[PathRAG](https://arxiv.org/abs/2502.14902) [1]"]
+    subgraph PR ["PathRAG [1]"]
       P1["Path graph over the corpus"]
       P2["Path pruning\\nby reliability decay"]
       P3["Ordering of fragments\\nby ascending reliability"]
@@ -523,7 +523,7 @@ const ru: GeneralizedContent = {
     },
   ],
   refs: [
-    { label: "[1] Chen Q. et al. [PathRAG](https://arxiv.org/abs/2502.14902). arXiv:2502.14902, 2025.", url: "https://arxiv.org/abs/2502.14902" },
+    { label: "[1] Chen Q. et al. PathRAG. arXiv:2502.14902, 2025.", url: "https://arxiv.org/abs/2502.14902" },
     { label: "[2] Kang K. C. et al. FODA. CMU/SEI-90-TR-021, 1990.", url: "https://insights.sei.cmu.edu/library/feature-oriented-domain-analysis-foda-feasibility-study/" },
     { label: "[3] Apel S. et al. Feature-Oriented Software Product Lines. Springer, 2013.", url: "" },
     { label: "[4] Montgomery D. C. Design and Analysis of Experiments. 10th ed. Wiley, 2019.", url: "" },
@@ -534,23 +534,23 @@ const ru: GeneralizedContent = {
     { label: "[9] Alsegier R. et al. SPL Engineering Framework. Preprint, 2026.", url: "" },
     { label: "[10] Stumpfle T. et al. LLM-assisted SPL Transformation. ICSR, 2025.", url: "" },
     { label: "[11] Liu N. F. et al. Lost in the Middle. TACL, 2024.", url: "https://arxiv.org/abs/2307.03172" },
-    { label: "[12] Asai A. et al. [Self-RAG](https://arxiv.org/abs/2310.11511). ICLR, 2024.", url: "https://arxiv.org/abs/2310.11511" },
-    { label: "[13] Yan S. et al. [CRAG](https://arxiv.org/abs/2401.15884). arXiv:2401.15884, 2024.", url: "https://arxiv.org/abs/2401.15884" },
-    { label: "[14] Jiang Z. et al. [FLARE](https://arxiv.org/abs/2305.06983). EMNLP, 2023.", url: "https://arxiv.org/abs/2305.06983" },
+    { label: "[12] Asai A. et al. Self-RAG. ICLR, 2024.", url: "https://arxiv.org/abs/2310.11511" },
+    { label: "[13] Yan S. et al. CRAG. arXiv:2401.15884, 2024.", url: "https://arxiv.org/abs/2401.15884" },
+    { label: "[14] Jiang Z. et al. FLARE. EMNLP, 2023.", url: "https://arxiv.org/abs/2305.06983" },
     { label: "[15] Wang Y. et al. Speculative RAG. ICLR, 2025.", url: "https://arxiv.org/abs/2407.08223" },
-    { label: "[16] Edge D. et al. [GraphRAG](https://github.com/microsoft/graphrag). Microsoft, 2024.", url: "https://github.com/microsoft/graphrag" },
+    { label: "[16] Edge D. et al. GraphRAG. Microsoft, 2024.", url: "https://github.com/microsoft/graphrag" },
     { label: "[17] Guo Z. et al. LightRAG. ACL Findings, 2025.", url: "https://arxiv.org/abs/2410.05779" },
     { label: "[18] Gutierrez B. J. et al. HippoRAG. NeurIPS, 2024.", url: "https://github.com/OSU-NLP-Group/HippoRAG" },
     { label: "[19] ArchRAG. arXiv:2502.09891, 2025.", url: "https://arxiv.org/abs/2502.09891" },
-    { label: "[20] Agrawal S. et al. [OG-RAG](https://arxiv.org/abs/2412.15235). EMNLP, 2025.", url: "https://arxiv.org/abs/2412.15235" },
-    { label: "[21] [MemoRAG](https://github.com/qhjqhj00/MemoRAG). arXiv:2409.05591, 2024.", url: "https://github.com/qhjqhj00/[MemoRAG](https://github.com/qhjqhj00/MemoRAG)" },
+    { label: "[20] Agrawal S. et al. OG-RAG. EMNLP, 2025.", url: "https://arxiv.org/abs/2412.15235" },
+    { label: "[21] MemoRAG. arXiv:2409.05591, 2024.", url: "https://github.com/qhjqhj00/MemoRAG" },
     { label: "[22] xRAG. arXiv:2405.13792, 2024.", url: "https://arxiv.org/abs/2405.13792" },
     { label: "[23] Jeong S. et al. Adaptive-RAG. NAACL, 2024.", url: "https://arxiv.org/abs/2403.14403" },
-    { label: "[24] Trivedi H. et al. [IRCoT](https://arxiv.org/abs/2212.10509). arXiv:2212.10509, 2022.", url: "https://arxiv.org/abs/2212.10509" },
-    { label: "[25] Yao S. et al. [ReAct](https://arxiv.org/abs/2210.03629). ICLR, 2023.", url: "https://arxiv.org/abs/2210.03629" },
-    { label: "[26] Lin B. et al. [RA-DIT](https://arxiv.org/abs/2310.01352). arXiv:2310.01352, 2023.", url: "https://arxiv.org/abs/2310.01352" },
-    { label: "[27] Tian T. et al. [RAFT](https://arxiv.org/abs/2403.10131). arXiv:2403.10131, 2024.", url: "https://arxiv.org/abs/2403.10131" },
-    { label: "[28] Sarthi P. et al. [RAPTOR](https://arxiv.org/abs/2401.18059). ICLR, 2024.", url: "https://arxiv.org/abs/2401.18059" },
+    { label: "[24] Trivedi H. et al. IRCoT. arXiv:2212.10509, 2022.", url: "https://arxiv.org/abs/2212.10509" },
+    { label: "[25] Yao S. et al. ReAct. ICLR, 2023.", url: "https://arxiv.org/abs/2210.03629" },
+    { label: "[26] Lin B. et al. RA-DIT. arXiv:2310.01352, 2023.", url: "https://arxiv.org/abs/2310.01352" },
+    { label: "[27] Tian T. et al. RAFT. arXiv:2403.10131, 2024.", url: "https://arxiv.org/abs/2403.10131" },
+    { label: "[28] Sarthi P. et al. RAPTOR. ICLR, 2024.", url: "https://arxiv.org/abs/2401.18059" },
     { label: "[29] Anthropic. Contextual Retrieval. 2024.", url: "https://www.anthropic.com/news/contextual-retrieval" },
     { label: "[30] Gao L. et al. HyDE. arXiv:2212.10496, 2022.", url: "https://arxiv.org/abs/2212.10496" },
     { label: "[31] Shi W. et al. REPLUG. arXiv:2301.12652, 2023.", url: "https://arxiv.org/abs/2301.12652" },

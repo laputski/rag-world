@@ -243,6 +243,7 @@ export function ResidualsPage() {
                 <Typography variant="caption" color="text.secondary">
                   {t(`candidates.signal.${signal.code}`, {
                     tasks: (signal.tasks ?? []).join(", "),
+                    lists: (signal.lists ?? []).join(", "),
                     count: signal.count,
                   })}
                 </Typography>

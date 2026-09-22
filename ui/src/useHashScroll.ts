@@ -35,7 +35,16 @@ export function useHashScroll() {
 
   useEffect(() => {
     if (!hash) return;
-    const target = () => document.getElementById(decodeURIComponent(hash.slice(1)));
+    // An anchor that does not decode is somebody's typo or a truncated link.
+    // It used to throw, and the throw emptied the whole page; now it is an
+    // anchor that points nowhere, which is what it is.
+    let anchor: string;
+    try {
+      anchor = decodeURIComponent(hash.slice(1));
+    } catch {
+      return;
+    }
+    const target = () => document.getElementById(anchor);
     if (!target()) return;
 
     let done = false;

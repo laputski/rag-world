@@ -68,6 +68,8 @@ export interface RegistryTechnology {
 export interface EvidenceRecord {
   type: string;
   value: string | null;
+  /** The English wording of a value a person wrote in Russian. */
+  value_en?: string | null;
   source: string;
   fetched_at: string;
   /** `auto` when a collector gathered it, `manual` when a person entered it. */
@@ -85,6 +87,8 @@ export interface RegistryLink {
   url: string;
   kind: string;
   label: string | null;
+  /** The English wording of the label, where a person wrote the label in Russian. */
+  label_en?: string | null;
   status: string;
   verified_at: string | null;
 }
@@ -281,6 +285,8 @@ export interface CandidateSignal {
   code: string;
   tasks?: string[];
   count?: number;
+  /** The curated lists that hold the work, for the signal `curatedList`. */
+  lists?: string[];
 }
 
 export interface CandidateFit {

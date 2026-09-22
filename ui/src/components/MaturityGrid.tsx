@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import ReactECharts from "echarts-for-react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import type { MaturityArtifact, MaturityPoint } from "../api/types";
@@ -92,8 +92,13 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
     // Levels from the bottom up, with the "no data" row beneath them.
     const rows = [UNKNOWN_ROW, ...artifact.levels];
 
+    // A record that belongs to no stratum has no column. It used to be clamped
+    // into the first one, and the two attacks in the registry were drawn as
+    // part of stratum A, which they are not: an attack acts upon a system and
+    // occupies no place in the configuration space. They are named under the
+    // grid instead.
     const byKind = new Map<string, MaturityPoint[]>();
-    for (const point of artifact.points) {
+    for (const point of artifact.points.filter((p) => p.group)) {
       const list = byKind.get(point.kind) ?? [];
       list.push(point);
       byKind.set(point.kind, list);
@@ -107,14 +112,14 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
       symbol: KIND_SYMBOLS[kind] ?? "circle",
       symbolSize: 11,
       data: points.map((p) => {
-        const col = p.group ? columns.indexOf(p.group) : -1;
+        const col = columns.indexOf(p.group ?? "");
         const row = p.level ? rows.indexOf(p.level) : 0;
         return {
           // A place of its own inside the cell. The offsets used to be random
           // and to run from zero upwards, so points overlapped and every one of
           // them sat above and to the right of its own label.
           value: [
-            (col < 0 ? 0 : col) + (places.get(p.id)?.[0] ?? 0),
+            col + (places.get(p.id)?.[0] ?? 0),
             row + (places.get(p.id)?.[1] ?? 0),
           ],
           point: p,
@@ -222,6 +227,8 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
     };
   }, [artifact, mode, theme, t, line, muted]);
 
+  const outside = artifact.points.filter((p) => !p.group);
+
   return (
     <Box sx={{ width: "100%" }}>
       <ReactECharts
@@ -235,6 +242,11 @@ export function MaturityGrid({ artifact, height = 460, onSelect }: Props) {
           },
         }}
       />
+      {outside.length > 0 && (
+        <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: -1, mb: 1 }}>
+          {t("map.outsideStrata", { names: outside.map((p) => p.name).join(", ") })}
+        </Typography>
+      )}
     </Box>
   );
 }

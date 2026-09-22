@@ -162,19 +162,30 @@ export function TechCardPage() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
+    // An answer for a record the reader has already left is dropped. Without
+    // this a slow answer for the previous card, arriving last, put its record
+    // under the address of the next one.
+    let current = true;
     // One record is requested rather than the whole registry: a card is the
     // page people most often arrive at from an outside link, and it has no
     // reason to pay for sixty-eight records that are not its own.
     getTechnology(id)
       .then((found) => {
+        if (!current) return;
         setTech(found);
         setError(null);
       })
       .catch(() => {
+        if (!current) return;
         setTech(null);
         setError(t("techCard.notFound"));
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (current) setLoading(false);
+      });
+    return () => {
+      current = false;
+    };
   }, [id, t]);
 
   // The tab title and description come from the record itself. The hook is
@@ -222,7 +233,13 @@ export function TechCardPage() {
           {tech.links.map((link, i) => (
             <Box key={i} sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
               <MuiLink href={link.url} target="_blank" rel="noopener" variant="body2">
-                {link.label ?? link.url.replace(/^https?:\/\//, "").slice(0, 42)}
+                {/*
+                  A label a person wrote in Russian carries its English wording
+                  beside it, and the English card showed the Russian one on six
+                  records until 2026-09-22.
+                */}
+                {(i18n.language !== "ru" && link.label_en ? link.label_en : link.label)
+                  ?? link.url.replace(/^https?:\/\//, "").slice(0, 42)}
               </MuiLink>
               {link.status === "guarded" && (
                 <Tooltip title={t("link.guardedWhy")}>
@@ -595,7 +612,7 @@ export function TechCardPage() {
                         {e.type}
                       </TableCell>
                       <TableCell>
-                        {e.value}
+                        {i18n.language !== "ru" && e.value_en ? e.value_en : e.value}
                         {e.obtained_by === "manual" && (
                           <Chip
                             size="small" variant="outlined" sx={{ ml: 1 }}

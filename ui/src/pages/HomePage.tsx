@@ -142,7 +142,7 @@ export function HomePage() {
       {/* The data status strip: the build date and the staleness mark, always shown. */}
       <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", alignItems: "center", mb: 1.5 }}>
         <Chip size="small" variant="outlined" label={
-          `${t("common.builtAt")}: ${new Date(artifact.built_at).toLocaleDateString()}`
+          `${t("common.builtAt")}: ${artifact.built_at}`
         } />
         <Chip size="small" variant="outlined" label={
           `${t("map.count")}: ${artifact.count}`

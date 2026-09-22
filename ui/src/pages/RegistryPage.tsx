@@ -166,7 +166,13 @@ export function RegistryPage() {
           ))}
           <Typography variant="caption" className="tabular" sx={{ ml: "auto" }}>
             {items.length} {t("registry.total")}
-            {builtAt && ` · ${t("common.builtAt")} ${new Date(builtAt).toLocaleDateString()}`}
+            {/*
+              The date is shown as it is written, as on every other page. Read
+              through `Date` it became midnight in Greenwich, and a reader west of
+              it saw the day before, in the format of the browser rather than of
+              the portal.
+            */}
+            {builtAt && ` · ${t("common.builtAt")} ${builtAt}`}
           </Typography>
         </Box>
 

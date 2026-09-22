@@ -555,6 +555,10 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("services/collectors/arxiv_feed.py", "an answer that is not a feed is a refusal",
              "        ET.fromstring(body)\n", '        ET.fromstring(b"<feed/>")\n'),
 
+    Mutation("ui/src/pages/ResidualsPage.tsx",
+             "the candidate page names the lists that hold a work",
+             'lists: (signal.lists ?? []).join(", "),', ""),
+
     # ── An answer nobody foresaw does not end the pass (2026-09-22) ────────
     Mutation("services/collectors/paperswithcode.py",
              "an answer of the wrong shape from the catalogue is a refusal",

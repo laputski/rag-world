@@ -23,9 +23,11 @@ import { useDocumentHead } from "../useDocumentHead";
  * assembled from, and a reader can follow the links and see for themselves.
  */
 
-function LevelMove({ move, onOpen }: {
+function LevelMove({ move, onOpen, fell = false }: {
   move: { technology_id: string; name: string; level_before: string | null; level_after: string };
   onOpen: (id: string) => void;
+  /** A fall is worded as a fall. It used to share the wording of a rise. */
+  fell?: boolean;
 }) {
   const { t } = useTranslation();
   return (
@@ -39,7 +41,7 @@ function LevelMove({ move, onOpen }: {
       </MuiLink>
       <Typography variant="caption" sx={{ color: "text.secondary" }}>
         {move.level_before
-          ? t("digest.moved", { from: move.level_before, to: move.level_after })
+          ? t(fell ? "digest.fell" : "digest.moved", { from: move.level_before, to: move.level_after })
           : t("digest.first", { level: move.level_after })}
       </Typography>
     </Box>
@@ -72,14 +74,19 @@ function BasisList({ issue, onOpen }: {
       </MuiLink>
       <Collapse in={open}>
         <Box sx={{ mt: 1.5, pl: 1.5, borderLeft: 2, borderColor: "divider" }}>
-          {issue.demoted.map((m) => (
-            <LevelMove key={`d-${m.technology_id}`} move={m} onOpen={onOpen} />
+          {/*
+            The position is part of the key: one issue may move one record
+            twice, and the issue of 2026-08-09 promotes Microsoft GraphRAG from
+            L0 to L3 and from L3 to L5.
+          */}
+          {issue.demoted.map((m, i) => (
+            <LevelMove key={`d-${m.technology_id}-${i}`} move={m} onOpen={onOpen} fell />
           ))}
-          {issue.promoted.map((m) => (
-            <LevelMove key={`p-${m.technology_id}`} move={m} onOpen={onOpen} />
+          {issue.promoted.map((m, i) => (
+            <LevelMove key={`p-${m.technology_id}-${i}`} move={m} onOpen={onOpen} />
           ))}
-          {issue.added.map((m) => (
-            <LevelMove key={`a-${m.technology_id}`} move={m} onOpen={onOpen} />
+          {issue.added.map((m, i) => (
+            <LevelMove key={`a-${m.technology_id}-${i}`} move={m} onOpen={onOpen} />
           ))}
         </Box>
       </Collapse>

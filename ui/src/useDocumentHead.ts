@@ -45,6 +45,17 @@ function setMeta(selector: string, attribute: string, value: string) {
   node.setAttribute(attribute, value);
 }
 
+/**
+ * The description the markup was served with, read once when the module loads.
+ * A page that has no description of its own gets this one back: skipping the
+ * write left the previous page's text in place, so a reader who went from the
+ * registry to a missing page shared a link described as the registry.
+ */
+const SERVED_DESCRIPTION =
+  typeof document === "undefined"
+    ? ""
+    : document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "";
+
 export function useDocumentHead({ title, description }: Head) {
   const { i18n } = useTranslation();
   const { pathname } = useLocation();
@@ -56,10 +67,9 @@ export function useDocumentHead({ title, description }: Head) {
     document.title = full;
     setMeta('meta[property="og:title"]', "content", full);
 
-    if (description) {
-      setMeta('meta[name="description"]', "content", description);
-      setMeta('meta[property="og:description"]', "content", description);
-    }
+    const text = description || SERVED_DESCRIPTION;
+    setMeta('meta[name="description"]', "content", text);
+    setMeta('meta[property="og:description"]', "content", text);
 
     // The canonical address carries neither language nor filter parameters: one
     // page with the same content must not look like several different ones.

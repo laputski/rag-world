@@ -68,6 +68,7 @@
     "unknown": "no data"
   },
   "map": {
+    "outsideStrata": "Belonging to no stratum and therefore not placed: {{names}}",
     "attentionNotNormalized": "Fewer than five works share the year, so their median is unstable and no division is applied. The measured citations per month are shown; they are not comparable with normalised values.",
     "attentionOrigin": "Citations per month divided by the median of works first published the same year. Above one means the technology is cited more often than its peers.",
     "attentionRaw": "cit./mo.",
@@ -322,6 +323,7 @@
     "showBasis": "show what the issue rests on ({{count}})",
     "hideBasis": "hide the basis",
     "moved": "rose from {{from}} to {{to}}",
+    "fell": "fell from {{from}} to {{to}}",
     "first": "received level {{level}} for the first time",
     "noTranslation": "This issue was published before the English localisation and exists in Russian only.",
     "follow": "Issues also come out as a feed, so a new one reaches you without a visit.",
@@ -369,6 +371,7 @@
     "fit": "fit {{score}} of {{max}}",
     "fitWhat": "The score sets the order of review for the queue and is not a claim about the work. A rule computes it from the catalogue tags, the title and the abstract, without a language model, and its terms are shown for every candidate.",
     "signal": {
+      "curatedList": "held by a list a person keeps on the subject: {{lists}}",
       "coreTask": "task within the registry's subject: {{tasks}}",
       "nearTask": "adjacent task: {{tasks}}",
       "named": "the work proposes a named thing",

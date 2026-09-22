@@ -124,3 +124,37 @@ def test_index_names_both_feeds():
     feeds = index.get("feeds")
     assert isinstance(feeds, dict), "the index does not name the feeds by language"
     assert set(feeds) == {"en", "ru"}, f"feeds in the index: {sorted(feeds)}"
+
+
+def test_every_signal_of_the_fitness_rule_is_worded():
+    """Each signal the rule can raise has a phrase in both languages.
+
+    The candidate queue shows the terms of a score as phrases assembled by the
+    interface from a code. The signal for inclusion in a curated list had no
+    phrase in either language, and thirty-four candidates showed the reader the
+    raw key "candidates.signal.curatedList" until 2026-09-22. The codes are read
+    from the rule itself, so a signal added tomorrow is checked before any
+    candidate carries it.
+
+    A phrase must also name what the signal carries, and the page must hand it
+    over: the list names travelled with the signal and reached no reader.
+    """
+    rule = (ROOT / "core" / "candidate_fit.py").read_text(encoding="utf-8")
+    signals = re.findall(r'fit\.add\(-?\d+, "(\w+)"(?:, (\w+)=)?', rule)
+    assert signals, "no signal was read from the rule"
+    page = (ROOT / "ui" / "src" / "pages" / "ResidualsPage.tsx").read_text(encoding="utf-8")
+
+    problems = []
+    for lang in ("en", "ru"):
+        phrases = json.loads(
+            (ROOT / "ui" / "src" / "i18n" / f"{lang}.json").read_text(encoding="utf-8")
+        )["candidates"]["signal"]
+        for code, carried in signals:
+            if code not in phrases:
+                problems.append(f"{lang}: no phrase for {code}")
+            elif carried and "{{" + carried + "}}" not in phrases[code]:
+                problems.append(f"{lang}: the phrase for {code} does not name {carried}")
+    for _, carried in signals:
+        if carried and f"{carried}:" not in page:
+            problems.append(f"the candidate page does not hand over {carried}")
+    assert not problems, problems
