@@ -252,3 +252,156 @@ def test_title_with_a_question_mark_does_not_break_the_query():
         cleaned = re.sub(r"[,|:?*]+", " ", title).strip()
         assert cleaned == expected, cleaned
         assert not set("?*:,|") & set(cleaned), f"separators remain: {cleaned!r}"
+
+
+# ─── The title the preprint archive returned ─────────────────────────────────
+#
+# The index does not hold every preprint under its archive identifier. Until
+# 2026-09-22 such a record was then searched by its name alone, and five records
+# came back from every pass as refusals: three were found by name all the same,
+# one ("Naive Dense", behind which stands Dense Passage Retrieval) begins no
+# title and was never found although the index holds its EMNLP 2020 paper, and
+# one the index lacks entirely.
+
+DPR_TITLE = "Dense Passage Retrieval for Open-Domain Question Answering"
+
+
+def _dpr(**kwargs) -> dict:
+    return _work(**{
+        "id": "https://openalex.org/W3015883388",
+        "title": DPR_TITLE,
+        "type": "conference-paper",
+        "doi": "https://doi.org/10.18653/v1/2020.emnlp-main.550",
+        "publication_date": "2020-11-01",
+        "primary_location": {"source": None},
+        **kwargs,
+    })
+
+
+def test_the_archive_title_finds_a_work_the_identifier_does_not():
+    """The orchestrator hands the archive's title to the index.
+
+    This is the bait for the whole change: on the code before it, the record
+    below received no evidence from the index and two refusals instead.
+    """
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+    import collect
+
+    from services.registry import store
+    from tests.support import FakeTransport, SourceBehaviour
+    from tests.support.fake_transport import json_body
+
+    entry = (
+        b'<?xml version="1.0" encoding="UTF-8"?>'
+        b'<feed xmlns="http://www.w3.org/2005/Atom"><entry>'
+        b"<id>http://arxiv.org/abs/2004.04906v3</id>"
+        b"<published>2020-04-10T00:00:00Z</published>"
+        b"<title>" + DPR_TITLE.encode() + b"</title>"
+        b"<summary>A recorded answer.</summary></entry></feed>"
+    )
+    http = FakeTransport({
+        "export.arxiv.org": SourceBehaviour(entry),
+        # No route for the identifier lookup: the transport answers it with 404,
+        # as the index answered for this preprint.
+        "title.search:Dense%20Passage": SourceBehaviour(
+            json_body({"results": [_dpr()]})
+        ),
+        "title.search:Naive%20Dense": SourceBehaviour(json_body({"results": []})),
+    })
+    tech = store.Technology(
+        id="naive_dense", name="Naive Dense", kind="technique", groups=["C"],
+        links=[store.Link(url="https://arxiv.org/abs/2004.04906", kind="preprint")],
+    )
+
+    raw, errors = collect._collect_one(tech, http=http, github_token=None, today=TODAY)
+
+    from_index = [e for e in raw if "openalex.org" in e.source]
+    assert len(from_index) == 1, f"the index gave nothing; refusals: {errors}"
+    assert "peer_reviewed=true" in from_index[0].value
+    assert "venue=ACL Anthology" in from_index[0].value
+    assert [e for e in errors if e[0] == "openalex"] == []
+    assert not http.calls_matching("title.search:Naive"), (
+        "the name is searched although the title of the work was found"
+    )
+
+
+def test_an_unknown_identifier_is_no_refusal_when_the_title_finds_the_work():
+    http = FakeHttp({"title.search": {"results": [_dpr()]}})
+    result = collect_openalex(
+        "naive_dense", "https://arxiv.org/abs/2004.04906", http=http,
+        expected_title="Naive Dense", known_title=DPR_TITLE, today=TODAY,
+    )
+    assert len(result.evidence) == 1
+    assert result.errors == []
+
+
+def test_the_archive_title_must_match_exactly():
+    """A longer title that begins with it is another work.
+
+    The name of a record is matched by its beginning because a name is shorter
+    than a title. The title of the work is the whole thing, and a work whose
+    title merely begins with it is somebody else's.
+    """
+    other = _dpr(id="https://openalex.org/W7", title=f"{DPR_TITLE} in Vietnamese")
+    http = FakeHttp({"title.search": {"results": [other]}})
+    result = collect_openalex(
+        "naive_dense", "https://arxiv.org/abs/2004.04906", http=http,
+        expected_title="Naive Dense", known_title=DPR_TITLE, today=TODAY,
+    )
+    assert result.evidence == []
+
+
+def test_the_name_remains_the_last_resort():
+    """Where the title of the work finds nothing, the name works as before."""
+    work = _work(id="https://openalex.org/W3",
+                 title="Self-RAG: Learning to Retrieve, Generate, and Critique")
+
+    class Routes(FakeHttp):
+        def get(self, url, headers=None, timeout=20):
+            self.calls.append(url)
+            if "title.search:Self-RAG" in url and "Renamed" not in url:
+                return (200, json.dumps({"results": [work]}).encode())
+            return (404, b"{}")
+
+    http = Routes({})
+    result = collect_openalex(
+        "self_rag", "https://arxiv.org/abs/2310.11511", http=http,
+        expected_title="Self-RAG", known_title="Self-RAG Renamed Before Print",
+        today=TODAY,
+    )
+    assert len(result.evidence) == 1
+
+
+def test_an_unknown_identifier_is_named_once_when_nothing_is_found():
+    """One record that is not found is one refusal, and it says why."""
+    http = FakeHttp({"title.search": {"results": []}})
+    result = collect_openalex(
+        "msft_graphrag", "https://arxiv.org/abs/2404.16130", http=http,
+        expected_title="Microsoft GraphRAG",
+        known_title="From Local to Global: A Graph RAG Approach",
+        today=TODAY,
+    )
+    assert result.evidence == []
+    assert len(result.errors) == 1, result.errors
+    assert "no work under 10.48550/arXiv.2404.16130" in result.errors[0]
+
+
+def test_a_refusal_on_the_identifier_is_not_reported_as_an_absence():
+    """A rate refusal leaves no work, and it is no answer about the work."""
+
+    class Refusing(FakeHttp):
+        def get(self, url, headers=None, timeout=20):
+            self.calls.append(url)
+            if "works/doi:" in url:
+                return (429, b"")
+            return (200, json.dumps({"results": []}).encode())
+
+    result = collect_openalex(
+        "demo", "https://arxiv.org/abs/2602.00001", http=Refusing({}),
+        expected_title="Demo", known_title="Demo: A Title", today=TODAY,
+    )
+    assert any("answered 429" in e for e in result.errors)
+    assert not any("no work under" in e for e in result.errors)

@@ -95,6 +95,11 @@ def _collect_one(
     raw: list[RawEvidence] = []
     errors: list[tuple[str, str]] = []
     for link in tech.links:
+        # The title of the work as the archive returned it for this link. The
+        # archive is asked first, so the open index can search by the title of
+        # the work rather than by the name of the record when it does not know
+        # the preprint's identifier.
+        archive_title: str | None = None
         for kind in _collectors_for(link.url):
             if kind == "arxiv":
                 # The label of a link is not the title of a work: it holds notes
@@ -109,6 +114,8 @@ def _collect_one(
                 result = collect_arxiv(
                     tech.id, link.url, http=http, today=today,
                 )
+                if result.evidence:
+                    archive_title = result.evidence[0].actual_title
             elif kind == "github":
                 result = collect_github(
                     tech.id, link.url, http=http, token=github_token, today=today,
@@ -124,7 +131,8 @@ def _collect_one(
             else:
                 result = collect_openalex(
                     tech.id, link.url, http=http,
-                    expected_title=tech.name, today=today,
+                    expected_title=tech.name, known_title=archive_title,
+                    today=today,
                 )
             raw.extend(result.evidence)
             # The collector names itself, rather than the name being taken from

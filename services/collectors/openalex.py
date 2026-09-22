@@ -106,13 +106,26 @@ def _doi_prefix(work: dict) -> str:
     return match.group(1) if match else ""
 
 
-def _get_json(http: HttpGetter, url: str, result: CollectResult) -> dict | None:
+def _get_json(
+    http: HttpGetter,
+    url: str,
+    result: CollectResult,
+    *,
+    absence_is_an_answer: bool = False,
+) -> dict | None:
     if not is_allowed_host(url):
         result.skipped.append(f"host outside the allowlist: {url}")
         return None
     status, body = http.get(
         url, headers={"User-Agent": "rag-world/0.2 (registry collector)"}, timeout=20
     )
+    # A lookup by identifier answered with 404 says that the index holds no work
+    # under that identifier. That is information, and the caller decides what it
+    # means once the search by title has run; counted as a refusal, it made five
+    # records look refused every week while three of them were found by title in
+    # the same request.
+    if status == 404 and absence_is_an_answer:
+        return None
     if status != 200:
         result.errors.append(f"the open index answered {status}")
         return None
@@ -187,6 +200,7 @@ def collect_openalex(
     *,
     http: HttpGetter,
     expected_title: str | None = None,
+    known_title: str | None = None,
     today: date | None = None,
 ) -> CollectResult:
     """Collect the venue, whether it was reviewed, and the citations.
@@ -194,20 +208,36 @@ def collect_openalex(
     `query` is a preprint address, an identifier or the title of a work. The
     result is evidence of the publication type; the citation figures go into the
     value field, from which the orchestrator takes them for the time series.
+
+    `expected_title` is the name of the technology, which usually begins the
+    title of its work. `known_title` is the title of the work itself, as another
+    source returned it by identifier; it is tried first when the index does not
+    resolve the identifier.
     """
     today = today or date.today()
     result = CollectResult(source_name="openalex", technology_id=technology_id)
 
     work: dict | None = None
 
+    # A preprint has a canonical identifier, which is the most reliable key.
     arxiv_match = _ARXIV_RE.search(query)
     doi_match = _DOI_RE.search(query)
+    identifier = ""
     if arxiv_match:
-        # A preprint has a canonical identifier, which is the most reliable key.
-        doi = f"10.48550/arXiv.{arxiv_match.group('id')}"
-        work = _get_json(http, _polite(f"{OPENALEX_API}/works/doi:{doi}"), result)
+        identifier = f"10.48550/arXiv.{arxiv_match.group('id')}"
     elif doi_match:
-        work = _get_json(http, _polite(f"{OPENALEX_API}/works/doi:{doi_match.group(0)}"), result)
+        identifier = doi_match.group(0)
+    # Whether the index answered that it holds no work under the identifier. A
+    # refusal on rate also leaves no work, and saying "the index has no such
+    # work" of it would state an absence nobody observed.
+    absent = False
+    if identifier:
+        refusals = len(result.errors)
+        work = _get_json(
+            http, _polite(f"{OPENALEX_API}/works/doi:{identifier}"), result,
+            absence_is_an_answer=True,
+        )
+        absent = work is None and len(result.errors) == refusals
 
     def _norm(value: str) -> str:
         return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
@@ -215,16 +245,7 @@ def collect_openalex(
     def _title_of(candidate: dict) -> str:
         return (candidate.get("title") or candidate.get("display_name") or "").strip()
 
-    # The title the other versions of the work are searched by. A title resolved
-    # from an identifier carries more authority than the technology's name: the
-    # latter can coincide with an unrelated work.
-    resolved_title = _title_of(work) if work else ""
-    search_title = resolved_title or (expected_title or "")
-
-    # The second step: the preprint and the conference publication are separate
-    # records, and peer review is visible only on the second.
-    candidates: list[dict] = [work] if work else []
-    if search_title:
+    def _search_by_title(title: str) -> list[dict]:
         # Inside a filter the comma and the vertical bar separate conditions,
         # the colon separates a filter name from its value, and the question
         # mark and the asterisk stand for wildcards. Titles of works contain
@@ -233,46 +254,80 @@ def collect_openalex(
         #
         # The separators are replaced by a space. Word search does not suffer
         # from that, and the request stops being inadmissible.
-        safe_title = re.sub(r"[,|:?*]+", " ", search_title).strip()
+        safe_title = re.sub(r"[,|:?*]+", " ", title).strip()
         search = _get_json(
             http,
             _polite(f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25"),
             result,
         )
-        if search:
-            candidates.extend(search.get("results") or [])
-    elif not work:
-        search = _get_json(
-            http, _polite(f"{OPENALEX_API}/works?search={quote(query)}&per_page=25"), result
-        )
-        if search:
-            candidates.extend(search.get("results") or [])
+        return (search or {}).get("results") or []
+
+    # The second step: the preprint and the conference publication are separate
+    # records, and peer review is visible only on the second. A title carries
+    # more authority the closer it comes from the work itself, so the titles are
+    # tried in that order, and each later one only when the earlier found
+    # nothing:
+    #
+    # * the title the index resolved from the identifier, matched exactly;
+    # * the title the preprint archive returned for the same identifier, matched
+    #   exactly. The index does not hold every preprint under its archive
+    #   identifier, and without this step such a record was searched by its
+    #   name alone. "Naive Dense" begins no title, and the work behind it, Dense
+    #   Passage Retrieval, which the index holds as an EMNLP 2020 paper, was
+    #   never found;
+    # * the technology's name, which must begin the title: "Self-RAG" fits
+    #   "Self-RAG: Learning to Retrieve...", and does not fit an unrelated work
+    #   that merely mentions it.
+    resolved_title = _title_of(work) if work else ""
+    candidates: list[dict] = [work] if work else []
+    matched: list[dict] = []
+    searched: list[str] = []
+    if resolved_title:
+        searched.append(resolved_title)
+        candidates += _search_by_title(resolved_title)
+        wanted = _norm(resolved_title)
+        matched = [c for c in candidates if _norm(_title_of(c)) == wanted]
+    else:
+        if known_title:
+            searched.append(known_title)
+            found = _search_by_title(known_title)
+            candidates += found
+            wanted = _norm(known_title)
+            matched = [c for c in found if _norm(_title_of(c)) == wanted]
+        if not matched and expected_title:
+            searched.append(expected_title)
+            found = _search_by_title(expected_title)
+            candidates += found
+            wanted = _norm(expected_title)
+            matched = [c for c in found if _norm(_title_of(c)).startswith(wanted)]
+        if not searched:
+            if not work:
+                search = _get_json(
+                    http, _polite(f"{OPENALEX_API}/works?search={quote(query)}&per_page=25"),
+                    result,
+                )
+                candidates += (search or {}).get("results") or []
+            matched = candidates[:1]
+
+    # The identifier the index does not know is named only when nothing was
+    # found: alone it says nothing wrong, and it explains a failure.
+    unknown = f"has no work under {identifier}, and " if absent else ""
 
     if not candidates:
         if not result.errors:
-            result.errors.append("the open index has no such work")
+            result.errors.append(
+                f"the open index has no work under {identifier}, and none by title"
+                if absent else "the open index has no such work"
+            )
         return result
-
-    # Selecting the matches. When the work was resolved by identifier, only
-    # records with the same title are accepted. When it was not, the technology's
-    # name must begin the title of the work: "Self-RAG" fits "Self-RAG: Learning
-    # to Retrieve...", and does not fit an unrelated work that merely mentions
-    # it.
-    if resolved_title:
-        wanted = _norm(resolved_title)
-        matched = [c for c in candidates if _norm(_title_of(c)) == wanted]
-    elif expected_title:
-        wanted = _norm(expected_title)
-        matched = [c for c in candidates if _norm(_title_of(c)).startswith(wanted)]
-    else:
-        matched = candidates[:1]
 
     if not matched:
         # An unreliable match is worse than no data: one wrong record in the
         # registry destroys trust in all the others.
+        titles = ", ".join(repr(title) for title in searched)
         result.errors.append(
-            f"the open index gave no reliable match by title "
-            f"({search_title!r}); no evidence was created"
+            f"the open index {unknown}gave no reliable match by title "
+            f"({titles}); no evidence was created"
         )
         return result
 
