@@ -440,3 +440,20 @@ def test_translation_is_not_a_copy_of_the_original():
         if n.get(field) and cyrillic.search(n[field])
     )
     assert not untranslated, f"Russian text remains in an English field: {untranslated[:12]}"
+
+
+def test_the_build_deletes_the_card_of_a_record_that_left(tmp_path):
+    """A record removed from the registry must not stay reachable by a link.
+
+    Every other test builds into an empty directory, where there is nothing
+    stale to delete, and a mutation that stopped the deletion survived on
+    2026-09-22.
+    """
+    out = tmp_path / "public" / "data"
+    (out / "tech").mkdir(parents=True)
+    left = out / "tech" / "no_longer_in_the_registry.json"
+    left.write_text("{}", encoding="utf-8")
+
+    build(out_dir=out)
+
+    assert not left.exists()

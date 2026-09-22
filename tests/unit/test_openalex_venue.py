@@ -392,16 +392,23 @@ def test_an_unknown_identifier_is_named_once_when_nothing_is_found():
 def test_a_refusal_on_the_identifier_is_not_reported_as_an_absence():
     """A rate refusal leaves no work, and it is no answer about the work."""
 
+    # The search answers with a work that matches nothing, so the collector
+    # reaches the message about an unreliable match, which is where a refusal
+    # would be misreported as an absence. With an empty answer it never got
+    # there, and a mutation of this rule survived on 2026-09-22.
+    stranger = _work(id="https://openalex.org/W8", title="Another Work Entirely")
+
     class Refusing(FakeHttp):
         def get(self, url, headers=None, timeout=20):
             self.calls.append(url)
             if "works/doi:" in url:
                 return (429, b"")
-            return (200, json.dumps({"results": []}).encode())
+            return (200, json.dumps({"results": [stranger]}).encode())
 
     result = collect_openalex(
         "demo", "https://arxiv.org/abs/2602.00001", http=Refusing({}),
         expected_title="Demo", known_title="Demo: A Title", today=TODAY,
     )
     assert any("answered 429" in e for e in result.errors)
+    assert any("no reliable match" in e for e in result.errors)
     assert not any("no work under" in e for e in result.errors)

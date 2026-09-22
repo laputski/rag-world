@@ -105,3 +105,18 @@ def test_markup_points_at_the_icons():
     # The preview image is wide, and the card type has to match it: with `summary`
     # a platform crops it to a square.
     assert 'name="twitter:card" content="summary_large_image"' in html
+
+
+def test_the_check_names_an_icon_that_differs_from_the_mark(tmp_path, monkeypatch):
+    """The bait: every icon present, one of them drawn from another mark.
+
+    The check on the real files passes when nothing has drifted, and so it
+    passed as well when the comparison asked only whether a file existed. A
+    mutation of that kind survived on 2026-09-22.
+    """
+    for name, _ in build_icons.TARGETS:
+        (tmp_path / name).write_bytes((PUBLIC / name).read_bytes())
+    (tmp_path / "favicon.svg").write_text("<svg><!-- an older mark --></svg>", encoding="utf-8")
+    monkeypatch.setattr(build_icons, "PUBLIC", tmp_path)
+
+    assert build_icons.build(check=True) == ["favicon.svg"]

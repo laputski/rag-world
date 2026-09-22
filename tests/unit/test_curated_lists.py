@@ -203,7 +203,10 @@ def test_a_list_that_changed_its_form_is_reported_not_passed_over():
         lists=(LIST,),
     )
     assert papers == []
-    assert any("the shape of the list has probably changed" in problem
+    # What was observed and what it probably means, both: the observation is
+    # what tells this from a refusal, in which nothing arrived at all.
+    assert any("the markup arrived and not one entry parsed" in problem
+               and "the shape of the list has probably changed" in problem
                for problem in problems)
 
 
