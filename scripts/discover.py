@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from core.candidate_fit import assess  # noqa: E402
-from services.collectors.curated import CURATED_LISTS, discover_from_lists  # noqa: E402
+from services.collectors.curated import discover_from_lists  # noqa: E402
 from services.collectors.paperswithcode import RAG_METHOD, Paper, discover  # noqa: E402
 from services.registry import store  # noqa: E402
 
@@ -47,6 +47,17 @@ REJECTED = store.DATA_DIR / "rejected.jsonl"
 #: How far back to ask for work by default. It matches the schedule: a day of
 #: overlap is cheaper than a gap, and a repeat is filtered out by its number.
 DEFAULT_WINDOW_DAYS = 8
+
+#: How much further back the archive route reaches than the others.
+#:
+#: The archive dates a work by its submission, and a work becomes visible only
+#: when it is announced. A submission after the Friday cut-off or over the
+#: weekend is announced on Monday evening, New York time, after the Monday
+#: morning pass; by the next pass its date lies nine or ten days back, outside
+#: an eight-day window. Every week the works submitted on Friday afternoon and on
+#: Saturday reached neither pass. Four days more cover that lag and a holiday
+#: that delays an announcement by a day; a repeat is filtered out by its number.
+ARCHIVE_ANNOUNCEMENT_LAG_DAYS = 4
 
 #: The window for curated lists: two years rather than a week.
 #:
@@ -199,6 +210,8 @@ def run(
     if listed_problems:
         summary.failures["curated_lists"] += len(listed_problems)
     curated_source = {paper.arxiv_id for paper in listed}
+    lists_holding = {paper.arxiv_id: paper.curated_by for paper in listed}
+    catalogue_source = {paper.arxiv_id for paper in papers}
 
     # The third route: the archive itself, by category and by the phrases that
     # name the subject. The two routes above both depend on somebody having
@@ -208,13 +221,19 @@ def run(
     from services.collectors.arxiv_feed import discover_from_archive
 
     archived, archive_problems, archive_discarded = discover_from_archive(
-        http=http, published_after=today - timedelta(days=since_days),
+        http=http,
+        published_after=today - timedelta(days=since_days + ARCHIVE_ANNOUNCEMENT_LAG_DAYS),
     )
     summary.problems.extend(archive_problems)
     summary.discarded.extend(archive_discarded)
     if archive_problems:
         summary.failures["arxiv"] += len(archive_problems)
-    archive_source = {paper.arxiv_id for paper in archived} - curated_source
+    # A work the archive shares with another route came in by that route: the
+    # catalogue's copy carries task tags and the list's carries a list, and the
+    # mark says which of them the score was computed from.
+    archive_source = (
+        {paper.arxiv_id for paper in archived} - curated_source - catalogue_source
+    )
     papers = papers + listed + archived
     summary.found = len(papers)
 
@@ -228,10 +247,14 @@ def run(
             continue
         if paper.arxiv_id in seen:
             continue  # already in the queue, awaiting a verdict
-        curated = sorted(
-            source.name for source in CURATED_LISTS
-            if paper.arxiv_id in curated_source
-        )
+        # A work found by two routes in one pass is queued once. The set of
+        # what is queued grows inside the loop for that reason: filled only
+        # before it, it let the same work in two and three times, and a verdict
+        # on one copy left the others standing in the published queue.
+        seen.add(paper.arxiv_id)
+        # Only the lists that hold this work. The test used to ask whether the
+        # work came from any list at all, and credited it to every list there is.
+        curated = sorted(lists_holding.get(paper.arxiv_id, []))
         fit = assess(title=paper.title, abstract=paper.abstract,
                      tasks=[{"slug": slug} for slug in paper.tasks],
                      curated_by=curated)

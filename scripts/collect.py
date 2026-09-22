@@ -101,39 +101,54 @@ def _collect_one(
         # the preprint's identifier.
         archive_title: str | None = None
         for kind in _collectors_for(link.url):
-            if kind == "arxiv":
-                # The label of a link is not the title of a work: it holds notes
-                # like "CausalRAG (arXiv:2503.19878, ACL 2025)" and "corrected:
-                # was 2406.18542". Comparing those with a real title rejected
-                # thirteen legitimate publications on every pass.
-                #
-                # There is nothing to check here in substance either: the link
-                # carries an archive number, and a request by number returns
-                # exactly that work. Comparing titles is needed where a work is
-                # found by search, that is, in the open index, and there it is.
-                result = collect_arxiv(
-                    tech.id, link.url, http=http, today=today,
-                )
-                if result.evidence:
-                    archive_title = result.evidence[0].actual_title
-            elif kind == "github":
-                result = collect_github(
-                    tech.id, link.url, http=http, token=github_token, today=today,
-                )
-            elif kind == "paperswithcode":
-                # The catalogue is asked by preprint number rather than by
-                # address: it answers anything it did not understand with a feed
-                # of the newest work, and such an answer looks meaningful.
-                number = _extract_arxiv_id(link.url)
-                if not number:
-                    continue
-                result = collect_venue(tech.id, number, http=http, today=today)
-            else:
-                result = collect_openalex(
-                    tech.id, link.url, http=http,
-                    expected_title=tech.name, known_title=archive_title,
-                    today=today,
-                )
+            # One collector raising on an answer it did not expect must not end
+            # the pass. Valid JSON of the wrong shape did exactly that: nothing
+            # between the collector and the pass caught it, and the run-log line
+            # that must reach the branch every week was never written. The
+            # failure is counted against the source instead, like any refusal,
+            # and names the exception so that it can be found.
+            try:
+                if kind == "arxiv":
+                    # The label of a link is not the title of a work: it holds notes
+                    # like "CausalRAG (arXiv:2503.19878, ACL 2025)" and "corrected:
+                    # was 2406.18542". Comparing those with a real title rejected
+                    # thirteen legitimate publications on every pass.
+                    #
+                    # There is nothing to check here in substance either: the link
+                    # carries an archive number, and a request by number returns
+                    # exactly that work. Comparing titles is needed where a work is
+                    # found by search, that is, in the open index, and there it is.
+                    result = collect_arxiv(
+                        tech.id, link.url, http=http, today=today,
+                    )
+                    if result.evidence:
+                        archive_title = result.evidence[0].actual_title
+                elif kind == "github":
+                    result = collect_github(
+                        tech.id, link.url, http=http, token=github_token, today=today,
+                    )
+                elif kind == "paperswithcode":
+                    # The catalogue is asked by preprint number rather than by
+                    # address: it answers anything it did not understand with a feed
+                    # of the newest work, and such an answer looks meaningful.
+                    number = _extract_arxiv_id(link.url)
+                    if not number:
+                        continue
+                    result = collect_venue(tech.id, number, http=http, today=today)
+                else:
+                    result = collect_openalex(
+                        tech.id, link.url, http=http,
+                        expected_title=tech.name, known_title=archive_title,
+                        today=today,
+                    )
+            except Exception as exc:  # noqa: BLE001 — the pass outranks one answer
+                # The kinds of collector bear the names of their sources.
+                errors.append((
+                    kind,
+                    f"{tech.id}: the {kind} collector broke on an answer: "
+                    f"{type(exc).__name__}: {exc}",
+                ))
+                continue
             raw.extend(result.evidence)
             # The collector names itself, rather than the name being taken from
             # the branch above: what the run log should record is the source

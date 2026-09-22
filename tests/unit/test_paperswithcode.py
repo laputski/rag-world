@@ -84,6 +84,22 @@ def test_refusal_is_reported_not_swallowed():
     assert error and "503" in error
 
 
+def test_an_answer_of_the_wrong_shape_is_a_refusal_not_a_crash():
+    """Valid JSON that is not an object ended the whole weekly pass once.
+
+    Both routes into the catalogue are covered: the lookup of one work, which
+    the collection makes, and the feed, which discovery makes.
+    """
+    http = FakeTransport({"paperswithcode.co": SourceBehaviour(b"[]")})
+    paper, error = pwc.fetch_paper("2405.14831", http=http)
+    assert paper is None
+    assert error and "type list" in error
+
+    found, problems, _ = pwc.discover(http=http, published_after=date(2026, 8, 5))
+    assert found == []
+    assert problems and "type list" in problems[0]
+
+
 # ─── Evidence of the venue ───────────────────────────────────────────────────
 
 

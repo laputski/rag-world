@@ -266,3 +266,137 @@ def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
         "the curated-list signal was lost on recomputation"
     )
     assert after["fit"]["score"] >= 4
+
+
+# ─── Several routes and several lists in one pass ────────────────────────────
+#
+# Found on 2026-09-22 and reproduced before being fixed: every find from a list
+# was credited to every list, a work held by two lists or found by two routes
+# entered the queue two or three times, a refused batch counted as one refusal
+# per work in it, and an archive answering with something that is not a feed
+# looked like a quiet week.
+
+AWESOME = "raw.githubusercontent.com/DEEP-PolyU"
+SURVEY = "raw.githubusercontent.com/Graph-RAG"
+
+
+def _markup(*ids: str) -> bytes:
+    return "".join(
+        f"- (arXiv 2026) **Work {n}** [[Paper]](https://arxiv.org/abs/{arxiv_id})\n"
+        for n, arxiv_id in enumerate(ids)
+    ).encode()
+
+
+def _atom(*works: tuple[str, str, str]) -> bytes:
+    """Entries of the archive: (identifier, date of submission, title)."""
+    entries = "".join(
+        f"<entry><id>http://arxiv.org/abs/{arxiv_id}v1</id>"
+        f"<published>{published}T12:00:00Z</published>"
+        f"<title>{title}</title><summary>Retrieval-augmented generation.</summary></entry>"
+        for arxiv_id, published, title in works
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        f'<feed xmlns="http://www.w3.org/2005/Atom">{entries}</feed>'
+    ).encode()
+
+
+def _quiet_catalogue() -> SourceBehaviour:
+    return SourceBehaviour(json.dumps({"results": []}).encode())
+
+
+def test_a_find_is_credited_only_to_the_lists_that_hold_it(workspace):
+    http = FakeTransport({
+        "paperswithcode.co": _quiet_catalogue(),
+        AWESOME: SourceBehaviour(_markup("2601.00001", "2601.00003")),
+        SURVEY: SourceBehaviour(_markup("2601.00002", "2601.00003")),
+        "search_query": SourceBehaviour(_atom()),
+        "id_list": SourceBehaviour(_atom(
+            ("2601.00001", "2026-01-05", "Alpha: one"),
+            ("2601.00002", "2026-01-05", "Beta: two"),
+            ("2601.00003", "2026-01-05", "Gamma: three"),
+        )),
+    })
+    discover.run(http=http, today=TODAY)
+
+    rows = {row["arxiv_id"]: row for row in discover.load_candidates()}
+    assert len(discover.load_candidates()) == 3, "a work entered the queue twice"
+    assert rows["2601.00001"]["curated_by"] == ["Awesome-GraphRAG"]
+    assert rows["2601.00002"]["curated_by"] == ["Graph-RAG survey list"]
+    assert rows["2601.00003"]["curated_by"] == [
+        "Awesome-GraphRAG", "Graph-RAG survey list",
+    ]
+    asked_for_gamma = [c for c in http.calls_matching("id_list") if "2601.00003" in c]
+    assert len(asked_for_gamma) == 1, "a work held by two lists was fetched twice"
+
+
+def test_a_work_found_by_two_routes_is_queued_once(workspace):
+    paper = first_paper()
+    http = FakeTransport({
+        "paperswithcode.co": SourceBehaviour(load_fixture("pwc_discovery.json")),
+        AWESOME: SourceBehaviour(b""),
+        SURVEY: SourceBehaviour(b""),
+        "search_query": SourceBehaviour(_atom(
+            (paper["arxiv_id"], TODAY.isoformat(), "Named: the same work"),
+        )),
+    })
+    discover.run(http=http, today=TODAY, since_days=30)
+
+    same = [r for r in discover.load_candidates() if r["arxiv_id"] == paper["arxiv_id"]]
+    assert len(same) == 1
+    assert same[0]["found_by"] == "catalogue", (
+        "the copy kept is the catalogue's, and its task tags are what it was scored by"
+    )
+
+
+def test_the_archive_reaches_back_past_the_announcement_lag(workspace):
+    """A Friday-evening submission is announced after the Monday pass.
+
+    By the next Monday its date lies ten days back, outside an eight-day
+    window, and until 2026-09-22 no pass ever saw it.
+    """
+    monday = date(2026, 9, 21)
+    friday_before_last = date(2026, 9, 11)
+    http = FakeTransport({
+        "paperswithcode.co": _quiet_catalogue(),
+        AWESOME: SourceBehaviour(b""),
+        SURVEY: SourceBehaviour(b""),
+        "search_query": SourceBehaviour(_atom(
+            ("2609.11111", friday_before_last.isoformat(), "FriRAG: announced on Monday"),
+        )),
+    })
+    discover.run(http=http, today=monday)
+
+    assert [r["arxiv_id"] for r in discover.load_candidates()] == ["2609.11111"]
+
+
+def test_a_refused_batch_is_one_refusal(workspace):
+    # The second list holds only a work already in the queue, so it asks the
+    # archive nothing and cannot add a refusal of its own.
+    discover.CANDIDATES.write_text(
+        json.dumps({"arxiv_id": "2601.00009", "title": "Queued: already",
+                    "verdict": None}) + "\n",
+        encoding="utf-8",
+    )
+    http = FakeTransport({
+        "paperswithcode.co": _quiet_catalogue(),
+        AWESOME: SourceBehaviour(_markup("2601.00001", "2601.00002", "2601.00003")),
+        SURVEY: SourceBehaviour(_markup("2601.00009")),
+        "search_query": SourceBehaviour(_atom()),
+        "id_list": SourceBehaviour(b"", status=503),
+    })
+    summary = discover.run(http=http, today=TODAY)
+
+    assert summary.failures["curated_lists"] == 1, summary.problems
+
+
+def test_an_archive_answer_that_is_not_a_feed_is_a_refusal(workspace):
+    http = FakeTransport({
+        "paperswithcode.co": _quiet_catalogue(),
+        AWESOME: SourceBehaviour(b""),
+        SURVEY: SourceBehaviour(b""),
+        "search_query": SourceBehaviour(b"<html><body>Service unavailable</body>"),
+    })
+    summary = discover.run(http=http, today=TODAY)
+
+    assert summary.failures["arxiv"] == 1, summary.failures

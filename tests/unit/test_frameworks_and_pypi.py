@@ -179,6 +179,17 @@ def test_existing_package_without_statistics_produces_nothing():
     assert result.errors
 
 
+def test_statistics_of_the_wrong_shape_are_a_refusal_not_a_crash():
+    """An array where an object belongs raised and ended the whole pass."""
+    http = FakeHttp({
+        "pypi.org/pypi": {"info": {"version": "1.0.0"}},
+        "pypistats.org": [],
+    })
+    result = collect_pypi("demo", "demo", http=http, today=TODAY)
+    assert result.evidence == []
+    assert result.errors
+
+
 def test_statistics_name_is_normalized():
     """The statistics service knows "flagembedding" and not "FlagEmbedding"."""
     http = FakeHttp({

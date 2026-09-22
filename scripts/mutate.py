@@ -39,6 +39,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# The run reads what the suite may not write from the suite's own support code,
+# so that the two cannot disagree about it; started as a script, the root of
+# the repository is not otherwise importable.
+sys.path.insert(0, str(ROOT))
 
 
 #: The environment variable through which the suite learns which entry the run
@@ -514,8 +518,8 @@ MUTATIONS: tuple[Mutation, ...] = (
              'f"{source.name}: "'),
     Mutation("services/collectors/curated.py",
              "what is known is filtered out before the archive is asked",
-             "fresh = [entry for entry in entries if entry.arxiv_id not in known]",
-             "fresh = list(entries)"),
+             "if entry.arxiv_id not in known and entry.arxiv_id not in taken",
+             "if entry.arxiv_id not in taken"),
     Mutation("services/collectors/curated.py", "a work without an abstract is not entered",
              "            if not detail:", "            if False:"),
     # The pattern moved when the parser learned a second shape of entry, and the
@@ -529,6 +533,51 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("core/candidate_fit.py", "inclusion in a list raises fitness",
              'fit.add(2, "curatedList", lists=sorted(curated_by))',
              'fit.add(0, "curatedList", lists=sorted(curated_by))'),
+
+    # ── One pass, several routes, several lists (2026-09-22) ───────────────
+    #
+    # Each of these was reproduced before it was fixed: a find credited to
+    # every list, a work queued two and three times, a refused batch counted
+    # once per work, a feed that is not a feed passed off as a quiet week, and
+    # the works of Friday evening and Saturday never seen by any pass.
+    Mutation("scripts/discover.py", "a find is credited only to the lists that hold it",
+             "curated = sorted(lists_holding.get(paper.arxiv_id, []))",
+             "curated = sorted({n for names in lists_holding.values() for n in names})"),
+    Mutation("scripts/discover.py", "a work found twice in one pass is queued once",
+             "        seen.add(paper.arxiv_id)\n", "        pass\n"),
+    Mutation("services/collectors/curated.py", "a work held by two lists is fetched once",
+             "if entry.arxiv_id not in known and entry.arxiv_id not in taken",
+             "if entry.arxiv_id not in known"),
+    Mutation("services/collectors/curated.py", "a refused batch is one refusal",
+             "if not detail and entry.arxiv_id in unasked:", "if False:"),
+    Mutation("scripts/discover.py", "the archive reaches back past the announcement lag",
+             "since_days + ARCHIVE_ANNOUNCEMENT_LAG_DAYS", "since_days"),
+    Mutation("services/collectors/arxiv_feed.py", "an answer that is not a feed is a refusal",
+             "        ET.fromstring(body)\n", '        ET.fromstring(b"<feed/>")\n'),
+
+    # ── An answer nobody foresaw does not end the pass (2026-09-22) ────────
+    Mutation("services/collectors/paperswithcode.py",
+             "an answer of the wrong shape from the catalogue is a refusal",
+             "    if not isinstance(payload, dict):\n        return None, f\"an answer of type",
+             "    if False:\n        return None, f\"an answer of type"),
+    Mutation("services/collectors/pypi.py",
+             "an answer of the wrong shape from the package index is a refusal",
+             "if not isinstance(payload, dict):", "if False:"),
+    Mutation("scripts/collect.py", "a collector that raises does not end the pass",
+             "except Exception as exc:  # noqa: BLE001", "except ZeroDivisionError as exc:"),
+    Mutation("services/collectors/github.py", "a refused list of releases claims nothing",
+             'releases = "unknown"\n', 'releases = "no"\n'),
+
+    # ── The suite's own guards (2026-09-22) ────────────────────────────────
+    Mutation("tests/conftest.py", "a test that writes the real data fails the suite",
+             "    if changed:\n        names =", "    if False:\n        names ="),
+    Mutation("tests/conftest.py", "a test that reaches for the network fails",
+             "    if attempts:\n", "    if False:\n"),
+    Mutation("scripts/mutate.py", "a mutant whose run wrote the data is no catch",
+             "        raise WroteRealData(written)\n", "        pass\n"),
+    Mutation("tests/e2e/test_weekly_run.py", "the end-to-end pass reads no real queue",
+             'monkeypatch.setattr(discover, "CANDIDATES", tmp_path / "candidates.jsonl")',
+             "pass"),
 
     # ── The localisation of the published data ─────────────────────────────
     #
@@ -636,20 +685,48 @@ def _pytest(mutation: Mutation | None = None) -> subprocess.CompletedProcess:
     )
 
 
+class WroteRealData(Exception):
+    """The suite, run against a mutant, wrote into the real data.
+
+    Such a mutant is neither caught nor survived. The suite fails because of
+    the write, whatever the rule, and the write outlives the mutant: on
+    2026-09-22 a mutant of the fitness rule had the end-to-end test rescore the
+    real candidate queue, and every one of the hundred-odd mutants after it was
+    killed by the artefact comparison that the changed queue had broken. The
+    run reported every rule guarded once more. The files are put back before
+    this is raised, so the next mutant meets the tree as it was.
+    """
+
+    def __init__(self, paths: list[Path]):
+        super().__init__(", ".join(str(path.relative_to(ROOT)) for path in paths))
+        self.paths = paths
+
+
 def survives(mutation: Mutation) -> bool | None:
-    """True when the mutant survived, False when caught, None when it did not apply."""
+    """True when the mutant survived, False when caught, None when it did not apply.
+
+    Raises `WroteRealData` when the suite wrote into the real data meanwhile.
+    """
+    from tests.support.real_data import changed_between, restore, snapshot
+
     target = ROOT / mutation.path
     original = target.read_text(encoding="utf-8")
     if mutation.before not in original:
         return None
+    before = snapshot(ROOT)
     target.write_text(original.replace(mutation.before, mutation.after, 1),
                       encoding="utf-8")
     try:
-        return _pytest(mutation).returncode == 0
+        survived = _pytest(mutation).returncode == 0
     finally:
         # Restoration must happen whatever the outcome, an interrupt from the
         # keyboard included: otherwise the broken code stays in the tree.
         target.write_text(original, encoding="utf-8")
+    written = changed_between(before, snapshot(ROOT))
+    if written:
+        restore(before, written)
+        raise WroteRealData(written)
+    return survived
 
 
 def main() -> int:
@@ -685,11 +762,17 @@ def main() -> int:
     started = time.monotonic()
     survivors: list[Mutation] = []
     unapplied: list[Mutation] = []
+    writers: list[tuple[Mutation, str]] = []
     caught = 0
 
     for index, mutation in enumerate(chosen, 1):
-        outcome = survives(mutation)
         head = f"[{index:>2}/{len(chosen)}]"
+        try:
+            outcome = survives(mutation)
+        except WroteRealData as written:
+            writers.append((mutation, str(written)))
+            print(f"{head} x  WROTE DATA     {mutation.rule}", flush=True)
+            continue
         if outcome is None:
             unapplied.append(mutation)
             print(f"{head} ?  DID NOT APPLY  {mutation.rule}", flush=True)
@@ -703,7 +786,8 @@ def main() -> int:
     spent = time.monotonic() - started
     print(
         f"\n{len(chosen)} rules, {caught} caught, {len(survivors)} survived, "
-        f"{len(unapplied)} did not apply; in {spent:.0f} s"
+        f"{len(unapplied)} did not apply, {len(writers)} wrote real data; "
+        f"in {spent:.0f} s"
     )
 
     if survivors:
@@ -718,7 +802,15 @@ def main() -> int:
         for mutation in unapplied:
             print(f"  {mutation.path}: {mutation.rule}")
 
-    return 1 if survivors or unapplied else 0
+    if writers:
+        # Not a catch: the suite failed because a test wrote the real data,
+        # and whether a test of the rule would have noticed is unknown. The
+        # files have been put back; the test that wrote them is not isolated.
+        print("\nTHE SUITE WROTE REAL DATA (the verdict on the rule is unknown):")
+        for mutation, paths in writers:
+            print(f"  {mutation.path}: {mutation.rule}  ->  {paths}")
+
+    return 1 if survivors or unapplied or writers else 0
 
 
 if __name__ == "__main__":

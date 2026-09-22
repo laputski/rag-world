@@ -169,26 +169,34 @@ def parse_entries(markup: str) -> list[ListedEntry]:
 
 def _abstracts(
     http: HttpGetter, arxiv_ids: list[str]
-) -> tuple[dict[str, dict[str, str]], list[str]]:
-    """Abstracts and dates for a set of identifiers, requested in batches."""
+) -> tuple[dict[str, dict[str, str]], list[str], set[str]]:
+    """Abstracts and dates for a set of identifiers, requested in batches.
+
+    The third value holds the identifiers of the batches that were refused. A
+    work in such a batch is not missing from the archive; nobody was told about
+    it, and the refusal of its batch already says so once.
+    """
     found: dict[str, dict[str, str]] = {}
     problems: list[str] = []
+    unasked: set[str] = set()
     for start in range(0, len(arxiv_ids), BATCH):
         chunk = arxiv_ids[start:start + BATCH]
         url = f"{ARXIV_API}?id_list={','.join(chunk)}&max_results={len(chunk)}"
         if not is_allowed_host(url):
             problems.append(f"host outside the allowlist: {url}")
+            unasked.update(chunk)
             continue
         status, body = http.get(url, timeout=30)
         if status != 200:
             problems.append(f"the archive answered {status} to a batch of {len(chunk)} works")
+            unasked.update(chunk)
             continue
         for entry in _parse_atom_entries(body):
             # The identifier in the answer carries a version number; the list
             # does not know it.
             bare = entry["id"].split("v")[0]
             found[bare] = entry
-    return found, problems
+    return found, problems, unasked
 
 
 def discover_from_lists(
@@ -208,6 +216,10 @@ def discover_from_lists(
     known = known or set()
     papers: list[Paper] = []
     problems: list[str] = []
+    # The works already taken from an earlier list. A work held by two lists is
+    # fetched once and credited to both: asking again doubled the requests and
+    # put the work into the queue twice in one pass.
+    taken: dict[str, Paper] = {}
 
     for source in lists:
         if not is_allowed_host(source.readme):
@@ -234,7 +246,13 @@ def discover_from_lists(
             )
             continue
 
-        fresh = [entry for entry in entries if entry.arxiv_id not in known]
+        for entry in entries:
+            if entry.arxiv_id in taken and source.name not in taken[entry.arxiv_id].curated_by:
+                taken[entry.arxiv_id].curated_by.append(source.name)
+        fresh = [
+            entry for entry in entries
+            if entry.arxiv_id not in known and entry.arxiv_id not in taken
+        ]
         if published_after is not None:
             fresh = [
                 entry for entry in fresh
@@ -243,11 +261,13 @@ def discover_from_lists(
         if not fresh:
             continue
 
-        details, trouble = _abstracts(http, [entry.arxiv_id for entry in fresh])
+        details, trouble, unasked = _abstracts(http, [entry.arxiv_id for entry in fresh])
         problems.extend(f"{source.name}: {item}" for item in trouble)
 
         for entry in fresh:
             detail = details.get(entry.arxiv_id)
+            if not detail and entry.arxiv_id in unasked:
+                continue
             if not detail:
                 # No abstract, no candidate. Judging fitness from a title alone
                 # would mean passing a guess off as a measurement.
@@ -266,7 +286,7 @@ def discover_from_lists(
             # triage into it.
             if published_after is not None and when is not None and when < published_after:
                 continue
-            papers.append(Paper(
+            paper = Paper(
                 arxiv_id=entry.arxiv_id,
                 # The title comes from the archive rather than from the list:
                 # a list is written by hand, and a typo in it would spread
@@ -279,5 +299,8 @@ def discover_from_lists(
                 url=f"https://arxiv.org/abs/{entry.arxiv_id}",
                 repositories=[],
                 tasks=[],
-            ))
+                curated_by=[source.name],
+            )
+            taken[entry.arxiv_id] = paper
+            papers.append(paper)
     return papers, problems

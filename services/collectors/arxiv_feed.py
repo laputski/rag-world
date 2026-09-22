@@ -34,6 +34,7 @@ a truncated week off as a whole one.
 from __future__ import annotations
 
 import re
+import xml.etree.ElementTree as ET
 from datetime import date
 from urllib.parse import quote
 
@@ -108,11 +109,23 @@ def discover_from_archive(
     if status != 200:
         return [], [f"the preprint archive answered {status} to the feed request"], []
 
+    # An answer that is not a feed at all is a refusal. It used to be filed
+    # among the discards, where the pass prints only the first discard, and
+    # that one is always the catalogue's weekly note about dates: an archive
+    # answering with a page of HTML every week would have looked like a quiet
+    # archive for as long as it lasted.
+    try:
+        ET.fromstring(body)
+    except ET.ParseError:
+        return [], [
+            "the preprint archive answered the feed request with something "
+            "that is not a feed"
+        ], []
+
     entries = _parse_atom_entries(body)
     if not entries:
-        # An empty answer is legitimate only if the archive said so. It cannot be
-        # told from a parse that failed, so the caller is told either way and
-        # decides nothing on silence.
+        # A feed without entries is an answer: a week without matching work can
+        # happen. The caller is told, and decides nothing on silence.
         return [], [], ["the archive returned no entries for the feed request"]
 
     papers: list[Paper] = []

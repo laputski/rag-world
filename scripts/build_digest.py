@@ -45,8 +45,6 @@ from services.registry import store  # noqa: E402
 #: not depend on it.
 LEVELS = ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]
 
-DIGEST_DIR = store.DATA_DIR / "digest"
-
 #: How many records to name outright. Beyond that a count: a list of forty names
 #: goes unread, and the issue stops being a message and becomes a data dump.
 NAMED_LIMIT = 8

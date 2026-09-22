@@ -156,6 +156,23 @@ def test_github_no_releases():
     assert "license=none" in result.evidence[0].value
 
 
+def test_github_refused_releases_are_unknown_not_absent():
+    """A refusal says nothing about the repository, so it claims nothing.
+
+    It used to be written down as "releases=no" and counted as no refusal.
+    """
+    repo_body = b'{"license": null, "pushed_at": "2026-01-01T00:00:00Z"}'
+    for status, body in ((403, b""), (429, b""), (502, b""), (200, b"null")):
+        http = FakeHttp({
+            "/repos/a/b": (200, repo_body),
+            "/repos/a/b/releases": (status, body),
+        })
+        result = github.collect_github("ab", "https://github.com/a/b", http=http,
+                                       today=TODAY)
+        assert "releases=unknown" in result.evidence[0].value, status
+        assert any("no list of releases" in e for e in result.errors), status
+
+
 def test_github_invalid_url():
     http = FakeHttp({})
     result = github.collect_github("x", "https://bitbucket.org/x/y", http=http, today=TODAY)

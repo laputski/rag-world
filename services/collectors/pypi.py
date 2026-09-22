@@ -46,9 +46,14 @@ def _get_json(http: HttpGetter, url: str) -> tuple[dict | None, str | None]:
     if status != 200:
         return None, f"status {status} from {url}"
     try:
-        return json.loads(body), None
+        payload = json.loads(body)
     except (json.JSONDecodeError, UnicodeDecodeError):
         return None, f"malformed answer from {url}"
+    # Valid JSON of the wrong shape is a refusal too; see the catalogue
+    # collector for what it cost when it raised instead.
+    if not isinstance(payload, dict):
+        return None, f"an answer of type {type(payload).__name__} from {url}"
+    return payload, None
 
 
 def collect_pypi(

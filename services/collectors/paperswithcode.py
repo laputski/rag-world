@@ -71,6 +71,11 @@ class Paper:
     #: for the registry is judged from them, and keeping them allows the
     #: judgement to be recomputed without asking the catalogue again.
     tasks: list[str] = field(default_factory=list)
+    #: The curated lists that hold the work, filled by the list route only. The
+    #: provenance travels with the work because it was lost once: the queue
+    #: credited every find from a list to every list, and a work held by one list
+    #: read as the agreement of two.
+    curated_by: list[str] = field(default_factory=list)
 
 
 def _paper_url(arxiv_id: str) -> str:
@@ -86,9 +91,16 @@ def _get_json(http: HttpGetter, url: str) -> tuple[dict | None, str | None]:
     if status != 200:
         return None, f"status {status} from {url}"
     try:
-        return json.loads(body), None
+        payload = json.loads(body)
     except (json.JSONDecodeError, UnicodeDecodeError):
         return None, f"malformed answer from {url}"
+    # Valid JSON of the wrong shape is a refusal too. An array where an object
+    # belongs raised an AttributeError that nothing caught, and one such answer
+    # from the community-run catalogue ended the whole weekly pass before its
+    # run-log line was written.
+    if not isinstance(payload, dict):
+        return None, f"an answer of type {type(payload).__name__} from {url}"
+    return payload, None
 
 
 def _as_date(value: object) -> date | None:

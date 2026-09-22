@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_artifacts  # noqa: E402
 import collect  # noqa: E402
+import discover  # noqa: E402
 import update  # noqa: E402
 
 from services.registry import store  # noqa: E402
@@ -46,6 +47,12 @@ def registry(tmp_path, monkeypatch):
     ):
         monkeypatch.setattr(store, name, path)
     monkeypatch.setattr(collect, "MANUAL_FILE", tmp_path / "manual_evidence.jsonl")
+    # Discovery fixes its paths at import, so the substitution of the data
+    # directory above does not reach them. Left alone, the pass read the real
+    # candidate queue and rescored it in place whenever the fitness rule
+    # changed, which is exactly what a mutant of that rule does.
+    monkeypatch.setattr(discover, "CANDIDATES", tmp_path / "candidates.jsonl")
+    monkeypatch.setattr(discover, "REJECTED", tmp_path / "rejected.jsonl")
 
     store.save_technology(store.Technology(
         id="demo_rag",
@@ -73,6 +80,11 @@ def artifacts(tmp_path, monkeypatch):
 
 
 def run_pass(http, **kwargs) -> int:
+    # The link check has a transport of its own, and a pass handed none builds
+    # a real one. Every test here sent its record's addresses to the real
+    # network until 2026-09-22; by default every address now resolves, and a
+    # test about links hands in the answers it needs.
+    kwargs.setdefault("link_http", FakeTransport({"": SourceBehaviour(b"ok")}))
     return update.run(http=http, today=TODAY, **kwargs)
 
 
@@ -199,6 +211,41 @@ def test_the_code_host_refusing_is_named_as_such(registry, artifacts):
     assert run is not None
     assert run.failed_sources.get("github", 0) > 0, (
         f"the code host is not named among the refusals: {run.failed_sources}"
+    )
+
+
+def test_an_answer_of_the_wrong_shape_does_not_end_the_pass(registry, artifacts):
+    """The bait: the catalogue answers every request with an empty array.
+
+    Before 2026-09-22 this raised an AttributeError in the collection and again
+    in discovery, the pass ended, and the run-log line was never written.
+    """
+    routes = standard_routes()
+    routes["paperswithcode.co"] = SourceBehaviour(b"[]")
+    run_pass(FakeTransport(routes))
+
+    run = store.latest_run()
+    assert run is not None, "the pass ended before its run-log line"
+    assert run.failed_sources.get("paperswithcode", 0) > 0, run.failed_sources
+
+
+def test_a_collector_that_raises_is_counted_and_the_others_still_run(
+    registry, artifacts, monkeypatch
+):
+    """Whatever a collector raises, the pass goes on and the source is named."""
+    from services.collectors import arxiv
+
+    def broken(*args, **kwargs):
+        raise KeyError("an answer nobody foresaw")
+
+    monkeypatch.setattr(arxiv, "collect_arxiv", broken)
+    run_pass(FakeTransport(standard_routes()))
+
+    run = store.latest_run()
+    assert run is not None
+    assert run.failed_sources.get("arxiv", 0) > 0, run.failed_sources
+    assert any(e.source.startswith("https://github.com") for e in store.load_evidence()), (
+        "the code host was not asked after the archive collector broke"
     )
 
 
@@ -764,3 +811,27 @@ def test_broken_data_publishes_no_issue(registry, artifacts):
     ))
     assert run_pass(FakeTransport(standard_routes())) == 1
     assert not (registry / "digest").exists()
+
+
+def test_no_path_of_the_pass_points_at_the_real_data(registry, artifacts):
+    """A module that fixes a path at import escapes the substitution above.
+
+    Discovery did, and the pass read and rescored the real candidate queue from
+    inside a test believed to be isolated. Every path a module of the pass holds
+    must lie outside the real data while a test runs.
+    """
+    from pathlib import Path
+
+    import build_digest
+    import check_links
+    import compute_levels
+
+    real = ROOT / "data"
+    leaks = sorted(
+        f"{module.__name__}.{name}"
+        for module in (build_artifacts, build_digest, check_links, collect,
+                       compute_levels, discover, update)
+        for name, value in vars(module).items()
+        if isinstance(value, Path) and (value == real or real in value.parents)
+    )
+    assert not leaks, f"paths into the real data during a test: {leaks}"

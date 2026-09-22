@@ -92,17 +92,28 @@ def collect_github(
     # Whether releases exist.
     releases_api = f"{GITHUB_API}/repos/{owner}/{name}/releases?per_page=1"
     rel_status, rel_body = http.get(releases_api, headers=headers, timeout=20)
-    has_releases = False
+    # Whether releases exist is known only from an answer that lists them. A
+    # refusal used to be written down as "releases=no", a claim about the
+    # repository made from the host's silence, and it counted as no refusal at
+    # all. Now the claim says it is unknown and the refusal is counted.
+    releases = "unknown"
     if rel_status == 200:
         import json
         try:
-            has_releases = len(json.loads(rel_body)) > 0
+            listed = json.loads(rel_body)
         except (json.JSONDecodeError, UnicodeDecodeError):
-            has_releases = False
+            listed = None
+        if isinstance(listed, list):
+            releases = "yes" if listed else "no"
+    if releases == "unknown":
+        result.errors.append(
+            f"the code host gave no list of releases for {owner}/{name} "
+            f"(status {rel_status})"
+        )
 
     value = (
         f"{owner}/{name}: license={license_key}, last_push={pushed_at}, "
-        f"releases={'yes' if has_releases else 'no'}"
+        f"releases={releases}"
     )
     result.evidence.append(RawEvidence(
         technology_id=technology_id,
