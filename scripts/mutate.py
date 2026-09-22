@@ -41,6 +41,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+#: The environment variable through which the suite learns which entry the run
+#: has applied to the tree.
+#:
+#: The tests of this catalogue check that every pattern occurs in its file. With
+#: a mutant applied, the pattern of that very entry is gone by construction, so
+#: those tests failed on every mutant and every mutant counted as caught. From
+#: 2026-08-11, when they were written, to 2026-09-22, when a mutation of a
+#: comment was reported caught, the scheduled runs reported every rule guarded
+#: and had checked none of them. Told the name, the catalogue's tests leave the
+#: applied entry alone, and a mutant dies only if a test of the rule notices it.
+MUTANT_ENV = "RAG_WORLD_MUTANT"
+
+
 @dataclass(frozen=True)
 class Mutation:
     """One deliberate break: the rule it tests and what replaces what."""
@@ -49,6 +62,11 @@ class Mutation:
     rule: str
     before: str
     after: str
+
+    @property
+    def ident(self) -> str:
+        """The name of the entry in test identifiers and in the run's environment."""
+        return f"{self.path}::{self.rule}"
 
 
 # ─── The catalogue ───────────────────────────────────────────────────────────
@@ -147,6 +165,23 @@ MUTATIONS: tuple[Mutation, ...] = (
              "the archive is not named as the venue of a reviewed work",
              'named = "" if _is_preprint_venue(best_name) else best_name',
              "named = best_name"),
+
+    # The index does not hold every preprint under its archive identifier. Five
+    # records came back as refusals every week for that reason, and one of them
+    # never received the conference paper the index does hold.
+    Mutation("scripts/collect.py", "the open index is given the title of the work",
+             "known_title=archive_title,", "known_title=None,"),
+    Mutation("services/collectors/openalex.py",
+             "the title of the work is matched exactly",
+             "matched = [c for c in found if _norm(_title_of(c)) == wanted]",
+             "matched = [c for c in found if _norm(_title_of(c)).startswith(wanted)]"),
+    Mutation("services/collectors/openalex.py",
+             "an unknown identifier is an answer rather than a refusal",
+             "if status == 404 and absence_is_an_answer:", "if False:"),
+    Mutation("services/collectors/openalex.py",
+             "a refusal is not reported as an absence",
+             "absent = work is None and len(result.errors) == refusals",
+             "absent = work is None"),
 
     # ── The checks of the collection stage ──────────────────────────────────
     Mutation("services/collectors/s5.py", "the lower bound on a year",
@@ -370,9 +405,25 @@ MUTATIONS: tuple[Mutation, ...] = (
     # The real data has to pass validation in an ordinary test run and not only
     # in the continuous integration job. While no test read it, an edit to a
     # record passed `make test` green and failed after being pushed.
-    Mutation("data/technologies/standard_hybridrag.json",
+    #
+    # The bait is a measurement that refers to a record which does not exist,
+    # and both halves of that choice were learnt by failure.
+    #
+    # It used to be the check date of a link in a record. The weekly pass
+    # rewrites that date whenever it inspects the link, and on 2026-09-14 it
+    # did: the pattern vanished, two tests of this catalogue went red, and the
+    # scheduled mutation run of 2026-09-17 refused to start. The measurements
+    # are only ever appended to, so the line pinned here stays as it is.
+    #
+    # The old bait was also caught for the wrong reason. The comparison of the
+    # published artefacts noticed the changed date as well, so deleting the
+    # validation test left the mutant dead and this entry green. A measurement
+    # that is neither the newest of its source nor attached to a known record
+    # reaches no artefact, and only the validation can see it.
+    Mutation("data/metrics/2026.jsonl",
              "the real data is validated by the test run",
-             '"verified_at": "2026-08-13"', '"verified_at": null'),
+             '"source": "https://openalex.org/W4401042753", "technology_id": "adaptive_rag"',
+             '"source": "https://openalex.org/W4401042753", "technology_id": "no_such_record"'),
 
     Mutation("scripts/collect.py", "a digital identifier reaches the open index",
              '    if "doi.org" in url:\n        return ["openalex"]', "    pass"),
@@ -558,7 +609,7 @@ def suite_is_green() -> bool:
     return _pytest().returncode == 0
 
 
-def _pytest() -> subprocess.CompletedProcess:
+def _pytest(mutation: Mutation | None = None) -> subprocess.CompletedProcess:
     # The mutant must not leave compiled bytecode behind.
     #
     # Python decides a cached `.pyc` is current by the source's modification time
@@ -575,6 +626,9 @@ def _pytest() -> subprocess.CompletedProcess:
     # Writing no bytecode at all removes the whole class: the mutant is compiled
     # in memory, and the cache on disk keeps belonging to the sound source.
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+    env.pop(MUTANT_ENV, None)
+    if mutation is not None:
+        env[MUTANT_ENV] = mutation.ident
     return subprocess.run(
         [sys.executable, "-m", "pytest", "tests/", "-q", "-x", "--no-header",
          "-p", "no:cacheprovider"],
@@ -591,7 +645,7 @@ def survives(mutation: Mutation) -> bool | None:
     target.write_text(original.replace(mutation.before, mutation.after, 1),
                       encoding="utf-8")
     try:
-        return _pytest().returncode == 0
+        return _pytest(mutation).returncode == 0
     finally:
         # Restoration must happen whatever the outcome, an interrupt from the
         # keyboard included: otherwise the broken code stays in the tree.
