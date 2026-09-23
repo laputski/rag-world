@@ -41,8 +41,17 @@ from services.collectors.curated import discover_from_lists  # noqa: E402
 from services.collectors.paperswithcode import RAG_METHOD, Paper, discover  # noqa: E402
 from services.registry import store  # noqa: E402
 
-CANDIDATES = store.DATA_DIR / "candidates.jsonl"
-REJECTED = store.DATA_DIR / "rejected.jsonl"
+
+# The paths are read at call time from the store's data directory. Fixed as
+# constants at import, they followed no later substitution of that directory:
+# a test that believed itself isolated read the real candidate queue, and under
+# a mutant of the fitness rule rescored it in place.
+def candidates_path() -> Path:
+    return store.DATA_DIR / "candidates.jsonl"
+
+
+def rejected_path() -> Path:
+    return store.DATA_DIR / "rejected.jsonl"
 
 #: How far back to ask for work by default. It matches the schedule: a day of
 #: overlap is cheaper than a gap, and a repeat is filtered out by its number.
@@ -96,11 +105,11 @@ class DiscoverySummary:
 
 
 def load_candidates() -> list[dict]:
-    if not CANDIDATES.exists():
+    if not candidates_path().exists():
         return []
     return [
         json.loads(line)
-        for line in CANDIDATES.read_text(encoding="utf-8").splitlines()
+        for line in candidates_path().read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
 
@@ -125,10 +134,10 @@ def _registry_names() -> set[str]:
 
 
 def _rejected_names() -> set[str]:
-    if not REJECTED.exists():
+    if not rejected_path().exists():
         return set()
     out: set[str] = set()
-    for line in REJECTED.read_text(encoding="utf-8").splitlines():
+    for line in rejected_path().read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("//"):
             continue
@@ -285,8 +294,13 @@ def run(
 
     summary.added = len(fresh)
     if fresh and not dry_run:
-        CANDIDATES.parent.mkdir(parents=True, exist_ok=True)
-        with CANDIDATES.open("a", encoding="utf-8") as fh:
+        queue = candidates_path()
+        queue.parent.mkdir(parents=True, exist_ok=True)
+        with queue.open("a", encoding="utf-8") as fh:
+            # The queue is edited by hand when verdicts are entered; see the
+            # store for what a lost final line break did to an appended record.
+            if queue.stat().st_size and not store.ends_with_newline(queue):
+                fh.write("\n")
             for row in fresh:
                 fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
 
@@ -326,7 +340,7 @@ def rescore(*, dry_run: bool = False) -> int:
             row["fit"] = fit
             changed += 1
     if changed and not dry_run:
-        CANDIDATES.write_text(
+        candidates_path().write_text(
             "\n".join(json.dumps(r, ensure_ascii=False, sort_keys=True) for r in rows)
             + "\n",
             encoding="utf-8",

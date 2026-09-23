@@ -40,7 +40,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from core.dimensions_schema import DIMENSIONS  # noqa: E402
 from services.registry import store  # noqa: E402
 
-NOTES_FILE = store.DATA_DIR / "parse_notes.jsonl"
+
+def notes_path() -> Path:
+    """Read at call time, so that a substituted data directory is followed."""
+    return store.DATA_DIR / "parse_notes.jsonl"
 DEFAULT_OUT = Path(__file__).resolve().parent.parent / "build" / "review.html"
 
 DIM_NAMES = {d.code: d.name for d in DIMENSIONS}
@@ -48,10 +51,10 @@ DEFAULTS = {d.code: d.default for d in DIMENSIONS}
 
 
 def load_notes() -> list[dict]:
-    if not NOTES_FILE.exists():
+    if not notes_path().exists():
         return []
     notes = []
-    for line in NOTES_FILE.read_text(encoding="utf-8").splitlines():
+    for line in notes_path().read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line:
             notes.append(json.loads(line))

@@ -278,3 +278,35 @@ def test_journal_path_follows_the_store(repo):
     exist and report that nothing changed.
     """
     assert store.LEVELS_FILE == ROOT / LEVELS_PATH
+
+
+# ─── Found by review on 2026-09-22 ───────────────────────────────────────────
+
+
+def test_a_coloured_diff_is_read_all_the_same(repo):
+    """The person's settings for reading a diff do not reach the gate.
+
+    With colour forced on, every added line began with an escape code, none
+    parsed as added, and a demotion was reported as no change at all.
+    """
+    subprocess.run(["git", "config", "color.diff", "always"], cwd=repo, check=True)
+    append(repo, journal_line("alpha", "L3", "2026-09-21"))
+    assert [e["level"] for e in added_entries_from_git(repo=repo)] == ["L3"]
+
+
+def test_a_journal_line_that_is_no_entry_closes_the_gate(monkeypatch, capsys):
+    """Valid JSON that is no level entry asks for review; it does not crash.
+
+    The previous levels were read outside the guard, and such a line stopped
+    the job with no "review=" line at all.
+    """
+    from scripts import classify_changes
+    from services.registry import store as _store
+
+    def unreadable(added):
+        _store.LevelEntry.model_validate({"technology_id": "alpha"})
+
+    monkeypatch.setattr(classify_changes, "added_entries_from_git", lambda repo=None: [])
+    monkeypatch.setattr(classify_changes, "previous_levels_before", unreadable)
+    out = _gate_output(monkeypatch, capsys)
+    assert "review=true" in out

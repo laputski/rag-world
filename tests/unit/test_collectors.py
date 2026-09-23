@@ -435,3 +435,21 @@ def test_arxiv_link_is_asked_of_three_sources():
 def test_unknown_host_is_asked_of_nobody():
     """A link to a provider's page is not a source of evidence."""
     assert _sources_for("https://atlan.com/know/hybrid-rag/") == []
+
+
+
+def test_a_link_deep_into_a_repository_names_the_repository():
+    """A link to a folder or a file still names its repository.
+
+    Read only up to the end of the address, such a link was counted as a
+    refusal of the code host although no request had been made.
+    """
+    for url in ("https://github.com/microsoft/graphrag/tree/main/docs",
+                "https://github.com/microsoft/graphrag/blob/main/README.md",
+                "https://github.com/microsoft/graphrag.git",
+                "https://github.com/microsoft/graphrag"):
+        assert github._extract_repo(url) == ("microsoft", "graphrag"), url
+
+
+def test_the_html_rendering_of_a_preprint_carries_its_identifier():
+    assert arxiv._extract_arxiv_id("https://arxiv.org/html/2502.14902v1") == "2502.14902"

@@ -246,9 +246,20 @@ def _append_jsonl(path: Path, models: Iterable[BaseModel]) -> int:
         return 0
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as fh:
+        # A journal edited by hand may have lost its final line break, and the
+        # first appended record then joined the last line and made the whole
+        # journal unreadable from that pass on.
+        if path.stat().st_size and not ends_with_newline(path):
+            fh.write("\n")
         for row in rows:
             fh.write(row + "\n")
     return len(rows)
+
+
+def ends_with_newline(path: Path) -> bool:
+    with path.open("rb") as fh:
+        fh.seek(-1, 2)
+        return fh.read(1) == b"\n"
 
 
 # ─── Technologies ────────────────────────────────────────────────────────────

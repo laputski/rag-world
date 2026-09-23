@@ -18,7 +18,11 @@ GITHUB_API = "https://api.github.com"
 
 def _extract_repo(url: str) -> tuple[str, str] | None:
     """Pull (owner, repo) out of a repository URL, or return None."""
-    m = re.search(r"github\.com/([^/]+)/([^/]+?)(?:\.git)?/?(?:$|[?#])", url, re.I)
+    # A link may go deeper than the repository, to a folder or a file in it
+    # (`/tree/main/...`, `/blob/...`). The repository is the first two parts of
+    # the path either way; read only up to the end of the address, such a link
+    # was counted as a refusal of the code host that nobody had asked.
+    m = re.search(r"github\.com/([^/\s]+)/([^/\s?#]+?)(?:\.git)?(?:[/?#]|$)", url, re.I)
     if m:
         return m.group(1), m.group(2)
     return None

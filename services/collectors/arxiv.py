@@ -27,7 +27,11 @@ ATOM_NS = "{http://www.w3.org/2005/Atom}"
 
 def _extract_arxiv_id(url: str) -> str | None:
     """Pull the archive identifier out of a URL, or return an identifier as is."""
-    m = re.search(r"arxiv\.org/(?:abs|pdf)/([0-9]{4}\.[0-9]{4,5}|[a-z\-]+/[0-9]{7})", url, re.I)
+    # The HTML rendering of a work carries the same identifier as its abstract
+    # page and its PDF.
+    m = re.search(
+        r"arxiv\.org/(?:abs|pdf|html)/([0-9]{4}\.[0-9]{4,5}|[a-z\-]+/[0-9]{7})", url, re.I
+    )
     if m:
         return m.group(1)
     # A bare identifier.

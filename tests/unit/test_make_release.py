@@ -306,3 +306,39 @@ def test_index_lists_the_release_newest_first(workspace):
     assert [r["tag"] for r in make_release.releases_index()] == [
         "2026-08-11", "2026-08-01",
     ]
+
+
+
+def test_the_readiness_check_leaves_nothing_behind(workspace, monkeypatch):
+    """The rebuild for comparison writes nothing outside its own directory.
+
+    Handed the temporary directory itself, the build wrote the sitemap and
+    llms.txt into the shared temporary root, where they stayed.
+    """
+    import tempfile
+
+    scratch = workspace / "scratch"
+    scratch.mkdir()
+    monkeypatch.setattr(tempfile, "tempdir", str(scratch))
+    build_artifacts_now()
+
+    make_release.readiness()
+
+    assert sorted(p.name for p in scratch.iterdir()) == []
+
+
+def test_the_description_claims_no_justification_the_data_lacks(workspace):
+    """The archive record said that every value is justified.
+
+    The registry's own validation says otherwise: 69 values that depart from
+    the base stand without a justification.
+    """
+    build_artifacts_now()
+    assert make_release.run(today=TODAY) == 0
+    deposit = json.loads(
+        (make_release.releases_dir() / f"{TODAY.isoformat()}-deposit.json")
+        .read_text(encoding="utf-8")
+    )
+    description = deposit["metadata"]["description"]
+    assert "the justification of every value" not in description
+    assert "not every value has one" in description

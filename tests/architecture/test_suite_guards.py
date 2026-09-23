@@ -112,3 +112,36 @@ def test_a_mutant_whose_run_writes_nothing_gets_its_verdict(tmp_path, monkeypatc
     )
     entry = mutate.Mutation("rule.py", "a rule", "SCORE = 0", "SCORE = -1")
     assert mutate.survives(entry) is False
+
+
+# ─── Paths fixed at import ───────────────────────────────────────────────────
+
+
+def test_no_script_fixes_a_data_path_at_import():
+    """A path into the data is read when it is used, never when a module loads.
+
+    A constant computed from the store's data directory at import follows no
+    later substitution of that directory. Discovery held two, and the end-to-end
+    test of the pass read and rescored the real candidate queue from inside a
+    test believed to be isolated. A check of the values such constants hold
+    cannot find them reliably: a module first imported inside another test's
+    substitution holds that test's directory and looks correct. So the source
+    is read instead, and such a constant is refused outright.
+    """
+    import re
+
+    fixed = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*store\.DATA_DIR\b", re.MULTILINE)
+    found = [
+        f"{path.relative_to(ROOT)}: {name}"
+        for path in sorted((ROOT / "scripts").glob("*.py"))
+        for name in fixed.findall(path.read_text(encoding="utf-8"))
+    ]
+    assert not found, f"data paths fixed at import: {found}"
+
+
+def test_the_reading_recognises_a_fixed_path():
+    """The bait: the shape discovery had before 2026-09-22 is recognised."""
+    import re
+
+    fixed = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*store\.DATA_DIR\b", re.MULTILINE)
+    assert fixed.findall('CANDIDATES = store.DATA_DIR / "candidates.jsonl"\n') == ["CANDIDATES"]

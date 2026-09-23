@@ -102,9 +102,13 @@ def readiness() -> list[str]:
         return problems
 
     with tempfile.TemporaryDirectory() as tmp:
-        build_artifacts.build(out_dir=Path(tmp))
+        # The build writes the sitemap and llms.txt beside the directory it is
+        # given. Given the temporary directory itself, it wrote them into the
+        # shared temporary root, where they stayed after the check.
+        rebuilt = Path(tmp) / "public" / "data"
+        build_artifacts.build(out_dir=rebuilt)
         for name in SNAPSHOT_FILES:
-            fresh = Path(tmp) / name
+            fresh = rebuilt / name
             if not fresh.exists():
                 continue
             expected = _normalize(json.loads(fresh.read_text(encoding="utf-8")))
@@ -239,8 +243,9 @@ def bundle(meta: dict) -> Path:
         f"out of the primary sources for {meta['reviewed']}. "
         "A level is derived by a deterministic rule from the collected "
         "evidence, with no language model taking part. The configuration of "
-        "each record is read out of the method section of its primary source, "
-        "and the justification of every value is stored with the data."
+        "each record is read out of the method section of its primary source. "
+        "Where a person has written down why a value was read as it was, the "
+        "justification is stored with the data; not every value has one yet."
     )
     (releases_dir() / f"{meta['tag']}-deposit.json").write_text(
         json.dumps({

@@ -42,7 +42,10 @@ from services.collectors.base import RawEvidence  # noqa: E402
 from services.collectors.s5 import check_many  # noqa: E402
 from services.registry import store  # noqa: E402
 
-MANUAL_FILE = store.DATA_DIR / "manual_evidence.jsonl"
+
+def manual_path() -> Path:
+    """Read at call time, so that a substituted data directory is followed."""
+    return store.DATA_DIR / "manual_evidence.jsonl"
 
 _VELOCITY_RE = re.compile(r"citation_velocity=([0-9.]+)")
 _ARXIV_HOST = "arxiv.org"
@@ -182,12 +185,12 @@ def _metrics_from(evidence: list[store.Evidence]) -> list[store.MetricPoint]:
 
 def load_manual_evidence() -> list[store.Evidence]:
     """Evidence entered by a person; every item must carry a link."""
-    if not MANUAL_FILE.exists():
+    if not manual_path().exists():
         return []
     import json
 
     out: list[store.Evidence] = []
-    for line in MANUAL_FILE.read_text(encoding="utf-8").splitlines():
+    for line in manual_path().read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("//"):
             continue

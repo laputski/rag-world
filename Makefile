@@ -101,10 +101,15 @@ smoke: ## Check the deployed portal (needs network)
 	$(PYTHON) -m pytest tests/smoke -m network -q
 
 # The mutation run answers the question coverage does not ask: would anyone
-# notice if a rule broke. It takes about twenty-five minutes, so it stays out of
+# notice if a rule broke. It takes about ten minutes, so it stays out of
 # `make test` and is run separately. The soundness of the catalogue itself is
 # checked by the ordinary suite on every edit: it is edits to the code that spoil
 # it, not the passage of time.
+# The run owns the working tree while it lasts, about ten minutes: it rewrites
+# source files and puts back whatever the suite wrote into data/, docs/ and
+# ui/public. An edit made there by hand during the run is put back with the
+# rest. To keep working meanwhile, run it in a separate worktree:
+#   git worktree add --detach ../rag-world-mutate HEAD && cd ../rag-world-mutate
 mutate: ## Break each rule in turn and check that some test notices
 	$(PYTHON) scripts/mutate.py
 

@@ -412,3 +412,35 @@ def test_a_refusal_on_the_identifier_is_not_reported_as_an_absence():
     assert any("answered 429" in e for e in result.errors)
     assert any("no reliable match" in e for e in result.errors)
     assert not any("no work under" in e for e in result.errors)
+
+
+
+def test_a_reviewed_work_with_no_identifier_has_no_named_venue():
+    """With no identifier there is no prefix to name.
+
+    "DOI " with nothing after it was written as the venue.
+    """
+    work = _work(doi=None, type="conference-paper", primary_location={"source": None})
+    assert _venue_of(work) == ("", True)
+
+
+def test_a_refused_title_search_is_not_said_to_have_found_no_match():
+    """Only a title the index answered for can have found no match.
+
+    The live check of 2026-09-22 listed a title whose search had been refused
+    with a 504 among those that "gave no reliable match".
+    """
+
+    class RefusingTheTitle(FakeHttp):
+        def get(self, url, headers=None, timeout=20):
+            self.calls.append(url)
+            if "title.search:Dense" in url:
+                return (504, b"")
+            return (200, json.dumps({"results": []}).encode())
+
+    result = collect_openalex(
+        "naive_dense", "https://arxiv.org/abs/2004.04906", http=RefusingTheTitle({}),
+        expected_title="Naive Dense", known_title=DPR_TITLE, today=TODAY,
+    )
+    assert any("answered 504" in e for e in result.errors)
+    assert not any(DPR_TITLE in e for e in result.errors if "no reliable match" in e)

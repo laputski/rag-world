@@ -41,8 +41,6 @@ def workspace(tmp_path, monkeypatch):
     ):
         monkeypatch.setattr(store, name, path)
     (tmp_path / "technologies").mkdir(parents=True)
-    monkeypatch.setattr(discover, "CANDIDATES", tmp_path / "candidates.jsonl")
-    monkeypatch.setattr(discover, "REJECTED", tmp_path / "rejected.jsonl")
     return tmp_path
 
 
@@ -117,7 +115,7 @@ def test_once_rejected_name_does_not_return(workspace):
     """A refused name would surface every week and the work would repeat."""
     paper = first_paper()
     head = paper["title"].split(":", 1)[0].strip()
-    discover.REJECTED.write_text(
+    discover.rejected_path().write_text(
         json.dumps({"name": head, "reason": "an application, not an architecture"},
                    ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -128,7 +126,7 @@ def test_once_rejected_name_does_not_return(workspace):
 
 def test_candidate_with_a_verdict_does_not_return(workspace):
     paper = first_paper()
-    discover.CANDIDATES.write_text(
+    discover.candidates_path().write_text(
         json.dumps({"arxiv_id": paper["arxiv_id"], "title": paper["title"],
                     "verdict": "rejected"}, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -256,7 +254,7 @@ def test_rescoring_keeps_the_curated_signal(tmp_path, monkeypatch):
         "verdict": None,
     }
     queue.write_text(_json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
-    monkeypatch.setattr(discover, "CANDIDATES", queue)
+    monkeypatch.setattr(store, "DATA_DIR", tmp_path)
 
     discover.rescore()
 
@@ -373,7 +371,7 @@ def test_the_archive_reaches_back_past_the_announcement_lag(workspace):
 def test_a_refused_batch_is_one_refusal(workspace):
     # The second list holds only a work already in the queue, so it asks the
     # archive nothing and cannot add a refusal of its own.
-    discover.CANDIDATES.write_text(
+    discover.candidates_path().write_text(
         json.dumps({"arxiv_id": "2601.00009", "title": "Queued: already",
                     "verdict": None}) + "\n",
         encoding="utf-8",

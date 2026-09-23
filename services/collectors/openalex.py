@@ -57,7 +57,7 @@ def _polite(url: str) -> str:
     separator = "&" if "?" in url else "?"
     return f"{url}{separator}mailto={quote(mailto)}"
 
-_ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf)/(?P<id>\d{4}\.\d{4,5})", re.I)
+_ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf|html)/(?P<id>\d{4}\.\d{4,5})", re.I)
 _DOI_RE = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
 
 #: Venue types that mean peer review. The type `repository` denotes a preprint
@@ -172,7 +172,10 @@ def _venue_of(work: dict) -> tuple[str, bool]:
         # instead of to the conference. The review itself is not in doubt here,
         # the work type and the publisher prefix say so; only the name was wrong.
         named = "" if _is_preprint_venue(best_name) else best_name
-        venue = DOI_PREFIX_VENUES.get(prefix) or named or f"DOI {prefix}"
+        # With no identifier at all there is no prefix to name, and "DOI " with
+        # nothing after it was written as the venue. The caller writes an
+        # empty venue as unknown.
+        venue = DOI_PREFIX_VENUES.get(prefix) or named or (f"DOI {prefix}" if prefix else "")
         return venue, True
 
     return best_name, False
@@ -255,11 +258,20 @@ def collect_openalex(
         # The separators are replaced by a space. Word search does not suffer
         # from that, and the request stops being inadmissible.
         safe_title = re.sub(r"[,|:?*]+", " ", title).strip()
+        attempted.append(title)
+        refusals = len(result.errors)
         search = _get_json(
             http,
             _polite(f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25"),
             result,
         )
+        # Only a title the index answered for can be said to have found no
+        # match. A refused search is counted as a refusal, and naming it among
+        # the titles that "gave no reliable match" stated an outcome of a
+        # search that never ran; the live check of 2026-09-22 did exactly that
+        # on a 504.
+        if len(result.errors) == refusals:
+            answered.append(title)
         return (search or {}).get("results") or []
 
     # The second step: the preprint and the conference publication are separate
@@ -281,26 +293,24 @@ def collect_openalex(
     resolved_title = _title_of(work) if work else ""
     candidates: list[dict] = [work] if work else []
     matched: list[dict] = []
-    searched: list[str] = []
+    attempted: list[str] = []
+    answered: list[str] = []
     if resolved_title:
-        searched.append(resolved_title)
         candidates += _search_by_title(resolved_title)
         wanted = _norm(resolved_title)
         matched = [c for c in candidates if _norm(_title_of(c)) == wanted]
     else:
         if known_title:
-            searched.append(known_title)
             found = _search_by_title(known_title)
             candidates += found
             wanted = _norm(known_title)
             matched = [c for c in found if _norm(_title_of(c)) == wanted]
         if not matched and expected_title:
-            searched.append(expected_title)
             found = _search_by_title(expected_title)
             candidates += found
             wanted = _norm(expected_title)
             matched = [c for c in found if _norm(_title_of(c)).startswith(wanted)]
-        if not searched:
+        if not attempted:
             if not work:
                 search = _get_json(
                     http, _polite(f"{OPENALEX_API}/works?search={quote(query)}&per_page=25"),
@@ -324,7 +334,9 @@ def collect_openalex(
     if not matched:
         # An unreliable match is worse than no data: one wrong record in the
         # registry destroys trust in all the others.
-        titles = ", ".join(repr(title) for title in searched)
+        if not answered:
+            return result  # every search was refused, and each refusal is counted
+        titles = ", ".join(repr(title) for title in answered)
         result.errors.append(
             f"the open index {unknown}gave no reliable match by title "
             f"({titles}); no evidence was created"

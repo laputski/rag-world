@@ -622,7 +622,16 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
             "evidence": entry.evidence_snapshot,
             "changed_at": entry.computed_at.isoformat(),
         })
-    changes.sort(key=lambda c: c["changed_at"], reverse=True)
+    # Newest first, and within one day by the order of the journal, newest
+    # first as well. Sorted by the day alone, a record's changes of one day kept
+    # the journal's order, oldest first: LogicRAG was shown as added at L2 after
+    # it had risen to L3. Two passes on one day are routine.
+    changes = [
+        change for _, change in sorted(
+            enumerate(changes), key=lambda pair: (pair[1]["changed_at"], pair[0]),
+            reverse=True,
+        )
+    ]
 
     # ─── The summary ─────────────────────────────────────────────────────────
     # Every level is listed, the empty ones included.

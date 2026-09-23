@@ -225,8 +225,7 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("scripts/classify_changes.py", "evidence entered by a person requires review",
              'if entry.get("evidence_basis") == "manual":', "if False:"),
     Mutation("scripts/classify_changes.py", "the comparison is against HEAD, not the index",
-             '["git", "diff", "HEAD", "--unified=0", "--", LEVELS_PATH]',
-             '["git", "diff", "--unified=0", "--", LEVELS_PATH]'),
+             '["git", "diff", "HEAD", "--no-color",', '["git", "diff", "--no-color",'),
     Mutation("scripts/classify_changes.py", "a git failure raises undecidability",
              "if result.returncode != 0:", "if False:"),
     Mutation("scripts/classify_changes.py", "a missing journal raises undecidability",
@@ -572,6 +571,37 @@ MUTATIONS: tuple[Mutation, ...] = (
     Mutation("services/collectors/github.py", "a refused list of releases claims nothing",
              'releases = "unknown"\n', 'releases = "no"\n'),
 
+    # ── Found by review, fixed on 2026-09-23 ───────────────────────────────
+    Mutation("scripts/classify_changes.py", "the gate reads the diff without colour",
+             '"--no-color", "--no-ext-diff", "--unified=0",', '"--unified=0",'),
+    Mutation("scripts/classify_changes.py", "an unreadable journal line closes the gate",
+             "except (Undecidable, ValueError) as exc:", "except Undecidable as exc:"),
+    Mutation("services/registry/store.py", "an append restores a lost final line break",
+             "if path.stat().st_size and not ends_with_newline(path):", "if False:"),
+    Mutation("scripts/build_artifacts.py", "the chronicle is newest first within a day",
+             'key=lambda pair: (pair[1]["changed_at"], pair[0]),',
+             'key=lambda pair: pair[1]["changed_at"],'),
+    Mutation("scripts/check_links.py", "link outcomes are counted per address",
+             "first_sight = link.url not in tallied", "first_sight = True"),
+    Mutation("scripts/build_digest.py", "no sentence about levels without a level",
+             "        if known:\n            state += f\". Уровень", "        if True:\n            state += f\". Уровень"),
+    Mutation("scripts/make_release.py", "the readiness check writes nothing outside its directory",
+             'rebuilt = Path(tmp) / "public" / "data"', "rebuilt = Path(tmp)"),
+    Mutation("scripts/make_release.py", "the archive description claims no justification it lacks",
+             '"justification is stored with the data; not every value has one yet."',
+             '"justification of every value is stored with the data."'),
+    Mutation("services/collectors/github.py", "a deep link names its repository",
+             r'(?:\.git)?(?:[/?#]|$)"', r'(?:\.git)?/?(?:$|[?#])"'),
+    Mutation("services/collectors/arxiv.py", "the HTML rendering of a preprint is read",
+             "arxiv\\.org/(?:abs|pdf|html)/", "arxiv\\.org/(?:abs|pdf)/"),
+    Mutation("services/collectors/openalex.py", "no venue is named without an identifier",
+             '(f"DOI {prefix}" if prefix else "")', 'f"DOI {prefix}"'),
+    Mutation("services/collectors/openalex.py", "only an answered title found no match",
+             'titles = ", ".join(repr(title) for title in answered)',
+             'titles = ", ".join(repr(title) for title in attempted)'),
+    Mutation("core/candidate_fit.py", "every signal of the fitness rule is read by its test",
+             'fit.add(2, "named")', "fit.add(2, 'named')"),
+
     # ── The suite's own guards (2026-09-22) ────────────────────────────────
     Mutation("tests/conftest.py", "a test that writes the real data fails the suite",
              "    if changed:\n        names =", "    if False:\n        names ="),
@@ -579,9 +609,10 @@ MUTATIONS: tuple[Mutation, ...] = (
              "    if attempts:\n", "    if False:\n"),
     Mutation("scripts/mutate.py", "a mutant whose run wrote the data is no catch",
              "        raise WroteRealData(written)\n", "        pass\n"),
-    Mutation("tests/e2e/test_weekly_run.py", "the end-to-end pass reads no real queue",
-             'monkeypatch.setattr(discover, "CANDIDATES", tmp_path / "candidates.jsonl")',
-             "pass"),
+    Mutation("scripts/discover.py", "the pass reads its data paths at call time",
+             'def candidates_path() -> Path:\n    return store.DATA_DIR / "candidates.jsonl"\n',
+             'CANDIDATES = store.DATA_DIR / "candidates.jsonl"\n\n\n'
+             'def candidates_path() -> Path:\n    return CANDIDATES\n'),
 
     # ── The localisation of the published data ─────────────────────────────
     #
@@ -754,6 +785,13 @@ def main() -> int:
         sys.stderr.write(f"nothing matches {args.only!r}\n")
         return 1
 
+    # Said before anything else: the run puts back whatever changes under the
+    # guarded paths, a person's edit made meanwhile included.
+    print(
+        "the run owns this working tree until it ends: do not edit data/, docs/ "
+        "or ui/public meanwhile, or the edit will be put back with the rest",
+        flush=True,
+    )
     print("checking the untouched tree…", flush=True)
     if not suite_is_green():
         sys.stderr.write(

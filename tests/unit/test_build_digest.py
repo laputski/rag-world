@@ -335,3 +335,18 @@ def test_text_uses_words_instead_of_dashes(registry):
     assert "—" not in text, f"an em dash instead of a verb: {text}"
     assert "→" not in text, f"an arrow instead of words: {text}"
     assert "с L" not in text or "до L" in text, "a level transition is named in words"
+
+
+
+def test_no_sentence_about_levels_when_no_record_has_one(registry):
+    """With nothing to name, the sentence about levels is left out.
+
+    It used to be written on an empty list: "Уровень ." and "Level .".
+    """
+    add_tech("alpha", "Alpha")
+    add_evidence("alpha", "publication", TODAY, "https://arxiv.org/abs/1")
+
+    issue = build_digest.build(today=TODAY)
+
+    assert "Уровень ." not in issue.text and "Уровень  " not in issue.text
+    assert "Level ." not in issue.text_en and "Level  " not in issue.text_en

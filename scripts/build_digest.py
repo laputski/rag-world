@@ -246,11 +246,11 @@ def compose(issue: Issue) -> str:
             for index, (level, count) in enumerate(pairs)
         ]
         unknown = issue.by_level.get("unknown", 0)
-        state = (
-            f"Сейчас в реестре "
-            f"{counted(issue.total, 'запись', 'записи', 'записей')}. "
-            f"Уровень {', '.join(known)}"
-        )
+        # The sentence about levels is written only when there is a level to
+        # name; without one it came out as "Уровень ." on an empty list.
+        state = f"Сейчас в реестре {counted(issue.total, 'запись', 'записи', 'записей')}"
+        if known:
+            state += f". Уровень {', '.join(known)}"
         if unknown:
             state += (
                 f". У {counted(unknown, 'записи', 'записей', 'записей')} уровень "
@@ -331,10 +331,9 @@ def compose_en(issue: Issue) -> str:
             for index, (level, count) in enumerate(pairs)
         ]
         unknown = issue.by_level.get("unknown", 0)
-        state = (
-            f"The registry now holds {plural_en(issue.total, 'record', 'records')}. "
-            f"Level {', '.join(known)}"
-        )
+        state = f"The registry now holds {plural_en(issue.total, 'record', 'records')}"
+        if known:
+            state += f". Level {', '.join(known)}"
         if unknown:
             state += (
                 f". For {plural_en(unknown, 'record', 'records')} no level is computed, "

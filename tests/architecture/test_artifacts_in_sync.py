@@ -457,3 +457,26 @@ def test_the_build_deletes_the_card_of_a_record_that_left(tmp_path):
     build(out_dir=out)
 
     assert not left.exists()
+
+
+def test_the_chronicle_lists_each_record_newest_first():
+    """Within one day a record's changes come newest first, as across days.
+
+    Sorted by the day alone, they kept the journal's order, oldest first, and
+    LogicRAG was shown as added at L2 after it had risen to L3. The published
+    chronicle is compared with the journal itself, read backwards.
+    """
+    from services.registry import store
+
+    published = json.loads((OUT_DIR / "changes.json").read_text(encoding="utf-8"))["changes"]
+    journal: dict[str, list[str]] = {}
+    for entry in store.load_levels():
+        journal.setdefault(entry.technology_id, []).append(entry.level)
+    shown: dict[str, list[str]] = {}
+    for change in published:
+        shown.setdefault(change["technology_id"], []).append(change["level_after"])
+
+    disordered = sorted(
+        tech for tech, levels in journal.items() if shown.get(tech) != levels[::-1]
+    )
+    assert not disordered, f"records whose changes are shown out of order: {disordered}"

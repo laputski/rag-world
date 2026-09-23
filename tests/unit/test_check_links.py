@@ -235,3 +235,19 @@ def test_repeated_pass_changes_nothing(registry):
     summary = run(routes)
     assert store.load_technology("demo").model_dump(mode="json") == first
     assert summary.changed == 0, "a second pass must not touch the files"
+
+
+
+def test_an_address_shared_by_two_records_is_counted_once(registry):
+    """The counts are of addresses, as the count of checked links is.
+
+    Counted per record, one broken address carried by two records was reported
+    as two gone, and the run log could show more links gone than checked.
+    """
+    url = "https://arxiv.org/abs/2405.14831"
+    make([store.Link(url=url)], tech_id="one")
+    make([store.Link(url=url)], tech_id="two")
+
+    summary = run({"arxiv.org": SourceBehaviour(b"", status=404)})
+
+    assert (summary.checked, summary.gone) == (1, 1)

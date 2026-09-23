@@ -1,6 +1,6 @@
 """The mutation catalogue must not rot between runs.
 
-A mutation run takes twenty-odd minutes and is therefore started separately
+A mutation run takes about ten minutes and is therefore started separately
 rather than on every edit. Hence the danger: the code changes, an entry's pattern
 stops matching, and the entry quietly stops checking anything. The catalogue
 looks impressive meanwhile and stays green, because nobody has run it.

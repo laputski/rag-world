@@ -141,7 +141,12 @@ def test_every_signal_of_the_fitness_rule_is_worded():
     """
     rule = (ROOT / "core" / "candidate_fit.py").read_text(encoding="utf-8")
     signals = re.findall(r'fit\.add\(-?\d+, "(\w+)"(?:, (\w+)=)?', rule)
-    assert signals, "no signal was read from the rule"
+    # Every call has to be read, or a signal raised in another shape would
+    # escape the check while it looks complete.
+    assert len(signals) == rule.count("fit.add("), (
+        f"{rule.count('fit.add(')} signals are raised and {len(signals)} were read; "
+        "the reading below no longer matches how the rule raises them"
+    )
     page = (ROOT / "ui" / "src" / "pages" / "ResidualsPage.tsx").read_text(encoding="utf-8")
 
     problems = []

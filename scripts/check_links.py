@@ -96,6 +96,7 @@ def run(
     # An address is checked once even when several records carry it: the
     # outcome does not depend on the record.
     outcomes: dict[str, tuple[str, int]] = {}
+    tallied: set[str] = set()
 
     for tech in store.load_technologies():
         touched = False
@@ -125,14 +126,20 @@ def run(
                     outcomes[link.url] = (_outcome(status), status)
 
             verdict, status = outcomes[link.url]
+            # The counts are of addresses, as `checked` is. Counted once per
+            # record carrying an address, one broken address shared by two
+            # records was reported as two, and the run log could show more links
+            # gone than were checked.
+            first_sight = link.url not in tallied
+            tallied.add(link.url)
             if verdict == "verified":
-                summary.verified += 1
+                summary.verified += first_sight
                 if link.status != "verified" or link.verified_at != today:
                     link.status = "verified"
                     link.verified_at = today
                     touched = True
             elif verdict == "unresolved":
-                summary.gone += 1
+                summary.gone += first_sight
                 summary.problems.append(
                     f"{tech.id}: {link.url} answers with {status}"
                 )
@@ -153,7 +160,7 @@ def run(
                 # observed: the request was made, the address answered, and it
                 # declined to show itself to a robot. Only a person can confirm
                 # it.
-                summary.guarded += 1
+                summary.guarded += first_sight
                 if link.status == "verified":
                     summary.problems.append(
                         f"{tech.id}: {link.url} answers with {status} "
@@ -170,7 +177,7 @@ def run(
             else:
                 # A broken connection, a timeout, an unknown code: the mark is
                 # left alone, because none of it says anything about the address.
-                summary.errored += 1
+                summary.errored += first_sight
                 if status:
                     summary.problems.append(
                         f"{tech.id}: {link.url} answers with {status} "

@@ -311,3 +311,21 @@ def test_residual_vocabulary_is_bilingual():
             assert not cyrillic.search(mechanism[field]), (
                 f"{mechanism['id']}.{field}: Russian text remains in an English field"
             )
+
+
+
+def test_an_append_to_a_journal_without_a_final_break_keeps_it_readable(data_dir):
+    """A journal edited by hand may lose its last line break.
+
+    The appended record then joined the last line, and every later read of the
+    journal failed.
+    """
+    first = store.LevelEntry(technology_id="alpha", level="L1", confidence=1.0,
+                             rule_version="1", computed_at=date(2026, 9, 1))
+    store.append_level(first)
+    journal = store.LEVELS_FILE
+    journal.write_text(journal.read_text(encoding="utf-8").rstrip("\n"), encoding="utf-8")
+
+    store.append_level(first.model_copy(update={"level": "L2"}))
+
+    assert [e.level for e in store.load_levels()] == ["L1", "L2"]

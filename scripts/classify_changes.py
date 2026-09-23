@@ -147,8 +147,13 @@ def added_entries_from_git(repo: Path | None = None) -> list[dict]:
     if not (base / LEVELS_PATH).exists():
         raise Undecidable(f"there is no level journal at {LEVELS_PATH}")
 
+    # The diff is read by a program, so the person's settings for reading one
+    # are switched off. With `color.diff=always` every added line began with an
+    # escape code, none of them parsed as added, and the gate reported "no
+    # level changes" for a demotion.
     result = subprocess.run(
-        ["git", "diff", "HEAD", "--unified=0", "--", LEVELS_PATH],
+        ["git", "diff", "HEAD", "--no-color", "--no-ext-diff", "--unified=0",
+         "--", LEVELS_PATH],
         capture_output=True, text=True, cwd=base,
     )
     if result.returncode != 0:
@@ -207,9 +212,14 @@ def main() -> int:
     # entirely, and the run-log line would not reach the main branch — and on it
     # depend both the sign of activity for the platform and the date of the last
     # check that a reader sees.
+    # The previous levels are read inside the same guard. A journal line that
+    # is valid JSON and yet no level entry raised from outside it, the job
+    # stopped without a "review=" line, and the gate failed open instead of
+    # closed.
     try:
         added = added_entries_from_git()
-    except Undecidable as exc:
+        previous = previous_levels_before(added)
+    except (Undecidable, ValueError) as exc:
         sys.stderr.write(f"the changes could not be parsed: {exc}\n")
         if args.github:
             print("review=true")
@@ -218,7 +228,7 @@ def main() -> int:
             print(f"the changes could not be parsed, review is needed: {exc}")
         return 0
 
-    decision = classify(added, previous_levels_before(added))
+    decision = classify(added, previous)
 
     if args.github:
         print(f"review={'true' if decision.needs_review else 'false'}")

@@ -24,8 +24,6 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_artifacts  # noqa: E402
-import collect  # noqa: E402
-import discover  # noqa: E402
 import update  # noqa: E402
 
 from services.registry import store  # noqa: E402
@@ -46,13 +44,6 @@ def registry(tmp_path, monkeypatch):
         ("COLLECTION_LOG", tmp_path / "collection_log.jsonl"),
     ):
         monkeypatch.setattr(store, name, path)
-    monkeypatch.setattr(collect, "MANUAL_FILE", tmp_path / "manual_evidence.jsonl")
-    # Discovery fixes its paths at import, so the substitution of the data
-    # directory above does not reach them. Left alone, the pass read the real
-    # candidate queue and rescored it in place whenever the fitness rule
-    # changed, which is exactly what a mutant of that rule does.
-    monkeypatch.setattr(discover, "CANDIDATES", tmp_path / "candidates.jsonl")
-    monkeypatch.setattr(discover, "REJECTED", tmp_path / "rejected.jsonl")
 
     store.save_technology(store.Technology(
         id="demo_rag",
@@ -812,26 +803,3 @@ def test_broken_data_publishes_no_issue(registry, artifacts):
     assert run_pass(FakeTransport(standard_routes())) == 1
     assert not (registry / "digest").exists()
 
-
-def test_no_path_of_the_pass_points_at_the_real_data(registry, artifacts):
-    """A module that fixes a path at import escapes the substitution above.
-
-    Discovery did, and the pass read and rescored the real candidate queue from
-    inside a test believed to be isolated. Every path a module of the pass holds
-    must lie outside the real data while a test runs.
-    """
-    from pathlib import Path
-
-    import build_digest
-    import check_links
-    import compute_levels
-
-    real = ROOT / "data"
-    leaks = sorted(
-        f"{module.__name__}.{name}"
-        for module in (build_artifacts, build_digest, check_links, collect,
-                       compute_levels, discover, update)
-        for name, value in vars(module).items()
-        if isinstance(value, Path) and (value == real or real in value.parents)
-    )
-    assert not leaks, f"paths into the real data during a test: {leaks}"
