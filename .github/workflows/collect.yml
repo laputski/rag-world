@@ -61,11 +61,6 @@ jobs:
           # The token is issued to the job automatically; no other source needs
           # a key — the preprint archive and the open index work without one.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # The open index keeps a polite request pool for those who give a
-          # contact address, with noticeably higher limits. The secret is
-          # optional: without it the run works, just slower and at risk of
-          # hitting a rate refusal.
-          OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
         run: |
           python scripts/update.py \
             ${{ inputs.only && format('--only {0}', inputs.only) || '' }} \

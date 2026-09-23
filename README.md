@@ -135,9 +135,8 @@ make collect
 Individual steps are available as `levels`, `artifacts`, `validate`, `icons`.
 
 Environment variables are optional and passed by the shell; no dotenv file is
-read. `OPENALEX_MAILTO` gets a politer request pool from the open index;
-`GITHUB_TOKEN` raises the rate limit and is supplied to the scheduled run
-automatically.
+read. `GITHUB_TOKEN` raises the rate limit of the code host and is supplied
+to the scheduled run automatically.
 
 ## Testing
 

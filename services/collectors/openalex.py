@@ -36,26 +36,15 @@ from services.collectors.base import (
 
 OPENALEX_API = "https://api.openalex.org"
 
-#: The open index keeps two request pools, a common one and a polite one. Limits
-#: in the second are noticeably higher, and a contact address is what admits a
-#: caller to it, by their own design. Without it the run hits a refusal on rate
-#: and half the records are left without their publication venue.
+#: The index meters requests in credits per day and ignores a contact address.
 #:
-#: The address comes from the environment rather than being written into the
-#: code: the repository is read by strangers, and a personal address is not
-#: something to publish in it.
-OPENALEX_MAILTO_ENV = "OPENALEX_MAILTO"
-
-
-def _polite(url: str) -> str:
-    """Append the contact address to the URL when the environment supplies one."""
-    import os
-
-    mailto = os.environ.get(OPENALEX_MAILTO_ENV, "").strip()
-    if not mailto:
-        return url
-    separator = "&" if "?" in url else "?"
-    return f"{url}{separator}mailto={quote(mailto)}"
+#: It used to keep a "polite" pool for callers who gave one, and this collector
+#: sent an address from the environment to get into it. The pool was retired in
+#: February 2026. Observed on 2026-09-23: with and without an address the index
+#: answered with the same limit of 1000 credits a day and spent them from the
+#: same allowance. A lookup by identifier costs nothing and a filtered search
+#: one credit, so a weekly pass stays far inside the anonymous limit and needs
+#: no key either.
 
 _ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf|html)/(?P<id>\d{4}\.\d{4,5})", re.I)
 _DOI_RE = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
@@ -237,7 +226,7 @@ def collect_openalex(
     if identifier:
         refusals = len(result.errors)
         work = _get_json(
-            http, _polite(f"{OPENALEX_API}/works/doi:{identifier}"), result,
+            http, f"{OPENALEX_API}/works/doi:{identifier}", result,
             absence_is_an_answer=True,
         )
         absent = work is None and len(result.errors) == refusals
@@ -262,7 +251,7 @@ def collect_openalex(
         refusals = len(result.errors)
         search = _get_json(
             http,
-            _polite(f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25"),
+            f"{OPENALEX_API}/works?filter=title.search:{quote(safe_title)}&per_page=25",
             result,
         )
         # Only a title the index answered for can be said to have found no
@@ -313,7 +302,7 @@ def collect_openalex(
         if not attempted:
             if not work:
                 search = _get_json(
-                    http, _polite(f"{OPENALEX_API}/works?search={quote(query)}&per_page=25"),
+                    http, f"{OPENALEX_API}/works?search={quote(query)}&per_page=25",
                     result,
                 )
                 candidates += (search or {}).get("results") or []

@@ -32,7 +32,7 @@ from services.collectors import frameworks, transport  # noqa: E402
 from services.collectors.arxiv import ARXIV_API  # noqa: E402
 from services.collectors.curated import CURATED_LISTS  # noqa: E402
 from services.collectors.github import GITHUB_API  # noqa: E402
-from services.collectors.openalex import OPENALEX_API, OPENALEX_MAILTO_ENV  # noqa: E402
+from services.collectors.openalex import OPENALEX_API  # noqa: E402
 from services.collectors.paperswithcode import PWC_API, RAG_METHOD  # noqa: E402
 from services.collectors.pypi import PYPI_API, STATS_API  # noqa: E402
 
@@ -156,10 +156,8 @@ def render() -> str:
         f"| any other | {transport.DEFAULT_DELAY} |",
         "",
         f"The portal introduces itself as `{transport.DEFAULT_USER_AGENT}`. "
-        f"The open index of works keeps a separate request pool for those who "
-        f"give a contact address: it is taken from the environment variable "
-        f"`{OPENALEX_MAILTO_ENV}`, and without it a pass runs slower and risks "
-        f"a refusal on rate.",
+        "The open index of works meters requests in credits per day and needs "
+        "neither a contact address nor a key for the few a weekly pass spends.",
         "",
         f"Retries after a refusal on rate: {transport.RETRIES_ON_RATE_LIMIT}.",
         "",

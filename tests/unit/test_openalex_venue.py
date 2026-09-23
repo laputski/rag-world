@@ -444,3 +444,17 @@ def test_a_refused_title_search_is_not_said_to_have_found_no_match():
     )
     assert any("answered 504" in e for e in result.errors)
     assert not any(DPR_TITLE in e for e in result.errors if "no reliable match" in e)
+
+
+def test_no_contact_address_is_sent_to_the_index(monkeypatch):
+    """The index ignores a contact address, so none is sent.
+
+    Its "polite" pool was retired in February 2026, and on 2026-09-23 the limit
+    was the same with and without one. An address in every request would
+    publish a personal detail for nothing.
+    """
+    monkeypatch.setenv("OPENALEX_MAILTO", "someone@example.org")
+    http = FakeHttp({"title.search": {"results": [_dpr()]}})
+    collect_openalex("naive_dense", "https://arxiv.org/abs/2004.04906", http=http,
+                     expected_title="Naive Dense", known_title=DPR_TITLE, today=TODAY)
+    assert http.calls and not any("mailto" in call for call in http.calls)

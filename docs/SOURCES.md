@@ -43,7 +43,7 @@ The pause between two requests to one host. The values come from what the resour
 | `pypi.org` | 0.2 |
 | any other | 0.5 |
 
-The portal introduces itself as `rag-world/0.2 (registry; +https://ragworld.org)`. The open index of works keeps a separate request pool for those who give a contact address: it is taken from the environment variable `OPENALEX_MAILTO`, and without it a pass runs slower and risks a refusal on rate.
+The portal introduces itself as `rag-world/0.2 (registry; +https://ragworld.org)`. The open index of works meters requests in credits per day and needs neither a contact address nor a key for the few a weekly pass spends.
 
 Retries after a refusal on rate: 3.
 
