@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [],
     "attention": 3.164,
@@ -105,10 +105,18 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=188; year=2024; citation_velocity=5.875",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4318719006",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=68; year=2023; citation_velocity=1.545",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 11,
+    "evidence_count": 12,
     "family": null,
     "first_published": "2023",
     "groups": [

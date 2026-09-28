@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -177,10 +177,26 @@
         "type": "package_downloads",
         "value": "package=opensearch-py; version=3.2.0; downloads_last_month=38989460",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://github.com/opensearch-project/OpenSearch",
+        "type": "repository",
+        "value": "opensearch-project/OpenSearch: license=apache-2.0, last_push=2026-09-28, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/opensearch-py/",
+        "type": "package_downloads",
+        "value": "package=opensearch-py; version=3.2.0; downloads_last_month=38565351",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 17,
+    "evidence_count": 19,
     "family": null,
     "first_published": null,
     "groups": [

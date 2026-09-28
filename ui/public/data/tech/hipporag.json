@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [
       "HippoRAG 2"
@@ -203,10 +203,18 @@
         "type": "publication",
         "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=98; year=2024; citation_velocity=3.062",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4398886972",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=21; year=2024; citation_velocity=0.75",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 20,
+    "evidence_count": 21,
     "family": "B",
     "first_published": "2024",
     "groups": [

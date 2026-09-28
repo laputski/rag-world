@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [
       "RAG Anything"
@@ -143,10 +143,18 @@
         "type": "package_downloads",
         "value": "package=raganything; version=1.4.1; downloads_last_month=6130",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/raganything/",
+        "type": "package_downloads",
+        "value": "package=raganything; version=1.4.1; downloads_last_month=6233",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": "graph_rag",
     "first_published": "2025-10",
     "groups": [

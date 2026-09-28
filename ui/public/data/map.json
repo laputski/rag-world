@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "count": 76,
   "levels": [
     "L0",
@@ -172,9 +172,9 @@
       "prose_id": "bge_m3"
     },
     {
-      "attention": 15.623,
+      "attention": 15.725,
       "attention_cohort": null,
-      "attention_raw": 15.623,
+      "attention_raw": 15.725,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": null,
@@ -283,9 +283,9 @@
       "prose_id": "chatqa"
     },
     {
-      "attention": 2.494,
+      "attention": 2.481,
       "attention_cohort": null,
-      "attention_raw": 2.494,
+      "attention_raw": 2.481,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2021",
@@ -1486,9 +1486,9 @@
       "prose_id": "rag_anything"
     },
     {
-      "attention": 3.231,
+      "attention": 3.771,
       "attention_cohort": "2025",
-      "attention_raw": 1.0,
+      "attention_raw": 1.167,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-02",
@@ -1595,9 +1595,9 @@
       "prose_id": "rarg"
     },
     {
-      "attention": 6.806,
+      "attention": 6.829,
       "attention_cohort": "2023",
-      "attention_raw": 12.638,
+      "attention_raw": 12.681,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023",
@@ -1801,9 +1801,9 @@
       "prose_id": "speculative_rag"
     },
     {
-      "attention": 3.456,
+      "attention": 3.519,
       "attention_cohort": null,
-      "attention_raw": 3.456,
+      "attention_raw": 3.519,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2009",
@@ -1826,9 +1826,9 @@
       "prose_id": "standard_hybridrag"
     },
     {
-      "attention": 0.354,
+      "attention": 0.339,
       "attention_cohort": "2023",
-      "attention_raw": 0.657,
+      "attention_raw": 0.629,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2023-10",
@@ -1849,9 +1849,9 @@
       "prose_id": "step_back"
     },
     {
-      "attention": 0.0,
+      "attention": 0.162,
       "attention_cohort": "2025",
-      "attention_raw": 0.0,
+      "attention_raw": 0.05,
       "confidence": 1.0,
       "evidence_basis": "computed",
       "first_published": "2025-01",

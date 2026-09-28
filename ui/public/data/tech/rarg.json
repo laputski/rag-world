@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [
       "Relevance-Aware RipGrep Search Agent"
@@ -51,10 +51,18 @@
         "type": "repository",
         "value": "LeqsNaN/RARG: license=mit, last_push=2026-08-03, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://github.com/LeqsNaN/RARG",
+        "type": "repository",
+        "value": "LeqsNaN/RARG: license=mit, last_push=2026-09-24, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": null,
     "first_published": "2026-07",
     "groups": [

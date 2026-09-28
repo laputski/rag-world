@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-21",
+  "built_at": "2026-09-28",
   "technology": {
     "aliases": [],
-    "attention": 0.0,
+    "attention": 0.162,
     "attention_cohort": "2025",
-    "attention_raw": 0.0,
+    "attention_raw": 0.05,
     "barriers": "Общее препятствие состоит в стоимости обновления, и оно распадается на четыре части.\n\nПересчёт векторных представлений при каждом изменении обходится дорого, а полное перестроение указателя занимает существенное время. Согласованность во времени нужно поддерживать особо, потому что утверждение, верное в один момент, ложно в другой, и указатель должен различать эти случаи. События поступают не в том порядке, в каком произошли, и запись, пришедшая позже своего предшественника, нарушает порядок в указателе. Наконец, свежесть и задержка противоречат друг другу: чем ближе указатель к текущему состоянию потока, тем дороже обходится каждый запрос.",
     "barriers_en": "The common obstacle is the cost of updating, and it falls into four parts.\n\nRecomputing vector representations on every change is expensive, and a full rebuild of the index takes considerable time. Consistency over time has to be maintained explicitly, because a statement true at one moment is false at another, and the index must tell the two cases apart. Events arrive out of the order in which they occurred, and a record arriving after its successor disturbs the ordering in the index. Finally, freshness and latency work against each other: the closer the index tracks the current state of the stream, the more each query costs.",
     "confidence": 1.0,
@@ -57,10 +57,18 @@
         "type": "publication",
         "value": "arXiv:2501.14101 (2025)",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-09-28",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4406840604",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2025; citation_velocity=0.05",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 2,
+    "evidence_count": 3,
     "family": null,
     "first_published": "2025-01",
     "groups": [
