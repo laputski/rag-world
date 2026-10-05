@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [
       "BM25"
     ],
-    "attention": 15.725,
+    "attention": 15.766,
     "attention_cohort": null,
-    "attention_raw": 15.725,
+    "attention_raw": 15.766,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -131,10 +131,18 @@
         "type": "publication",
         "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3208; year=2009; citation_velocity=15.725",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4252076394",
+        "type": "publication",
+        "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3232; year=2009; citation_velocity=15.766",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 11,
+    "evidence_count": 12,
     "family": null,
     "first_published": null,
     "groups": [

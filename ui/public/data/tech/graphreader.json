@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [],
-    "attention": 0.602,
+    "attention": 0.603,
     "attention_cohort": "2024",
-    "attention_raw": 0.344,
+    "attention_raw": 0.333,
     "confidence": 1.0,
     "configuration": {
       "A3": "extracted_triples",
@@ -61,10 +61,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2024; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4404781346",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=11; year=2024; citation_velocity=0.333",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": null,
     "first_published": "2024",
     "groups": [

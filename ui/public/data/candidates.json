@@ -1,6 +1,37 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "candidates": [
+    {
+      "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
+      "arxiv_id": "2609.35069",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 6,
+        "signals": [
+          {
+            "code": "coreTask",
+            "tasks": [
+              "retrieval"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-05",
+      "found_by": "catalogue",
+      "published": "2026-09-28",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2609.35069",
+      "tasks": [
+        "retrieval",
+        "text-reranking"
+      ],
+      "title": "RenderRank: Learning to Rerank Text with Compressed Visual Tokens",
+      "verdict": null
+    },
     {
       "abstract": "Retrieval-Augmented Generation (RAG) is widely used to mitigate hallucinations of Large Language Models (LLMs) by leveraging external knowledge. While effective for simple queries, traditional RAG systems struggle with large-scale, unstructured corpora where information is fragmented. Recent advances incorporate knowledge graphs to capture relational structures, enabling more comprehensive retrieval for complex, multi-hop reasoning tasks.",
       "arxiv_id": "2510.10114",
@@ -269,6 +300,37 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-context reasoning in large language models incurs substantial computation and memory costs. Visual text compression (VTC) reduces input length by rendering text as images, but fixed-resolution rendering creates a compression-performance trade-off: low DPI saves tokens at the expense of legibility, whereas high DPI spends tokens on irrelevant content.",
+      "arxiv_id": "2609.36651",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "reasoning"
+            ]
+          },
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-05",
+      "found_by": "catalogue",
+      "published": "2026-09-29",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2609.36651",
+      "tasks": [
+        "long-context",
+        "reasoning"
+      ],
+      "title": "FocusVTC: Efficient and High-Performance Visual Text Compression with Adaptive Resolution",
       "verdict": null
     },
     {

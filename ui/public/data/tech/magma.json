@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [
       "Multi-Graph based Agentic Memory Architecture"
     ],
-    "attention": 0.25,
+    "attention": 0.222,
     "attention_cohort": null,
-    "attention_raw": 0.25,
+    "attention_raw": 0.222,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -115,10 +115,34 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=1; year=2026; citation_velocity=0.125",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7166853577",
+        "type": "publication",
+        "value": "venue=Annual Meeting of the Association for Computational Linguistics (ACL); peer_reviewed=true; cited_by=2; year=2026; citation_velocity=0.222",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2601.03236",
+        "type": "publication",
+        "value": "venue=ACL 2026; peer_reviewed=true; citations_semantic_scholar=54; year=2026",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7166853577",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=2; year=2026; citation_velocity=0.222",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 12,
     "family": null,
     "first_published": "2026-01",
     "groups": [
@@ -152,7 +176,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2601.03236",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       },
       {
         "kind": "paper",
@@ -160,7 +184,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://doi.org/10.18653/v1/2026.acl-long.1709",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       },
       {
         "kind": "github",
@@ -168,7 +192,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/FredJiang0324/MAGMA",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       }
     ],
     "name": "MAGMA",

@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [],
-    "attention": 0.324,
+    "attention": 0.388,
     "attention_cohort": "2024",
-    "attention_raw": 0.185,
+    "attention_raw": 0.214,
     "confidence": 1.0,
     "configuration": {
       "A1": "page_image",
@@ -153,10 +153,26 @@
         "type": "repository",
         "value": "illuin-tech/colpali: license=mit, last_push=2026-09-21, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400373146",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2024; citation_velocity=0.214",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=240; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 14,
+    "evidence_count": 16,
     "family": "E",
     "first_published": "2024-07",
     "groups": [
@@ -196,7 +212,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/illuin-tech/colpali",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       }
     ],
     "name": "ColPali",

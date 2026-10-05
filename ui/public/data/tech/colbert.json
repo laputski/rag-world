@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [],
-    "attention": 2.481,
+    "attention": 2.436,
     "attention_cohort": null,
-    "attention_raw": 2.481,
+    "attention_raw": 2.436,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -201,10 +201,26 @@
         "type": "package_downloads",
         "value": "package=colbert-ai; version=0.2.22; downloads_last_month=110713",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W3034439313",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=190; year=2020; citation_velocity=2.436",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/colbert-ai/",
+        "type": "package_downloads",
+        "value": "package=colbert-ai; version=0.2.22; downloads_last_month=99353",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 20,
+    "evidence_count": 22,
     "family": "H",
     "first_published": "2021",
     "groups": [
@@ -245,7 +261,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/stanford-futuredata/ColBERT",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       }
     ],
     "name": "ColBERT",

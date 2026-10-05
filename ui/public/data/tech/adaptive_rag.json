@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [],
-    "attention": 11.876,
+    "attention": 12.187,
     "attention_cohort": "2024",
-    "attention_raw": 6.781,
+    "attention_raw": 6.727,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -157,10 +157,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=11; year=2024; citation_velocity=0.367",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4401042753",
+        "type": "publication",
+        "value": "venue=Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT); peer_reviewed=true; cited_by=222; year=2024; citation_velocity=6.727",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 14,
+    "evidence_count": 15,
     "family": "D",
     "first_published": "2024",
     "groups": [
@@ -200,7 +208,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/starsuzi/Adaptive-RAG",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       }
     ],
     "name": "Adaptive RAG",

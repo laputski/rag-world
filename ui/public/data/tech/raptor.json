@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-09-28",
+  "built_at": "2026-10-05",
   "technology": {
     "aliases": [],
-    "attention": 1.532,
+    "attention": 1.592,
     "attention_cohort": "2024",
-    "attention_raw": 0.875,
+    "attention_raw": 0.879,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -89,10 +89,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=28; year=2024; citation_velocity=0.875",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-05",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4391463108",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=29; year=2024; citation_velocity=0.879",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": "H",
     "first_published": "2024",
     "groups": [
@@ -132,7 +140,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/parthsarthi03/raptor",
-        "verified_at": "2026-09-01"
+        "verified_at": "2026-10-05"
       }
     ],
     "name": "RAPTOR",
