@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [],
-    "attention": 3.098,
+    "attention": 3.038,
     "attention_cohort": "2023",
-    "attention_raw": 5.727,
+    "attention_raw": 5.758,
     "confidence": 1.0,
     "configuration": {
       "C3": "score_normalization",
@@ -121,10 +121,18 @@
         "type": "publication",
         "value": "venue=Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT); peer_reviewed=true; cited_by=189; year=2024; citation_velocity=5.727",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4401042773",
+        "type": "publication",
+        "value": "venue=Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT); peer_reviewed=true; cited_by=190; year=2024; citation_velocity=5.758",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 14,
     "family": null,
     "first_published": "2023",
     "groups": [

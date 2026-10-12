@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [],
     "attention": 0.0,
@@ -85,10 +85,18 @@
         "type": "publication",
         "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=34; year=2025",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2508.06105",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=35; year=2025",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": null,
     "first_published": "2025-08",
     "groups": [
@@ -121,7 +129,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2508.06105",
-        "verified_at": "2026-09-07"
+        "verified_at": "2026-10-12"
       },
       {
         "kind": "github",
@@ -129,7 +137,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/chensyCN/LogicRAG",
-        "verified_at": "2026-09-07"
+        "verified_at": "2026-10-12"
       }
     ],
     "name": "LogicRAG",

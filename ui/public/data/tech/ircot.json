@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [],
-    "attention": 3.607,
+    "attention": 3.763,
     "attention_cohort": "2023",
-    "attention_raw": 6.667,
+    "attention_raw": 7.133,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -153,10 +153,18 @@
         "type": "publication",
         "value": "venue=Annual Meeting of the Association for Computational Linguistics (ACL); peer_reviewed=true; cited_by=300; year=2023; citation_velocity=6.667",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385571271",
+        "type": "publication",
+        "value": "venue=Annual Meeting of the Association for Computational Linguistics (ACL); peer_reviewed=true; cited_by=321; year=2023; citation_velocity=7.133",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 14,
+    "evidence_count": 15,
     "family": "C",
     "first_published": "2023",
     "groups": [

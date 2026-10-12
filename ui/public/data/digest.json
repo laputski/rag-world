@@ -1,6 +1,36 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "issues": [
+    {
+      "added": [],
+      "by_level": {
+        "L0": 4,
+        "L1": 27,
+        "L2": 14,
+        "L3": 23,
+        "L4": 3,
+        "L5": 3,
+        "unknown": 2
+      },
+      "demoted": [],
+      "evidence_added": 59,
+      "evidence_by_type": {
+        "package_downloads": 7,
+        "publication": 43,
+        "repository": 9
+      },
+      "evidence_seen": 724,
+      "issued_at": "2026-10-12",
+      "levels_seen": 123,
+      "links_broken": 0,
+      "links_checked": 10,
+      "promoted": [],
+      "runs_seen": 21,
+      "since": "2026-10-05",
+      "text": "Собрано 59 свидетельств: 43 о публикациях, 9 о репозиториях, 7 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 27, L2 у 14, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+      "text_en": "Collected 59 pieces of evidence: 43 about publications, 9 about repositories, 7 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 27, L2 in 14, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+      "total": 76
+    },
     {
       "added": [],
       "by_level": {

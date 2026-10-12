@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [
       "HippoRAG 2"
     ],
-    "attention": 5.873,
+    "attention": 6.482,
     "attention_cohort": "2024",
-    "attention_raw": 3.242,
+    "attention_raw": 3.97,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -227,10 +227,26 @@
         "type": "publication",
         "value": "venue=DOI 10.52202; peer_reviewed=true; cited_by=107; year=2024; citation_velocity=3.242",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/OSU-NLP-Group/HippoRAG",
+        "type": "repository",
+        "value": "OSU-NLP-Group/HippoRAG: license=mit, last_push=2026-10-06, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=131; year=2024; citation_velocity=3.97",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 23,
+    "evidence_count": 25,
     "family": "B",
     "first_published": "2024",
     "groups": [

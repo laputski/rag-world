@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [
       "Multi-Graph based Agentic Memory Architecture"
@@ -139,10 +139,18 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=2; year=2026; citation_velocity=0.222",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2601.03236",
+        "type": "publication",
+        "value": "venue=ACL 2026; peer_reviewed=true; citations_semantic_scholar=56; year=2026",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2026-01",
     "groups": [

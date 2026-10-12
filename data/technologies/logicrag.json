@@ -45,7 +45,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2508.06105",
-      "verified_at": "2026-09-07"
+      "verified_at": "2026-10-12"
     },
     {
       "kind": "github",
@@ -53,7 +53,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://github.com/chensyCN/LogicRAG",
-      "verified_at": "2026-09-07"
+      "verified_at": "2026-10-12"
     }
   ],
   "name": "LogicRAG",

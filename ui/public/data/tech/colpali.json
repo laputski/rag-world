@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [],
-    "attention": 0.388,
+    "attention": 0.408,
     "attention_cohort": "2024",
-    "attention_raw": 0.214,
+    "attention_raw": 0.25,
     "confidence": 1.0,
     "configuration": {
       "A1": "page_image",
@@ -169,10 +169,26 @@
         "type": "publication",
         "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=240; year=2024",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4400373146",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2024; citation_velocity=0.25",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2407.01449",
+        "type": "publication",
+        "value": "venue=ICLR 2025; peer_reviewed=true; citations_semantic_scholar=246; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 16,
+    "evidence_count": 18,
     "family": "E",
     "first_published": "2024-07",
     "groups": [

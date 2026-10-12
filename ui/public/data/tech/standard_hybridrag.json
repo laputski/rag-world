@@ -1,13 +1,13 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [
       "HybridRAG",
       "Hybrid RAG"
     ],
-    "attention": 3.575,
+    "attention": 3.614,
     "attention_cohort": null,
-    "attention_raw": 3.575,
+    "attention_raw": 3.614,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -148,10 +148,18 @@
         "type": "publication",
         "value": "venue=International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR); peer_reviewed=true; cited_by=740; year=2009; citation_velocity=3.575",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W2148972377",
+        "type": "publication",
+        "value": "venue=International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR); peer_reviewed=true; cited_by=748; year=2009; citation_velocity=3.614",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 14,
     "family": "D",
     "first_published": "2009",
     "groups": [

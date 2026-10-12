@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-05",
+  "built_at": "2026-10-12",
   "technology": {
     "aliases": [
       "GraphRAG"
     ],
-    "attention": null,
-    "attention_cohort": null,
-    "attention_raw": null,
+    "attention": 8.38,
+    "attention_cohort": "2024",
+    "attention_raw": 5.133,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -256,10 +256,34 @@
         "type": "package_downloads",
         "value": "package=graphrag; version=3.2.0; downloads_last_month=50228",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-10-12, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4395686609",
+        "type": "publication",
+        "value": "venue=OASIcs : OpenAccess Series in Informatics; peer_reviewed=true; cited_by=154; year=2024; citation_velocity=5.133",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-12",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.3.0; downloads_last_month=50897",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 26,
+    "evidence_count": 29,
     "family": "B",
     "first_published": "2024",
     "groups": [
