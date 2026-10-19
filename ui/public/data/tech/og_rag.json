@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 4.02,
+    "attention": 3.602,
     "attention_cohort": "2025",
-    "attention_raw": 1.19,
+    "attention_raw": 1.286,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -177,10 +177,26 @@
         "type": "publication",
         "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=25; year=2025; citation_velocity=1.19",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416035296",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=27; year=2025; citation_velocity=1.286",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2412.15235",
+        "type": "publication",
+        "value": "venue=EMNLP 2025; peer_reviewed=true; citations_semantic_scholar=53; year=2024",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 17,
+    "evidence_count": 19,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -213,7 +229,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2412.15235",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "github",

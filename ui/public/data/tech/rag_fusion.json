@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -100,7 +100,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/Raudaschl/rag-fusion",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "RAG-Fusion",

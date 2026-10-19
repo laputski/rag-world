@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -209,10 +209,18 @@
         "type": "package_downloads",
         "value": "package=qdrant-client; version=1.19.1; downloads_last_month=12034960",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://github.com/qdrant/qdrant",
+        "type": "repository",
+        "value": "qdrant/qdrant: license=apache-2.0, last_push=2026-10-19, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 21,
+    "evidence_count": 22,
     "family": null,
     "first_published": null,
     "groups": [
@@ -244,7 +252,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://qdrant.tech/",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "github",

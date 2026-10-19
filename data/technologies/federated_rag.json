@@ -48,7 +48,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -56,7 +56,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2504.19101",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "github",
@@ -64,7 +64,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://github.com/DocAILab/FedE4RAG",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -72,7 +72,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/pdf/2505.18906",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -80,7 +80,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://openreview.net/forum?id=kOUMng3ynd",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Federated RAG",

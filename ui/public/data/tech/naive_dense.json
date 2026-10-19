@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 42.136,
+    "attention": 43.346,
     "attention_cohort": null,
-    "attention_raw": 42.136,
+    "attention_raw": 43.346,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -129,10 +129,26 @@
         "type": "publication",
         "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=7224; year=2020",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W3015883388",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=3511; year=2020; citation_velocity=43.346",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+        "type": "publication",
+        "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=7327; year=2020",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 11,
+    "evidence_count": 13,
     "family": null,
     "first_published": null,
     "groups": [
@@ -164,7 +180,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2004.04906",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "Naive Dense",

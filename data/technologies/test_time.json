@@ -49,7 +49,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://openreview.net/forum?id=cnUq7GkS6d",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -57,7 +57,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2508.18260",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -65,7 +65,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://aclanthology.org/2024.naacl-long.389.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -73,7 +73,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://aclanthology.org/2025.findings-emnlp.648.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "github",
@@ -81,7 +81,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://github.com/DavidZWZ/Awesome-RAG-Reasoning",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "RAG with Test-Time Reasoning",

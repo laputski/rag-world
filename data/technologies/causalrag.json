@@ -48,7 +48,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2503.19878",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "github",
@@ -56,7 +56,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://github.com/hippoley/CausalRAG",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -64,7 +64,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://aclanthology.org/2025.naacl-industry.42.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "CausalRAG",

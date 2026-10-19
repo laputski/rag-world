@@ -49,7 +49,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -57,7 +57,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2602.13229",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -65,7 +65,7 @@
       "label_en": null,
       "status": "guarded",
       "url": "https://www.sciencedirect.com/science/article/pii/S1877050926019010",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "product",
@@ -73,7 +73,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://learn.microsoft.com/azure/azure-arc/edge-rag/release-notes",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Edge and On-Device RAG",

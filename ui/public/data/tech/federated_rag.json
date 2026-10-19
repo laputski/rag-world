@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 1.125,
+    "attention": 1.067,
     "attention_cohort": "2025",
-    "attention_raw": 0.333,
+    "attention_raw": 0.381,
     "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
     "barriers_en": "The common obstacle is the tension between preserving confidentiality and producing a useful answer, and it falls into four parts.\n\nDifferential privacy, that is, the addition of calibrated noise so that an individual record cannot be recovered, degrades vector representations and thereby lowers recall. Training representations jointly requires transferring large volumes between participants, because representation models are large. Handling the query is itself unsafe: both the text of the query and the content returned can disclose protected information. Finally, data schemas differ across participants and have to be reconciled before any search can take place.",
     "confidence": 1.0,
@@ -121,10 +121,18 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=7; year=2025; citation_velocity=0.333",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034993",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=8; year=2025; citation_velocity=0.381",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": null,
     "first_published": "2025-04",
     "groups": [
@@ -156,7 +164,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "preprint",
@@ -164,7 +172,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2504.19101",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "github",
@@ -172,7 +180,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/DocAILab/FedE4RAG",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "preprint",
@@ -180,7 +188,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/pdf/2505.18906",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "other",
@@ -188,7 +196,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://openreview.net/forum?id=kOUMng3ynd",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "maturity_note": "Ранние работы и первые прототипы. Систематический обзор, сведший направление воедино, представлен на конференции EMNLP 2025.",

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -30,6 +30,43 @@
         "text-reranking"
       ],
       "title": "RenderRank: Learning to Rerank Text with Compressed Visual Tokens",
+      "verdict": null
+    },
+    {
+      "abstract": "Autonomous research agents must acquire and reason over evidence within a limited budget. Yet relevant sources can remain uninspected or unused, leaving a gap between retrieval coverage and the evidence that informs research. The challenge is to align fast local judgments with changing evidence needs and feed their findings back into research decisions.",
+      "arxiv_id": "2610.18272",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 5,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "question-answering"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "catalogue",
+      "published": "2026-10-13",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2610.18272",
+      "tasks": [
+        "auto-research",
+        "deep-research-agents",
+        "question-answering",
+        "text-reranking"
+      ],
+      "title": "JevGPT: Thinking Fast and Slow in Autonomous Research",
       "verdict": null
     },
     {
@@ -334,6 +371,32 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Strong multi-hop retrieval should be practical to deploy without expensive corpus preparation or complex database infrastructure. We present SAG2, an embedding-free retrieval architecture built around a single SQLite database, BM25, and contextual evidence decisions from JEV. SAG2 follows the query-time association principle of SAG (SQL-Retrieval Augmented Generation), while replacing its event-entity and dense indexes with a lexical index over original passages.",
+      "arxiv_id": "2610.22588",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 8
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.22588",
+      "tasks": [],
+      "title": "SAG2: Embedding-Free Multi-Hop Retrieval with BM25 and JEV",
       "verdict": null
     },
     {
@@ -942,6 +1005,84 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph retrieval-augmented generation (GraphRAG) uses document-derived knowledge graphs to assemble evidence for large language model (LLM) answers. Its security depends on both the seed chunks retrieved for a query and the graph evidence assembled from them, yet attacks on this evidence path remain underexplored. We introduce GraphRAG-LTM, a Layered Threat Modeling framework that tests three nested levels of attacker access.",
+      "arxiv_id": "2610.19549",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.19549",
+      "tasks": [],
+      "title": "GraphRAG-LTM: A Layered Threat Modeling Framework for Attacks on Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term memory remains a fundamental bottleneck for large language model (LLM) agents across sessions. Existing systems typically adopt a write-then-retrieve paradigm, storing context-dependent dialogue fragments and retrieving them via nearest-neighbor search in a continuous embedding space. This design yields unstable access units and systematically misses logically related but lexically distant evidence.",
+      "arxiv_id": "2610.19472",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.19472",
+      "tasks": [],
+      "title": "MemCode: Discrete Semantic Representations for Long-Term Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "This paper presents AutoSec-RAN, a specification-grounded large language model (LLM) framework for automated security triage of Open Radio Access Network (O-RAN) testing. Unlike approaches relying on static rule sets or privileged access to raw packet captures, AutoSec-RAN fine-tunes Mistral-7B-Instruct through two Low-Rank Adaptation (LoRA) stages over a curated corpus of 69 O-RAN, 3GPP, and adjacent standards documents, then selectively augments inference with retrieval-aug…",
+      "arxiv_id": "2610.15995",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.15995",
+      "tasks": [],
+      "title": "AutoSec-RAN: Specification-Grounded LLM Fine-Tuning for Automated Security Analysis of O-RAN",
       "verdict": null
     },
     {
@@ -1857,6 +1998,402 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Optimizing product listings for generative search requires language agents not only to rewrite effectively but also to continually self-improve by retaining successful strategies across diverse categories. However, existing approaches often treat structured listings as free-form text, leaving effective strategies implicit in prompts, search trajectories, or rewritten outputs rather than accumulating them as a reusable agentic memory.",
+      "arxiv_id": "2610.23709",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.23709",
+      "tasks": [],
+      "title": "GLOBE: Evolving Structured Agentic Memory for E-commerce Product Optimization in Generative Search",
+      "verdict": null
+    },
+    {
+      "abstract": "Evaluating language models and agents requires combining benchmark accuracy, judge-based assessment, runtime performance, tool-use behavior, and retrieval quality. Differences in interfaces, metric semantics, and trace formats complicate these comparisons and can hide failures in agentic workflows.",
+      "arxiv_id": "2610.22511",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.22511",
+      "tasks": [],
+      "title": "AuditKIT: A Unified Evaluation Spine for Benchmarking, Judging, and Comparing Large Language Models and Agentic Systems",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation over text-rich knowledge graphs requires identifying evidence that contributes to answering a question, rather than merely matching its textual content. Existing agentic retrievers adaptively balance global search and multi-hop exploration but primarily rely on textual similarity to guide retrieval.",
+      "arxiv_id": "2610.22017",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.22017",
+      "tasks": [],
+      "title": "CARA: Causally Guided Retrieval Agent for Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "An agent's memory must remain useful as information changes across conversations. A new fact may replace an earlier value without making that value irrelevant to a later question. We present Temporal State Tracking Memory (TEM), a training-free framework for tracking these changes. TEM stores facts as versioned records linked to their sources.",
+      "arxiv_id": "2610.21900",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.21900",
+      "tasks": [],
+      "title": "TEM: Temporal State Tracking Memory for Large Language Model Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Agent memory architectures define how LLM agents store and reuse experience across tasks, but they are typically fixed after deployment, limiting their adaptability across task types. Recent self-evolving approaches instead adapt these memory architectures using execution feedback, typically represented as evaluation scores or compressed summaries.",
+      "arxiv_id": "2610.21170",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.21170",
+      "tasks": [],
+      "title": "MemScope: Evolving Agent Memory Architectures through Localized Code Repair",
+      "verdict": null
+    },
+    {
+      "abstract": "Agent memory enables large language model (LLM) agents to reuse past experiences without updating their parameters. However, semantic similarity alone does not guarantee memory usefulness: downstream performance depends on how memories are selected and presented to the agent. We propose MemComposer, a memory composer that jointly examines the current query and retrieved candidates to decide which experiences to include, how many to select, and how to order them.",
+      "arxiv_id": "2610.21091",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.21091",
+      "tasks": [],
+      "title": "MemComposer: Learning to Assemble Memories for LLM Agents via Reinforcement Learning",
+      "verdict": null
+    },
+    {
+      "abstract": "Medication recommendation (MR) is critical for clinical decision support. While existing MR methods are mostly designed for single-center learning, where only one independent hospital is involved, multi-center MR with hospitals of different scales has become increasingly demanding in practice. In multi center settings, abundant data from large medical centers can improve recommendation performance for low-resource centers.",
+      "arxiv_id": "2610.20191",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.20191",
+      "tasks": [],
+      "title": "HEM-Med: A Hierarchical Agentic Memory Framework for Safe Multi-Center Medication Recommendation",
+      "verdict": null
+    },
+    {
+      "abstract": "Iterative retrieval-augmented generation (RAG) accumulates knowledge from retrieved evidence to answer complex questions, but existing methods struggle to reconstruct entity correspondences and inferential dependencies across retrieved passages as new information emerges. We propose RCER, an iterative RAG method that reconstructs these cross-evidence relations directly from accumulated source passages.",
+      "arxiv_id": "2610.19398",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-14",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.19398",
+      "tasks": [],
+      "title": "RCER: Reconstructing Cross-Evidence Relations for Iterative Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Legal question answering requires answers that are not only plausible, but also grounded in legally valid and citable evidence. Standard retrieval-augmented generation often relies on one-shot semantic matching, which is insufficient when legal evidence must be selected according to authority, applicability, and diversity across heterogeneous sources. We introduce Legal-R1, an agentic retrieval framework for evidence-based legal reasoning.",
+      "arxiv_id": "2610.18611",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.18611",
+      "tasks": [],
+      "title": "Legal-R1: Agentic Retrieval for Evidence-Based Legal Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Medication recommendation requires jointly considering diagnoses, comorbidities, longitudinal patient history, and treatment interactions. Although recent retrieval-augmented generation approaches using language models have shown promise for clinical recommendation, most existing systems rely on fixed retrieval pipelines that cannot adapt to diverse clinical retrieval scenarios and may introduce noisy or irrelevant evidence.",
+      "arxiv_id": "2610.16440",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-12",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.16440",
+      "tasks": [],
+      "title": "ARMED: Adaptive Retrieval-Augmented Medication Recommendation",
+      "verdict": null
+    },
+    {
+      "abstract": "With the rapid proliferation of social media, harmful memes have become a growing threat to online ecosystems. Their harmfulness is often implicitly conveyed through complex interactions among visual, textual, and contextual cues, making accurate detection challenging. Recent studies have introduced Retrieval-Augmented Generation (RAG) and external knowledge into harmful meme detection.",
+      "arxiv_id": "2610.15463",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.15463",
+      "tasks": [],
+      "title": "MemeLogos: Knowledge-Driven Retrieval-Augmented Reasoning for Harmful Meme Detection",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) offer a new approach to wearable-sensor-based human activity recognition. Retrieval-augmented generation (RAG) further introduces similar motion examples and discriminative sensor knowledge, enabling decisions grounded in observations relevant to the current query. More evidence, however, does not necessarily mean better-organized evidence.",
+      "arxiv_id": "2610.15298",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.15298",
+      "tasks": [],
+      "title": "CHEAR: Confusion-Hierarchy Evidence-Aware Reasoning for Cost-Efficient Human Activity Recognition",
+      "verdict": null
+    },
+    {
+      "abstract": "LLMs increasingly support sensor-based human activity recognition (HAR) by linking motion signals with activity semantics and physical knowledge. Retrieval-augmented generation (RAG) grounds decisions in sensor examples and domain features, enabling training-free target-user inference with less dependence on raw numerical arrays. However, existing LLM/RAG-based HAR typically searches single-level activity spaces using static population knowledge.",
+      "arxiv_id": "2610.15292",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.15292",
+      "tasks": [],
+      "title": "OntoAR-HAR: Ontology-Guided Agentic RAG with Personalized Memory for Human Activity Recognition",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) reuses the same documents across many requests, making non-prefix KV-cache reuse attractive. Yet a cached document state is not reusable text: it is a context-conditioned causal state whose keys and values depend on the prefix, position, and preceding documents under which it was computed.",
+      "arxiv_id": "2610.15186",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.15186",
+      "tasks": [],
+      "title": "SAFE-KV: Causal Suffix Repair for Behavior-Preserving Non-Prefix KV Cache Reuse in RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Biomedical Named Entity Linking (BioNEL) is the task of mapping mentions extracted from biomedical texts to canonical entities or concepts in the standardized knowledge base. Although existing methods have achieved remarkable performance in mapping accuracy, most rely on training with domain-specific datasets, which fundamentally limits their cross-domain adaptability.",
+      "arxiv_id": "2610.14789",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.14789",
+      "tasks": [],
+      "title": "Training-Free BioNEL-RAG: Advancing Biomedical Entity Linking through Retrieval-Augmented Generation and Large Language Model",
+      "verdict": null
+    },
+    {
+      "abstract": "Chinese historical documents are invaluable cultural treasures, but their complexity poses significant comprehension challenges for non-specialists. Despite the success of Large Language Models (LLMs) and Large Vision-Language Models (LVLMs) in modern document tasks, their capabilities in Long (full-book) Historical Document understanding remain largely unexplored.",
+      "arxiv_id": "2610.14531",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.14531",
+      "tasks": [],
+      "title": "LongHisDoc: A Comprehensive Benchmark for Chinese Long Historical Document Understanding",
+      "verdict": null
+    },
+    {
+      "abstract": "Medication recommendations seek to deliver personalized drug combinations based on patients' clinical information, where ensuring transparent decision-making and personalized safety are of paramount importance. However, existing approaches predominantly operate as ``black boxes'', offering limited interpretability and hindering clinician trust.",
+      "arxiv_id": "2610.14474",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.14474",
+      "tasks": [],
+      "title": "RES-MR: Risk-Aware Reasoning for Explainable and Safe Medication Recommendation",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term memory enables LLM agents to learn from past interactions but exposes memory formation to adversarial influence. Existing studies primarily organize memory poisoning by attack channels, corruption patterns, or lifecycle stages, leaving formation interfaces insufficiently characterized.",
+      "arxiv_id": "2610.14431",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "archive",
+      "published": "2026-10-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.14431",
+      "tasks": [],
+      "title": "MemForm: Benchmarking Memory Formation Poisoning in LLM Agents",
       "verdict": null
     },
     {
@@ -3516,6 +4053,43 @@
       "source": "https://arxiv.org/abs/2403.08593",
       "tasks": [],
       "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
+      "verdict": null
+    },
+    {
+      "abstract": "Making a conference poster is visual coding in miniature: an entire paper must be compressed onto a single page, which exercises summarization, visual design, and code implementation at once, using nothing beyond the paper itself.",
+      "arxiv_id": "2610.23230",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 1,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "summarization"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-10-19",
+      "found_by": "catalogue",
+      "published": "2026-10-16",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2610.23230",
+      "tasks": [
+        "reinforcement-learning",
+        "summarization"
+      ],
+      "title": "RAP: A Dataset for Paper-to-Poster Generation via Declarative Markup from Human-Crafted Exemplars",
       "verdict": null
     },
     {

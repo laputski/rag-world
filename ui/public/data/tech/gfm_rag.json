@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [
       "Graph Foundation Model for RAG"
     ],
-    "attention": 1.287,
+    "attention": 1.067,
     "attention_cohort": "2025",
     "attention_raw": 0.381,
     "confidence": 1.0,

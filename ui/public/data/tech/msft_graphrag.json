@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [
       "GraphRAG"
     ],
-    "attention": 8.38,
+    "attention": 7.428,
     "attention_cohort": "2024",
     "attention_raw": 5.133,
     "confidence": 1.0,
@@ -280,10 +280,18 @@
         "type": "package_downloads",
         "value": "package=graphrag; version=3.3.0; downloads_last_month=50897",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-10-19, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 29,
+    "evidence_count": 30,
     "family": "B",
     "first_published": "2024",
     "groups": [
@@ -317,7 +325,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/microsoft/graphrag",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "preprint",
@@ -325,7 +333,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2404.16130",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "Microsoft GraphRAG",

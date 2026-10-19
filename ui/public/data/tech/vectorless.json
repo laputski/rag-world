@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [
       "PageIndex"
@@ -171,10 +171,18 @@
         "type": "repository",
         "value": "VectifyAI/PageIndex: license=mit, last_push=2026-10-12, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://github.com/VectifyAI/PageIndex",
+        "type": "repository",
+        "value": "VectifyAI/PageIndex: license=mit, last_push=2026-10-19, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 16,
+    "evidence_count": 17,
     "family": "H",
     "first_published": null,
     "groups": [
@@ -206,7 +214,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/VectifyAI/PageIndex",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "Vectorless",

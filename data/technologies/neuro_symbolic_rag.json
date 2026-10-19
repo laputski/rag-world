@@ -52,7 +52,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2601.04568",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -60,7 +60,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://www.nature.com/articles/s41467-026-71411-1",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -76,7 +76,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://www.youtube.com/watch?v=rGrdYOORLc4",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Neuro-Symbolic RAG",

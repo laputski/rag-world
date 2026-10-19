@@ -48,7 +48,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://www.vldb.org/pvldb/vol18/p5623-zhou.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -56,7 +56,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2603.22340",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -64,7 +64,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://memgraph.com/blog/introducing-ai-toolkit-for-graphrag-sql2graph-unstructured2graph",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Unified RAG over Structured and Unstructured Data",

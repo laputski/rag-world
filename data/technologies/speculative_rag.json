@@ -48,7 +48,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2407.08223",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -64,7 +64,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://htec.com/insights/blogs/exploring-rag-systems-graphrag-speculative-rag-and-rag-fusion/",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Speculative RAG",

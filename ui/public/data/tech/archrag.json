@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 3.861,
+    "attention": 3.202,
     "attention_cohort": "2025",
     "attention_raw": 1.143,
     "confidence": 1.0,
@@ -172,7 +172,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2502.09891",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "github",

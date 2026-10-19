@@ -49,7 +49,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2409.18313",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "other",
@@ -57,7 +57,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Feng_Partially_Matching_Submap_Helps_Uncertainty_Modeling_and_Propagation_for_Text_ICCV_2025_paper.pdf",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "Embodied RAG",

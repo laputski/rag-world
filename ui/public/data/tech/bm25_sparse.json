@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [
       "BM25"
     ],
-    "attention": 15.79,
+    "attention": 15.902,
     "attention_cohort": null,
-    "attention_raw": 15.79,
+    "attention_raw": 15.902,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -147,10 +147,18 @@
         "type": "publication",
         "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3237; year=2009; citation_velocity=15.79",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4252076394",
+        "type": "publication",
+        "value": "venue=Foundations and Trends® in Information Retrieval; peer_reviewed=true; cited_by=3260; year=2009; citation_velocity=15.902",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 14,
     "family": null,
     "first_published": null,
     "groups": [
@@ -182,7 +190,7 @@
         "label_en": null,
         "status": "guarded",
         "url": "https://doi.org/10.1561/1500000019",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "BM25 Sparse",

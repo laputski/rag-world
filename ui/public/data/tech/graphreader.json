@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 0.594,
+    "attention": 0.527,
     "attention_cohort": "2024",
     "attention_raw": 0.364,
     "confidence": 1.0,
@@ -113,7 +113,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2406.14550",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       }
     ],
     "name": "GraphReader",

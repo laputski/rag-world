@@ -48,7 +48,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2502.14802",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "paper",
@@ -64,7 +64,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://iclr.cc/virtual/2026/workshop/10000792",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     },
     {
       "kind": "preprint",
@@ -72,7 +72,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2603.11768",
-      "verified_at": "2026-09-14"
+      "verified_at": "2026-10-19"
     }
   ],
   "name": "RAG as Memory",

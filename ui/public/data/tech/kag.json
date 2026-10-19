@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-12",
+  "built_at": "2026-10-19",
   "technology": {
     "aliases": [],
-    "attention": 5.091,
+    "attention": 4.767,
     "attention_cohort": "2024",
-    "attention_raw": 3.118,
+    "attention_raw": 3.294,
     "confidence": 1.0,
     "configuration": {
       "A3": "extracted_triples",
@@ -93,10 +93,18 @@
         "type": "publication",
         "value": "venue=ACM; peer_reviewed=true; cited_by=53; year=2025; citation_velocity=3.118",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-19",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410636953",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=56; year=2025; citation_velocity=3.294",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": null,
     "first_published": "2024",
     "groups": [
@@ -129,7 +137,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2409.13731",
-        "verified_at": "2026-09-14"
+        "verified_at": "2026-10-19"
       },
       {
         "kind": "github",
