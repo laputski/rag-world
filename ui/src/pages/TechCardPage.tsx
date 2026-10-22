@@ -10,6 +10,7 @@ import { getTechProse, getDimensionLabel, getValueLabel } from "../i18n/index";
 import { LevelBadge } from "../components/LevelBadge";
 import { ConfigGlyph } from "../components/ConfigGlyph";
 import { ConfigFlow } from "../components/ConfigFlow";
+import { ArchitectureDiagram } from "../components/ArchitectureDiagram";
 import { StratumChip } from "../components/StratumChip";
 import { DIMENSIONS, STRATA } from "../schema.generated";
 import { BASE_CONFIGURATION_ID } from "../components/BaseConfiguration";
@@ -298,6 +299,22 @@ export function TechCardPage() {
         from the same configuration but says what the technology actually does,
         and at which step.
       */}
+      {/*
+        The hand-drawn architecture stands above the derived path: it shows the
+        method as its source describes it, and the path below then names which
+        of its decisions set it apart. A record nobody has drawn shows nothing
+        here, not an empty frame.
+      */}
+      {tech.diagram && (
+        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5 }}>{t("architecture.title")}</Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1.5 }}>
+            {t("architecture.lead")}
+          </Typography>
+          <ArchitectureDiagram diagram={tech.diagram} notes={tech.parse_notes} name={tech.name} />
+        </Paper>
+      )}
+
       {Object.keys(tech.configuration).length > 0 && (
         <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 0.5 }}>{t("configFlow.title")}</Typography>

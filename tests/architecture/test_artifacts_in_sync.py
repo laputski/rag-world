@@ -181,6 +181,19 @@ def test_no_card_outlives_its_record(rebuilt):
     )
 
 
+def test_a_diagram_travels_with_the_card_and_not_the_registry(rebuilt):
+    """Found on 2026-10-22: the diagrams rode in every row of the registry.
+
+    Only the card draws a diagram, while the registry is loaded by every list
+    page; carrying all of them there made it a third heavier for nothing.
+    """
+    registry = json.loads((rebuilt / "data" / "registry.json").read_text(encoding="utf-8"))
+    carried = [row["id"] for row in registry["technologies"] if "diagram" in row]
+    assert not carried, f"the registry carries diagrams: {', '.join(carried)}"
+    card = json.loads((rebuilt / "data" / "tech" / "pathrag.json").read_text(encoding="utf-8"))
+    assert "diagram" in card["technology"], "the card of PathRAG lost its diagram"
+
+
 # ─── Fields that hold nothing ────────────────────────────────────────────────
 #
 # A field empty across every record at once looks like data and is treated as

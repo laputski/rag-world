@@ -1,0 +1,35 @@
+{
+  "technology_id": "pathrag",
+  "source": {
+    "label": "arXiv:2502.14902v2",
+    "url": "https://arxiv.org/html/2502.14902v2"
+  },
+  "sections": [
+    {"key": "1", "title": "Preliminaries", "anchor": "Sx3"},
+    {"key": "2", "title": "Node Retrieval", "anchor": "Sx4.SSx1"},
+    {"key": "3", "title": "Path Retrieval", "anchor": "Sx4.SSx2"},
+    {"key": "4", "title": "Answer Generation", "anchor": "Sx4.SSx3"}
+  ],
+  "rows": [
+    ["corpus", "extraction", "graph"],
+    ["query", "keywords", "nodes", "paths"],
+    ["pruning", "order", "answer"]
+  ],
+  "nodes": {
+    "corpus": {"section": "1"},
+    "extraction": {"section": "1"},
+    "graph": {"section": "1", "codes": {"A1": "node_edge", "A4": "graph", "A8": "extracted"}},
+    "query": {"section": "2"},
+    "keywords": {"section": "2", "codes": {"B1": "key_extraction"}},
+    "nodes": {"section": "2", "codes": {"A5": "dense_single"}},
+    "paths": {"section": "3", "codes": {"C1": "graph_traversal"}},
+    "pruning": {"section": "3", "codes": {"D1": "path_pruning", "D2": "top_k"}},
+    "order": {"section": "4", "codes": {"D3": "reliability_ascending"}},
+    "answer": {"section": "4", "codes": {"E1": "single_pass"}}
+  },
+  "edges": [
+    ["graph", "nodes"],
+    ["paths", "pruning"]
+  ],
+  "omitted": []
+}

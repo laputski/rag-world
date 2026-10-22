@@ -50,6 +50,8 @@ export interface RegistryTechnology {
   configuration_reviewed: string | null;
   /** The justification: why a dimension holds the value it does. */
   parse_notes: ParseNote[];
+  /** The architecture drawn by hand from the primary source; absent when none is. */
+  diagram?: TechDiagram;
   links: RegistryLink[];
   /** The computed maturity level; null means it was never computed. */
   level: string | null;
@@ -231,6 +233,50 @@ export interface ParseNote {
   question_en?: string;
   source: string;
   source_en?: string;
+}
+
+/**
+ * One step of a hand-drawn architecture.
+ *
+ * A step that corresponds to a dimension carries its code and value. The pair is
+ * checked against the configuration of the record by `tests/contract/
+ * test_diagrams.py`, so the picture cannot quietly disagree with the table.
+ */
+export interface DiagramNode {
+  /** The key of the section of the source the step rests on. */
+  section: string;
+  codes: Record<string, string>;
+  residual?: string;
+  title: string;
+  title_en?: string;
+  /** A short second line under the title. */
+  sub?: string;
+  sub_en?: string;
+  /** What the step does, for a step no dimension describes. */
+  note?: string;
+  note_en?: string;
+}
+
+/**
+ * The architecture of a technology as its primary source describes it.
+ *
+ * Every row is a chain read left to right, except where `breaks` mark parallel
+ * branches; `edges` join a step of one row to a step of the next, and `loops`
+ * return to an earlier step. The texts of both languages travel with the
+ * structure.
+ */
+export interface TechDiagram {
+  source: { label: string; url: string };
+  sections: { key: string; title: string; url: string }[];
+  rows: string[][];
+  nodes: Record<string, DiagramNode>;
+  edges: [string, string][];
+  /** Returns to an earlier step: repetition, drawn as a dashed arrow. */
+  loops: [string, string][];
+  /** Neighbours in a row that are parallel branches rather than a sequence. */
+  breaks: [string, string][];
+  /** Decisions of the record that the diagram leaves out, with the reason. */
+  omitted: { code: string; reason: string | null; reason_en: string | null }[];
 }
 
 /**

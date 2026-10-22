@@ -228,13 +228,17 @@ def test_a_single_record_matches_its_row_in_the_registry():
     A card reads the record file while the registry is read by a consumer. Once
     they diverge they show different things, and noticing it takes comparing two
     files by hand.
+
+    The one field a card has beyond its row is the hand-drawn diagram: no list
+    page draws it, so the registry does not carry it.
     """
     registry = json.loads((DATA / "registry.json").read_text(encoding="utf-8"))
     rows = {tech["id"]: tech for tech in registry["technologies"]}
     mismatched: list[str] = []
     for path in sorted((DATA / "tech").glob("*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        if payload.get("technology") != rows.get(path.stem):
+        record = dict(json.loads(path.read_text(encoding="utf-8")).get("technology") or {})
+        record.pop("diagram", None)
+        if record != rows.get(path.stem):
             mismatched.append(path.stem)
     assert not mismatched, f"a record file has diverged from the registry: {mismatched[:5]}"
 

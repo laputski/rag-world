@@ -380,6 +380,14 @@
       "offTask": "task from another field: {{tasks}}"
     }
   },
+  "architecture": {
+    "title": "Architecture",
+    "lead": "Drawn by hand from the primary source. The number on a step points to a section of the source, the code to a dimension. Select a step to see the details.",
+    "source": "Source",
+    "section": "Section of the source",
+    "loop": "A dashed arrow returns to an earlier step: the steps between repeat.",
+    "residual": "Not expressed by the schema"
+  },
   "configFlow": {
     "title": "Processing path",
     "lead": "The steps follow the order in which a query passes through them. Each step names what sets this technology apart from plain vector search; a step with nothing of its own is marked as base. The diagram is built from the record’s configuration and changes together with it.",

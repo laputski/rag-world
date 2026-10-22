@@ -1,0 +1,39 @@
+{
+  "pathrag": {
+    "nodes": {
+      "corpus": {
+        "title": "Source texts"
+      },
+      "extraction": {
+        "title": "Entity and relation extraction",
+        "sub": "by a language model",
+        "note": "A language model finds the entities in the text and the relations between them. Each node of the graph holds the name of an entity and the text about it; each edge holds a description of the relation."
+      },
+      "graph": {
+        "title": "Entity graph"
+      },
+      "query": {
+        "title": "Question"
+      },
+      "keywords": {
+        "title": "Keyword extraction"
+      },
+      "nodes": {
+        "title": "Node search"
+      },
+      "paths": {
+        "title": "Path search"
+      },
+      "pruning": {
+        "title": "Pruning weak paths"
+      },
+      "order": {
+        "title": "Ordering by reliability"
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  }
+}

@@ -281,6 +281,77 @@ def _parse_notes() -> dict[str, list[dict]]:
     return notes
 
 
+def _diagrams() -> dict[str, dict]:
+    """The hand-drawn architecture diagrams, per record, with their wording.
+
+    A diagram is drawn from the primary source of a record rather than derived
+    from its configuration: it shows the steps of the method as the work itself
+    describes them. The structure lives in `data/diagrams/` and the wording in the
+    localisation resources, the same split as for the prose of a card. Agreement
+    with the configuration is not taken on trust here; `tests/contract/
+    test_diagrams.py` checks every coded step against the record.
+
+    The texts of both languages travel with the structure, so a consumer of the
+    published data gets a diagram that reads without the portal.
+    """
+    directory = store.DATA_DIR / "diagrams"
+    if not directory.exists():
+        return {}
+    wording = {
+        language: json.loads(
+            (PROSE_DIR / language / "diagrams.json").read_text(encoding="utf-8")
+        )
+        for language in ("ru", "en")
+    }
+    diagrams: dict[str, dict] = {}
+    for path in sorted(directory.glob("*.json")):
+        spec = json.loads(path.read_text(encoding="utf-8"))
+        tech_id = spec["technology_id"]
+        ru = wording["ru"].get(tech_id, {})
+        en = wording["en"].get(tech_id, {})
+        nodes = {}
+        for node_id, node in spec["nodes"].items():
+            texts = {}
+            for field in ("title", "sub", "note"):
+                russian = ru.get("nodes", {}).get(node_id, {}).get(field)
+                english = en.get("nodes", {}).get(node_id, {}).get(field)
+                if russian:
+                    texts[field] = russian
+                if english:
+                    texts[f"{field}_en"] = english
+            nodes[node_id] = {
+                "section": node["section"],
+                "codes": node.get("codes", {}),
+                **({"residual": node["residual"]} if node.get("residual") else {}),
+                **texts,
+            }
+        diagrams[tech_id] = {
+            "source": spec["source"],
+            "sections": [
+                {
+                    "key": section["key"],
+                    "title": section["title"],
+                    "url": f"{spec['source']['url']}#{section['anchor']}",
+                }
+                for section in spec["sections"]
+            ],
+            "rows": spec["rows"],
+            "nodes": nodes,
+            "edges": spec["edges"],
+            "loops": spec.get("loops", []),
+            "breaks": spec.get("breaks", []),
+            "omitted": [
+                {
+                    "code": code,
+                    "reason": ru.get("omitted", {}).get(code),
+                    "reason_en": en.get("omitted", {}).get(code),
+                }
+                for code in spec.get("omitted", [])
+            ],
+        }
+    return diagrams
+
+
 def _candidate_queue() -> list[dict]:
     """The candidates awaiting a verdict, the newest first.
 
@@ -486,6 +557,7 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     cohorts = attention_cohorts(technologies, metrics_by_tech)
     parse_notes = _parse_notes()
     prose = _prose()
+    diagrams = _diagrams()
 
     built_at = _built_at()
     freshest = max((e.fetched_at for e in evidence), default=None)
@@ -708,7 +780,12 @@ def build(out_dir: Path | None = None) -> dict[str, int]:
     per_record.mkdir(parents=True, exist_ok=True)
     stale = {path.name for path in per_record.glob("*.json")}
     for row in registry_rows:
-        _write(per_record / f"{row['id']}.json", {"built_at": built_at, "technology": row})
+        # The hand-drawn diagram travels with the card only. The registry is
+        # loaded by every list page, none of which draws it, and carrying all of
+        # them there made it a third heavier. A record nobody has drawn has no
+        # key at all rather than a null.
+        record = {**row, **({"diagram": diagrams[row["id"]]} if row["id"] in diagrams else {})}
+        _write(per_record / f"{row['id']}.json", {"built_at": built_at, "technology": record})
         stale.discard(f"{row['id']}.json")
     # A record removed from the registry must not stay reachable by a link.
     for name in stale:
@@ -926,7 +1003,9 @@ def _access_manifest(target: Path, built_at: str, rows: list[dict], stats: dict)
         "technology": {
             "url_template": f"{SITE}/data/tech/{{id}}.json",
             "description": "One registry record on its own, in the same shape as "
-                           "a row of registry.json. Use it when a single "
+                           "a row of registry.json, plus the architecture "
+                           "diagram drawn from its primary source where one "
+                           "exists. Use it when a single "
                            "technology is wanted: the full registry costs "
                            "eighty times more.",
         },

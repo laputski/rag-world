@@ -88,6 +88,13 @@ def _load(path: Path) -> dict[str, dict[str, str]]:
 RU = _load(RU_PATH)
 EN = _load(EN_PATH)
 
+#: The wording of the hand-drawn architecture diagrams. It is prose written by
+#: hand like the descriptions, and a new file must not become a way around the
+#: rules: a label reading «LLM» would pass every check if only `tech.json` were
+#: read.
+DIAGRAMS_RU = _load(RU_PATH.parent / "diagrams.json")
+DIAGRAMS_EN = _load(EN_PATH.parent / "diagrams.json")
+
 
 def _texts(table: dict[str, dict[str, str]]) -> list[tuple[str, str, str]]:
     """Triples of record, field and text across the whole prose."""
@@ -99,11 +106,26 @@ def _texts(table: dict[str, dict[str, str]]) -> list[tuple[str, str, str]]:
     ]
 
 
+def _diagram_texts(table: dict[str, dict]) -> list[tuple[str, str, str]]:
+    """Triples of record, step and text across the wording of the diagrams."""
+    return [
+        (key, f"diagram.{node}.{field}", text)
+        for key, value in table.items()
+        for node, fields in value.get("nodes", {}).items()
+        for field, text in fields.items()
+    ] + [
+        (key, f"diagram.omitted.{code}", text)
+        for key, value in table.items()
+        for code, text in value.get("omitted", {}).items()
+    ]
+
+
 def test_no_bibliographic_references():
     """A number in square brackets points at a list that does not exist here."""
     found = [
         f"{key}.{field}: {match.group(0)}"
         for key, field, text in _texts(RU) + _texts(EN)
+        + _diagram_texts(DIAGRAMS_RU) + _diagram_texts(DIAGRAMS_EN)
         for match in [re.search(r"\[\d+\]", text)]
         if match
     ]
@@ -117,7 +139,7 @@ def test_no_bibliographic_references():
 def test_no_transliterated_jargon():
     """Jargon is displaced by a term rather than left as an English word."""
     found: list[str] = []
-    for key, field, text in _texts(RU):
+    for key, field, text in _texts(RU) + _diagram_texts(DIAGRAMS_RU):
         lowered = text.lower()
         for pattern, replacement in JARGON.items():
             match = re.search(rf"\b(?:{pattern})", lowered)
@@ -130,7 +152,7 @@ def test_no_unexpanded_abbreviations():
     """An unexpanded abbreviation demands that the reader already know it."""
     found = [
         f"{key}.{field}: {abbr}"
-        for key, field, text in _texts(RU)
+        for key, field, text in _texts(RU) + _diagram_texts(DIAGRAMS_RU)
         for abbr in UNEXPANDED
         if abbr in text
     ]
@@ -150,6 +172,7 @@ def test_no_em_dash_as_connector():
     found = [
         f"{key}.{field}"
         for key, field, text in _texts(RU) + _texts(EN)
+        + _diagram_texts(DIAGRAMS_RU) + _diagram_texts(DIAGRAMS_EN)
         if "—" in text
     ]
     assert not found, (

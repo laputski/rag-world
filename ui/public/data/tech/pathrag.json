@@ -41,6 +41,148 @@
     "configuration_variable": [],
     "description": "PathRAG отвечает на дефект графового извлечения, который его авторы называют избыточностью. Обычный обход графа собирает всю окрестность найденных вершин, и вместе с нужным в контекст попадает много постороннего: соседи соседей, связи общего характера, повторяющиеся сведения. Чем шире охват обхода, тем сильнее полезное разбавляется, и в какой-то момент добавление данных ухудшает ответ.\n\nВместо окрестности PathRAG отбирает пути, то есть цепочки рёбер, соединяющие ключевые сущности запроса между собой. Каждому пути назначается оценка по правилу затухания потока: величина, приписанная начальной вершине, убывает при переходе по каждому ребру, поэтому длинный путь и путь через вершину с большим числом связей получают низкую оценку. Пути с оценкой ниже порога отбрасываются, оставшиеся упорядочиваются по надёжности.\n\nПорядок подачи выбран из наблюдения о том, что языковая модель хуже удерживает сведения из середины поданного ей текста, чем из его начала и конца. Пути подаются по возрастанию надёжности, так что самый надёжный оказывается последним и попадает в положение, которое модель удерживает лучше всего. Метод применим только там, где граф уже построен, и стоимость его построения PathRAG не снижает.",
     "description_en": "PathRAG responds to a defect of graph retrieval that its authors call redundancy. An ordinary graph traversal collects the whole neighbourhood of the nodes it finds, so a great deal of irrelevant material enters the context alongside what is needed: neighbours of neighbours, links of a general nature, repeated facts. The wider the traversal reaches, the more the useful material is diluted, and past some point adding data makes the answer worse.\n\nInstead of a neighbourhood, PathRAG selects paths, that is, chains of edges connecting the key entities of the query to one another. Each path is scored by a rule of flow decay: a quantity assigned to the starting node diminishes at every edge it crosses, so a long path, or a path through a node with many links, receives a low score. Paths scoring below a threshold are discarded, and those that remain are ordered by reliability.\n\nThe order of presentation follows from an observation: a language model retains material from the middle of the text it is given less well than material from the beginning or the end. Paths are supplied in ascending order of reliability, so the most reliable one comes last and lands in the position the model holds best. The method applies only where a graph already exists, and it does nothing to reduce the cost of building one.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "graph",
+          "nodes"
+        ],
+        [
+          "paths",
+          "pruning"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "4",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "corpus": {
+          "codes": {},
+          "section": "1",
+          "title": "Исходные тексты",
+          "title_en": "Source texts"
+        },
+        "extraction": {
+          "codes": {},
+          "note": "Языковая модель находит в тексте сущности и связи между ними. У каждой вершины графа есть имя сущности и относящийся к ней текст, у каждого ребра есть описание связи.",
+          "note_en": "A language model finds the entities in the text and the relations between them. Each node of the graph holds the name of an entity and the text about it; each edge holds a description of the relation.",
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение сущностей и связей",
+          "title_en": "Entity and relation extraction"
+        },
+        "graph": {
+          "codes": {
+            "A1": "node_edge",
+            "A4": "graph",
+            "A8": "extracted"
+          },
+          "section": "1",
+          "title": "Граф сущностей",
+          "title_en": "Entity graph"
+        },
+        "keywords": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "section": "2",
+          "title": "Выделение ключевых слов",
+          "title_en": "Keyword extraction"
+        },
+        "nodes": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "2",
+          "title": "Поиск вершин",
+          "title_en": "Node search"
+        },
+        "order": {
+          "codes": {
+            "D3": "reliability_ascending"
+          },
+          "section": "4",
+          "title": "Сортировка по надёжности",
+          "title_en": "Ordering by reliability"
+        },
+        "paths": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "3",
+          "title": "Поиск путей",
+          "title_en": "Path search"
+        },
+        "pruning": {
+          "codes": {
+            "D1": "path_pruning",
+            "D2": "top_k"
+          },
+          "section": "3",
+          "title": "Отсев слабых путей",
+          "title_en": "Pruning weak paths"
+        },
+        "query": {
+          "codes": {},
+          "section": "2",
+          "title": "Вопрос",
+          "title_en": "Question"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "corpus",
+          "extraction",
+          "graph"
+        ],
+        [
+          "query",
+          "keywords",
+          "nodes",
+          "paths"
+        ],
+        [
+          "pruning",
+          "order",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Preliminaries",
+          "url": "https://arxiv.org/html/2502.14902v2#Sx3"
+        },
+        {
+          "key": "2",
+          "title": "Node Retrieval",
+          "url": "https://arxiv.org/html/2502.14902v2#Sx4.SSx1"
+        },
+        {
+          "key": "3",
+          "title": "Path Retrieval",
+          "url": "https://arxiv.org/html/2502.14902v2#Sx4.SSx2"
+        },
+        {
+          "key": "4",
+          "title": "Answer Generation",
+          "url": "https://arxiv.org/html/2502.14902v2#Sx4.SSx3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2502.14902v2",
+        "url": "https://arxiv.org/html/2502.14902v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

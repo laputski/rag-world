@@ -14,7 +14,9 @@ What is checked without a network:
 * evidence and level-journal entries refer to technologies that exist;
 * every source has an address, and its check status agrees with its date;
 * a record that claims to merge the results of several sources says on what
-  source that claim rests.
+  source that claim rests;
+* a hand-drawn architecture diagram agrees with its record and reads in both
+  languages.
 
 Whether the addresses resolve requires a network and is enabled separately::
 
@@ -34,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from core.dimensions_schema import ALL_VALUES, STRATA, validate  # noqa: E402
+from core.dimensions_schema import ALL_VALUES, DIMENSIONS, STRATA, validate  # noqa: E402
 from services.registry import store  # noqa: E402
 
 ID_RE = re.compile(r"^[a-z0-9_]+$")
@@ -80,6 +82,26 @@ def _justified_dimensions() -> set[tuple[str, str]]:
         note = json.loads(line)
         if note.get("code"):
             pairs.add((note.get("technology_id", ""), note["code"]))
+    return pairs
+
+
+def _justified_residuals() -> set[tuple[str, str]]:
+    """The pairs of record and residual mechanism for which a justification is written.
+
+    The card of a diagram step takes the wording of a residual and what the
+    system does from this justification; without one the reader would see a
+    bare code.
+    """
+    path = store.DATA_DIR / "parse_notes.jsonl"
+    if not path.exists():
+        return set()
+    import json
+
+    pairs: set[tuple[str, str]] = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and (note := json.loads(line)).get("residual"):
+            pairs.add((note.get("technology_id", ""), note["residual"]))
     return pairs
 
 
@@ -396,6 +418,227 @@ def check_registry() -> list[str]:
                 "has no source"
             )
 
+    problems += check_diagrams(technologies, vocabulary)
+    return problems
+
+
+#: Where the wording of the diagrams lives, one file per language.
+WORDING_DIR = Path(__file__).resolve().parent.parent / "ui" / "src" / "i18n"
+
+ARXIV_ID_RE = re.compile(r"\d{4}\.\d{4,5}")
+CYRILLIC_RE = re.compile(r"[А-Яа-яЁё]")
+
+
+def _same_source(url: str, links: list[str]) -> bool:
+    """Whether a diagram is drawn from a source the record itself names.
+
+    A preprint has several addresses (the abstract, the PDF, the HTML rendering
+    of a given version), so two addresses of one preprint are matched by its
+    identifier rather than letter by letter.
+    """
+    found = ARXIV_ID_RE.search(url)
+    if found:
+        return any(found.group(0) in link for link in links)
+    return any(url.startswith(link) or link.startswith(url) for link in links)
+
+
+def check_diagrams(
+    technologies: list,
+    vocabulary: dict[str, dict],
+    wording_dir: Path | None = None,
+) -> list[str]:
+    """The hand-drawn architecture diagrams agree with the records they illustrate.
+
+    A diagram is drawn by a person from the primary source, so nothing derives
+    it and nothing keeps it current by itself. These checks are what keeps it
+    from becoming a claim without a source or a picture of a reading since
+    revised:
+
+    * every step names a section of the source, and the source is one the
+      record itself lists;
+    * a step that carries a dimension carries the value the record holds, so a
+      revised configuration breaks the build instead of leaving a stale picture;
+    * no decision of the record disappears from the diagram unnoticed: a
+      dimension departing from the base, or chosen at run time, stands on a step
+      or is named among the omissions with a reason;
+    * every step reads in both languages, and the English wording holds no
+      Cyrillic;
+    * a residual on a step has a justification, which the card of the step
+      shows in place of the code.
+    """
+    import json
+
+    problems: list[str] = []
+    directory = store.DATA_DIR / "diagrams"
+    if not directory.exists():
+        return problems
+    wording_dir = wording_dir or WORDING_DIR
+    wording = {
+        language: json.loads((wording_dir / language / "diagrams.json").read_text(encoding="utf-8"))
+        for language in ("ru", "en")
+    }
+    by_id = {tech.id: tech for tech in technologies}
+    defaults = {d.code: d.default for d in DIMENSIONS}
+    explained = _justified_residuals()
+    drawn: set[str] = set()
+
+    for path in sorted(directory.glob("*.json")):
+        where = f"diagrams/{path.name}"
+        spec = json.loads(path.read_text(encoding="utf-8"))
+        tech_id = spec.get("technology_id", "")
+        drawn.add(tech_id)
+        if path.stem != tech_id:
+            problems.append(f"{where}: the file is named apart from the record {tech_id!r}")
+        tech = by_id.get(tech_id)
+        if tech is None:
+            problems.append(f"{where}: no record {tech_id!r} in the registry")
+            continue
+
+        url = spec.get("source", {}).get("url", "")
+        if not _same_source(url, [link.url for link in tech.links]):
+            problems.append(f"{where}: the source {url!r} is not among the links of the record")
+
+        sections = {s.get("key"): s for s in spec.get("sections", [])}
+        for key, section in sections.items():
+            if not section.get("title") or not section.get("anchor"):
+                problems.append(f"{where}: section {key!r} lacks a title or an anchor")
+            elif section["anchor"].startswith("#"):
+                # The build joins the address and the anchor with a "#" of its
+                # own; a second one yields "##section", which leads nowhere.
+                problems.append(f"{where}: the anchor of section {key!r} starts with '#'")
+
+        nodes = spec.get("nodes", {})
+        placed = [node_id for row in spec.get("rows", []) for node_id in row]
+        for node_id in sorted(set(placed) - set(nodes)):
+            problems.append(f"{where}: the row holds an undefined step {node_id!r}")
+        for node_id in sorted(set(nodes) - set(placed)):
+            problems.append(f"{where}: step {node_id!r} stands in no row")
+        for node_id in sorted({n for n in placed if placed.count(n) > 1}):
+            problems.append(f"{where}: step {node_id!r} stands in more than one place")
+        row_of = {
+            node_id: r for r, row in enumerate(spec.get("rows", [])) for node_id in row
+        }
+        for source, target in spec.get("edges", []):
+            if source not in nodes or target not in nodes:
+                problems.append(f"{where}: the edge {source}→{target} names an undefined step")
+            elif row_of.get(target) != (row_of.get(source, -2) + 1):
+                problems.append(
+                    f"{where}: the edge {source}→{target} must join a step to one in the next row"
+                )
+
+        for source, target in spec.get("loops", []):
+            if source not in nodes or target not in nodes:
+                problems.append(f"{where}: the loop {source}→{target} names an undefined step")
+            elif placed.index(target) >= placed.index(source) or row_of[target] not in (
+                row_of[source], row_of[source] - 1
+            ):
+                problems.append(
+                    f"{where}: the loop {source}→{target} must return to an earlier step "
+                    "of the same or the previous row"
+                )
+        for left, right in spec.get("breaks", []):
+            row = spec.get("rows", [])[row_of[left]] if left in row_of else []
+            if right not in row or row.index(right) != row.index(left) + 1:
+                problems.append(
+                    f"{where}: the break {left}|{right} must name neighbours of one row"
+                )
+
+        carried: set[str] = set()
+        for node_id, node in nodes.items():
+            if node.get("section") not in sections:
+                problems.append(f"{where}: step {node_id!r} names no section of the source")
+            for code, value in node.get("codes", {}).items():
+                carried.add(code)
+                if code not in ALL_VALUES:
+                    problems.append(
+                        f"{where}: step {node_id!r} carries an unknown dimension {code!r}"
+                    )
+                    continue
+                if value not in ALL_VALUES[code]:
+                    problems.append(
+                        f"{where}: step {node_id!r} gives {code} the value {value!r}, "
+                        "which the schema does not contain"
+                    )
+                held = tech.configuration.get(code)
+                if code in tech.configuration_inapplicable:
+                    problems.append(
+                        f"{where}: step {node_id!r} carries {code}, which the record "
+                        "marks inapplicable"
+                    )
+                elif held != value and code not in tech.configuration_variable:
+                    problems.append(
+                        f"{where}: step {node_id!r} says {code}={value!r}, while the "
+                        f"record holds {held!r}"
+                    )
+            mechanism = node.get("residual")
+            if mechanism and (mechanism not in tech.residual or mechanism not in vocabulary):
+                problems.append(
+                    f"{where}: step {node_id!r} names the residual {mechanism!r}, "
+                    "which the record or the vocabulary lacks"
+                )
+            elif mechanism and (tech_id, mechanism) not in explained:
+                problems.append(
+                    f"{where}: step {node_id!r} names the residual {mechanism!r}, "
+                    "which no justification explains; the card would show a bare code"
+                )
+
+        decisions = {
+            code for code, value in tech.configuration.items() if value != defaults.get(code)
+        } | set(tech.configuration_variable)
+        omitted = set(spec.get("omitted", []))
+        for code in sorted(decisions - carried - omitted):
+            problems.append(
+                f"{where}: the record decides {code}={tech.configuration.get(code)!r}, and "
+                "the diagram neither shows it nor names it among the omissions"
+            )
+        for code in sorted(omitted - decisions):
+            problems.append(f"{where}: {code} is omitted, yet the record makes no decision there")
+        for code in sorted(omitted & carried):
+            problems.append(f"{where}: {code} is both shown and omitted")
+
+        for language in ("ru", "en"):
+            texts = wording[language].get(tech_id, {})
+            named = texts.get("nodes", {})
+            for node_id in sorted(set(nodes) - set(named)):
+                problems.append(f"{where}: step {node_id!r} has no {language} wording")
+            for node_id in sorted(set(named) - set(nodes)):
+                problems.append(
+                    f"{where}: the {language} wording names a step {node_id!r} not drawn"
+                )
+            for node_id, fields in named.items():
+                if not fields.get("title"):
+                    problems.append(f"{where}: step {node_id!r} has no {language} title")
+            for code in sorted(omitted):
+                if not texts.get("omitted", {}).get(code):
+                    problems.append(f"{where}: the omission of {code} has no {language} reason")
+            # A line written in one language and not the other reaches one
+            # reader and not the other, and a consumer of the data gets half a
+            # step. The second line and the note are optional, but in pairs.
+            other = wording["en" if language == "ru" else "ru"].get(tech_id, {}).get("nodes", {})
+            for node_id, fields in named.items():
+                for field in sorted(set(fields) - set(other.get(node_id, {}))):
+                    problems.append(
+                        f"{where}: step {node_id!r} has a {language} {field} without its twin"
+                    )
+            if language == "en":
+                cyrillic = [
+                    f"{node_id}.{field}"
+                    for node_id, fields in named.items()
+                    for field, text in fields.items()
+                    if CYRILLIC_RE.search(text)
+                ] + [
+                    f"omitted.{code}"
+                    for code, text in texts.get("omitted", {}).items()
+                    if CYRILLIC_RE.search(text)
+                ]
+                if cyrillic:
+                    problems.append(f"{where}: Cyrillic in the English wording: {cyrillic}")
+
+    for language in ("ru", "en"):
+        for tech_id in sorted(set(wording[language]) - drawn):
+            problems.append(
+                f"{language}/diagrams.json: wording for {tech_id!r}, which has no diagram"
+            )
     return problems
 
 

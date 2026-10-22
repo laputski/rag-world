@@ -109,7 +109,7 @@
   "sitemap": "https://ragworld.org/sitemap.xml",
   "technologies": 76,
   "technology": {
-    "description": "One registry record on its own, in the same shape as a row of registry.json. Use it when a single technology is wanted: the full registry costs eighty times more.",
+    "description": "One registry record on its own, in the same shape as a row of registry.json, plus the architecture diagram drawn from its primary source where one exists. Use it when a single technology is wanted: the full registry costs eighty times more.",
     "url_template": "https://ragworld.org/data/tech/{id}.json"
   },
   "technology_ids": [

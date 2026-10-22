@@ -44,6 +44,7 @@ data/
   levels/history.jsonl       the journal of maturity-level changes
   manual_evidence.jsonl      evidence entered by a person
   parse_notes.jsonl          why each configuration value was read that way
+  diagrams/<id>.json         an architecture drawn by hand from the primary source
   candidates.jsonl           work found by discovery, awaiting a verdict
   rejected.jsonl             candidates refused, with the reason
   collection_log.jsonl       one line per collection pass
@@ -140,6 +141,21 @@ A level is computed from evidence and reproduces. A dimension value is a
 conclusion drawn from the text of a paper, and the only way to check it is the
 reasoning that led to it. This file holds that reasoning, and
 `scripts/build_review.py` renders it as a page.
+
+### `diagrams/<id>.json` — the architecture as the source draws it
+
+The structure of one diagram: rows of steps, each a chain read left to right
+unless `breaks` mark neighbours as parallel branches; `edges` joining a step to
+one in the next row; and `loops`, dashed returns to an earlier step for methods
+that repeat. Every step names the section of
+the primary source it rests on; a step that matches a dimension carries its code
+and value. The wording lives in `ui/src/i18n/{ru,en}/diagrams.json`, apart from
+the structure, as the prose of a card does.
+
+Nothing derives a diagram, so `check_diagrams` in `scripts/validate_data.py`
+holds it to its record: a coded step must carry the value the record holds, and
+every decision of the record stands on a step or among the named omissions.
+The reasons are in ADR-011.
 
 For a record of kind `paradigm` the configuration describes one exemplar
 work, the one its diagram is drawn from, and is checked against it; the
