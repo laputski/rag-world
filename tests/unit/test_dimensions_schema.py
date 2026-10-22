@@ -122,23 +122,21 @@ def test_tree_topology_allows_dense_representation():
 
 
 
-def test_phi_cross_encoder_requires_vector_representation():
-    cfg = {**DEFAULTS, "A5": "lexical", "D1": "cross_encoder", "C1": "lexical"}
-    assert any("D1=cross_encoder excludes A5=lexical" in e for e in validate(cfg))
+def test_cross_encoder_is_admissible_with_every_representation_model():
+    """A joint encoder reads the texts of the query and the candidate.
 
-
-def test_phi_cross_encoder_excludes_non_vector_models():
-    for bad in ("none", "lexical", "symbolic"):
-        cfg = {**DEFAULTS, "A5": bad, "D1": "cross_encoder"}
-        if bad == "lexical":
+    Three constraints once forbade it with a lexical, symbolic or absent
+    representation model, on the ground that it needs vector input. Lexical
+    retrieval followed by a cross-encoder is the classic pipeline, and
+    Embodied-RAG scores nodes with a language model while comparing no vectors.
+    """
+    for model in ("none", "lexical", "symbolic", "dense_single",
+                  "dense_multi_late_interaction", "vision_language"):
+        cfg = {**DEFAULTS, "A5": model, "D1": "cross_encoder"}
+        if model == "lexical":
             cfg["C1"] = "lexical"
-        assert any("cross_encoder" in e for e in validate(cfg)), (
-            f"A5={bad} must block cross_encoder"
-        )
-    for good in ("dense_single", "dense_multi_late_interaction", "vision_language"):
-        cfg = {**DEFAULTS, "A5": good, "D1": "cross_encoder"}
         assert not any("cross_encoder" in e for e in validate(cfg)), (
-            f"A5={good} must not block cross_encoder"
+            f"A5={model} must not block cross_encoder"
         )
 
 
@@ -165,11 +163,20 @@ def test_graph_topology_allows_a_query_language():
 
 
 
-def test_phi_decoding_reflection_requires_trained_reader():
-    """Reflection during decoding requires a reader trained to emit it."""
-    cfg = {**DEFAULTS, "E2": "decoding_reflection", "G3": "frozen"}
-    assert any("E2=decoding_reflection requires G3=trained_reader" in e
-               for e in validate(cfg))
+def test_phi_decoding_reflection_requires_a_trained_reader():
+    """Reflection during decoding requires a reader trained to emit it.
+
+    The reader is trained under three values of G3, and all three must pass.
+    The former constraint required `trained_reader` alone and refused joint
+    training, where the reader is trained as well.
+    """
+    for untrained in ("frozen", "trained_retriever"):
+        cfg = {**DEFAULTS, "E2": "decoding_reflection", "G3": untrained}
+        assert any(f"E2=decoding_reflection excludes G3={untrained}" in e
+                   for e in validate(cfg)), untrained
+    for trained in ("trained_reader", "trained_separately", "joint_training"):
+        cfg = {**DEFAULTS, "E2": "decoding_reflection", "G3": trained}
+        assert validate(cfg) == [], trained
 
 
 def test_phi_agentic_excludes_post_generation_check():
@@ -185,7 +192,7 @@ def test_phi_multi_hop_requires_graph_topology():
 
 def test_phi_constraint_count_is_pinned():
     """The count of constraints is pinned: a new Φ has to arrive with a test."""
-    assert len(CONSTRAINTS) == 10, (
+    assert len(CONSTRAINTS) == 8, (
         f"Φ holds {len(CONSTRAINTS)} constraints; add a test for the new one. "
         "The list: " + ", ".join(
             f"{c.dim_a}={c.val_a} {c.kind} {c.dim_b}={c.val_b}" for c in CONSTRAINTS
@@ -229,10 +236,9 @@ def test_config_hash_ignores_own_field():
 def test_configuration_validate_uses_phi():
     """The example comes from a live constraint rather than an abandoned one.
 
-    A cross-encoder compares representations, so the representation model has to
-    exist.
+    A fixed number of hops is meaningful only over a graph.
     """
-    cfg = Configuration(D1="cross_encoder", A5="none")
+    cfg = Configuration(C2="multi_hop_fixed", A4="flat")
     assert cfg.validate() != []
     assert not cfg.is_valid()
 

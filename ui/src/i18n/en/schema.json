@@ -102,7 +102,7 @@
       "cost_aware_policy": "Cost-aware policy"
     },
     "C1": {
-      "ann": "Approximate nearest neighbour search",
+      "ann": "Nearest neighbours by vector similarity",
       "lexical": "Search by word overlap",
       "graph_traversal": "Graph traversal",
       "boolean_query": "Boolean query",
@@ -205,6 +205,7 @@
       "frozen": "All components taken ready-made",
       "trained_retriever": "Retriever is trained",
       "trained_reader": "Reader is trained",
+      "trained_separately": "Retriever and reader trained separately",
       "joint_training": "Retriever and reader trained jointly"
     }
   }

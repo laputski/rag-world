@@ -145,10 +145,11 @@ DIMENSIONS: tuple[Dimension, ...] = (
     # joint encoder were shown as matching it. Naive Dense, whose prose calls
     # itself the reference point, differed from it in exactly this dimension.
     #
-    # A hidden inconsistency went with it: a constraint Φ forbids
+    # A hidden inconsistency went with it: a constraint Φ then forbade
     # `cross_encoder` with a lexical, symbolic or absent representation model,
     # so a record with such a model and no explicit D1 was completed into an
-    # inadmissible configuration.
+    # inadmissible configuration. That constraint has since been removed as
+    # wrong in itself (see Φ below).
     Dimension("D1", "Reranking",
               ("none", "cross_encoder", "graph_structural", "set_cover",
                "path_pruning"), default="none"),
@@ -199,8 +200,15 @@ DIMENSIONS: tuple[Dimension, ...] = (
               default="open"),
     Dimension("G2", "Execution site",
               ("server", "edge_device", "mixed"), default="server"),
+    # `trained_separately` came out of the verification of 2026-10-21. Two
+    # blind readings of ChatQA and RA-DIT found the retriever and the reader both
+    # trained, but in separate steps, and `joint_training` says the opposite:
+    # RA-DIT stresses that it "separately fine-tunes the LLM and the retriever".
+    # The same arrangement was reported for GNN-RAG and one mode of PixelRAG, so
+    # the case met the threshold of three that admits a value to the schema.
     Dimension("G3", "Trainability of components",
-              ("frozen", "trained_retriever", "trained_reader", "joint_training"),
+              ("frozen", "trained_retriever", "trained_reader", "trained_separately",
+               "joint_training"),
               default="frozen"),
 )
 
@@ -255,17 +263,16 @@ CONSTRAINTS: tuple[Constraint, ...] = (
     # follows from what the values are, not from the first system encountered
     # happening to lack the combination.
     #
-    # A cross-encoder is incompatible with non-vector representation models
-    # (none, lexical, symbolic) and admissible with all vector ones, because it
-    # works over any vector input. That admits a graph store together with a
-    # cross-encoder, as in PathRAG, where reranking is applied over results
-    # obtained from the graph.
-    Constraint("excludes", "D1", "cross_encoder", "A5", "none",
-               reason="a cross-encoder requires vector input, and none is not one"),
-    Constraint("excludes", "D1", "cross_encoder", "A5", "lexical",
-               reason="a cross-encoder requires vector input, and lexical is not one"),
-    Constraint("excludes", "D1", "cross_encoder", "A5", "symbolic",
-               reason="a cross-encoder requires vector input, and symbolic is not one"),
+    # Constraints saying "a cross-encoder requires a vector representation
+    # model" stood here and were removed on 2026-10-22: they excluded
+    # `cross_encoder` with A5 none, lexical and symbolic, on the ground that a
+    # cross-encoder works over vector input. It does not: a joint encoder reads
+    # the text of the query and of the candidate together, whatever produced the
+    # candidate, and lexical retrieval followed by a cross-encoder is the
+    # classic pipeline. The value also covers a language model prompted to judge
+    # each pair, as in Embodied-RAG, which two blind readings found scoring
+    # nodes with a language model and comparing no vectors at query time.
+
     # A hypergraph ontology selects context by covering sets of hyperedges, so
     # there are no paths in it to prune.
     Constraint("excludes", "A4", "hypergraph", "D1", "path_pruning",
@@ -279,8 +286,13 @@ CONSTRAINTS: tuple[Constraint, ...] = (
     # state.
     #
     # Reflection during decoding is performed by special tokens the reader emits,
-    # and a frozen reader emits none of them.
-    Constraint("requires", "E2", "decoding_reflection", "G3", "trained_reader",
+    # and a frozen reader emits none of them. The condition is "the reader is
+    # trained", which three values of G3 satisfy; a requires names one value only
+    # and used to refuse joint training too, so it is stated as the two values
+    # under which the reader stays untrained.
+    Constraint("excludes", "E2", "decoding_reflection", "G3", "frozen",
+               reason="reflection during decoding requires a reader trained to emit it"),
+    Constraint("excludes", "E2", "decoding_reflection", "G3", "trained_retriever",
                reason="reflection during decoding requires a reader trained to emit it"),
     # An open agentic loop already decides whether what was found suffices, so a
     # separate check after generation duplicates that decision.

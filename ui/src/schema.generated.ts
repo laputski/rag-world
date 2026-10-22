@@ -51,7 +51,7 @@ export const DIMENSIONS: DimensionSpec[] = [
   { code: "F3", name: "Forgetting", stratum: "F", core: false, default: "none", values: ["none", "by_ttl", "by_significance_decay"] },
   { code: "G1", name: "Privacy", stratum: "G", core: true, default: "open", values: ["open", "isolated_circuit", "differential_privacy", "tee"] },
   { code: "G2", name: "Execution site", stratum: "G", core: true, default: "server", values: ["server", "edge_device", "mixed"] },
-  { code: "G3", name: "Trainability of components", stratum: "G", core: true, default: "frozen", values: ["frozen", "trained_retriever", "trained_reader", "joint_training"] },
+  { code: "G3", name: "Trainability of components", stratum: "G", core: true, default: "frozen", values: ["frozen", "trained_retriever", "trained_reader", "trained_separately", "joint_training"] },
 ];
 
 /** The dimensions of a stratum, in the order they are declared. */

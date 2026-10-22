@@ -438,7 +438,7 @@
       "A8": "There is no structure, so it has no origin.",
       "B1": "The query reaches the index as it stands: the absence of transformation.",
       "B2": "One processing path serves every query: the absence of routing.",
-      "C1": "An operator has to be something. Approximate nearest neighbour search matches the dense representation model of A5.",
+      "C1": "An operator has to be something. Search for the nearest neighbours by vector similarity matches the dense representation model of A5.",
       "C2": "One consultation of the index: the absence of traversal.",
       "C3": "There is one source, so there is nothing to fuse.",
       "C4": "The data sits in one place: the absence of distribution.",

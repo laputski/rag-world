@@ -680,6 +680,16 @@ MUTATIONS: tuple[Mutation, ...] = (
              '"full": "Microsoft GraphRAG builds a single knowledge graph',
              '"full_": "Microsoft GraphRAG builds a single knowledge graph'),
 
+    # The numbers of the article: every rendering of the independence degree,
+    # not only the Russian text. The English diagram and both pie charts went
+    # stale once while the guard read only numbers with a decimal comma.
+    Mutation("ui/src/generalizedData.ts", "the English diagram carries the current degree",
+             "0.9991 = 0.09% of pairs forbidden", "0.9988 = 0.12% of pairs forbidden"),
+    Mutation("ui/src/generalizedData.ts", "the pie chart carries the current share",
+             '"Forbidden by constraints Φ" : 0.09', '"Forbidden by constraints Φ" : 0.12'),
+    Mutation("ui/src/generalizedData.ts", "the article states the current number of constraints",
+             "Всего формализовано восемь ограничений", "Всего формализовано семь ограничений"),
+
     Mutation("scripts/make_release.py", "a dry run writes nothing",
              '    if dry_run:\n        print("dry run: no obstacles',
              '    if False:\n        print("dry run: no obstacles'),

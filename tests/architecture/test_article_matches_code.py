@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from core.dimensions_schema import (  # noqa: E402
+    CONSTRAINTS,
     DIMENSIONS,
     STRATA,
     dead_values,
@@ -52,6 +53,31 @@ def test_independence_degree_matches_implementation():
         found for found in re.findall(r"0,9\d{3}\b", text) if found != expected
     ]
     assert not stale, f"stale degrees of independence remain in the article: {stale}"
+
+
+def test_every_rendering_of_the_independence_degree_is_current():
+    """The English diagram and both pie charts carry the computed degree too.
+
+    Found on 2026-10-22: the Russian text said 0.9985, which the guard above
+    checks, while the English diagram still said 0.9988 and both pie charts
+    0.12 percent. The guard read only numbers with a decimal comma. A word
+    boundary will not do here: in the diagram source the number follows "\\n".
+    """
+    text = _article_text()
+    computed = independence_degree()
+    stale = [
+        found for found in re.findall(r"(?<![\d.])0\.9\d{3}(?!\d)", text)
+        if found != f"{computed:.4f}"
+    ]
+    assert not stale, f"stale degrees of independence in English: {stale}"
+    forbidden = f"{(1 - computed) * 100:.2f}"
+    admissible = f"{computed * 100:.2f}"
+    shares = re.findall(r'"[^"\n]+" : (\d+\.\d+)', text)
+    assert shares, "the pie charts of the independence degree are gone"
+    wrong = [x for x in shares if x not in (forbidden, admissible)]
+    assert not wrong, (
+        f"the pie charts say {wrong}; the schema gives {admissible} and {forbidden}"
+    )
 
 
 # The numerals up to thirty that appear in the text spelled out. The size of the
@@ -99,6 +125,32 @@ def test_schema_size_claim_matches_declaration():
         for form in forms if _mentions_size_ru(text, form)
     ]
     assert not stale, f"a stale number of dimensions remains in the article: {stale}"
+
+
+#: The spelling of the number of constraints Φ in the Russian text.
+CONSTRAINTS_SPELLED = {
+    7: "семь", 8: "восемь", 9: "девять", 10: "десять",
+    11: "одиннадцать", 12: "двенадцать", 13: "тринадцать",
+}
+
+
+def test_constraint_count_claim_matches_the_schema():
+    """The number of constraints the article states is the number in the code.
+
+    Found on 2026-10-21: a constraint was added to the schema, every check
+    passed, and the article still said "ten constraints". The number of
+    dimensions had a guard; this one did not.
+    """
+    text = _article_text()
+    size = len(CONSTRAINTS)
+    assert size in CONSTRAINTS_SPELLED, f"Φ holds {size} constraints; add the spelling"
+    stated = [
+        n for n, word in CONSTRAINTS_SPELLED.items()
+        if re.search(rf"\b{word}\s+ограничени", text)
+    ]
+    assert stated == [size], (
+        f"the article states {stated} constraints while the schema holds {size}"
+    )
 
 
 #: The spelling of the number of dimensions in English. A translated abstract
