@@ -45,6 +45,110 @@
     ],
     "description": "CBR-RAG соединяет извлечение с рассуждением по прецедентам, то есть с подходом, который решает новую задачу, отыскивая разобранный прежде похожий случай и перенося его решение с поправками. Подход этот старше извлечения с порождением на десятилетия и в праве применяется естественно: юридическое рассуждение и устроено ссылкой на прецедент.\n\nОтличие от обычного поиска лежит в признаке подобия. Плотный поиск считает похожими тексты, близкие в пространстве представлений, а рассуждение по прецедентам считает похожими случаи, совпадающие по разбору на признаки задачи и признаки решения. Для этого к каждому прецеденту прикладывается указательный словарь: перечень признаков, по которым прецедент отыскивается. Найденные прецеденты дополняют запрос перед порождением ответа.\n\nРабота сопоставляет несколько способов представления прецедента и несколько мер сходства между ними, не назначая одного. Она прошла рецензирование и вышла в Lecture Notes in Computer Science, набрав к августу 2026 года сто одно цитирование. Ценность записи для реестра состоит при этом не только в системе, но и в остатке: отбор по подобию прецедента схема из двадцати восьми измерений не выражает вовсе, и это целая традиция поиска, которой в реестре до сих пор не было ни одной записью.",
     "description_en": "CBR-RAG joins retrieval to case-based reasoning, that is, to an approach that solves a new problem by finding a similar case worked out before and carrying its solution over with adjustments. The approach is older than retrieval-augmented generation by decades, and in law it applies naturally: legal reasoning is itself built on reference to precedent.\n\nWhat sets it apart from ordinary search is the criterion of likeness. Dense retrieval holds texts to be alike when they are close in the representation space, while case-based reasoning holds cases to be alike when they agree in their decomposition into features of the problem and features of the solution. To that end an indexing vocabulary is attached to every case: a list of the features by which the case is retrieved. The retrieved cases then enrich the query before the answer is generated.\n\nThe work sets several ways of representing a case and several measures of similarity against one another without settling on one. It passed peer review and appeared in Lecture Notes in Computer Science, gathering one hundred and one citations by August 2026. The value of the record for the registry therefore lies not in the system alone but also in its residual: selection by likeness of precedent is not expressed by the 28-dimension schema at all, and it is a whole tradition of retrieval that the registry has until now held no record of.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "vectors",
+          "retrieval"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "casebase": {
+          "codes": {},
+          "note": "Каждый прецедент состоит из вопроса, ответа и подтверждающего отрывка из юридического документа.",
+          "note_en": "Each case consists of a question, an answer and a supporting passage from a legal document.",
+          "section": "1",
+          "title": "База прецедентов",
+          "title_en": "Case base"
+        },
+        "context": {
+          "codes": {},
+          "note": "В подсказку попадает либо только подтверждающий отрывок, либо прецедент целиком.",
+          "note_en": "The prompt receives either the supporting passage alone or the whole case.",
+          "section": "4",
+          "title": "Сборка контекста",
+          "title_en": "Context assembly"
+        },
+        "entities": {
+          "codes": {
+            "A3": "metadata"
+          },
+          "section": "2",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение сущностей",
+          "title_en": "Entity extraction"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Вопрос сравнивается с вопросами, отрывками и сущностями прецедентов. Сходства складываются с весами, и берутся несколько лучших прецедентов.",
+          "note_en": "The question is compared with the questions, passages and entities of the cases. The similarities are added up with weights, and the best few cases are taken.",
+          "section": "4",
+          "title": "Поиск прецедентов",
+          "title_en": "Case retrieval"
+        },
+        "vectors": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "3",
+          "title": "Векторные представления",
+          "title_en": "Vector representations"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "casebase",
+          "entities",
+          "vectors"
+        ],
+        [
+          "retrieval",
+          "context",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Casebase",
+          "url": "https://arxiv.org/html/2404.04302v1#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Representation and Similarity",
+          "url": "https://arxiv.org/html/2404.04302v1#S4"
+        },
+        {
+          "key": "3",
+          "title": "Representation",
+          "url": "https://arxiv.org/html/2404.04302v1#S4.SS1"
+        },
+        {
+          "key": "4",
+          "title": "Case Retrieval",
+          "url": "https://arxiv.org/html/2404.04302v1#S4.SS2"
+        },
+        {
+          "key": "5",
+          "title": "CBR-RAG: Using CBR to form context for LLMs",
+          "url": "https://arxiv.org/html/2404.04302v1#S3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2404.04302v1",
+        "url": "https://arxiv.org/html/2404.04302v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-13",

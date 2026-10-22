@@ -1,0 +1,94 @@
+{
+  "technology_id": "ra_cm3",
+  "source": {
+    "label": "arXiv:2211.12561v2",
+    "url": "https://arxiv.org/html/2211.12561v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Our setup",
+      "anchor": "S3.SS1.SSS0.Px3"
+    },
+    {
+      "key": "2",
+      "title": "Dense retriever",
+      "anchor": "S3.SS2.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Inference",
+      "anchor": "S3.SS4.SSS0.Px2"
+    },
+    {
+      "key": "4",
+      "title": "Retrieval strategy",
+      "anchor": "S3.SS2.SSS0.Px2"
+    },
+    {
+      "key": "5",
+      "title": "Multimodal generator",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "memory",
+      "encode"
+    ],
+    [
+      "query",
+      "search",
+      "diversity"
+    ],
+    [
+      "prepend",
+      "generate"
+    ]
+  ],
+  "nodes": {
+    "memory": {
+      "section": "1",
+      "codes": {
+        "A7": "image"
+      }
+    },
+    "encode": {
+      "section": "2",
+      "codes": {
+        "A5": "vision_language"
+      }
+    },
+    "query": {
+      "section": "3"
+    },
+    "search": {
+      "section": "2"
+    },
+    "diversity": {
+      "section": "4"
+    },
+    "prepend": {
+      "section": "5"
+    },
+    "generate": {
+      "section": "5",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    }
+  },
+  "edges": [
+    [
+      "encode",
+      "search"
+    ],
+    [
+      "diversity",
+      "prepend"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

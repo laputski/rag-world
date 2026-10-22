@@ -1,0 +1,118 @@
+{
+  "technology_id": "flare",
+  "source": {
+    "label": "arXiv:2305.06983v2",
+    "url": "https://arxiv.org/html/2305.06983v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Confidence-based Active Retrieval",
+      "anchor": "S3.SS2.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "Confidence-based Query Formulation",
+      "anchor": "S3.SS2.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "Document corpus and retrievers",
+      "anchor": "S3.SS3.SSS0.Px2"
+    },
+    {
+      "key": "4",
+      "title": "Active Retrieval Augmented Generation",
+      "anchor": "S2.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "draft",
+      "check",
+      "query"
+    ],
+    [
+      "accept",
+      "retrieval",
+      "regenerate"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "draft": {
+      "section": "1"
+    },
+    "check": {
+      "section": "1",
+      "codes": {
+        "E2": "decoding_trigger"
+      }
+    },
+    "query": {
+      "section": "2",
+      "codes": {
+        "B1": "multi_reformulation"
+      }
+    },
+    "accept": {
+      "section": "1"
+    },
+    "retrieval": {
+      "section": "3",
+      "codes": {
+        "A5": "lexical",
+        "C1": "lexical"
+      }
+    },
+    "regenerate": {
+      "section": "1",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "answer": {
+      "section": "4",
+      "codes": {
+        "C2": "iterative_stopping"
+      }
+    }
+  },
+  "edges": [
+    [
+      "check",
+      "accept"
+    ],
+    [
+      "query",
+      "retrieval"
+    ],
+    [
+      "accept",
+      "answer"
+    ],
+    [
+      "regenerate",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "accept",
+      "draft"
+    ],
+    [
+      "regenerate",
+      "draft"
+    ]
+  ],
+  "breaks": [
+    [
+      "accept",
+      "retrieval"
+    ]
+  ],
+  "omitted": []
+}

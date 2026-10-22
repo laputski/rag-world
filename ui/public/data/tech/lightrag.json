@@ -43,6 +43,148 @@
     "configuration_variable": [],
     "description": "LightRAG ставит целью удержать пользу графового представления, отказавшись от главного его расхода. В системах, строящих сообщества и отчёты по ним, добавление одного документа требует пересчёта кластеров и переписывания отчётов, поэтому собрание, которое пополняется, обходится дороже неподвижного.\n\nИзвлечение устроено в два уровня, работающих одновременно. Нижний уровень отвечает на точные вопросы: из запроса выделяются упоминания конкретных сущностей, по ним находятся вершины графа и смежные с ними рёбра. Верхний уровень отвечает на вопросы общего характера: из запроса выделяются обобщённые понятия, которым сопоставлены сводные описания групп вершин. Результаты обоих уровней объединяются в один контекст, поэтому запрос про отдельное имя и запрос про целое явление обслуживаются одной цепочкой обработки, а не двумя.\n\nПополнение собрания устроено дописыванием. Новый документ разбирается в вершины и рёбра, которые добавляются к существующему графу, а описания затрагиваемых групп обновляются точечно. Полного перестроения не происходит, и стоимость добавления не зависит от размера уже накопленного графа. Ценой служит то, что структура графа отражает порядок поступления документов: связь, которую видно только при взгляде на собрание целиком, при пошаговом дописывании может не возникнуть.",
     "description_en": "LightRAG sets out to keep the benefit of a graph representation while giving up its principal cost. In systems that build communities and write reports over them, adding a single document requires recomputing the clusters and rewriting the reports, so a growing collection costs more than a static one.\n\nRetrieval works on two levels at once. The lower level answers precise questions: mentions of specific entities are taken from the query, and the matching graph nodes and their adjacent edges are found. The upper level answers questions of a general nature: broader notions are taken from the query and matched against summary descriptions of groups of nodes. The results of both levels are merged into one context, so a question about a single name and a question about a whole phenomenon are served by one processing chain rather than two.\n\nGrowth of the collection is handled by appending. A new document is parsed into nodes and edges that are added to the existing graph, and the descriptions of the affected groups are updated locally. No full rebuild takes place, and the cost of an addition does not depend on the size of the graph accumulated so far. The price is that the structure of the graph reflects the order in which documents arrived: a connection visible only when the collection is viewed as a whole may never arise under incremental appending.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "dedup",
+          "graph"
+        ],
+        [
+          "graph",
+          "match"
+        ],
+        [
+          "neighbours",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель получает вопрос вместе с описаниями найденных сущностей и связей и отрывками исходного текста.",
+          "note_en": "A language model receives the question together with the descriptions of the found entities and relations and excerpts of the source text.",
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "dedup": {
+          "codes": {},
+          "note": "Одинаковые сущности и связи из разных фрагментов сливаются в одну вершину или одно ребро.",
+          "note_en": "Identical entities and relations from different chunks are merged into one node or one edge.",
+          "section": "1",
+          "title": "Слияние повторов",
+          "title_en": "Merging duplicates"
+        },
+        "extract": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "1",
+          "sub": "и связей",
+          "sub_en": "with relations",
+          "title": "Выделение сущностей",
+          "title_en": "Entity extraction"
+        },
+        "graph": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted"
+          },
+          "section": "1",
+          "title": "Граф сущностей",
+          "title_en": "Entity graph"
+        },
+        "keywords": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "section": "2",
+          "sub": "частные и общие",
+          "sub_en": "local and global",
+          "title": "Ключевые слова вопроса",
+          "title_en": "Query keywords"
+        },
+        "match": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "2",
+          "sub": "в векторной базе",
+          "sub_en": "by vector search",
+          "title": "Сопоставление ключей",
+          "title_en": "Keyword matching"
+        },
+        "neighbours": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "2",
+          "title": "Соседние вершины",
+          "title_en": "Neighbouring nodes"
+        },
+        "profile": {
+          "codes": {},
+          "note": "Языковая модель пишет абзац с описанием для каждой вершины и каждого ребра; вершину находят по её имени, ребро по ключевым словам, которые добавляет модель.",
+          "note_en": "A language model writes a describing paragraph for every node and every edge; a node is found by its name, an edge by keywords the model adds.",
+          "section": "1",
+          "title": "Ключи и описания",
+          "title_en": "Keys and descriptions"
+        },
+        "update": {
+          "codes": {
+            "F1": "none"
+          },
+          "section": "1",
+          "sub": "без перестройки",
+          "sub_en": "no full rebuild",
+          "title": "Новые документы",
+          "title_en": "New documents"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "extract",
+          "profile",
+          "dedup"
+        ],
+        [
+          "update",
+          "graph"
+        ],
+        [
+          "keywords",
+          "match",
+          "neighbours"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Graph-based Text Indexing",
+          "url": "https://arxiv.org/html/2410.05779v3#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Dual-level Retrieval Paradigm",
+          "url": "https://arxiv.org/html/2410.05779v3#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Retrieval-Augmented Answer Generation",
+          "url": "https://arxiv.org/html/2410.05779v3#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2410.05779v3",
+        "url": "https://arxiv.org/html/2410.05779v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

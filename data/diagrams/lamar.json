@@ -1,0 +1,83 @@
+{
+  "technology_id": "lamar",
+  "source": {
+    "label": "arXiv:2607.22042v2",
+    "url": "https://arxiv.org/html/2607.22042v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "English-Anchored Multilingual Relevance Distillation",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Preference Alignment for Language Coherence",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Introduction",
+      "anchor": "S1"
+    },
+    {
+      "key": "4",
+      "title": "LAMAR",
+      "anchor": "S3"
+    }
+  ],
+  "rows": [
+    [
+      "teacher",
+      "distill"
+    ],
+    [
+      "align"
+    ],
+    [
+      "candidates",
+      "pair",
+      "reranked"
+    ]
+  ],
+  "nodes": {
+    "teacher": {
+      "section": "1"
+    },
+    "distill": {
+      "section": "1",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    },
+    "align": {
+      "section": "2",
+      "residual": "language_coherence_ranking"
+    },
+    "candidates": {
+      "section": "3"
+    },
+    "pair": {
+      "section": "4",
+      "codes": {
+        "D1": "cross_encoder"
+      }
+    },
+    "reranked": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "distill",
+      "align"
+    ],
+    [
+      "align",
+      "pair"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

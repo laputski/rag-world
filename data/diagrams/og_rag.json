@@ -1,0 +1,88 @@
+{
+  "technology_id": "og_rag",
+  "source": {
+    "label": "arXiv:2412.15235v1",
+    "url": "https://arxiv.org/html/2412.15235v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Ontology",
+      "anchor": "S4.SS1.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "Hypergraph Transformation",
+      "anchor": "S4.SS1.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "Relevant Nodes",
+      "anchor": "S4.SS2.SSS1"
+    },
+    {
+      "key": "4",
+      "title": "Relevant Hyeredges as Context",
+      "anchor": "S4.SS2.SSS2"
+    },
+    {
+      "key": "5",
+      "title": "Retrieval-Augmented Generation",
+      "anchor": "S4.SS2.SSS3"
+    }
+  ],
+  "rows": [
+    [
+      "mapping",
+      "flatten",
+      "hypergraph"
+    ],
+    [
+      "nodes",
+      "cover",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "mapping": {
+      "section": "1"
+    },
+    "flatten": {
+      "section": "2"
+    },
+    "hypergraph": {
+      "section": "2",
+      "codes": {
+        "A1": "node_edge",
+        "A4": "hypergraph",
+        "A8": "extracted"
+      }
+    },
+    "nodes": {
+      "section": "3",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "cover": {
+      "section": "4",
+      "codes": {
+        "C1": "graph_traversal",
+        "D1": "set_cover",
+        "D2": "budget_aware"
+      }
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "hypergraph",
+      "nodes"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

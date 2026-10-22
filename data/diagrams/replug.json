@@ -1,0 +1,101 @@
+{
+  "technology_id": "replug",
+  "source": {
+    "label": "arXiv:2301.12652v4",
+    "url": "https://arxiv.org/html/2301.12652v4"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Document Retrieval",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Input Reformulation",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Computing Retrieval Likelihood",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "4",
+      "title": "Computing LM likelihood",
+      "anchor": "S4.SS2"
+    },
+    {
+      "key": "5",
+      "title": "Loss Function",
+      "anchor": "S4.SS3"
+    },
+    {
+      "key": "6",
+      "title": "Asynchronous Update of the Datastore Index",
+      "anchor": "S4.SS4"
+    }
+  ],
+  "rows": [
+    [
+      "retrieval",
+      "prepend",
+      "ensemble"
+    ],
+    [
+      "ret_lik",
+      "lm_lik"
+    ],
+    [
+      "update",
+      "reindex"
+    ]
+  ],
+  "nodes": {
+    "retrieval": {
+      "section": "1"
+    },
+    "prepend": {
+      "section": "2"
+    },
+    "ensemble": {
+      "section": "2",
+      "codes": {
+        "C3": "none"
+      }
+    },
+    "ret_lik": {
+      "section": "3"
+    },
+    "lm_lik": {
+      "section": "4"
+    },
+    "update": {
+      "section": "5",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    },
+    "reindex": {
+      "section": "6"
+    }
+  },
+  "edges": [
+    [
+      "retrieval",
+      "ret_lik"
+    ],
+    [
+      "lm_lik",
+      "update"
+    ]
+  ],
+  "loops": [
+    [
+      "reindex",
+      "ret_lik"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

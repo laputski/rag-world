@@ -1,0 +1,91 @@
+{
+  "technology_id": "hipporag",
+  "source": {
+    "label": "arXiv:2405.14831v3",
+    "url": "https://arxiv.org/html/2405.14831v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Detailed Methodology",
+      "anchor": "S2.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "openie",
+      "synonyms",
+      "kg"
+    ],
+    [
+      "question",
+      "qentities",
+      "qnodes"
+    ],
+    [
+      "specificity",
+      "ppr",
+      "rank"
+    ]
+  ],
+  "nodes": {
+    "openie": {
+      "section": "1",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "synonyms": {
+      "section": "1"
+    },
+    "kg": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted_and_computed"
+      }
+    },
+    "question": {
+      "section": "1"
+    },
+    "qentities": {
+      "section": "1",
+      "codes": {
+        "B1": "key_extraction"
+      }
+    },
+    "qnodes": {
+      "section": "1"
+    },
+    "specificity": {
+      "section": "1"
+    },
+    "ppr": {
+      "section": "1",
+      "codes": {
+        "C1": "graph_traversal"
+      },
+      "residual": "random_walk_ranking"
+    },
+    "rank": {
+      "section": "1",
+      "codes": {
+        "A1": "passage"
+      },
+      "residual": "score_transfer_to_units"
+    }
+  },
+  "edges": [
+    [
+      "kg",
+      "qnodes"
+    ],
+    [
+      "qnodes",
+      "specificity"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

@@ -41,6 +41,161 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [
+        [
+          "lexidx",
+          "vecidx"
+        ]
+      ],
+      "edges": [
+        [
+          "chunking",
+          "lexidx"
+        ],
+        [
+          "chunking",
+          "vecidx"
+        ],
+        [
+          "lexidx",
+          "prefilter"
+        ],
+        [
+          "vecidx",
+          "scoring"
+        ],
+        [
+          "compress",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "G2": "edge_device"
+          },
+          "section": "5",
+          "sub": "на телефоне без сети",
+          "sub_en": "on a phone, offline",
+          "title": "Ответ малой модели",
+          "title_en": "Answer by a small model"
+        },
+        "chunking": {
+          "codes": {
+            "A2": "fixed"
+          },
+          "section": "1",
+          "sub": "равной длины",
+          "sub_en": "fixed windows",
+          "title": "Нарезка на фрагменты",
+          "title_en": "Splitting into chunks"
+        },
+        "compress": {
+          "codes": {},
+          "note": "Предложения в отобранных фрагментах оцениваются по совпадению со словами вопроса и по медицинским терминам. Остаются только самые подходящие предложения. Текст не переписывается.",
+          "note_en": "Sentences in the selected chunks are scored by overlap with the question's keywords and by medical terms, and only the most relevant are kept. The text is not rewritten.",
+          "section": "4",
+          "sub": "отбором предложений",
+          "sub_en": "by sentence selection",
+          "title": "Сжатие контекста",
+          "title_en": "Context compression"
+        },
+        "lexidx": {
+          "codes": {},
+          "note": "Простая таблица сопоставляет каждому ключевому слову номера фрагментов, где оно встречается.",
+          "note_en": "A simple table maps each keyword to the ids of the chunks that contain it.",
+          "section": "1",
+          "title": "Указатель ключевых слов",
+          "title_en": "Keyword index"
+        },
+        "manuals": {
+          "codes": {},
+          "section": "1",
+          "title": "Пособия по неотложной помощи",
+          "title_en": "Emergency care manuals"
+        },
+        "prefilter": {
+          "codes": {},
+          "note": "Фрагменты оцениваются по доле ключевых слов вопроса, которые в них встречаются. Обычно из тысяч фрагментов остаётся меньше пятидесяти.",
+          "note_en": "Chunks are scored by the share of the question's keywords they contain. Usually thousands of chunks shrink to fewer than fifty.",
+          "section": "2",
+          "title": "Отбор по ключевым словам",
+          "title_en": "Keyword prefilter"
+        },
+        "scoring": {
+          "codes": {
+            "C3": "score_normalization",
+            "D1": "none",
+            "D2": "top_k"
+          },
+          "note": "Оставшиеся фрагменты упорядочиваются по взвешенной сумме сходства векторов и доли ключевых слов. Статья называет этот этап переранжированием, но отдельной модели для него нет.",
+          "note_en": "The remaining chunks are ordered by a weighted sum of vector similarity and keyword share. The paper calls this stage reranking, but no separate reranking model is used.",
+          "section": "3",
+          "title": "Смешанная оценка",
+          "title_en": "Hybrid scoring"
+        },
+        "vecidx": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "1",
+          "title": "Векторный указатель",
+          "title_en": "Vector index"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "manuals",
+          "chunking"
+        ],
+        [
+          "lexidx",
+          "vecidx"
+        ],
+        [
+          "prefilter",
+          "scoring",
+          "compress"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Document Ingestion and Indexing",
+          "url": "https://arxiv.org/html/2602.13229v1#S3.SS2.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Stage 1: Lexical Pre-filtering",
+          "url": "https://arxiv.org/html/2602.13229v1#S3.SS3.SSS1"
+        },
+        {
+          "key": "3",
+          "title": "Stage 2: Semantic Re-ranking",
+          "url": "https://arxiv.org/html/2602.13229v1#S3.SS3.SSS2"
+        },
+        {
+          "key": "4",
+          "title": "Stage 3: Selective Context Compression",
+          "url": "https://arxiv.org/html/2602.13229v1#S3.SS4.SSS1"
+        },
+        {
+          "key": "5",
+          "title": "Quantization KV Cache",
+          "url": "https://arxiv.org/html/2602.13229v1#S3.SS4.SSS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2602.13229v1",
+        "url": "https://arxiv.org/html/2602.13229v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

@@ -1,0 +1,111 @@
+{
+  "technology_id": "opensearch",
+  "source": {
+    "label": "OpenSearch blog: Introducing reciprocal rank fusion for hybrid search",
+    "url": "https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "How to use RRF",
+      "anchor": "how-to-use-rrf"
+    },
+    {
+      "key": "2",
+      "title": "Handling score variability across query methods",
+      "anchor": "handling-score-variability-across-query-methods"
+    },
+    {
+      "key": "3",
+      "title": "How RRF works",
+      "anchor": "how-rrf-works"
+    }
+  ],
+  "rows": [
+    [
+      "pipeline",
+      "query"
+    ],
+    [
+      "lexical",
+      "vector"
+    ],
+    [
+      "shards",
+      "ranks",
+      "fusion"
+    ],
+    [
+      "sort",
+      "top"
+    ]
+  ],
+  "nodes": {
+    "pipeline": {
+      "section": "1"
+    },
+    "query": {
+      "section": "1"
+    },
+    "lexical": {
+      "section": "2"
+    },
+    "vector": {
+      "section": "2"
+    },
+    "shards": {
+      "section": "3",
+      "codes": {
+        "C4": "multiple_local"
+      }
+    },
+    "ranks": {
+      "section": "3"
+    },
+    "fusion": {
+      "section": "3",
+      "codes": {
+        "C3": "rrf"
+      }
+    },
+    "sort": {
+      "section": "3"
+    },
+    "top": {
+      "section": "3",
+      "codes": {
+        "D2": "top_k"
+      }
+    }
+  },
+  "edges": [
+    [
+      "query",
+      "lexical"
+    ],
+    [
+      "query",
+      "vector"
+    ],
+    [
+      "lexical",
+      "shards"
+    ],
+    [
+      "vector",
+      "shards"
+    ],
+    [
+      "fusion",
+      "sort"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "lexical",
+      "vector"
+    ]
+  ],
+  "omitted": []
+}

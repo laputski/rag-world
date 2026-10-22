@@ -1,0 +1,100 @@
+{
+  "technology_id": "late_chunking",
+  "source": {
+    "label": "arXiv:2409.04701v3",
+    "url": "https://arxiv.org/html/2409.04701v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Method",
+      "anchor": "S3"
+    },
+    {
+      "key": "2",
+      "title": "Evaluation on Retrieval Tasks",
+      "anchor": "S4.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "text"
+    ],
+    [
+      "bounds",
+      "tokens"
+    ],
+    [
+      "pooling",
+      "index"
+    ],
+    [
+      "query",
+      "knn",
+      "rank"
+    ]
+  ],
+  "nodes": {
+    "text": {
+      "section": "1"
+    },
+    "bounds": {
+      "section": "1"
+    },
+    "tokens": {
+      "section": "1"
+    },
+    "pooling": {
+      "section": "1",
+      "codes": {
+        "A2": "late_chunking"
+      }
+    },
+    "index": {
+      "section": "2"
+    },
+    "query": {
+      "section": "2"
+    },
+    "knn": {
+      "section": "2"
+    },
+    "rank": {
+      "section": "2",
+      "codes": {
+        "D1": "none",
+        "D2": "top_k"
+      }
+    }
+  },
+  "edges": [
+    [
+      "text",
+      "bounds"
+    ],
+    [
+      "text",
+      "tokens"
+    ],
+    [
+      "bounds",
+      "pooling"
+    ],
+    [
+      "tokens",
+      "pooling"
+    ],
+    [
+      "index",
+      "knn"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "bounds",
+      "tokens"
+    ]
+  ],
+  "omitted": []
+}

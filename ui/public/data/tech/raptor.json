@@ -44,6 +44,179 @@
     ],
     "description": "RAPTOR отвечает на вопросы, ответ на которые не содержится ни в одном отдельном фрагменте. Поиск по фрагментам находит места, похожие на запрос, и хорошо служит вопросу о конкретном факте. Вопрос вида «о чём вообще говорит этот отчёт» такой поиск обслужить не может: искомого предложения в тексте нет, оно возникает только при взгляде на весь текст сразу.\n\nПостроение идёт снизу вверх и повторяется. Фрагменты превращаются в векторы и группируются алгоритмом кластеризации по близости. Для каждой группы большая языковая модель пишет свод её содержания, своды сами превращаются в векторы и снова группируются, и так до тех пор, пока на верхнем уровне не останется один узел, описывающий собрание целиком. Получается дерево, где листья суть исходные фрагменты, а каждый внутренний узел суть обобщение своих потомков.\n\nИндексируются все узлы дерева наравне, поэтому поиск возвращает как отдельные фрагменты, так и своды разной степени общности, и уровень подбирается запросом сам собой. Стоимость построения складывается из вызова модели на каждую группу каждого уровня и потому растёт вместе с собранием. Своды, кроме того, остаются пересказом: сведение, потерянное при обобщении на нижнем уровне, до верхних уровней не доходит.",
     "description_en": "RAPTOR addresses questions whose answer is contained in no single fragment. Search over fragments finds places resembling the query and serves a question about a specific fact well. A question of the form \"what is this report about at all\" cannot be served that way: the sentence being sought is not in the text and arises only when the whole text is taken together.\n\nConstruction proceeds from the bottom up and repeats. Fragments are turned into vectors and grouped by a clustering algorithm according to proximity. For each group a large language model writes a summary of its content, the summaries are themselves turned into vectors and grouped again, and so on until a single node describing the whole collection remains at the top. The result is a tree whose leaves are the original fragments and whose every internal node is a generalisation of its descendants.\n\nAll nodes of the tree are indexed alike, so search returns both individual fragments and summaries of varying generality, and the query itself settles which level applies. The cost of construction consists of a model call per group per level and therefore grows with the collection. Summaries, moreover, remain restatements: a fact lost in generalisation at a lower level never reaches the upper ones.",
+    "diagram": {
+      "breaks": [
+        [
+          "traversal",
+          "collapsed"
+        ]
+      ],
+      "edges": [
+        [
+          "cluster",
+          "summarize"
+        ],
+        [
+          "tree",
+          "traversal"
+        ],
+        [
+          "tree",
+          "collapsed"
+        ],
+        [
+          "traversal",
+          "context"
+        ],
+        [
+          "collapsed",
+          "context"
+        ]
+      ],
+      "loops": [
+        [
+          "summarize",
+          "embed"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Готовая языковая модель отвечает на вопрос по собранному тексту.",
+          "note_en": "A ready-made language model answers the question from the assembled text.",
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "chunks": {
+          "codes": {
+            "A2": "fixed"
+          },
+          "section": "1",
+          "sub": "целые предложения",
+          "sub_en": "whole sentences",
+          "title": "Нарезка на фрагменты",
+          "title_en": "Splitting into fragments"
+        },
+        "cluster": {
+          "codes": {
+            "A8": "computed"
+          },
+          "section": "2",
+          "title": "Группировка по близости",
+          "title_en": "Grouping by similarity"
+        },
+        "collapsed": {
+          "codes": {
+            "C1": "ann",
+            "D2": "budget_aware"
+          },
+          "section": "4",
+          "sub": "дерево как один слой",
+          "sub_en": "tree as one layer",
+          "title": "Поиск по всем узлам",
+          "title_en": "Search over all nodes"
+        },
+        "context": {
+          "codes": {},
+          "note": "Тексты выбранных узлов склеиваются в один контекст для ответа.",
+          "note_en": "The texts of the chosen nodes are joined into one context for the answer.",
+          "section": "4",
+          "title": "Сборка найденного текста",
+          "title_en": "Assembling the context"
+        },
+        "embed": {
+          "codes": {},
+          "note": "Каждый фрагмент, а потом и каждое краткое изложение получает векторное представление.",
+          "note_en": "Every fragment, and later every summary, gets a vector representation.",
+          "section": "1",
+          "sub": "моделью SBERT",
+          "sub_en": "with SBERT",
+          "title": "Перевод в векторы",
+          "title_en": "Vector encoding"
+        },
+        "summarize": {
+          "codes": {
+            "A3": "summary"
+          },
+          "section": "3",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Изложение каждой группы",
+          "title_en": "Summary of each group"
+        },
+        "traversal": {
+          "codes": {},
+          "note": "На каждом уровне берутся узлы, ближайшие к вопросу, среди потомков уже выбранных. Основные опыты этот способ не используют.",
+          "note_en": "At each layer the children of the chosen nodes closest to the question are taken. The main experiments do not use this option.",
+          "section": "4",
+          "sub": "в основных опытах не применяется",
+          "sub_en": "not used in the main runs",
+          "title": "Спуск по дереву",
+          "title_en": "Tree traversal"
+        },
+        "tree": {
+          "codes": {
+            "A1": "summary_node",
+            "A4": "tree"
+          },
+          "section": "1",
+          "title": "Многоуровневое дерево",
+          "title_en": "Multi-layer tree"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "chunks",
+          "embed",
+          "cluster"
+        ],
+        [
+          "summarize",
+          "tree"
+        ],
+        [
+          "traversal",
+          "collapsed"
+        ],
+        [
+          "context",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Overview of RAPTOR",
+          "url": "https://arxiv.org/html/2401.18059v1#S3.SS0.SSS0.Px1"
+        },
+        {
+          "key": "2",
+          "title": "Clustering Algorithm",
+          "url": "https://arxiv.org/html/2401.18059v1#S3.SS0.SSS0.Px2"
+        },
+        {
+          "key": "3",
+          "title": "Model-Based Summarization",
+          "url": "https://arxiv.org/html/2401.18059v1#S3.SS0.SSS0.Px3"
+        },
+        {
+          "key": "4",
+          "title": "Querying",
+          "url": "https://arxiv.org/html/2401.18059v1#S3.SS0.SSS0.Px4"
+        },
+        {
+          "key": "5",
+          "title": "Language Models for QA and Summarization",
+          "url": "https://arxiv.org/html/2401.18059v1#S6.SS0.SSS0.Px1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2401.18059v1",
+        "url": "https://arxiv.org/html/2401.18059v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

@@ -1,0 +1,77 @@
+{
+  "technology_id": "sail",
+  "source": {
+    "label": "arXiv:2305.15225v2",
+    "url": "https://arxiv.org/html/2305.15225v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Search Result Collection",
+      "anchor": "S2.SS1"
+    },
+    {
+      "key": "2",
+      "title": "In-context Retrieval Selection",
+      "anchor": "S2.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Fine-tuning",
+      "anchor": "S2.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "instructions",
+      "search",
+      "label"
+    ],
+    [
+      "finetune"
+    ],
+    [
+      "select",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "instructions": {
+      "section": "1"
+    },
+    "search": {
+      "section": "1"
+    },
+    "label": {
+      "section": "2"
+    },
+    "finetune": {
+      "section": "3",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "select": {
+      "section": "2",
+      "codes": {
+        "E2": "pre_gen_grounding"
+      }
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "label",
+      "finetune"
+    ],
+    [
+      "finetune",
+      "select"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

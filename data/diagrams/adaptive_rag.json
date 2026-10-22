@@ -1,0 +1,131 @@
+{
+  "technology_id": "adaptive_rag",
+  "source": {
+    "label": "arXiv:2403.14403v2",
+    "url": "https://arxiv.org/html/2403.14403v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Query Complexity Assessment",
+      "anchor": "S3.SS2.SSS0.Px2"
+    },
+    {
+      "key": "2",
+      "title": "Non Retrieval for QA",
+      "anchor": "S3.SS1.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Single-step Approach for QA",
+      "anchor": "S3.SS1.SSS0.Px2"
+    },
+    {
+      "key": "4",
+      "title": "Multi-step Approach for QA",
+      "anchor": "S3.SS1.SSS0.Px3"
+    },
+    {
+      "key": "5",
+      "title": "Preliminaries",
+      "anchor": "S3.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "question",
+      "classifier"
+    ],
+    [
+      "no_retrieval",
+      "single",
+      "multi_retrieval"
+    ],
+    [
+      "reasoning",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "question": {
+      "section": "1"
+    },
+    "classifier": {
+      "section": "1",
+      "codes": {
+        "B2": "trained_classifier"
+      }
+    },
+    "no_retrieval": {
+      "section": "2"
+    },
+    "single": {
+      "section": "3",
+      "codes": {
+        "A5": "lexical",
+        "C1": "lexical"
+      }
+    },
+    "multi_retrieval": {
+      "section": "4",
+      "codes": {
+        "B1": "multi_reformulation",
+        "C2": "iterative_stopping"
+      }
+    },
+    "reasoning": {
+      "section": "4",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "classifier",
+      "no_retrieval"
+    ],
+    [
+      "classifier",
+      "single"
+    ],
+    [
+      "classifier",
+      "multi_retrieval"
+    ],
+    [
+      "no_retrieval",
+      "answer"
+    ],
+    [
+      "single",
+      "answer"
+    ],
+    [
+      "multi_retrieval",
+      "reasoning"
+    ]
+  ],
+  "loops": [
+    [
+      "reasoning",
+      "multi_retrieval"
+    ]
+  ],
+  "breaks": [
+    [
+      "no_retrieval",
+      "single"
+    ],
+    [
+      "single",
+      "multi_retrieval"
+    ]
+  ],
+  "omitted": [
+    "D2"
+  ]
+}

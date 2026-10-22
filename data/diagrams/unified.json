@@ -1,0 +1,80 @@
+{
+  "technology_id": "unified",
+  "source": {
+    "label": "arXiv:2603.22340v1",
+    "url": "https://arxiv.org/html/2603.22340v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "RDF Data Representation",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "RDF Pipeline: Algorithms",
+      "anchor": "S4.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "triples",
+      "store"
+    ],
+    [
+      "nodes",
+      "relations",
+      "query"
+    ],
+    [
+      "result"
+    ]
+  ],
+  "nodes": {
+    "triples": {
+      "section": "1",
+      "codes": {
+        "A8": "given"
+      }
+    },
+    "store": {
+      "section": "2",
+      "codes": {
+        "A4": "graph"
+      }
+    },
+    "nodes": {
+      "section": "2"
+    },
+    "relations": {
+      "section": "2"
+    },
+    "query": {
+      "section": "2",
+      "codes": {
+        "C1": "boolean_query",
+        "D1": "none"
+      }
+    },
+    "result": {
+      "section": "2",
+      "codes": {
+        "A1": "node_edge"
+      },
+      "residual": "whole_query_result"
+    }
+  },
+  "edges": [
+    [
+      "store",
+      "nodes"
+    ],
+    [
+      "query",
+      "result"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

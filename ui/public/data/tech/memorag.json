@@ -41,6 +41,100 @@
     "configuration_variable": [],
     "description": "MemoRAG отвечает на вопросы, при которых непонятно, что искать. Поиск устроен так, что запрос должен быть похож на искомое, а вопрос вида «какая мысль проходит через все эти отчёты» ни на один отрезок текста не похож: искомого предложения в собрании нет.\n\nВводится промежуточное звено, названное памятью. Лёгкая языковая модель с длинным входом принимает всё собрание и удерживает его в сжатом виде, огрублённо, без подробностей. По вопросу эта модель порождает черновик ответа: приблизительный, с неточными именами и числами, зато называющий предметы, о которых в собрании речь. Черновик служит не ответом, а поисковым запросом.\n\nПо черновику выполняется обычное извлечение, найденные подлинные фрагменты подаются основной модели, и та порождает окончательный ответ. Схема близка к поиску по вымышленному ответу с той разницей, что черновик здесь порождается не из общих знаний модели, а из сжатого представления самого собрания, и потому называет то, что в нём действительно есть. Плата состоит в удержании этой памяти: она строится по всему собранию и обновляется при его изменении.",
     "description_en": "MemoRAG addresses questions where it is unclear what to search for. Search is built so that the query must resemble what is sought, and a question of the form \"what idea runs through all these reports\" resembles no stretch of the text: the sentence being sought is not in the collection.\n\nAn intermediate stage called memory is introduced. A light language model with a long input takes in the entire collection and holds it in compressed form, coarsely, without particulars. Given a question, this model generates a draft answer: approximate, with inexact names and numbers, but naming the subjects the collection actually discusses. The draft serves not as an answer but as a search query.\n\nOrdinary retrieval is performed on the draft, the genuine fragments found are given to the main model, and it generates the final answer. The scheme is close to search by an invented answer, with the difference that the draft here is generated not from the model's general knowledge but from a compressed view of the collection itself, and therefore names what is really in it. The price is maintaining that memory: it is built over the whole collection and must be refreshed as the collection changes.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "memory",
+          "clues"
+        ],
+        [
+          "context",
+          "retrieval"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "clues": {
+          "codes": {
+            "B1": "hyde",
+            "E5": "generation_seeds"
+          },
+          "section": "1",
+          "sub": "черновик ответа",
+          "sub_en": "draft answer",
+          "title": "Подсказки из памяти",
+          "title_en": "Clues from memory"
+        },
+        "context": {
+          "codes": {},
+          "section": "1",
+          "title": "Исходные тексты",
+          "title_en": "Source texts"
+        },
+        "memory": {
+          "codes": {
+            "D2": "latent_compression",
+            "G3": "trained_retriever"
+          },
+          "section": "2",
+          "sub": "модель памяти",
+          "sub_en": "memory model",
+          "title": "Сжатая общая память",
+          "title_en": "Compressed global memory"
+        },
+        "retrieval": {
+          "codes": {
+            "D1": "none"
+          },
+          "section": "1",
+          "title": "Поиск фрагментов",
+          "title_en": "Passage retrieval"
+        }
+      },
+      "omitted": [
+        {
+          "code": "F1",
+          "reason": "В статье память строится из всей коллекции заранее и может сохраняться для повторного использования, но запись итогов работы в память не описана.",
+          "reason_en": "The paper builds the memory from the whole collection in advance and may save it for reuse, but describes no writing of results back into memory."
+        }
+      ],
+      "rows": [
+        [
+          "context",
+          "memory"
+        ],
+        [
+          "clues",
+          "retrieval",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "MemoRAG",
+          "url": "https://arxiv.org/html/2409.05591v3#S2.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Memory Module",
+          "url": "https://arxiv.org/html/2409.05591v3#S2.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2409.05591v3",
+        "url": "https://arxiv.org/html/2409.05591v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

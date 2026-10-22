@@ -1,0 +1,106 @@
+{
+  "technology_id": "qdrant",
+  "source": {
+    "label": "GitHub README qdrant/qdrant",
+    "url": "https://github.com/qdrant/qdrant"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Dense, Sparse, and Multi Vector Search",
+      "anchor": "dense-sparse-and-multi-vector-search"
+    },
+    {
+      "key": "2",
+      "title": "Distributed Deployment",
+      "anchor": "distributed-deployment"
+    },
+    {
+      "key": "3",
+      "title": "Filtering on Payload",
+      "anchor": "filtering-on-payload"
+    },
+    {
+      "key": "4",
+      "title": "Hybrid Search",
+      "anchor": "hybrid-search"
+    }
+  ],
+  "rows": [
+    [
+      "points",
+      "shards"
+    ],
+    [
+      "conditions"
+    ],
+    [
+      "dense",
+      "sparse"
+    ],
+    [
+      "fusion"
+    ]
+  ],
+  "nodes": {
+    "points": {
+      "section": "1"
+    },
+    "shards": {
+      "section": "2",
+      "codes": {
+        "C4": "multiple_local"
+      }
+    },
+    "conditions": {
+      "section": "3"
+    },
+    "dense": {
+      "section": "1",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "sparse": {
+      "section": "1"
+    },
+    "fusion": {
+      "section": "4",
+      "codes": {
+        "C3": "rrf"
+      }
+    }
+  },
+  "edges": [
+    [
+      "conditions",
+      "dense"
+    ],
+    [
+      "conditions",
+      "sparse"
+    ],
+    [
+      "dense",
+      "fusion"
+    ],
+    [
+      "sparse",
+      "fusion"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "dense",
+      "sparse"
+    ],
+    [
+      "points",
+      "shards"
+    ]
+  ],
+  "omitted": [
+    "D1"
+  ]
+}

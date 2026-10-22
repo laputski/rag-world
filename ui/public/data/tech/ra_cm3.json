@@ -41,6 +41,129 @@
     "configuration_variable": [],
     "description": "RA-CM3 соединяет извлечение и порождение в одной модели и распространяет это соединение на изображения наравне с текстом. Обычное устройство держит порознь три части: модель представлений для поиска, хранилище и порождающую модель, причём каждая обучалась отдельно и о задачах остальных не знает.\n\nМодель здесь одна и работает с обеими модальностями. Она принимает вход, где текст и изображения перемежаются, и порождает выход такого же смешанного вида. Извлечение выполняется той же моделью: представление запроса и представления записей хранилища берутся из неё, поэтому текст находит изображение и изображение находит текст без отдельного связующего звена. Найденное подаётся обратно на вход и участвует в порождении наравне с исходным запросом.\n\nСовмещение снимает расхождение между тем, что извлекатель считает похожим, и тем, что порождающей модели действительно полезно. Плата состоит в обучении: такую модель нужно обучать целиком и на согласованных парах изображения и текста, а не собирать из готовых частей. Обновление хранилища при этом обучения не требует, потому что записи представляются той же моделью на лету.",
     "description_en": "RA-CM3 unites retrieval and generation in a single model and extends that union to images alongside text. The usual arrangement keeps three parts apart: a representation model for search, a store, and a generating model, each trained separately and unaware of the others' tasks.\n\nHere the model is one and works with both modalities. It takes an input in which text and images are interleaved and produces an output of the same mixed kind. Retrieval is performed by that same model: the representation of the query and the representations of the stored records are taken from it, so text finds an image and an image finds text with no separate bridging stage. What is found is fed back into the input and takes part in generation on the same footing as the original query.\n\nThe union removes the divergence between what a retriever considers similar and what actually helps the generating model. The price is training: such a model must be trained as a whole, on matched image and text pairs, rather than assembled from ready parts. Updating the store requires no training, since records are represented by the same model on the fly.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "encode",
+          "search"
+        ],
+        [
+          "diversity",
+          "prepend"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "diversity": {
+          "codes": {},
+          "note": "Кандидат пропускается, если он слишком похож на запрос или на уже отобранные документы.",
+          "note_en": "A candidate is skipped when it is too similar to the query or to documents already taken.",
+          "section": "4",
+          "title": "Отсев похожих документов",
+          "title_en": "Dropping near duplicates"
+        },
+        "encode": {
+          "codes": {
+            "A5": "vision_language"
+          },
+          "section": "2",
+          "title": "Перевод в векторы",
+          "title_en": "Encoding into vectors"
+        },
+        "generate": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "5",
+          "sub": "текста или картинки",
+          "sub_en": "text or an image",
+          "title": "Создание продолжения",
+          "title_en": "Generating the continuation"
+        },
+        "memory": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "1",
+          "sub": "текст и изображения",
+          "sub_en": "text and images",
+          "title": "Внешняя память",
+          "title_en": "External memory"
+        },
+        "prepend": {
+          "codes": {},
+          "note": "Найденные документы ставятся перед входом и служат модели примерами.",
+          "note_en": "The retrieved documents are placed in front of the input and serve the model as examples.",
+          "section": "5",
+          "title": "Документы перед запросом",
+          "title_en": "Documents before the input"
+        },
+        "query": {
+          "codes": {},
+          "note": "Запросом служит то, что подано на вход: подпись, если нужно создать картинку, или картинка, если нужна подпись.",
+          "note_en": "The input serves as the query: a caption when an image is to be generated, or an image when a caption is.",
+          "section": "3",
+          "title": "Запрос",
+          "title_en": "Query"
+        },
+        "search": {
+          "codes": {},
+          "note": "Из памяти берутся документы, чьи векторы ближе всего к вектору запроса.",
+          "note_en": "The documents whose vectors are closest to the query vector are taken from memory.",
+          "section": "2",
+          "title": "Поиск ближайших документов",
+          "title_en": "Nearest document search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "memory",
+          "encode"
+        ],
+        [
+          "query",
+          "search",
+          "diversity"
+        ],
+        [
+          "prepend",
+          "generate"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Our setup",
+          "url": "https://arxiv.org/html/2211.12561v2#S3.SS1.SSS0.Px3"
+        },
+        {
+          "key": "2",
+          "title": "Dense retriever",
+          "url": "https://arxiv.org/html/2211.12561v2#S3.SS2.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Inference",
+          "url": "https://arxiv.org/html/2211.12561v2#S3.SS4.SSS0.Px2"
+        },
+        {
+          "key": "4",
+          "title": "Retrieval strategy",
+          "url": "https://arxiv.org/html/2211.12561v2#S3.SS2.SSS0.Px2"
+        },
+        {
+          "key": "5",
+          "title": "Multimodal generator",
+          "url": "https://arxiv.org/html/2211.12561v2#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2211.12561v2",
+        "url": "https://arxiv.org/html/2211.12561v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

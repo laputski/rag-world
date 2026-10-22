@@ -1,0 +1,132 @@
+{
+  "technology_id": "magma",
+  "source": {
+    "label": "arXiv:2601.03236v2",
+    "url": "https://arxiv.org/html/2601.03236v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Memory Evolution (Write and Update)",
+      "anchor": "S3.SS4"
+    },
+    {
+      "key": "2",
+      "title": "Data Structure Layer",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Query Process: Adaptive Hierarchical Retrieval",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "4",
+      "title": "Query-Adaptive QA Prompt",
+      "anchor": "A3.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "segment",
+      "backbone"
+    ],
+    [
+      "consolidation",
+      "graph"
+    ],
+    [
+      "analysis",
+      "anchors",
+      "traversal"
+    ],
+    [
+      "linearize",
+      "budget",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "segment": {
+      "section": "1",
+      "codes": {
+        "A2": "structure_aware"
+      }
+    },
+    "backbone": {
+      "section": "1",
+      "codes": {
+        "A6": "append_only"
+      }
+    },
+    "consolidation": {
+      "section": "1",
+      "codes": {
+        "F1": "consolidating"
+      }
+    },
+    "graph": {
+      "section": "2",
+      "codes": {
+        "A1": "node_edge",
+        "A3": "metadata",
+        "A4": "graph",
+        "A8": "extracted_and_computed"
+      },
+      "residual": "typed_relation_views"
+    },
+    "analysis": {
+      "section": "3",
+      "codes": {
+        "B1": "key_extraction"
+      }
+    },
+    "anchors": {
+      "section": "3",
+      "codes": {
+        "C3": "rrf",
+        "C4": "multiple_local"
+      }
+    },
+    "traversal": {
+      "section": "3",
+      "codes": {
+        "C1": "graph_traversal",
+        "C2": "iterative_stopping",
+        "D1": "graph_structural"
+      }
+    },
+    "linearize": {
+      "section": "3",
+      "codes": {
+        "E2": "none"
+      }
+    },
+    "budget": {
+      "section": "3",
+      "codes": {
+        "D2": "budget_aware"
+      }
+    },
+    "answer": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "backbone",
+      "consolidation"
+    ],
+    [
+      "graph",
+      "anchors"
+    ],
+    [
+      "traversal",
+      "linearize"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

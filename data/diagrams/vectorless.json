@@ -1,0 +1,71 @@
+{
+  "technology_id": "vectorless",
+  "source": {
+    "label": "GitHub: VectifyAI/PageIndex",
+    "url": "https://github.com/VectifyAI/PageIndex"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "What is PageIndex?",
+      "anchor": "what-is-pageindex"
+    },
+    {
+      "key": "2",
+      "title": "Model Recommendations",
+      "anchor": "model-recommendations"
+    },
+    {
+      "key": "3",
+      "title": "Cost per query vs. native PDF input",
+      "anchor": "cost-per-query-vs-native-pdf-input"
+    }
+  ],
+  "rows": [
+    [
+      "document",
+      "tree",
+      "summaries"
+    ],
+    [
+      "search",
+      "reading"
+    ]
+  ],
+  "nodes": {
+    "document": {
+      "section": "1"
+    },
+    "tree": {
+      "section": "2",
+      "codes": {
+        "A2": "structure_aware",
+        "A4": "tree",
+        "A8": "given"
+      }
+    },
+    "summaries": {
+      "section": "2"
+    },
+    "search": {
+      "section": "1",
+      "codes": {
+        "C1": "tree_navigation",
+        "C2": "agentic_open_loop",
+        "A5": "none"
+      }
+    },
+    "reading": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "summaries",
+      "search"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

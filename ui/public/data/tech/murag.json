@@ -41,6 +41,101 @@
     "configuration_variable": [],
     "description": "MuRAG снимает разделение между текстом и изображением в извлечении. Обычная система хранит их порознь, и вопрос, ответ на который складывается из подписи и самого снимка, обслуживается двумя несвязанными поисками с ручной сшивкой результатов.\n\nПамять здесь одна. Изображения и отрезки текста кодируются в общее пространство представлений моделью, обученной сопоставлять то и другое, поэтому снимок и описывающий его абзац оказываются рядом по построению. Поиск выполняется по этому общему пространству, и выдача содержит записи обеих модальностей вперемешку, упорядоченные по одной шкале близости.\n\nПорождающая модель принимает найденное как есть, не требуя предварительного перевода изображения в текст, поэтому сведения, которые словами не выражаются, доходят до ответа. Ограничения происходят от общего пространства: его качество определяет всё, а обучение такого пространства требует большого набора согласованных пар изображения и текста. Область, для которой таких пар мало, обслуживается заметно хуже.",
     "description_en": "MuRAG removes the separation between text and image in retrieval. An ordinary system keeps them apart, and a question whose answer is assembled from a caption and the picture itself is served by two unconnected searches with the results stitched together by hand.\n\nHere the memory is one. Images and stretches of text are encoded into a shared representation space by a model trained to match the two, so a picture and the paragraph describing it end up close together by construction. Search runs over that shared space, and the results contain records of both modalities intermixed, ordered on a single scale of closeness.\n\nThe generating model takes what is found as it stands, requiring no prior conversion of the image into text, so information that words do not express reaches the answer. The limitations come from the shared space: its quality decides everything, and training such a space requires a large set of matched image and text pairs. A field with few such pairs is served noticeably worse.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "index",
+          "search"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Найденные изображения и тексты вместе с вопросом снова проходят через кодировщик, и по ним модель пишет ответ.",
+          "note_en": "The images and texts found are encoded again together with the question, and from them the model writes the answer.",
+          "section": "1",
+          "title": "Ответ модели",
+          "title_en": "Answer generation"
+        },
+        "encode": {
+          "codes": {
+            "A5": "vision_language",
+            "G3": "joint_training"
+          },
+          "section": "2",
+          "title": "Общий кодировщик",
+          "title_en": "Shared encoder"
+        },
+        "index": {
+          "codes": {},
+          "note": "Все пары из изображения и текста кодируются заранее, и их векторные представления складываются в индекс для быстрого поиска.",
+          "note_en": "All image and text pairs are encoded in advance, and their vectors are put into an index for fast search.",
+          "section": "3",
+          "title": "Индекс векторов",
+          "title_en": "Vector index"
+        },
+        "memory": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "1",
+          "title": "Изображения и тексты",
+          "title_en": "Image and text memory"
+        },
+        "query": {
+          "codes": {},
+          "note": "Вопрос кодируется тем же кодировщиком, что и память.",
+          "note_en": "The question is encoded by the same encoder as the memory.",
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "search": {
+          "codes": {},
+          "note": "Находятся несколько записей памяти, чьи векторные представления ближе всего к вектору вопроса.",
+          "note_en": "The memory entries whose vectors are closest to the vector of the question are found.",
+          "section": "1",
+          "title": "Поиск ближайших пар",
+          "title_en": "Nearest pair search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "memory",
+          "encode",
+          "index"
+        ],
+        [
+          "query",
+          "search",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "MuRAG",
+          "url": "https://arxiv.org/html/2210.02928v2#S3.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Backbone Encoder",
+          "url": "https://arxiv.org/html/2210.02928v2#S3.SS1"
+        },
+        {
+          "key": "3",
+          "title": "Fixed-Retrieval Training",
+          "url": "https://arxiv.org/html/2210.02928v2#S3.SS4.SSS0.Px2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2210.02928v2",
+        "url": "https://arxiv.org/html/2210.02928v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

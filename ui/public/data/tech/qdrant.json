@@ -44,6 +44,138 @@
     ],
     "description": "Qdrant представляет собой хранилище векторов с открытым исходным кодом. Оно решает одну задачу и потому устроено вокруг неё: хранить представления, искать ближайших соседей и отбирать по описательным полям.\n\nСущественная особенность состоит в том, как соединены поиск и отбор. Наивный способ отбирает после поиска, и тогда строгое условие оставляет от выдачи почти ничего: соседи нашлись, но условию не удовлетворяют. Другой наивный способ отбирает до поиска и вынуждает перебирать всё подходящее. Qdrant применяет условие во время обхода указателя, отбрасывая не подходящие под него вершины по ходу, поэтому строгий отбор не разрушает выдачу и не требует полного перебора.\n\nКроме того, поддерживается несколько представлений на одну запись, что нужно для схемы позднего взаимодействия, и разреженные векторы наравне с плотными, что позволяет вести смешанный поиск в одном хранилище. Отличие от поисковых систем, к которым векторы добавлены, состоит в предмете: здесь векторы первичны, а разбор текстового запроса и словарное оценивание развиты слабее.",
     "description_en": "Qdrant is an open-source vector store. It solves one task and is therefore built around it: hold representations, find nearest neighbours, and filter by descriptive fields.\n\nIts notable feature is how search and filtering are joined. The naive approach filters after the search, and then a strict condition leaves almost nothing of the results: neighbours were found but do not satisfy the condition. The other naive approach filters before the search and forces a scan of everything that qualifies. Qdrant applies the condition during the traversal of the index, discarding nodes that fail it as it goes, so strict filtering neither destroys the results nor demands an exhaustive scan.\n\nSeveral representations per record are supported besides, which is what late interaction requires, and sparse vectors alongside dense ones, which allows hybrid search within a single store. What distinguishes it from search engines with vectors bolted on is its subject: here vectors come first, while text query parsing and lexical scoring are less developed.",
+    "diagram": {
+      "breaks": [
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "points",
+          "shards"
+        ]
+      ],
+      "edges": [
+        [
+          "conditions",
+          "dense"
+        ],
+        [
+          "conditions",
+          "sparse"
+        ],
+        [
+          "dense",
+          "fusion"
+        ],
+        [
+          "sparse",
+          "fusion"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "conditions": {
+          "codes": {},
+          "note": "Запрос может ограничить выдачу условиями на поля: совпадением слов, числовыми диапазонами, географическим положением.",
+          "note_en": "A query may restrict results by conditions on the payload: keyword match, numeric ranges, geo-location.",
+          "section": "3",
+          "title": "Условия на поля данных",
+          "title_en": "Payload filter conditions"
+        },
+        "dense": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "1",
+          "title": "Поиск по плотным векторам",
+          "title_en": "Dense vector search"
+        },
+        "fusion": {
+          "codes": {
+            "C3": "rrf"
+          },
+          "section": "4",
+          "sub": "по рангам или оценкам",
+          "sub_en": "by rank or by score",
+          "title": "Слияние списков",
+          "title_en": "Merging the result lists"
+        },
+        "points": {
+          "codes": {},
+          "note": "Каждая запись хранит плотный, разреженный или несколько векторов, а также произвольные поля данных.",
+          "note_en": "Each point holds a dense, a sparse or several vectors, plus an arbitrary payload.",
+          "section": "1",
+          "title": "Записи с векторами",
+          "title_en": "Points with vectors"
+        },
+        "shards": {
+          "codes": {
+            "C4": "multiple_local"
+          },
+          "section": "2",
+          "title": "Части и копии коллекции",
+          "title_en": "Sharding and replication"
+        },
+        "sparse": {
+          "codes": {},
+          "note": "Разреженные векторы служат для полнотекстового поиска.",
+          "note_en": "Sparse vectors serve full-text search.",
+          "section": "1",
+          "title": "Поиск по разреженным векторам",
+          "title_en": "Sparse vector search"
+        }
+      },
+      "omitted": [
+        {
+          "code": "D1",
+          "reason": "Отбор с наибольшей предельной уместностью, разнообразящий выдачу, предлагается по желанию и шагом не показан.",
+          "reason_en": "Maximal marginal relevance, which diversifies the results, is offered as an option and is not drawn as a step."
+        }
+      ],
+      "rows": [
+        [
+          "points",
+          "shards"
+        ],
+        [
+          "conditions"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "fusion"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Dense, Sparse, and Multi Vector Search",
+          "url": "https://github.com/qdrant/qdrant#dense-sparse-and-multi-vector-search"
+        },
+        {
+          "key": "2",
+          "title": "Distributed Deployment",
+          "url": "https://github.com/qdrant/qdrant#distributed-deployment"
+        },
+        {
+          "key": "3",
+          "title": "Filtering on Payload",
+          "url": "https://github.com/qdrant/qdrant#filtering-on-payload"
+        },
+        {
+          "key": "4",
+          "title": "Hybrid Search",
+          "url": "https://github.com/qdrant/qdrant#hybrid-search"
+        }
+      ],
+      "source": {
+        "label": "GitHub README qdrant/qdrant",
+        "url": "https://github.com/qdrant/qdrant"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

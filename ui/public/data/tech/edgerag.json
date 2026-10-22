@@ -41,6 +41,158 @@
     "configuration_variable": [],
     "description": "EdgeRAG приспосабливает извлечение к устройству, у которого мало памяти. Обычный указатель держит по вектору на каждый фрагмент собрания, и объём этого указателя пропорционален размеру собрания. На телефоне или встроенном вычислителе такой указатель не помещается, а вынесение его на сервер отменяет самую причину, по которой обработку переносят на устройство: работу без сети и то, что данные с устройства не уходят.\n\nУказатель разбирается на два уровня. Фрагменты заранее группируются в кластеры, и постоянно в памяти держатся только представления кластеров, которых на порядки меньше. Представления отдельных фрагментов не хранятся вовсе. При запросе сначала отбираются подходящие кластеры, и лишь для фрагментов этих кластеров представления строятся тут же, во время запроса. Кластеры, которые обходятся дорого, дополнительно прореживаются при построении, чтобы отсев не упирался в редкие тяжёлые случаи.\n\nПамять тем самым перестаёт зависеть от размера собрания и определяется числом кластеров. Плата вносится временем ответа: построение представлений во время запроса добавляет задержку, которой при заранее построенном указателе нет. Приём поэтому целесообразен ровно там, где память ограничена жёстче, чем время.",
     "description_en": "EdgeRAG fits retrieval to a device with little memory. An ordinary index holds one vector per fragment of the collection, and its size is proportional to the size of the collection. On a phone or an embedded computer such an index does not fit, and moving it to a server defeats the very reason processing was brought to the device: operation without a network, and the fact that data never leaves the device.\n\nThe index is taken apart into two levels. Fragments are grouped into clusters in advance, and only the cluster representations, orders of magnitude fewer, are kept in memory permanently. Representations of individual fragments are not stored at all. At query time the matching clusters are selected first, and only for the fragments of those clusters are representations built there and then, during the query. Clusters that prove expensive are additionally thinned during construction, so that selection does not stall on rare heavy cases.\n\nMemory thereby ceases to depend on the size of the collection and is settled by the number of clusters. The price is paid in response time: building representations during a query adds latency that a prebuilt index does not have. The technique is therefore worthwhile exactly where memory is constrained more tightly than time.",
+    "diagram": {
+      "breaks": [
+        [
+          "stored",
+          "generated"
+        ]
+      ],
+      "edges": [
+        [
+          "vectors",
+          "clusters"
+        ],
+        [
+          "centroid",
+          "stored"
+        ],
+        [
+          "centroid",
+          "generated"
+        ],
+        [
+          "stored",
+          "nearest"
+        ],
+        [
+          "generated",
+          "nearest"
+        ],
+        [
+          "clusters",
+          "centroid"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "centroid": {
+          "codes": {},
+          "note": "Вектор вопроса сравнивается с центрами групп, и выбирается самая близкая группа.",
+          "note_en": "The question's vector is compared with the cluster centres, and the closest cluster is chosen.",
+          "section": "3",
+          "title": "Выбор ближайшей группы",
+          "title_en": "Nearest cluster"
+        },
+        "chunks": {
+          "codes": {},
+          "note": "Собрание текстов делится на небольшие фрагменты.",
+          "note_en": "The text collection is split into small fragments.",
+          "section": "1",
+          "title": "Разбиение на фрагменты",
+          "title_en": "Splitting into fragments"
+        },
+        "clusters": {
+          "codes": {},
+          "note": "Похожие векторы объединяются в группы. Центры групп всегда хранятся в памяти устройства.",
+          "note_en": "Similar vectors are grouped into clusters. The cluster centres always stay in the device's memory.",
+          "section": "1",
+          "title": "Группировка векторов",
+          "title_en": "Clustering"
+        },
+        "generated": {
+          "codes": {},
+          "note": "Для остальных групп векторы вычисляются во время запроса. Самые дорогие из них запоминаются для следующих запросов.",
+          "note_en": "For the other clusters the vectors are computed at query time. The most expensive ones are kept for later queries.",
+          "section": "4",
+          "sub": "иначе",
+          "sub_en": "otherwise",
+          "title": "Вычисление на лету",
+          "title_en": "On-the-fly generation"
+        },
+        "nearest": {
+          "codes": {
+            "C1": "ann"
+          },
+          "section": "3",
+          "title": "Поиск ближайших фрагментов",
+          "title_en": "Nearest fragments"
+        },
+        "pruning": {
+          "codes": {
+            "G2": "edge_device"
+          },
+          "section": "2",
+          "title": "Отбор хранимых векторов",
+          "title_en": "Selective vector storage"
+        },
+        "stored": {
+          "codes": {},
+          "note": "Для групп, где вычисление идёт долго, векторы сохранены заранее и просто загружаются.",
+          "note_en": "For clusters that are slow to compute, the vectors were saved in advance and are simply loaded.",
+          "section": "2",
+          "sub": "если сохранены",
+          "sub_en": "if stored",
+          "title": "Готовые векторы",
+          "title_en": "Precomputed vectors"
+        },
+        "vectors": {
+          "codes": {},
+          "note": "Для каждого фрагмента вычисляется вектор.",
+          "note_en": "A vector is computed for every fragment.",
+          "section": "1",
+          "title": "Векторные представления",
+          "title_en": "Vector representations"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "chunks",
+          "vectors"
+        ],
+        [
+          "clusters",
+          "pruning"
+        ],
+        [
+          "centroid"
+        ],
+        [
+          "stored",
+          "generated"
+        ],
+        [
+          "nearest"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "EdgeRAG Indexing",
+          "url": "https://arxiv.org/html/2412.21023v2#S5.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Selective Index Storage",
+          "url": "https://arxiv.org/html/2412.21023v2#S4.SS1"
+        },
+        {
+          "key": "3",
+          "title": "EdgeRAG Retrieval",
+          "url": "https://arxiv.org/html/2412.21023v2#S5.SS3"
+        },
+        {
+          "key": "4",
+          "title": "Adaptive Cost-Aware Caching",
+          "url": "https://arxiv.org/html/2412.21023v2#S4.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2412.21023v2",
+        "url": "https://arxiv.org/html/2412.21023v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

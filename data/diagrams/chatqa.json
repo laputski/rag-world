@@ -1,0 +1,85 @@
+{
+  "technology_id": "chatqa",
+  "source": {
+    "label": "arXiv:2401.10225v5",
+    "url": "https://arxiv.org/html/2401.10225v5"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Stage-1: Supervised Fine-tuning",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Stage-2: Context-Enhanced Instruction Tuning",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Fine-tuning Retriever for Multi-turn QA",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "4",
+      "title": "Retrieval for Multi-Turn QA",
+      "anchor": "S4"
+    }
+  ],
+  "rows": [
+    [
+      "sft",
+      "context_tuning",
+      "retriever_tuning"
+    ],
+    [
+      "dialogue",
+      "retrieval",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "sft": {
+      "section": "1"
+    },
+    "context_tuning": {
+      "section": "2"
+    },
+    "retriever_tuning": {
+      "section": "3",
+      "codes": {
+        "G3": "trained_separately"
+      }
+    },
+    "dialogue": {
+      "section": "4"
+    },
+    "retrieval": {
+      "section": "4",
+      "codes": {
+        "D1": "none"
+      }
+    },
+    "answer": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "retriever_tuning",
+      "retrieval"
+    ],
+    [
+      "context_tuning",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "context_tuning",
+      "retriever_tuning"
+    ]
+  ],
+  "omitted": []
+}

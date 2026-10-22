@@ -1,4 +1,1400 @@
 {
+  "adaptive_rag": {
+    "nodes": {
+      "question": {
+        "title": "Question"
+      },
+      "classifier": {
+        "title": "Complexity classification",
+        "sub": "by a trained model"
+      },
+      "no_retrieval": {
+        "title": "No retrieval",
+        "note": "A simple question is answered by the language model alone, without consulting any external source.",
+        "sub": "simple"
+      },
+      "single": {
+        "title": "Single retrieval",
+        "sub": "moderate"
+      },
+      "multi_retrieval": {
+        "title": "Retrieval round",
+        "sub": "complex"
+      },
+      "reasoning": {
+        "title": "Reasoning step"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The language model answers the question with what the chosen route retrieved, or with nothing retrieved."
+      }
+    },
+    "omitted": {
+      "D2": "The paper does not describe how retrieved documents are selected: the multi-step route is borrowed whole from another work."
+    }
+  },
+  "agentic_context_management": {
+    "nodes": {
+      "design": {
+        "title": "Per-agent memory design",
+        "note": "When an agent connects, the system generates a memory design from a description of its purpose: what to extract and how to store, retrieve and compact it. This design governs every later step."
+      },
+      "ingest": {
+        "title": "Extraction on ingestion"
+      },
+      "resolve": {
+        "title": "Entity resolution",
+        "note": "Different surface forms of one name are linked to one canonical entity, so facts about it are not scattered."
+      },
+      "stores": {
+        "title": "Graph and other stores",
+        "sub": "per tenant"
+      },
+      "decompose": {
+        "title": "Query decomposition",
+        "sub": "accurate mode"
+      },
+      "traverse": {
+        "title": "Graph traversal"
+      },
+      "select": {
+        "title": "Fitting to token budget"
+      },
+      "compact": {
+        "title": "Validated compaction",
+        "sub": "of a long dialogue"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The model receives the retrieved items, the compacted conversation and the recent turns."
+      }
+    },
+    "omitted": {}
+  },
+  "archrag": {
+    "nodes": {
+      "corpus": {
+        "title": "Source texts"
+      },
+      "graph": {
+        "title": "Graph construction",
+        "sub": "by a language model",
+        "note": "The texts are cut into chunks of a set length; a language model extracts the entities and relations of each chunk, and the pieces are merged into one graph."
+      },
+      "communities": {
+        "title": "Community detection"
+      },
+      "summaries": {
+        "title": "Community summaries",
+        "sub": "by a language model"
+      },
+      "index": {
+        "title": "Multi-layer index"
+      },
+      "search": {
+        "title": "Layer-by-layer search"
+      },
+      "scoring": {
+        "title": "Relevance scoring",
+        "sub": "by a language model"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The language model writes the answer from the most relevant reports; whatever exceeds the text limit is cut off."
+      }
+    },
+    "omitted": {}
+  },
+  "auto_rag": {
+    "nodes": {
+      "synthesis": {
+        "title": "Synthesizing training data",
+        "sub": "by a language model",
+        "note": "A language model prompted with examples solves questions from existing datasets, alternating reasoning and retrieval. Its moves are recorded as training examples."
+      },
+      "filtering": {
+        "title": "Data filtering",
+        "note": "At each step a query whose documents contain part of the answer is preferred; an example is kept only if its final answer matches the reference."
+      },
+      "finetune": {
+        "title": "Fine-tuning"
+      },
+      "planning": {
+        "title": "Retrieval planning"
+      },
+      "retrieval": {
+        "title": "Document retrieval",
+        "note": "The query written by the model is sent to the retriever, and the retrieved documents go back to the model."
+      },
+      "extraction": {
+        "title": "Information extraction"
+      },
+      "answer": {
+        "title": "Final answer",
+        "note": "Once the model decides it knows enough, it stops writing queries and outputs the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "bge_m3": {
+    "nodes": {
+      "input": {
+        "title": "Text in 100+ languages",
+        "note": "The model accepts text in more than a hundred languages, from a short sentence to a document of 8192 tokens."
+      },
+      "encode": {
+        "title": "Single encoder pass",
+        "note": "One model produces all three kinds of text representation in a single pass."
+      },
+      "dense": {
+        "title": "Dense vector"
+      },
+      "sparse": {
+        "title": "Lexical weights",
+        "note": "Each word of the text gets a weight, as in BM25, and texts are compared by the words they share."
+      },
+      "colbert": {
+        "title": "Multi-vector (ColBERT)",
+        "note": "The text is represented by many vectors, and similarity is computed by late interaction, as in ColBERT."
+      },
+      "score": {
+        "title": "Weighted score sum",
+        "note": "The scores of the three kinds of matching are added up with weights set by the user."
+      },
+      "distill": {
+        "title": "Self-knowledge distillation",
+        "sub": "training only"
+      }
+    },
+    "omitted": {}
+  },
+  "causalrag": {
+    "nodes": {
+      "docs": {
+        "title": "Uploaded documents"
+      },
+      "build": {
+        "title": "Graph construction",
+        "sub": "by a language model"
+      },
+      "graph": {
+        "title": "Concept graph"
+      },
+      "query": {
+        "title": "Question"
+      },
+      "match": {
+        "title": "Nearest node search"
+      },
+      "expand": {
+        "title": "Expansion along edges",
+        "sub": "to a set depth"
+      },
+      "causal": {
+        "title": "Causal path discovery",
+        "sub": "by a language model",
+        "note": "A language model keeps only the causal links among the collected nodes and edges and builds a causal graph from them."
+      },
+      "summary": {
+        "title": "Causal summary",
+        "note": "The summary traces the key causal paths and drops material that is similar in meaning but not causally related."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "cbr_rag": {
+    "nodes": {
+      "casebase": {
+        "title": "Case base",
+        "note": "Each case consists of a question, an answer and a supporting passage from a legal document."
+      },
+      "entities": {
+        "title": "Entity extraction",
+        "sub": "by a language model"
+      },
+      "vectors": {
+        "title": "Vector representations"
+      },
+      "retrieval": {
+        "title": "Case retrieval",
+        "note": "The question is compared with the questions, passages and entities of the cases. The similarities are added up with weights, and the best few cases are taken."
+      },
+      "context": {
+        "title": "Context assembly",
+        "note": "The prompt receives either the supporting passage alone or the whole case."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "chatqa": {
+    "nodes": {
+      "sft": {
+        "title": "Instruction tuning",
+        "sub": "stage 1",
+        "note": "The language model is fine-tuned to follow instructions and hold a conversation on a blend of instruction and dialogue datasets."
+      },
+      "context_tuning": {
+        "title": "Context-enhanced tuning",
+        "sub": "stage 2",
+        "note": "The model learns to answer in conversation from a given text and to say so plainly when the text holds no answer."
+      },
+      "retriever_tuning": {
+        "title": "Retriever fine-tuning"
+      },
+      "dialogue": {
+        "title": "Dialogue and question",
+        "note": "The retriever receives the whole previous conversation together with the current question, with no rewriting of the question."
+      },
+      "retrieval": {
+        "title": "Passage retrieval"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The top retrieved passages (five long ones or twenty short ones, depending on the dataset) go to the tuned model, which answers the question."
+      }
+    },
+    "omitted": {}
+  },
+  "colbert": {
+    "nodes": {
+      "docs": {
+        "title": "Documents"
+      },
+      "doc_enc": {
+        "title": "Document encoding",
+        "sub": "a vector per token"
+      },
+      "index": {
+        "title": "Vector index",
+        "note": "All document vectors are stored in advance in a fast search library, and each vector remembers its document."
+      },
+      "query": {
+        "title": "Query"
+      },
+      "q_enc": {
+        "title": "Query encoding",
+        "note": "The query is padded with special blank tokens to a fixed length, and the same model builds a vector for each token."
+      },
+      "approx": {
+        "title": "Approximate search",
+        "sub": "per query vector"
+      },
+      "rescore": {
+        "title": "Exact rescoring",
+        "sub": "best matches",
+        "note": "For each query vector the highest similarity to the document vectors is taken, and these values are summed."
+      },
+      "topk": {
+        "title": "Top k documents"
+      }
+    },
+    "omitted": {}
+  },
+  "colpali": {
+    "nodes": {
+      "pages": {
+        "title": "Page images"
+      },
+      "page_enc": {
+        "title": "Page encoding",
+        "sub": "patch by patch"
+      },
+      "store": {
+        "title": "Vector store",
+        "note": "For every page a set of vectors, one per image patch, is stored in advance."
+      },
+      "query": {
+        "title": "Query"
+      },
+      "q_enc": {
+        "title": "Query encoding",
+        "note": "The same model builds a vector for each token of the query."
+      },
+      "score": {
+        "title": "Page scoring",
+        "sub": "best matches",
+        "note": "For each query vector the highest similarity to the page vectors is taken, and these values are summed."
+      },
+      "top": {
+        "title": "Top pages"
+      }
+    },
+    "omitted": {}
+  },
+  "contextual_retrieval": {
+    "nodes": {
+      "docs": {
+        "title": "Documents"
+      },
+      "chunks": {
+        "title": "Splitting into chunks",
+        "note": "Documents are cut into small chunks, usually no more than a few hundred tokens."
+      },
+      "context": {
+        "title": "Context for each chunk",
+        "sub": "by a language model"
+      },
+      "emb": {
+        "title": "Vector index"
+      },
+      "bm25": {
+        "title": "Word index",
+        "note": "The same chunk with its context also goes into a word-match (BM25) index."
+      },
+      "query": {
+        "title": "Query"
+      },
+      "search": {
+        "title": "Chunk search",
+        "note": "The closest chunks are looked up in both indexes, and the lists are merged."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "crag": {
+    "nodes": {
+      "retrieval": {
+        "title": "Initial retrieval",
+        "note": "An ordinary retriever finds about ten documents for the question in the system's own collection."
+      },
+      "evaluator": {
+        "title": "Retrieval evaluation",
+        "sub": "by a trained model"
+      },
+      "refinement": {
+        "title": "Knowledge refinement"
+      },
+      "rewrite": {
+        "title": "Query rewriting",
+        "sub": "into keywords"
+      },
+      "web": {
+        "title": "Web search",
+        "note": "The pages found on the web are cut into strips and filtered by the same evaluator before they reach the answer."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The language model answers from the selected knowledge: from its own documents, from the web, or from both when the evaluation is unsure."
+      }
+    },
+    "omitted": {}
+  },
+  "dense_x_retrieval": {
+    "nodes": {
+      "passages": {
+        "title": "Wikipedia passages"
+      },
+      "split": {
+        "title": "Splitting into propositions",
+        "sub": "by a trained model"
+      },
+      "index": {
+        "title": "Vector index",
+        "note": "Each proposition is turned into a vector by a ready-made encoder and stored in the index."
+      },
+      "query": {
+        "title": "Question"
+      },
+      "search": {
+        "title": "Proposition search",
+        "note": "The question is compared with the propositions by their vectors. The authors test four ready-made retrievers."
+      },
+      "select": {
+        "title": "Top propositions",
+        "sub": "no reranking"
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "dspy": {
+    "nodes": {
+      "signature": {
+        "title": "Declaring signatures",
+        "sub": "for every step",
+        "note": "Instead of prompt text, each step is described by what it takes and what it returns, such as \"question -> answer\"."
+      },
+      "modules": {
+        "title": "Modules replace prompts",
+        "note": "A module builds the prompt from that description, calls the language model and parses its output. Ready-made modules cover step-by-step reasoning and tool use."
+      },
+      "program": {
+        "title": "Composing the program",
+        "note": "Modules are joined by ordinary Python code: branches, loops, calls to retrieval."
+      },
+      "examples": {
+        "title": "Examples and metric",
+        "note": "The optimizer receives the program, a few training examples, often with final answers only, and a metric."
+      },
+      "bootstrap": {
+        "title": "Bootstrapping examples",
+        "note": "The program is run on training questions. Traces that pass the metric become demonstrations for each module."
+      },
+      "params": {
+        "title": "Prompt or weight tuning",
+        "sub": "by the metric"
+      },
+      "higher": {
+        "title": "Higher-order optimization",
+        "note": "The compiler may also change the program's control flow, for example run several copies and pick the answer by majority vote."
+      },
+      "compiled": {
+        "title": "Compiled program",
+        "note": "The result is a new program with selected prompts or a finetuned model."
+      }
+    },
+    "omitted": {
+      "B1": "The library itself does not reformulate questions: only a program the user writes may generate search queries."
+    }
+  },
+  "edge": {
+    "nodes": {
+      "manuals": {
+        "title": "Emergency care manuals"
+      },
+      "chunking": {
+        "title": "Splitting into chunks",
+        "sub": "fixed windows"
+      },
+      "lexidx": {
+        "title": "Keyword index",
+        "note": "A simple table maps each keyword to the ids of the chunks that contain it."
+      },
+      "vecidx": {
+        "title": "Vector index"
+      },
+      "prefilter": {
+        "title": "Keyword prefilter",
+        "note": "Chunks are scored by the share of the question's keywords they contain. Usually thousands of chunks shrink to fewer than fifty."
+      },
+      "scoring": {
+        "title": "Hybrid scoring",
+        "note": "The remaining chunks are ordered by a weighted sum of vector similarity and keyword share. The paper calls this stage reranking, but no separate reranking model is used."
+      },
+      "compress": {
+        "title": "Context compression",
+        "sub": "by sentence selection",
+        "note": "Sentences in the selected chunks are scored by overlap with the question's keywords and by medical terms, and only the most relevant are kept. The text is not rewritten."
+      },
+      "answer": {
+        "title": "Answer by a small model",
+        "sub": "on a phone, offline"
+      }
+    },
+    "omitted": {}
+  },
+  "edgerag": {
+    "nodes": {
+      "chunks": {
+        "title": "Splitting into fragments",
+        "note": "The text collection is split into small fragments."
+      },
+      "vectors": {
+        "title": "Vector representations",
+        "note": "A vector is computed for every fragment."
+      },
+      "clusters": {
+        "title": "Clustering",
+        "note": "Similar vectors are grouped into clusters. The cluster centres always stay in the device's memory."
+      },
+      "pruning": {
+        "title": "Selective vector storage"
+      },
+      "centroid": {
+        "title": "Nearest cluster",
+        "note": "The question's vector is compared with the cluster centres, and the closest cluster is chosen."
+      },
+      "stored": {
+        "title": "Precomputed vectors",
+        "note": "For clusters that are slow to compute, the vectors were saved in advance and are simply loaded.",
+        "sub": "if stored"
+      },
+      "generated": {
+        "title": "On-the-fly generation",
+        "note": "For the other clusters the vectors are computed at query time. The most expensive ones are kept for later queries.",
+        "sub": "otherwise"
+      },
+      "nearest": {
+        "title": "Nearest fragments"
+      }
+    },
+    "omitted": {}
+  },
+  "embodied_rag": {
+    "nodes": {
+      "frames": {
+        "title": "Posed images",
+        "note": "Each node of the map stores an image with the position and time of capture. These nodes are what the search returns."
+      },
+      "captions": {
+        "title": "Image captions"
+      },
+      "clustering": {
+        "title": "Clustering of places"
+      },
+      "forest": {
+        "title": "Semantic forest"
+      },
+      "descent": {
+        "title": "Top-down descent",
+        "note": "At every level a language model reads the descriptions and chooses branches, until the descent reaches the nodes of the map. No vectors are compared."
+      },
+      "rerank": {
+        "title": "Hybrid re-ranking",
+        "sub": "with location"
+      },
+      "answer": {
+        "title": "Answer or waypoint"
+      },
+      "route": {
+        "title": "Path planning",
+        "sub": "to the waypoint",
+        "note": "The shortest path from the robot's current position to the chosen waypoint is found along the links of the map."
+      }
+    },
+    "omitted": {}
+  },
+  "federated_rag": {
+    "nodes": {
+      "pairs": {
+        "title": "Training pairs",
+        "sub": "at each client",
+        "note": "Questions are generated automatically from each client's own chunks. Each question with its chunk forms a positive training example."
+      },
+      "finetune": {
+        "title": "Contrastive fine-tuning"
+      },
+      "distill": {
+        "title": "Knowledge distillation",
+        "note": "The similarities produced by a client's local model are pulled towards those of the server's global model, which evens out differences between the clients' data."
+      },
+      "aggregate": {
+        "title": "Encrypted aggregation",
+        "sub": "on the server"
+      },
+      "retrieve": {
+        "title": "Nearest chunk search",
+        "sub": "inside the client"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The retrieved chunks are joined to the question, and the client's language model writes the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "flare": {
+    "nodes": {
+      "draft": {
+        "title": "Draft next sentence",
+        "note": "The language model drafts the next sentence without retrieved documents; only the first sentence follows a search by the question itself."
+      },
+      "check": {
+        "title": "Confidence check"
+      },
+      "query": {
+        "title": "Query formulation"
+      },
+      "accept": {
+        "title": "Accept as is",
+        "note": "If the model is confident about every word of the draft, the draft stays in the answer unchanged."
+      },
+      "retrieval": {
+        "title": "Document retrieval"
+      },
+      "regenerate": {
+        "title": "Regenerated sentence"
+      },
+      "answer": {
+        "title": "Final answer"
+      }
+    },
+    "omitted": {}
+  },
+  "g_reasoner": {
+    "nodes": {
+      "graphs": {
+        "title": "Existing graphs",
+        "note": "The input is graphs of different kinds: a knowledge graph, a document graph, a hierarchy of communities."
+      },
+      "unify": {
+        "title": "Conversion to one format",
+        "note": "Each of these graphs is converted into one format of four layers: attributes, entities with their relations, documents and communities."
+      },
+      "quad": {
+        "title": "Four-layer graph",
+        "sub": "with node texts"
+      },
+      "query": {
+        "title": "Question"
+      },
+      "encode": {
+        "title": "Text embeddings",
+        "sub": "of nodes and question",
+        "note": "A ready embedding model encodes the text of every node, the description of every relation and the question itself."
+      },
+      "gnn": {
+        "title": "Trained graph network",
+        "sub": "scores the nodes"
+      },
+      "select": {
+        "title": "Top nodes",
+        "sub": "of each type"
+      },
+      "prompt": {
+        "title": "Prompt assembly",
+        "sub": "documents first"
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {
+      "A2": "The method takes ready graphs built by other tools and does not itself split text into fragments."
+    }
+  },
+  "gfm_rag": {
+    "nodes": {
+      "openie": {
+        "title": "Triple extraction",
+        "sub": "by a language model"
+      },
+      "resolution": {
+        "title": "Linking synonyms",
+        "note": "Entities with close embeddings, such as USA and United States of America, are joined by an extra edge."
+      },
+      "kg": {
+        "title": "Knowledge graph"
+      },
+      "query": {
+        "title": "Question"
+      },
+      "qentities": {
+        "title": "Question entities"
+      },
+      "gnn": {
+        "title": "Trained graph network",
+        "sub": "scores entities"
+      },
+      "topents": {
+        "title": "Top entities",
+        "note": "The entities with the highest relevance scores for the question are taken."
+      },
+      "docrank": {
+        "title": "Document scoring",
+        "sub": "by their entities"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The top documents and the question are given to a language model, which writes the answer."
+      }
+    },
+    "omitted": {
+      "A2": "Documents are taken whole and are not cut into fragments."
+    }
+  },
+  "gnn_rag": {
+    "nodes": {
+      "kg": {
+        "title": "Knowledge graph",
+        "sub": "given"
+      },
+      "question": {
+        "title": "Question"
+      },
+      "subgraph": {
+        "title": "Question subgraph",
+        "note": "A small subgraph is taken from the large graph: the entities named in the question and their neighbours."
+      },
+      "gnn": {
+        "title": "Trained graph network",
+        "sub": "finds candidates"
+      },
+      "paths": {
+        "title": "Shortest paths",
+        "sub": "to candidates"
+      },
+      "verbalize": {
+        "title": "Paths as text",
+        "note": "Each path is written as a line: question entity, relation, entity, and so on up to the last relation and the answer entity."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A language model reads the paths and the question and lists the answers. A model with open weights is fine-tuned for this."
+      }
+    },
+    "omitted": {}
+  },
+  "graphreader": {
+    "nodes": {
+      "split": {
+        "title": "Text splitting",
+        "note": "The long document is split into chunks of limited length without breaking paragraphs."
+      },
+      "facts": {
+        "title": "Fact extraction",
+        "sub": "by a language model"
+      },
+      "graph": {
+        "title": "Graph of key elements"
+      },
+      "question": {
+        "title": "Question"
+      },
+      "plan": {
+        "title": "Solution plan",
+        "note": "The agent breaks the question into steps and decides what information the answer needs."
+      },
+      "start": {
+        "title": "Choosing starting nodes",
+        "note": "The agent looks through the key elements of all nodes and picks where to start, guided by the question and the plan."
+      },
+      "readfacts": {
+        "title": "Reading node facts"
+      },
+      "readchunks": {
+        "title": "Reading source chunks",
+        "sub": "and taking notes"
+      },
+      "neighbour": {
+        "title": "Moving to a neighbour"
+      },
+      "answer": {
+        "title": "Answer from notes",
+        "note": "A language model gathers the notes of all agents, settles conflicts by majority vote and writes the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "hipporag": {
+    "nodes": {
+      "openie": {
+        "title": "Triple extraction",
+        "sub": "by a language model"
+      },
+      "synonyms": {
+        "title": "Linking synonyms",
+        "note": "Similar but not identical names, likely synonyms, are joined by an extra edge when the similarity of their embeddings exceeds a threshold of 0.8."
+      },
+      "kg": {
+        "title": "Knowledge graph"
+      },
+      "question": {
+        "title": "Question"
+      },
+      "qentities": {
+        "title": "Question entities",
+        "sub": "by a language model"
+      },
+      "qnodes": {
+        "title": "Query nodes",
+        "note": "Each question entity is matched to the graph node with the closest embedding."
+      },
+      "specificity": {
+        "title": "Node specificity",
+        "note": "The weight of each query node is divided by the number of passages it was extracted from, so rare nodes weigh more."
+      },
+      "ppr": {
+        "title": "Random walk",
+        "sub": "with restart"
+      },
+      "rank": {
+        "title": "Passage ranking"
+      }
+    },
+    "omitted": {}
+  },
+  "hyde": {
+    "nodes": {
+      "query": {
+        "title": "Question"
+      },
+      "hypo": {
+        "title": "Hypothetical documents",
+        "sub": "by a language model"
+      },
+      "avg": {
+        "title": "Vector averaging",
+        "note": "The invented documents and the question itself are encoded by the same encoder as the real documents, and the vectors are averaged."
+      },
+      "docs": {
+        "title": "Documents"
+      },
+      "doc_enc": {
+        "title": "Document encoding",
+        "note": "An encoder trained without labelled examples turns each document into a vector."
+      },
+      "search": {
+        "title": "Similarity search",
+        "note": "The average vector is compared with the vectors of all documents by inner product."
+      },
+      "top": {
+        "title": "Most similar documents"
+      }
+    },
+    "omitted": {}
+  },
+  "ircot": {
+    "nodes": {
+      "question": {
+        "title": "Question"
+      },
+      "first": {
+        "title": "Search by the question",
+        "note": "Paragraphs are first retrieved with the question itself as the query."
+      },
+      "reason": {
+        "title": "Reasoning step",
+        "sub": "one new sentence"
+      },
+      "query": {
+        "title": "Last sentence",
+        "sub": "as the new query"
+      },
+      "retrieve": {
+        "title": "Word-matching search"
+      },
+      "collect": {
+        "title": "Collected paragraphs",
+        "sub": "at most 15"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "Once the reasoning states an answer or eight steps have passed, a separate run of the language model answers from all collected paragraphs."
+      }
+    },
+    "omitted": {}
+  },
+  "kag": {
+    "nodes": {
+      "chunk": {
+        "title": "Splitting by meaning",
+        "note": "The document is split along its structure and the links between paragraphs, so that each fragment is coherent and fits the model window."
+      },
+      "extract": {
+        "title": "Entity extraction",
+        "sub": "events, relations"
+      },
+      "align": {
+        "title": "Linking to concepts",
+        "note": "A language model merges duplicates of one entity, assigns each entity to a concept and completes the relations between concepts."
+      },
+      "index": {
+        "title": "Graph linked to the text"
+      },
+      "plan": {
+        "title": "Question breakdown",
+        "sub": "into logical steps",
+        "note": "The question is broken into subquestions written as logical forms: retrieval, sorting, calculation, deduction."
+      },
+      "graphret": {
+        "title": "Graph search"
+      },
+      "hybrid": {
+        "title": "Text search",
+        "sub": "if the graph fails"
+      },
+      "check": {
+        "title": "Completeness check",
+        "note": "Findings and partial answers go into a shared memory. If the question is not resolved, the model asks a supplementary question and starts a new round."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "lamar": {
+    "nodes": {
+      "teacher": {
+        "title": "Teacher scoring",
+        "note": "A larger trained model, the teacher, scores how well an English document answers an English question.",
+        "sub": "English pairs"
+      },
+      "distill": {
+        "title": "Transferring teacher scores",
+        "sub": "to other languages"
+      },
+      "align": {
+        "title": "Query-language preference",
+        "note": "Of two equally relevant documents, the one written in the query's language is ranked higher. Relevant documents still stay above irrelevant ones."
+      },
+      "candidates": {
+        "title": "First-stage candidates",
+        "note": "A first-stage search returns a set of candidate documents, which may be written in several languages."
+      },
+      "pair": {
+        "title": "Joint pair scoring",
+        "sub": "query and document"
+      },
+      "reranked": {
+        "title": "Final order",
+        "note": "Documents are sorted by the new score, and the best ones go to the language model."
+      }
+    },
+    "omitted": {}
+  },
+  "late_chunking": {
+    "nodes": {
+      "text": {
+        "title": "Whole document"
+      },
+      "bounds": {
+        "title": "Chunk boundaries",
+        "note": "An ordinary chunking method marks where each chunk ends, but the text itself is not cut yet."
+      },
+      "tokens": {
+        "title": "Token vectors",
+        "note": "The model reads the whole document at once, or as much of it as fits, so each token vector reflects all of that text."
+      },
+      "pooling": {
+        "title": "Pooling per chunk"
+      },
+      "index": {
+        "title": "Vector index",
+        "note": "Chunk vectors are stored in an index, and each chunk remembers its document."
+      },
+      "query": {
+        "title": "Query"
+      },
+      "knn": {
+        "title": "Nearest chunk search",
+        "note": "The query vector is compared with the chunk vectors, and the k nearest are taken."
+      },
+      "rank": {
+        "title": "Document ranking"
+      }
+    },
+    "omitted": {}
+  },
+  "ledgermind": {
+    "nodes": {
+      "dispatch": {
+        "title": "Choosing the path",
+        "note": "A simple question takes a short path with a small evidence budget; a complex one takes the full path. The path is chosen by rules over the words of the question."
+      },
+      "plan": {
+        "title": "Task plan",
+        "note": "From the question text alone the model drafts a plan: what to observe, how to reason and in what form to answer."
+      },
+      "observe": {
+        "title": "Observations from the image"
+      },
+      "search": {
+        "title": "Web search",
+        "sub": "one or two rounds"
+      },
+      "ledger": {
+        "title": "Evidence ledger"
+      },
+      "reasoning": {
+        "title": "Reasoning chain"
+      },
+      "check": {
+        "title": "Grounding check"
+      },
+      "repair": {
+        "title": "Repairing violations",
+        "sub": "seven operator types"
+      },
+      "decision": {
+        "title": "Decision and recheck"
+      }
+    },
+    "omitted": {}
+  },
+  "lightrag": {
+    "nodes": {
+      "extract": {
+        "title": "Entity extraction",
+        "sub": "with relations"
+      },
+      "profile": {
+        "title": "Keys and descriptions",
+        "note": "A language model writes a describing paragraph for every node and every edge; a node is found by its name, an edge by keywords the model adds."
+      },
+      "dedup": {
+        "title": "Merging duplicates",
+        "note": "Identical entities and relations from different chunks are merged into one node or one edge."
+      },
+      "update": {
+        "title": "New documents",
+        "sub": "no full rebuild"
+      },
+      "graph": {
+        "title": "Entity graph"
+      },
+      "keywords": {
+        "title": "Query keywords",
+        "sub": "local and global"
+      },
+      "match": {
+        "title": "Keyword matching",
+        "sub": "by vector search"
+      },
+      "neighbours": {
+        "title": "Neighbouring nodes"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A language model receives the question together with the descriptions of the found entities and relations and excerpts of the source text."
+      }
+    },
+    "omitted": {}
+  },
+  "logicrag": {
+    "nodes": {
+      "decompose": {
+        "title": "Splitting into subquestions"
+      },
+      "dag": {
+        "title": "Dependency graph",
+        "note": "A language model states which subquestion relies on the answer to another. When what is found does not suffice, it adds new subquestions to the graph."
+      },
+      "order": {
+        "title": "Ordering subquestions"
+      },
+      "merge": {
+        "title": "Merging subquestions",
+        "note": "Subquestions of the same rank in the order of resolution are merged into one query."
+      },
+      "retrieval": {
+        "title": "Passage retrieval"
+      },
+      "subanswer": {
+        "title": "Answering a subquestion",
+        "note": "A language model answers the subquestion from the passages found, and the answer conditions retrieval for the subquestions that follow."
+      },
+      "memory": {
+        "title": "Rolling memory"
+      },
+      "answer": {
+        "title": "Final answer",
+        "note": "A language model composes the final answer from the answers to the subquestions, following the dependency graph."
+      }
+    },
+    "omitted": {}
+  },
+  "ma_rag": {
+    "nodes": {
+      "plan": {
+        "title": "Planning",
+        "sub": "planner agent"
+      },
+      "step": {
+        "title": "Query for the step",
+        "sub": "step definer"
+      },
+      "retrieval": {
+        "title": "Passage retrieval",
+        "note": "The step query is turned into a vector, and the closest passages are found by it."
+      },
+      "extract": {
+        "title": "Picking relevant sentences",
+        "sub": "extractor agent",
+        "note": "Only the sentences that bear on the step query are taken from the passages found, and they are summarised."
+      },
+      "stepanswer": {
+        "title": "Answering the step",
+        "sub": "answering agent",
+        "note": "The answering agent answers the step query from the selected evidence, and the answer joins the history for the next step."
+      },
+      "final": {
+        "title": "Final answer"
+      }
+    },
+    "omitted": {}
+  },
+  "magma": {
+    "nodes": {
+      "segment": {
+        "title": "Splitting into events"
+      },
+      "backbone": {
+        "title": "Timeline of events"
+      },
+      "consolidation": {
+        "title": "Adding links",
+        "sub": "by a language model"
+      },
+      "graph": {
+        "title": "Memory graph",
+        "sub": "four kinds of links"
+      },
+      "analysis": {
+        "title": "Query analysis"
+      },
+      "anchors": {
+        "title": "Choosing entry points"
+      },
+      "traversal": {
+        "title": "Graph traversal"
+      },
+      "linearize": {
+        "title": "Context assembly"
+      },
+      "budget": {
+        "title": "Shortening minor nodes"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A language model answers only from the assembled context, and the instruction for the answer depends on the kind of question."
+      }
+    },
+    "omitted": {}
+  },
+  "memorag": {
+    "nodes": {
+      "context": {
+        "title": "Source texts"
+      },
+      "memory": {
+        "title": "Compressed global memory",
+        "sub": "memory model"
+      },
+      "clues": {
+        "title": "Clues from memory",
+        "sub": "draft answer"
+      },
+      "retrieval": {
+        "title": "Passage retrieval"
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {
+      "F1": "The paper builds the memory from the whole collection in advance and may save it for reuse, but describes no writing of results back into memory."
+    }
+  },
+  "msft_graphrag": {
+    "nodes": {
+      "chunks": {
+        "title": "Text chunking"
+      },
+      "extraction": {
+        "title": "Entity and relation extraction",
+        "sub": "by a language model",
+        "note": "A language model finds in every chunk the entities, the relations between them and the claims about them, and writes a short description of each."
+      },
+      "graph": {
+        "title": "Knowledge graph",
+        "note": "Repeated findings of one entity or relation are merged into one node or one edge, and their descriptions are combined."
+      },
+      "communities": {
+        "title": "Community hierarchy",
+        "sub": "groups of nodes"
+      },
+      "summaries": {
+        "title": "Community reports"
+      },
+      "prepare": {
+        "title": "Shuffling the reports",
+        "note": "The reports of the chosen level are shuffled and divided into portions of a set size."
+      },
+      "map": {
+        "title": "Partial answers",
+        "sub": "scored by the model"
+      },
+      "reduce": {
+        "title": "Global answer"
+      }
+    },
+    "omitted": {
+      "A5": "The paper describes only the global mode, which uses no vector representations; search by vector closeness belongs to the local mode in the documentation.",
+      "C1": "In the global mode of the paper all reports of the chosen level are taken without search; graph traversal belongs only to the local mode in the documentation."
+    }
+  },
+  "multi_query": {
+    "nodes": {
+      "question": {
+        "title": "Question"
+      },
+      "rephrase": {
+        "title": "Question rewrites",
+        "sub": "by a language model"
+      },
+      "search": {
+        "title": "Search for each version"
+      },
+      "union": {
+        "title": "Union without duplicates"
+      }
+    },
+    "omitted": {}
+  },
+  "murag": {
+    "nodes": {
+      "memory": {
+        "title": "Image and text memory"
+      },
+      "encode": {
+        "title": "Shared encoder"
+      },
+      "index": {
+        "title": "Vector index",
+        "note": "All image and text pairs are encoded in advance, and their vectors are put into an index for fast search."
+      },
+      "query": {
+        "title": "Question",
+        "note": "The question is encoded by the same encoder as the memory."
+      },
+      "search": {
+        "title": "Nearest pair search",
+        "note": "The memory entries whose vectors are closest to the vector of the question are found."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The images and texts found are encoded again together with the question, and from them the model writes the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "naive_dense": {
+    "nodes": {
+      "articles": {
+        "title": "Wikipedia articles"
+      },
+      "split": {
+        "title": "100-word passages"
+      },
+      "p_enc": {
+        "title": "Passage encoding",
+        "sub": "one vector each"
+      },
+      "index": {
+        "title": "Vector index",
+        "note": "The vectors of all passages are stored in advance in a fast search library."
+      },
+      "question": {
+        "title": "Question"
+      },
+      "q_enc": {
+        "title": "Question encoding",
+        "note": "A separate encoder turns the question into a single vector."
+      },
+      "search": {
+        "title": "Nearest passage search"
+      },
+      "reader": {
+        "title": "Answer extraction",
+        "note": "A reader model scores the retrieved passages and picks the answer span from the best one."
+      }
+    },
+    "omitted": {}
+  },
+  "neuro_symbolic_rag": {
+    "nodes": {
+      "kg": {
+        "title": "Knowledge graph",
+        "note": "A ready graph of mental health from an external work links symptoms, conditions and questionnaires."
+      },
+      "entry": {
+        "title": "Entry nodes",
+        "note": "The question is matched against the concepts of the graph. Concepts close enough to it become the starting nodes."
+      },
+      "traversal": {
+        "title": "Graph traversal"
+      },
+      "enrichment": {
+        "title": "Query enrichment",
+        "note": "A language model extends the question with related concepts found in the graph."
+      },
+      "docs": {
+        "title": "Documents"
+      },
+      "ranking": {
+        "title": "Graph-aware scoring",
+        "note": "A document is scored by the cosine similarity of its vector to the vector of the enriched question, plus a term for its position in the graph."
+      },
+      "topk": {
+        "title": "Top-k selection",
+        "note": "The few documents with the highest score go on."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "og_rag": {
+    "nodes": {
+      "mapping": {
+        "title": "Ontology mapping",
+        "sub": "by a language model",
+        "note": "A language model maps the content of the documents onto the entities and attributes of a given ontology and obtains blocks of facts."
+      },
+      "flatten": {
+        "title": "Flattening fact blocks",
+        "note": "Nested blocks of facts are unfolded into flat sets of key and value pairs without loss of information."
+      },
+      "hypergraph": {
+        "title": "Hypergraph of facts"
+      },
+      "nodes": {
+        "title": "Node search"
+      },
+      "cover": {
+        "title": "Smallest covering fact set"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A language model answers the question from the selected facts."
+      }
+    },
+    "omitted": {}
+  },
+  "opensearch": {
+    "nodes": {
+      "pipeline": {
+        "title": "Search pipeline with RRF",
+        "note": "A step that fuses results by reciprocal rank is added to the search pipeline."
+      },
+      "query": {
+        "title": "Hybrid query",
+        "note": "One query combines several kinds of search and runs through that pipeline."
+      },
+      "lexical": {
+        "title": "Keyword search (BM25)",
+        "note": "Classic search by word overlap, scored with BM25."
+      },
+      "vector": {
+        "title": "Vector search (k-NN)",
+        "note": "Nearest-neighbour search over vector representations."
+      },
+      "shards": {
+        "title": "Sorting per shard",
+        "sub": "of the index"
+      },
+      "ranks": {
+        "title": "Rank positions",
+        "note": "Each document gets its position in the result list of every kind of search."
+      },
+      "fusion": {
+        "title": "Reciprocal rank fusion"
+      },
+      "sort": {
+        "title": "Sorting by fused score",
+        "note": "The contributions of all lists are added up, and documents are sorted by decreasing sum."
+      },
+      "top": {
+        "title": "Returning top results",
+        "sub": "query size"
+      }
+    },
+    "omitted": {}
+  },
   "pathrag": {
     "nodes": {
       "corpus": {
@@ -32,6 +1428,1026 @@
       },
       "answer": {
         "title": "Answer generation"
+      }
+    },
+    "omitted": {}
+  },
+  "pixelrag": {
+    "nodes": {
+      "mirror": {
+        "title": "Saving the pages",
+        "note": "All pages, with their markup, styles and images, are first saved locally so that they can be rendered later without the network."
+      },
+      "render": {
+        "title": "Page screenshots",
+        "sub": "in a browser"
+      },
+      "tiles": {
+        "title": "Cutting into tiles",
+        "sub": "1024 pixels tall"
+      },
+      "embed": {
+        "title": "Encoding tiles as vectors"
+      },
+      "index": {
+        "title": "Approximate search index",
+        "note": "The vectors of all tiles go into an index that finds close vectors quickly and lets new pages be added without rebuilding it."
+      },
+      "search": {
+        "title": "Nearest tile search"
+      },
+      "downscale": {
+        "title": "Lowering the resolution",
+        "sub": "optional"
+      },
+      "answer": {
+        "title": "Answer from the images",
+        "note": "A model that reads both text and images takes the retrieved tiles as pictures and answers the question."
+      }
+    },
+    "omitted": {}
+  },
+  "poison_rag": {
+    "nodes": {
+      "pool": {
+        "title": "Candidate tag pool",
+        "sub": "from similar items",
+        "note": "For each item, similar items of another popularity class are found and their tags become candidates. The global variant uses one pool of tags for all items."
+      },
+      "scoring": {
+        "title": "Tag scoring",
+        "sub": "impact and relevance",
+        "note": "A tag scores higher the more often it occurs in the target popularity class compared with the item's own class, and the closer it is in meaning to the item."
+      },
+      "tag_edit": {
+        "title": "Editing item tags",
+        "note": "The attacker changes only the item's tags and leaves the title and genre intact, so the edit stays unnoticed."
+      },
+      "item_vectors": {
+        "title": "Item vectors",
+        "note": "Each item is represented by one embedding vector of its text attributes."
+      },
+      "profile": {
+        "title": "User profile",
+        "note": "The vectors of the items a user interacted with are averaged, weighted by ratings or by recency."
+      },
+      "retrieval": {
+        "title": "Initial ranked list",
+        "sub": "of recommendations"
+      },
+      "refine": {
+        "title": "Refining the list",
+        "sub": "by a language model"
+      },
+      "shift": {
+        "title": "Shifted recommendations",
+        "note": "The aim of the attack: popular items sink in the recommendations and little-known ones rise."
+      }
+    },
+    "omitted": {}
+  },
+  "poisonedrag": {
+    "nodes": {
+      "target": {
+        "title": "Choosing the target",
+        "sub": "question and false answer",
+        "note": "The attacker picks a question and the false answer the system should give to it."
+      },
+      "write_text": {
+        "title": "Persuasive text",
+        "sub": "written by a model",
+        "note": "The attacker's language model writes a short text from which the chosen false answer follows."
+      },
+      "check_text": {
+        "title": "Checking the text",
+        "note": "A model is asked the question with this text as context. If the answer is not the chosen one, the text is rewritten, up to a set number of trials."
+      },
+      "prefix": {
+        "title": "Question-like prefix",
+        "note": "The question itself is put before the text so that search finds it. If the retriever is known, the prefix is optimised to bring the text even closer to the question."
+      },
+      "inject": {
+        "title": "Injection into the database",
+        "note": "The attacker adds a few such texts to the knowledge database, for example by editing Wikipedia pages. No access to the system itself is needed."
+      },
+      "question": {
+        "title": "User question"
+      },
+      "retrieval": {
+        "title": "Retrieving similar texts",
+        "note": "The system finds the texts closest to the question; the injected texts are built to be among them."
+      },
+      "answer": {
+        "title": "Attacker's answer",
+        "note": "The language model answers from the retrieved texts and gives the answer the attacker chose."
+      }
+    },
+    "omitted": {}
+  },
+  "qdrant": {
+    "nodes": {
+      "points": {
+        "title": "Points with vectors",
+        "note": "Each point holds a dense, a sparse or several vectors, plus an arbitrary payload."
+      },
+      "shards": {
+        "title": "Sharding and replication"
+      },
+      "conditions": {
+        "title": "Payload filter conditions",
+        "note": "A query may restrict results by conditions on the payload: keyword match, numeric ranges, geo-location."
+      },
+      "dense": {
+        "title": "Dense vector search"
+      },
+      "sparse": {
+        "title": "Sparse vector search",
+        "note": "Sparse vectors serve full-text search."
+      },
+      "fusion": {
+        "title": "Merging the result lists",
+        "sub": "by rank or by score"
+      }
+    },
+    "omitted": {
+      "D1": "Maximal marginal relevance, which diversifies the results, is offered as an option and is not drawn as a step."
+    }
+  },
+  "ra_cm3": {
+    "nodes": {
+      "memory": {
+        "title": "External memory",
+        "sub": "text and images"
+      },
+      "encode": {
+        "title": "Encoding into vectors"
+      },
+      "query": {
+        "title": "Query",
+        "note": "The input serves as the query: a caption when an image is to be generated, or an image when a caption is."
+      },
+      "search": {
+        "title": "Nearest document search",
+        "note": "The documents whose vectors are closest to the query vector are taken from memory."
+      },
+      "diversity": {
+        "title": "Dropping near duplicates",
+        "note": "A candidate is skipped when it is too similar to the query or to documents already taken."
+      },
+      "prepend": {
+        "title": "Documents before the input",
+        "note": "The retrieved documents are placed in front of the input and serve the model as examples."
+      },
+      "generate": {
+        "title": "Generating the continuation",
+        "sub": "text or an image"
+      }
+    },
+    "omitted": {}
+  },
+  "ra_dit": {
+    "nodes": {
+      "retrieval": {
+        "title": "Fragment search",
+        "sub": "dual encoder",
+        "note": "The question and the fragments are turned into vectors, and the fragments closest to the question are taken."
+      },
+      "augment": {
+        "title": "One prompt per fragment",
+        "sub": "each separately",
+        "note": "Each retrieved fragment is placed before the task in a prompt of its own."
+      },
+      "mixture": {
+        "title": "Mixing the answers",
+        "sub": "weighted by search",
+        "note": "The language model answers each prompt separately, and the answer probabilities are summed with weights from the search."
+      },
+      "lm_ft": {
+        "title": "Language model fine-tuning"
+      },
+      "lsr": {
+        "title": "Fragment rating",
+        "note": "For each fragment the language model computes the probability of the correct answer. The higher it is, the more useful the fragment."
+      },
+      "ret_ft": {
+        "title": "Retriever fine-tuning",
+        "note": "The retriever learns to rank higher the fragments the language model rated as useful. Only the query encoder changes."
+      }
+    },
+    "omitted": {}
+  },
+  "ra_isf": {
+    "nodes": {
+      "know": {
+        "title": "Own knowledge check",
+        "note": "A separately trained model decides whether the language model can answer the question by itself, without search."
+      },
+      "retrieve": {
+        "title": "Passage search",
+        "note": "When its own knowledge is not enough, the retriever finds the few most suitable passages in the corpus."
+      },
+      "relevance": {
+        "title": "Relevance filtering"
+      },
+      "own_answer": {
+        "title": "Own-knowledge answer",
+        "note": "When its knowledge is enough, the language model answers at once and no search is made.",
+        "sub": "knowledge suffices"
+      },
+      "rel_answer": {
+        "title": "Answer from passages",
+        "note": "When at least one passage is relevant, the language model answers from the relevant passages.",
+        "sub": "a passage fits"
+      },
+      "decompose": {
+        "title": "Splitting the question",
+        "sub": "otherwise"
+      },
+      "combine": {
+        "title": "Assembling the final answer",
+        "note": "The language model answers the original question given the subquestions and their answers."
+      }
+    },
+    "omitted": {}
+  },
+  "raft": {
+    "nodes": {
+      "qa": {
+        "title": "Questions and answers",
+        "note": "Training examples are built from question and answer pairs in the target domain."
+      },
+      "docs": {
+        "title": "Document selection",
+        "sub": "with distractors",
+        "note": "The question comes with the document holding the answer and several similar documents without it. In part of the examples the answer document is left out entirely."
+      },
+      "cot": {
+        "title": "Reasoning with a quote",
+        "sub": "verbatim"
+      },
+      "sft": {
+        "title": "Language model fine-tuning"
+      },
+      "topk": {
+        "title": "Document retrieval",
+        "sub": "top k",
+        "note": "In use, the documents for a question come from an ordinary search of any kind."
+      },
+      "answer": {
+        "title": "Answer of the tuned model",
+        "note": "The model answers from the retrieved documents, relying on the relevant one and ignoring the rest."
+      }
+    },
+    "omitted": {}
+  },
+  "rag_anything": {
+    "nodes": {
+      "parse": {
+        "title": "Parsing the documents",
+        "sub": "keeping the structure"
+      },
+      "mm_graph": {
+        "title": "Graph of non-text units",
+        "sub": "images and tables"
+      },
+      "text_graph": {
+        "title": "Graph of the text"
+      },
+      "fusion": {
+        "title": "Merging the graphs",
+        "sub": "by entity names"
+      },
+      "embed": {
+        "title": "Vectors for all elements"
+      },
+      "query": {
+        "title": "Query analysis",
+        "note": "Keywords and hints at the wanted kind of content, such as \"table\" or \"figure\", are taken from the question, which is then turned into a vector."
+      },
+      "structural": {
+        "title": "Graph neighbour search"
+      },
+      "semantic": {
+        "title": "Vector similarity search",
+        "note": "The question vector is compared with the vectors of all chunks, entities and relations, and the most similar are taken."
+      },
+      "scoring": {
+        "title": "Joint candidate scoring"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "sub": "with the images",
+        "note": "The retrieved items are assembled into text, the original images are brought back, and a model that reads text and images writes the answer."
+      }
+    },
+    "omitted": {
+      "F1": "The paper does not describe how new documents are added to the collection."
+    }
+  },
+  "rag_as_memory": {
+    "nodes": {
+      "triples": {
+        "title": "Triple extraction",
+        "sub": "by a language model"
+      },
+      "synonyms": {
+        "title": "Synonym edges",
+        "note": "The encoder compares the phrases of the graph and links with an edge each pair whose vectors are closer than a threshold."
+      },
+      "graph": {
+        "title": "Phrase and passage graph"
+      },
+      "link": {
+        "title": "Query to triple matching",
+        "note": "The whole question is compared with the triples of the graph by their vectors, and the closest ones are taken."
+      },
+      "filter": {
+        "title": "Triple filtering",
+        "sub": "by a language model",
+        "note": "A language model keeps only the retrieved triples that bear on the question."
+      },
+      "seeds": {
+        "title": "Seed nodes",
+        "note": "Phrases from the kept triples and all passages become seeds. Their scores set the reset probabilities of the walk."
+      },
+      "walk": {
+        "title": "Personalized PageRank",
+        "sub": "with restart"
+      },
+      "ranking": {
+        "title": "Passage ranking",
+        "note": "Passages are ordered by the weight the walk gives them, and the top ones go on."
+      },
+      "answer": {
+        "title": "Answer generation"
+      }
+    },
+    "omitted": {
+      "F1": "The source grows its memory only by adding new texts to the graph and describes no recording of the system's own experience."
+    }
+  },
+  "rag_fusion": {
+    "nodes": {
+      "query": {
+        "title": "Question"
+      },
+      "rewrites": {
+        "title": "Query rewrites",
+        "sub": "by a language model"
+      },
+      "search": {
+        "title": "Search for every version",
+        "note": "The original question and every rewrite are searched. Each search yields its own ranked list."
+      },
+      "rrf": {
+        "title": "Reciprocal rank fusion",
+        "sub": "by rank"
+      },
+      "rerank": {
+        "title": "Reranking"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "Only the top documents after reranking reach the model that writes the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "raptor": {
+    "nodes": {
+      "chunks": {
+        "title": "Splitting into fragments",
+        "sub": "whole sentences"
+      },
+      "embed": {
+        "title": "Vector encoding",
+        "sub": "with SBERT",
+        "note": "Every fragment, and later every summary, gets a vector representation."
+      },
+      "cluster": {
+        "title": "Grouping by similarity"
+      },
+      "summarize": {
+        "title": "Summary of each group",
+        "sub": "by a language model"
+      },
+      "tree": {
+        "title": "Multi-layer tree"
+      },
+      "traversal": {
+        "title": "Tree traversal",
+        "sub": "not used in the main runs",
+        "note": "At each layer the children of the chosen nodes closest to the question are taken. The main experiments do not use this option."
+      },
+      "collapsed": {
+        "title": "Search over all nodes",
+        "sub": "tree as one layer"
+      },
+      "context": {
+        "title": "Assembling the context",
+        "note": "The texts of the chosen nodes are joined into one context for the answer."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A ready-made language model answers the question from the assembled text."
+      }
+    },
+    "omitted": {}
+  },
+  "rarg": {
+    "nodes": {
+      "scope": {
+        "title": "Ranking the documents",
+        "sub": "by closeness to query"
+      },
+      "entry": {
+        "title": "Starting paragraphs",
+        "note": "Ten paragraphs from the top documents, closest to the query, are appended to the reply of the ranking tool so that the agent has a place to start."
+      },
+      "agent": {
+        "title": "Choosing a command"
+      },
+      "grep": {
+        "title": "Line search by pattern",
+        "sub": "in list order"
+      },
+      "rerank": {
+        "title": "Reranking matches",
+        "note": "A representation model rescores a broad pool of matched lines, and only the best are shown to the agent."
+      },
+      "read": {
+        "title": "Reading part of a file",
+        "note": "When a match lacks surrounding context, the agent opens the document and reads only the lines it needs.",
+        "sub": "while unsure"
+      },
+      "answer": {
+        "title": "Agent's answer",
+        "note": "The agent keeps calling commands until it judges itself ready to answer.",
+        "sub": "once confident"
+      }
+    },
+    "omitted": {}
+  },
+  "react": {
+    "nodes": {
+      "examples": {
+        "title": "Worked examples",
+        "sub": "in the prompt",
+        "note": "A few solutions written by people, alternating thoughts, actions and observations, are put into the prompt."
+      },
+      "question": {
+        "title": "Question",
+        "note": "The model receives only the question or the claim to check, with no supporting paragraphs."
+      },
+      "thought": {
+        "title": "Thought"
+      },
+      "action": {
+        "title": "Action",
+        "sub": "search or lookup"
+      },
+      "observation": {
+        "title": "Observation",
+        "note": "Wikipedia returns the first five sentences of the article, or the next sentence containing the string looked up."
+      },
+      "finish": {
+        "title": "Finish with the answer",
+        "note": "A special action ends the task and gives the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "replug": {
+    "nodes": {
+      "retrieval": {
+        "title": "Document retrieval",
+        "note": "The question and the documents are turned into vectors by one encoder, and the documents closest to the question are taken."
+      },
+      "prepend": {
+        "title": "One prompt per document",
+        "sub": "each separately",
+        "note": "Each retrieved document is placed before the question, and the language model receives each such prompt separately."
+      },
+      "ensemble": {
+        "title": "Weighted ensemble",
+        "sub": "by similarity"
+      },
+      "ret_lik": {
+        "title": "Retrieval likelihood",
+        "note": "The similarity of the documents to the question is turned into a probability distribution over the retrieved documents."
+      },
+      "lm_lik": {
+        "title": "Document rating by model",
+        "note": "The language model stays unchanged. For each document it computes the probability of the correct continuation, and that serves as the document's score."
+      },
+      "update": {
+        "title": "Retriever training"
+      },
+      "reindex": {
+        "title": "Index rebuild",
+        "note": "Document vectors are recomputed every set number of steps, and training then repeats."
+      }
+    },
+    "omitted": {}
+  },
+  "roza_graphs": {
+    "nodes": {
+      "query": {
+        "title": "Question and its type",
+        "note": "Questions are grouped into types by dataset labels or by clustering their vectors."
+      },
+      "planner": {
+        "title": "Choosing search settings",
+        "note": "The retrieval graph supplies the filters that most often led to a correct answer for this type of question, and often rejected passages are excluded."
+      },
+      "retrieve": {
+        "title": "Candidate retrieval",
+        "note": "Passages on which the answer may rest are taken from the knowledge base."
+      },
+      "profiles": {
+        "title": "Profiles of past verdicts",
+        "sub": "from the graph"
+      },
+      "reason": {
+        "title": "Answer and verdicts",
+        "note": "The language model answers and marks each candidate as used or rejected, with a reason."
+      },
+      "write": {
+        "title": "Recording the verdicts"
+      },
+      "outcome": {
+        "title": "Outcome check",
+        "note": "The signal on whether the answer was correct is added to the decision; profiles later draw only on verdicts from correct answers."
+      }
+    },
+    "omitted": {}
+  },
+  "sail": {
+    "nodes": {
+      "instructions": {
+        "title": "Instruction set",
+        "note": "52 thousand training instructions are taken, with answers written by a strong language model."
+      },
+      "search": {
+        "title": "Web and Wikipedia search",
+        "note": "The instruction text is searched with the DuckDuckGo search engine and in Wikipedia. Each example gets zero to three results."
+      },
+      "label": {
+        "title": "Labelling the results",
+        "sub": "by entailment",
+        "note": "A result is labelled informative when an entailment model judges that it supports the answer, and distracting otherwise."
+      },
+      "finetune": {
+        "title": "Language model fine-tuning"
+      },
+      "select": {
+        "title": "Choosing useful results",
+        "sub": "before answering"
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The model answers relying on the results it has itself named useful."
+      }
+    },
+    "omitted": {}
+  },
+  "self_rag": {
+    "nodes": {
+      "critic": {
+        "title": "Critic training",
+        "note": "GPT-4 labels examples with reflection tokens, and a separate critic model is trained on this data."
+      },
+      "gen_train": {
+        "title": "Generator training",
+        "sub": "on critic labels"
+      },
+      "decide": {
+        "title": "Retrieval decision"
+      },
+      "retrieve": {
+        "title": "Passage search",
+        "note": "An off-the-shelf retriever looks for suitable passages among Wikipedia articles."
+      },
+      "relevance": {
+        "title": "Relevance check",
+        "note": "The model emits a token saying whether the retrieved passage is relevant."
+      },
+      "generate": {
+        "title": "Next segment",
+        "note": "The model writes the next segment of the answer, relying on the inserted passage."
+      },
+      "support": {
+        "title": "Support check",
+        "sub": "against the passage"
+      },
+      "select": {
+        "title": "Segment selection"
+      }
+    },
+    "omitted": {}
+  },
+  "simrag": {
+    "nodes": {
+      "general_data": {
+        "title": "General-domain training data",
+        "note": "General instruction data, question answering over given texts, and examples of writing answers and questions from a document."
+      },
+      "stage1": {
+        "title": "First fine-tuning stage",
+        "sub": "on retrieval-oriented tasks",
+        "note": "The language model learns to answer from retrieved texts and to draw candidate answers and questions from a document."
+      },
+      "corpus": {
+        "title": "Unlabelled domain texts",
+        "note": "Documents of a narrow domain with no ready questions and answers."
+      },
+      "answers": {
+        "title": "Candidate answer spans",
+        "note": "The model picks spans of each document that could answer some question."
+      },
+      "questions": {
+        "title": "Question generation",
+        "sub": "for each answer",
+        "note": "For each span the model writes a short question or a multiple-choice question; claims to verify are written straight from the document, without a span."
+      },
+      "filter": {
+        "title": "Filtering pairs",
+        "note": "A pair is kept only if its answer occurs in the top documents retrieved for its question."
+      },
+      "tuning": {
+        "title": "Second fine-tuning",
+        "sub": "on its own pairs"
+      },
+      "answer": {
+        "title": "Answer",
+        "sub": "from retrieved texts",
+        "note": "A retriever finds the top texts and the fine-tuned model answers from them."
+      }
+    },
+    "omitted": {}
+  },
+  "speculative_rag": {
+    "nodes": {
+      "retrieve": {
+        "title": "Document retrieval",
+        "note": "The question itself serves as the search query to the document base."
+      },
+      "cluster": {
+        "title": "Grouping by topic",
+        "sub": "with k-means",
+        "note": "The retrieved documents are embedded with regard to the question and split into clusters. Each cluster reflects one perspective on the question."
+      },
+      "subsets": {
+        "title": "Building subsets",
+        "note": "Several subsets are built. Each takes one document from every cluster, so its documents differ in content."
+      },
+      "drafts": {
+        "title": "Answer drafts",
+        "sub": "by a small model"
+      },
+      "scoring": {
+        "title": "Scoring the drafts",
+        "sub": "by a large model"
+      },
+      "choice": {
+        "title": "Choosing the best draft",
+        "note": "The draft with the highest final score becomes the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "standard_hybridrag": {
+    "nodes": {
+      "docs": {
+        "title": "Document ingestion"
+      },
+      "embed": {
+        "title": "Text embedding",
+        "sub": "at ingestion",
+        "note": "An embedding model turns the text of each document into a vector."
+      },
+      "index": {
+        "title": "One index",
+        "sub": "text and vector",
+        "note": "The index stores both the original text of each document and its vector."
+      },
+      "keyword": {
+        "title": "Keyword search",
+        "note": "Documents are selected by matching the words of the query."
+      },
+      "semantic": {
+        "title": "Semantic search",
+        "sub": "over vectors",
+        "note": "Documents are selected by how close their vectors are to the query vector."
+      },
+      "fusion": {
+        "title": "Merging the two lists",
+        "note": "The two lists become one, either by the positions of documents in each list or after bringing the scores to a common scale."
+      }
+    },
+    "omitted": {}
+  },
+  "step_back": {
+    "nodes": {
+      "question": {
+        "title": "Original question"
+      },
+      "abstraction": {
+        "title": "Step-back question",
+        "sub": "by a language model"
+      },
+      "ret_orig": {
+        "title": "Retrieval for the original",
+        "note": "An ordinary search on the question as it was asked."
+      },
+      "ret_sb": {
+        "title": "Retrieval for step-back",
+        "note": "A search for facts about the general concept or principle behind the question."
+      },
+      "reasoning": {
+        "title": "Grounded reasoning",
+        "note": "The language model receives the original question and what was found for both questions, and reasons from the general principle to the answer."
+      }
+    },
+    "omitted": {}
+  },
+  "streaming_rag": {
+    "nodes": {
+      "scheduler": {
+        "title": "Selecting video frames"
+      },
+      "vision": {
+        "title": "Frame analysis",
+        "sub": "by vision models"
+      },
+      "builder": {
+        "title": "Graph update"
+      },
+      "graph": {
+        "title": "Scene knowledge graph"
+      },
+      "context": {
+        "title": "Temporal context",
+        "note": "Details from many frames are combined into a picture of how the event unfolds. Related entities and relations are looked up in the knowledge base, and the most probable entities are kept."
+      },
+      "questions": {
+        "title": "Questions for new frames",
+        "note": "The generator refines the questions using the latest response and sends them to the models with the following frames."
+      },
+      "user_query": {
+        "title": "User query",
+        "note": "The processor parses the user's query and refines it by the current context and the knowledge base."
+      },
+      "serving": {
+        "title": "Retrieval from the graph",
+        "note": "The serving layer quickly fetches from the graph what the query needs."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "A language model answers from the current state of the graph."
+      }
+    },
+    "omitted": {}
+  },
+  "test_time": {
+    "nodes": {
+      "decompose": {
+        "title": "Splitting into subquestions"
+      },
+      "reason": {
+        "title": "Reasoning",
+        "sub": "parallel chains"
+      },
+      "match": {
+        "title": "Node matching",
+        "note": "Names from the search block are matched to graph nodes by the similarity of their vectors."
+      },
+      "search": {
+        "title": "Graph search",
+        "sub": "neighbours or paths"
+      },
+      "verbalize": {
+        "title": "Paths as sentences",
+        "note": "The retrieved relations are written as short sentences and inserted into the reasoning. The model goes on and may search again."
+      },
+      "check": {
+        "title": "Cross-checking answers",
+        "sub": "across subquestions"
+      },
+      "answer": {
+        "title": "Final answer"
+      }
+    },
+    "omitted": {
+      "A8": "The source takes a ready medical knowledge graph and does not describe how it was built."
+    }
+  },
+  "think_on_graph": {
+    "nodes": {
+      "kg": {
+        "title": "Existing knowledge graph"
+      },
+      "question": {
+        "title": "Question"
+      },
+      "topics": {
+        "title": "Topic entities",
+        "sub": "from the question",
+        "note": "The language model names the main entities of the question, and the paths through the graph start from them."
+      },
+      "rel_search": {
+        "title": "Relation search",
+        "note": "For the last entity of each path, all its incoming and outgoing relations are taken from the graph."
+      },
+      "rel_prune": {
+        "title": "Relation pruning",
+        "note": "The language model keeps the few relations most useful for answering the question."
+      },
+      "ent_search": {
+        "title": "Entity search",
+        "note": "For each kept relation, the entities at its other end are taken from the graph."
+      },
+      "ent_prune": {
+        "title": "Entity pruning",
+        "note": "The language model keeps the best few entities, and each path grows by one step."
+      },
+      "check": {
+        "title": "Path sufficiency check",
+        "note": "The language model decides whether the paths suffice to answer. If not, the search goes on up to a maximum depth."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The model answers from the paths found. If they never sufficed, it answers from its own knowledge."
+      }
+    },
+    "omitted": {}
+  },
+  "uembed": {
+    "nodes": {
+      "vocab": {
+        "title": "Vocabulary compression",
+        "note": "Words that differ only in case, whitespace or accents are merged into one vocabulary entry."
+      },
+      "partition": {
+        "title": "Splitting the vocabulary",
+        "note": "The vocabulary is split into 16 disjoint groups of similar words of about equal size."
+      },
+      "input": {
+        "title": "Image and text input"
+      },
+      "tokens": {
+        "title": "Appending special tokens",
+        "note": "Sixteen learnable tokens are appended to the input. Each sees the whole input and is responsible for its own part of the vocabulary."
+      },
+      "pass": {
+        "title": "Single model pass"
+      },
+      "sparse": {
+        "title": "Sparse word weights",
+        "note": "Each special token produces weights over its part of the vocabulary; together the parts form the full sparse vector."
+      },
+      "dense": {
+        "title": "Dense vector",
+        "note": "The dense representation is the hidden state of the end-of-sequence token that precedes the special tokens."
+      },
+      "objective": {
+        "title": "Joint training objective",
+        "sub": "both representations"
+      }
+    },
+    "omitted": {}
+  },
+  "unified": {
+    "nodes": {
+      "triples": {
+        "title": "Triples from record fields",
+        "sub": "key becomes relation"
+      },
+      "store": {
+        "title": "Graph database"
+      },
+      "nodes": {
+        "title": "Node selection",
+        "note": "A language model finds the names and types of objects in the question, which are then mapped to graph nodes through a reference list."
+      },
+      "relations": {
+        "title": "Relation selection",
+        "note": "A classifier narrows down the relations. Then some relations are picked by vector similarity and some by a language model, and the two lists are merged."
+      },
+      "query": {
+        "title": "Graph query",
+        "sub": "in SPARQL"
+      },
+      "result": {
+        "title": "Retrieved triples"
+      }
+    },
+    "omitted": {}
+  },
+  "vectorless": {
+    "nodes": {
+      "document": {
+        "title": "Long document",
+        "note": "A financial report, legal filing, technical manual or other long, complex professional document."
+      },
+      "tree": {
+        "title": "Section tree",
+        "sub": "from the layout"
+      },
+      "summaries": {
+        "title": "Node summaries",
+        "sub": "by a language model",
+        "note": "A language model briefly describes and refines the ready tree, so a basic model is enough here."
+      },
+      "search": {
+        "title": "Tree search",
+        "sub": "by model reasoning"
+      },
+      "reading": {
+        "title": "Reading chosen nodes",
+        "note": "The model reads only the nodes its reasoning reaches and answers from them."
+      }
+    },
+    "omitted": {}
+  },
+  "voicemem": {
+    "nodes": {
+      "transcript": {
+        "title": "Speech recognition",
+        "sub": "as the user speaks"
+      },
+      "match": {
+        "title": "Schema and entity matching",
+        "sub": "on partial speech",
+        "note": "Before the turn ends, matching schemas and entities in both halves of memory are found from the part already transcribed."
+      },
+      "left_expand": {
+        "title": "Neighbouring entities",
+        "sub": "left brain",
+        "note": "The matched entities are extended by their nearest neighbours in the graph. The left brain remembers events and entities."
+      },
+      "right_expand": {
+        "title": "Traits and attitudes",
+        "sub": "right brain",
+        "note": "Traits and attitudes that match the speech so far are taken, together with the attitudes tied to the entities found by the left brain."
+      },
+      "mem_search": {
+        "title": "Search in selected memory",
+        "sub": "both brains",
+        "note": "The search covers only the records attached to the selected nodes, and the results of both brains go into one prompt."
+      },
+      "answer": {
+        "title": "Speech model reply",
+        "sub": "distilled"
+      },
+      "reconcile": {
+        "title": "Reconciling new facts",
+        "note": "After each turn, new facts are extracted and reconciled with nearby records: each is added, updated, deleted or kept."
+      },
+      "graph_update": {
+        "title": "Memory graph update",
+        "note": "The schemas, entities and relations used for search are updated."
+      },
+      "consolidation": {
+        "title": "Consolidating traits",
+        "note": "After each session, recurring evidence is consolidated into stable traits of the person."
+      }
+    },
+    "omitted": {
+      "A3": "The paper does not say whether anything beyond the text is attached to stored facts."
+    }
+  },
+  "xrag": {
+    "nodes": {
+      "corpus": {
+        "title": "Document fragments"
+      },
+      "embeddings": {
+        "title": "Fragment vectors",
+        "sub": "built in advance",
+        "note": "Each fragment is represented in advance by one vector, the same one used for search."
+      },
+      "paraphrase": {
+        "title": "Paraphrase pretraining",
+        "sub": "first stage",
+        "note": "The language model learns to restore a fragment's text from its vector. Only a small bridging network is trained."
+      },
+      "instruct": {
+        "title": "Instruction tuning",
+        "sub": "second stage",
+        "note": "The bridge is further trained on reading, summarising and question answering grounded in the given fragment, also imitating the model's answers from the full text."
+      },
+      "search": {
+        "title": "Fragment search",
+        "note": "The question vector is compared with the fragment vectors, and the single best fragment is taken."
+      },
+      "projector": {
+        "title": "Vector projection",
+        "note": "The bridge maps the vector of the found fragment into the language model's space, so the whole fragment takes one input position instead of its full text of about 180 tokens."
+      },
+      "answer": {
+        "title": "Answer generation",
+        "note": "The model receives the projected vector together with the question. Neither the model nor the search encoder changes."
       }
     },
     "omitted": {}

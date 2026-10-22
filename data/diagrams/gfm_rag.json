@@ -1,0 +1,104 @@
+{
+  "technology_id": "gfm_rag",
+  "source": {
+    "label": "arXiv:2502.01113v3",
+    "url": "https://arxiv.org/html/2502.01113v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "KG-index Construction",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Query-dependent GNN",
+      "anchor": "S3.SS2.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Documents Ranking and Answer Generation",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "openie",
+      "resolution",
+      "kg"
+    ],
+    [
+      "query",
+      "qentities",
+      "gnn"
+    ],
+    [
+      "topents",
+      "docrank",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "openie": {
+      "section": "1",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "resolution": {
+      "section": "1"
+    },
+    "kg": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted_and_computed"
+      }
+    },
+    "query": {
+      "section": "2"
+    },
+    "qentities": {
+      "section": "2",
+      "codes": {
+        "B1": "key_extraction"
+      }
+    },
+    "gnn": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal",
+        "G3": "trained_retriever"
+      },
+      "residual": "learned_relevance_propagation"
+    },
+    "topents": {
+      "section": "3"
+    },
+    "docrank": {
+      "section": "3",
+      "codes": {
+        "A1": "passage"
+      },
+      "residual": "score_transfer_to_units"
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "kg",
+      "gnn"
+    ],
+    [
+      "gnn",
+      "topents"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "A2"
+  ]
+}

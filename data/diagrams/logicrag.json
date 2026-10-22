@@ -1,0 +1,111 @@
+{
+  "technology_id": "logicrag",
+  "source": {
+    "label": "arXiv:2508.06105v2",
+    "url": "https://arxiv.org/html/2508.06105v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Query Logic Dependency Graph Construction",
+      "anchor": "Sx3.SSx2"
+    },
+    {
+      "key": "2",
+      "title": "Graph Reasoning Linearization",
+      "anchor": "Sx3.SSx3"
+    },
+    {
+      "key": "3",
+      "title": "Graph and Context Pruning",
+      "anchor": "Sx3.SSx4"
+    }
+  ],
+  "rows": [
+    [
+      "decompose",
+      "dag",
+      "order"
+    ],
+    [
+      "merge",
+      "retrieval",
+      "subanswer"
+    ],
+    [
+      "memory",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "decompose": {
+      "section": "1",
+      "codes": {
+        "B1": "subquestion_decomposition"
+      }
+    },
+    "dag": {
+      "section": "1"
+    },
+    "order": {
+      "section": "2",
+      "residual": "query_dependency_ordering"
+    },
+    "merge": {
+      "section": "3"
+    },
+    "retrieval": {
+      "section": "2",
+      "codes": {
+        "C2": "iterative_stopping",
+        "E5": "mutual_loop"
+      }
+    },
+    "subanswer": {
+      "section": "2"
+    },
+    "memory": {
+      "section": "3",
+      "codes": {
+        "D2": "abstractive_compression"
+      }
+    },
+    "answer": {
+      "section": "2",
+      "codes": {
+        "E1": "ensemble_fragments"
+      }
+    }
+  },
+  "edges": [
+    [
+      "order",
+      "merge"
+    ],
+    [
+      "subanswer",
+      "memory"
+    ],
+    [
+      "subanswer",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "retrieval",
+      "dag"
+    ],
+    [
+      "memory",
+      "merge"
+    ]
+  ],
+  "breaks": [
+    [
+      "memory",
+      "answer"
+    ]
+  ],
+  "omitted": []
+}

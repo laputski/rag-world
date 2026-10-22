@@ -23,6 +23,166 @@
     ],
     "description": "KAG отвечает на затруднение, возникающее в областях со строгими правилами. Извлечение по сходству возвращает похожее, а в медицине, праве или расчёте льгот требуется вывод: заключение должно следовать из посылок по установленному правилу, и правдоподобие тут заменой не служит.\n\nСобрание раскладывается на две части. Одна часть образует граф знаний, где сущности и отношения приведены к общей схеме, а термины разных документов сведены к единым обозначениям. Другая часть остаётся исходным текстом, привязанным к вершинам графа, потому что не всё выражается тройками, а формулировка первоисточника нужна для проверки.\n\nВопрос разбирается на подзадачи, и каждая направляется тому средству, которое ей отвечает: обращение за фактом идёт к графу, вопрос о формулировке идёт к тексту, а шаг вывода выполняется по правилам предметной области. Промежуточные заключения проверяются на согласие с этими правилами, поэтому цепочка, где шаг правилам противоречит, отбрасывается до появления ответа. Плата состоит в подготовке: схему и правила пишет человек, знающий область, и в области, где правила не формализованы, подход неприменим.",
     "description_en": "KAG addresses a difficulty arising in fields governed by strict rules. Retrieval by similarity returns what resembles the query, whereas medicine, law, or the computation of entitlements require inference: a conclusion must follow from premises by an established rule, and plausibility is no substitute.\n\nThe collection is laid out in two parts. One part forms a knowledge graph, where entities and relations are brought to a common schema and the terms of different documents are reduced to uniform designations. The other part remains the original text, attached to the graph's nodes, because not everything is expressible in triples and the source wording is needed for verification.\n\nA question is decomposed into subtasks, and each is routed to the instrument that answers it: a request for a fact goes to the graph, a question about wording goes to the text, and an inference step is carried out by the rules of the field. Intermediate conclusions are checked for agreement with those rules, so a chain containing a step that contradicts them is discarded before any answer appears. The price is preparation: the schema and the rules are written by someone who knows the field, and where the rules are not formalised the approach does not apply.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "align",
+          "index"
+        ],
+        [
+          "index",
+          "graphret"
+        ],
+        [
+          "hybrid",
+          "check"
+        ]
+      ],
+      "loops": [
+        [
+          "check",
+          "plan"
+        ]
+      ],
+      "nodes": {
+        "align": {
+          "codes": {},
+          "note": "Языковая модель сливает повторы одной сущности, относит каждую сущность к понятию и достраивает связи между понятиями.",
+          "note_en": "A language model merges duplicates of one entity, assigns each entity to a concept and completes the relations between concepts.",
+          "section": "3",
+          "title": "Привязка к понятиям",
+          "title_en": "Linking to concepts"
+        },
+        "answer": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "check": {
+          "codes": {},
+          "note": "Найденное и частные ответы сохраняются в общей памяти. Если вопрос не решён, модель ставит дополнительный вопрос и начинает новый круг.",
+          "note_en": "Findings and partial answers go into a shared memory. If the question is not resolved, the model asks a supplementary question and starts a new round.",
+          "section": "5",
+          "title": "Проверка полноты",
+          "title_en": "Completeness check"
+        },
+        "chunk": {
+          "codes": {},
+          "note": "Документ делится на фрагменты по своей структуре и связям между абзацами, чтобы каждый фрагмент был цельным по смыслу и помещался в окно модели.",
+          "note_en": "The document is split along its structure and the links between paragraphs, so that each fragment is coherent and fits the model window.",
+          "section": "1",
+          "title": "Деление по смыслу",
+          "title_en": "Splitting by meaning"
+        },
+        "extract": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "2",
+          "sub": "событий и связей",
+          "sub_en": "events, relations",
+          "title": "Выделение сущностей",
+          "title_en": "Entity extraction"
+        },
+        "graphret": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "6",
+          "title": "Поиск по графу",
+          "title_en": "Graph search"
+        },
+        "hybrid": {
+          "codes": {
+            "C3": "none"
+          },
+          "section": "6",
+          "sub": "если граф не помог",
+          "sub_en": "if the graph fails",
+          "title": "Поиск по текстам",
+          "title_en": "Text search"
+        },
+        "index": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted"
+          },
+          "section": "4",
+          "title": "Граф со ссылками на текст",
+          "title_en": "Graph linked to the text"
+        },
+        "plan": {
+          "codes": {},
+          "note": "Вопрос раскладывается на подвопросы, записанные логическими формами: поиск, сортировка, вычисление, вывод.",
+          "note_en": "The question is broken into subquestions written as logical forms: retrieval, sorting, calculation, deduction.",
+          "section": "5",
+          "sub": "на логические шаги",
+          "sub_en": "into logical steps",
+          "title": "Разбор вопроса",
+          "title_en": "Question breakdown"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "chunk",
+          "extract",
+          "align"
+        ],
+        [
+          "index"
+        ],
+        [
+          "plan",
+          "graphret",
+          "hybrid"
+        ],
+        [
+          "check",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Semantic Chunking",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS2.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Information Extraction with More Descriptive Context",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS2.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "Enhance Indexing",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS4.SSS1"
+        },
+        {
+          "key": "4",
+          "title": "Mutual indexing between text chunk vectors and knowledge structures",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS2.SSS4"
+        },
+        {
+          "key": "5",
+          "title": "Logical Form Solver",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS3"
+        },
+        {
+          "key": "6",
+          "title": "Logical Form for Reasoning",
+          "url": "https://arxiv.org/html/2409.13731v3#S2.SS3.SSS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2409.13731v3",
+        "url": "https://arxiv.org/html/2409.13731v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

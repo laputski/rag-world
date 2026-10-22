@@ -43,6 +43,151 @@
     ],
     "description": "Self-RAG встраивает решения об извлечении в саму генерацию. Обычная система обращается к поиску всегда и одинаково, независимо от того, нужен ли внешний источник для этого вопроса вообще. Вопрос, на который модель отвечает из собственных знаний, получает лишний контекст, а он не нейтрален: посторонний фрагмент способен увести ответ в сторону.\n\nМодель обучается порождать, наряду с обычным текстом, служебные метки, которые называются метками отражения. Первая из них решает, требуется ли обращение к поиску на текущем шаге. Дальнейшие оценивают каждый найденный фрагмент на уместность, оценивают порождённое предложение на опору в этом фрагменте и оценивают полезность ответа в целом. Метки представляют собой обычные единицы словаря, поэтому обучение идёт тем же способом, что и обучение порождению текста.\n\nСущественно то, что метки доступны во время порождения, а не только после него. Система порождает несколько продолжений, читает их оценки и продолжает то, которое опирается на источник лучше, поэтому отбор идёт по ходу, а не отбраковкой готового ответа. Плата состоит в необходимости обучения: обычная модель меток не порождает, и применить приём к готовой модели без донастройки нельзя.",
     "description_en": "Self-RAG builds decisions about retrieval into generation itself. An ordinary system consults search always and identically, regardless of whether an external source is needed for the question at all. A question the model answers from its own knowledge receives superfluous context, and that context is not neutral: an irrelevant fragment is quite capable of leading the answer astray.\n\nThe model is trained to emit, alongside ordinary text, service tokens known as reflection tokens. The first of them decides whether retrieval is required at the current step. The rest judge each retrieved fragment for relevance, judge each generated sentence for support in that fragment, and judge the usefulness of the answer as a whole. The tokens are ordinary vocabulary items, so training proceeds in the same manner as training to generate text.\n\nWhat matters is that the tokens are available during generation rather than only after it. The system generates several continuations, reads their scores, and continues the one better supported by its source, so selection happens as the answer is built rather than by rejecting a finished one. The price is the need for training: an ordinary model emits no such tokens, and the technique cannot be applied to a ready model without fine-tuning.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "gen_train",
+          "decide"
+        ],
+        [
+          "relevance",
+          "generate"
+        ]
+      ],
+      "loops": [
+        [
+          "select",
+          "decide"
+        ]
+      ],
+      "nodes": {
+        "critic": {
+          "codes": {},
+          "note": "Большая языковая модель размечает примеры служебными метками оценки, и на этих данных обучается отдельная модель, критик.",
+          "note_en": "GPT-4 labels examples with reflection tokens, and a separate critic model is trained on this data.",
+          "section": "1",
+          "title": "Обучение критика",
+          "title_en": "Critic training"
+        },
+        "decide": {
+          "codes": {
+            "B2": "llm_router",
+            "C2": "iterative_stopping",
+            "E5": "mutual_loop"
+          },
+          "section": "3",
+          "title": "Решение о поиске",
+          "title_en": "Retrieval decision"
+        },
+        "gen_train": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "2",
+          "sub": "на разметке критика",
+          "sub_en": "on critic labels",
+          "title": "Обучение отвечающей модели",
+          "title_en": "Generator training"
+        },
+        "generate": {
+          "codes": {},
+          "note": "Модель пишет следующий отрывок ответа, опираясь на вставленный фрагмент.",
+          "note_en": "The model writes the next segment of the answer, relying on the inserted passage.",
+          "section": "6",
+          "title": "Продолжение ответа",
+          "title_en": "Next segment"
+        },
+        "relevance": {
+          "codes": {},
+          "note": "Модель ставит метку, относится ли найденный фрагмент к вопросу.",
+          "note_en": "The model emits a token saying whether the retrieved passage is relevant.",
+          "section": "5",
+          "title": "Оценка уместности",
+          "title_en": "Relevance check"
+        },
+        "retrieve": {
+          "codes": {},
+          "note": "Готовый извлекатель ищет подходящие фрагменты среди статей Википедии.",
+          "note_en": "An off-the-shelf retriever looks for suitable passages among Wikipedia articles.",
+          "section": "4",
+          "title": "Поиск фрагментов",
+          "title_en": "Passage search"
+        },
+        "select": {
+          "codes": {
+            "E1": "draft_verify"
+          },
+          "section": "3",
+          "title": "Выбор лучшего отрывка",
+          "title_en": "Segment selection"
+        },
+        "support": {
+          "codes": {
+            "E2": "decoding_reflection",
+            "E3": "fragment_level"
+          },
+          "section": "5",
+          "sub": "по фрагменту",
+          "sub_en": "against the passage",
+          "title": "Проверка обоснованности",
+          "title_en": "Support check"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "critic",
+          "gen_train"
+        ],
+        [
+          "decide",
+          "retrieve",
+          "relevance"
+        ],
+        [
+          "generate",
+          "support",
+          "select"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Critic training",
+          "url": "https://github.com/AkariAsai/self-rag#critic-training"
+        },
+        {
+          "key": "2",
+          "title": "Generator Training",
+          "url": "https://github.com/AkariAsai/self-rag#generator-training"
+        },
+        {
+          "key": "3",
+          "title": "SELF-RAG: Learning to Retrieve, Generate and Critique through Self-reflection",
+          "url": "https://github.com/AkariAsai/self-rag#self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection"
+        },
+        {
+          "key": "4",
+          "title": "Retriever Setup",
+          "url": "https://github.com/AkariAsai/self-rag#retriever-setup"
+        },
+        {
+          "key": "5",
+          "title": "Key parameters for long-form generations",
+          "url": "https://github.com/AkariAsai/self-rag#key-parameters-for-long-form-generations"
+        },
+        {
+          "key": "6",
+          "title": "Quick start",
+          "url": "https://github.com/AkariAsai/self-rag#quick-start"
+        }
+      ],
+      "source": {
+        "label": "GitHub: AkariAsai/self-rag",
+        "url": "https://github.com/AkariAsai/self-rag"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

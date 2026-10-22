@@ -73,6 +73,25 @@ describe("the architecture section", () => {
     expect(card.textContent).toContain("Языковая модель вынимает из запроса ключевые слова");
   });
 
+  // A residual is what the schema cannot say about a step. It was carried by
+  // twenty-two steps and shown on none: the card listed codes only.
+  it("names the residual of a step in words, not as a code", async () => {
+    await openCard("en", "unified");
+    fireEvent.click(await screen.findByRole("button", { name: /^Retrieved triples/ }));
+    const residual = await screen.findByTestId("architecture-residual");
+    expect(residual.textContent).toContain("the whole result of an exact query, with no cut");
+    expect(residual.textContent).toContain("Everything that satisfies the conditions");
+    expect(residual.textContent).not.toContain("whole_query_result");
+  });
+
+  it("names the residual in Russian on a Russian card", async () => {
+    await openCard("ru", "unified");
+    fireEvent.click(await screen.findByRole("button", { name: /^Найденные тройки/ }));
+    const residual = await screen.findByTestId("architecture-residual");
+    expect(residual.textContent).toContain("весь результат точного запроса без отсечения");
+    expect(residual.textContent).not.toMatch(/[a-z]_[a-z]/);
+  });
+
   it("has words for every residual on every step of every diagram", () => {
     const missing: string[] = [];
     for (const [id] of drawn) {
@@ -164,6 +183,18 @@ describe("the layout", () => {
       });
     }
   }
+
+  it("catches a line too long for the one-column layout", () => {
+    // The bait is the wording that ran out of its frame on a phone, found by a
+    // browser pass over every card: a second line of the Qdrant diagram.
+    const qdrant = (readData("tech/qdrant.json").technology as { diagram: TechDiagram }).diagram;
+    const spoiled = structuredClone(qdrant);
+    spoiled.nodes.fusion.sub = "по рангам или по распределению оценок";
+    expect(overflowing(spoiled, "ru", layoutDiagram(spoiled, "ru", true))).toContain(
+      "fusion text wider than its frame"
+    );
+    expect(overflowing(qdrant, "ru", layoutDiagram(qdrant, "ru", true))).toEqual([]);
+  });
 
   it("draws no arrow between parallel branches and dashes a loop", () => {
     const plain = layoutDiagram(pathrag.diagram, "en", false);

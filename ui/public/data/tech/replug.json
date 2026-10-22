@@ -17,6 +17,139 @@
     "configuration_variable": [],
     "description": "REPLUG исходит из положения, в котором находится большинство применений: языковая модель доступна только по внешнему обращению, её веса закрыты, и дообучить её нельзя. Всё, чем можно распорядиться, это выбор документов, подаваемых ей на вход.\n\nОбучается поэтому один извлекатель, а языковая модель служит для него учителем и сама не меняется. Признак годности документа берётся у неё же: документ хорош настолько, насколько он повышает вероятность, которую модель назначает верному ответу. Извлекатель дообучается так, чтобы его порядок документов сошёлся с этим порядком, и обучающий сигнал получается без ручной разметки, из одних лишь ответов модели.\n\nВторой составляющей служит подача документов порознь. Вместо того чтобы складывать найденное в один контекст, каждый документ подаётся модели отдельно, и полученные распределения по следующему слову складываются с весами по оценке документа. Это снимает ограничение на длину входа и не даёт постороннему документу испортить весь контекст сразу. Расход при этом растёт: вместо одного вызова модели на запрос делается столько вызовов, сколько взято документов.",
     "description_en": "REPLUG starts from the situation most deployments are in: the language model is reachable only through an external call, its weights are closed, and it cannot be further trained. All that can be arranged is the choice of documents fed to its input.\n\nOne retriever is therefore trained, with the language model serving as its teacher and remaining unchanged. The criterion for a good document is taken from that same model: a document is good to the extent that it raises the probability the model assigns to the correct answer. The retriever is trained so that its ordering of documents converges to that ordering, and the training signal is obtained without any hand labelling, from the model's responses alone.\n\nThe second component is separate presentation of documents. Rather than gathering the retrieved material into a single context, each document is given to the model on its own, and the resulting distributions over the next word are combined with weights taken from the document scores. This removes the limit on input length and prevents one irrelevant document from spoiling the whole context at once. The expense rises accordingly: instead of one model call per query there are as many calls as documents taken.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "retrieval",
+          "ret_lik"
+        ],
+        [
+          "lm_lik",
+          "update"
+        ]
+      ],
+      "loops": [
+        [
+          "reindex",
+          "ret_lik"
+        ]
+      ],
+      "nodes": {
+        "ensemble": {
+          "codes": {
+            "C3": "none"
+          },
+          "section": "2",
+          "sub": "по весам близости",
+          "sub_en": "by similarity",
+          "title": "Смешение предсказаний",
+          "title_en": "Weighted ensemble"
+        },
+        "lm_lik": {
+          "codes": {},
+          "note": "Языковая модель не меняется. Для каждого документа она считает вероятность верного продолжения, и это служит оценкой документа.",
+          "note_en": "The language model stays unchanged. For each document it computes the probability of the correct continuation, and that serves as the document's score.",
+          "section": "4",
+          "title": "Оценка документов моделью",
+          "title_en": "Document rating by model"
+        },
+        "prepend": {
+          "codes": {},
+          "note": "Каждый найденный документ ставится перед текстом вопроса, и языковая модель получает каждую такую подсказку отдельно.",
+          "note_en": "Each retrieved document is placed before the question, and the language model receives each such prompt separately.",
+          "section": "2",
+          "sub": "каждый отдельно",
+          "sub_en": "each separately",
+          "title": "Подсказка на документ",
+          "title_en": "One prompt per document"
+        },
+        "reindex": {
+          "codes": {},
+          "note": "Векторы документов пересчитываются через заданное число шагов, после чего обучение повторяется.",
+          "note_en": "Document vectors are recomputed every set number of steps, and training then repeats.",
+          "section": "6",
+          "title": "Пересборка индекса",
+          "title_en": "Index rebuild"
+        },
+        "ret_lik": {
+          "codes": {},
+          "note": "Близость документов к вопросу переводится в распределение вероятностей по найденным документам.",
+          "note_en": "The similarity of the documents to the question is turned into a probability distribution over the retrieved documents.",
+          "section": "3",
+          "title": "Оценки извлекателя",
+          "title_en": "Retrieval likelihood"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Вопрос и документы переводятся в векторы одним кодировщиком, и берутся несколько документов, самых близких к вопросу.",
+          "note_en": "The question and the documents are turned into vectors by one encoder, and the documents closest to the question are taken.",
+          "section": "1",
+          "title": "Поиск документов",
+          "title_en": "Document retrieval"
+        },
+        "update": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "5",
+          "title": "Дообучение извлекателя",
+          "title_en": "Retriever training"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "retrieval",
+          "prepend",
+          "ensemble"
+        ],
+        [
+          "ret_lik",
+          "lm_lik"
+        ],
+        [
+          "update",
+          "reindex"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Document Retrieval",
+          "url": "https://arxiv.org/html/2301.12652v4#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Input Reformulation",
+          "url": "https://arxiv.org/html/2301.12652v4#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Computing Retrieval Likelihood",
+          "url": "https://arxiv.org/html/2301.12652v4#S4.SS1"
+        },
+        {
+          "key": "4",
+          "title": "Computing LM likelihood",
+          "url": "https://arxiv.org/html/2301.12652v4#S4.SS2"
+        },
+        {
+          "key": "5",
+          "title": "Loss Function",
+          "url": "https://arxiv.org/html/2301.12652v4#S4.SS3"
+        },
+        {
+          "key": "6",
+          "title": "Asynchronous Update of the Datastore Index",
+          "url": "https://arxiv.org/html/2301.12652v4#S4.SS4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2301.12652v4",
+        "url": "https://arxiv.org/html/2301.12652v4"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

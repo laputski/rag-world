@@ -27,6 +27,144 @@
     "configuration_variable": [],
     "description": "RARG отвечает на наблюдение, расходящееся с ожиданием: исполнитель, работающий с собранием напрямую построчным поиском, отвечает лучше, чем тот же исполнитель, которому подают выдачу векторного поиска. Прямой обход при этом расточителен, потому что файлы обходятся вслепую и нужное находится поздно.\n\nПричина расхождения лежит в том, что относимость документа отвечает не на тот вопрос. Она говорит, что документ по теме, но не указывает место внутри него, не позволяет составить ответ из частей и не даёт способа проверить составленное. Внутри длинного документа полезный отрывок теряется среди прочего содержания и в пространстве представлений отдельно не выделяется, поэтому подача выдачи целиком даёт исполнителю много лишнего.\n\nRARG применяет относимость не как канал свидетельств, а как порядок действий. Отдельным средством исполнитель получает список путей, упорядоченный по относимости, начинает с обещающих мест и переранжирует найденные построчным поиском совпадения, вынося наверх те, что лежат в относящихся файлах. Свидетельством при этом остаётся то, что исполнитель прочитал сам, поэтому проверяемость прямого обхода сохраняется, а слепота его снимается.",
     "description_en": "RARG responds to an observation that runs against expectation: an agent working with a corpus directly by line-based search answers better than the same agent handed the output of a vector search. The direct walk is nonetheless wasteful, because files are traversed blindly and what is needed is found late.\n\nThe reason for the divergence is that document relevance answers the wrong question. It says the document is on topic, but it does not point to a place within it, does not let an answer be assembled from parts, and offers no way to verify what was assembled. Inside a long document a useful passage is lost among the rest of the content and is not separated out in representation space, so handing over the whole retrieved document gives the agent a great deal it does not need.\n\nRARG applies relevance not as a channel of evidence but as an order of operations. Through a separate tool the agent receives a list of paths ordered by relevance, starts with the promising places, and reranks the matches found by line-based search, bringing to the top those lying in relevant files. What counts as evidence remains what the agent read itself, so the verifiability of the direct walk is preserved while its blindness is removed.",
+    "diagram": {
+      "breaks": [
+        [
+          "read",
+          "answer"
+        ]
+      ],
+      "edges": [
+        [
+          "entry",
+          "agent"
+        ],
+        [
+          "rerank",
+          "read"
+        ],
+        [
+          "agent",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "read",
+          "agent"
+        ]
+      ],
+      "nodes": {
+        "agent": {
+          "codes": {
+            "C2": "agentic_open_loop",
+            "E5": "mutual_loop"
+          },
+          "section": "3",
+          "title": "Выбор команды",
+          "title_en": "Choosing a command"
+        },
+        "answer": {
+          "codes": {},
+          "note": "Агент вызывает команды, пока не сочтёт, что готов ответить.",
+          "note_en": "The agent keeps calling commands until it judges itself ready to answer.",
+          "section": "3",
+          "sub": "когда уверен",
+          "sub_en": "once confident",
+          "title": "Ответ агента",
+          "title_en": "Agent's answer"
+        },
+        "entry": {
+          "codes": {},
+          "note": "К ответу инструмента ранжирования добавляются десять абзацев из лучших документов, самых близких к запросу, чтобы агенту было с чего начать.",
+          "note_en": "Ten paragraphs from the top documents, closest to the query, are appended to the reply of the ranking tool so that the agent has a place to start.",
+          "section": "2",
+          "title": "Стартовые абзацы",
+          "title_en": "Starting paragraphs"
+        },
+        "grep": {
+          "codes": {
+            "C1": "lexical"
+          },
+          "residual": "relevance_ordered_traversal",
+          "section": "1",
+          "sub": "в порядке списка",
+          "sub_en": "in list order",
+          "title": "Поиск строк по шаблону",
+          "title_en": "Line search by pattern"
+        },
+        "read": {
+          "codes": {},
+          "note": "Агент читает нужные строки документа, когда совпадению не хватает окружения.",
+          "note_en": "When a match lacks surrounding context, the agent opens the document and reads only the lines it needs.",
+          "section": "3",
+          "sub": "пока не уверен",
+          "sub_en": "while unsure",
+          "title": "Чтение части документа",
+          "title_en": "Reading part of a file"
+        },
+        "rerank": {
+          "codes": {},
+          "note": "Модель векторных представлений заново оценивает широкий набор найденных строк, и агенту показываются только лучшие.",
+          "note_en": "A representation model rescores a broad pool of matched lines, and only the best are shown to the agent.",
+          "section": "4",
+          "title": "Отбор совпадений",
+          "title_en": "Reranking matches"
+        },
+        "scope": {
+          "codes": {
+            "B1": "multi_reformulation"
+          },
+          "section": "1",
+          "sub": "по близости к запросу",
+          "sub_en": "by closeness to query",
+          "title": "Ранжирование документов",
+          "title_en": "Ranking the documents"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "scope",
+          "entry"
+        ],
+        [
+          "agent",
+          "grep",
+          "rerank"
+        ],
+        [
+          "read",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Document-Level Relevance Insertion",
+          "url": "https://arxiv.org/html/2607.24223v2#S3.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Entry Point Initialization",
+          "url": "https://arxiv.org/html/2607.24223v2#S3.SS3"
+        },
+        {
+          "key": "3",
+          "title": "DCI-based Agent Structure",
+          "url": "https://arxiv.org/html/2607.24223v2#S3.SS1"
+        },
+        {
+          "key": "4",
+          "title": "Match-Level Relevance Insertion",
+          "url": "https://arxiv.org/html/2607.24223v2#S3.SS4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2607.24223v2",
+        "url": "https://arxiv.org/html/2607.24223v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-12",

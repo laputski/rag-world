@@ -1,0 +1,115 @@
+{
+  "technology_id": "bge_m3",
+  "source": {
+    "label": "Hugging Face model card BAAI/bge-m3",
+    "url": "https://huggingface.co/BAAI/bge-m3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "BGE-M3 (paper, code)",
+      "anchor": "bge-m3-paper-code"
+    },
+    {
+      "key": "2",
+      "title": "Generate Embedding for text",
+      "anchor": "generate-embedding-for-text"
+    },
+    {
+      "key": "3",
+      "title": "Compute score for text pairs",
+      "anchor": "compute-score-for-text-pairs"
+    },
+    {
+      "key": "4",
+      "title": "Training",
+      "anchor": "training"
+    }
+  ],
+  "rows": [
+    [
+      "input",
+      "encode"
+    ],
+    [
+      "dense",
+      "sparse",
+      "colbert"
+    ],
+    [
+      "score",
+      "distill"
+    ]
+  ],
+  "nodes": {
+    "input": {
+      "section": "1"
+    },
+    "encode": {
+      "section": "2"
+    },
+    "dense": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "sparse": {
+      "section": "2"
+    },
+    "colbert": {
+      "section": "2"
+    },
+    "score": {
+      "section": "3"
+    },
+    "distill": {
+      "section": "4",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    }
+  },
+  "edges": [
+    [
+      "encode",
+      "dense"
+    ],
+    [
+      "encode",
+      "sparse"
+    ],
+    [
+      "encode",
+      "colbert"
+    ],
+    [
+      "dense",
+      "score"
+    ],
+    [
+      "sparse",
+      "score"
+    ],
+    [
+      "colbert",
+      "score"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "dense",
+      "sparse"
+    ],
+    [
+      "sparse",
+      "colbert"
+    ],
+    [
+      "score",
+      "distill"
+    ]
+  ],
+  "omitted": []
+}

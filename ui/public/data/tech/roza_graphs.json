@@ -44,6 +44,119 @@
     "configuration_variable": [],
     "description": "ROZA Graphs исходит из наблюдения о расточительности обычной цепочки. Система оценивает найденное при каждом запросе заново: решает, относится ли отрывок к делу, годится ли он в обоснование, стоит ли на него опираться. Как только ответ построен, все эти решения отбрасываются. Тот же самый отрывок при следующем запросе оценивается с нуля, и оценка может выйти другой, отчего один и тот же вопрос получает разные ответы в разные дни.\n\nПредложены два хранилища, переживающие запрос. Первое, названное графом рассуждений, хранит вынесенные оценки: узел отвечает материалу, а накопленные при нём записи говорят, как этот материал оценивался прежде и в каких обстоятельствах. Второе, названное графом извлечения, хранит противоположное: кандидатов, отвергнутых однажды, чтобы они не возвращались впредь. При новом запросе система читает историю по каждому кандидату и упорядочивает выдачу с её учётом.\n\nНи языковая модель, ни модель представлений при этом не дообучаются, и работа заявляет это своим свойством: накопление идёт вне их весов и потому применимо к моделям, доступным только по внешнему обращению. Оценивать работу пока не на чем: это препринт одного автора без цитирований, проверенный на трёх наборах многошаговых вопросов, и независимого воспроизведения у него нет. В реестре она занимает пустовавшее место: направление самонастраивающихся систем до сих пор стояло без единой конкретной системы под собой.",
     "description_en": "ROZA Graphs starts from an observation about the wastefulness of an ordinary chain. The system judges what it retrieves anew on every query: it decides whether a passage bears on the matter, whether it will serve as grounds, whether it should be relied upon. As soon as the answer is built, all those decisions are discarded. The very same passage is judged from scratch at the next query, the judgement may come out differently, and the same question receives different answers on different days.\n\nTwo stores that outlive a query are proposed. The first, called the reasoning graph, holds the judgements passed: a node stands for a piece of material, and the records accumulated at it say how that material was judged before and under what circumstances. The second, called the retrieval graph, holds the opposite: candidates rejected once, so that they do not return thereafter. On a new query the system reads the history of each candidate and orders the results with it in view.\n\nNeither the language model nor the representation model is fine-tuned, and the work states this as a property of its own: accumulation happens outside their weights and is therefore applicable to models reachable only through an external call. There is as yet nothing on which to judge the work: it is a single-author preprint with no citations, evaluated on three sets of multi-hop questions, with no independent reproduction. In the registry it fills a place that stood empty: the direction of self-improving systems had until now no concrete system under it at all.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "retrieve",
+          "profiles"
+        ],
+        [
+          "reason",
+          "write"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "outcome": {
+          "codes": {},
+          "note": "Сигнал о верности ответа дописывается к решению; в сводки потом попадают только оценки из верных ответов.",
+          "note_en": "The signal on whether the answer was correct is added to the decision; profiles later draw only on verdicts from correct answers.",
+          "section": "2",
+          "title": "Проверка ответа",
+          "title_en": "Outcome check"
+        },
+        "planner": {
+          "codes": {},
+          "note": "По графу извлечения выбираются фильтры, чаще всего приводившие к верному ответу на вопросы этого типа, и исключаются часто отвергаемые фрагменты.",
+          "note_en": "The retrieval graph supplies the filters that most often led to a correct answer for this type of question, and often rejected passages are excluded.",
+          "residual": "rejected_candidate_pruning",
+          "section": "1",
+          "title": "Выбор настроек поиска",
+          "title_en": "Choosing search settings"
+        },
+        "profiles": {
+          "codes": {
+            "D1": "none"
+          },
+          "section": "3",
+          "sub": "из графа рассуждений",
+          "sub_en": "from the graph",
+          "title": "Сводки прежних оценок",
+          "title_en": "Profiles of past verdicts"
+        },
+        "query": {
+          "codes": {},
+          "note": "Вопросы делятся на типы по разметке набора данных или по сходству их векторов.",
+          "note_en": "Questions are grouped into types by dataset labels or by clustering their vectors.",
+          "section": "1",
+          "title": "Вопрос и его тип",
+          "title_en": "Question and its type"
+        },
+        "reason": {
+          "codes": {},
+          "note": "Языковая модель отвечает и для каждого кандидата отмечает, использован он или отвергнут, и почему.",
+          "note_en": "The language model answers and marks each candidate as used or rejected, with a reason.",
+          "section": "2",
+          "title": "Ответ и оценки фрагментов",
+          "title_en": "Answer and verdicts"
+        },
+        "retrieve": {
+          "codes": {},
+          "note": "Из базы знаний извлекаются фрагменты, на которые может опереться ответ.",
+          "note_en": "Passages on which the answer may rest are taken from the knowledge base.",
+          "section": "2",
+          "title": "Поиск кандидатов",
+          "title_en": "Candidate retrieval"
+        },
+        "write": {
+          "codes": {
+            "A6": "append_only",
+            "F1": "episodic"
+          },
+          "section": "3",
+          "title": "Запись решений в граф",
+          "title_en": "Recording the verdicts"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "query",
+          "planner",
+          "retrieve"
+        ],
+        [
+          "profiles",
+          "reason"
+        ],
+        [
+          "write",
+          "outcome"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Pipeline planner, query types, and feedback loop",
+          "url": "https://arxiv.org/html/2604.07595v3#S3.SS3.SSS0.Px1"
+        },
+        {
+          "key": "2",
+          "title": "Problem Formalization",
+          "url": "https://arxiv.org/html/2604.07595v3#S3.SS1"
+        },
+        {
+          "key": "3",
+          "title": "Write protocol and evidence-centric context injection",
+          "url": "https://arxiv.org/html/2604.07595v3#S3.SS2.SSS0.Px1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2604.07595v3",
+        "url": "https://arxiv.org/html/2604.07595v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-13",

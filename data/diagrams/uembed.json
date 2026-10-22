@@ -1,0 +1,118 @@
+{
+  "technology_id": "uembed",
+  "source": {
+    "label": "arXiv:2608.02583v1",
+    "url": "https://arxiv.org/html/2608.02583v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Compressing Vocabulary",
+      "anchor": "S3.SS2.SSS0.Px1"
+    },
+    {
+      "key": "2",
+      "title": "Partitioned Sparse Heads",
+      "anchor": "S3.SS2.SSS0.Px2"
+    },
+    {
+      "key": "3",
+      "title": "Introduction",
+      "anchor": "S1"
+    },
+    {
+      "key": "4",
+      "title": "Dense Representation",
+      "anchor": "S3.SS2.SSS0.Px3"
+    },
+    {
+      "key": "5",
+      "title": "Unified Objective",
+      "anchor": "S3.SS2.SSS0.Px4"
+    }
+  ],
+  "rows": [
+    [
+      "vocab",
+      "partition"
+    ],
+    [
+      "input",
+      "tokens",
+      "pass"
+    ],
+    [
+      "sparse",
+      "dense"
+    ],
+    [
+      "objective"
+    ]
+  ],
+  "nodes": {
+    "vocab": {
+      "section": "1"
+    },
+    "partition": {
+      "section": "2"
+    },
+    "input": {
+      "section": "3",
+      "codes": {
+        "A7": "image"
+      }
+    },
+    "tokens": {
+      "section": "2"
+    },
+    "pass": {
+      "section": "3",
+      "codes": {
+        "A5": "vision_language"
+      },
+      "residual": "sparse_and_dense_one_pass"
+    },
+    "sparse": {
+      "section": "2"
+    },
+    "dense": {
+      "section": "4"
+    },
+    "objective": {
+      "section": "5",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    }
+  },
+  "edges": [
+    [
+      "partition",
+      "tokens"
+    ],
+    [
+      "pass",
+      "sparse"
+    ],
+    [
+      "pass",
+      "dense"
+    ],
+    [
+      "sparse",
+      "objective"
+    ],
+    [
+      "dense",
+      "objective"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "sparse",
+      "dense"
+    ]
+  ],
+  "omitted": []
+}

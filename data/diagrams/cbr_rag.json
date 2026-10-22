@@ -1,0 +1,81 @@
+{
+  "technology_id": "cbr_rag",
+  "source": {
+    "label": "arXiv:2404.04302v1",
+    "url": "https://arxiv.org/html/2404.04302v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Casebase",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Representation and Similarity",
+      "anchor": "S4"
+    },
+    {
+      "key": "3",
+      "title": "Representation",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "4",
+      "title": "Case Retrieval",
+      "anchor": "S4.SS2"
+    },
+    {
+      "key": "5",
+      "title": "CBR-RAG: Using CBR to form context for LLMs",
+      "anchor": "S3"
+    }
+  ],
+  "rows": [
+    [
+      "casebase",
+      "entities",
+      "vectors"
+    ],
+    [
+      "retrieval",
+      "context",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "casebase": {
+      "section": "1"
+    },
+    "entities": {
+      "section": "2",
+      "codes": {
+        "A3": "metadata"
+      }
+    },
+    "vectors": {
+      "section": "3",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "retrieval": {
+      "section": "4"
+    },
+    "context": {
+      "section": "4"
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "vectors",
+      "retrieval"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

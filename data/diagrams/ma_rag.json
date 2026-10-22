@@ -1,0 +1,70 @@
+{
+  "technology_id": "ma_rag",
+  "source": {
+    "label": "arXiv:2505.20096v2",
+    "url": "https://arxiv.org/html/2505.20096v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Multi-Agent System for Retrieval-Augmented Generation (MA-RAG)",
+      "anchor": "S3.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "plan",
+      "step",
+      "retrieval"
+    ],
+    [
+      "extract",
+      "stepanswer",
+      "final"
+    ]
+  ],
+  "nodes": {
+    "plan": {
+      "section": "1",
+      "codes": {
+        "B1": "subquestion_decomposition",
+        "C2": "agentic_open_loop"
+      }
+    },
+    "step": {
+      "section": "1",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "retrieval": {
+      "section": "1"
+    },
+    "extract": {
+      "section": "1"
+    },
+    "stepanswer": {
+      "section": "1"
+    },
+    "final": {
+      "section": "1",
+      "codes": {
+        "E1": "multi_agent"
+      }
+    }
+  },
+  "edges": [
+    [
+      "retrieval",
+      "extract"
+    ]
+  ],
+  "loops": [
+    [
+      "stepanswer",
+      "step"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

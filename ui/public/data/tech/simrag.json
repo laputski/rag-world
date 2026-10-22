@@ -15,6 +15,132 @@
     "configuration_variable": [],
     "description": "SimRAG отвечает на нехватку размеченных примеров в узких предметных областях. Донастройка требует пар «вопрос, ответ» по тому самому собранию, с которым системе предстоит работать, а в медицине, праве или технической документации организации таких пар не существует, и составление их специалистом обходится дорого.\n\nРазметка добывается из самого собрания. Модель читает документы и составляет к ним вопросы вместе с ответами, получая тем самым обучающие примеры без участия человека. Составленное так содержит и негодное: вопросы, ответ на которые в собрании не содержится, вопросы, понятные лишь при чтении исходного абзаца, ответы, не следующие из текста. Поэтому вводится отбор: каждый вопрос прогоняется через саму систему, и пример сохраняется, если найденное по нему подтверждает составленный ответ. Не подтвердившиеся отбрасываются.\n\nНа отобранном модель дообучается, после чего цикл можно повторить, поскольку улучшенная модель составляет более годные вопросы. Слабое место состоит в замкнутости: и вопросы, и отбор происходят от одной модели, поэтому её систематическая ошибка отбором не обнаруживается, а закрепляется обучением.",
     "description_en": "SimRAG addresses the scarcity of labelled examples in narrow fields. Fine-tuning requires question and answer pairs over the very collection the system will serve, and in medicine, law, or an organisation's technical documentation no such pairs exist, while having a specialist compose them is expensive.\n\nThe labels are obtained from the collection itself. The model reads the documents and composes questions along with answers, thereby producing training examples without human involvement. What it composes includes unusable material: questions the collection does not answer, questions intelligible only while reading the source paragraph, answers that do not follow from the text. A filter is therefore introduced: each question is run through the system itself, and the example is kept if what is retrieved for it supports the composed answer. Those not supported are discarded.\n\nThe model is fine-tuned on what survives, after which the cycle may repeat, since an improved model composes more usable questions. The weak point is its closedness: both the questions and the filtering come from one model, so a systematic error of that model is not exposed by the filter but entrenched by the training.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "stage1",
+          "answers"
+        ],
+        [
+          "questions",
+          "filter"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Извлекатель находит несколько подходящих текстов, и дообученная модель отвечает по ним.",
+          "note_en": "A retriever finds the top texts and the fine-tuned model answers from them.",
+          "section": "3",
+          "sub": "по найденным текстам",
+          "sub_en": "from retrieved texts",
+          "title": "Ответ на вопрос",
+          "title_en": "Answer"
+        },
+        "answers": {
+          "codes": {},
+          "note": "Модель выписывает из каждого документа фрагменты, которые могут быть ответами на какие-то вопросы.",
+          "note_en": "The model picks spans of each document that could answer some question.",
+          "section": "2",
+          "title": "Выбор возможных ответов",
+          "title_en": "Candidate answer spans"
+        },
+        "corpus": {
+          "codes": {},
+          "note": "Документы узкой предметной области, к которым нет готовых вопросов и ответов.",
+          "note_en": "Documents of a narrow domain with no ready questions and answers.",
+          "section": "2",
+          "title": "Тексты без разметки",
+          "title_en": "Unlabelled domain texts"
+        },
+        "filter": {
+          "codes": {},
+          "note": "Пара остаётся, только если ответ есть среди первых документов, найденных по её вопросу.",
+          "note_en": "A pair is kept only if its answer occurs in the top documents retrieved for its question.",
+          "section": "2",
+          "title": "Отбор надёжных пар",
+          "title_en": "Filtering pairs"
+        },
+        "general_data": {
+          "codes": {},
+          "note": "Общие наборы инструкций и вопросов с ответами по тексту, а также примеры того, как по документу составить ответ и вопрос.",
+          "note_en": "General instruction data, question answering over given texts, and examples of writing answers and questions from a document.",
+          "section": "1",
+          "title": "Данные общей тематики",
+          "title_en": "General-domain training data"
+        },
+        "questions": {
+          "codes": {},
+          "note": "К каждому выписанному фрагменту модель сочиняет короткий вопрос или вопрос с вариантами ответа; утверждения для проверки она пишет прямо по документу, без фрагмента.",
+          "note_en": "For each span the model writes a short question or a multiple-choice question; claims to verify are written straight from the document, without a span.",
+          "section": "2",
+          "sub": "к каждому ответу",
+          "sub_en": "for each answer",
+          "title": "Составление вопросов",
+          "title_en": "Question generation"
+        },
+        "stage1": {
+          "codes": {},
+          "note": "Языковая модель учится отвечать по найденным текстам и составлять по документу возможные ответы и вопросы к ним.",
+          "note_en": "The language model learns to answer from retrieved texts and to draw candidate answers and questions from a document.",
+          "section": "1",
+          "sub": "на задачах с найденным текстом",
+          "sub_en": "on retrieval-oriented tasks",
+          "title": "Первое дообучение модели",
+          "title_en": "First fine-tuning stage"
+        },
+        "tuning": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "2",
+          "sub": "на своих парах",
+          "sub_en": "on its own pairs",
+          "title": "Второе дообучение",
+          "title_en": "Second fine-tuning"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "general_data",
+          "stage1"
+        ],
+        [
+          "corpus",
+          "answers",
+          "questions"
+        ],
+        [
+          "filter",
+          "tuning",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Stage-I: Retrieval-oriented fine-tuning",
+          "url": "https://arxiv.org/html/2410.17952v2#S3.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Stage-II: Domain Adaptive Fine-tuning",
+          "url": "https://arxiv.org/html/2410.17952v2#S3.SS3"
+        },
+        {
+          "key": "3",
+          "title": "Problem Setup",
+          "url": "https://arxiv.org/html/2410.17952v2#S3.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2410.17952v2",
+        "url": "https://arxiv.org/html/2410.17952v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

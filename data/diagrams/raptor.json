@@ -1,0 +1,134 @@
+{
+  "technology_id": "raptor",
+  "source": {
+    "label": "arXiv:2401.18059v1",
+    "url": "https://arxiv.org/html/2401.18059v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Overview of RAPTOR",
+      "anchor": "S3.SS0.SSS0.Px1"
+    },
+    {
+      "key": "2",
+      "title": "Clustering Algorithm",
+      "anchor": "S3.SS0.SSS0.Px2"
+    },
+    {
+      "key": "3",
+      "title": "Model-Based Summarization",
+      "anchor": "S3.SS0.SSS0.Px3"
+    },
+    {
+      "key": "4",
+      "title": "Querying",
+      "anchor": "S3.SS0.SSS0.Px4"
+    },
+    {
+      "key": "5",
+      "title": "Language Models for QA and Summarization",
+      "anchor": "S6.SS0.SSS0.Px1"
+    }
+  ],
+  "rows": [
+    [
+      "chunks",
+      "embed",
+      "cluster"
+    ],
+    [
+      "summarize",
+      "tree"
+    ],
+    [
+      "traversal",
+      "collapsed"
+    ],
+    [
+      "context",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "chunks": {
+      "section": "1",
+      "codes": {
+        "A2": "fixed"
+      }
+    },
+    "embed": {
+      "section": "1"
+    },
+    "cluster": {
+      "section": "2",
+      "codes": {
+        "A8": "computed"
+      }
+    },
+    "summarize": {
+      "section": "3",
+      "codes": {
+        "A3": "summary"
+      }
+    },
+    "tree": {
+      "section": "1",
+      "codes": {
+        "A4": "tree",
+        "A1": "summary_node"
+      }
+    },
+    "traversal": {
+      "section": "4"
+    },
+    "collapsed": {
+      "section": "4",
+      "codes": {
+        "C1": "ann",
+        "D2": "budget_aware"
+      }
+    },
+    "context": {
+      "section": "4"
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "cluster",
+      "summarize"
+    ],
+    [
+      "tree",
+      "traversal"
+    ],
+    [
+      "tree",
+      "collapsed"
+    ],
+    [
+      "traversal",
+      "context"
+    ],
+    [
+      "collapsed",
+      "context"
+    ]
+  ],
+  "loops": [
+    [
+      "summarize",
+      "embed"
+    ]
+  ],
+  "breaks": [
+    [
+      "traversal",
+      "collapsed"
+    ]
+  ],
+  "omitted": []
+}

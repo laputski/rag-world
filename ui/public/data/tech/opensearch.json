@@ -41,6 +41,156 @@
     "configuration_variable": [],
     "description": "OpenSearch представляет собой открытую поисковую систему, ответвившуюся от Elasticsearch и развиваемую отдельно. Для извлечения она существенна тем, что держит в одном хранилище оба вида поиска, которые иначе пришлось бы разносить по разным системам.\n\nСловарный поиск здесь родной и достался по наследству: обратный указатель, оценивание по BM25, разбор запроса, фильтры по описательным полям. Векторный поиск добавлен как отдельный род поля, и по нему работает приближённый поиск ближайших соседей. Поскольку оба живут в одном указателе, запрос способен сочетать их сразу: отобрать по совпадению слов и упорядочить по близости представлений либо наоборот, причём фильтр по полям применяется до поиска, а не после.\n\nСлияние выдач выполняется внутри системы, поэтому смешанный поиск не требует стороннего слоя. Обстоятельство, существенное при выборе, состоит в происхождении: это поисковая система, к которой добавлены векторы, а не хранилище векторов, к которому добавлен текст. Отсюда сильные стороны в разборе запроса и в работе с описательными полями и более скромные показатели на очень больших наборах векторов по сравнению со специализированными хранилищами.",
     "description_en": "OpenSearch is an open search engine that branched off from Elasticsearch and is developed separately. What makes it significant for retrieval is that it holds both kinds of search in one store, which would otherwise have to be split across different systems.\n\nLexical search is native here and came by inheritance: an inverted index, BM25 scoring, query parsing, filters over descriptive fields. Vector search was added as a separate kind of field, served by approximate nearest neighbour search. Because both live in one index, a query can combine them directly: select by word overlap and order by closeness of representations, or the reverse, with field filters applied during the search rather than after it.\n\nResult merging is performed inside the system, so hybrid search needs no external layer. A circumstance that matters when choosing is provenance: this is a search engine to which vectors were added, not a vector store to which text was added. Hence its strengths in query parsing and in work with descriptive fields, and its more modest figures on very large vector sets compared with specialised stores.",
+    "diagram": {
+      "breaks": [
+        [
+          "lexical",
+          "vector"
+        ]
+      ],
+      "edges": [
+        [
+          "query",
+          "lexical"
+        ],
+        [
+          "query",
+          "vector"
+        ],
+        [
+          "lexical",
+          "shards"
+        ],
+        [
+          "vector",
+          "shards"
+        ],
+        [
+          "fusion",
+          "sort"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "fusion": {
+          "codes": {
+            "C3": "rrf"
+          },
+          "section": "3",
+          "title": "Слияние по обратным рангам",
+          "title_en": "Reciprocal rank fusion"
+        },
+        "lexical": {
+          "codes": {},
+          "note": "Классический поиск по совпадению слов с оценкой BM25.",
+          "note_en": "Classic search by word overlap, scored with BM25.",
+          "section": "2",
+          "title": "Поиск по словам",
+          "title_en": "Keyword search (BM25)"
+        },
+        "pipeline": {
+          "codes": {},
+          "note": "В цепочку обработки поиска добавляется шаг, который сливает результаты по обратным рангам.",
+          "note_en": "A step that fuses results by reciprocal rank is added to the search pipeline.",
+          "section": "1",
+          "title": "Настройка слияния",
+          "title_en": "Search pipeline with RRF"
+        },
+        "query": {
+          "codes": {},
+          "note": "Один запрос объединяет несколько видов поиска и проходит через эту цепочку обработки.",
+          "note_en": "One query combines several kinds of search and runs through that pipeline.",
+          "section": "1",
+          "title": "Гибридный запрос",
+          "title_en": "Hybrid query"
+        },
+        "ranks": {
+          "codes": {},
+          "note": "Каждый документ получает номер места в списке каждого вида поиска.",
+          "note_en": "Each document gets its position in the result list of every kind of search.",
+          "section": "3",
+          "title": "Места в списках",
+          "title_en": "Rank positions"
+        },
+        "shards": {
+          "codes": {
+            "C4": "multiple_local"
+          },
+          "section": "3",
+          "sub": "индекса",
+          "sub_en": "of the index",
+          "title": "Сортировка по частям",
+          "title_en": "Sorting per shard"
+        },
+        "sort": {
+          "codes": {},
+          "note": "Вклады всех списков складываются, и документы упорядочиваются по убыванию суммы.",
+          "note_en": "The contributions of all lists are added up, and documents are sorted by decreasing sum.",
+          "section": "3",
+          "title": "Сортировка по сумме",
+          "title_en": "Sorting by fused score"
+        },
+        "top": {
+          "codes": {
+            "D2": "top_k"
+          },
+          "section": "3",
+          "sub": "сколько запрошено",
+          "sub_en": "query size",
+          "title": "Первые документы",
+          "title_en": "Returning top results"
+        },
+        "vector": {
+          "codes": {},
+          "note": "Поиск ближайших соседей по векторным представлениям.",
+          "note_en": "Nearest-neighbour search over vector representations.",
+          "section": "2",
+          "title": "Поиск по векторам",
+          "title_en": "Vector search (k-NN)"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "pipeline",
+          "query"
+        ],
+        [
+          "lexical",
+          "vector"
+        ],
+        [
+          "shards",
+          "ranks",
+          "fusion"
+        ],
+        [
+          "sort",
+          "top"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "How to use RRF",
+          "url": "https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/#how-to-use-rrf"
+        },
+        {
+          "key": "2",
+          "title": "Handling score variability across query methods",
+          "url": "https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/#handling-score-variability-across-query-methods"
+        },
+        {
+          "key": "3",
+          "title": "How RRF works",
+          "url": "https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/#how-rrf-works"
+        }
+      ],
+      "source": {
+        "label": "OpenSearch blog: Introducing reciprocal rank fusion for hybrid search",
+        "url": "https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

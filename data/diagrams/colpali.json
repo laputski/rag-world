@@ -1,0 +1,87 @@
+{
+  "technology_id": "colpali",
+  "source": {
+    "label": "arXiv:2407.01449v6",
+    "url": "https://arxiv.org/html/2407.01449v6"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Problem Formulation & Related Work",
+      "anchor": "S2"
+    },
+    {
+      "key": "2",
+      "title": "Architecture",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "3",
+      "title": "Latencies & Memory Footprint",
+      "anchor": "S5.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "pages",
+      "page_enc",
+      "store"
+    ],
+    [
+      "query",
+      "q_enc",
+      "score"
+    ],
+    [
+      "top"
+    ]
+  ],
+  "nodes": {
+    "pages": {
+      "section": "1",
+      "codes": {
+        "A1": "page_image",
+        "A7": "image"
+      }
+    },
+    "page_enc": {
+      "section": "2",
+      "codes": {
+        "A5": "vision_language",
+        "G3": "trained_retriever"
+      }
+    },
+    "store": {
+      "section": "3"
+    },
+    "query": {
+      "section": "1"
+    },
+    "q_enc": {
+      "section": "2"
+    },
+    "score": {
+      "section": "2",
+      "residual": "max_similarity_interaction"
+    },
+    "top": {
+      "section": "1",
+      "codes": {
+        "D2": "top_k"
+      }
+    }
+  },
+  "edges": [
+    [
+      "store",
+      "score"
+    ],
+    [
+      "score",
+      "top"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

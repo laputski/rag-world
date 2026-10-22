@@ -1,0 +1,122 @@
+{
+  "technology_id": "edge",
+  "source": {
+    "label": "arXiv:2602.13229v1",
+    "url": "https://arxiv.org/html/2602.13229v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Document Ingestion and Indexing",
+      "anchor": "S3.SS2.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "Stage 1: Lexical Pre-filtering",
+      "anchor": "S3.SS3.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Stage 2: Semantic Re-ranking",
+      "anchor": "S3.SS3.SSS2"
+    },
+    {
+      "key": "4",
+      "title": "Stage 3: Selective Context Compression",
+      "anchor": "S3.SS4.SSS1"
+    },
+    {
+      "key": "5",
+      "title": "Quantization KV Cache",
+      "anchor": "S3.SS4.SSS3"
+    }
+  ],
+  "rows": [
+    [
+      "manuals",
+      "chunking"
+    ],
+    [
+      "lexidx",
+      "vecidx"
+    ],
+    [
+      "prefilter",
+      "scoring",
+      "compress"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "manuals": {
+      "section": "1"
+    },
+    "chunking": {
+      "section": "1",
+      "codes": {
+        "A2": "fixed"
+      }
+    },
+    "lexidx": {
+      "section": "1"
+    },
+    "vecidx": {
+      "section": "1",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "prefilter": {
+      "section": "2"
+    },
+    "scoring": {
+      "section": "3",
+      "codes": {
+        "C3": "score_normalization",
+        "D1": "none",
+        "D2": "top_k"
+      }
+    },
+    "compress": {
+      "section": "4"
+    },
+    "answer": {
+      "section": "5",
+      "codes": {
+        "G2": "edge_device"
+      }
+    }
+  },
+  "edges": [
+    [
+      "chunking",
+      "lexidx"
+    ],
+    [
+      "chunking",
+      "vecidx"
+    ],
+    [
+      "lexidx",
+      "prefilter"
+    ],
+    [
+      "vecidx",
+      "scoring"
+    ],
+    [
+      "compress",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "lexidx",
+      "vecidx"
+    ]
+  ],
+  "omitted": []
+}

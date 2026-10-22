@@ -1,0 +1,94 @@
+{
+  "technology_id": "poisonedrag",
+  "source": {
+    "label": "arXiv:2402.07867v3",
+    "url": "https://arxiv.org/html/2402.07867v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Threat Model",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Crafting I to Achieve Generation Condition",
+      "anchor": "S4.SS2.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Crafting S to Achieve Retrieval Condition",
+      "anchor": "S4.SS2.SSS2"
+    },
+    {
+      "key": "4",
+      "title": "Background on RAG",
+      "anchor": "S2.SS1"
+    },
+    {
+      "key": "5",
+      "title": "Knowledge Corruption Attack to RAG",
+      "anchor": "S3.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "target",
+      "write_text",
+      "check_text"
+    ],
+    [
+      "prefix",
+      "inject"
+    ],
+    [
+      "question",
+      "retrieval",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "target": {
+      "section": "1"
+    },
+    "write_text": {
+      "section": "2"
+    },
+    "check_text": {
+      "section": "2"
+    },
+    "prefix": {
+      "section": "3"
+    },
+    "inject": {
+      "section": "1"
+    },
+    "question": {
+      "section": "4"
+    },
+    "retrieval": {
+      "section": "4"
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "check_text",
+      "prefix"
+    ],
+    [
+      "inject",
+      "retrieval"
+    ]
+  ],
+  "loops": [
+    [
+      "check_text",
+      "write_text"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

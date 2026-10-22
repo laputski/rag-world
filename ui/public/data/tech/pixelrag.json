@@ -46,6 +46,147 @@
     ],
     "description": "PixelRAG доводит до конца мысль, начатую в поиске по изображениям страниц. Обычная работа с веб-страницей начинается с приведения её к тексту: разметка разворачивается в линейную последовательность, и вместе с ней теряются расположение элементов, вид таблицы, выделения, соседство подписи и рисунка. Потеря эта происходит до всякого поиска, поэтому восстановить утраченное дальнейшими шагами нельзя.\n\nСтраница здесь остаётся снимком и никогда не превращается в текст. Снимок режется на плитки, плитки и запрос кодируются зрительно-языковой моделью в общее пространство представлений, и найденные плитки подаются многомодальной модели изображениями. Ни на индексации, ни на чтении текстовой единицы не возникает, а различие с приёмами, кодирующими страницу целиком, состоит в масштабе: указатель собран по всей Википедии и содержит порядка тридцати миллионов снимков.\n\nОтдельное следствие касается расхода. Разрешение, с которым плитка подаётся модели, меняется независимо от числа плиток, и понижение его сокращает расход входа заявленно до трёх раз при сохранении точности. Это рычаг, которого у текстовой подачи нет вовсе: там сократить можно лишь число единиц. Заявленный выигрыш в точности достигает восемнадцати процентов относительно текстовых цепочек, причём в том числе на задачах, считавшихся чисто текстовыми.",
     "description_en": "PixelRAG carries to its conclusion an idea begun in retrieval over page images. Ordinary work with a web page starts by reducing it to text: the markup is unrolled into a linear sequence, and with it go the placement of elements, the shape of a table, emphasis, the adjacency of a caption to its figure. That loss occurs before any search takes place, so no later step can recover what was lost.\n\nHere the page stays a screenshot and never becomes text. The screenshot is cut into tiles, the tiles and the query are encoded by a vision-language model into a shared representation space, and the retrieved tiles are given to a multimodal model as images. No textual unit arises at indexing or at reading, and what sets this apart from techniques that encode a page as a whole is scale: the index was assembled over all of Wikipedia and holds on the order of thirty million screenshots.\n\nA separate consequence concerns cost. The resolution at which a tile is given to the model varies independently of the number of tiles, and lowering it reduces input spend by a reported factor of up to three at unchanged accuracy. This is a lever that textual presentation does not have at all: there, only the number of units can be cut. The reported accuracy gain reaches eighteen percent over text-based chains, including on tasks that had been taken for purely textual.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "tiles",
+          "embed"
+        ],
+        [
+          "index",
+          "search"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель, понимающая и текст, и изображения, читает найденные части как картинки и отвечает на вопрос.",
+          "note_en": "A model that reads both text and images takes the retrieved tiles as pictures and answers the question.",
+          "section": "6",
+          "title": "Ответ по снимкам",
+          "title_en": "Answer from the images"
+        },
+        "downscale": {
+          "codes": {
+            "D2": "budget_aware"
+          },
+          "residual": "resolution_as_cost_lever",
+          "section": "6",
+          "sub": "по желанию",
+          "sub_en": "optional",
+          "title": "Уменьшение разрешения",
+          "title_en": "Lowering the resolution"
+        },
+        "embed": {
+          "codes": {
+            "A5": "vision_language",
+            "G3": "trained_retriever"
+          },
+          "section": "4",
+          "title": "Перевод частей в векторы",
+          "title_en": "Encoding tiles as vectors"
+        },
+        "index": {
+          "codes": {},
+          "note": "Векторы всех частей складываются в индекс, который быстро находит близкие векторы и позволяет добавлять новые страницы без перестройки.",
+          "note_en": "The vectors of all tiles go into an index that finds close vectors quickly and lets new pages be added without rebuilding it.",
+          "section": "5",
+          "title": "Индекс приближённого поиска",
+          "title_en": "Approximate search index"
+        },
+        "mirror": {
+          "codes": {},
+          "note": "Все страницы вместе с разметкой, стилями и картинками сначала сохраняются на своём диске, чтобы потом снимать их без обращения к сети.",
+          "note_en": "All pages, with their markup, styles and images, are first saved locally so that they can be rendered later without the network.",
+          "section": "1",
+          "title": "Сохранение страниц",
+          "title_en": "Saving the pages"
+        },
+        "render": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "2",
+          "sub": "в браузере",
+          "sub_en": "in a browser",
+          "title": "Снимки страниц",
+          "title_en": "Page screenshots"
+        },
+        "search": {
+          "codes": {
+            "C1": "ann"
+          },
+          "section": "6",
+          "title": "Поиск ближайших частей",
+          "title_en": "Nearest tile search"
+        },
+        "tiles": {
+          "codes": {
+            "A1": "page_image"
+          },
+          "section": "3",
+          "sub": "высотой 1024 точки",
+          "sub_en": "1024 pixels tall",
+          "title": "Нарезка на части",
+          "title_en": "Cutting into tiles"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "mirror",
+          "render",
+          "tiles"
+        ],
+        [
+          "embed",
+          "index"
+        ],
+        [
+          "search",
+          "downscale",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Fetching",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS1.SSS0.Px2"
+        },
+        {
+          "key": "2",
+          "title": "Rendering",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS1.SSS0.Px3"
+        },
+        {
+          "key": "3",
+          "title": "Tiling",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS1.SSS0.Px4"
+        },
+        {
+          "key": "4",
+          "title": "Embedding",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS2.SSS0.Px1"
+        },
+        {
+          "key": "5",
+          "title": "Index",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS2.SSS0.Px2"
+        },
+        {
+          "key": "6",
+          "title": "Runtime Retrieval and Generation",
+          "url": "https://arxiv.org/html/2606.28344v1#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2606.28344v1",
+        "url": "https://arxiv.org/html/2606.28344v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-13",

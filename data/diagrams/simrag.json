@@ -1,0 +1,82 @@
+{
+  "technology_id": "simrag",
+  "source": {
+    "label": "arXiv:2410.17952v2",
+    "url": "https://arxiv.org/html/2410.17952v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Stage-I: Retrieval-oriented fine-tuning",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Stage-II: Domain Adaptive Fine-tuning",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "3",
+      "title": "Problem Setup",
+      "anchor": "S3.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "general_data",
+      "stage1"
+    ],
+    [
+      "corpus",
+      "answers",
+      "questions"
+    ],
+    [
+      "filter",
+      "tuning",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "general_data": {
+      "section": "1"
+    },
+    "stage1": {
+      "section": "1"
+    },
+    "corpus": {
+      "section": "2"
+    },
+    "answers": {
+      "section": "2"
+    },
+    "questions": {
+      "section": "2"
+    },
+    "filter": {
+      "section": "2"
+    },
+    "tuning": {
+      "section": "2",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "stage1",
+      "answers"
+    ],
+    [
+      "questions",
+      "filter"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

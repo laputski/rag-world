@@ -1,0 +1,110 @@
+{
+  "technology_id": "archrag",
+  "source": {
+    "label": "arXiv:2502.09891v4",
+    "url": "https://arxiv.org/html/2502.09891v4"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "KG construction",
+      "anchor": "Sx3.SSx1.SSSx1"
+    },
+    {
+      "key": "2",
+      "title": "LLM-based hierarchical clustering",
+      "anchor": "Sx3.SSx1.SSSx2"
+    },
+    {
+      "key": "3",
+      "title": "C-HNSW index",
+      "anchor": "Sx3.SSx1.SSSx3"
+    },
+    {
+      "key": "4",
+      "title": "Hierarchical search",
+      "anchor": "Sx3.SSx2.SSSx1"
+    },
+    {
+      "key": "5",
+      "title": "Adaptive filtering-based generation",
+      "anchor": "Sx3.SSx2.SSSx2"
+    }
+  ],
+  "rows": [
+    [
+      "corpus",
+      "graph"
+    ],
+    [
+      "communities",
+      "summaries",
+      "index"
+    ],
+    [
+      "search",
+      "scoring",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "corpus": {
+      "section": "1"
+    },
+    "graph": {
+      "section": "1"
+    },
+    "communities": {
+      "section": "2",
+      "codes": {
+        "A4": "community_hierarchy",
+        "A8": "computed"
+      }
+    },
+    "summaries": {
+      "section": "2",
+      "codes": {
+        "A3": "summary"
+      }
+    },
+    "index": {
+      "section": "3",
+      "codes": {
+        "A1": "summary_node"
+      }
+    },
+    "search": {
+      "section": "4",
+      "codes": {
+        "C1": "ann"
+      }
+    },
+    "scoring": {
+      "section": "5",
+      "codes": {
+        "D1": "cross_encoder"
+      }
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "graph",
+      "communities"
+    ],
+    [
+      "index",
+      "search"
+    ]
+  ],
+  "loops": [
+    [
+      "summaries",
+      "communities"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

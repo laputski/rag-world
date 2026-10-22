@@ -1,0 +1,138 @@
+{
+  "technology_id": "voicemem",
+  "source": {
+    "label": "arXiv:2608.26005v1",
+    "url": "https://arxiv.org/html/2608.26005v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Streaming Dual-Brain Retrieval",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "2",
+      "title": "Left Brain: Efficient Memory Access",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "3",
+      "title": "Right Brain: Knowing the Person",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "4",
+      "title": "Black-box OPD Training",
+      "anchor": "S4.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "transcript",
+      "match"
+    ],
+    [
+      "left_expand",
+      "right_expand"
+    ],
+    [
+      "mem_search",
+      "answer"
+    ],
+    [
+      "reconcile",
+      "graph_update",
+      "consolidation"
+    ]
+  ],
+  "nodes": {
+    "transcript": {
+      "section": "1"
+    },
+    "match": {
+      "section": "1",
+      "codes": {
+        "B1": "key_extraction"
+      },
+      "residual": "anticipatory_streaming_retrieval"
+    },
+    "left_expand": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "right_expand": {
+      "section": "3"
+    },
+    "mem_search": {
+      "section": "1",
+      "codes": {
+        "C4": "single_store"
+      }
+    },
+    "answer": {
+      "section": "4",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "reconcile": {
+      "section": "2",
+      "codes": {
+        "A1": "proposition",
+        "A2": "none",
+        "F2": "explicit_reconciliation"
+      }
+    },
+    "graph_update": {
+      "section": "2",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted_and_computed"
+      }
+    },
+    "consolidation": {
+      "section": "3",
+      "codes": {
+        "F1": "consolidating"
+      }
+    }
+  },
+  "edges": [
+    [
+      "match",
+      "left_expand"
+    ],
+    [
+      "match",
+      "right_expand"
+    ],
+    [
+      "left_expand",
+      "mem_search"
+    ],
+    [
+      "right_expand",
+      "mem_search"
+    ],
+    [
+      "answer",
+      "reconcile"
+    ],
+    [
+      "answer",
+      "consolidation"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "graph_update",
+      "consolidation"
+    ]
+  ],
+  "omitted": [
+    "A3"
+  ]
+}

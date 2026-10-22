@@ -1,0 +1,107 @@
+{
+  "technology_id": "neuro_symbolic_rag",
+  "source": {
+    "label": "arXiv:2601.04568v2",
+    "url": "https://arxiv.org/html/2601.04568v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "KG-Path RAG",
+      "anchor": "Sx4"
+    },
+    {
+      "key": "2",
+      "title": "Query-to-Graph Mapping & Traversal",
+      "anchor": "Sx4.SS0.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Query Enrichment",
+      "anchor": "Sx4.SS0.SSS0.Px2"
+    },
+    {
+      "key": "4",
+      "title": "Graph-Based Ranking Function",
+      "anchor": "Sx4.SS0.SSS0.Px3"
+    },
+    {
+      "key": "5",
+      "title": "Final Retrieval",
+      "anchor": "Sx4.SS0.SSS0.Px5"
+    }
+  ],
+  "rows": [
+    [
+      "kg",
+      "entry",
+      "traversal",
+      "enrichment"
+    ],
+    [
+      "docs",
+      "ranking",
+      "topk"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "kg": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "given"
+      }
+    },
+    "entry": {
+      "section": "2"
+    },
+    "traversal": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "enrichment": {
+      "section": "3"
+    },
+    "docs": {
+      "section": "1",
+      "codes": {
+        "A7": "text"
+      }
+    },
+    "ranking": {
+      "section": "4",
+      "codes": {
+        "D1": "graph_structural",
+        "A5": "dense_single",
+        "G3": "trained_retriever"
+      }
+    },
+    "topk": {
+      "section": "5"
+    },
+    "answer": {
+      "section": "1",
+      "codes": {
+        "E1": "single_pass"
+      }
+    }
+  },
+  "edges": [
+    [
+      "enrichment",
+      "ranking"
+    ],
+    [
+      "topk",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

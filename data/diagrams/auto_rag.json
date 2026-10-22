@@ -1,0 +1,100 @@
+{
+  "technology_id": "auto_rag",
+  "source": {
+    "label": "arXiv:2411.19443v1",
+    "url": "https://arxiv.org/html/2411.19443v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Reasoning-Based Iterative Retrieval",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Data Filtering and Formatting",
+      "anchor": "S3.SS1.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "Training",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "4",
+      "title": "Reasoning Based Planning and Query Refinement",
+      "anchor": "S3.SS1.SSS1"
+    },
+    {
+      "key": "5",
+      "title": "Inference",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "synthesis",
+      "filtering",
+      "finetune"
+    ],
+    [
+      "planning",
+      "retrieval",
+      "extraction"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "synthesis": {
+      "section": "1"
+    },
+    "filtering": {
+      "section": "2"
+    },
+    "finetune": {
+      "section": "3",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "planning": {
+      "section": "4",
+      "codes": {
+        "B1": "multi_reformulation",
+        "C2": "agentic_open_loop"
+      }
+    },
+    "retrieval": {
+      "section": "5"
+    },
+    "extraction": {
+      "section": "4",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "answer": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "finetune",
+      "planning"
+    ],
+    [
+      "extraction",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "extraction",
+      "planning"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

@@ -41,6 +41,104 @@
     "configuration_variable": [],
     "description": "MA-RAG разделяет обработку вопроса между несколькими исполнителями, каждый из которых занят одной задачей. Довод состоит в том, что единая подсказка, требующая от модели сразу планировать, искать, отбирать и излагать, задаёт ей несколько разнородных задач одновременно, и качество на каждой падает.\n\nИсполнителей четверо, и они вызываются по ходу. Составитель плана разбирает вопрос на подвопросы и назначает их порядок. Поисковый исполнитель переводит подвопрос в запрос к индексу с учётом того, что уже найдено. Исполнитель извлечения читает найденное и выписывает из него только то, что отвечает подвопросу, отбрасывая прочее. Составитель ответа собирает выписанное в связный текст со ссылками на источники. Каждый работает по своей подсказке и видит только нужную ему часть состояния.\n\nРазделение делает ход обработки наблюдаемым: неверный ответ прослеживается до исполнителя, который ошибся, тогда как в единой подсказке ошибка не локализуется. Плата состоит в числе вызовов, потому что каждый подвопрос проходит нескольких исполнителей, и в накоплении ошибки: неверно составленный план уводит всех последующих, а исправить его некому.",
     "description_en": "MA-RAG divides the handling of a question among several agents, each occupied with one task. The argument is that a single prompt requiring the model to plan, search, select, and compose all at once sets it several unlike tasks simultaneously, and quality on each of them falls.\n\nThere are four agents, invoked as the work proceeds. The planner decomposes the question into subquestions and fixes their order. The search agent turns a subquestion into a query against the index, taking into account what has already been found. The extraction agent reads what was retrieved and writes out only what answers the subquestion, discarding the rest. The composer assembles what was written out into connected prose with references to the sources. Each works from its own prompt and sees only the part of the state it needs.\n\nThe division makes the course of processing observable: a wrong answer can be traced to the agent that erred, whereas in a single prompt the error cannot be localised. The price is the number of calls, since every subquestion passes through several agents, and the accumulation of error: a badly drawn plan carries every later stage with it, and there is no one to correct it.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "retrieval",
+          "extract"
+        ]
+      ],
+      "loops": [
+        [
+          "stepanswer",
+          "step"
+        ]
+      ],
+      "nodes": {
+        "extract": {
+          "codes": {},
+          "note": "Из найденных фрагментов берутся только предложения, относящиеся к запросу шага, и кратко пересказываются.",
+          "note_en": "Only the sentences that bear on the step query are taken from the passages found, and they are summarised.",
+          "section": "1",
+          "sub": "агент извлечения",
+          "sub_en": "extractor agent",
+          "title": "Отбор нужных предложений",
+          "title_en": "Picking relevant sentences"
+        },
+        "final": {
+          "codes": {
+            "E1": "multi_agent"
+          },
+          "section": "1",
+          "title": "Итоговый ответ",
+          "title_en": "Final answer"
+        },
+        "plan": {
+          "codes": {
+            "B1": "subquestion_decomposition",
+            "C2": "agentic_open_loop"
+          },
+          "section": "1",
+          "sub": "агент планирования",
+          "sub_en": "planner agent",
+          "title": "Составление плана",
+          "title_en": "Planning"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Запрос шага переводится в векторное представление, и по нему находятся несколько самых близких фрагментов.",
+          "note_en": "The step query is turned into a vector, and the closest passages are found by it.",
+          "section": "1",
+          "title": "Поиск фрагментов",
+          "title_en": "Passage retrieval"
+        },
+        "step": {
+          "codes": {
+            "E5": "mutual_loop"
+          },
+          "section": "1",
+          "sub": "агент шагов",
+          "sub_en": "step definer",
+          "title": "Запрос для шага",
+          "title_en": "Query for the step"
+        },
+        "stepanswer": {
+          "codes": {},
+          "note": "Агент ответов отвечает на запрос шага по отобранным сведениям, и ответ попадает в историю для следующего шага.",
+          "note_en": "The answering agent answers the step query from the selected evidence, and the answer joins the history for the next step.",
+          "section": "1",
+          "sub": "агент ответов",
+          "sub_en": "answering agent",
+          "title": "Ответ на шаг",
+          "title_en": "Answering the step"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "plan",
+          "step",
+          "retrieval"
+        ],
+        [
+          "extract",
+          "stepanswer",
+          "final"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Multi-Agent System for Retrieval-Augmented Generation (MA-RAG)",
+          "url": "https://arxiv.org/html/2505.20096v2#S3.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2505.20096v2",
+        "url": "https://arxiv.org/html/2505.20096v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

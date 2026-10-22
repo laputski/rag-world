@@ -41,6 +41,105 @@
     "configuration_variable": [],
     "description": "HyDE устраняет несоответствие, заложенное в плотном поиске. Вопрос и документ написаны по-разному: вопрос короток, содержит вопросительные слова и не содержит терминов, которыми написан ответ. Векторное представление вопроса поэтому лежит не там, где лежат представления отвечающих на него документов, и близость между ними меньше, чем между двумя документами об одном предмете.\n\nПриём состоит в том, чтобы сравнивать однородное с однородным. Большая языковая модель порождает по вопросу вымышленный ответ, не обращаясь ни к какому источнику. Ответ этот содержит выдуманные подробности и как утверждение о мире ничего не стоит, но написан он в том же роде и теми же словами, что и настоящий документ по этому предмету. Векторное представление строится по вымышленному ответу, и поиск идёт по нему, а сам вопрос в индекс не поступает.\n\nВыдуманные подробности при этом не вредят: близость определяется общим направлением вектора, которое задают предмет и способ изложения, а не отдельные неверные имена и числа. Приём не требует ни обучения, ни разметки и работает поверх готового индекса. Плата состоит в одном вызове языковой модели перед каждым поиском, что добавляет задержку, и в том, что на вопросе о предмете, о котором модель не знает ничего, вымышленный ответ уводит поиск в сторону.",
     "description_en": "HyDE removes a mismatch built into dense retrieval. A question and a document are written differently: the question is short, carries interrogative words, and lacks the terms in which the answer is written. The vector representation of a question therefore does not lie where the representations of the documents answering it lie, and the closeness between them is smaller than between two documents on the same subject.\n\nThe technique is to compare like with like. A large language model generates an invented answer to the question without consulting any source. That answer contains fabricated particulars and is worthless as an assertion about the world, but it is written in the same register and the same vocabulary as a genuine document on the subject. The vector representation is built from the invented answer and the search runs on it, while the question itself never reaches the index.\n\nThe fabricated particulars do no harm: closeness is determined by the general direction of the vector, which is set by the subject and the manner of exposition rather than by individual wrong names and numbers. The technique requires neither training nor labelling and works over a ready index. It costs one language model call before every search, which adds latency, and on a question about a subject the model knows nothing of, the invented answer leads the search astray.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "avg",
+          "search"
+        ],
+        [
+          "search",
+          "top"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "avg": {
+          "codes": {},
+          "note": "Придуманные документы и сам вопрос переводятся в векторы тем же кодировщиком, что и настоящие документы, и берётся их среднее.",
+          "note_en": "The invented documents and the question itself are encoded by the same encoder as the real documents, and the vectors are averaged.",
+          "section": "1",
+          "title": "Усреднение векторов",
+          "title_en": "Vector averaging"
+        },
+        "doc_enc": {
+          "codes": {},
+          "note": "Кодировщик, обученный без размеченных примеров, переводит каждый документ в вектор.",
+          "note_en": "An encoder trained without labelled examples turns each document into a vector.",
+          "section": "1",
+          "title": "Кодирование документов",
+          "title_en": "Document encoding"
+        },
+        "docs": {
+          "codes": {},
+          "section": "1",
+          "title": "Документы",
+          "title_en": "Documents"
+        },
+        "hypo": {
+          "codes": {
+            "B1": "hyde",
+            "E5": "generation_seeds"
+          },
+          "section": "1",
+          "sub": "от языковой модели",
+          "sub_en": "by a language model",
+          "title": "Гипотетические документы",
+          "title_en": "Hypothetical documents"
+        },
+        "query": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "search": {
+          "codes": {},
+          "note": "Средний вектор сравнивается с векторами всех документов по скалярному произведению.",
+          "note_en": "The average vector is compared with the vectors of all documents by inner product.",
+          "section": "1",
+          "title": "Поиск похожих документов",
+          "title_en": "Similarity search"
+        },
+        "top": {
+          "codes": {
+            "D1": "none",
+            "D2": "top_k"
+          },
+          "section": "1",
+          "title": "Самые похожие документы",
+          "title_en": "Most similar documents"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "query",
+          "hypo",
+          "avg"
+        ],
+        [
+          "docs",
+          "doc_enc",
+          "search"
+        ],
+        [
+          "top"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "HyDE",
+          "url": "https://arxiv.org/html/2212.10496v1#S3.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2212.10496v1",
+        "url": "https://arxiv.org/html/2212.10496v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

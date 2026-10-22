@@ -42,6 +42,107 @@
     ],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "store",
+          "nodes"
+        ],
+        [
+          "query",
+          "result"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "nodes": {
+          "codes": {},
+          "note": "Языковая модель находит в вопросе названия и типы объектов, затем они по справочнику сопоставляются с вершинами графа.",
+          "note_en": "A language model finds the names and types of objects in the question, which are then mapped to graph nodes through a reference list.",
+          "section": "2",
+          "title": "Выбор вершин",
+          "title_en": "Node selection"
+        },
+        "query": {
+          "codes": {
+            "C1": "boolean_query",
+            "D1": "none"
+          },
+          "section": "2",
+          "sub": "на языке SPARQL",
+          "sub_en": "in SPARQL",
+          "title": "Запрос к графу",
+          "title_en": "Graph query"
+        },
+        "relations": {
+          "codes": {},
+          "note": "Классификатор сужает круг связей. Затем часть связей отбирается по сходству векторных представлений, часть языковой моделью, и оба списка объединяются.",
+          "note_en": "A classifier narrows down the relations. Then some relations are picked by vector similarity and some by a language model, and the two lists are merged.",
+          "section": "2",
+          "title": "Выбор связей",
+          "title_en": "Relation selection"
+        },
+        "result": {
+          "codes": {
+            "A1": "node_edge"
+          },
+          "residual": "whole_query_result",
+          "section": "2",
+          "title": "Найденные тройки",
+          "title_en": "Retrieved triples"
+        },
+        "store": {
+          "codes": {
+            "A4": "graph"
+          },
+          "section": "2",
+          "title": "Граф в базе данных",
+          "title_en": "Graph database"
+        },
+        "triples": {
+          "codes": {
+            "A8": "given"
+          },
+          "section": "1",
+          "sub": "ключ задаёт связь",
+          "sub_en": "key becomes relation",
+          "title": "Тройки из полей записей",
+          "title_en": "Triples from record fields"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "triples",
+          "store"
+        ],
+        [
+          "nodes",
+          "relations",
+          "query"
+        ],
+        [
+          "result"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "RDF Data Representation",
+          "url": "https://arxiv.org/html/2603.22340v1#S3.SS2"
+        },
+        {
+          "key": "2",
+          "title": "RDF Pipeline: Algorithms",
+          "url": "https://arxiv.org/html/2603.22340v1#S4.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2603.22340v1",
+        "url": "https://arxiv.org/html/2603.22340v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

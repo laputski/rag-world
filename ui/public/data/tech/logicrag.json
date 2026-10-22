@@ -37,6 +37,144 @@
     "configuration_variable": [],
     "description": "LogicRAG отвечает на цену графового извлечения. Чтобы построить граф над корпусом, его нужно целиком пропустить через языковую модель, что стоит разметки и устаревает при каждом пополнении корпуса. Вторая беда тоньше: построенный граф отражает устройство корпуса, а не устройство вопроса, и сложный вопрос всё равно приходится разбирать заново.\n\nЗдесь графа над корпусом нет вовсе, указатель остаётся плоским. Граф строится над запросом: языковая модель разбивает вопрос на подвопросы и выводит между ними рёбра логического предшествования, получая направленный ациклический граф. Топологическая сортировка задаёт порядок, в котором подвопросы разрешаются, так что каждый разрешается после тех, от чьих ответов зависит его формулировка. Если найденного не хватает, модель дополняет граф новыми подвопросами по ходу.\n\nДва сокращения удерживают стоимость. Накопленный контекст держится катящимся пересказом: после каждого подвопроса найденное и ответ пересказываются и сливаются с прежним пересказом, отчего контекст не растёт вместе с числом шагов. Подвопросы одного ранга сливаются в один запрос, отчего число обращений к указателю падает. Ответ складывается из ответов на подвопросы по логике графа.",
     "description_en": "LogicRAG answers the price of graph retrieval. To build a graph over a corpus the whole of it must be passed through a language model, which costs tokens and goes stale with every addition to the corpus. The second trouble is subtler: the graph that is built reflects the make of the corpus and not the make of the question, and a complex question still has to be taken apart afresh.\n\nHere there is no graph over the corpus at all, the index stays flat. The graph is built over the query: a language model splits the question into subquestions and infers edges of logical precedence between them, obtaining a directed acyclic graph. A topological sort sets the order in which the subquestions are resolved, so that each is resolved after those whose answers its wording depends on. When what is found does not suffice, the model augments the graph with new subquestions as it goes.\n\nTwo reductions hold the cost down. The accumulated context is held as a rolling restatement: after every subquestion what was found and the answer are restated and merged with the earlier restatement, so the context does not grow with the number of steps. Subquestions of one rank are merged into a single query, so the number of consultations of the index falls. The answer is assembled from the answers to the subquestions by the logic of the graph.",
+    "diagram": {
+      "breaks": [
+        [
+          "memory",
+          "answer"
+        ]
+      ],
+      "edges": [
+        [
+          "order",
+          "merge"
+        ],
+        [
+          "subanswer",
+          "memory"
+        ],
+        [
+          "subanswer",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "retrieval",
+          "dag"
+        ],
+        [
+          "memory",
+          "merge"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "ensemble_fragments"
+          },
+          "note": "Языковая модель составляет итоговый ответ из ответов на подвопросы, следуя графу зависимостей.",
+          "note_en": "A language model composes the final answer from the answers to the subquestions, following the dependency graph.",
+          "section": "2",
+          "title": "Итоговый ответ",
+          "title_en": "Final answer"
+        },
+        "dag": {
+          "codes": {},
+          "note": "Языковая модель указывает, какой подвопрос опирается на ответ другого. Если найденного не хватает, она добавляет в граф новые подвопросы.",
+          "note_en": "A language model states which subquestion relies on the answer to another. When what is found does not suffice, it adds new subquestions to the graph.",
+          "section": "1",
+          "title": "Граф зависимостей",
+          "title_en": "Dependency graph"
+        },
+        "decompose": {
+          "codes": {
+            "B1": "subquestion_decomposition"
+          },
+          "section": "1",
+          "title": "Разбиение на подвопросы",
+          "title_en": "Splitting into subquestions"
+        },
+        "memory": {
+          "codes": {
+            "D2": "abstractive_compression"
+          },
+          "section": "3",
+          "title": "Сжатая память",
+          "title_en": "Rolling memory"
+        },
+        "merge": {
+          "codes": {},
+          "note": "Подвопросы одного уровня в порядке решения объединяются в один общий запрос.",
+          "note_en": "Subquestions of the same rank in the order of resolution are merged into one query.",
+          "section": "3",
+          "title": "Слияние подвопросов",
+          "title_en": "Merging subquestions"
+        },
+        "order": {
+          "codes": {},
+          "residual": "query_dependency_ordering",
+          "section": "2",
+          "title": "Упорядочение подвопросов",
+          "title_en": "Ordering subquestions"
+        },
+        "retrieval": {
+          "codes": {
+            "C2": "iterative_stopping",
+            "E5": "mutual_loop"
+          },
+          "section": "2",
+          "title": "Поиск фрагментов",
+          "title_en": "Passage retrieval"
+        },
+        "subanswer": {
+          "codes": {},
+          "note": "Языковая модель отвечает на подвопрос по найденным фрагментам, и этот ответ учитывается при поиске для следующих подвопросов.",
+          "note_en": "A language model answers the subquestion from the passages found, and the answer conditions retrieval for the subquestions that follow.",
+          "section": "2",
+          "title": "Ответ на подвопрос",
+          "title_en": "Answering a subquestion"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "decompose",
+          "dag",
+          "order"
+        ],
+        [
+          "merge",
+          "retrieval",
+          "subanswer"
+        ],
+        [
+          "memory",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Query Logic Dependency Graph Construction",
+          "url": "https://arxiv.org/html/2508.06105v2#Sx3.SSx2"
+        },
+        {
+          "key": "2",
+          "title": "Graph Reasoning Linearization",
+          "url": "https://arxiv.org/html/2508.06105v2#Sx3.SSx3"
+        },
+        {
+          "key": "3",
+          "title": "Graph and Context Pruning",
+          "url": "https://arxiv.org/html/2508.06105v2#Sx3.SSx4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2508.06105v2",
+        "url": "https://arxiv.org/html/2508.06105v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-09-01",

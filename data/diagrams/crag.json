@@ -1,0 +1,102 @@
+{
+  "technology_id": "crag",
+  "source": {
+    "label": "arXiv:2401.15884v3",
+    "url": "https://arxiv.org/html/2401.15884v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Overview of Model Inference",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Retrieval Evaluator",
+      "anchor": "S4.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Knowledge Refinement",
+      "anchor": "S4.SS4"
+    },
+    {
+      "key": "4",
+      "title": "Web Search",
+      "anchor": "S4.SS5"
+    }
+  ],
+  "rows": [
+    [
+      "retrieval",
+      "evaluator"
+    ],
+    [
+      "refinement",
+      "rewrite",
+      "web"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "retrieval": {
+      "section": "1"
+    },
+    "evaluator": {
+      "section": "2",
+      "codes": {
+        "B2": "trained_classifier",
+        "E2": "pre_gen_grounding"
+      }
+    },
+    "refinement": {
+      "section": "3",
+      "codes": {
+        "D2": "top_k"
+      }
+    },
+    "rewrite": {
+      "section": "4",
+      "codes": {
+        "B1": "key_extraction"
+      }
+    },
+    "web": {
+      "section": "4",
+      "codes": {
+        "C4": "federation"
+      }
+    },
+    "answer": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "evaluator",
+      "refinement"
+    ],
+    [
+      "evaluator",
+      "rewrite"
+    ],
+    [
+      "refinement",
+      "answer"
+    ],
+    [
+      "web",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "refinement",
+      "rewrite"
+    ]
+  ],
+  "omitted": []
+}

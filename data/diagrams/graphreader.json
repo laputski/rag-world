@@ -1,0 +1,130 @@
+{
+  "technology_id": "graphreader",
+  "source": {
+    "label": "arXiv:2406.14550v2",
+    "url": "https://arxiv.org/html/2406.14550v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Graph Construction",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Agent Initialization",
+      "anchor": "S3.SS3.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Exploring Atomic Facts",
+      "anchor": "S3.SS3.SSS2.Px1"
+    },
+    {
+      "key": "4",
+      "title": "Exploring Chunks",
+      "anchor": "S3.SS3.SSS2.Px2"
+    },
+    {
+      "key": "5",
+      "title": "Exploring Neighbors",
+      "anchor": "S3.SS3.SSS2.Px3"
+    },
+    {
+      "key": "6",
+      "title": "Answer Reasoning",
+      "anchor": "S3.SS4"
+    }
+  ],
+  "rows": [
+    [
+      "split",
+      "facts",
+      "graph"
+    ],
+    [
+      "question",
+      "plan",
+      "start"
+    ],
+    [
+      "readfacts",
+      "readchunks",
+      "neighbour"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "split": {
+      "section": "1"
+    },
+    "facts": {
+      "section": "1",
+      "codes": {
+        "A3": "summary"
+      }
+    },
+    "graph": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted"
+      }
+    },
+    "question": {
+      "section": "2"
+    },
+    "plan": {
+      "section": "2"
+    },
+    "start": {
+      "section": "2"
+    },
+    "readfacts": {
+      "section": "3",
+      "codes": {
+        "D2": "budget_aware"
+      }
+    },
+    "readchunks": {
+      "section": "4",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "neighbour": {
+      "section": "5",
+      "codes": {
+        "C1": "graph_traversal",
+        "C2": "agentic_open_loop"
+      }
+    },
+    "answer": {
+      "section": "6"
+    }
+  },
+  "edges": [
+    [
+      "graph",
+      "start"
+    ],
+    [
+      "start",
+      "readfacts"
+    ],
+    [
+      "neighbour",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "neighbour",
+      "readfacts"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

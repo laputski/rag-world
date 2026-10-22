@@ -37,6 +37,144 @@
     ],
     "description": "Agentic Context Management отвечает на две беды долгих разговоров с агентом, и обе численные. Если складывать в контекст всю накопленную историю, расход разметки растёт квадратично длине беседы. Если сокращать её простым пересказом, расход становится линейным ценой обрыва точности: пересказ пересказа теряет то, что понадобится через двадцать реплик, и модель уверенно отвечает неверно. Третья беда качественная: найденное по близости представлений не равно достаточному, потому что нужное сведение бывает связано с вопросом не сходством слов, а отношением между сущностями.\n\nРабота предлагает считать управление контекстом не хранилищем с поиском, а жизненным циклом из пяти действий: проектирование устройства памяти, приём сведений, определение области видимости, предвосхищение и уплотнение со сведением. Два решения отличают этот подход от памяти как хранилища. Первое: устройство памяти не задано наперёд, а порождается под каждого агента из описания его назначения, и порождённое устройство управляет всеми остальными стадиями, решая, какие разряды сведений извлекать и что сохранять дословно. Второе: уплотнение несёт договор о качестве. Каждое сокращение возвращает оценку сохранности сведений и коэффициент сжатия и повторяется с меньшей силой, если оценка упала ниже порога. Извлечение при этом соединяет два сигнала: близость представлений подсказывает, где войти в граф сущностей, а обход по связям достаёт то, чего поиск по близости не нашёл бы.\n\nЧитать эту запись следует с поправкой на источник. Работа написана поставщиком службы и описывает её составные части через наблюдаемое поведение, прямо объявляя внутренности механизмов закрытыми. Поэтому десять измерений конфигурации у записи не заполнены вовсе: источник говорит, что делает каждая часть, и не говорит, как она это делает, а базовое значение утверждало бы прочтение там, где читать было нечего.",
     "description_en": "Agentic Context Management answers two troubles of long conversations with an agent, and both are numerical. Piling the whole accumulated history into the context makes the token cost grow quadratically with the length of the conversation. Cutting it by plain summarisation makes the cost linear at the price of a cliff in accuracy: a summary of a summary loses what will be needed twenty turns later, and the model answers confidently and wrongly. The third trouble is one of quality: what closeness of representations finds is not the same as what suffices, because the needed piece is often tied to the question by a relation between entities rather than by likeness of words.\n\nThe work proposes to treat context management not as a store with a search over it but as a lifecycle of five operations: designing the memory, ingesting material, settling the scope of visibility, anticipating, and compacting with consolidation. Two decisions set this apart from memory as a store. First, the memory design is not fixed in advance but generated for each agent from a description of its purpose, and the generated design governs every other stage, deciding which categories of material to extract and what to keep verbatim. Second, compaction carries a contract of quality. Every reduction returns a preservation score and a compression ratio and repeats with less force when the score falls below a threshold. Retrieval meanwhile joins two signals: closeness of representations suggests where to enter the graph of entities, and traversal along the relations brings out what a search by closeness would not have found.\n\nThis record should be read with an allowance for its source. The work is written by the vendor of the service and describes its components by their observable behaviour, declaring outright that the internals of the mechanisms are closed. Ten dimensions of the configuration are therefore left unfilled: the source says what each part does and does not say how it does it, and a base value would assert a reading where there was nothing to read.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "resolve",
+          "stores"
+        ],
+        [
+          "stores",
+          "traverse"
+        ],
+        [
+          "select",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель получает найденные сведения, уплотнённую беседу и последние реплики.",
+          "note_en": "The model receives the retrieved items, the compacted conversation and the recent turns.",
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "compact": {
+          "codes": {
+            "F1": "consolidating"
+          },
+          "residual": "validated_compaction",
+          "section": "2",
+          "sub": "с проверкой",
+          "sub_en": "of a long dialogue",
+          "title": "Сжатие длинной беседы",
+          "title_en": "Validated compaction"
+        },
+        "decompose": {
+          "codes": {
+            "B1": "subquestion_decomposition"
+          },
+          "section": "1",
+          "sub": "в точном режиме",
+          "sub_en": "accurate mode",
+          "title": "Разбиение вопроса",
+          "title_en": "Query decomposition"
+        },
+        "design": {
+          "codes": {},
+          "note": "При подключении агента система по описанию его назначения сама решает, какие сведения извлекать и как их хранить, искать и уплотнять. Этот проект управляет всеми следующими шагами.",
+          "note_en": "When an agent connects, the system generates a memory design from a description of its purpose: what to extract and how to store, retrieve and compact it. This design governs every later step.",
+          "section": "1",
+          "title": "Схема памяти агента",
+          "title_en": "Per-agent memory design"
+        },
+        "ingest": {
+          "codes": {
+            "A3": "metadata",
+            "A8": "extracted"
+          },
+          "section": "1",
+          "title": "Извлечение сведений",
+          "title_en": "Extraction on ingestion"
+        },
+        "resolve": {
+          "codes": {},
+          "note": "Разные написания одного имени сводятся к одной сущности, чтобы сведения о ней не дробились.",
+          "note_en": "Different surface forms of one name are linked to one canonical entity, so facts about it are not scattered.",
+          "section": "1",
+          "title": "Отождествление сущностей",
+          "title_en": "Entity resolution"
+        },
+        "select": {
+          "codes": {
+            "D2": "budget_aware"
+          },
+          "section": "1",
+          "title": "Отбор в пределах объёма",
+          "title_en": "Fitting to token budget"
+        },
+        "stores": {
+          "codes": {
+            "A4": "graph",
+            "C4": "multiple_local",
+            "G1": "isolated_circuit"
+          },
+          "section": "1",
+          "sub": "отдельно для клиентов",
+          "sub_en": "per tenant",
+          "title": "Граф и другие хранилища",
+          "title_en": "Graph and other stores"
+        },
+        "traverse": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "1",
+          "title": "Обход графа знаний",
+          "title_en": "Graph traversal"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "design",
+          "ingest",
+          "resolve"
+        ],
+        [
+          "stores"
+        ],
+        [
+          "decompose",
+          "traverse",
+          "select"
+        ],
+        [
+          "compact",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "The Maximem Synap System",
+          "url": "https://arxiv.org/html/2607.21503v1#S4"
+        },
+        {
+          "key": "2",
+          "title": "Design Choices",
+          "url": "https://arxiv.org/html/2607.21503v1#S5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2607.21503v1",
+        "url": "https://arxiv.org/html/2607.21503v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-09-01",

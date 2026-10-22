@@ -41,6 +41,116 @@
     "configuration_variable": [],
     "description": "OG-RAG опирается на онтологию, то есть на заданное экспертами формальное описание понятий предметной области и допустимых отношений между ними. Отличие от графа, извлечённого языковой моделью из текста, состоит в источнике структуры: онтологию пишет человек, знающий область, и она задаёт, какие утверждения в этой области вообще имеют смысл.\n\nДокументы собрания раскладываются по понятиям онтологии, и извлечение работает не по сходству векторных представлений, а по отношениям, которые онтология объявила. Отбор нужного описан как задача покрытия множества: система ищет наименьший набор фактов, покрывающий все понятия, затронутые запросом. Это отсекает повторяющиеся сведения, потому что второй факт о том же понятии покрытие не расширяет.\n\nОтвет проверяется на согласие с онтологией до того, как будет показан. Утверждение, противоречащее объявленным отношениям, отбрасывается, поэтому обоснованность здесь опирается на явные правила, а не на суждение языковой модели о самой себе. Плата состоит в том, что онтологию нужно иметь: там, где её нет, метод неприменим, а там, где она неполна, верное утверждение может быть отброшено как противоречащее.",
     "description_en": "OG-RAG rests on an ontology, that is, on a formal description, written by domain experts, of the notions of a field and the relations admissible between them. What sets it apart from a graph extracted from text by a language model is the origin of the structure: an ontology is written by someone who knows the field, and it fixes which statements in that field are meaningful at all.\n\nThe documents of the collection are laid out against the notions of the ontology, and retrieval proceeds by the relations the ontology declares rather than by similarity of vector representations. Selecting what is needed is posed as a set cover problem: the system looks for the smallest set of facts covering every notion the query touches. This cuts out repeated material, because a second fact about the same notion does not extend the cover.\n\nThe answer is checked for agreement with the ontology before it is shown. A statement contradicting the declared relations is discarded, so groundedness here rests on explicit rules rather than on a language model's judgement of itself. The price is that an ontology must exist: where there is none the method does not apply, and where it is incomplete a correct statement may be discarded as contradictory.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "hypergraph",
+          "nodes"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель отвечает на вопрос по отобранным фактам.",
+          "note_en": "A language model answers the question from the selected facts.",
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "cover": {
+          "codes": {
+            "C1": "graph_traversal",
+            "D1": "set_cover",
+            "D2": "budget_aware"
+          },
+          "section": "4",
+          "title": "Минимальный набор фактов",
+          "title_en": "Smallest covering fact set"
+        },
+        "flatten": {
+          "codes": {},
+          "note": "Вложенные блоки фактов раскрываются в плоские наборы пар из ключа и значения без потери сведений.",
+          "note_en": "Nested blocks of facts are unfolded into flat sets of key and value pairs without loss of information.",
+          "section": "2",
+          "title": "Упрощение блоков фактов",
+          "title_en": "Flattening fact blocks"
+        },
+        "hypergraph": {
+          "codes": {
+            "A1": "node_edge",
+            "A4": "hypergraph",
+            "A8": "extracted"
+          },
+          "section": "2",
+          "title": "Гиперграф фактов",
+          "title_en": "Hypergraph of facts"
+        },
+        "mapping": {
+          "codes": {},
+          "note": "Языковая модель раскладывает сведения из документов по сущностям и признакам заранее заданной онтологии и получает блоки фактов.",
+          "note_en": "A language model maps the content of the documents onto the entities and attributes of a given ontology and obtains blocks of facts.",
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Разметка по онтологии",
+          "title_en": "Ontology mapping"
+        },
+        "nodes": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "3",
+          "title": "Поиск вершин",
+          "title_en": "Node search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "mapping",
+          "flatten",
+          "hypergraph"
+        ],
+        [
+          "nodes",
+          "cover",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Ontology",
+          "url": "https://arxiv.org/html/2412.15235v1#S4.SS1.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Hypergraph Transformation",
+          "url": "https://arxiv.org/html/2412.15235v1#S4.SS1.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "Relevant Nodes",
+          "url": "https://arxiv.org/html/2412.15235v1#S4.SS2.SSS1"
+        },
+        {
+          "key": "4",
+          "title": "Relevant Hyeredges as Context",
+          "url": "https://arxiv.org/html/2412.15235v1#S4.SS2.SSS2"
+        },
+        {
+          "key": "5",
+          "title": "Retrieval-Augmented Generation",
+          "url": "https://arxiv.org/html/2412.15235v1#S4.SS2.SSS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2412.15235v1",
+        "url": "https://arxiv.org/html/2412.15235v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

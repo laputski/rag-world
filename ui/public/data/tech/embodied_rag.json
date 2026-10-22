@@ -41,6 +41,144 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "clustering",
+          "forest"
+        ],
+        [
+          "rerank",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "forest",
+          "clustering"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "G2": "mixed"
+          },
+          "section": "4",
+          "title": "Ответ или точка маршрута",
+          "title_en": "Answer or waypoint"
+        },
+        "captions": {
+          "codes": {},
+          "section": "1",
+          "title": "Подписи к снимкам",
+          "title_en": "Image captions"
+        },
+        "clustering": {
+          "codes": {
+            "A8": "computed"
+          },
+          "section": "1",
+          "title": "Группировка мест",
+          "title_en": "Clustering of places"
+        },
+        "descent": {
+          "codes": {
+            "A5": "none",
+            "C1": "tree_navigation",
+            "C2": "iterative_stopping"
+          },
+          "note": "На каждом уровне языковая модель читает описания и выбирает ветви, пока спуск не дойдёт до узлов карты. Векторы не сравниваются.",
+          "note_en": "At every level a language model reads the descriptions and chooses branches, until the descent reaches the nodes of the map. No vectors are compared.",
+          "section": "2",
+          "title": "Спуск по деревьям",
+          "title_en": "Top-down descent"
+        },
+        "forest": {
+          "codes": {
+            "A3": "summary",
+            "A4": "tree"
+          },
+          "section": "1",
+          "title": "Деревья описаний",
+          "title_en": "Semantic forest"
+        },
+        "frames": {
+          "codes": {
+            "A1": "node_edge",
+            "A7": "image"
+          },
+          "note": "Каждый узел карты хранит снимок с положением и временем съёмки. Именно эти узлы возвращает поиск.",
+          "note_en": "Each node of the map stores an image with the position and time of capture. These nodes are what the search returns.",
+          "section": "1",
+          "title": "Снимки с координатами",
+          "title_en": "Posed images"
+        },
+        "rerank": {
+          "codes": {
+            "D1": "cross_encoder"
+          },
+          "section": "3",
+          "sub": "с учётом места",
+          "sub_en": "with location",
+          "title": "Пересортировка",
+          "title_en": "Hybrid re-ranking"
+        },
+        "route": {
+          "codes": {},
+          "note": "По связям карты ищется кратчайший путь от текущего положения робота до выбранной точки.",
+          "note_en": "The shortest path from the robot's current position to the chosen waypoint is found along the links of the map.",
+          "section": "4",
+          "sub": "к выбранной точке",
+          "sub_en": "to the waypoint",
+          "title": "Прокладка пути",
+          "title_en": "Path planning"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "frames",
+          "captions",
+          "clustering"
+        ],
+        [
+          "forest",
+          "descent",
+          "rerank"
+        ],
+        [
+          "answer",
+          "route"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Bottom-up Memory Construction",
+          "url": "https://arxiv.org/html/2409.18313v5#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Phase 1: Semantic-Guided Hierarchical Traversal",
+          "url": "https://arxiv.org/html/2409.18313v5#S3.SS2.SSSx1"
+        },
+        {
+          "key": "3",
+          "title": "Phase 2: Hybrid Re-ranking",
+          "url": "https://arxiv.org/html/2409.18313v5#S3.SS2.SSSx2"
+        },
+        {
+          "key": "4",
+          "title": "Generation",
+          "url": "https://arxiv.org/html/2409.18313v5#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2409.18313v5",
+        "url": "https://arxiv.org/html/2409.18313v5"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

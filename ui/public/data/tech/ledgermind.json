@@ -41,6 +41,182 @@
     ],
     "description": "LedgerMind отвечает на дефект оценки многошаговых агентов, работающих с изображениями. Такой агент чередует восприятие, поиск и рассуждение, а судят о нём по совпадению итогового ответа с верным. Совпадение не различает трёх случаев: ответ выведен из добытых свидетельств, ответ угадан по языковым привычкам модели, ответ получен взаимным погашением двух ошибок. Верный ответ по неверному пути остаётся верным ответом, и метрика этого не видит.\n\nВместо свободной записи хода работы система держит реестр свидетельств как состояние разбора. Каждая запись несёт свой инструмент, род познания, нормированный факт, полученный правилом, а не пересказом модели, уверенность, срок годности, положение в жизненном цикле и обратные ссылки на утверждения, которые её цитируют. Реестр держит четыре правила, и главные из них два. Утверждение состояния или решения обязано ссылаться на действующие записи, прежде чем повлияет на дальнейший ход. Ссылки при этом мало: сущности и числа вывода обязаны находиться в цитируемом, причём сущности сверяются с учётом иных написаний, а числа с допуском, точным для дат, количеств и опознавателей и мягким для показаний приборов. Проверка запускается событиями: отказ инструмента, устаревшая ссылка, противоречие свидетельств, падение уверенности, необоснованное решение, расхождение вывода со свидетельством.\n\nИсправление устроено так, что не может ухудшить прослеживаемость. Оно ограничено семью типовыми действиями, и доказано, что всякая новая запись состояния есть либо прямой вывод инструмента, либо его образ под детерминированным отображением. Свободный текст в состояние не попадает вовсе, поэтому оставшаяся ошибка привязана к явному источнику. Когда свидетельств недостаёт и бюджет исправлений исчерпан, система воздерживается от ответа. Ограничение названо авторами: реестр живёт внутри разбора одного вопроса, а перенос его на агентов с постоянной памятью остаётся открытой задачей.",
     "description_en": "LedgerMind answers a defect in how multi-step agents working with images are judged. Such an agent alternates perception, search and reasoning, and it is judged by whether its final answer matches the right one. A match does not tell three cases apart: the answer was derived from gathered evidence, the answer was guessed from the model's habits of language, the answer arrived because two errors cancelled. A right answer by a wrong road is still a right answer, and the measure does not see it.\n\nIn place of a free-form record of the work the system keeps an evidence ledger as the state of the trajectory. Every entry carries its tool, its kind of knowing, a normalised fact obtained by a rule rather than by the model's paraphrase, a confidence, a time to live, a place in the lifecycle, and back-references to the claims that cite it. The ledger holds four rules, of which two are the principal ones. A state claim or a decision claim must cite active entries before it may influence the further course. Citing is not enough: the entities and the numbers of a conclusion must be found in what is cited, with entities compared allowing for other spellings and numbers within a tolerance that is exact for dates, counts and identifiers and lenient for readings off an instrument. The check is started by events: a tool failure, a stale reference, a conflict of evidence, a drop of confidence, an unsupported decision, a divergence of a conclusion from its evidence.\n\nRepair is arranged so that it cannot worsen traceability. It is restricted to seven typed operations, and it is proved that every new entry of the state is either a direct tool output or its image under a deterministic mapping. Free-form text never enters the state at all, so any remaining error is tied to an explicit source. When the evidence remains insufficient and the repair budget is exhausted, the system abstains from answering. The limitation is named by the authors: the ledger lives inside the handling of a single question, and carrying it over to agents with persistent memory remains an open problem.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "plan",
+          "observe"
+        ],
+        [
+          "observe",
+          "ledger"
+        ],
+        [
+          "search",
+          "ledger"
+        ],
+        [
+          "check",
+          "repair"
+        ]
+      ],
+      "loops": [
+        [
+          "repair",
+          "ledger"
+        ]
+      ],
+      "nodes": {
+        "check": {
+          "codes": {
+            "A5": "lexical",
+            "E2": "post_gen_check"
+          },
+          "section": "5",
+          "title": "Проверка обоснованности",
+          "title_en": "Grounding check"
+        },
+        "decision": {
+          "codes": {
+            "E1": "draft_verify"
+          },
+          "section": "7",
+          "title": "Решение и перепроверка",
+          "title_en": "Decision and recheck"
+        },
+        "dispatch": {
+          "codes": {},
+          "note": "Простой вопрос идёт коротким путём с малым запасом свидетельств, сложный идёт полным путём. Путь выбирают правила по словам вопроса.",
+          "note_en": "A simple question takes a short path with a small evidence budget; a complex one takes the full path. The path is chosen by rules over the words of the question.",
+          "residual": "lexical_rule_routing",
+          "section": "1",
+          "title": "Выбор пути обработки",
+          "title_en": "Choosing the path"
+        },
+        "ledger": {
+          "codes": {
+            "A1": "passage",
+            "A2": "none",
+            "A3": "metadata",
+            "A4": "graph",
+            "A8": "computed"
+          },
+          "section": "4",
+          "title": "Журнал свидетельств",
+          "title_en": "Evidence ledger"
+        },
+        "observe": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "2",
+          "title": "Наблюдения по изображению",
+          "title_en": "Observations from the image"
+        },
+        "plan": {
+          "codes": {},
+          "note": "По одному тексту вопроса модель составляет план: что наблюдать, как рассуждать и в каком виде дать ответ.",
+          "note_en": "From the question text alone the model drafts a plan: what to observe, how to reason and in what form to answer.",
+          "section": "2",
+          "title": "План задачи",
+          "title_en": "Task plan"
+        },
+        "reasoning": {
+          "codes": {
+            "E3": "claim_level"
+          },
+          "section": "5",
+          "title": "Цепочка рассуждений",
+          "title_en": "Reasoning chain"
+        },
+        "repair": {
+          "codes": {
+            "C2": "iterative_stopping",
+            "E4": "confidence_threshold",
+            "E5": "mutual_loop"
+          },
+          "section": "6",
+          "sub": "семь видов действий",
+          "sub_en": "seven operator types",
+          "title": "Исправление нарушений",
+          "title_en": "Repairing violations"
+        },
+        "search": {
+          "codes": {
+            "B1": "multi_reformulation",
+            "C4": "single_store",
+            "D2": "budget_aware"
+          },
+          "section": "3",
+          "sub": "один или два круга",
+          "sub_en": "one or two rounds",
+          "title": "Поиск в интернете",
+          "title_en": "Web search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "dispatch",
+          "plan"
+        ],
+        [
+          "observe",
+          "search"
+        ],
+        [
+          "ledger",
+          "reasoning",
+          "check"
+        ],
+        [
+          "repair",
+          "decision"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Adaptive evidence-depth control",
+          "url": "https://arxiv.org/html/2607.28374v1#S3.SS2.SSS0.Px2"
+        },
+        {
+          "key": "2",
+          "title": "Evidence gathering",
+          "url": "https://arxiv.org/html/2607.28374v1#A1.SS0.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Knowledge Search Strategy",
+          "url": "https://arxiv.org/html/2607.28374v1#A4.SS6"
+        },
+        {
+          "key": "4",
+          "title": "Structured Evidence Ledger as Trajectory State",
+          "url": "https://arxiv.org/html/2607.28374v1#S3.SS1"
+        },
+        {
+          "key": "5",
+          "title": "Grounded reasoning",
+          "url": "https://arxiv.org/html/2607.28374v1#A1.SS0.SSS0.Px2"
+        },
+        {
+          "key": "6",
+          "title": "Event-triggered typed repair",
+          "url": "https://arxiv.org/html/2607.28374v1#S3.SS2.SSS0.Px3"
+        },
+        {
+          "key": "7",
+          "title": "Decision and defense",
+          "url": "https://arxiv.org/html/2607.28374v1#A1.SS0.SSS0.Px3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2607.28374v1",
+        "url": "https://arxiv.org/html/2607.28374v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-09-01",

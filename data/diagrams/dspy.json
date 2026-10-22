@@ -1,0 +1,104 @@
+{
+  "technology_id": "dspy",
+  "source": {
+    "label": "arXiv:2310.03714v1",
+    "url": "https://arxiv.org/html/2310.03714v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Natural Language Signatures can abstract prompting & finetuning",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Parameterized & templated Modules can abstract prompting techniques",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Programs",
+      "anchor": "S3.SS2.SSS0.Px5"
+    },
+    {
+      "key": "4",
+      "title": "Teleprompters can automate prompting for arbitrary pipelines",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "5",
+      "title": "Stage 1: Candidate Generation",
+      "anchor": "S4.SS0.SSS0.Px1"
+    },
+    {
+      "key": "6",
+      "title": "Stage 2: Parameter Optimization",
+      "anchor": "S4.SS0.SSS0.Px2"
+    },
+    {
+      "key": "7",
+      "title": "Stage 3: Higher-Order Program Optimization",
+      "anchor": "S4.SS0.SSS0.Px3"
+    }
+  ],
+  "rows": [
+    [
+      "signature",
+      "modules",
+      "program"
+    ],
+    [
+      "examples",
+      "bootstrap",
+      "params"
+    ],
+    [
+      "higher",
+      "compiled"
+    ]
+  ],
+  "nodes": {
+    "signature": {
+      "section": "1"
+    },
+    "modules": {
+      "section": "2"
+    },
+    "program": {
+      "section": "3"
+    },
+    "examples": {
+      "section": "4"
+    },
+    "bootstrap": {
+      "section": "5"
+    },
+    "params": {
+      "section": "6",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "higher": {
+      "section": "7"
+    },
+    "compiled": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "program",
+      "examples"
+    ],
+    [
+      "params",
+      "higher"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "B1"
+  ]
+}

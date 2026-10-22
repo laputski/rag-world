@@ -41,6 +41,137 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "graph",
+          "match"
+        ],
+        [
+          "expand",
+          "causal"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "build": {
+          "codes": {
+            "A3": "extracted_triples",
+            "A8": "extracted"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Построение графа",
+          "title_en": "Graph construction"
+        },
+        "causal": {
+          "codes": {},
+          "note": "Языковая модель оставляет среди собранных вершин и рёбер только причинные связи и строит из них причинный граф.",
+          "note_en": "A language model keeps only the causal links among the collected nodes and edges and builds a causal graph from them.",
+          "section": "2",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение причинных путей",
+          "title_en": "Causal path discovery"
+        },
+        "docs": {
+          "codes": {},
+          "section": "1",
+          "title": "Загруженные документы",
+          "title_en": "Uploaded documents"
+        },
+        "expand": {
+          "codes": {
+            "C1": "graph_traversal",
+            "C2": "multi_hop_fixed"
+          },
+          "section": "2",
+          "sub": "на заданную глубину",
+          "sub_en": "to a set depth",
+          "title": "Расширение по рёбрам",
+          "title_en": "Expansion along edges"
+        },
+        "graph": {
+          "codes": {
+            "A4": "graph"
+          },
+          "section": "1",
+          "title": "Граф понятий",
+          "title_en": "Concept graph"
+        },
+        "match": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "2",
+          "title": "Поиск ближайших вершин",
+          "title_en": "Nearest node search"
+        },
+        "query": {
+          "codes": {},
+          "section": "2",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "summary": {
+          "codes": {},
+          "note": "Сводка прослеживает главные причинные пути и отбрасывает то, что похоже по смыслу, но не связано причинно.",
+          "note_en": "The summary traces the key causal paths and drops material that is similar in meaning but not causally related.",
+          "section": "3",
+          "title": "Причинная сводка",
+          "title_en": "Causal summary"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "docs",
+          "build",
+          "graph"
+        ],
+        [
+          "query",
+          "match",
+          "expand"
+        ],
+        [
+          "causal",
+          "summary",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Indexing",
+          "url": "https://arxiv.org/html/2503.19878v3#S4.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Discovering and Estimating Causal Paths",
+          "url": "https://arxiv.org/html/2503.19878v3#S4.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Retrieving Context Causally",
+          "url": "https://arxiv.org/html/2503.19878v3#S4.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2503.19878v3",
+        "url": "https://arxiv.org/html/2503.19878v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

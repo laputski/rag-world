@@ -12,6 +12,141 @@
     "configuration_variable": [],
     "description": "PoisonedRAG описывает первую систематическую атаку на собрание, из которого система извлекает. Внимание при защите обычно сосредоточено на подсказке и на модели, тогда как собрание считается доверенным. Между тем собрания часто пополняются из источников, которые владелец не проверяет: страницы сети, вики, пользовательские материалы, обращения в поддержку.\n\nНападающий выбирает вопрос и желаемый ложный ответ и составляет несколько коротких отрывков, помещаемых в собрание. Каждый отрывок должен удовлетворить двум условиям сразу. Он должен находиться поиском по выбранному вопросу, для чего в него включают формулировки, близкие к вопросу. И он должен убедить языковую модель, для чего ложное утверждение излагается связно и уверенно, как излагался бы подлинный источник.\n\nСущественны две величины. Отрывков требуется единицы на всё собрание, то есть доля отравленного исчезающе мала и глазом не обнаруживается. Доля успешных срабатываний при этом высока. Из этого следует, что происхождение содержимого собрания принадлежит к защищаемому периметру наравне с моделью, а не считается его внешней частью.",
     "description_en": "PoisonedRAG describes the first systematic attack on the collection a system retrieves from. Defensive attention usually concentrates on the prompt and on the model, while the collection is taken to be trusted. Yet collections are often fed from sources the owner does not vet: web pages, wikis, user-contributed material, support tickets.\n\nThe attacker picks a question and a desired false answer and composes a few short passages to be placed in the collection. Each passage must satisfy two conditions at once. It must be findable by a search on the chosen question, for which wordings close to the question are worked into it. And it must persuade the language model, for which the false claim is set out coherently and confidently, as a genuine source would set it out.\n\nTwo quantities matter. Only a handful of passages are needed across the whole collection, so the poisoned share is vanishingly small and undetectable by eye. The rate at which the attack succeeds is nonetheless high. It follows that the provenance of what enters the collection belongs inside the defended perimeter alongside the model, rather than counting as external to it.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "check_text",
+          "prefix"
+        ],
+        [
+          "inject",
+          "retrieval"
+        ]
+      ],
+      "loops": [
+        [
+          "check_text",
+          "write_text"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель отвечает по найденным текстам и выдаёт ответ, выбранный злоумышленником.",
+          "note_en": "The language model answers from the retrieved texts and gives the answer the attacker chose.",
+          "section": "5",
+          "title": "Подменённый ответ",
+          "title_en": "Attacker's answer"
+        },
+        "check_text": {
+          "codes": {},
+          "note": "Модели задают вопрос с этим текстом в качестве контекста. Если ответ не совпал с выбранным, текст пишется заново, но не больше заданного числа попыток.",
+          "note_en": "A model is asked the question with this text as context. If the answer is not the chosen one, the text is rewritten, up to a set number of trials.",
+          "section": "2",
+          "title": "Проверка текста",
+          "title_en": "Checking the text"
+        },
+        "inject": {
+          "codes": {},
+          "note": "Злоумышленник добавляет несколько таких текстов в базу знаний, например правкой страниц Википедии. Доступа к самой системе ему не нужно.",
+          "note_en": "The attacker adds a few such texts to the knowledge database, for example by editing Wikipedia pages. No access to the system itself is needed.",
+          "section": "1",
+          "title": "Внедрение в базу знаний",
+          "title_en": "Injection into the database"
+        },
+        "prefix": {
+          "codes": {},
+          "note": "Перед текстом ставится сам вопрос, чтобы поиск его находил. Если извлекатель известен, это начало подбирается так, чтобы текст оказался ещё ближе к вопросу.",
+          "note_en": "The question itself is put before the text so that search finds it. If the retriever is known, the prefix is optimised to bring the text even closer to the question.",
+          "section": "3",
+          "title": "Начало, похожее на вопрос",
+          "title_en": "Question-like prefix"
+        },
+        "question": {
+          "codes": {},
+          "section": "4",
+          "title": "Вопрос пользователя",
+          "title_en": "User question"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Система находит несколько текстов, ближайших к вопросу; внедрённые тексты составлены так, чтобы оказаться среди них.",
+          "note_en": "The system finds the texts closest to the question; the injected texts are built to be among them.",
+          "section": "4",
+          "title": "Поиск похожих текстов",
+          "title_en": "Retrieving similar texts"
+        },
+        "target": {
+          "codes": {},
+          "note": "Злоумышленник выбирает вопрос и ложный ответ, который система должна на него выдать.",
+          "note_en": "The attacker picks a question and the false answer the system should give to it.",
+          "section": "1",
+          "sub": "вопрос и ложный ответ",
+          "sub_en": "question and false answer",
+          "title": "Выбор цели",
+          "title_en": "Choosing the target"
+        },
+        "write_text": {
+          "codes": {},
+          "note": "Языковая модель злоумышленника пишет короткий текст, из которого следует нужный ложный ответ на выбранный вопрос.",
+          "note_en": "The attacker's language model writes a short text from which the chosen false answer follows.",
+          "section": "2",
+          "sub": "от языковой модели",
+          "sub_en": "written by a model",
+          "title": "Убедительный текст",
+          "title_en": "Persuasive text"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "target",
+          "write_text",
+          "check_text"
+        ],
+        [
+          "prefix",
+          "inject"
+        ],
+        [
+          "question",
+          "retrieval",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Threat Model",
+          "url": "https://arxiv.org/html/2402.07867v3#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Crafting I to Achieve Generation Condition",
+          "url": "https://arxiv.org/html/2402.07867v3#S4.SS2.SSS1"
+        },
+        {
+          "key": "3",
+          "title": "Crafting S to Achieve Retrieval Condition",
+          "url": "https://arxiv.org/html/2402.07867v3#S4.SS2.SSS2"
+        },
+        {
+          "key": "4",
+          "title": "Background on RAG",
+          "url": "https://arxiv.org/html/2402.07867v3#S2.SS1"
+        },
+        {
+          "key": "5",
+          "title": "Knowledge Corruption Attack to RAG",
+          "url": "https://arxiv.org/html/2402.07867v3#S3.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2402.07867v3",
+        "url": "https://arxiv.org/html/2402.07867v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

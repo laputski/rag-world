@@ -1,0 +1,86 @@
+{
+  "technology_id": "gnn_rag",
+  "source": {
+    "label": "arXiv:2405.20139v1",
+    "url": "https://arxiv.org/html/2405.20139v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Problem Statement & Background",
+      "anchor": "S3"
+    },
+    {
+      "key": "2",
+      "title": "GNN",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "3",
+      "title": "LLM",
+      "anchor": "S4.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "kg"
+    ],
+    [
+      "question",
+      "subgraph",
+      "gnn"
+    ],
+    [
+      "paths",
+      "verbalize",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "kg": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "given"
+      }
+    },
+    "question": {
+      "section": "1"
+    },
+    "subgraph": {
+      "section": "1"
+    },
+    "gnn": {
+      "section": "2",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    },
+    "paths": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal",
+        "A1": "node_edge"
+      }
+    },
+    "verbalize": {
+      "section": "3"
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "kg",
+      "subgraph"
+    ],
+    [
+      "gnn",
+      "paths"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

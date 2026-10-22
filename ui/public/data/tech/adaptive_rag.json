@@ -45,6 +45,169 @@
     ],
     "description": "Adaptive RAG исходит из того, что вопросы неоднородны по сложности, а система обслуживает их одинаково. Вопрос о дате рождения известного лица не требует внешнего источника вовсе. Вопрос об одном факте требует одного обращения к индексу. Вопрос, ответ на который собирается из нескольких документов, требует нескольких шагов с уточнением. Единая стратегия неизбежно ошибается в двух случаях из трёх: тратит лишнее на простом либо не доходит до ответа на сложном.\n\nПеред обработкой ставится распределитель: небольшой классификатор, обученный относить вопрос к одному из трёх разрядов. Первый разряд обслуживается порождением без обращения к источникам. Второй обслуживается однократным извлечением. Третий обслуживается многошаговым извлечением, где каждый следующий запрос строится по уже найденному.\n\nОбучающая разметка получена не разметкой вручную, а наблюдением: каждый вопрос из имеющегося набора прогоняется всеми тремя способами, и разрядом объявляется самый дешёвый способ, давший верный ответ. Слабое место лежит там же, где выигрыш: ошибка распределителя стоит либо неверного ответа при заниженной оценке сложности, либо лишних вызовов при завышенной, а сам распределитель обучается на распределении вопросов, которое может не совпасть с распределением в применении.",
     "description_en": "Adaptive RAG starts from the fact that questions differ in difficulty while the system serves them all alike. A question about a well-known person's date of birth needs no external source at all. A question about a single fact needs one consultation of the index. A question whose answer is assembled from several documents needs several steps with refinement. A single strategy is therefore wrong in two cases out of three: it spends too much on the easy question or fails to reach the answer on the hard one.\n\nA router is placed ahead of processing: a small classifier trained to assign a question to one of three classes. The first class is served by generation without consulting any source. The second is served by a single retrieval. The third is served by multi-step retrieval, where each subsequent query is built from what has already been found.\n\nThe training labels were obtained not by hand but by observation: every question in an existing set is run through all three routes, and the class declared is the cheapest route that produced a correct answer. The weak point lies where the gain does: a router error costs either a wrong answer when difficulty is underestimated or superfluous calls when it is overestimated, and the router itself is trained on a distribution of questions that may not match the one it meets in use.",
+    "diagram": {
+      "breaks": [
+        [
+          "no_retrieval",
+          "single"
+        ],
+        [
+          "single",
+          "multi_retrieval"
+        ]
+      ],
+      "edges": [
+        [
+          "classifier",
+          "no_retrieval"
+        ],
+        [
+          "classifier",
+          "single"
+        ],
+        [
+          "classifier",
+          "multi_retrieval"
+        ],
+        [
+          "no_retrieval",
+          "answer"
+        ],
+        [
+          "single",
+          "answer"
+        ],
+        [
+          "multi_retrieval",
+          "reasoning"
+        ]
+      ],
+      "loops": [
+        [
+          "reasoning",
+          "multi_retrieval"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель отвечает на вопрос с тем, что было найдено на выбранном пути, или без найденного.",
+          "note_en": "The language model answers the question with what the chosen route retrieved, or with nothing retrieved.",
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "classifier": {
+          "codes": {
+            "B2": "trained_classifier"
+          },
+          "section": "1",
+          "sub": "обученной моделью",
+          "sub_en": "by a trained model",
+          "title": "Оценка сложности вопроса",
+          "title_en": "Complexity classification"
+        },
+        "multi_retrieval": {
+          "codes": {
+            "B1": "multi_reformulation",
+            "C2": "iterative_stopping"
+          },
+          "section": "4",
+          "sub": "сложный",
+          "sub_en": "complex",
+          "title": "Повторный поиск",
+          "title_en": "Retrieval round"
+        },
+        "no_retrieval": {
+          "codes": {},
+          "note": "Простой вопрос языковая модель решает сама, не обращаясь к внешним источникам.",
+          "note_en": "A simple question is answered by the language model alone, without consulting any external source.",
+          "section": "2",
+          "sub": "простой",
+          "sub_en": "simple",
+          "title": "Без поиска",
+          "title_en": "No retrieval"
+        },
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "reasoning": {
+          "codes": {
+            "E5": "mutual_loop"
+          },
+          "section": "4",
+          "title": "Шаг рассуждения",
+          "title_en": "Reasoning step"
+        },
+        "single": {
+          "codes": {
+            "A5": "lexical",
+            "C1": "lexical"
+          },
+          "section": "3",
+          "sub": "средний",
+          "sub_en": "moderate",
+          "title": "Однократный поиск",
+          "title_en": "Single retrieval"
+        }
+      },
+      "omitted": [
+        {
+          "code": "D2",
+          "reason": "В статье не описано, как отбираются найденные документы: многошаговый путь целиком заимствован из другой работы.",
+          "reason_en": "The paper does not describe how retrieved documents are selected: the multi-step route is borrowed whole from another work."
+        }
+      ],
+      "rows": [
+        [
+          "question",
+          "classifier"
+        ],
+        [
+          "no_retrieval",
+          "single",
+          "multi_retrieval"
+        ],
+        [
+          "reasoning",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Query Complexity Assessment",
+          "url": "https://arxiv.org/html/2403.14403v2#S3.SS2.SSS0.Px2"
+        },
+        {
+          "key": "2",
+          "title": "Non Retrieval for QA",
+          "url": "https://arxiv.org/html/2403.14403v2#S3.SS1.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Single-step Approach for QA",
+          "url": "https://arxiv.org/html/2403.14403v2#S3.SS1.SSS0.Px2"
+        },
+        {
+          "key": "4",
+          "title": "Multi-step Approach for QA",
+          "url": "https://arxiv.org/html/2403.14403v2#S3.SS1.SSS0.Px3"
+        },
+        {
+          "key": "5",
+          "title": "Preliminaries",
+          "url": "https://arxiv.org/html/2403.14403v2#S3.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2403.14403v2",
+        "url": "https://arxiv.org/html/2403.14403v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

@@ -41,6 +41,122 @@
     "configuration_variable": [],
     "description": "RA-DIT исходит из того, что готовая языковая модель и готовый извлекатель обучались порознь и друг под друга не подогнаны. Модель не училась пользоваться поданным ей контекстом и полагается на него неровно: то принимает найденное за истину, то отвечает вопреки ему. Извлекатель, в свою очередь, отбирал документы по сходству с запросом и никогда не получал сведений о том, помог ли отобранный документ ответить.\n\nДонастройка идёт с двух сторон и по очереди. Языковую модель дообучают отвечать при поданном контексте, включая примеры, где найденное содержит постороннее и опираться на него не следует. Извлекатель дообучают так, чтобы отбирать документы, при которых языковая модель назначает верному ответу наибольшую вероятность, то есть признаком годности документа объявляется его польза для ответа, а не сходство с вопросом.\n\nСущественно, что стороны обучаются раздельно, а не одним совместным ходом. Совместное обучение требует пропускать сигнал через шаг отбора, а он не дифференцируем, и обходные приёмы дороги. Раздельная схема обходится двумя обычными донастройками и потому применима к готовым моделям. Плата состоит в том, что донастройка вообще нужна: приём неприменим там, где доступ к весам модели закрыт.",
     "description_en": "RA-DIT starts from the fact that a ready language model and a ready retriever were trained apart and were never fitted to each other. The model never learned to use the context it is handed and relies on it unevenly: sometimes it takes the retrieved material for truth, sometimes it answers in defiance of it. The retriever, for its part, selected documents by similarity to the query and never received any indication of whether the document it selected helped produce an answer.\n\nFine-tuning proceeds from both sides in turn. The language model is further trained to answer with context supplied, including examples where the retrieved material contains irrelevancies that should not be relied upon. The retriever is further trained to select documents under which the language model assigns the highest probability to the correct answer, which makes usefulness for the answer, rather than similarity to the question, the criterion of a good document.\n\nWhat matters is that the two sides are trained separately rather than in one joint pass. Joint training requires passing a signal through the selection step, which is not differentiable, and the workarounds are expensive. The separate scheme costs two ordinary fine-tunings and therefore applies to ready models. The price is that fine-tuning is needed at all: the technique does not apply where model weights are closed.",
+    "diagram": {
+      "breaks": [
+        [
+          "lm_ft",
+          "lsr"
+        ]
+      ],
+      "edges": [
+        [
+          "augment",
+          "lm_ft"
+        ],
+        [
+          "augment",
+          "lsr"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "augment": {
+          "codes": {},
+          "note": "Каждый найденный фрагмент ставится перед заданием в своей собственной подсказке.",
+          "note_en": "Each retrieved fragment is placed before the task in a prompt of its own.",
+          "section": "2",
+          "sub": "каждый отдельно",
+          "sub_en": "each separately",
+          "title": "Подсказка на фрагмент",
+          "title_en": "One prompt per fragment"
+        },
+        "lm_ft": {
+          "codes": {
+            "G3": "trained_separately"
+          },
+          "section": "3",
+          "title": "Дообучение языковой модели",
+          "title_en": "Language model fine-tuning"
+        },
+        "lsr": {
+          "codes": {},
+          "note": "Для каждого фрагмента языковая модель считает вероятность верного ответа. Чем она выше, тем полезнее фрагмент.",
+          "note_en": "For each fragment the language model computes the probability of the correct answer. The higher it is, the more useful the fragment.",
+          "section": "4",
+          "title": "Оценка фрагментов",
+          "title_en": "Fragment rating"
+        },
+        "mixture": {
+          "codes": {},
+          "note": "Языковая модель отвечает на каждую подсказку отдельно, а вероятности ответов складываются с весами, которые дал поиск.",
+          "note_en": "The language model answers each prompt separately, and the answer probabilities are summed with weights from the search.",
+          "section": "2",
+          "sub": "по весам поиска",
+          "sub_en": "weighted by search",
+          "title": "Смешение ответов",
+          "title_en": "Mixing the answers"
+        },
+        "ret_ft": {
+          "codes": {
+            "G3": "trained_separately"
+          },
+          "note": "Извлекатель учится ставить выше те фрагменты, которые языковая модель оценила как полезные. Меняется только кодировщик вопроса.",
+          "note_en": "The retriever learns to rank higher the fragments the language model rated as useful. Only the query encoder changes.",
+          "section": "4",
+          "title": "Дообучение извлекателя",
+          "title_en": "Retriever fine-tuning"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Вопрос и фрагменты переводятся в векторы, и берутся несколько фрагментов, самых близких к вопросу.",
+          "note_en": "The question and the fragments are turned into vectors, and the fragments closest to the question are taken.",
+          "section": "1",
+          "sub": "два кодировщика",
+          "sub_en": "dual encoder",
+          "title": "Поиск фрагментов",
+          "title_en": "Fragment search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "retrieval",
+          "augment",
+          "mixture"
+        ],
+        [
+          "lm_ft",
+          "lsr",
+          "ret_ft"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Retriever",
+          "url": "https://arxiv.org/html/2310.01352v4#S2.SS1.SSS0.Px2"
+        },
+        {
+          "key": "2",
+          "title": "Parallel In-Context Retrieval-Augmentation",
+          "url": "https://arxiv.org/html/2310.01352v4#S2.SS1.SSS0.Px3"
+        },
+        {
+          "key": "3",
+          "title": "Retrieval Augmented Language Model Fine-tuning",
+          "url": "https://arxiv.org/html/2310.01352v4#S2.SS3"
+        },
+        {
+          "key": "4",
+          "title": "Retriever Fine-tuning",
+          "url": "https://arxiv.org/html/2310.01352v4#S2.SS4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2310.01352v4",
+        "url": "https://arxiv.org/html/2310.01352v4"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

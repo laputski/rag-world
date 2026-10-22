@@ -1,0 +1,90 @@
+{
+  "technology_id": "xrag",
+  "source": {
+    "label": "arXiv:2405.13792v2",
+    "url": "https://arxiv.org/html/2405.13792v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Problem Formulation",
+      "anchor": "S3.SS0.SSS0.Px1"
+    },
+    {
+      "key": "2",
+      "title": "Paraphrase Pretraining",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Context-aware Instruction Tuning",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "4",
+      "title": "xRAG Architecture",
+      "anchor": "S3.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "corpus",
+      "embeddings"
+    ],
+    [
+      "paraphrase",
+      "instruct"
+    ],
+    [
+      "search",
+      "projector",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "corpus": {
+      "section": "1"
+    },
+    "embeddings": {
+      "section": "1",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "paraphrase": {
+      "section": "2"
+    },
+    "instruct": {
+      "section": "3"
+    },
+    "search": {
+      "section": "1",
+      "codes": {
+        "C1": "ann",
+        "D1": "none"
+      }
+    },
+    "projector": {
+      "section": "4",
+      "codes": {
+        "D2": "latent_compression"
+      }
+    },
+    "answer": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "embeddings",
+      "paraphrase"
+    ],
+    [
+      "instruct",
+      "projector"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

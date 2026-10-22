@@ -1,0 +1,121 @@
+{
+  "technology_id": "think_on_graph",
+  "source": {
+    "label": "arXiv:2307.07697v6",
+    "url": "https://arxiv.org/html/2307.07697v6"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Methods",
+      "anchor": "S2"
+    },
+    {
+      "key": "2",
+      "title": "Initialization of Graph Search",
+      "anchor": "S2.SS1.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Relation Exploration",
+      "anchor": "S2.SS1.SSS2.Px1"
+    },
+    {
+      "key": "4",
+      "title": "Entity Exploration",
+      "anchor": "S2.SS1.SSS2.Px2"
+    },
+    {
+      "key": "5",
+      "title": "Reasoning",
+      "anchor": "S2.SS1.SSS3"
+    }
+  ],
+  "rows": [
+    [
+      "kg",
+      "question",
+      "topics"
+    ],
+    [
+      "rel_search",
+      "rel_prune",
+      "ent_search",
+      "ent_prune"
+    ],
+    [
+      "check",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "kg": {
+      "section": "1",
+      "codes": {
+        "A1": "node_edge",
+        "A4": "graph",
+        "A8": "given"
+      }
+    },
+    "question": {
+      "section": "2"
+    },
+    "topics": {
+      "section": "2"
+    },
+    "rel_search": {
+      "section": "3",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "rel_prune": {
+      "section": "3",
+      "codes": {
+        "E5": "mutual_loop"
+      }
+    },
+    "ent_search": {
+      "section": "4"
+    },
+    "ent_prune": {
+      "section": "4"
+    },
+    "check": {
+      "section": "5",
+      "codes": {
+        "C2": "iterative_stopping"
+      }
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "kg",
+      "rel_search"
+    ],
+    [
+      "topics",
+      "rel_search"
+    ],
+    [
+      "ent_prune",
+      "check"
+    ]
+  ],
+  "loops": [
+    [
+      "check",
+      "rel_search"
+    ]
+  ],
+  "breaks": [
+    [
+      "kg",
+      "question"
+    ]
+  ],
+  "omitted": []
+}

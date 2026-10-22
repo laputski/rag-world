@@ -1,0 +1,100 @@
+{
+  "technology_id": "causalrag",
+  "source": {
+    "label": "arXiv:2503.19878v3",
+    "url": "https://arxiv.org/html/2503.19878v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Indexing",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Discovering and Estimating Causal Paths",
+      "anchor": "S4.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Retrieving Context Causally",
+      "anchor": "S4.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "docs",
+      "build",
+      "graph"
+    ],
+    [
+      "query",
+      "match",
+      "expand"
+    ],
+    [
+      "causal",
+      "summary",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "docs": {
+      "section": "1"
+    },
+    "build": {
+      "section": "1",
+      "codes": {
+        "A3": "extracted_triples",
+        "A8": "extracted"
+      }
+    },
+    "graph": {
+      "section": "1",
+      "codes": {
+        "A4": "graph"
+      }
+    },
+    "query": {
+      "section": "2"
+    },
+    "match": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "expand": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal",
+        "C2": "multi_hop_fixed"
+      }
+    },
+    "causal": {
+      "section": "2"
+    },
+    "summary": {
+      "section": "3"
+    },
+    "answer": {
+      "section": "3",
+      "codes": {
+        "E1": "single_pass"
+      }
+    }
+  },
+  "edges": [
+    [
+      "graph",
+      "match"
+    ],
+    [
+      "expand",
+      "causal"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

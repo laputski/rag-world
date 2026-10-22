@@ -44,6 +44,140 @@
     "configuration_variable": [],
     "description": "Standard HybridRAG соединяет два способа поиска, которые ошибаются по-разному. Словарный поиск отбирает документы по совпадению слов и надёжен там, где слово запроса встречается в документе буквально: имя собственное, обозначение детали, номер статьи. Синонима он не понимает, и вопрос, заданный другими словами, остаётся без ответа. Плотный поиск по векторным представлениям понимает синонимию и перифразу, но склонен подменять точное слово похожим и на редком обозначении, которого не было в обучении, промахивается.\n\nСоединение состоит в том, что оба поиска выполняются по одному запросу независимо, каждый даёт свой упорядоченный список, а списки сливаются в один. Слияние идёт либо по обратным рангам, где учитывается только место документа, либо приведением оценок к общей шкале, если шкалы известны.\n\nСхема не даёт ни новой единицы извлечения, ни нового устройства индекса и потому служит основанием, а не архитектурой: её ставят под другими приёмами и от неё отсчитывают их выигрыш. Плата состоит в двух индексах вместо одного, которые нужно строить и держать согласованными, и в двух обращениях на каждый запрос.",
     "description_en": "Standard HybridRAG joins two kinds of search that fail in different ways. Lexical search selects documents by word overlap and is dependable where a query word appears in the document literally: a proper name, a part number, an article of a statute. It understands no synonym, so a question asked in other words goes unanswered. Dense search over vector representations understands synonymy and paraphrase, but it tends to substitute a similar word for the exact one and misses on a rare designation absent from its training.\n\nThe joining consists in running both searches on the same query independently, each producing its own ordered list, and merging the lists into one. The merge proceeds either by reciprocal rank, where only a document's position counts, or by bringing the scores onto a common scale where those scales are known.\n\nThe scheme introduces neither a new unit of retrieval nor a new index structure and therefore serves as a baseline rather than an architecture: it is placed underneath other techniques, and their gains are measured from it. It costs two indexes instead of one, which must be built and kept in step, and two consultations per query.",
+    "diagram": {
+      "breaks": [
+        [
+          "keyword",
+          "semantic"
+        ]
+      ],
+      "edges": [
+        [
+          "index",
+          "keyword"
+        ],
+        [
+          "index",
+          "semantic"
+        ],
+        [
+          "keyword",
+          "fusion"
+        ],
+        [
+          "semantic",
+          "fusion"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "docs": {
+          "codes": {},
+          "section": "1",
+          "title": "Загрузка документов",
+          "title_en": "Document ingestion"
+        },
+        "embed": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "note": "Модель векторных представлений превращает текст каждого документа в вектор.",
+          "note_en": "An embedding model turns the text of each document into a vector.",
+          "section": "2",
+          "sub": "при загрузке",
+          "sub_en": "at ingestion",
+          "title": "Построение векторов",
+          "title_en": "Text embedding"
+        },
+        "fusion": {
+          "codes": {
+            "C3": "rrf",
+            "D1": "none"
+          },
+          "note": "Два списка сводятся в один: либо по местам документов в каждом списке, либо после приведения оценок к общей шкале.",
+          "note_en": "The two lists become one, either by the positions of documents in each list or after bringing the scores to a common scale.",
+          "section": "5",
+          "title": "Слияние двух списков",
+          "title_en": "Merging the two lists"
+        },
+        "index": {
+          "codes": {},
+          "note": "В индексе у каждого документа хранится и исходный текст, и его вектор.",
+          "note_en": "The index stores both the original text of each document and its vector.",
+          "section": "3",
+          "sub": "текст и вектор",
+          "sub_en": "text and vector",
+          "title": "Общий индекс",
+          "title_en": "One index"
+        },
+        "keyword": {
+          "codes": {},
+          "note": "Документы отбираются по совпадению слов запроса.",
+          "note_en": "Documents are selected by matching the words of the query.",
+          "section": "4",
+          "title": "Поиск по словам",
+          "title_en": "Keyword search"
+        },
+        "semantic": {
+          "codes": {
+            "C1": "ann"
+          },
+          "note": "Документы отбираются по близости их векторов к вектору запроса.",
+          "note_en": "Documents are selected by how close their vectors are to the query vector.",
+          "section": "4",
+          "sub": "по векторам",
+          "sub_en": "over vectors",
+          "title": "Поиск по смыслу",
+          "title_en": "Semantic search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "docs",
+          "embed",
+          "index"
+        ],
+        [
+          "keyword",
+          "semantic"
+        ],
+        [
+          "fusion"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Step 4: Ingest documents into the index",
+          "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/#step-4-ingest-documents-into-the-index"
+        },
+        {
+          "key": "2",
+          "title": "Step 1: Create an ingest pipeline",
+          "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/#step-1-create-an-ingest-pipeline"
+        },
+        {
+          "key": "3",
+          "title": "Step 2: Create an index for ingestion",
+          "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/#step-2-create-an-index-for-ingestion"
+        },
+        {
+          "key": "4",
+          "title": "Step 5: Search the index using hybrid search",
+          "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/#step-5-search-the-index-using-hybrid-search"
+        },
+        {
+          "key": "5",
+          "title": "Hybrid search",
+          "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/#hybrid-search"
+        }
+      ],
+      "source": {
+        "label": "OpenSearch documentation: Hybrid search",
+        "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-13",

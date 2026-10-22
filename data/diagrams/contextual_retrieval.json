@@ -1,0 +1,101 @@
+{
+  "technology_id": "contextual_retrieval",
+  "source": {
+    "label": "Anthropic, Introducing Contextual Retrieval",
+    "url": "https://www.anthropic.com/news/contextual-retrieval"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "A primer on RAG: scaling to larger knowledge bases",
+      "anchor": "a-primer-on-rag-scaling-to-larger-knowledge-bases"
+    },
+    {
+      "key": "2",
+      "title": "Implementing Contextual Retrieval",
+      "anchor": "implementing-contextual-retrieval"
+    },
+    {
+      "key": "3",
+      "title": "Introducing Contextual Retrieval",
+      "anchor": "introducing-contextual-retrieval"
+    }
+  ],
+  "rows": [
+    [
+      "docs",
+      "chunks",
+      "context"
+    ],
+    [
+      "emb",
+      "bm25"
+    ],
+    [
+      "query",
+      "search",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "docs": {
+      "section": "1"
+    },
+    "chunks": {
+      "section": "1"
+    },
+    "context": {
+      "section": "2",
+      "codes": {
+        "A3": "context_prefix"
+      }
+    },
+    "emb": {
+      "section": "3",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "bm25": {
+      "section": "3"
+    },
+    "query": {
+      "section": "1"
+    },
+    "search": {
+      "section": "1"
+    },
+    "answer": {
+      "section": "1",
+      "codes": {
+        "E1": "single_pass"
+      }
+    }
+  },
+  "edges": [
+    [
+      "context",
+      "emb"
+    ],
+    [
+      "context",
+      "bm25"
+    ],
+    [
+      "emb",
+      "search"
+    ],
+    [
+      "bm25",
+      "search"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "emb",
+      "bm25"
+    ]
+  ],
+  "omitted": []
+}

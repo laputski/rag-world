@@ -46,6 +46,131 @@
     ],
     "description": "CRAG исходит из того, что поиск иногда возвращает негодное, а обычная система этого не замечает. Найденные фрагменты подаются языковой модели независимо от того, отвечают ли они на вопрос, и модель, получив постороннее, чаще строит ответ на нём, чем отвергает его.\n\nМежду извлечением и порождением ставится оценщик: небольшая обученная модель, которая читает запрос вместе с найденным и выносит одно из трёх суждений. При суждении «верно» найденное признаётся годным, но проходит очистку: фрагменты разбираются на мелкие части, части, не относящиеся к запросу, отбрасываются, оставшиеся собираются обратно. При суждении «неверно» найденное отбрасывается целиком, а запрос переписывается и направляется в веб-поиск как во внешний источник. При суждении «неопределённо» применяются оба пути сразу и результаты объединяются.\n\nОценщик мал по сравнению с порождающей моделью, поэтому проверка обходится дёшево, а приём применяется к готовой системе без её переобучения. Ограничения тоже свои: суждение оценщика само по себе является предсказанием и ошибается, а обращение к веб-поиску вводит в цепочку внешнюю службу с её задержкой, доступностью и содержимым, которое портал собрания не контролирует.",
     "description_en": "CRAG starts from the fact that search sometimes returns unusable material and that an ordinary system does not notice. Retrieved fragments are given to the language model regardless of whether they answer the question, and the model, handed something irrelevant, more often builds an answer on it than rejects it.\n\nAn evaluator is placed between retrieval and generation: a small trained model that reads the query together with what was found and returns one of three verdicts. On \"correct\" the material is accepted but cleaned: the fragments are split into small parts, parts unrelated to the query are discarded, and what remains is reassembled. On \"incorrect\" the material is discarded entirely, and the query is rewritten and sent to web search as an external source. On \"ambiguous\" both paths are taken and their results combined.\n\nThe evaluator is small next to the generating model, so the check is cheap, and the technique applies to a ready system without retraining it. The limitations are its own as well: the evaluator's verdict is itself a prediction and can be wrong, and the recourse to web search introduces an external service into the chain, with its latency, its availability, and content the collection's curator does not control.",
+    "diagram": {
+      "breaks": [
+        [
+          "refinement",
+          "rewrite"
+        ]
+      ],
+      "edges": [
+        [
+          "evaluator",
+          "refinement"
+        ],
+        [
+          "evaluator",
+          "rewrite"
+        ],
+        [
+          "refinement",
+          "answer"
+        ],
+        [
+          "web",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель отвечает по отобранным сведениям: из своих документов, из интернета или из обоих источников, если оценка неуверенна.",
+          "note_en": "The language model answers from the selected knowledge: from its own documents, from the web, or from both when the evaluation is unsure.",
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "evaluator": {
+          "codes": {
+            "B2": "trained_classifier",
+            "E2": "pre_gen_grounding"
+          },
+          "section": "2",
+          "sub": "обученной моделью",
+          "sub_en": "by a trained model",
+          "title": "Оценка найденного",
+          "title_en": "Retrieval evaluation"
+        },
+        "refinement": {
+          "codes": {
+            "D2": "top_k"
+          },
+          "section": "3",
+          "title": "Отбор полезных отрывков",
+          "title_en": "Knowledge refinement"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Обычный извлекатель находит по вопросу около десяти документов в собственном собрании.",
+          "note_en": "An ordinary retriever finds about ten documents for the question in the system's own collection.",
+          "section": "1",
+          "title": "Поиск документов",
+          "title_en": "Initial retrieval"
+        },
+        "rewrite": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "section": "4",
+          "sub": "в ключевые слова",
+          "sub_en": "into keywords",
+          "title": "Переписывание запроса",
+          "title_en": "Query rewriting"
+        },
+        "web": {
+          "codes": {
+            "C4": "federation"
+          },
+          "note": "Найденные в интернете страницы так же режутся на полосы и проверяются тем же оценщиком, прежде чем попасть к ответу.",
+          "note_en": "The pages found on the web are cut into strips and filtered by the same evaluator before they reach the answer.",
+          "section": "4",
+          "title": "Поиск в интернете",
+          "title_en": "Web search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "retrieval",
+          "evaluator"
+        ],
+        [
+          "refinement",
+          "rewrite",
+          "web"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Overview of Model Inference",
+          "url": "https://arxiv.org/html/2401.15884v3#S4.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Retrieval Evaluator",
+          "url": "https://arxiv.org/html/2401.15884v3#S4.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Knowledge Refinement",
+          "url": "https://arxiv.org/html/2401.15884v3#S4.SS4"
+        },
+        {
+          "key": "4",
+          "title": "Web Search",
+          "url": "https://arxiv.org/html/2401.15884v3#S4.SS5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2401.15884v3",
+        "url": "https://arxiv.org/html/2401.15884v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

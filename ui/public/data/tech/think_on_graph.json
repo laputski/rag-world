@@ -20,6 +20,165 @@
     "configuration_variable": [],
     "description": "Think-on-Graph соединяет языковую модель с готовым графом знаний так, что рассуждение идёт прямо по его рёбрам. Обычное обращение к графу переводит запрос в формальный вид, выполняет его и возвращает результат целиком; ошибка в переводе даёт пустой ответ, и исправить её по ходу нельзя.\n\nОбход разбит на шаги, и на каждом решение принимает модель. Из вопроса выделяются начальные сущности, им сопоставляются вершины графа. Далее модели показывают вершину вместе со списком исходящих из неё рёбер, и она выбирает, по какому ребру идти, исходя из того, чего недостаёт для ответа. Переход выполняется, новая вершина добавляется к пройденному пути, и шаг повторяется. Одновременно ведётся несколько путей, чтобы неудачный выбор на раннем шаге не закрывал остальные направления.\n\nОбход прекращается, когда модель признаёт собранный путь достаточным. Существенно, что ответ опирается на подлинные рёбра графа, а путь целиком виден и служит объяснением. Ограничения происходят от графа: связи, которой в нём нет, обход не найдёт, а каждый шаг требует вызова модели, поэтому длинная цепочка обходится дорого.",
     "description_en": "Think-on-Graph couples a language model to an existing knowledge graph so that reasoning proceeds along its edges. An ordinary query to a graph translates the request into a formal form, executes it, and returns the result whole; an error in translation yields an empty answer that cannot be corrected along the way.\n\nThe traversal is broken into steps, and at each of them the model decides. Starting entities are taken from the question and matched to graph nodes. The model is then shown a node together with the list of edges leaving it, and it chooses which edge to follow, guided by what is still missing for an answer. The move is made, the new node is added to the path walked, and the step repeats. Several paths are pursued at once so that an unlucky choice at an early step does not close off the other directions.\n\nTraversal stops when the model judges the assembled path sufficient. What matters is that the answer rests on genuine edges of the graph, and that the whole path is visible and serves as the explanation. The limitations come from the graph: a connection it does not contain will not be found, and every step requires a model call, so a long chain is expensive.",
+    "diagram": {
+      "breaks": [
+        [
+          "kg",
+          "question"
+        ]
+      ],
+      "edges": [
+        [
+          "kg",
+          "rel_search"
+        ],
+        [
+          "topics",
+          "rel_search"
+        ],
+        [
+          "ent_prune",
+          "check"
+        ]
+      ],
+      "loops": [
+        [
+          "check",
+          "rel_search"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель отвечает по найденным путям. Если пути так и не хватило, она отвечает по собственным знаниям.",
+          "note_en": "The model answers from the paths found. If they never sufficed, it answers from its own knowledge.",
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "check": {
+          "codes": {
+            "C2": "iterative_stopping"
+          },
+          "note": "Языковая модель решает, хватает ли путей для ответа. Если нет, обход продолжается до предельной глубины.",
+          "note_en": "The language model decides whether the paths suffice to answer. If not, the search goes on up to a maximum depth.",
+          "section": "5",
+          "title": "Оценка найденных путей",
+          "title_en": "Path sufficiency check"
+        },
+        "ent_prune": {
+          "codes": {},
+          "note": "Языковая модель оставляет несколько лучших сущностей, и каждый путь становится на шаг длиннее.",
+          "note_en": "The language model keeps the best few entities, and each path grows by one step.",
+          "section": "4",
+          "title": "Отбор сущностей",
+          "title_en": "Entity pruning"
+        },
+        "ent_search": {
+          "codes": {},
+          "note": "По каждой отобранной связи из графа берутся сущности на её другом конце.",
+          "note_en": "For each kept relation, the entities at its other end are taken from the graph.",
+          "section": "4",
+          "title": "Поиск соседей",
+          "title_en": "Entity search"
+        },
+        "kg": {
+          "codes": {
+            "A1": "node_edge",
+            "A4": "graph",
+            "A8": "given"
+          },
+          "section": "1",
+          "title": "Готовый граф знаний",
+          "title_en": "Existing knowledge graph"
+        },
+        "question": {
+          "codes": {},
+          "section": "2",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "rel_prune": {
+          "codes": {
+            "E5": "mutual_loop"
+          },
+          "note": "Языковая модель оставляет несколько связей, самых полезных для ответа на вопрос.",
+          "note_en": "The language model keeps the few relations most useful for answering the question.",
+          "section": "3",
+          "title": "Отбор связей",
+          "title_en": "Relation pruning"
+        },
+        "rel_search": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "note": "Для последней сущности каждого пути из графа берутся все связи, входящие и исходящие.",
+          "note_en": "For the last entity of each path, all its incoming and outgoing relations are taken from the graph.",
+          "section": "3",
+          "title": "Поиск связей",
+          "title_en": "Relation search"
+        },
+        "topics": {
+          "codes": {},
+          "note": "Языковая модель называет главные сущности вопроса, и с них начинаются пути по графу.",
+          "note_en": "The language model names the main entities of the question, and the paths through the graph start from them.",
+          "section": "2",
+          "sub": "из вопроса",
+          "sub_en": "from the question",
+          "title": "Начальные сущности",
+          "title_en": "Topic entities"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "kg",
+          "question",
+          "topics"
+        ],
+        [
+          "rel_search",
+          "rel_prune",
+          "ent_search",
+          "ent_prune"
+        ],
+        [
+          "check",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Methods",
+          "url": "https://arxiv.org/html/2307.07697v6#S2"
+        },
+        {
+          "key": "2",
+          "title": "Initialization of Graph Search",
+          "url": "https://arxiv.org/html/2307.07697v6#S2.SS1.SSS1"
+        },
+        {
+          "key": "3",
+          "title": "Relation Exploration",
+          "url": "https://arxiv.org/html/2307.07697v6#S2.SS1.SSS2.Px1"
+        },
+        {
+          "key": "4",
+          "title": "Entity Exploration",
+          "url": "https://arxiv.org/html/2307.07697v6#S2.SS1.SSS2.Px2"
+        },
+        {
+          "key": "5",
+          "title": "Reasoning",
+          "url": "https://arxiv.org/html/2307.07697v6#S2.SS1.SSS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2307.07697v6",
+        "url": "https://arxiv.org/html/2307.07697v6"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

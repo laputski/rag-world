@@ -1,0 +1,125 @@
+{
+  "technology_id": "kag",
+  "source": {
+    "label": "arXiv:2409.13731v3",
+    "url": "https://arxiv.org/html/2409.13731v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Semantic Chunking",
+      "anchor": "S2.SS2.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "Information Extraction with More Descriptive Context",
+      "anchor": "S2.SS2.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "Enhance Indexing",
+      "anchor": "S2.SS4.SSS1"
+    },
+    {
+      "key": "4",
+      "title": "Mutual indexing between text chunk vectors and knowledge structures",
+      "anchor": "S2.SS2.SSS4"
+    },
+    {
+      "key": "5",
+      "title": "Logical Form Solver",
+      "anchor": "S2.SS3"
+    },
+    {
+      "key": "6",
+      "title": "Logical Form for Reasoning",
+      "anchor": "S2.SS3.SSS2"
+    }
+  ],
+  "rows": [
+    [
+      "chunk",
+      "extract",
+      "align"
+    ],
+    [
+      "index"
+    ],
+    [
+      "plan",
+      "graphret",
+      "hybrid"
+    ],
+    [
+      "check",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "chunk": {
+      "section": "1"
+    },
+    "extract": {
+      "section": "2",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "align": {
+      "section": "3"
+    },
+    "index": {
+      "section": "4",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted"
+      }
+    },
+    "plan": {
+      "section": "5"
+    },
+    "graphret": {
+      "section": "6",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "hybrid": {
+      "section": "6",
+      "codes": {
+        "C3": "none"
+      }
+    },
+    "check": {
+      "section": "5"
+    },
+    "answer": {
+      "section": "5",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    }
+  },
+  "edges": [
+    [
+      "align",
+      "index"
+    ],
+    [
+      "index",
+      "graphret"
+    ],
+    [
+      "hybrid",
+      "check"
+    ]
+  ],
+  "loops": [
+    [
+      "check",
+      "plan"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

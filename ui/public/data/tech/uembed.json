@@ -48,6 +48,156 @@
     ],
     "description": "UEmbed сводит в одну модель то, что обычно требует двух или трёх. Обученный разреженный поиск, где документ описывается весами слов словаря, до сих пор строился на двунаправленных кодировщиках, то есть на моделях, каждая позиция которых видит вход целиком. Плотный поиск по одному вектору строился отдельно. Перенос того и другого на изображения требовал ещё и связующих частей. Держать несколько моделей дорого и хлопотно вдвойне, потому что обновлять и согласовывать надо каждую.\n\nЗатруднение состоит в устройстве современных порождающих моделей. Веса словаря берутся с выходного слоя, а такая модель использует причинное внимание: каждая позиция видит только предшествующие. Приписать веса всему словарю с одной последней позиции можно, но качество получается низким, потому что одной позиции не хватает, чтобы выразить документ по всему словарю сразу.\n\nРешение состоит в разделении труда между несколькими служебными позициями. К входу приписывается несколько служебных лексем, а словарь делится между ними на непересекающиеся части: каждая отвечает за свою часть, и вместе они складываются в полный разреженный вектор. Плотное представление берётся с тех же позиций, поэтому оба представления получаются за один проход, а изображения обслуживаются той же моделью без отдельного связующего звена.",
     "description_en": "UEmbed brings into one model what usually takes two or three. Learned sparse retrieval, where a document is described by weights over vocabulary words, had until now been built on bidirectional encoders, that is, on models each of whose positions sees the whole input. Dense retrieval over a single vector was built separately. Carrying either over to images called for further bridging parts. Maintaining several models is expensive and doubly troublesome, because each must be updated and kept in step with the others.\n\nThe difficulty lies in how modern generative models are built. Vocabulary weights are taken from the output layer, and such a model uses causal attention: each position sees only what precedes it. Assigning weights over the whole vocabulary from one final position is possible but yields poor quality, because a single position does not suffice to express a document across the entire vocabulary.\n\nThe solution divides the labour among several service positions. Several service tokens are appended to the input, and the vocabulary is split among them into disjoint parts: each is responsible for its own part, and together they compose the full sparse vector. The dense representation is taken from the same positions, so both representations come out of a single pass, and images are served by the same model with no separate bridging stage.",
+    "diagram": {
+      "breaks": [
+        [
+          "sparse",
+          "dense"
+        ]
+      ],
+      "edges": [
+        [
+          "partition",
+          "tokens"
+        ],
+        [
+          "pass",
+          "sparse"
+        ],
+        [
+          "pass",
+          "dense"
+        ],
+        [
+          "sparse",
+          "objective"
+        ],
+        [
+          "dense",
+          "objective"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "dense": {
+          "codes": {},
+          "note": "Плотное представление берётся из состояния знака конца текста, стоящего перед служебными метками.",
+          "note_en": "The dense representation is the hidden state of the end-of-sequence token that precedes the special tokens.",
+          "section": "4",
+          "title": "Плотный вектор",
+          "title_en": "Dense vector"
+        },
+        "input": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "3",
+          "title": "Изображение и текст",
+          "title_en": "Image and text input"
+        },
+        "objective": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "5",
+          "sub": "обоих представлений",
+          "sub_en": "both representations",
+          "title": "Совместное обучение",
+          "title_en": "Joint training objective"
+        },
+        "partition": {
+          "codes": {},
+          "note": "Словарь делится на 16 непересекающихся групп похожих слов примерно равного размера.",
+          "note_en": "The vocabulary is split into 16 disjoint groups of similar words of about equal size.",
+          "section": "2",
+          "title": "Деление словаря на части",
+          "title_en": "Splitting the vocabulary"
+        },
+        "pass": {
+          "codes": {
+            "A5": "vision_language"
+          },
+          "residual": "sparse_and_dense_one_pass",
+          "section": "3",
+          "title": "Один проход модели",
+          "title_en": "Single model pass"
+        },
+        "sparse": {
+          "codes": {},
+          "note": "Каждая метка даёт веса слов своей части словаря, и вместе части складываются в полный вектор весов слов.",
+          "note_en": "Each special token produces weights over its part of the vocabulary; together the parts form the full sparse vector.",
+          "section": "2",
+          "title": "Разреженный вектор",
+          "title_en": "Sparse word weights"
+        },
+        "tokens": {
+          "codes": {},
+          "note": "В конец входа добавляются 16 обучаемых меток. Каждая видит весь вход и отвечает за свою часть словаря.",
+          "note_en": "Sixteen learnable tokens are appended to the input. Each sees the whole input and is responsible for its own part of the vocabulary.",
+          "section": "2",
+          "title": "Служебные метки в конце",
+          "title_en": "Appending special tokens"
+        },
+        "vocab": {
+          "codes": {},
+          "note": "Слова, которые различаются только регистром, пробелами или надстрочными знаками, сливаются в одну запись словаря.",
+          "note_en": "Words that differ only in case, whitespace or accents are merged into one vocabulary entry.",
+          "section": "1",
+          "title": "Сжатие словаря",
+          "title_en": "Vocabulary compression"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "vocab",
+          "partition"
+        ],
+        [
+          "input",
+          "tokens",
+          "pass"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "objective"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Compressing Vocabulary",
+          "url": "https://arxiv.org/html/2608.02583v1#S3.SS2.SSS0.Px1"
+        },
+        {
+          "key": "2",
+          "title": "Partitioned Sparse Heads",
+          "url": "https://arxiv.org/html/2608.02583v1#S3.SS2.SSS0.Px2"
+        },
+        {
+          "key": "3",
+          "title": "Introduction",
+          "url": "https://arxiv.org/html/2608.02583v1#S1"
+        },
+        {
+          "key": "4",
+          "title": "Dense Representation",
+          "url": "https://arxiv.org/html/2608.02583v1#S3.SS2.SSS0.Px3"
+        },
+        {
+          "key": "5",
+          "title": "Unified Objective",
+          "url": "https://arxiv.org/html/2608.02583v1#S3.SS2.SSS0.Px4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2608.02583v1",
+        "url": "https://arxiv.org/html/2608.02583v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-12",

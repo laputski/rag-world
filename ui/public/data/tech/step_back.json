@@ -41,6 +41,105 @@
     "configuration_variable": [],
     "description": "Step-Back Prompting отвечает на затруднение, возникающее с узкими вопросами. Вопрос о частном случае содержит подробности, которых нет ни в одном документе именно в таком сочетании, и поиск по нему возвращает документы, похожие на вопрос словами, но не содержащие нужного правила.\n\nПриём вводит промежуточный шаг. Языковая модель по исходному вопросу порождает более общий вопрос, отступая от частностей к принципу, которым частность управляется. Вопрос об исходе конкретного опыта при определённом давлении и температуре превращается в вопрос о законе, связывающем эти величины. Поиск выполняется по общему вопросу, а найденное вместе с исходным вопросом подаётся модели для окончательного ответа.\n\nПриём годится там, где предметная область устроена по правилам, и правила эти в собрании записаны: физика, право, устав организации. Там, где ответ определяется не правилом, а единичным фактом, отступ уводит от нужного документа, потому что общий вопрос о нём ничего не сообщает. Расход состоит из одного дополнительного вызова модели, обучения приём не требует.",
     "description_en": "Step-Back Prompting addresses a difficulty that arises with narrow questions. A question about a particular case carries details found in no single document in that exact combination, and a search on it returns documents resembling the question in wording but lacking the rule that is needed.\n\nThe technique inserts an intermediate step. From the original question a language model generates a more general one, stepping back from the particulars to the principle that governs them. A question about the outcome of a specific experiment at a given pressure and temperature becomes a question about the law relating those quantities. The search runs on the general question, and what is found is given to the model along with the original question for the final answer.\n\nThe technique suits fields organised by rules where those rules are recorded in the collection: physics, law, an organisation's regulations. Where the answer is settled not by a rule but by a single fact, the step back leads away from the needed document, because the general question says nothing about it. It costs one additional model call and requires no training.",
+    "diagram": {
+      "breaks": [
+        [
+          "ret_orig",
+          "ret_sb"
+        ]
+      ],
+      "edges": [
+        [
+          "question",
+          "ret_orig"
+        ],
+        [
+          "abstraction",
+          "ret_sb"
+        ],
+        [
+          "ret_orig",
+          "reasoning"
+        ],
+        [
+          "ret_sb",
+          "reasoning"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "abstraction": {
+          "codes": {
+            "B1": "step_back"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Общий вопрос",
+          "title_en": "Step-back question"
+        },
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Исходный вопрос",
+          "title_en": "Original question"
+        },
+        "reasoning": {
+          "codes": {},
+          "note": "Языковая модель получает исходный вопрос и найденное по обоим вопросам и рассуждает от общего правила к ответу.",
+          "note_en": "The language model receives the original question and what was found for both questions, and reasons from the general principle to the answer.",
+          "section": "1",
+          "title": "Рассуждение и ответ",
+          "title_en": "Grounded reasoning"
+        },
+        "ret_orig": {
+          "codes": {},
+          "note": "Обычный поиск по вопросу в том виде, в каком его задали.",
+          "note_en": "An ordinary search on the question as it was asked.",
+          "section": "2",
+          "title": "Поиск по исходному вопросу",
+          "title_en": "Retrieval for the original"
+        },
+        "ret_sb": {
+          "codes": {},
+          "note": "Поиск сведений об общем понятии или правиле, к которому сводится вопрос.",
+          "note_en": "A search for facts about the general concept or principle behind the question.",
+          "section": "2",
+          "title": "Поиск по общему вопросу",
+          "title_en": "Retrieval for step-back"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "question",
+          "abstraction"
+        ],
+        [
+          "ret_orig",
+          "ret_sb"
+        ],
+        [
+          "reasoning"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Step-Back Prompting",
+          "url": "https://arxiv.org/html/2310.06117v2#S2"
+        },
+        {
+          "key": "2",
+          "title": "Knowledge QA",
+          "url": "https://arxiv.org/html/2310.06117v2#A4.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2310.06117v2",
+        "url": "https://arxiv.org/html/2310.06117v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

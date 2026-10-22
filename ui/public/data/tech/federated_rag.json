@@ -41,6 +41,134 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [
+        [
+          "finetune",
+          "distill"
+        ]
+      ],
+      "edges": [
+        [
+          "finetune",
+          "aggregate"
+        ],
+        [
+          "distill",
+          "aggregate"
+        ],
+        [
+          "aggregate",
+          "retrieve"
+        ]
+      ],
+      "loops": [
+        [
+          "aggregate",
+          "finetune"
+        ]
+      ],
+      "nodes": {
+        "aggregate": {
+          "codes": {
+            "C4": "federation",
+            "G1": "isolated_circuit"
+          },
+          "section": "3",
+          "sub": "на сервере",
+          "sub_en": "on the server",
+          "title": "Шифрованное усреднение",
+          "title_en": "Encrypted aggregation"
+        },
+        "answer": {
+          "codes": {},
+          "note": "Найденные фрагменты добавляются к вопросу, и языковая модель участника пишет ответ.",
+          "note_en": "The retrieved chunks are joined to the question, and the client's language model writes the answer.",
+          "section": "4",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "distill": {
+          "codes": {},
+          "note": "Сходства, которые выдаёт местная модель участника, подтягиваются к сходствам общей модели сервера. Так сглаживаются различия в данных участников.",
+          "note_en": "The similarities produced by a client's local model are pulled towards those of the server's global model, which evens out differences between the clients' data.",
+          "section": "2",
+          "title": "Перенос общих знаний",
+          "title_en": "Knowledge distillation"
+        },
+        "finetune": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "1",
+          "title": "Дообучение кодировщика",
+          "title_en": "Contrastive fine-tuning"
+        },
+        "pairs": {
+          "codes": {},
+          "note": "Из фрагментов собственных документов участника автоматически составляются вопросы. Вопрос вместе со своим фрагментом служит учебным примером.",
+          "note_en": "Questions are generated automatically from each client's own chunks. Each question with its chunk forms a positive training example.",
+          "section": "1",
+          "sub": "у каждого участника",
+          "sub_en": "at each client",
+          "title": "Вопросы к фрагментам",
+          "title_en": "Training pairs"
+        },
+        "retrieve": {
+          "codes": {
+            "C2": "single_shot",
+            "D1": "none",
+            "D2": "top_k"
+          },
+          "section": "4",
+          "sub": "у участника",
+          "sub_en": "inside the client",
+          "title": "Поиск ближайших фрагментов",
+          "title_en": "Nearest chunk search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "pairs",
+          "finetune",
+          "distill"
+        ],
+        [
+          "aggregate"
+        ],
+        [
+          "retrieve",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "RAG-FT",
+          "url": "https://arxiv.org/html/2504.19101v1#S4.SS1.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "KD-GLE",
+          "url": "https://arxiv.org/html/2504.19101v1#S4.SS1.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "FED-HE",
+          "url": "https://arxiv.org/html/2504.19101v1#S4.SS1.SSS3"
+        },
+        {
+          "key": "4",
+          "title": "Downstream Question & Answer",
+          "url": "https://arxiv.org/html/2504.19101v1#S4.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2504.19101v1",
+        "url": "https://arxiv.org/html/2504.19101v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

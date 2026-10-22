@@ -1,0 +1,72 @@
+{
+  "technology_id": "murag",
+  "source": {
+    "label": "arXiv:2210.02928v2",
+    "url": "https://arxiv.org/html/2210.02928v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "MuRAG",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Backbone Encoder",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "3",
+      "title": "Fixed-Retrieval Training",
+      "anchor": "S3.SS4.SSS0.Px2"
+    }
+  ],
+  "rows": [
+    [
+      "memory",
+      "encode",
+      "index"
+    ],
+    [
+      "query",
+      "search",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "memory": {
+      "section": "1",
+      "codes": {
+        "A7": "image"
+      }
+    },
+    "encode": {
+      "section": "2",
+      "codes": {
+        "A5": "vision_language",
+        "G3": "joint_training"
+      }
+    },
+    "index": {
+      "section": "3"
+    },
+    "query": {
+      "section": "1"
+    },
+    "search": {
+      "section": "1"
+    },
+    "answer": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "index",
+      "search"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

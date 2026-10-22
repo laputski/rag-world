@@ -1,0 +1,108 @@
+{
+  "technology_id": "lightrag",
+  "source": {
+    "label": "arXiv:2410.05779v3",
+    "url": "https://arxiv.org/html/2410.05779v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Graph-based Text Indexing",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Dual-level Retrieval Paradigm",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Retrieval-Augmented Answer Generation",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "extract",
+      "profile",
+      "dedup"
+    ],
+    [
+      "update",
+      "graph"
+    ],
+    [
+      "keywords",
+      "match",
+      "neighbours"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "extract": {
+      "section": "1",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "profile": {
+      "section": "1"
+    },
+    "dedup": {
+      "section": "1"
+    },
+    "update": {
+      "section": "1",
+      "codes": {
+        "F1": "none"
+      }
+    },
+    "graph": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted"
+      }
+    },
+    "keywords": {
+      "section": "2",
+      "codes": {
+        "B1": "key_extraction"
+      }
+    },
+    "match": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "neighbours": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "dedup",
+      "graph"
+    ],
+    [
+      "graph",
+      "match"
+    ],
+    [
+      "neighbours",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

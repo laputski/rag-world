@@ -41,6 +41,193 @@
     "configuration_variable": [],
     "description": "VoiceMem отвечает на два ограничения живого разговора голосом. Первое временное: обычная цепочка обращения к памяти занимает две или три секунды, тогда как естественная смена реплик оставляет на добавку сто или двести миллисекунд. Второе ёмкостное: голосовая модель не удержит сотню найденных записей, а выбор пяти из плотного и однообразного набора легко промахивается, потому что одна и та же сущность занимает всю выдачу разными неважными упоминаниями.\n\nПамять разделена надвое. Левая половина помнит, что происходило: над хранилищем надстроен указатель из схем для грубой маршрутизации и сущностей для точного попадания, связанных между собой. Правая половина помнит, кто перед системой: устойчивые свойства человека и его отношение к конкретным людям и предметам, причём отношение хранится отдельно от свойства, иначе разовая вспышка чувства превратилась бы в черту характера.\n\nЗадержку снимает порядок работы. Пока человек говорит, по частичной расшифровке уже идёт сопоставление схем и сущностей; на паузе в двести миллисекунд достраивается окрестность в обеих половинах; и только последние сто миллисекунд уходят на поиск внутри отобранного, а не по всей памяти. После реплики обновляющая часть извлекает новые сведения и сводит их с соседними записями действиями «добавить», «изменить», «удалить» и «оставить». Речевые модели при этом дообучаются перегонкой от более крупных учителей.",
     "description_en": "VoiceMem answers two limits of a live conversation by voice. The first is of time: an ordinary chain of consulting memory takes two or three seconds, whereas a natural changing of turns leaves a hundred or two hundred milliseconds to add. The second is of capacity: a speech model will not hold a hundred found entries, and choosing five from a dense and uniform set misses easily, because one and the same entity takes the whole yield with differing unimportant mentions.\n\nThe memory is divided in two. The left half remembers what happened: above the store an index is built of schemas for coarse routing and entities for precise landing, linked to one another. The right half remembers who is before the system: the stable properties of the person and their attitude to particular people and things, with the attitude held apart from the property, or a single flare of feeling would turn into a trait of character.\n\nThe delay is removed by the order of the work. While the person speaks, the matching of schemas and entities already runs over a partial transcript; in the pause of two hundred milliseconds the neighbourhood is built out in both halves; and only the last hundred milliseconds go on searching within what was selected rather than over the whole memory. After the turn the updating part extracts new material and reconciles it with neighbouring entries by the operations of add, update, delete and keep. The speech models are meanwhile further trained by distillation from larger teachers.",
+    "diagram": {
+      "breaks": [
+        [
+          "graph_update",
+          "consolidation"
+        ]
+      ],
+      "edges": [
+        [
+          "match",
+          "left_expand"
+        ],
+        [
+          "match",
+          "right_expand"
+        ],
+        [
+          "left_expand",
+          "mem_search"
+        ],
+        [
+          "right_expand",
+          "mem_search"
+        ],
+        [
+          "answer",
+          "reconcile"
+        ],
+        [
+          "answer",
+          "consolidation"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "4",
+          "sub": "дообученной",
+          "sub_en": "distilled",
+          "title": "Ответ речевой модели",
+          "title_en": "Speech model reply"
+        },
+        "consolidation": {
+          "codes": {
+            "F1": "consolidating"
+          },
+          "note": "После каждого сеанса повторяющиеся наблюдения сводятся в устойчивые черты человека.",
+          "note_en": "After each session, recurring evidence is consolidated into stable traits of the person.",
+          "section": "3",
+          "title": "Обобщение черт человека",
+          "title_en": "Consolidating traits"
+        },
+        "graph_update": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted_and_computed"
+          },
+          "note": "Обновляются схемы, сущности и связи между ними, по которым идёт поиск.",
+          "note_en": "The schemas, entities and relations used for search are updated.",
+          "section": "2",
+          "title": "Обновление графа",
+          "title_en": "Memory graph update"
+        },
+        "left_expand": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "note": "К найденным сущностям добавляются их ближайшие соседи по графу. Левое полушарие помнит события и сущности.",
+          "note_en": "The matched entities are extended by their nearest neighbours in the graph. The left brain remembers events and entities.",
+          "section": "2",
+          "sub": "левое полушарие",
+          "sub_en": "left brain",
+          "title": "Соседние сущности",
+          "title_en": "Neighbouring entities"
+        },
+        "match": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "note": "Ещё до конца реплики по уже распознанной части находятся подходящие схемы и сущности в обоих полушариях памяти.",
+          "note_en": "Before the turn ends, matching schemas and entities in both halves of memory are found from the part already transcribed.",
+          "residual": "anticipatory_streaming_retrieval",
+          "section": "1",
+          "sub": "по началу фразы",
+          "sub_en": "on partial speech",
+          "title": "Поиск схем и сущностей",
+          "title_en": "Schema and entity matching"
+        },
+        "mem_search": {
+          "codes": {
+            "C4": "single_store"
+          },
+          "note": "Поиск идёт только среди записей, привязанных к отобранным узлам, и его результаты из двух полушарий сводятся в одну подсказку.",
+          "note_en": "The search covers only the records attached to the selected nodes, and the results of both brains go into one prompt.",
+          "section": "1",
+          "sub": "в обоих полушариях",
+          "sub_en": "both brains",
+          "title": "Поиск в отобранной памяти",
+          "title_en": "Search in selected memory"
+        },
+        "reconcile": {
+          "codes": {
+            "A1": "proposition",
+            "A2": "none",
+            "F2": "explicit_reconciliation"
+          },
+          "note": "После каждой реплики из разговора извлекаются новые факты и сверяются с близкими записями: запись добавляется, исправляется, удаляется или остаётся как есть.",
+          "note_en": "After each turn, new facts are extracted and reconciled with nearby records: each is added, updated, deleted or kept.",
+          "section": "2",
+          "title": "Сверка новых фактов",
+          "title_en": "Reconciling new facts"
+        },
+        "right_expand": {
+          "codes": {},
+          "note": "Берутся черты и отношения человека, которые подходят к уже распознанной речи, а также его отношение к сущностям, найденным левым полушарием.",
+          "note_en": "Traits and attitudes that match the speech so far are taken, together with the attitudes tied to the entities found by the left brain.",
+          "section": "3",
+          "sub": "правое полушарие",
+          "sub_en": "right brain",
+          "title": "Черты и отношения человека",
+          "title_en": "Traits and attitudes"
+        },
+        "transcript": {
+          "codes": {},
+          "section": "1",
+          "sub": "пока человек говорит",
+          "sub_en": "as the user speaks",
+          "title": "Распознавание речи",
+          "title_en": "Speech recognition"
+        }
+      },
+      "omitted": [
+        {
+          "code": "A3",
+          "reason": "В статье не сказано, добавляется ли к сохранённым фактам что-нибудь кроме их текста.",
+          "reason_en": "The paper does not say whether anything beyond the text is attached to stored facts."
+        }
+      ],
+      "rows": [
+        [
+          "transcript",
+          "match"
+        ],
+        [
+          "left_expand",
+          "right_expand"
+        ],
+        [
+          "mem_search",
+          "answer"
+        ],
+        [
+          "reconcile",
+          "graph_update",
+          "consolidation"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Streaming Dual-Brain Retrieval",
+          "url": "https://arxiv.org/html/2608.26005v1#S3.SS3"
+        },
+        {
+          "key": "2",
+          "title": "Left Brain: Efficient Memory Access",
+          "url": "https://arxiv.org/html/2608.26005v1#S3.SS1"
+        },
+        {
+          "key": "3",
+          "title": "Right Brain: Knowing the Person",
+          "url": "https://arxiv.org/html/2608.26005v1#S3.SS2"
+        },
+        {
+          "key": "4",
+          "title": "Black-box OPD Training",
+          "url": "https://arxiv.org/html/2608.26005v1#S4.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2608.26005v1",
+        "url": "https://arxiv.org/html/2608.26005v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-09-01",

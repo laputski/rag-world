@@ -43,6 +43,130 @@
     "configuration_variable": [],
     "description": "HippoRAG переносит в извлечение схему, которую нейробиология описывает для долговременной памяти человека. Кора хранит подробности, а гиппокамп хранит разреженный указатель на них и связывает разрозненные впечатления в одно воспоминание. Задача, которую эта схема решает в извлечении, состоит в том, что обычный поиск по одному запросу находит документы, похожие на запрос, но не находит документа, связанного с ним через промежуточное звено.\n\nСоответствие устроено так. При индексации большая языковая модель извлекает из текста тройки «субъект, отношение, объект» и строит по ним граф сущностей, играющий роль указателя. Векторные представления фрагментов текста остаются отдельно и играют роль подробностей. При запросе из него выделяются именованные сущности, им сопоставляются вершины графа, и от этих вершин запускается персонализированное случайное блуждание: воображаемый обходчик переходит по рёбрам и время от времени возвращается в исходные вершины, отчего вес накапливается на вершинах, связанных с запросом коротко и многими путями.\n\nНакопленный вес переносится на фрагменты текста, и они упорядочиваются по нему. Такой обход достаёт документ, отстоящий от запроса на несколько связей, за одно обращение к индексу, тогда как последовательные уточнения запроса требуют нескольких обращений и нескольких вызовов модели. Ограничением служит качество извлечённых троек: связь, которую модель при индексации не заметила, потом не восстановится.",
     "description_en": "HippoRAG carries into retrieval a scheme that neuroscience describes for human long-term memory. The cortex stores the particulars, while the hippocampus stores a sparse index over them and binds separate impressions into a single recollection. The problem this scheme addresses in retrieval is that ordinary single-query search finds documents resembling the query but fails to find a document connected to it through an intermediate link.\n\nThe correspondence works as follows. During indexing, a large language model extracts subject, relation, object triples from the text and builds an entity graph from them, which plays the part of the index. Vector representations of the text fragments are kept separately and play the part of the particulars. At query time, named entities are taken from the query and matched to graph nodes, and from those nodes a personalised random walk is launched: an imaginary walker follows edges and from time to time restarts at the initial nodes, so weight accumulates on the nodes connected to the query by short paths and by many of them.\n\nThe accumulated weight is carried over to the text fragments, which are then ordered by it. Such a traversal reaches a document several links away from the query in a single consultation of the index, whereas successive query refinement requires several consultations and several model calls. The limit is the quality of the extracted triples: a connection the model missed during indexing will not be recovered later.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "kg",
+          "qnodes"
+        ],
+        [
+          "qnodes",
+          "specificity"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "kg": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted_and_computed"
+          },
+          "section": "1",
+          "title": "Граф знаний",
+          "title_en": "Knowledge graph"
+        },
+        "openie": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение троек",
+          "title_en": "Triple extraction"
+        },
+        "ppr": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "residual": "random_walk_ranking",
+          "section": "1",
+          "sub": "с возвратом",
+          "sub_en": "with restart",
+          "title": "Случайное блуждание",
+          "title_en": "Random walk"
+        },
+        "qentities": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Сущности вопроса",
+          "title_en": "Question entities"
+        },
+        "qnodes": {
+          "codes": {},
+          "note": "Для каждой сущности вопроса берётся вершина графа с самым близким векторным представлением.",
+          "note_en": "Each question entity is matched to the graph node with the closest embedding.",
+          "section": "1",
+          "title": "Вершины вопроса",
+          "title_en": "Query nodes"
+        },
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "rank": {
+          "codes": {
+            "A1": "passage"
+          },
+          "residual": "score_transfer_to_units",
+          "section": "1",
+          "title": "Ранжирование отрывков",
+          "title_en": "Passage ranking"
+        },
+        "specificity": {
+          "codes": {},
+          "note": "Вес вершины вопроса делится на число отрывков, из которых она извлечена: редкие вершины весят больше.",
+          "note_en": "The weight of each query node is divided by the number of passages it was extracted from, so rare nodes weigh more.",
+          "section": "1",
+          "title": "Учёт редкости вершин",
+          "title_en": "Node specificity"
+        },
+        "synonyms": {
+          "codes": {},
+          "note": "Похожие, но не совпадающие названия, вероятные синонимы, соединяются дополнительным ребром, если сходство их векторных представлений выше порога 0,8.",
+          "note_en": "Similar but not identical names, likely synonyms, are joined by an extra edge when the similarity of their embeddings exceeds a threshold of 0.8.",
+          "section": "1",
+          "title": "Связи между синонимами",
+          "title_en": "Linking synonyms"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "openie",
+          "synonyms",
+          "kg"
+        ],
+        [
+          "question",
+          "qentities",
+          "qnodes"
+        ],
+        [
+          "specificity",
+          "ppr",
+          "rank"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Detailed Methodology",
+          "url": "https://arxiv.org/html/2405.14831v3#S2.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2405.14831v3",
+        "url": "https://arxiv.org/html/2405.14831v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

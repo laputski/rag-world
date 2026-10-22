@@ -42,6 +42,154 @@
     "configuration_variable": [],
     "description": "DSPy меняет способ, которым строятся составные системы на языковых моделях. Обычно такая система состоит из подсказок, написанных руками и подобранных перебором: разработчик правит формулировку, смотрит на выдачу, правит снова. Подсказки при этом привязаны к той модели, на которой их подбирали, и при смене модели работа повторяется целиком.\n\nПрограмма на DSPy описывает не текст подсказок, а устройство цепочки. Каждый шаг объявляется сигнатурой, то есть перечнем того, что он принимает и что возвращает, с описанием на естественном языке. Шаги соединяются обычным кодом на языке программирования, поэтому ветвление, повторение и обработка ошибок выражаются средствами языка, а не описываются внутри подсказки словами.\n\nТекст подсказок получает сборщик. Ему передают набор примеров и меру качества, и он подбирает формулировки и примеры для каждого шага, оценивая целое по этой мере. Смена модели требует повторной сборки, а не переписывания. Плата состоит в том, что сборка требует и примеров, и меры качества, а меру эту для составной задачи задать труднее, чем написать подсказку.",
     "description_en": "DSPy changes the way composite systems on language models are built. Ordinarily such a system consists of prompts written by hand and settled by trial: the developer edits a wording, looks at the output, and edits again. The prompts are thereby tied to the model they were tuned on, and a change of model repeats the work in full.\n\nA DSPy program describes not the text of prompts but the structure of the chain. Each step is declared by a signature, that is, by a list of what it takes and what it returns, with a natural-language description. Steps are joined by ordinary code in a programming language, so branching, iteration, and error handling are expressed by the language rather than described in words inside a prompt.\n\nThe prompt text is produced by a compiler. It is given a set of examples and a metric, and it fits the wordings and the examples for each step, judging the whole against that metric. A change of model calls for recompilation rather than rewriting. The price is that compilation needs both examples and a metric, and defining a metric for a composite task is harder than writing a prompt.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "program",
+          "examples"
+        ],
+        [
+          "params",
+          "higher"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "bootstrap": {
+          "codes": {},
+          "note": "Программа прогоняется на обучающих вопросах. Цепочки шагов, которые прошли проверку мерой качества, становятся образцами для каждого модуля.",
+          "note_en": "The program is run on training questions. Traces that pass the metric become demonstrations for each module.",
+          "section": "5",
+          "title": "Сбор удачных примеров",
+          "title_en": "Bootstrapping examples"
+        },
+        "compiled": {
+          "codes": {},
+          "note": "На выходе получается новая программа с подобранными подсказками или дообученной моделью.",
+          "note_en": "The result is a new program with selected prompts or a finetuned model.",
+          "section": "4",
+          "title": "Скомпилированная программа",
+          "title_en": "Compiled program"
+        },
+        "examples": {
+          "codes": {},
+          "note": "Оптимизатор получает программу, несколько обучающих примеров, часто только с итоговыми ответами, и меру качества.",
+          "note_en": "The optimizer receives the program, a few training examples, often with final answers only, and a metric.",
+          "section": "4",
+          "title": "Примеры и метрика",
+          "title_en": "Examples and metric"
+        },
+        "higher": {
+          "codes": {},
+          "note": "Компилятор может изменить и сам ход программы, например запустить несколько её копий и выбрать ответ голосованием.",
+          "note_en": "The compiler may also change the program's control flow, for example run several copies and pick the answer by majority vote.",
+          "section": "7",
+          "title": "Перестройка программы",
+          "title_en": "Higher-order optimization"
+        },
+        "modules": {
+          "codes": {},
+          "note": "Модуль сам составляет подсказку по такому описанию, вызывает языковую модель и разбирает её ответ. Есть готовые модули для рассуждения по шагам и для работы с инструментами.",
+          "note_en": "A module builds the prompt from that description, calls the language model and parses its output. Ready-made modules cover step-by-step reasoning and tool use.",
+          "section": "2",
+          "title": "Модули вместо подсказок",
+          "title_en": "Modules replace prompts"
+        },
+        "params": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "6",
+          "sub": "по оценке качества",
+          "sub_en": "by the metric",
+          "title": "Подбор подсказок и весов",
+          "title_en": "Prompt or weight tuning"
+        },
+        "program": {
+          "codes": {},
+          "note": "Модули соединяются обычным кодом на Python: ветвлениями, циклами, вызовами поиска.",
+          "note_en": "Modules are joined by ordinary Python code: branches, loops, calls to retrieval.",
+          "section": "3",
+          "title": "Сборка программы",
+          "title_en": "Composing the program"
+        },
+        "signature": {
+          "codes": {},
+          "note": "Вместо текста подсказки каждый шаг описывается тем, что он получает и что возвращает, например: получает вопрос, возвращает ответ.",
+          "note_en": "Instead of prompt text, each step is described by what it takes and what it returns, such as \"question -> answer\".",
+          "section": "1",
+          "sub": "для каждого шага",
+          "sub_en": "for every step",
+          "title": "Описание входа и выхода",
+          "title_en": "Declaring signatures"
+        }
+      },
+      "omitted": [
+        {
+          "code": "B1",
+          "reason": "Сама библиотека вопросы не переформулирует: поисковые запросы может составлять только программа, которую пишет пользователь.",
+          "reason_en": "The library itself does not reformulate questions: only a program the user writes may generate search queries."
+        }
+      ],
+      "rows": [
+        [
+          "signature",
+          "modules",
+          "program"
+        ],
+        [
+          "examples",
+          "bootstrap",
+          "params"
+        ],
+        [
+          "higher",
+          "compiled"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Natural Language Signatures can abstract prompting & finetuning",
+          "url": "https://arxiv.org/html/2310.03714v1#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Parameterized & templated Modules can abstract prompting techniques",
+          "url": "https://arxiv.org/html/2310.03714v1#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Programs",
+          "url": "https://arxiv.org/html/2310.03714v1#S3.SS2.SSS0.Px5"
+        },
+        {
+          "key": "4",
+          "title": "Teleprompters can automate prompting for arbitrary pipelines",
+          "url": "https://arxiv.org/html/2310.03714v1#S3.SS3"
+        },
+        {
+          "key": "5",
+          "title": "Stage 1: Candidate Generation",
+          "url": "https://arxiv.org/html/2310.03714v1#S4.SS0.SSS0.Px1"
+        },
+        {
+          "key": "6",
+          "title": "Stage 2: Parameter Optimization",
+          "url": "https://arxiv.org/html/2310.03714v1#S4.SS0.SSS0.Px2"
+        },
+        {
+          "key": "7",
+          "title": "Stage 3: Higher-Order Program Optimization",
+          "url": "https://arxiv.org/html/2310.03714v1#S4.SS0.SSS0.Px3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2310.03714v1",
+        "url": "https://arxiv.org/html/2310.03714v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

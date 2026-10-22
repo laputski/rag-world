@@ -1,0 +1,78 @@
+{
+  "technology_id": "step_back",
+  "source": {
+    "label": "arXiv:2310.06117v2",
+    "url": "https://arxiv.org/html/2310.06117v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Step-Back Prompting",
+      "anchor": "S2"
+    },
+    {
+      "key": "2",
+      "title": "Knowledge QA",
+      "anchor": "A4.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "question",
+      "abstraction"
+    ],
+    [
+      "ret_orig",
+      "ret_sb"
+    ],
+    [
+      "reasoning"
+    ]
+  ],
+  "nodes": {
+    "question": {
+      "section": "1"
+    },
+    "abstraction": {
+      "section": "1",
+      "codes": {
+        "B1": "step_back"
+      }
+    },
+    "ret_orig": {
+      "section": "2"
+    },
+    "ret_sb": {
+      "section": "2"
+    },
+    "reasoning": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "question",
+      "ret_orig"
+    ],
+    [
+      "abstraction",
+      "ret_sb"
+    ],
+    [
+      "ret_orig",
+      "reasoning"
+    ],
+    [
+      "ret_sb",
+      "reasoning"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "ret_orig",
+      "ret_sb"
+    ]
+  ],
+  "omitted": []
+}

@@ -1,0 +1,83 @@
+{
+  "technology_id": "roza_graphs",
+  "source": {
+    "label": "arXiv:2604.07595v3",
+    "url": "https://arxiv.org/html/2604.07595v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Pipeline planner, query types, and feedback loop",
+      "anchor": "S3.SS3.SSS0.Px1"
+    },
+    {
+      "key": "2",
+      "title": "Problem Formalization",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "3",
+      "title": "Write protocol and evidence-centric context injection",
+      "anchor": "S3.SS2.SSS0.Px1"
+    }
+  ],
+  "rows": [
+    [
+      "query",
+      "planner",
+      "retrieve"
+    ],
+    [
+      "profiles",
+      "reason"
+    ],
+    [
+      "write",
+      "outcome"
+    ]
+  ],
+  "nodes": {
+    "query": {
+      "section": "1"
+    },
+    "planner": {
+      "section": "1",
+      "residual": "rejected_candidate_pruning"
+    },
+    "retrieve": {
+      "section": "2"
+    },
+    "profiles": {
+      "section": "3",
+      "codes": {
+        "D1": "none"
+      }
+    },
+    "reason": {
+      "section": "2"
+    },
+    "write": {
+      "section": "3",
+      "codes": {
+        "A6": "append_only",
+        "F1": "episodic"
+      }
+    },
+    "outcome": {
+      "section": "2"
+    }
+  },
+  "edges": [
+    [
+      "retrieve",
+      "profiles"
+    ],
+    [
+      "reason",
+      "write"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

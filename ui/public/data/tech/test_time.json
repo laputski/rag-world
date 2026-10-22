@@ -41,6 +41,134 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "reason",
+          "match"
+        ],
+        [
+          "verbalize",
+          "check"
+        ]
+      ],
+      "loops": [
+        [
+          "verbalize",
+          "reason"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "ensemble_fragments"
+          },
+          "section": "3",
+          "title": "Итоговый ответ",
+          "title_en": "Final answer"
+        },
+        "check": {
+          "codes": {
+            "E2": "pre_gen_grounding"
+          },
+          "section": "3",
+          "sub": "между подвопросами",
+          "sub_en": "across subquestions",
+          "title": "Сверка ответов",
+          "title_en": "Cross-checking answers"
+        },
+        "decompose": {
+          "codes": {
+            "B1": "subquestion_decomposition"
+          },
+          "section": "1",
+          "title": "Разбиение на подвопросы",
+          "title_en": "Splitting into subquestions"
+        },
+        "match": {
+          "codes": {},
+          "note": "Названия из поискового блока сопоставляются с вершинами графа по сходству векторных представлений.",
+          "note_en": "Names from the search block are matched to graph nodes by the similarity of their vectors.",
+          "section": "2",
+          "title": "Поиск вершин",
+          "title_en": "Node matching"
+        },
+        "reason": {
+          "codes": {
+            "C2": "iterative_stopping",
+            "E5": "mutual_loop"
+          },
+          "section": "2",
+          "sub": "цепочки параллельно",
+          "sub_en": "parallel chains",
+          "title": "Рассуждение",
+          "title_en": "Reasoning"
+        },
+        "search": {
+          "codes": {
+            "A4": "graph",
+            "C1": "graph_traversal"
+          },
+          "section": "2",
+          "sub": "соседи или пути",
+          "sub_en": "neighbours or paths",
+          "title": "Обход графа",
+          "title_en": "Graph search"
+        },
+        "verbalize": {
+          "codes": {},
+          "note": "Найденные связи записываются короткими фразами и вставляются в рассуждение. Модель продолжает и может искать снова.",
+          "note_en": "The retrieved relations are written as short sentences and inserted into the reasoning. The model goes on and may search again.",
+          "section": "2",
+          "title": "Пути в виде фраз",
+          "title_en": "Paths as sentences"
+        }
+      },
+      "omitted": [
+        {
+          "code": "A8",
+          "reason": "Источник берёт готовый медицинский граф знаний и не описывает, как он построен.",
+          "reason_en": "The source takes a ready medical knowledge graph and does not describe how it was built."
+        }
+      ],
+      "rows": [
+        [
+          "decompose",
+          "reason"
+        ],
+        [
+          "match",
+          "search",
+          "verbalize"
+        ],
+        [
+          "check",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Question Decomposition",
+          "url": "https://arxiv.org/html/2508.18260v2#Sx3.SSx2.SSSx1"
+        },
+        {
+          "key": "2",
+          "title": "Graph-Augmented Evidence Retrieval",
+          "url": "https://arxiv.org/html/2508.18260v2#Sx3.SSx2.SSSx2"
+        },
+        {
+          "key": "3",
+          "title": "Answer Synthesis and Source Attribution",
+          "url": "https://arxiv.org/html/2508.18260v2#Sx3.SSx2.SSSx3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2508.18260v2",
+        "url": "https://arxiv.org/html/2508.18260v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

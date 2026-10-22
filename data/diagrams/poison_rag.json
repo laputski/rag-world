@@ -1,0 +1,89 @@
+{
+  "technology_id": "poison_rag",
+  "source": {
+    "label": "arXiv:2501.11759v1",
+    "url": "https://arxiv.org/html/2501.11759v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Tag Selection Strategies",
+      "anchor": "S2.SS3"
+    },
+    {
+      "key": "2",
+      "title": "Adversarial Tag Selection Optimization",
+      "anchor": "S2.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Attack Objectives and Setting",
+      "anchor": "S2.SS1"
+    },
+    {
+      "key": "4",
+      "title": "User Profile Building Strategy",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "5",
+      "title": "Introduction",
+      "anchor": "S1"
+    }
+  ],
+  "rows": [
+    [
+      "pool",
+      "scoring",
+      "tag_edit"
+    ],
+    [
+      "item_vectors",
+      "profile",
+      "retrieval"
+    ],
+    [
+      "refine",
+      "shift"
+    ]
+  ],
+  "nodes": {
+    "pool": {
+      "section": "1"
+    },
+    "scoring": {
+      "section": "2"
+    },
+    "tag_edit": {
+      "section": "3"
+    },
+    "item_vectors": {
+      "section": "4"
+    },
+    "profile": {
+      "section": "4"
+    },
+    "retrieval": {
+      "section": "5"
+    },
+    "refine": {
+      "section": "5"
+    },
+    "shift": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "tag_edit",
+      "item_vectors"
+    ],
+    [
+      "retrieval",
+      "refine"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

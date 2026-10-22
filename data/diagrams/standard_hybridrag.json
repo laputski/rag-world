@@ -1,0 +1,104 @@
+{
+  "technology_id": "standard_hybridrag",
+  "source": {
+    "label": "OpenSearch documentation: Hybrid search",
+    "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Step 4: Ingest documents into the index",
+      "anchor": "step-4-ingest-documents-into-the-index"
+    },
+    {
+      "key": "2",
+      "title": "Step 1: Create an ingest pipeline",
+      "anchor": "step-1-create-an-ingest-pipeline"
+    },
+    {
+      "key": "3",
+      "title": "Step 2: Create an index for ingestion",
+      "anchor": "step-2-create-an-index-for-ingestion"
+    },
+    {
+      "key": "4",
+      "title": "Step 5: Search the index using hybrid search",
+      "anchor": "step-5-search-the-index-using-hybrid-search"
+    },
+    {
+      "key": "5",
+      "title": "Hybrid search",
+      "anchor": "hybrid-search"
+    }
+  ],
+  "rows": [
+    [
+      "docs",
+      "embed",
+      "index"
+    ],
+    [
+      "keyword",
+      "semantic"
+    ],
+    [
+      "fusion"
+    ]
+  ],
+  "nodes": {
+    "docs": {
+      "section": "1"
+    },
+    "embed": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "index": {
+      "section": "3"
+    },
+    "keyword": {
+      "section": "4"
+    },
+    "semantic": {
+      "section": "4",
+      "codes": {
+        "C1": "ann"
+      }
+    },
+    "fusion": {
+      "section": "5",
+      "codes": {
+        "C3": "rrf",
+        "D1": "none"
+      }
+    }
+  },
+  "edges": [
+    [
+      "index",
+      "keyword"
+    ],
+    [
+      "index",
+      "semantic"
+    ],
+    [
+      "keyword",
+      "fusion"
+    ],
+    [
+      "semantic",
+      "fusion"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "keyword",
+      "semantic"
+    ]
+  ],
+  "omitted": []
+}

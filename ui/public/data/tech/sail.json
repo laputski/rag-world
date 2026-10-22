@@ -41,6 +41,110 @@
     "configuration_variable": [],
     "description": "SAIL занимается тем же затруднением, что и прочие приёмы обучения с поиском, но подходит к нему со стороны разметки. Поисковая выдача содержит уместное и постороннее вперемешку, и модель, обученная на выдаче как она есть, наследует её шум.\n\nОбучающие примеры размечаются по уместности: для каждого найденного документа указывается, относится ли он к вопросу. Модель обучается на такой разметке отвечать с явным учётом этих указаний, то есть опираться на отмеченное уместным и не опираться на прочее. Тем самым отбор переносится внутрь модели: во время работы разметки нет, но приученная отличать одно от другого модель делает это сама.\n\nОтличие от донастройки на смешанных примерах состоит в том, что там нужное и постороннее различаются лишь неявно, через требуемый ответ, а здесь различие названо прямо и служит частью обучающего сигнала. Плата состоит в разметке: указания об уместности нужно откуда-то взять, а получают их либо ручным трудом, либо более сильной моделью, и во втором случае разметка наследует её ошибки.",
     "description_en": "SAIL takes up the same difficulty as other retrieval-aware training methods but approaches it from the side of labelling. Search results contain the pertinent and the irrelevant intermixed, and a model trained on those results as they stand inherits their noise.\n\nTraining examples are labelled for relevance: for each retrieved document it is stated whether it bears on the question. The model is trained on such labels to answer with those indications explicitly in view, that is, to rely on what is marked relevant and not on the rest. Selection is thereby moved inside the model: at service time no labels exist, but a model accustomed to telling one from the other does so on its own.\n\nWhat sets this apart from fine-tuning on mixed examples is that there the relevant and the irrelevant differ only implicitly, through the required answer, whereas here the difference is stated outright and forms part of the training signal. The price is the labelling: relevance indications must come from somewhere, and they are obtained either by hand or from a stronger model, in which case the labels inherit that model's errors.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "label",
+          "finetune"
+        ],
+        [
+          "finetune",
+          "select"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель отвечает, опираясь на результаты, которые сама назвала полезными.",
+          "note_en": "The model answers relying on the results it has itself named useful.",
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "finetune": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "3",
+          "title": "Дообучение языковой модели",
+          "title_en": "Language model fine-tuning"
+        },
+        "instructions": {
+          "codes": {},
+          "note": "Берутся 52 тысячи учебных заданий с ответами, которые написала сильная языковая модель.",
+          "note_en": "52 thousand training instructions are taken, with answers written by a strong language model.",
+          "section": "1",
+          "title": "Задания с ответами",
+          "title_en": "Instruction set"
+        },
+        "label": {
+          "codes": {},
+          "note": "Результат помечается полезным, если модель логического следования считает, что он подтверждает ответ, и отвлекающим в противном случае.",
+          "note_en": "A result is labelled informative when an entailment model judges that it supports the answer, and distracting otherwise.",
+          "section": "2",
+          "sub": "моделью следования",
+          "sub_en": "by entailment",
+          "title": "Разметка результатов",
+          "title_en": "Labelling the results"
+        },
+        "search": {
+          "codes": {},
+          "note": "По тексту задания ищутся результаты в поисковой системе DuckDuckGo и в Википедии. К каждому примеру прикладывается от нуля до трёх результатов.",
+          "note_en": "The instruction text is searched with the DuckDuckGo search engine and in Wikipedia. Each example gets zero to three results.",
+          "section": "1",
+          "title": "Поиск в сети и Википедии",
+          "title_en": "Web and Wikipedia search"
+        },
+        "select": {
+          "codes": {
+            "E2": "pre_gen_grounding"
+          },
+          "section": "2",
+          "sub": "до ответа",
+          "sub_en": "before answering",
+          "title": "Отбор полезных результатов",
+          "title_en": "Choosing useful results"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "instructions",
+          "search",
+          "label"
+        ],
+        [
+          "finetune"
+        ],
+        [
+          "select",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Search Result Collection",
+          "url": "https://arxiv.org/html/2305.15225v2#S2.SS1"
+        },
+        {
+          "key": "2",
+          "title": "In-context Retrieval Selection",
+          "url": "https://arxiv.org/html/2305.15225v2#S2.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Fine-tuning",
+          "url": "https://arxiv.org/html/2305.15225v2#S2.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2305.15225v2",
+        "url": "https://arxiv.org/html/2305.15225v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

@@ -1,0 +1,85 @@
+{
+  "technology_id": "ra_dit",
+  "source": {
+    "label": "arXiv:2310.01352v4",
+    "url": "https://arxiv.org/html/2310.01352v4"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Retriever",
+      "anchor": "S2.SS1.SSS0.Px2"
+    },
+    {
+      "key": "2",
+      "title": "Parallel In-Context Retrieval-Augmentation",
+      "anchor": "S2.SS1.SSS0.Px3"
+    },
+    {
+      "key": "3",
+      "title": "Retrieval Augmented Language Model Fine-tuning",
+      "anchor": "S2.SS3"
+    },
+    {
+      "key": "4",
+      "title": "Retriever Fine-tuning",
+      "anchor": "S2.SS4"
+    }
+  ],
+  "rows": [
+    [
+      "retrieval",
+      "augment",
+      "mixture"
+    ],
+    [
+      "lm_ft",
+      "lsr",
+      "ret_ft"
+    ]
+  ],
+  "nodes": {
+    "retrieval": {
+      "section": "1"
+    },
+    "augment": {
+      "section": "2"
+    },
+    "mixture": {
+      "section": "2"
+    },
+    "lm_ft": {
+      "section": "3",
+      "codes": {
+        "G3": "trained_separately"
+      }
+    },
+    "lsr": {
+      "section": "4"
+    },
+    "ret_ft": {
+      "section": "4",
+      "codes": {
+        "G3": "trained_separately"
+      }
+    }
+  },
+  "edges": [
+    [
+      "augment",
+      "lm_ft"
+    ],
+    [
+      "augment",
+      "lsr"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "lm_ft",
+      "lsr"
+    ]
+  ],
+  "omitted": []
+}

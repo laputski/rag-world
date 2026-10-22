@@ -40,6 +40,147 @@
     "configuration_variable": [],
     "description": "GFM-RAG отвечает на два ограничения сразу. Указатель из отдельных представлений хранит документы порознь и связей между ними не выражает, отчего вопрос, ответ на который собирается из нескольких источников, распадается на несвязанные попадания. Графовый указатель связи выражает, но модели, обученные рассуждать поверх графа, привязаны к тому графу, на котором обучены, и на незнакомый корпус не переносятся.\n\nУказатель строится открытым извлечением сущностей и отношений из документов, к которому добавляются рёбра между сущностями, близкими по смыслу, и обратный указатель, помнящий, какие сущности упомянуты в каком документе. Поверх него работает извлекатель на восемь миллионов параметров: признаки сущностей, названных в запросе, задаются вложением запроса, прочие обнуляются, и за несколько слоёв передачи сообщений, зависящей от запроса, значимость расходится по графу. Первые сущности по значимости переносят свой вес на документы, причём вес делится на частоту сущности, чтобы вездесущие имена не тянули на себя всю выдачу.\n\nСущественно здесь не устройство графа, а то, что извлекатель обучен один раз на шестидесяти графах знаний с четырнадцатью миллионами троек и применяется к незнакомым наборам без дообучения. Читающая модель при этом не обучается вовсе. Обращение к указателю однократно: цикла рассуждения, меняющего запрос по ходу, работа не содержит.",
     "description_en": "GFM-RAG answers two limits at once. An index of separate representations stores documents apart and expresses no relations between them, so a question whose answer is assembled from several sources falls into unconnected hits. A graph index expresses the relations, but models trained to reason over a graph are tied to the graph they were trained on and do not carry over to an unfamiliar corpus.\n\nThe index is built by open extraction of entities and relations from the documents, to which edges between semantically close entities are added along with an inverted index remembering which entities are mentioned in which document. Over it works a retriever of eight million parameters: the features of the entities named in the query are set to the embedding of the query, the rest are zeroed, and across several layers of query-dependent message passing relevance spreads over the graph. The leading entities by relevance carry their weight onto documents, with the weight divided by the frequency of the entity so that ubiquitous names do not pull the whole yield onto themselves.\n\nWhat matters here is not the make of the graph but that the retriever is trained once on sixty knowledge graphs with fourteen million triples and applied to unfamiliar sets without further training. The reading model is not trained at all. The index is consulted once: the work contains no loop of reasoning that changes the query as it goes.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "kg",
+          "gnn"
+        ],
+        [
+          "gnn",
+          "topents"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Лучшие документы вместе с вопросом передаются языковой модели, и она пишет ответ.",
+          "note_en": "The top documents and the question are given to a language model, which writes the answer.",
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "docrank": {
+          "codes": {
+            "A1": "passage"
+          },
+          "residual": "score_transfer_to_units",
+          "section": "3",
+          "sub": "по их сущностям",
+          "sub_en": "by their entities",
+          "title": "Оценка документов",
+          "title_en": "Document scoring"
+        },
+        "gnn": {
+          "codes": {
+            "C1": "graph_traversal",
+            "G3": "trained_retriever"
+          },
+          "residual": "learned_relevance_propagation",
+          "section": "2",
+          "sub": "оценивает сущности",
+          "sub_en": "scores entities",
+          "title": "Обученная графовая сеть",
+          "title_en": "Trained graph network"
+        },
+        "kg": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted_and_computed"
+          },
+          "section": "1",
+          "title": "Граф знаний",
+          "title_en": "Knowledge graph"
+        },
+        "openie": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение троек",
+          "title_en": "Triple extraction"
+        },
+        "qentities": {
+          "codes": {
+            "B1": "key_extraction"
+          },
+          "section": "2",
+          "title": "Сущности вопроса",
+          "title_en": "Question entities"
+        },
+        "query": {
+          "codes": {},
+          "section": "2",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "resolution": {
+          "codes": {},
+          "note": "Сущности с близкими векторными представлениями, например «США» и «Соединённые Штаты Америки», соединяются дополнительным ребром.",
+          "note_en": "Entities with close embeddings, such as USA and United States of America, are joined by an extra edge.",
+          "section": "1",
+          "title": "Связи между синонимами",
+          "title_en": "Linking synonyms"
+        },
+        "topents": {
+          "codes": {},
+          "note": "Берутся сущности с самой высокой оценкой значимости для вопроса.",
+          "note_en": "The entities with the highest relevance scores for the question are taken.",
+          "section": "3",
+          "title": "Лучшие сущности",
+          "title_en": "Top entities"
+        }
+      },
+      "omitted": [
+        {
+          "code": "A2",
+          "reason": "Документы берутся целиком и не делятся на фрагменты.",
+          "reason_en": "Documents are taken whole and are not cut into fragments."
+        }
+      ],
+      "rows": [
+        [
+          "openie",
+          "resolution",
+          "kg"
+        ],
+        [
+          "query",
+          "qentities",
+          "gnn"
+        ],
+        [
+          "topents",
+          "docrank",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "KG-index Construction",
+          "url": "https://arxiv.org/html/2502.01113v3#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Query-dependent GNN",
+          "url": "https://arxiv.org/html/2502.01113v3#S3.SS2.SSS1"
+        },
+        {
+          "key": "3",
+          "title": "Documents Ranking and Answer Generation",
+          "url": "https://arxiv.org/html/2502.01113v3#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2502.01113v3",
+        "url": "https://arxiv.org/html/2502.01113v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-09-01",

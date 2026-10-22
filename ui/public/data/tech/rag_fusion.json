@@ -43,6 +43,102 @@
     ],
     "description": "RAG-Fusion продолжает приём с несколькими формулировками запроса и решает то, что тот оставляет нерешённым: как соединить полученные списки. Простое объединение теряет сведения о порядке, а сравнивать оценки напрямую нельзя, потому что оценки разных поисков лежат в разных шкалах и не сопоставимы.\n\nСлияние выполняется по обратным рангам. Документу назначается вклад, обратный его месту в списке: первое место даёт наибольший вклад, десятое малый. Вклады, полученные документом во всех списках, складываются, и общий порядок определяется этой суммой. Существенно, что в расчёт идёт только место, а не оценка, поэтому сопоставлять шкалы не требуется вовсе.\n\nПравило устроено так, что документ, найденный несколькими формулировками на средних местах, обгоняет документ, найденный одной формулировкой на первом. Это и есть искомое поведение: согласие нескольких независимых взглядов на запрос служит признаком уместности. Приём не требует обучения и применим к любым источникам, дающим упорядоченный список, поэтому им же соединяют словарный и векторный поиск. Расход остаётся тем же, что у нескольких формулировок: один вызов модели и несколько обращений к индексу.",
     "description_en": "RAG-Fusion continues the multiple-formulation technique and settles what that technique leaves open: how to join the resulting lists. A plain merge loses the ordering, and the scores cannot be compared directly, because the scores of different searches live on different scales and are not commensurable.\n\nThe merge is by reciprocal rank. A document is assigned a contribution inversely proportional to its position in a list: first place gives the largest contribution, tenth a small one. The contributions a document receives across all lists are summed, and the overall ordering follows that sum. What matters is that only position enters the computation, not score, so no scales need be reconciled at all.\n\nThe rule is such that a document found by several formulations in middling positions overtakes a document found by one formulation in first place. That is precisely the wanted behaviour: agreement among several independent views of the query is evidence of relevance. The technique requires no training and applies to any source producing an ordered list, which is why it also serves to join lexical and vector search. The expense is that of multiple formulations: one model call and several consultations of the index.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "query",
+          "search"
+        ],
+        [
+          "rewrites",
+          "search"
+        ],
+        [
+          "rerank",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель, которая пишет ответ, получает только первые документы после переупорядочивания.",
+          "note_en": "Only the top documents after reranking reach the model that writes the answer.",
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "query": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "rerank": {
+          "codes": {
+            "D1": "cross_encoder"
+          },
+          "section": "1",
+          "title": "Переупорядочивание",
+          "title_en": "Reranking"
+        },
+        "rewrites": {
+          "codes": {
+            "B1": "multi_reformulation"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Переформулировки вопроса",
+          "title_en": "Query rewrites"
+        },
+        "rrf": {
+          "codes": {
+            "C3": "rrf"
+          },
+          "section": "1",
+          "sub": "по местам",
+          "sub_en": "by rank",
+          "title": "Слияние списков",
+          "title_en": "Reciprocal rank fusion"
+        },
+        "search": {
+          "codes": {},
+          "note": "Поиск идёт и по исходному вопросу, и по каждой переформулировке. Каждый поиск даёт свой упорядоченный список.",
+          "note_en": "The original question and every rewrite are searched. Each search yields its own ranked list.",
+          "section": "1",
+          "title": "Поиск по формулировкам",
+          "title_en": "Search for every version"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "query",
+          "rewrites"
+        ],
+        [
+          "search",
+          "rrf",
+          "rerank"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "How It Works",
+          "url": "https://github.com/Raudaschl/rag-fusion#how-it-works"
+        }
+      ],
+      "source": {
+        "label": "GitHub: Raudaschl/rag-fusion",
+        "url": "https://github.com/Raudaschl/rag-fusion"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

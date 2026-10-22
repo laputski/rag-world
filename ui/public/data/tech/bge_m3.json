@@ -41,6 +41,151 @@
     "configuration_variable": [],
     "description": "BGE-M3 представляет собой модель представлений, покрывающую три свойства одновременно, тогда как обычно каждое требует отдельной модели.\n\nПервое свойство состоит в многоязычности: поддержано более ста языков, и запрос на одном языке находит документ на другом, потому что представления языков сведены в общее пространство. Второе свойство состоит в длине входа: модель принимает несколько тысяч единиц текста, поэтому длинный документ не приходится дробить только ради того, чтобы он поместился. Третье свойство состоит в том, что модель выдаёт три вида представления за один проход: плотный вектор для поиска по смыслу, разреженные веса слов для поиска по совпадению и набор векторов для позднего взаимодействия.\n\nПрактическая ценность в том, что смешанный поиск обслуживается одной моделью вместо трёх, а согласовывать их между собой не требуется, поскольку все три вида получены из одного прохода и потому согласованы по построению. Плата состоит в размере и скорости: модель, обученная на всё сразу, крупнее узкой и на отдельно взятом языке уступает модели, обученной только на нём.",
     "description_en": "BGE-M3 is a representation model covering three properties simultaneously, where each would ordinarily call for a model of its own.\n\nThe first property is multilinguality: over a hundred languages are supported, and a query in one language finds a document in another, because the languages are brought into a shared representation space. The second is input length: the model accepts several thousand units of text, so a long document need not be broken up merely to make it fit. The third is that the model produces three forms of representation in a single pass: a dense vector for search by meaning, sparse word weights for search by overlap, and a set of vectors for late interaction.\n\nThe practical value is that hybrid search is served by one model instead of three, and they need not be reconciled with one another, since all three forms come out of the same pass and are coherent by construction. The price is size and speed: a model trained for everything at once is larger than a narrow one and, on any single language, yields to a model trained on that language alone.",
+    "diagram": {
+      "breaks": [
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "colbert"
+        ],
+        [
+          "score",
+          "distill"
+        ]
+      ],
+      "edges": [
+        [
+          "encode",
+          "dense"
+        ],
+        [
+          "encode",
+          "sparse"
+        ],
+        [
+          "encode",
+          "colbert"
+        ],
+        [
+          "dense",
+          "score"
+        ],
+        [
+          "sparse",
+          "score"
+        ],
+        [
+          "colbert",
+          "score"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "colbert": {
+          "codes": {},
+          "note": "Текст представлен многими векторами, и сходство считается их поздним сопоставлением, как в ColBERT.",
+          "note_en": "The text is represented by many vectors, and similarity is computed by late interaction, as in ColBERT.",
+          "section": "2",
+          "title": "Набор векторов",
+          "title_en": "Multi-vector (ColBERT)"
+        },
+        "dense": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "2",
+          "title": "Плотный вектор",
+          "title_en": "Dense vector"
+        },
+        "distill": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "4",
+          "sub": "только при обучении",
+          "sub_en": "training only",
+          "title": "Обучение на общей оценке",
+          "title_en": "Self-knowledge distillation"
+        },
+        "encode": {
+          "codes": {},
+          "note": "Одна модель за один проход выдаёт сразу три вида представления текста.",
+          "note_en": "One model produces all three kinds of text representation in a single pass.",
+          "section": "2",
+          "title": "Один проход кодировщика",
+          "title_en": "Single encoder pass"
+        },
+        "input": {
+          "codes": {},
+          "note": "Модель принимает текст более чем на ста языках, от короткой фразы до длинного документа в 8192 единицы текста.",
+          "note_en": "The model accepts text in more than a hundred languages, from a short sentence to a document of 8192 tokens.",
+          "section": "1",
+          "title": "Текст более чем на ста языках",
+          "title_en": "Text in 100+ languages"
+        },
+        "score": {
+          "codes": {},
+          "note": "Оценки трёх видов сравнения складываются с весами, которые задаёт пользователь.",
+          "note_en": "The scores of the three kinds of matching are added up with weights set by the user.",
+          "section": "3",
+          "title": "Взвешенная сумма оценок",
+          "title_en": "Weighted score sum"
+        },
+        "sparse": {
+          "codes": {},
+          "note": "Каждое слово текста получает вес, как в BM25, и тексты сравниваются по совпадающим словам.",
+          "note_en": "Each word of the text gets a weight, as in BM25, and texts are compared by the words they share.",
+          "section": "2",
+          "title": "Веса слов",
+          "title_en": "Lexical weights"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "input",
+          "encode"
+        ],
+        [
+          "dense",
+          "sparse",
+          "colbert"
+        ],
+        [
+          "score",
+          "distill"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "BGE-M3 (paper, code)",
+          "url": "https://huggingface.co/BAAI/bge-m3#bge-m3-paper-code"
+        },
+        {
+          "key": "2",
+          "title": "Generate Embedding for text",
+          "url": "https://huggingface.co/BAAI/bge-m3#generate-embedding-for-text"
+        },
+        {
+          "key": "3",
+          "title": "Compute score for text pairs",
+          "url": "https://huggingface.co/BAAI/bge-m3#compute-score-for-text-pairs"
+        },
+        {
+          "key": "4",
+          "title": "Training",
+          "url": "https://huggingface.co/BAAI/bge-m3#training"
+        }
+      ],
+      "source": {
+        "label": "Hugging Face model card BAAI/bge-m3",
+        "url": "https://huggingface.co/BAAI/bge-m3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

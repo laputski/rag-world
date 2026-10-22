@@ -41,6 +41,135 @@
     "configuration_variable": [],
     "description": "Contextual Retrieval устраняет потерю, которая происходит при разрезании документа на фрагменты. Фрагмент, вырванный из документа, теряет то, что документ сообщал вокруг него. Предложение «выручка выросла на три процента по сравнению с предыдущим кварталом» после разрезания не содержит ни названия компании, ни того, о каком квартале речь, и поиск по запросу с названием компании его не находит, хотя ответ содержится именно в нём.\n\nПриём состоит в том, что перед построением векторного представления к каждому фрагменту дописывается короткая приставка, объясняющая его место в документе. Приставку пишет большая языковая модель, которой показывают фрагмент вместе с документом целиком, и она укладывается в несколько десятков слов. Пример приставки: «Из годового отчёта компании за 2023 год, раздел о результатах третьего квартала». Векторное представление и словарный указатель строятся уже по фрагменту с приставкой.\n\nПриём прост и не меняет ни устройства индекса, ни способа поиска, поэтому встраивается в существующую систему без переделки. Расход при этом заметен: обработка каждого фрагмента требует обращения к модели, причём с подачей ей всего документа, и стоимость индексации растёт кратно. Приставка также остаётся утверждением модели о фрагменте и наследует её ошибки.",
     "description_en": "Contextual Retrieval repairs a loss that occurs when a document is cut into fragments. A fragment torn from its document loses what the document was saying around it. After cutting, the sentence \"revenue grew by three percent against the previous quarter\" contains neither the name of the company nor which quarter is meant, and a search for the company name does not find it, even though the answer lies precisely there.\n\nThe technique adds a short prefix to each fragment before its vector representation is built, explaining where the fragment sits in the document. The prefix is written by a large language model shown the fragment together with the whole document, and it runs to a few dozen words. An example: \"From the company's 2023 annual report, section on third-quarter results.\" The vector representation and the lexical index are then built over the fragment with its prefix.\n\nThe technique is simple and changes neither the structure of the index nor the manner of search, so it fits into an existing system without rework. The expense, however, is noticeable: processing each fragment requires a model call, and one that is given the whole document, so indexing cost rises several-fold. The prefix also remains the model's assertion about the fragment and inherits the model's errors.",
+    "diagram": {
+      "breaks": [
+        [
+          "emb",
+          "bm25"
+        ]
+      ],
+      "edges": [
+        [
+          "context",
+          "emb"
+        ],
+        [
+          "context",
+          "bm25"
+        ],
+        [
+          "emb",
+          "search"
+        ],
+        [
+          "bm25",
+          "search"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "bm25": {
+          "codes": {},
+          "note": "Тот же фрагмент с пояснением попадает и в индекс поиска по совпадению слов.",
+          "note_en": "The same chunk with its context also goes into a word-match (BM25) index.",
+          "section": "3",
+          "title": "Индекс по словам",
+          "title_en": "Word index"
+        },
+        "chunks": {
+          "codes": {},
+          "note": "Документы режутся на небольшие фрагменты, обычно не длиннее нескольких сотен единиц текста.",
+          "note_en": "Documents are cut into small chunks, usually no more than a few hundred tokens.",
+          "section": "1",
+          "title": "Разбиение на фрагменты",
+          "title_en": "Splitting into chunks"
+        },
+        "context": {
+          "codes": {
+            "A3": "context_prefix"
+          },
+          "section": "2",
+          "sub": "от языковой модели",
+          "sub_en": "by a language model",
+          "title": "Пояснение к фрагменту",
+          "title_en": "Context for each chunk"
+        },
+        "docs": {
+          "codes": {},
+          "section": "1",
+          "title": "Документы",
+          "title_en": "Documents"
+        },
+        "emb": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "3",
+          "title": "Векторный индекс",
+          "title_en": "Vector index"
+        },
+        "query": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Query"
+        },
+        "search": {
+          "codes": {},
+          "note": "Самые близкие фрагменты ищутся по обоим индексам, и списки объединяются.",
+          "note_en": "The closest chunks are looked up in both indexes, and the lists are merged.",
+          "section": "1",
+          "title": "Поиск фрагментов",
+          "title_en": "Chunk search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "docs",
+          "chunks",
+          "context"
+        ],
+        [
+          "emb",
+          "bm25"
+        ],
+        [
+          "query",
+          "search",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "A primer on RAG: scaling to larger knowledge bases",
+          "url": "https://www.anthropic.com/news/contextual-retrieval#a-primer-on-rag-scaling-to-larger-knowledge-bases"
+        },
+        {
+          "key": "2",
+          "title": "Implementing Contextual Retrieval",
+          "url": "https://www.anthropic.com/news/contextual-retrieval#implementing-contextual-retrieval"
+        },
+        {
+          "key": "3",
+          "title": "Introducing Contextual Retrieval",
+          "url": "https://www.anthropic.com/news/contextual-retrieval#introducing-contextual-retrieval"
+        }
+      ],
+      "source": {
+        "label": "Anthropic, Introducing Contextual Retrieval",
+        "url": "https://www.anthropic.com/news/contextual-retrieval"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

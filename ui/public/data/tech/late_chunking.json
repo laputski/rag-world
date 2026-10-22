@@ -41,6 +41,135 @@
     "configuration_variable": [],
     "description": "Late Chunking меняет порядок двух шагов, который до него не обсуждался. Обычно документ сначала режется на фрагменты, а затем каждый фрагмент независимо превращается в вектор. Модель, строящая вектор, при этом видит только сам фрагмент и ничего не знает о том, что стояло до и после, поэтому местоимение остаётся неразрешённым, а термин, введённый абзацем выше, воспринимается как незнакомое слово.\n\nПриём переставляет шаги местами. Документ целиком подаётся модели, обрабатывающей длинный вход, и на выходе получаются векторы по каждому токену, то есть по каждой единице разбиения текста. Только после этого проводятся границы фрагментов, и вектор фрагмента получается усреднением векторов его токенов. Поскольку каждый токен обрабатывался в присутствии всего документа, полученный вектор несёт контекст соседних частей, хотя относится к своему участку.\n\nЕдинственное, что требуется, это модель с достаточно длинным входом: документ должен помещаться в неё целиком. Никакого обращения к языковой модели при индексации не нужно, поэтому расход остаётся на уровне обычного построения векторов, а не растёт кратно, как при дописывании приставок. Документ длиннее входа модели приходится делить, и на месте деления приём даёт ровно то же, что дал бы обычный порядок.",
     "description_en": "Late Chunking reverses the order of two steps that had not been questioned before it. Ordinarily a document is first cut into fragments, and each fragment is then turned into a vector independently. The model building the vector sees only the fragment itself and knows nothing of what stood before and after, so a pronoun goes unresolved and a term introduced a paragraph earlier reads as an unfamiliar word.\n\nThe technique swaps the steps. The whole document is given to a model that handles long inputs, and the output is a vector for every token, that is, for every unit into which the text is divided. Only then are fragment boundaries drawn, and a fragment's vector is obtained by averaging the vectors of its tokens. Because each token was processed in the presence of the entire document, the resulting vector carries the context of neighbouring parts while still describing its own stretch.\n\nThe only requirement is a model with a sufficiently long input: the document must fit into it whole. No language model call is needed at indexing time, so the expense stays at the level of ordinary vector construction rather than rising several-fold as it does when prefixes are written. A document longer than the model's input has to be divided, and at the point of division the technique yields exactly what the ordinary order would have yielded.",
+    "diagram": {
+      "breaks": [
+        [
+          "bounds",
+          "tokens"
+        ]
+      ],
+      "edges": [
+        [
+          "text",
+          "bounds"
+        ],
+        [
+          "text",
+          "tokens"
+        ],
+        [
+          "bounds",
+          "pooling"
+        ],
+        [
+          "tokens",
+          "pooling"
+        ],
+        [
+          "index",
+          "knn"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "bounds": {
+          "codes": {},
+          "note": "Обычный способ разбиения отмечает, где кончается каждый фрагмент, но сам текст пока не режется.",
+          "note_en": "An ordinary chunking method marks where each chunk ends, but the text itself is not cut yet.",
+          "section": "1",
+          "title": "Границы фрагментов",
+          "title_en": "Chunk boundaries"
+        },
+        "index": {
+          "codes": {},
+          "note": "Векторы фрагментов хранятся в индексе, и каждый фрагмент помнит свой документ.",
+          "note_en": "Chunk vectors are stored in an index, and each chunk remembers its document.",
+          "section": "2",
+          "title": "Индекс векторов",
+          "title_en": "Vector index"
+        },
+        "knn": {
+          "codes": {},
+          "note": "Вектор запроса сравнивается с векторами фрагментов, берутся k ближайших.",
+          "note_en": "The query vector is compared with the chunk vectors, and the k nearest are taken.",
+          "section": "2",
+          "title": "Поиск ближайших фрагментов",
+          "title_en": "Nearest chunk search"
+        },
+        "pooling": {
+          "codes": {
+            "A2": "late_chunking"
+          },
+          "section": "1",
+          "title": "Усреднение по фрагментам",
+          "title_en": "Pooling per chunk"
+        },
+        "query": {
+          "codes": {},
+          "section": "2",
+          "title": "Запрос",
+          "title_en": "Query"
+        },
+        "rank": {
+          "codes": {
+            "D1": "none",
+            "D2": "top_k"
+          },
+          "section": "2",
+          "title": "Ранжирование документов",
+          "title_en": "Document ranking"
+        },
+        "text": {
+          "codes": {},
+          "section": "1",
+          "title": "Документ целиком",
+          "title_en": "Whole document"
+        },
+        "tokens": {
+          "codes": {},
+          "note": "Модель читает документ целиком или такую его часть, какая помещается, поэтому вектор каждого слова отражает весь этот текст.",
+          "note_en": "The model reads the whole document at once, or as much of it as fits, so each token vector reflects all of that text.",
+          "section": "1",
+          "title": "Векторы всех слов",
+          "title_en": "Token vectors"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "text"
+        ],
+        [
+          "bounds",
+          "tokens"
+        ],
+        [
+          "pooling",
+          "index"
+        ],
+        [
+          "query",
+          "knn",
+          "rank"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Method",
+          "url": "https://arxiv.org/html/2409.04701v3#S3"
+        },
+        {
+          "key": "2",
+          "title": "Evaluation on Retrieval Tasks",
+          "url": "https://arxiv.org/html/2409.04701v3#S4.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2409.04701v3",
+        "url": "https://arxiv.org/html/2409.04701v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

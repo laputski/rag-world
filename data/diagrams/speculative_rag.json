@@ -1,0 +1,77 @@
+{
+  "technology_id": "speculative_rag",
+  "source": {
+    "label": "arXiv:2407.08223v2",
+    "url": "https://arxiv.org/html/2407.08223v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Specialist RAG Drafter",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Generalist RAG Verifier",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "retrieve",
+      "cluster",
+      "subsets"
+    ],
+    [
+      "drafts",
+      "scoring"
+    ],
+    [
+      "choice"
+    ]
+  ],
+  "nodes": {
+    "retrieve": {
+      "section": "1"
+    },
+    "cluster": {
+      "section": "1"
+    },
+    "subsets": {
+      "section": "1",
+      "codes": {
+        "D2": "budget_aware",
+        "D1": "set_cover"
+      }
+    },
+    "drafts": {
+      "section": "1",
+      "codes": {
+        "E1": "draft_verify",
+        "G3": "trained_reader"
+      }
+    },
+    "scoring": {
+      "section": "2",
+      "codes": {
+        "E2": "external_judge"
+      }
+    },
+    "choice": {
+      "section": "2"
+    }
+  },
+  "edges": [
+    [
+      "subsets",
+      "drafts"
+    ],
+    [
+      "scoring",
+      "choice"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

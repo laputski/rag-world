@@ -1,0 +1,100 @@
+{
+  "technology_id": "colbert",
+  "source": {
+    "label": "arXiv:2004.12832v2",
+    "url": "https://arxiv.org/html/2004.12832v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Offline Indexing: Computing & Storing Document Embeddings",
+      "anchor": "S3.SS4"
+    },
+    {
+      "key": "2",
+      "title": "Query & Document Encoders",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "End-to-end Top-k Retrieval with ColBERT",
+      "anchor": "S3.SS6"
+    },
+    {
+      "key": "4",
+      "title": "Late Interaction",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "5",
+      "title": "Top-k Re-ranking with ColBERT",
+      "anchor": "S3.SS5"
+    }
+  ],
+  "rows": [
+    [
+      "docs",
+      "doc_enc",
+      "index"
+    ],
+    [
+      "query",
+      "q_enc",
+      "approx"
+    ],
+    [
+      "rescore",
+      "topk"
+    ]
+  ],
+  "nodes": {
+    "docs": {
+      "section": "1"
+    },
+    "doc_enc": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_multi_late_interaction",
+        "G3": "trained_retriever"
+      }
+    },
+    "index": {
+      "section": "3"
+    },
+    "query": {
+      "section": "2"
+    },
+    "q_enc": {
+      "section": "2"
+    },
+    "approx": {
+      "section": "3",
+      "codes": {
+        "C1": "ann"
+      }
+    },
+    "rescore": {
+      "section": "4",
+      "residual": "max_similarity_interaction"
+    },
+    "topk": {
+      "section": "5",
+      "codes": {
+        "D2": "top_k"
+      }
+    }
+  },
+  "edges": [
+    [
+      "index",
+      "approx"
+    ],
+    [
+      "approx",
+      "rescore"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

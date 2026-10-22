@@ -41,6 +41,155 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "graph",
+          "link"
+        ],
+        [
+          "seeds",
+          "walk"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "filter": {
+          "codes": {},
+          "note": "Языковая модель оставляет из найденных троек только относящиеся к вопросу.",
+          "note_en": "A language model keeps only the retrieved triples that bear on the question.",
+          "section": "4",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Отбор троек",
+          "title_en": "Triple filtering"
+        },
+        "graph": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted_and_computed"
+          },
+          "section": "2",
+          "title": "Граф фраз и фрагментов",
+          "title_en": "Phrase and passage graph"
+        },
+        "link": {
+          "codes": {},
+          "note": "Вопрос целиком сравнивается с тройками графа по векторным представлениям, и берутся самые близкие.",
+          "note_en": "The whole question is compared with the triples of the graph by their vectors, and the closest ones are taken.",
+          "section": "3",
+          "title": "Поиск троек по вопросу",
+          "title_en": "Query to triple matching"
+        },
+        "ranking": {
+          "codes": {},
+          "note": "Фрагменты упорядочиваются по весу, накопленному при блуждании, и лучшие идут дальше.",
+          "note_en": "Passages are ordered by the weight the walk gives them, and the top ones go on.",
+          "section": "5",
+          "title": "Ранжирование фрагментов",
+          "title_en": "Passage ranking"
+        },
+        "seeds": {
+          "codes": {},
+          "note": "Начальными становятся фразы из отобранных троек и все фрагменты. Их оценки задают вероятность возврата при блуждании.",
+          "note_en": "Phrases from the kept triples and all passages become seeds. Their scores set the reset probabilities of the walk.",
+          "section": "5",
+          "title": "Начальные вершины",
+          "title_en": "Seed nodes"
+        },
+        "synonyms": {
+          "codes": {},
+          "note": "Кодировщик сравнивает фразы графа и соединяет ребром те пары, чьи векторные представления ближе заданного порога.",
+          "note_en": "The encoder compares the phrases of the graph and links with an edge each pair whose vectors are closer than a threshold.",
+          "section": "1",
+          "title": "Связи синонимов",
+          "title_en": "Synonym edges"
+        },
+        "triples": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Извлечение троек",
+          "title_en": "Triple extraction"
+        },
+        "walk": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "residual": "random_walk_ranking",
+          "section": "5",
+          "sub": "с возвратом",
+          "sub_en": "with restart",
+          "title": "Случайное блуждание",
+          "title_en": "Personalized PageRank"
+        }
+      },
+      "omitted": [
+        {
+          "code": "F1",
+          "reason": "Источник пополняет память только добавлением новых текстов в граф и не описывает записи опыта работы системы.",
+          "reason_en": "The source grows its memory only by adding new texts to the graph and describes no recording of the system's own experience."
+        }
+      ],
+      "rows": [
+        [
+          "triples",
+          "synonyms",
+          "graph"
+        ],
+        [
+          "link",
+          "filter",
+          "seeds"
+        ],
+        [
+          "walk",
+          "ranking",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Overview",
+          "url": "https://arxiv.org/html/2502.14802v2#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Dense-Sparse Integration",
+          "url": "https://arxiv.org/html/2502.14802v2#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Deeper Contextualization",
+          "url": "https://arxiv.org/html/2502.14802v2#S3.SS3"
+        },
+        {
+          "key": "4",
+          "title": "Recognition Memory",
+          "url": "https://arxiv.org/html/2502.14802v2#S3.SS4"
+        },
+        {
+          "key": "5",
+          "title": "Online Retrieval",
+          "url": "https://arxiv.org/html/2502.14802v2#S3.SS5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2502.14802v2",
+        "url": "https://arxiv.org/html/2502.14802v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

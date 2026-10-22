@@ -1,0 +1,115 @@
+{
+  "technology_id": "msft_graphrag",
+  "source": {
+    "label": "arXiv:2404.16130v2",
+    "url": "https://arxiv.org/html/2404.16130v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Source Documents → Text Chunks",
+      "anchor": "S3.SS1.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "Text Chunks → Entities & Relationships",
+      "anchor": "S3.SS1.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "Entities & Relationships → Knowledge Graph",
+      "anchor": "S3.SS1.SSS3"
+    },
+    {
+      "key": "4",
+      "title": "Knowledge Graph → Graph Communities",
+      "anchor": "S3.SS1.SSS4"
+    },
+    {
+      "key": "5",
+      "title": "Graph Communities → Community Summaries",
+      "anchor": "S3.SS1.SSS5"
+    },
+    {
+      "key": "6",
+      "title": "Community Summaries → Community Answers → Global Answer",
+      "anchor": "S3.SS1.SSS6"
+    }
+  ],
+  "rows": [
+    [
+      "chunks",
+      "extraction",
+      "graph"
+    ],
+    [
+      "communities",
+      "summaries"
+    ],
+    [
+      "prepare",
+      "map",
+      "reduce"
+    ]
+  ],
+  "nodes": {
+    "chunks": {
+      "section": "1",
+      "codes": {
+        "A2": "fixed"
+      }
+    },
+    "extraction": {
+      "section": "2"
+    },
+    "graph": {
+      "section": "3"
+    },
+    "communities": {
+      "section": "4",
+      "codes": {
+        "A4": "community_hierarchy",
+        "A8": "computed"
+      }
+    },
+    "summaries": {
+      "section": "5",
+      "codes": {
+        "A1": "summary_node",
+        "A3": "summary"
+      }
+    },
+    "prepare": {
+      "section": "6"
+    },
+    "map": {
+      "section": "6",
+      "codes": {
+        "E1": "ensemble_fragments"
+      },
+      "residual": "llm_scored_partial_answers"
+    },
+    "reduce": {
+      "section": "6",
+      "codes": {
+        "D2": "budget_aware"
+      }
+    }
+  },
+  "edges": [
+    [
+      "graph",
+      "communities"
+    ],
+    [
+      "summaries",
+      "prepare"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "A5",
+    "C1"
+  ]
+}

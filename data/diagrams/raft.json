@@ -1,0 +1,72 @@
+{
+  "technology_id": "raft",
+  "source": {
+    "label": "arXiv:2403.10131v2",
+    "url": "https://arxiv.org/html/2403.10131v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "RAFT",
+      "anchor": "S3"
+    },
+    {
+      "key": "2",
+      "title": "Making Model Robust to top-K RAG",
+      "anchor": "S5.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "qa",
+      "docs",
+      "cot"
+    ],
+    [
+      "sft"
+    ],
+    [
+      "topk",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "qa": {
+      "section": "1"
+    },
+    "docs": {
+      "section": "2"
+    },
+    "cot": {
+      "section": "1",
+      "codes": {
+        "E3": "fragment_level"
+      }
+    },
+    "sft": {
+      "section": "1",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "topk": {
+      "section": "1"
+    },
+    "answer": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "cot",
+      "sft"
+    ],
+    [
+      "sft",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

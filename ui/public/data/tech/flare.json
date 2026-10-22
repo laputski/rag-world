@@ -41,6 +41,143 @@
     "configuration_variable": [],
     "description": "FLARE отвечает на вопрос о том, когда именно нужно обращаться к поиску при порождении длинного текста. Однократное извлечение по исходному запросу обслуживает начало ответа и перестаёт помогать дальше: текст уходит к предметам, о которых в исходном запросе не было речи, и опоры для них в контексте нет.\n\nПриём работает наперёд и по частям. Модель порождает очередное предложение начерно, не обращаясь к источникам, и её собственная уверенность в выбранных словах служит признаком. Если все слова предложения порождены уверенно, оно принимается как есть. Если в нём есть слова с низкой уверенностью, предложение расценивается как содержащее сведения, которых модель не знает: слова с низкой уверенностью из него удаляются, остаток служит поисковым запросом, найденное добавляется к контексту, и предложение порождается заново.\n\nОбращения к поиску происходят столько раз, сколько раз возникла нужда, и там, где она возникла. Дополнительного обучения приём не требует, поскольку уверенность модели доступна при обычном порождении. Слабое место состоит в самой уверенности: модель бывает уверена в неверном, и такое предложение проходит без проверки, тогда как верное, но выраженное редкими словами, вызывает лишний поиск.",
     "description_en": "FLARE addresses the question of when exactly retrieval should occur while a long text is being generated. A single retrieval on the original query serves the beginning of the answer and stops helping thereafter: the text moves on to subjects the original query never mentioned, and there is nothing in the context to support them.\n\nThe technique looks ahead and works piecewise. The model generates the next sentence as a draft without consulting any source, and its own confidence in the words it chose serves as the signal. If every word of the sentence was generated confidently, the sentence is accepted as it stands. If it contains low-confidence words, the sentence is taken to carry facts the model does not know: the low-confidence words are removed from it, what remains serves as a search query, the retrieved material is added to the context, and the sentence is generated again.\n\nRetrieval happens as many times as the need arose, and where it arose. The technique requires no additional training, since model confidence is available during ordinary generation. Its weak point lies in that confidence: a model is sometimes confident in something false, and such a sentence passes unchecked, while a true one phrased in rare words provokes a needless search.",
+    "diagram": {
+      "breaks": [
+        [
+          "accept",
+          "retrieval"
+        ]
+      ],
+      "edges": [
+        [
+          "check",
+          "accept"
+        ],
+        [
+          "query",
+          "retrieval"
+        ],
+        [
+          "accept",
+          "answer"
+        ],
+        [
+          "regenerate",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "accept",
+          "draft"
+        ],
+        [
+          "regenerate",
+          "draft"
+        ]
+      ],
+      "nodes": {
+        "accept": {
+          "codes": {},
+          "note": "Если модель уверена во всех словах черновика, он остаётся в ответе как есть.",
+          "note_en": "If the model is confident about every word of the draft, the draft stays in the answer unchanged.",
+          "section": "1",
+          "title": "Принятие без поиска",
+          "title_en": "Accept as is"
+        },
+        "answer": {
+          "codes": {
+            "C2": "iterative_stopping"
+          },
+          "section": "4",
+          "title": "Готовый ответ",
+          "title_en": "Final answer"
+        },
+        "check": {
+          "codes": {
+            "E2": "decoding_trigger"
+          },
+          "section": "1",
+          "title": "Проверка уверенности",
+          "title_en": "Confidence check"
+        },
+        "draft": {
+          "codes": {},
+          "note": "Языковая модель пишет черновик следующего предложения, не глядя в найденные документы. Только первое предложение пишется после поиска по самому вопросу.",
+          "note_en": "The language model drafts the next sentence without retrieved documents; only the first sentence follows a search by the question itself.",
+          "section": "1",
+          "title": "Черновик предложения",
+          "title_en": "Draft next sentence"
+        },
+        "query": {
+          "codes": {
+            "B1": "multi_reformulation"
+          },
+          "section": "2",
+          "title": "Составление запроса",
+          "title_en": "Query formulation"
+        },
+        "regenerate": {
+          "codes": {
+            "E5": "mutual_loop"
+          },
+          "section": "1",
+          "title": "Новое предложение",
+          "title_en": "Regenerated sentence"
+        },
+        "retrieval": {
+          "codes": {
+            "A5": "lexical",
+            "C1": "lexical"
+          },
+          "section": "3",
+          "title": "Поиск документов",
+          "title_en": "Document retrieval"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "draft",
+          "check",
+          "query"
+        ],
+        [
+          "accept",
+          "retrieval",
+          "regenerate"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Confidence-based Active Retrieval",
+          "url": "https://arxiv.org/html/2305.06983v2#S3.SS2.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Confidence-based Query Formulation",
+          "url": "https://arxiv.org/html/2305.06983v2#S3.SS2.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "Document corpus and retrievers",
+          "url": "https://arxiv.org/html/2305.06983v2#S3.SS3.SSS0.Px2"
+        },
+        {
+          "key": "4",
+          "title": "Active Retrieval Augmented Generation",
+          "url": "https://arxiv.org/html/2305.06983v2#S2.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2305.06983v2",
+        "url": "https://arxiv.org/html/2305.06983v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

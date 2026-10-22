@@ -1,0 +1,106 @@
+{
+  "technology_id": "rag_as_memory",
+  "source": {
+    "label": "arXiv:2502.14802v2",
+    "url": "https://arxiv.org/html/2502.14802v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Overview",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Dense-Sparse Integration",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Deeper Contextualization",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "4",
+      "title": "Recognition Memory",
+      "anchor": "S3.SS4"
+    },
+    {
+      "key": "5",
+      "title": "Online Retrieval",
+      "anchor": "S3.SS5"
+    }
+  ],
+  "rows": [
+    [
+      "triples",
+      "synonyms",
+      "graph"
+    ],
+    [
+      "link",
+      "filter",
+      "seeds"
+    ],
+    [
+      "walk",
+      "ranking",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "triples": {
+      "section": "1",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "synonyms": {
+      "section": "1"
+    },
+    "graph": {
+      "section": "2",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted_and_computed"
+      }
+    },
+    "link": {
+      "section": "3"
+    },
+    "filter": {
+      "section": "4"
+    },
+    "seeds": {
+      "section": "5"
+    },
+    "walk": {
+      "section": "5",
+      "codes": {
+        "C1": "graph_traversal"
+      },
+      "residual": "random_walk_ranking"
+    },
+    "ranking": {
+      "section": "5"
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "graph",
+      "link"
+    ],
+    [
+      "seeds",
+      "walk"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "F1"
+  ]
+}

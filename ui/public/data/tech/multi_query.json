@@ -41,6 +41,78 @@
     "configuration_variable": [],
     "description": "Multi-Query Retrieval отвечает на хрупкость поиска по единственной формулировке. Векторное представление зависит от выбранных слов, и два способа спросить об одном и том же дают разные векторы, а значит и разные результаты. Документ, отвечающий на вопрос, но написанный другими словами, при одной формулировке не находится, и о том, что он существовал, система не узнаёт.\n\nПриём состоит в том, чтобы не полагаться на одну формулировку. Языковая модель переписывает исходный вопрос несколькими способами, меняя слова и угол зрения, но сохраняя смысл. Поиск выполняется по каждой формулировке отдельно, и полученные списки объединяются в один, причём повторы схлопываются.\n\nВыигрыш достигается за счёт полноты: документ, найденный хотя бы одной формулировкой, попадает в общий список. Проигрыш лежит в точности, потому что вместе с недостающим приходит и лишнее, а объединение без взвешивания уравнивает документ, найденный всеми формулировками, с документом, найденным одной. Приём поэтому обычно ставят перед переранжированием, которое восстанавливает порядок. Расход складывается из одного вызова модели и нескольких обращений к индексу вместо одного.",
     "description_en": "Multi-Query Retrieval answers the fragility of search on a single formulation. A vector representation depends on the words chosen, and two ways of asking the same thing yield different vectors and therefore different results. A document that answers the question but is written in other words is not found under one formulation, and the system never learns that it existed.\n\nThe technique is to avoid relying on a single formulation. A language model rewrites the original question in several ways, varying the words and the angle while preserving the meaning. Search is performed on each formulation separately, and the resulting lists are merged into one, with duplicates collapsed.\n\nThe gain is in recall: a document found by even one formulation reaches the combined list. The loss is in precision, because the superfluous arrives along with the missing, and an unweighted merge puts a document found by every formulation on the same footing as one found by a single formulation. The technique is therefore usually placed ahead of reranking, which restores the ordering. It costs one model call and several consultations of the index instead of one.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "rephrase",
+          "search"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "rephrase": {
+          "codes": {
+            "B1": "multi_reformulation"
+          },
+          "section": "2",
+          "sub": "от языковой модели",
+          "sub_en": "by a language model",
+          "title": "Переформулировки вопроса",
+          "title_en": "Question rewrites"
+        },
+        "search": {
+          "codes": {
+            "C1": "ann"
+          },
+          "section": "1",
+          "title": "Поиск по каждой версии",
+          "title_en": "Search for each version"
+        },
+        "union": {
+          "codes": {
+            "C3": "none",
+            "D1": "none"
+          },
+          "section": "1",
+          "title": "Объединение без повторов",
+          "title_en": "Union without duplicates"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "question",
+          "rephrase"
+        ],
+        [
+          "search",
+          "union"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Simple usage",
+          "url": "https://web.archive.org/web/20240331003553/https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever#simple-usage"
+        },
+        {
+          "key": "2",
+          "title": "Supplying your own prompt",
+          "url": "https://web.archive.org/web/20240331003553/https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever#supplying-your-own-prompt"
+        }
+      ],
+      "source": {
+        "label": "LangChain documentation, MultiQueryRetriever",
+        "url": "https://web.archive.org/web/20240331003553/https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

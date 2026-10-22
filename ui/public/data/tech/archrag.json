@@ -41,6 +41,144 @@
     "configuration_variable": [],
     "description": "ArchRAG выстраивает над графом сущностей многоуровневую иерархию сообществ и обращается к ней сверху вниз. Одноуровневый граф ставит систему перед выбором, который нельзя сделать заранее: подробный обход даёт точность на узких вопросах и тонет в частностях на широких, а обход по сводкам ведёт себя ровно наоборот.\n\nПостроение идёт снизу вверх. Вершины исходного графа группируются алгоритмом кластеризации в сообщества, каждому сообществу сопоставляется описание, сами сообщества снова группируются, и так до тех пор, пока на верхнем уровне не останется несколько крупных областей. Каждый уровень индексируется отдельно, поэтому поиск возможен на любой высоте иерархии.\n\nЗапрос обслуживается спуском. Система начинает с верхнего уровня, определяет область, к которой вопрос относится, и опускается внутрь неё, пока подробность не окажется достаточной для ответа. Узкий вопрос доводит спуск до отдельных сущностей, широкий останавливается на описании области. Стоимость запроса при этом зависит от глубины спуска, а не от размера собрания, но построение иерархии остаётся дорогим и повторяется при существенном изменении документов.",
     "description_en": "ArchRAG raises a multi-level hierarchy of communities over an entity graph and consults it from the top down. A single-level graph confronts the system with a choice that cannot be made in advance: a detailed traversal is accurate on narrow questions and drowns in particulars on broad ones, while a traversal over summaries behaves in exactly the opposite way.\n\nConstruction proceeds from the bottom up. The nodes of the original graph are grouped by a clustering algorithm into communities, each community is given a description, the communities are grouped in turn, and so on until a few large areas remain at the top level. Every level is indexed separately, so search is possible at any height of the hierarchy.\n\nA query is served by descent. The system starts at the top level, determines the area the question belongs to, and descends into it until the detail suffices for an answer. A narrow question carries the descent down to individual entities; a broad one stops at the description of an area. The cost of a query then depends on the depth of the descent rather than on the size of the collection, but building the hierarchy remains expensive and has to be repeated when the documents change substantially.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "graph",
+          "communities"
+        ],
+        [
+          "index",
+          "search"
+        ]
+      ],
+      "loops": [
+        [
+          "summaries",
+          "communities"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель составляет ответ из самых полезных отчётов; то, что не помещается в допустимый объём текста, отбрасывается.",
+          "note_en": "The language model writes the answer from the most relevant reports; whatever exceeds the text limit is cut off.",
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "communities": {
+          "codes": {
+            "A4": "community_hierarchy",
+            "A8": "computed"
+          },
+          "section": "2",
+          "title": "Выделение сообществ",
+          "title_en": "Community detection"
+        },
+        "corpus": {
+          "codes": {},
+          "section": "1",
+          "title": "Исходные тексты",
+          "title_en": "Source texts"
+        },
+        "graph": {
+          "codes": {},
+          "note": "Тексты делятся на фрагменты заданной длины; языковая модель выделяет из каждого сущности и связи между ними, и из них собирается общий граф.",
+          "note_en": "The texts are cut into chunks of a set length; a language model extracts the entities and relations of each chunk, and the pieces are merged into one graph.",
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Построение графа знаний",
+          "title_en": "Graph construction"
+        },
+        "index": {
+          "codes": {
+            "A1": "summary_node"
+          },
+          "section": "3",
+          "title": "Многоуровневый индекс",
+          "title_en": "Multi-layer index"
+        },
+        "scoring": {
+          "codes": {
+            "D1": "cross_encoder"
+          },
+          "section": "5",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Оценка найденного",
+          "title_en": "Relevance scoring"
+        },
+        "search": {
+          "codes": {
+            "C1": "ann"
+          },
+          "section": "4",
+          "title": "Поиск по уровням",
+          "title_en": "Layer-by-layer search"
+        },
+        "summaries": {
+          "codes": {
+            "A3": "summary"
+          },
+          "section": "2",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Описание сообществ",
+          "title_en": "Community summaries"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "corpus",
+          "graph"
+        ],
+        [
+          "communities",
+          "summaries",
+          "index"
+        ],
+        [
+          "search",
+          "scoring",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "KG construction",
+          "url": "https://arxiv.org/html/2502.09891v4#Sx3.SSx1.SSSx1"
+        },
+        {
+          "key": "2",
+          "title": "LLM-based hierarchical clustering",
+          "url": "https://arxiv.org/html/2502.09891v4#Sx3.SSx1.SSSx2"
+        },
+        {
+          "key": "3",
+          "title": "C-HNSW index",
+          "url": "https://arxiv.org/html/2502.09891v4#Sx3.SSx1.SSSx3"
+        },
+        {
+          "key": "4",
+          "title": "Hierarchical search",
+          "url": "https://arxiv.org/html/2502.09891v4#Sx3.SSx2.SSSx1"
+        },
+        {
+          "key": "5",
+          "title": "Adaptive filtering-based generation",
+          "url": "https://arxiv.org/html/2502.09891v4#Sx3.SSx2.SSSx2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2502.09891v4",
+        "url": "https://arxiv.org/html/2502.09891v4"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

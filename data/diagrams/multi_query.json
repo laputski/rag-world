@@ -1,0 +1,62 @@
+{
+  "technology_id": "multi_query",
+  "source": {
+    "label": "LangChain documentation, MultiQueryRetriever",
+    "url": "https://web.archive.org/web/20240331003553/https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Simple usage",
+      "anchor": "simple-usage"
+    },
+    {
+      "key": "2",
+      "title": "Supplying your own prompt",
+      "anchor": "supplying-your-own-prompt"
+    }
+  ],
+  "rows": [
+    [
+      "question",
+      "rephrase"
+    ],
+    [
+      "search",
+      "union"
+    ]
+  ],
+  "nodes": {
+    "question": {
+      "section": "1"
+    },
+    "rephrase": {
+      "section": "2",
+      "codes": {
+        "B1": "multi_reformulation"
+      }
+    },
+    "search": {
+      "section": "1",
+      "codes": {
+        "C1": "ann"
+      }
+    },
+    "union": {
+      "section": "1",
+      "codes": {
+        "C3": "none",
+        "D1": "none"
+      }
+    }
+  },
+  "edges": [
+    [
+      "rephrase",
+      "search"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

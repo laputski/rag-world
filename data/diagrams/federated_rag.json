@@ -1,0 +1,102 @@
+{
+  "technology_id": "federated_rag",
+  "source": {
+    "label": "arXiv:2504.19101v1",
+    "url": "https://arxiv.org/html/2504.19101v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "RAG-FT",
+      "anchor": "S4.SS1.SSS1"
+    },
+    {
+      "key": "2",
+      "title": "KD-GLE",
+      "anchor": "S4.SS1.SSS2"
+    },
+    {
+      "key": "3",
+      "title": "FED-HE",
+      "anchor": "S4.SS1.SSS3"
+    },
+    {
+      "key": "4",
+      "title": "Downstream Question & Answer",
+      "anchor": "S4.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "pairs",
+      "finetune",
+      "distill"
+    ],
+    [
+      "aggregate"
+    ],
+    [
+      "retrieve",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "pairs": {
+      "section": "1"
+    },
+    "finetune": {
+      "section": "1",
+      "codes": {
+        "G3": "trained_retriever"
+      }
+    },
+    "distill": {
+      "section": "2"
+    },
+    "aggregate": {
+      "section": "3",
+      "codes": {
+        "C4": "federation",
+        "G1": "isolated_circuit"
+      }
+    },
+    "retrieve": {
+      "section": "4",
+      "codes": {
+        "C2": "single_shot",
+        "D1": "none",
+        "D2": "top_k"
+      }
+    },
+    "answer": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "finetune",
+      "aggregate"
+    ],
+    [
+      "distill",
+      "aggregate"
+    ],
+    [
+      "aggregate",
+      "retrieve"
+    ]
+  ],
+  "loops": [
+    [
+      "aggregate",
+      "finetune"
+    ]
+  ],
+  "breaks": [
+    [
+      "finetune",
+      "distill"
+    ]
+  ],
+  "omitted": []
+}

@@ -1,0 +1,76 @@
+{
+  "technology_id": "memorag",
+  "source": {
+    "label": "arXiv:2409.05591v3",
+    "url": "https://arxiv.org/html/2409.05591v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "MemoRAG",
+      "anchor": "S2.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Memory Module",
+      "anchor": "S2.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "context",
+      "memory"
+    ],
+    [
+      "clues",
+      "retrieval",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "context": {
+      "section": "1"
+    },
+    "memory": {
+      "section": "2",
+      "codes": {
+        "D2": "latent_compression",
+        "G3": "trained_retriever"
+      }
+    },
+    "clues": {
+      "section": "1",
+      "codes": {
+        "B1": "hyde",
+        "E5": "generation_seeds"
+      }
+    },
+    "retrieval": {
+      "section": "1",
+      "codes": {
+        "D1": "none"
+      }
+    },
+    "answer": {
+      "section": "1",
+      "codes": {
+        "E1": "single_pass"
+      }
+    }
+  },
+  "edges": [
+    [
+      "memory",
+      "clues"
+    ],
+    [
+      "context",
+      "retrieval"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "F1"
+  ]
+}

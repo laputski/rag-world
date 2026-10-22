@@ -1,0 +1,99 @@
+{
+  "technology_id": "test_time",
+  "source": {
+    "label": "arXiv:2508.18260v2",
+    "url": "https://arxiv.org/html/2508.18260v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Question Decomposition",
+      "anchor": "Sx3.SSx2.SSSx1"
+    },
+    {
+      "key": "2",
+      "title": "Graph-Augmented Evidence Retrieval",
+      "anchor": "Sx3.SSx2.SSSx2"
+    },
+    {
+      "key": "3",
+      "title": "Answer Synthesis and Source Attribution",
+      "anchor": "Sx3.SSx2.SSSx3"
+    }
+  ],
+  "rows": [
+    [
+      "decompose",
+      "reason"
+    ],
+    [
+      "match",
+      "search",
+      "verbalize"
+    ],
+    [
+      "check",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "decompose": {
+      "section": "1",
+      "codes": {
+        "B1": "subquestion_decomposition"
+      }
+    },
+    "reason": {
+      "section": "2",
+      "codes": {
+        "C2": "iterative_stopping",
+        "E5": "mutual_loop"
+      }
+    },
+    "match": {
+      "section": "2"
+    },
+    "search": {
+      "section": "2",
+      "codes": {
+        "A4": "graph",
+        "C1": "graph_traversal"
+      }
+    },
+    "verbalize": {
+      "section": "2"
+    },
+    "check": {
+      "section": "3",
+      "codes": {
+        "E2": "pre_gen_grounding"
+      }
+    },
+    "answer": {
+      "section": "3",
+      "codes": {
+        "E1": "ensemble_fragments"
+      }
+    }
+  },
+  "edges": [
+    [
+      "reason",
+      "match"
+    ],
+    [
+      "verbalize",
+      "check"
+    ]
+  ],
+  "loops": [
+    [
+      "verbalize",
+      "reason"
+    ]
+  ],
+  "breaks": [],
+  "omitted": [
+    "A8"
+  ]
+}

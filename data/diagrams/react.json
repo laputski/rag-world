@@ -1,0 +1,90 @@
+{
+  "technology_id": "react",
+  "source": {
+    "label": "arXiv:2210.03629v3",
+    "url": "https://arxiv.org/html/2210.03629v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "ReAct Prompting",
+      "anchor": "S3.SS2.SSS0.Px1"
+    },
+    {
+      "key": "2",
+      "title": "Domains",
+      "anchor": "S3.SS1.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "ReAct: Synergizing Reasoning + Acting",
+      "anchor": "S2"
+    },
+    {
+      "key": "4",
+      "title": "Action Space",
+      "anchor": "S3.SS1.SSS0.Px2"
+    }
+  ],
+  "rows": [
+    [
+      "examples"
+    ],
+    [
+      "question",
+      "thought",
+      "action",
+      "observation"
+    ],
+    [
+      "finish"
+    ]
+  ],
+  "nodes": {
+    "examples": {
+      "section": "1"
+    },
+    "question": {
+      "section": "2"
+    },
+    "thought": {
+      "section": "3",
+      "codes": {
+        "B1": "key_extraction",
+        "C2": "agentic_open_loop",
+        "E5": "mutual_loop"
+      }
+    },
+    "action": {
+      "section": "4",
+      "codes": {
+        "A5": "none",
+        "C1": "lexical"
+      }
+    },
+    "observation": {
+      "section": "4"
+    },
+    "finish": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "examples",
+      "thought"
+    ],
+    [
+      "thought",
+      "finish"
+    ]
+  ],
+  "loops": [
+    [
+      "observation",
+      "thought"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

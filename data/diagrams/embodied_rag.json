@@ -1,0 +1,111 @@
+{
+  "technology_id": "embodied_rag",
+  "source": {
+    "label": "arXiv:2409.18313v5",
+    "url": "https://arxiv.org/html/2409.18313v5"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Bottom-up Memory Construction",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Phase 1: Semantic-Guided Hierarchical Traversal",
+      "anchor": "S3.SS2.SSSx1"
+    },
+    {
+      "key": "3",
+      "title": "Phase 2: Hybrid Re-ranking",
+      "anchor": "S3.SS2.SSSx2"
+    },
+    {
+      "key": "4",
+      "title": "Generation",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "frames",
+      "captions",
+      "clustering"
+    ],
+    [
+      "forest",
+      "descent",
+      "rerank"
+    ],
+    [
+      "answer",
+      "route"
+    ]
+  ],
+  "nodes": {
+    "frames": {
+      "section": "1",
+      "codes": {
+        "A1": "node_edge",
+        "A7": "image"
+      }
+    },
+    "captions": {
+      "section": "1"
+    },
+    "clustering": {
+      "section": "1",
+      "codes": {
+        "A8": "computed"
+      }
+    },
+    "forest": {
+      "section": "1",
+      "codes": {
+        "A3": "summary",
+        "A4": "tree"
+      }
+    },
+    "descent": {
+      "section": "2",
+      "codes": {
+        "C1": "tree_navigation",
+        "C2": "iterative_stopping",
+        "A5": "none"
+      }
+    },
+    "rerank": {
+      "section": "3",
+      "codes": {
+        "D1": "cross_encoder"
+      }
+    },
+    "answer": {
+      "section": "4",
+      "codes": {
+        "G2": "mixed"
+      }
+    },
+    "route": {
+      "section": "4"
+    }
+  },
+  "edges": [
+    [
+      "clustering",
+      "forest"
+    ],
+    [
+      "rerank",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "forest",
+      "clustering"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

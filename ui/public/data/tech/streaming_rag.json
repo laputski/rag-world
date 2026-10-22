@@ -40,6 +40,168 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "builder",
+          "graph"
+        ],
+        [
+          "graph",
+          "serving"
+        ]
+      ],
+      "loops": [
+        [
+          "questions",
+          "vision"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель отвечает, опираясь на свежее состояние графа.",
+          "note_en": "A language model answers from the current state of the graph.",
+          "section": "4",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "builder": {
+          "codes": {
+            "A3": "extracted_triples",
+            "A8": "extracted",
+            "F1": "episodic"
+          },
+          "section": "3",
+          "title": "Пополнение графа",
+          "title_en": "Graph update"
+        },
+        "context": {
+          "codes": {},
+          "note": "Сведения из многих кадров складываются в картину развития события. В базе знаний ищутся связанные сущности и связи, и остаются самые вероятные сущности.",
+          "note_en": "Details from many frames are combined into a picture of how the event unfolds. Related entities and relations are looked up in the knowledge base, and the most probable entities are kept.",
+          "section": "5",
+          "title": "Ход события",
+          "title_en": "Temporal context"
+        },
+        "graph": {
+          "codes": {
+            "A4": "graph",
+            "A6": "snapshot"
+          },
+          "section": "4",
+          "title": "Граф знаний о сцене",
+          "title_en": "Scene knowledge graph"
+        },
+        "questions": {
+          "codes": {},
+          "note": "Генератор уточняет вопросы с учётом последнего ответа и отправляет их моделям вместе со следующими кадрами.",
+          "note_en": "The generator refines the questions using the latest response and sends them to the models with the following frames.",
+          "section": "6",
+          "title": "Вопросы к новым кадрам",
+          "title_en": "Questions for new frames"
+        },
+        "scheduler": {
+          "codes": {
+            "A7": "image"
+          },
+          "section": "1",
+          "title": "Отбор кадров видеопотока",
+          "title_en": "Selecting video frames"
+        },
+        "serving": {
+          "codes": {},
+          "note": "Обслуживающий слой быстро достаёт из графа сведения, нужные для ответа на вопрос.",
+          "note_en": "The serving layer quickly fetches from the graph what the query needs.",
+          "section": "8",
+          "title": "Извлечение из графа",
+          "title_en": "Retrieval from the graph"
+        },
+        "user_query": {
+          "codes": {},
+          "note": "Обработчик разбирает вопрос пользователя и уточняет его по текущему контексту и базе знаний.",
+          "note_en": "The processor parses the user's query and refines it by the current context and the knowledge base.",
+          "section": "7",
+          "title": "Вопрос пользователя",
+          "title_en": "User query"
+        },
+        "vision": {
+          "codes": {
+            "A5": "vision_language"
+          },
+          "section": "2",
+          "sub": "моделями зрения",
+          "sub_en": "by vision models",
+          "title": "Разбор кадров",
+          "title_en": "Frame analysis"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "scheduler",
+          "vision",
+          "builder"
+        ],
+        [
+          "graph",
+          "context",
+          "questions"
+        ],
+        [
+          "user_query",
+          "serving",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Frame Scheduler",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS2.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Inference Engine",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS2.SSS3"
+        },
+        {
+          "key": "3",
+          "title": "Knowledge Builder",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS3.SSS3"
+        },
+        {
+          "key": "4",
+          "title": "Knowledge Graph",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS3.SSS2"
+        },
+        {
+          "key": "5",
+          "title": "Temporal Context Identifier",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS3.SSS4"
+        },
+        {
+          "key": "6",
+          "title": "Visual Query Generator",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS3.SSS5"
+        },
+        {
+          "key": "7",
+          "title": "User Query Processor",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS3.SSS6"
+        },
+        {
+          "key": "8",
+          "title": "Lambda Engine",
+          "url": "https://arxiv.org/html/2501.14101v1#S3.SS5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2501.14101v1",
+        "url": "https://arxiv.org/html/2501.14101v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

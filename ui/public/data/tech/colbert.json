@@ -41,6 +41,138 @@
     "configuration_variable": [],
     "description": "ColBERT меняет способ, которым текст сравнивается с запросом. Обычный плотный поиск сжимает весь фрагмент в один вектор, и всё, что в нём было, приходится уместить в несколько сотен чисел. Длинный фрагмент, говорящий о нескольких предметах сразу, при таком сжатии теряет каждый из них по отдельности: усреднённый вектор не близок ни к одному частному запросу.\n\nColBERT хранит не один вектор на фрагмент, а по вектору на каждый токен, то есть на каждую единицу, на которые модель разбивает текст. Запрос кодируется так же. Сходство считается позднее, уже после того как обе стороны закодированы независимо: для каждого токена запроса берётся наибольшее скалярное произведение среди всех токенов документа, и эти величины складываются. Схема называется поздним взаимодействием, потому что запрос и документ встречаются только на последнем шаге, а не проходят через модель вместе.\n\nТакой порядок сохраняет главное преимущество плотного поиска: векторы документов вычисляются один раз при индексации, а не на каждый запрос. Совместный кодировщик, пропускающий пару «запрос, документ» через модель целиком, точнее, но требует прогона по каждому кандидату и потому применяется только к короткому списку. Плата ColBERT состоит в размере индекса: вместо одного вектора на фрагмент хранятся сотни, и хранилище растёт на порядок.",
     "description_en": "ColBERT changes the way text is compared against a query. Ordinary dense retrieval compresses a whole fragment into a single vector, so everything the fragment contained has to fit into a few hundred numbers. A long fragment speaking about several subjects at once loses each of them under that compression: the averaged vector is close to no particular query.\n\nColBERT stores not one vector per fragment but one vector per token, that is, per unit into which the model divides the text. The query is encoded the same way. Similarity is computed late, after both sides have been encoded independently: for each query token the largest inner product across all document tokens is taken, and these quantities are summed. The scheme is called late interaction because query and document meet only at the final step rather than passing through the model together.\n\nThis order preserves the principal advantage of dense retrieval: document vectors are computed once at indexing time rather than per query. A joint encoder, which passes the query and document pair through the model as a whole, is more accurate but requires a run over every candidate and is therefore applied only to a short list. ColBERT pays for its accuracy in index size: instead of one vector per fragment it stores hundreds, and storage grows by an order of magnitude.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "index",
+          "approx"
+        ],
+        [
+          "approx",
+          "rescore"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "approx": {
+          "codes": {
+            "C1": "ann"
+          },
+          "section": "3",
+          "sub": "по каждому вектору",
+          "sub_en": "per query vector",
+          "title": "Приближённый поиск",
+          "title_en": "Approximate search"
+        },
+        "doc_enc": {
+          "codes": {
+            "A5": "dense_multi_late_interaction",
+            "G3": "trained_retriever"
+          },
+          "section": "2",
+          "sub": "вектор на слово",
+          "sub_en": "a vector per token",
+          "title": "Кодирование документов",
+          "title_en": "Document encoding"
+        },
+        "docs": {
+          "codes": {},
+          "section": "1",
+          "title": "Документы",
+          "title_en": "Documents"
+        },
+        "index": {
+          "codes": {},
+          "note": "Векторы всех документов заранее помещаются в библиотеку быстрого поиска, и для каждого вектора запоминается его документ.",
+          "note_en": "All document vectors are stored in advance in a fast search library, and each vector remembers its document.",
+          "section": "3",
+          "title": "Индекс векторов",
+          "title_en": "Vector index"
+        },
+        "q_enc": {
+          "codes": {},
+          "note": "Запрос дополняется особыми пустыми словами до постоянной длины, и та же модель строит вектор для каждого его слова.",
+          "note_en": "The query is padded with special blank tokens to a fixed length, and the same model builds a vector for each token.",
+          "section": "2",
+          "title": "Кодирование запроса",
+          "title_en": "Query encoding"
+        },
+        "query": {
+          "codes": {},
+          "section": "2",
+          "title": "Запрос",
+          "title_en": "Query"
+        },
+        "rescore": {
+          "codes": {},
+          "note": "Для каждого вектора запроса берётся наибольшее сходство с векторами документа, и эти значения складываются.",
+          "note_en": "For each query vector the highest similarity to the document vectors is taken, and these values are summed.",
+          "residual": "max_similarity_interaction",
+          "section": "4",
+          "sub": "лучшие совпадения",
+          "sub_en": "best matches",
+          "title": "Точный пересчёт оценок",
+          "title_en": "Exact rescoring"
+        },
+        "topk": {
+          "codes": {
+            "D2": "top_k"
+          },
+          "section": "5",
+          "title": "Лучшие k документов",
+          "title_en": "Top k documents"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "docs",
+          "doc_enc",
+          "index"
+        ],
+        [
+          "query",
+          "q_enc",
+          "approx"
+        ],
+        [
+          "rescore",
+          "topk"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Offline Indexing: Computing & Storing Document Embeddings",
+          "url": "https://arxiv.org/html/2004.12832v2#S3.SS4"
+        },
+        {
+          "key": "2",
+          "title": "Query & Document Encoders",
+          "url": "https://arxiv.org/html/2004.12832v2#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "End-to-end Top-k Retrieval with ColBERT",
+          "url": "https://arxiv.org/html/2004.12832v2#S3.SS6"
+        },
+        {
+          "key": "4",
+          "title": "Late Interaction",
+          "url": "https://arxiv.org/html/2004.12832v2#S3.SS3"
+        },
+        {
+          "key": "5",
+          "title": "Top-k Re-ranking with ColBERT",
+          "url": "https://arxiv.org/html/2004.12832v2#S3.SS5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2004.12832v2",
+        "url": "https://arxiv.org/html/2004.12832v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

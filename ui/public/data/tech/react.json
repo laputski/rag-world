@@ -41,6 +41,123 @@
     "configuration_variable": [],
     "description": "ReAct описывает общую схему, в которой языковая модель чередует рассуждение и действия. Извлечение оказывается здесь частным случаем: поиск суть один из инструментов, доступных модели наряду с другими.\n\nКруг состоит из трёх частей. Модель порождает мысль, то есть рассуждение о том, что известно и чего недостаёт. Затем она порождает действие, обращаясь к одному из доступных инструментов с определёнными доводами. Среда выполняет действие и возвращает наблюдение, то есть его результат. Наблюдение добавляется к контексту, и круг повторяется, пока модель не порождает действие «ответить».\n\nСхема отличается от простого пошагового рассуждения тем, что мысли проверяются внешним миром: неверное предположение о факте опровергается наблюдением на следующем же круге и не доживает до ответа. От простого вызова инструментов она отличается тем, что перед каждым действием стоит явное рассуждение о его цели. Число кругов заранее не ограничено, поэтому это открытый цикл, и его расход не предсказуем по вопросу: цикл продолжается, пока модель не сочтёт задачу решённой либо пока не сработает внешнее ограничение.",
     "description_en": "ReAct describes a general scheme in which a language model alternates reasoning with action. Retrieval turns out to be a special case of it: search is one of the tools available to the model alongside others.\n\nA round consists of three parts. The model generates a thought, that is, reasoning about what is known and what is missing. It then generates an action, invoking one of the available tools with particular arguments. The environment carries the action out and returns an observation, that is, its result. The observation is added to the context and the round repeats, until the model generates the action \"answer\".\n\nThe scheme differs from plain step-by-step reasoning in that thoughts are checked against the outside world: a false assumption about a fact is refuted by an observation on the very next round and does not survive into the answer. It differs from plain tool invocation in that every action is preceded by explicit reasoning about its purpose. The number of rounds is not bounded in advance, which makes this an open loop, and its expense cannot be predicted from the question: the loop continues until the model judges the task solved or until an external limit intervenes.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "examples",
+          "thought"
+        ],
+        [
+          "thought",
+          "finish"
+        ]
+      ],
+      "loops": [
+        [
+          "observation",
+          "thought"
+        ]
+      ],
+      "nodes": {
+        "action": {
+          "codes": {
+            "A5": "none",
+            "C1": "lexical"
+          },
+          "section": "4",
+          "sub": "поиск или просмотр",
+          "sub_en": "search or lookup",
+          "title": "Действие",
+          "title_en": "Action"
+        },
+        "examples": {
+          "codes": {},
+          "note": "В подсказку вставляются несколько записанных людьми решений, где чередуются мысли, действия и наблюдения.",
+          "note_en": "A few solutions written by people, alternating thoughts, actions and observations, are put into the prompt.",
+          "section": "1",
+          "sub": "в подсказке",
+          "sub_en": "in the prompt",
+          "title": "Образцы решений",
+          "title_en": "Worked examples"
+        },
+        "finish": {
+          "codes": {},
+          "note": "Особое действие завершает задачу и выдаёт ответ.",
+          "note_en": "A special action ends the task and gives the answer.",
+          "section": "4",
+          "title": "Завершение с ответом",
+          "title_en": "Finish with the answer"
+        },
+        "observation": {
+          "codes": {},
+          "note": "Википедия возвращает первые пять предложений статьи или следующее предложение с искомой строкой.",
+          "note_en": "Wikipedia returns the first five sentences of the article, or the next sentence containing the string looked up.",
+          "section": "4",
+          "title": "Наблюдение",
+          "title_en": "Observation"
+        },
+        "question": {
+          "codes": {},
+          "note": "Модель получает только вопрос или проверяемое утверждение, без готовых абзацев.",
+          "note_en": "The model receives only the question or the claim to check, with no supporting paragraphs.",
+          "section": "2",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "thought": {
+          "codes": {
+            "B1": "key_extraction",
+            "C2": "agentic_open_loop",
+            "E5": "mutual_loop"
+          },
+          "section": "3",
+          "title": "Рассуждение",
+          "title_en": "Thought"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "examples"
+        ],
+        [
+          "question",
+          "thought",
+          "action",
+          "observation"
+        ],
+        [
+          "finish"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "ReAct Prompting",
+          "url": "https://arxiv.org/html/2210.03629v3#S3.SS2.SSS0.Px1"
+        },
+        {
+          "key": "2",
+          "title": "Domains",
+          "url": "https://arxiv.org/html/2210.03629v3#S3.SS1.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "ReAct: Synergizing Reasoning + Acting",
+          "url": "https://arxiv.org/html/2210.03629v3#S2"
+        },
+        {
+          "key": "4",
+          "title": "Action Space",
+          "url": "https://arxiv.org/html/2210.03629v3#S3.SS1.SSS0.Px2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2210.03629v3",
+        "url": "https://arxiv.org/html/2210.03629v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

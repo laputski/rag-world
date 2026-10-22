@@ -41,6 +41,107 @@
     "configuration_variable": [],
     "description": "RAFT готовит языковую модель к тому, с чем она встретится в работе: к контексту, где рядом с нужным документом лежат посторонние. Модель, дообученная только на верных документах, приучается доверять всему поданному и на постороннем фрагменте строит ответ так же уверенно, как на уместном.\n\nОбучающий пример поэтому составляется намеренно смешанным. К вопросу прикладывается документ, содержащий ответ, и несколько отвлекающих: похожих по предмету, но ответа не содержащих. Требуемый ответ пишется в виде рассуждения, где сначала приводится дословная выдержка из нужного документа, а затем из неё выводится заключение. Часть примеров подаётся вовсе без нужного документа, и правильным поведением на них объявляется ответ по собственным знаниям.\n\nОбязательная выдержка играет двойную роль: она заставляет модель указать, на чём именно основано заключение, и делает ответ проверяемым, потому что выдержку можно сверить с источником. Приём привязан к предметной области, для которой готовился набор примеров, и переносится на другую область хуже, чем работает на своей. Как и всякая донастройка, он требует доступа к весам модели.",
     "description_en": "RAFT prepares a language model for what it will meet in service: a context where irrelevant documents lie beside the relevant one. A model fine-tuned only on correct documents learns to trust everything it is handed and builds an answer on an irrelevant fragment as confidently as on a pertinent one.\n\nThe training example is therefore deliberately mixed. The question is accompanied by a document containing the answer and several distractors: similar in subject but containing no answer. The required answer is written as a piece of reasoning that first quotes the relevant document verbatim and then draws a conclusion from that quotation. A portion of the examples carries no relevant document at all, and the correct behaviour on those is declared to be an answer from the model's own knowledge.\n\nThe obligatory quotation plays a double role: it forces the model to state what exactly the conclusion rests on, and it makes the answer checkable, because the quotation can be compared against the source. The technique is tied to the field for which the examples were prepared and transfers to another field less well than it works on its own. Like any fine-tuning, it requires access to the model's weights.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "cot",
+          "sft"
+        ],
+        [
+          "sft",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Модель отвечает по найденным документам, опираясь на нужный и не поддаваясь лишним.",
+          "note_en": "The model answers from the retrieved documents, relying on the relevant one and ignoring the rest.",
+          "section": "1",
+          "title": "Ответ дообученной модели",
+          "title_en": "Answer of the tuned model"
+        },
+        "cot": {
+          "codes": {
+            "E3": "fragment_level"
+          },
+          "section": "1",
+          "sub": "дословно",
+          "sub_en": "verbatim",
+          "title": "Рассуждение с цитатой",
+          "title_en": "Reasoning with a quote"
+        },
+        "docs": {
+          "codes": {},
+          "note": "К вопросу прикладываются документ с ответом и несколько похожих документов без ответа. В части примеров документа с ответом нет вовсе.",
+          "note_en": "The question comes with the document holding the answer and several similar documents without it. In part of the examples the answer document is left out entirely.",
+          "section": "2",
+          "sub": "с отвлекающими",
+          "sub_en": "with distractors",
+          "title": "Подбор документов",
+          "title_en": "Document selection"
+        },
+        "qa": {
+          "codes": {},
+          "note": "Обучающие примеры строятся из пар вопроса и ответа в нужной предметной области.",
+          "note_en": "Training examples are built from question and answer pairs in the target domain.",
+          "section": "1",
+          "title": "Вопросы и ответы",
+          "title_en": "Questions and answers"
+        },
+        "sft": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "1",
+          "title": "Дообучение языковой модели",
+          "title_en": "Language model fine-tuning"
+        },
+        "topk": {
+          "codes": {},
+          "note": "При работе модели документы к вопросу находит обычный поиск, любой.",
+          "note_en": "In use, the documents for a question come from an ordinary search of any kind.",
+          "section": "1",
+          "sub": "несколько лучших",
+          "sub_en": "top k",
+          "title": "Поиск документов",
+          "title_en": "Document retrieval"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "qa",
+          "docs",
+          "cot"
+        ],
+        [
+          "sft"
+        ],
+        [
+          "topk",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "RAFT",
+          "url": "https://arxiv.org/html/2403.10131v2#S3"
+        },
+        {
+          "key": "2",
+          "title": "Making Model Robust to top-K RAG",
+          "url": "https://arxiv.org/html/2403.10131v2#S5.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2403.10131v2",
+        "url": "https://arxiv.org/html/2403.10131v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

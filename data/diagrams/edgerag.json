@@ -1,0 +1,115 @@
+{
+  "technology_id": "edgerag",
+  "source": {
+    "label": "arXiv:2412.21023v2",
+    "url": "https://arxiv.org/html/2412.21023v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "EdgeRAG Indexing",
+      "anchor": "S5.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Selective Index Storage",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "3",
+      "title": "EdgeRAG Retrieval",
+      "anchor": "S5.SS3"
+    },
+    {
+      "key": "4",
+      "title": "Adaptive Cost-Aware Caching",
+      "anchor": "S4.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "chunks",
+      "vectors"
+    ],
+    [
+      "clusters",
+      "pruning"
+    ],
+    [
+      "centroid"
+    ],
+    [
+      "stored",
+      "generated"
+    ],
+    [
+      "nearest"
+    ]
+  ],
+  "nodes": {
+    "chunks": {
+      "section": "1"
+    },
+    "vectors": {
+      "section": "1"
+    },
+    "clusters": {
+      "section": "1"
+    },
+    "pruning": {
+      "section": "2",
+      "codes": {
+        "G2": "edge_device"
+      }
+    },
+    "centroid": {
+      "section": "3"
+    },
+    "stored": {
+      "section": "2"
+    },
+    "generated": {
+      "section": "4"
+    },
+    "nearest": {
+      "section": "3",
+      "codes": {
+        "C1": "ann"
+      }
+    }
+  },
+  "edges": [
+    [
+      "vectors",
+      "clusters"
+    ],
+    [
+      "centroid",
+      "stored"
+    ],
+    [
+      "centroid",
+      "generated"
+    ],
+    [
+      "stored",
+      "nearest"
+    ],
+    [
+      "generated",
+      "nearest"
+    ],
+    [
+      "clusters",
+      "centroid"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "stored",
+      "generated"
+    ]
+  ],
+  "omitted": []
+}

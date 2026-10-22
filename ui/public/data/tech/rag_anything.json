@@ -47,6 +47,219 @@
     ],
     "description": "RAG-Anything отвечает на разрыв между тем, как устроены документы, и тем, как устроено извлечение. Отчёт, статья или руководство состоят не из одного текста: в них есть таблицы с числами, схемы, формулы, снимки экрана. Обычная цепочка обработки берёт из такого документа текст, а остальное либо отбрасывает, либо пересказывает словами, и в обоих случаях сведения теряются.\n\nОбработка идёт в три шага. Сторонний разборщик выделяет элементы документа порознь и сохраняет их вложенность: заголовок, абзац, таблица, врезка. Затем большая языковая модель извлекает из элементов сущности и отношения между ними, включая отношения между элементами разных модальностей, и складывает всё в единый граф знаний. Наконец, извлечение сочетает поиск по близости представлений с обходом рёбер этого графа, а порядок выдачи учитывает род единицы: таблица и абзац сравниваются не только по близости к запросу.\n\nСистема построена поверх LightRAG и наследует от неё пополнение собрания дописыванием: новый документ добавляется к существующему графу без его перестроения. Расход при индексации остаётся высоким, потому что извлечение сущностей требует обращения к языковой модели по каждому элементу, а разбор изображений и таблиц добавляет к этому собственную стоимость. Качество разбора при этом определяется сторонним разборщиком, и ошибки его переходят в граф без исправления.",
     "description_en": "RAG-Anything addresses the gap between how documents are built and how retrieval is built. A report, a paper, or a manual does not consist of running text alone: it has tables of figures, diagrams, equations, screenshots. An ordinary processing chain takes the text out of such a document and either discards the rest or restates it in words, and information is lost either way.\n\nProcessing runs in three steps. An external parser isolates the document's elements and preserves their nesting: heading, paragraph, table, figure. A large language model then extracts entities and the relations between them from those elements, including relations between elements of different modalities, and assembles everything into a single knowledge graph. Finally, retrieval combines search by closeness of representations with traversal of that graph's edges, and the ordering of results accounts for the kind of unit: a table and a paragraph are compared by more than closeness to the query.\n\nThe system is built on LightRAG and inherits from it the growth of a collection by appending: a new document is added to the existing graph without rebuilding it. Indexing remains expensive, because entity extraction requires a language model call per element, and parsing images and tables adds a cost of its own. The quality of that parsing is settled by the external parser, and its errors pass into the graph uncorrected.",
+    "diagram": {
+      "breaks": [
+        [
+          "mm_graph",
+          "text_graph"
+        ],
+        [
+          "embed",
+          "query"
+        ],
+        [
+          "structural",
+          "semantic"
+        ]
+      ],
+      "edges": [
+        [
+          "parse",
+          "mm_graph"
+        ],
+        [
+          "parse",
+          "text_graph"
+        ],
+        [
+          "mm_graph",
+          "fusion"
+        ],
+        [
+          "text_graph",
+          "fusion"
+        ],
+        [
+          "fusion",
+          "structural"
+        ],
+        [
+          "query",
+          "structural"
+        ],
+        [
+          "embed",
+          "semantic"
+        ],
+        [
+          "query",
+          "semantic"
+        ],
+        [
+          "structural",
+          "scoring"
+        ],
+        [
+          "semantic",
+          "scoring"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Из найденного собирается текст, к нему возвращаются исходные изображения, и модель, понимающая текст и картинки, пишет ответ.",
+          "note_en": "The retrieved items are assembled into text, the original images are brought back, and a model that reads text and images writes the answer.",
+          "section": "5",
+          "sub": "вместе с картинками",
+          "sub_en": "with the images",
+          "title": "Ответ по найденному",
+          "title_en": "Answer generation"
+        },
+        "embed": {
+          "codes": {
+            "A5": "dense_single"
+          },
+          "section": "3",
+          "title": "Векторы элементов",
+          "title_en": "Vectors for all elements"
+        },
+        "fusion": {
+          "codes": {
+            "A4": "graph",
+            "A8": "extracted"
+          },
+          "section": "3",
+          "sub": "по именам сущностей",
+          "sub_en": "by entity names",
+          "title": "Слияние графов",
+          "title_en": "Merging the graphs"
+        },
+        "mm_graph": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "2",
+          "sub": "картинки и таблицы",
+          "sub_en": "images and tables",
+          "title": "Граф нетекстовых единиц",
+          "title_en": "Graph of non-text units"
+        },
+        "parse": {
+          "codes": {
+            "A1": "passage",
+            "A2": "structure_aware",
+            "A7": "text"
+          },
+          "section": "1",
+          "sub": "с учётом структуры",
+          "sub_en": "keeping the structure",
+          "title": "Разбор документов",
+          "title_en": "Parsing the documents"
+        },
+        "query": {
+          "codes": {},
+          "note": "Из вопроса берутся ключевые слова и намёки на нужный вид данных, например «таблица» или «рисунок», затем вопрос переводится в вектор.",
+          "note_en": "Keywords and hints at the wanted kind of content, such as \"table\" or \"figure\", are taken from the question, which is then turned into a vector.",
+          "section": "4",
+          "title": "Разбор вопроса",
+          "title_en": "Query analysis"
+        },
+        "scoring": {
+          "codes": {
+            "C3": "score_normalization"
+          },
+          "residual": "modality_aware_ranking",
+          "section": "4",
+          "title": "Общая оценка кандидатов",
+          "title_en": "Joint candidate scoring"
+        },
+        "semantic": {
+          "codes": {},
+          "note": "Вектор вопроса сравнивается с векторами всех фрагментов, сущностей и связей, и берутся самые похожие.",
+          "note_en": "The question vector is compared with the vectors of all chunks, entities and relations, and the most similar are taken.",
+          "section": "4",
+          "title": "Поиск похожих векторов",
+          "title_en": "Vector similarity search"
+        },
+        "structural": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "4",
+          "title": "Обход соседей в графе",
+          "title_en": "Graph neighbour search"
+        },
+        "text_graph": {
+          "codes": {
+            "A3": "extracted_triples"
+          },
+          "section": "2",
+          "title": "Граф по тексту",
+          "title_en": "Graph of the text"
+        }
+      },
+      "omitted": [
+        {
+          "code": "F1",
+          "reason": "В статье не описано, как в собрание добавляются новые документы.",
+          "reason_en": "The paper does not describe how new documents are added to the collection."
+        }
+      ],
+      "rows": [
+        [
+          "parse"
+        ],
+        [
+          "mm_graph",
+          "text_graph"
+        ],
+        [
+          "fusion",
+          "embed",
+          "query"
+        ],
+        [
+          "structural",
+          "semantic"
+        ],
+        [
+          "scoring",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Universal Representation for Heterogeneous Knowledge",
+          "url": "https://arxiv.org/html/2510.12323v1#S2.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Dual-Graph Construction for Multimodal Knowledge",
+          "url": "https://arxiv.org/html/2510.12323v1#S2.SS2.SSS1"
+        },
+        {
+          "key": "3",
+          "title": "Graph Fusion and Index Creation",
+          "url": "https://arxiv.org/html/2510.12323v1#S2.SS2.SSS2"
+        },
+        {
+          "key": "4",
+          "title": "Cross-Modal Hybrid Retrieval",
+          "url": "https://arxiv.org/html/2510.12323v1#S2.SS3"
+        },
+        {
+          "key": "5",
+          "title": "From Retrieval to Synthesis",
+          "url": "https://arxiv.org/html/2510.12323v1#S2.SS4"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2510.12323v1",
+        "url": "https://arxiv.org/html/2510.12323v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-13",

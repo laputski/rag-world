@@ -1,0 +1,74 @@
+{
+  "technology_id": "rag_fusion",
+  "source": {
+    "label": "GitHub: Raudaschl/rag-fusion",
+    "url": "https://github.com/Raudaschl/rag-fusion"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "How It Works",
+      "anchor": "how-it-works"
+    }
+  ],
+  "rows": [
+    [
+      "query",
+      "rewrites"
+    ],
+    [
+      "search",
+      "rrf",
+      "rerank"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "query": {
+      "section": "1"
+    },
+    "rewrites": {
+      "section": "1",
+      "codes": {
+        "B1": "multi_reformulation"
+      }
+    },
+    "search": {
+      "section": "1"
+    },
+    "rrf": {
+      "section": "1",
+      "codes": {
+        "C3": "rrf"
+      }
+    },
+    "rerank": {
+      "section": "1",
+      "codes": {
+        "D1": "cross_encoder"
+      }
+    },
+    "answer": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "query",
+      "search"
+    ],
+    [
+      "rewrites",
+      "search"
+    ],
+    [
+      "rerank",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

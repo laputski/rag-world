@@ -43,6 +43,101 @@
     "configuration_variable": [],
     "description": "Vectorless отказывается от векторного представления как средства поиска. Довод состоит в том, что близость векторов приблизительна по устройству: она отвечает на вопрос о похожести, тогда как читателю нужен ответ на вопрос об уместности, а эти вопросы совпадают не всегда. Векторный указатель, кроме того, требует построения, хранения и перестроения при изменении документов.\n\nВместо указателя строится дерево, повторяющее устройство самого документа: части, разделы, подразделы, с кратким описанием содержания каждого узла. Такое дерево у документа обычно уже есть в виде оглавления, и извлекать его из текста дешевле, чем строить векторы. Поиск выполняется спуском по дереву, и решение на каждой развилке принимает большая языковая модель: ей показывают запрос и описания дочерних узлов, она выбирает, куда идти дальше, и спуск продолжается до листа.\n\nВыигрыш состоит в отсутствии этапа построения векторов и в том, что путь спуска сам по себе объясняет, почему найден именно этот раздел. Плата состоит в задержке и стоимости: каждая развилка требует вызова модели, и обращение к индексу превращается из одной операции в цепочку из нескольких вызовов. Метод, кроме того, применим лишь к документам с внятной структурой и не работает на плоском собрании разрозненных записей.",
     "description_en": "Vectorless dispenses with vector representation as a means of search. The argument is that vector closeness is approximate by construction: it answers the question of resemblance, whereas the reader needs an answer to the question of relevance, and the two do not always coincide. A vector index, moreover, has to be built, stored, and rebuilt whenever the documents change.\n\nIn place of an index, a tree is built that mirrors the structure of the document itself: parts, sections, subsections, with a brief description of each node's content. Documents usually carry such a tree already in the form of a table of contents, and extracting it from the text costs less than building vectors. Search proceeds by descending the tree, and the decision at each fork is made by a large language model: it is shown the query and the descriptions of the child nodes, it chooses where to go next, and the descent continues to a leaf.\n\nThe gain is that the vector-building stage disappears and that the path of the descent explains by itself why this particular section was found. The price is latency and cost: every fork requires a model call, and consulting the index turns from one operation into a chain of several. The method also applies only to documents with a clear structure and does not work over a flat collection of disconnected records.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "summaries",
+          "search"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "document": {
+          "codes": {},
+          "note": "Финансовый отчёт, юридический документ, техническое руководство или другой длинный сложный профессиональный документ.",
+          "note_en": "A financial report, legal filing, technical manual or other long, complex professional document.",
+          "section": "1",
+          "title": "Длинный документ",
+          "title_en": "Long document"
+        },
+        "reading": {
+          "codes": {},
+          "note": "Модель читает только те узлы, до которых дошло её рассуждение, и по ним отвечает.",
+          "note_en": "The model reads only the nodes its reasoning reaches and answers from them.",
+          "section": "3",
+          "title": "Чтение нужных разделов",
+          "title_en": "Reading chosen nodes"
+        },
+        "search": {
+          "codes": {
+            "A5": "none",
+            "C1": "tree_navigation",
+            "C2": "agentic_open_loop"
+          },
+          "section": "1",
+          "sub": "рассуждением модели",
+          "sub_en": "by model reasoning",
+          "title": "Спуск по дереву",
+          "title_en": "Tree search"
+        },
+        "summaries": {
+          "codes": {},
+          "note": "Языковая модель кратко описывает и уточняет уже готовое дерево, поэтому здесь хватает простой модели.",
+          "note_en": "A language model briefly describes and refines the ready tree, so a basic model is enough here.",
+          "section": "2",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Описание узлов",
+          "title_en": "Node summaries"
+        },
+        "tree": {
+          "codes": {
+            "A2": "structure_aware",
+            "A4": "tree",
+            "A8": "given"
+          },
+          "section": "2",
+          "sub": "по вёрстке",
+          "sub_en": "from the layout",
+          "title": "Дерево разделов",
+          "title_en": "Section tree"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "document",
+          "tree",
+          "summaries"
+        ],
+        [
+          "search",
+          "reading"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "What is PageIndex?",
+          "url": "https://github.com/VectifyAI/PageIndex#what-is-pageindex"
+        },
+        {
+          "key": "2",
+          "title": "Model Recommendations",
+          "url": "https://github.com/VectifyAI/PageIndex#model-recommendations"
+        },
+        {
+          "key": "3",
+          "title": "Cost per query vs. native PDF input",
+          "url": "https://github.com/VectifyAI/PageIndex#cost-per-query-vs-native-pdf-input"
+        }
+      ],
+      "source": {
+        "label": "GitHub: VectifyAI/PageIndex",
+        "url": "https://github.com/VectifyAI/PageIndex"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

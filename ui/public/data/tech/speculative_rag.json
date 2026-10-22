@@ -43,6 +43,111 @@
     "configuration_variable": [],
     "description": "Speculative RAG распределяет работу между двумя моделями разного размера по образцу спекулятивного порождения, где дешёвая модель предлагает, а дорогая проверяет. Затруднение, которое при этом снимается, состоит в том, что длинный контекст из многих найденных документов дорог для большой модели и одновременно ухудшает её ответ, потому что противоречивые сведения смешиваются в одном входе.\n\nНайденные документы сначала группируются по содержанию так, чтобы каждая группа отражала свой взгляд на вопрос. По каждой группе отдельно малая модель, дообученная на этом собрании, пишет черновик ответа вместе с обоснованием. Черновиков получается столько, сколько групп, и каждый опирается на короткий однородный контекст, а не на всё найденное сразу.\n\nБольшая модель черновиков не пишет, а только оценивает: она читает каждый вместе с его обоснованием и выбирает наиболее обоснованный. Проверка обходится дешевле порождения, поэтому расход на большую модель падает, а качество держится за счёт того, что каждый черновик строился на согласованном наборе документов. Плата состоит в двух моделях вместо одной и в дообучении малой из них.",
     "description_en": "Speculative RAG splits the work between two models of different size, after the pattern of speculative decoding, where a cheap model proposes and an expensive one verifies. The difficulty removed is that a long context of many retrieved documents is expensive for a large model and at the same time worsens its answer, because contradictory material is mixed into one input.\n\nThe retrieved documents are first grouped by content so that each group reflects its own view of the question. Over each group separately, a small model fine-tuned on this collection writes a draft answer together with its rationale. There are as many drafts as groups, and each rests on a short homogeneous context rather than on everything retrieved at once.\n\nThe large model writes no drafts and only judges: it reads each one along with its rationale and selects the best supported. Verification costs less than generation, so spending on the large model falls, while quality holds because every draft was built on a coherent set of documents. The price is two models instead of one, and the fine-tuning of the smaller.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "subsets",
+          "drafts"
+        ],
+        [
+          "scoring",
+          "choice"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "choice": {
+          "codes": {},
+          "note": "Ответом становится черновик с наибольшей итоговой оценкой.",
+          "note_en": "The draft with the highest final score becomes the answer.",
+          "section": "2",
+          "title": "Выбор лучшего черновика",
+          "title_en": "Choosing the best draft"
+        },
+        "cluster": {
+          "codes": {},
+          "note": "Найденные документы получают векторные представления с учётом вопроса и делятся на группы. Каждая группа отражает свой взгляд на вопрос.",
+          "note_en": "The retrieved documents are embedded with regard to the question and split into clusters. Each cluster reflects one perspective on the question.",
+          "section": "1",
+          "sub": "методом k средних",
+          "sub_en": "with k-means",
+          "title": "Группировка по темам",
+          "title_en": "Grouping by topic"
+        },
+        "drafts": {
+          "codes": {
+            "E1": "draft_verify",
+            "G3": "trained_reader"
+          },
+          "section": "1",
+          "sub": "малой моделью",
+          "sub_en": "by a small model",
+          "title": "Черновики ответа",
+          "title_en": "Answer drafts"
+        },
+        "retrieve": {
+          "codes": {},
+          "note": "Вопрос без изменений служит поисковым запросом к базе документов.",
+          "note_en": "The question itself serves as the search query to the document base.",
+          "section": "1",
+          "title": "Поиск документов",
+          "title_en": "Document retrieval"
+        },
+        "scoring": {
+          "codes": {
+            "E2": "external_judge"
+          },
+          "section": "2",
+          "sub": "большой моделью",
+          "sub_en": "by a large model",
+          "title": "Оценка черновиков",
+          "title_en": "Scoring the drafts"
+        },
+        "subsets": {
+          "codes": {
+            "D1": "set_cover",
+            "D2": "budget_aware"
+          },
+          "note": "Составляется несколько подборок. В каждую входит по одному документу из каждой группы, поэтому её документы различаются по содержанию.",
+          "note_en": "Several subsets are built. Each takes one document from every cluster, so its documents differ in content.",
+          "section": "1",
+          "title": "Составление подборок",
+          "title_en": "Building subsets"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "retrieve",
+          "cluster",
+          "subsets"
+        ],
+        [
+          "drafts",
+          "scoring"
+        ],
+        [
+          "choice"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Specialist RAG Drafter",
+          "url": "https://arxiv.org/html/2407.08223v2#S3.SS2"
+        },
+        {
+          "key": "2",
+          "title": "Generalist RAG Verifier",
+          "url": "https://arxiv.org/html/2407.08223v2#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2407.08223v2",
+        "url": "https://arxiv.org/html/2407.08223v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

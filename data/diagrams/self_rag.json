@@ -1,0 +1,114 @@
+{
+  "technology_id": "self_rag",
+  "source": {
+    "label": "GitHub: AkariAsai/self-rag",
+    "url": "https://github.com/AkariAsai/self-rag"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Critic training",
+      "anchor": "critic-training"
+    },
+    {
+      "key": "2",
+      "title": "Generator Training",
+      "anchor": "generator-training"
+    },
+    {
+      "key": "3",
+      "title": "SELF-RAG: Learning to Retrieve, Generate and Critique through Self-reflection",
+      "anchor": "self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection"
+    },
+    {
+      "key": "4",
+      "title": "Retriever Setup",
+      "anchor": "retriever-setup"
+    },
+    {
+      "key": "5",
+      "title": "Key parameters for long-form generations",
+      "anchor": "key-parameters-for-long-form-generations"
+    },
+    {
+      "key": "6",
+      "title": "Quick start",
+      "anchor": "quick-start"
+    }
+  ],
+  "rows": [
+    [
+      "critic",
+      "gen_train"
+    ],
+    [
+      "decide",
+      "retrieve",
+      "relevance"
+    ],
+    [
+      "generate",
+      "support",
+      "select"
+    ]
+  ],
+  "nodes": {
+    "critic": {
+      "section": "1"
+    },
+    "gen_train": {
+      "section": "2",
+      "codes": {
+        "G3": "trained_reader"
+      }
+    },
+    "decide": {
+      "section": "3",
+      "codes": {
+        "B2": "llm_router",
+        "C2": "iterative_stopping",
+        "E5": "mutual_loop"
+      }
+    },
+    "retrieve": {
+      "section": "4"
+    },
+    "relevance": {
+      "section": "5"
+    },
+    "generate": {
+      "section": "6"
+    },
+    "support": {
+      "section": "5",
+      "codes": {
+        "E2": "decoding_reflection",
+        "E3": "fragment_level"
+      }
+    },
+    "select": {
+      "section": "3",
+      "codes": {
+        "E1": "draft_verify"
+      }
+    }
+  },
+  "edges": [
+    [
+      "gen_train",
+      "decide"
+    ],
+    [
+      "relevance",
+      "generate"
+    ]
+  ],
+  "loops": [
+    [
+      "select",
+      "decide"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

@@ -1,0 +1,111 @@
+{
+  "technology_id": "pixelrag",
+  "source": {
+    "label": "arXiv:2606.28344v1",
+    "url": "https://arxiv.org/html/2606.28344v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Fetching",
+      "anchor": "S3.SS1.SSS0.Px2"
+    },
+    {
+      "key": "2",
+      "title": "Rendering",
+      "anchor": "S3.SS1.SSS0.Px3"
+    },
+    {
+      "key": "3",
+      "title": "Tiling",
+      "anchor": "S3.SS1.SSS0.Px4"
+    },
+    {
+      "key": "4",
+      "title": "Embedding",
+      "anchor": "S3.SS2.SSS0.Px1"
+    },
+    {
+      "key": "5",
+      "title": "Index",
+      "anchor": "S3.SS2.SSS0.Px2"
+    },
+    {
+      "key": "6",
+      "title": "Runtime Retrieval and Generation",
+      "anchor": "S3.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "mirror",
+      "render",
+      "tiles"
+    ],
+    [
+      "embed",
+      "index"
+    ],
+    [
+      "search",
+      "downscale",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "mirror": {
+      "section": "1"
+    },
+    "render": {
+      "section": "2",
+      "codes": {
+        "A7": "image"
+      }
+    },
+    "tiles": {
+      "section": "3",
+      "codes": {
+        "A1": "page_image"
+      }
+    },
+    "embed": {
+      "section": "4",
+      "codes": {
+        "A5": "vision_language",
+        "G3": "trained_retriever"
+      }
+    },
+    "index": {
+      "section": "5"
+    },
+    "search": {
+      "section": "6",
+      "codes": {
+        "C1": "ann"
+      }
+    },
+    "downscale": {
+      "section": "6",
+      "codes": {
+        "D2": "budget_aware"
+      },
+      "residual": "resolution_as_cost_lever"
+    },
+    "answer": {
+      "section": "6"
+    }
+  },
+  "edges": [
+    [
+      "tiles",
+      "embed"
+    ],
+    [
+      "index",
+      "search"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

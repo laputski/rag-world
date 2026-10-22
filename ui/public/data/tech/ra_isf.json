@@ -18,6 +18,140 @@
     "configuration_variable": [],
     "description": "RA-ISF выстраивает решения об извлечении в виде трёх последовательных проверок, каждую из которых выполняет отдельно обученный оценщик. Довод состоит в том, что решения эти разнородны и одно суждение обо всём сразу выносится хуже, чем три суждения по отдельности.\n\nПервая проверка спрашивает, достаточно ли модели собственных знаний. При утвердительном ответе обработка на этом и кончается: обращения к источникам не происходит, и посторонний контекст не вносится. Иначе выполняется извлечение, и вторая проверка оценивает найденное на уместность. Уместное идёт в ответ. При неуместном включается третья проверка: вопрос признаётся слишком сложным для одного обращения, разбивается на подвопросы, и каждый подвопрос проходит ту же цепочку с начала.\n\nРазбиение рекурсивно, поэтому глубина определяется вопросом. Отличие от распределителя, выбирающего стратегию заранее, состоит в том, что здесь решения принимаются по ходу и опираются на действительный результат поиска, а не на предсказание сложности по одной формулировке. Плата состоит в трёх обученных оценщиках, которые надо получить, и в накоплении их ошибок вдоль рекурсии.",
     "description_en": "RA-ISF arranges the decisions about retrieval as three successive checks, each carried out by a separately trained evaluator. The argument is that these decisions are unalike, and one judgement about all of them at once is made worse than three judgements taken apart.\n\nThe first check asks whether the model's own knowledge suffices. If the answer is yes, processing ends there: no source is consulted and no extraneous context is introduced. Otherwise retrieval is performed, and the second check judges what was found for relevance. Relevant material goes into the answer. If it is not relevant, the third check comes into play: the question is judged too hard for a single consultation, is split into subquestions, and each subquestion passes through the same chain from the beginning.\n\nThe splitting is recursive, so depth is settled by the question. What distinguishes this from a router choosing a strategy in advance is that here the decisions are made as the work proceeds and rest on the actual result of a search rather than on a prediction of difficulty from a single formulation. The price is three trained evaluators that must be obtained, and the accumulation of their errors along the recursion.",
+    "diagram": {
+      "breaks": [
+        [
+          "own_answer",
+          "rel_answer"
+        ],
+        [
+          "rel_answer",
+          "decompose"
+        ]
+      ],
+      "edges": [
+        [
+          "know",
+          "own_answer"
+        ],
+        [
+          "relevance",
+          "rel_answer"
+        ],
+        [
+          "relevance",
+          "decompose"
+        ],
+        [
+          "decompose",
+          "combine"
+        ]
+      ],
+      "loops": [
+        [
+          "decompose",
+          "know"
+        ]
+      ],
+      "nodes": {
+        "combine": {
+          "codes": {},
+          "note": "Языковая модель отвечает на исходный вопрос, получив подвопросы и ответы на них.",
+          "note_en": "The language model answers the original question given the subquestions and their answers.",
+          "section": "2",
+          "title": "Сборка итогового ответа",
+          "title_en": "Assembling the final answer"
+        },
+        "decompose": {
+          "codes": {
+            "B1": "subquestion_decomposition",
+            "C2": "iterative_stopping",
+            "E5": "mutual_loop"
+          },
+          "section": "1",
+          "sub": "иначе",
+          "sub_en": "otherwise",
+          "title": "Разбиение на подвопросы",
+          "title_en": "Splitting the question"
+        },
+        "know": {
+          "codes": {},
+          "note": "Отдельно обученная модель решает, может ли языковая модель ответить на вопрос сама, без поиска.",
+          "note_en": "A separately trained model decides whether the language model can answer the question by itself, without search.",
+          "section": "1",
+          "title": "Проверка своих знаний",
+          "title_en": "Own knowledge check"
+        },
+        "own_answer": {
+          "codes": {},
+          "note": "Если знаний хватает, языковая модель отвечает сразу, и поиск не выполняется.",
+          "note_en": "When its knowledge is enough, the language model answers at once and no search is made.",
+          "section": "1",
+          "sub": "знаний хватает",
+          "sub_en": "knowledge suffices",
+          "title": "Ответ из своих знаний",
+          "title_en": "Own-knowledge answer"
+        },
+        "rel_answer": {
+          "codes": {},
+          "note": "Если подошёл хотя бы один фрагмент, языковая модель отвечает с опорой на подошедшие фрагменты.",
+          "note_en": "When at least one passage is relevant, the language model answers from the relevant passages.",
+          "section": "1",
+          "sub": "фрагмент подошёл",
+          "sub_en": "a passage fits",
+          "title": "Ответ по найденному",
+          "title_en": "Answer from passages"
+        },
+        "relevance": {
+          "codes": {
+            "E2": "pre_gen_grounding"
+          },
+          "section": "1",
+          "title": "Отсев лишних фрагментов",
+          "title_en": "Relevance filtering"
+        },
+        "retrieve": {
+          "codes": {},
+          "note": "Если своих знаний не хватает, извлекатель находит в корпусе несколько самых подходящих фрагментов.",
+          "note_en": "When its own knowledge is not enough, the retriever finds the few most suitable passages in the corpus.",
+          "section": "1",
+          "title": "Поиск фрагментов",
+          "title_en": "Passage search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "know",
+          "retrieve",
+          "relevance"
+        ],
+        [
+          "own_answer",
+          "rel_answer",
+          "decompose"
+        ],
+        [
+          "combine"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "RA-ISF Inference",
+          "url": "https://arxiv.org/html/2403.06840v2#S3.SS3"
+        },
+        {
+          "key": "2",
+          "title": "Overview",
+          "url": "https://arxiv.org/html/2403.06840v2#S3.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2403.06840v2",
+        "url": "https://arxiv.org/html/2403.06840v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

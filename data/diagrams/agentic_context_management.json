@@ -1,0 +1,106 @@
+{
+  "technology_id": "agentic_context_management",
+  "source": {
+    "label": "arXiv:2607.21503v1",
+    "url": "https://arxiv.org/html/2607.21503v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "The Maximem Synap System",
+      "anchor": "S4"
+    },
+    {
+      "key": "2",
+      "title": "Design Choices",
+      "anchor": "S5"
+    }
+  ],
+  "rows": [
+    [
+      "design",
+      "ingest",
+      "resolve"
+    ],
+    [
+      "stores"
+    ],
+    [
+      "decompose",
+      "traverse",
+      "select"
+    ],
+    [
+      "compact",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "design": {
+      "section": "1"
+    },
+    "ingest": {
+      "section": "1",
+      "codes": {
+        "A3": "metadata",
+        "A8": "extracted"
+      }
+    },
+    "resolve": {
+      "section": "1"
+    },
+    "stores": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "C4": "multiple_local",
+        "G1": "isolated_circuit"
+      }
+    },
+    "decompose": {
+      "section": "1",
+      "codes": {
+        "B1": "subquestion_decomposition"
+      }
+    },
+    "traverse": {
+      "section": "1",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "select": {
+      "section": "1",
+      "codes": {
+        "D2": "budget_aware"
+      }
+    },
+    "compact": {
+      "section": "2",
+      "codes": {
+        "F1": "consolidating"
+      },
+      "residual": "validated_compaction"
+    },
+    "answer": {
+      "section": "1"
+    }
+  },
+  "edges": [
+    [
+      "resolve",
+      "stores"
+    ],
+    [
+      "stores",
+      "traverse"
+    ],
+    [
+      "select",
+      "answer"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

@@ -1,0 +1,94 @@
+{
+  "technology_id": "ircot",
+  "source": {
+    "label": "arXiv:2212.10509v2",
+    "url": "https://arxiv.org/html/2212.10509v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Interleaving Retrieval with Chain-of-Thought Reasoning",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Retriever.",
+      "anchor": "S4.SS1.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Question Answering Reader",
+      "anchor": "S3.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "question",
+      "first",
+      "reason"
+    ],
+    [
+      "query",
+      "retrieve",
+      "collect"
+    ],
+    [
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "question": {
+      "section": "1"
+    },
+    "first": {
+      "section": "1"
+    },
+    "reason": {
+      "section": "1",
+      "codes": {
+        "C2": "iterative_stopping",
+        "E5": "mutual_loop"
+      }
+    },
+    "query": {
+      "section": "1",
+      "codes": {
+        "B1": "multi_reformulation"
+      }
+    },
+    "retrieve": {
+      "section": "2",
+      "codes": {
+        "A5": "lexical",
+        "C1": "lexical"
+      }
+    },
+    "collect": {
+      "section": "1",
+      "codes": {
+        "D2": "budget_aware"
+      }
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "reason",
+      "query"
+    ],
+    [
+      "collect",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "collect",
+      "reason"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

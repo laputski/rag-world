@@ -41,6 +41,126 @@
     "configuration_variable": [],
     "description": "IRCoT соединяет пошаговое рассуждение с извлечением, чередуя их. Однократное извлечение по исходному вопросу не обслуживает вопросы, где ответ собирается из нескольких документов по цепочке. Чтобы узнать, где родился режиссёр определённого фильма, нужно сначала узнать, кто он, и только потом искать место его рождения. В исходном вопросе имени режиссёра нет, поэтому поиск по нему второго документа не находит.\n\nОбработка идёт кругами. По исходному вопросу выполняется извлечение, найденное подаётся модели, и та порождает один шаг рассуждения. Этот шаг служит запросом для следующего извлечения, найденное добавляется к контексту, порождается следующий шаг, и так далее. Цикл останавливается, когда очередной шаг содержит ответ либо когда исчерпано отведённое число кругов.\n\nСущественно направление связи: не только извлечение снабжает рассуждение, но и рассуждение задаёт извлечение, поэтому промежуточная сущность, названная моделью на первом шаге, становится поисковым запросом на втором. Расход соответствует числу кругов: каждый круг стоит одного вызова модели и одного обращения к индексу, а ошибка на раннем шаге уводит все последующие, потому что запросы строятся по уже порождённому.",
     "description_en": "IRCoT joins step-by-step reasoning to retrieval by alternating them. A single retrieval on the original question fails on questions whose answer is assembled from several documents in a chain. To learn where the director of a particular film was born, one must first learn who the director is and only then search for their place of birth. The director's name does not appear in the original question, so a search on it finds no second document.\n\nProcessing proceeds in rounds. Retrieval is performed on the original question, what is found is given to the model, and the model generates one step of reasoning. That step serves as the query for the next retrieval, what is found is added to the context, the next step is generated, and so on. The loop halts when a step contains the answer or when the allotted number of rounds is exhausted.\n\nThe direction of the coupling is what matters: retrieval feeds reasoning, but reasoning also drives retrieval, so an intermediate entity named by the model at the first step becomes the search query at the second. The expense scales with the number of rounds, each costing one model call and one consultation of the index, and an error at an early step carries every later one with it, because the queries are built from what has already been generated.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "reason",
+          "query"
+        ],
+        [
+          "collect",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "collect",
+          "reason"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Когда в рассуждении появляется ответ или пройдено восемь шагов, отдельный запуск языковой модели отвечает на вопрос по всем собранным абзацам.",
+          "note_en": "Once the reasoning states an answer or eight steps have passed, a separate run of the language model answers from all collected paragraphs.",
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "collect": {
+          "codes": {
+            "D2": "budget_aware"
+          },
+          "section": "1",
+          "sub": "не больше 15",
+          "sub_en": "at most 15",
+          "title": "Накопление абзацев",
+          "title_en": "Collected paragraphs"
+        },
+        "first": {
+          "codes": {},
+          "note": "Сначала абзацы ищутся по самому вопросу.",
+          "note_en": "Paragraphs are first retrieved with the question itself as the query.",
+          "section": "1",
+          "title": "Поиск по вопросу",
+          "title_en": "Search by the question"
+        },
+        "query": {
+          "codes": {
+            "B1": "multi_reformulation"
+          },
+          "section": "1",
+          "sub": "как новый запрос",
+          "sub_en": "as the new query",
+          "title": "Последняя фраза",
+          "title_en": "Last sentence"
+        },
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "reason": {
+          "codes": {
+            "C2": "iterative_stopping",
+            "E5": "mutual_loop"
+          },
+          "section": "1",
+          "sub": "одна новая фраза",
+          "sub_en": "one new sentence",
+          "title": "Шаг рассуждения",
+          "title_en": "Reasoning step"
+        },
+        "retrieve": {
+          "codes": {
+            "A5": "lexical",
+            "C1": "lexical"
+          },
+          "section": "2",
+          "title": "Поиск по словам",
+          "title_en": "Word-matching search"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "question",
+          "first",
+          "reason"
+        ],
+        [
+          "query",
+          "retrieve",
+          "collect"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Interleaving Retrieval with Chain-of-Thought Reasoning",
+          "url": "https://arxiv.org/html/2212.10509v2#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Retriever.",
+          "url": "https://arxiv.org/html/2212.10509v2#S4.SS1.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Question Answering Reader",
+          "url": "https://arxiv.org/html/2212.10509v2#S3.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2212.10509v2",
+        "url": "https://arxiv.org/html/2212.10509v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

@@ -20,6 +20,121 @@
     "configuration_variable": [],
     "description": "GNN-RAG разделяет труд между двумя средствами по тому, что каждое умеет лучше. Языковая модель хорошо обращается с языком и плохо с многошаговой структурой: следуя по рёбрам подсказками, она сбивается тем чаще, чем длиннее цепочка. Графовая нейронная сеть, напротив, обучена именно на структуре и распространяет признаки по рёбрам согласованно, но связного текста не порождает.\n\nРазделение устроено так. Графовая нейронная сеть принимает вопрос и граф знаний и размечает вершины по их отношению к ответу, распространяя сведения от начальных вершин по рёбрам за несколько проходов. Из размеченного отбираются вершины с высокой оценкой и пути, ведущие к ним от начальных. Отобранный подграф переводится в текст, то есть в перечисление троек «субъект, отношение, объект», и подаётся языковой модели вместе с вопросом.\n\nМодель тем самым не ищет по графу вовсе, а лишь излагает найденное. Многошаговые вопросы обслуживаются лучше, чем при обходе под управлением модели, и стоят дешевле, потому что вызов модели один, а не по вызову на шаг. Плата состоит в обучении: графовую сеть нужно обучить на размеченных вопросах по этому графу, и на другой граф она переносится плохо.",
     "description_en": "GNN-RAG divides the labour between two instruments according to what each does better. A language model handles language well and multi-step structure poorly: following edges by prompting, it goes astray the more often the longer the chain. A graph neural network, by contrast, is trained on structure precisely and propagates features along edges coherently, but it generates no connected prose.\n\nThe division works as follows. The graph neural network takes the question and the knowledge graph and labels the nodes by their bearing on the answer, propagating information from the starting nodes along the edges over several passes. High-scoring nodes and the paths leading to them from the starting points are selected from the labelling. The selected subgraph is rendered as text, that is, as an enumeration of subject, relation, object triples, and given to the language model along with the question.\n\nThe model thereby does no searching over the graph at all and merely states what was found. Multi-step questions are served better than under model-driven traversal, and more cheaply, because there is one model call rather than one per step. The price is training: the graph network must be trained on labelled questions over this graph, and it transfers to another graph poorly.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "kg",
+          "subgraph"
+        ],
+        [
+          "gnn",
+          "paths"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Языковая модель получает пути и вопрос и перечисляет ответы. Модель с открытыми весами для этого дообучается.",
+          "note_en": "A language model reads the paths and the question and lists the answers. A model with open weights is fine-tuned for this.",
+          "section": "3",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "gnn": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "2",
+          "sub": "находит кандидатов",
+          "sub_en": "finds candidates",
+          "title": "Обученная графовая сеть",
+          "title_en": "Trained graph network"
+        },
+        "kg": {
+          "codes": {
+            "A4": "graph",
+            "A8": "given"
+          },
+          "section": "1",
+          "sub": "готовый",
+          "sub_en": "given",
+          "title": "Граф знаний",
+          "title_en": "Knowledge graph"
+        },
+        "paths": {
+          "codes": {
+            "A1": "node_edge",
+            "C1": "graph_traversal"
+          },
+          "section": "2",
+          "sub": "до кандидатов",
+          "sub_en": "to candidates",
+          "title": "Кратчайшие пути",
+          "title_en": "Shortest paths"
+        },
+        "question": {
+          "codes": {},
+          "section": "1",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "subgraph": {
+          "codes": {},
+          "note": "Из большого графа берётся небольшой подграф: сущности, названные в вопросе, и их соседи.",
+          "note_en": "A small subgraph is taken from the large graph: the entities named in the question and their neighbours.",
+          "section": "1",
+          "title": "Подграф вопроса",
+          "title_en": "Question subgraph"
+        },
+        "verbalize": {
+          "codes": {},
+          "note": "Каждый путь записывается строкой: сущность вопроса, связь, сущность и так далее, до последней связи и сущности ответа.",
+          "note_en": "Each path is written as a line: question entity, relation, entity, and so on up to the last relation and the answer entity.",
+          "section": "3",
+          "title": "Пути в виде текста",
+          "title_en": "Paths as text"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "kg"
+        ],
+        [
+          "question",
+          "subgraph",
+          "gnn"
+        ],
+        [
+          "paths",
+          "verbalize",
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Problem Statement & Background",
+          "url": "https://arxiv.org/html/2405.20139v1#S3"
+        },
+        {
+          "key": "2",
+          "title": "GNN",
+          "url": "https://arxiv.org/html/2405.20139v1#S4.SS1"
+        },
+        {
+          "key": "3",
+          "title": "LLM",
+          "url": "https://arxiv.org/html/2405.20139v1#S4.SS2"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2405.20139v1",
+        "url": "https://arxiv.org/html/2405.20139v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",

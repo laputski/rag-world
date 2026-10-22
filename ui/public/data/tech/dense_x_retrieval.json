@@ -41,6 +41,130 @@
     "configuration_variable": [],
     "description": "Dense X Retrieval ставит вопрос о том, что вообще следует считать единицей извлечения. Обычно ею служит фрагмент текста фиксированной длины, и такой выбор произволен: граница проходит там, где кончилось отведённое число символов, а не там, где кончилась мысль. Фрагмент поэтому содержит несколько разнородных утверждений сразу и половину ещё одного.\n\nПредлагаемая единица называется утверждением: это одно законченное высказывание, выраженное так, чтобы быть понятным без окружающего текста. Местоимения в нём раскрыты, сокращения развёрнуты, подразумеваемое подлежащее восстановлено. Исходный текст разбирается на такие утверждения языковой моделью, и индексируются уже они, а не отрезки заданной длины.\n\nВыигрыш состоит в том, что векторное представление утверждения описывает ровно одну мысль и потому не размывается. Проигрыш состоит в потере связности: утверждения, извлечённые из соседних предложений, приходят в контекст порознь, и рассуждение, разворачивавшееся на протяжении абзаца, приходится собирать заново. Разбор всего собрания языковой моделью, кроме того, требуется до первого запроса и составляет основную часть стоимости.",
     "description_en": "Dense X Retrieval raises the question of what should count as a unit of retrieval at all. The usual unit is a text fragment of fixed length, and that choice is arbitrary: the boundary falls where the allotted number of characters ran out rather than where the thought ended. A fragment therefore holds several unrelated statements at once, plus half of one more.\n\nThe proposed unit is called a proposition: a single self-contained statement, phrased so as to be understandable without the surrounding text. Its pronouns are resolved, its abbreviations expanded, its implied subject restored. The source text is parsed into such propositions by a language model, and it is these, rather than stretches of a given length, that are indexed.\n\nThe gain is that the vector representation of a proposition describes exactly one thought and is therefore not blurred. The loss is coherence: propositions drawn from neighbouring sentences arrive in the context separately, and an argument that unfolded across a paragraph has to be reassembled. Parsing the whole collection with a language model, moreover, is required before the first query and accounts for most of the cost.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "index",
+          "search"
+        ],
+        [
+          "select",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "5",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "index": {
+          "codes": {},
+          "note": "Каждое утверждение переводится в вектор готовым кодировщиком и помещается в индекс.",
+          "note_en": "Each proposition is turned into a vector by a ready-made encoder and stored in the index.",
+          "section": "3",
+          "title": "Индекс векторов",
+          "title_en": "Vector index"
+        },
+        "passages": {
+          "codes": {},
+          "section": "1",
+          "title": "Отрывки Википедии",
+          "title_en": "Wikipedia passages"
+        },
+        "query": {
+          "codes": {},
+          "section": "6",
+          "title": "Вопрос",
+          "title_en": "Question"
+        },
+        "search": {
+          "codes": {},
+          "note": "Вопрос сравнивается с утверждениями по векторам. Авторы проверяют четыре готовых извлекателя.",
+          "note_en": "The question is compared with the propositions by their vectors. The authors test four ready-made retrievers.",
+          "section": "4",
+          "title": "Поиск утверждений",
+          "title_en": "Proposition search"
+        },
+        "select": {
+          "codes": {
+            "D1": "none"
+          },
+          "section": "5",
+          "sub": "без переоценки",
+          "sub_en": "no reranking",
+          "title": "Отбор лучших утверждений",
+          "title_en": "Top propositions"
+        },
+        "split": {
+          "codes": {
+            "A1": "proposition"
+          },
+          "section": "2",
+          "sub": "обученной моделью",
+          "sub_en": "by a trained model",
+          "title": "Разбиение на утверждения",
+          "title_en": "Splitting into propositions"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "passages",
+          "split",
+          "index"
+        ],
+        [
+          "query",
+          "search",
+          "select"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "FactoidWiki: Proposition-Level Index and Retrieval for Wikipedia",
+          "url": "https://arxiv.org/html/2312.06648v3#S3"
+        },
+        {
+          "key": "2",
+          "title": "Parsing Passage to Propositions.",
+          "url": "https://arxiv.org/html/2312.06648v3#S3.SS0.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Offline Indexing",
+          "url": "https://arxiv.org/html/2312.06648v3#A4"
+        },
+        {
+          "key": "4",
+          "title": "Dense Retrieval Models",
+          "url": "https://arxiv.org/html/2312.06648v3#S4.SS2"
+        },
+        {
+          "key": "5",
+          "title": "Open-domain QA Evaluation on Retrieval-Augmented Language Models",
+          "url": "https://arxiv.org/html/2312.06648v3#S4.SS4"
+        },
+        {
+          "key": "6",
+          "title": "Open-Domain QA Datasets",
+          "url": "https://arxiv.org/html/2312.06648v3#S4.SS1"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2312.06648v3",
+        "url": "https://arxiv.org/html/2312.06648v3"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

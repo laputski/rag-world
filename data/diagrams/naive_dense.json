@@ -1,0 +1,106 @@
+{
+  "technology_id": "naive_dense",
+  "source": {
+    "label": "arXiv:2004.04906v3",
+    "url": "https://arxiv.org/html/2004.04906v3"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Wikipedia Data Pre-processing",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Encoders",
+      "anchor": "S3.SS1.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Inference",
+      "anchor": "S3.SS1.SSS0.Px2"
+    },
+    {
+      "key": "4",
+      "title": "Run-time Efficiency",
+      "anchor": "S5.SS4"
+    },
+    {
+      "key": "5",
+      "title": "End-to-end QA System",
+      "anchor": "S6.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "articles",
+      "split"
+    ],
+    [
+      "p_enc",
+      "index"
+    ],
+    [
+      "question",
+      "q_enc",
+      "search"
+    ],
+    [
+      "reader"
+    ]
+  ],
+  "nodes": {
+    "articles": {
+      "section": "1"
+    },
+    "split": {
+      "section": "1",
+      "codes": {
+        "A1": "passage",
+        "A2": "fixed"
+      }
+    },
+    "p_enc": {
+      "section": "2",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "index": {
+      "section": "3"
+    },
+    "question": {
+      "section": "3"
+    },
+    "q_enc": {
+      "section": "2"
+    },
+    "search": {
+      "section": "4",
+      "codes": {
+        "C1": "ann",
+        "D2": "top_k"
+      }
+    },
+    "reader": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "split",
+      "p_enc"
+    ],
+    [
+      "index",
+      "search"
+    ],
+    [
+      "search",
+      "reader"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

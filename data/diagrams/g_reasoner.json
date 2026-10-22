@@ -1,0 +1,99 @@
+{
+  "technology_id": "g_reasoner",
+  "source": {
+    "label": "arXiv:2509.24276v4",
+    "url": "https://arxiv.org/html/2509.24276v4"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Unified Graph Interface: QuadGraph",
+      "anchor": "S4.SS1"
+    },
+    {
+      "key": "2",
+      "title": "Graph Foundation Model Reasoning",
+      "anchor": "S4.SS2"
+    },
+    {
+      "key": "3",
+      "title": "Language Foundation Model Reasoning",
+      "anchor": "S4.SS3"
+    }
+  ],
+  "rows": [
+    [
+      "graphs",
+      "unify",
+      "quad"
+    ],
+    [
+      "query",
+      "encode",
+      "gnn"
+    ],
+    [
+      "select",
+      "prompt",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "graphs": {
+      "section": "1"
+    },
+    "unify": {
+      "section": "1"
+    },
+    "quad": {
+      "section": "1",
+      "codes": {
+        "A4": "graph",
+        "A3": "metadata"
+      },
+      "residual": "layered_typed_graph"
+    },
+    "query": {
+      "section": "2"
+    },
+    "encode": {
+      "section": "2"
+    },
+    "gnn": {
+      "section": "2",
+      "codes": {
+        "C1": "graph_traversal",
+        "G3": "trained_retriever"
+      },
+      "residual": "learned_relevance_propagation"
+    },
+    "select": {
+      "section": "3",
+      "codes": {
+        "A1": "node_edge"
+      }
+    },
+    "prompt": {
+      "section": "3",
+      "codes": {}
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "quad",
+      "encode"
+    ],
+    [
+      "gnn",
+      "select"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": [
+    "A2"
+  ]
+}

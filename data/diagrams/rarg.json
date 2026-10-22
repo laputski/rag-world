@@ -1,0 +1,105 @@
+{
+  "technology_id": "rarg",
+  "source": {
+    "label": "arXiv:2607.24223v2",
+    "url": "https://arxiv.org/html/2607.24223v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Document-Level Relevance Insertion",
+      "anchor": "S3.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Entry Point Initialization",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "3",
+      "title": "DCI-based Agent Structure",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "4",
+      "title": "Match-Level Relevance Insertion",
+      "anchor": "S3.SS4"
+    }
+  ],
+  "rows": [
+    [
+      "scope",
+      "entry"
+    ],
+    [
+      "agent",
+      "grep",
+      "rerank"
+    ],
+    [
+      "read",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "scope": {
+      "section": "1",
+      "codes": {
+        "B1": "multi_reformulation"
+      }
+    },
+    "entry": {
+      "section": "2"
+    },
+    "agent": {
+      "section": "3",
+      "codes": {
+        "C2": "agentic_open_loop",
+        "E5": "mutual_loop"
+      }
+    },
+    "grep": {
+      "section": "1",
+      "codes": {
+        "C1": "lexical"
+      },
+      "residual": "relevance_ordered_traversal"
+    },
+    "rerank": {
+      "section": "4"
+    },
+    "read": {
+      "section": "3"
+    },
+    "answer": {
+      "section": "3"
+    }
+  },
+  "edges": [
+    [
+      "entry",
+      "agent"
+    ],
+    [
+      "rerank",
+      "read"
+    ],
+    [
+      "agent",
+      "answer"
+    ]
+  ],
+  "loops": [
+    [
+      "read",
+      "agent"
+    ]
+  ],
+  "breaks": [
+    [
+      "read",
+      "answer"
+    ]
+  ],
+  "omitted": []
+}

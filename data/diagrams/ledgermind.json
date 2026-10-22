@@ -1,0 +1,149 @@
+{
+  "technology_id": "ledgermind",
+  "source": {
+    "label": "arXiv:2607.28374v1",
+    "url": "https://arxiv.org/html/2607.28374v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Adaptive evidence-depth control",
+      "anchor": "S3.SS2.SSS0.Px2"
+    },
+    {
+      "key": "2",
+      "title": "Evidence gathering",
+      "anchor": "A1.SS0.SSS0.Px1"
+    },
+    {
+      "key": "3",
+      "title": "Knowledge Search Strategy",
+      "anchor": "A4.SS6"
+    },
+    {
+      "key": "4",
+      "title": "Structured Evidence Ledger as Trajectory State",
+      "anchor": "S3.SS1"
+    },
+    {
+      "key": "5",
+      "title": "Grounded reasoning",
+      "anchor": "A1.SS0.SSS0.Px2"
+    },
+    {
+      "key": "6",
+      "title": "Event-triggered typed repair",
+      "anchor": "S3.SS2.SSS0.Px3"
+    },
+    {
+      "key": "7",
+      "title": "Decision and defense",
+      "anchor": "A1.SS0.SSS0.Px3"
+    }
+  ],
+  "rows": [
+    [
+      "dispatch",
+      "plan"
+    ],
+    [
+      "observe",
+      "search"
+    ],
+    [
+      "ledger",
+      "reasoning",
+      "check"
+    ],
+    [
+      "repair",
+      "decision"
+    ]
+  ],
+  "nodes": {
+    "dispatch": {
+      "section": "1",
+      "residual": "lexical_rule_routing"
+    },
+    "plan": {
+      "section": "2"
+    },
+    "observe": {
+      "section": "2",
+      "codes": {
+        "A7": "image"
+      }
+    },
+    "search": {
+      "section": "3",
+      "codes": {
+        "B1": "multi_reformulation",
+        "C4": "single_store",
+        "D2": "budget_aware"
+      }
+    },
+    "ledger": {
+      "section": "4",
+      "codes": {
+        "A1": "passage",
+        "A2": "none",
+        "A3": "metadata",
+        "A4": "graph",
+        "A8": "computed"
+      }
+    },
+    "reasoning": {
+      "section": "5",
+      "codes": {
+        "E3": "claim_level"
+      }
+    },
+    "check": {
+      "section": "5",
+      "codes": {
+        "A5": "lexical",
+        "E2": "post_gen_check"
+      }
+    },
+    "repair": {
+      "section": "6",
+      "codes": {
+        "C2": "iterative_stopping",
+        "E4": "confidence_threshold",
+        "E5": "mutual_loop"
+      }
+    },
+    "decision": {
+      "section": "7",
+      "codes": {
+        "E1": "draft_verify"
+      }
+    }
+  },
+  "edges": [
+    [
+      "plan",
+      "observe"
+    ],
+    [
+      "observe",
+      "ledger"
+    ],
+    [
+      "search",
+      "ledger"
+    ],
+    [
+      "check",
+      "repair"
+    ]
+  ],
+  "loops": [
+    [
+      "repair",
+      "ledger"
+    ]
+  ],
+  "breaks": [],
+  "omitted": []
+}

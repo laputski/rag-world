@@ -1,0 +1,173 @@
+{
+  "technology_id": "rag_anything",
+  "source": {
+    "label": "arXiv:2510.12323v1",
+    "url": "https://arxiv.org/html/2510.12323v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "Universal Representation for Heterogeneous Knowledge",
+      "anchor": "S2.SS2"
+    },
+    {
+      "key": "2",
+      "title": "Dual-Graph Construction for Multimodal Knowledge",
+      "anchor": "S2.SS2.SSS1"
+    },
+    {
+      "key": "3",
+      "title": "Graph Fusion and Index Creation",
+      "anchor": "S2.SS2.SSS2"
+    },
+    {
+      "key": "4",
+      "title": "Cross-Modal Hybrid Retrieval",
+      "anchor": "S2.SS3"
+    },
+    {
+      "key": "5",
+      "title": "From Retrieval to Synthesis",
+      "anchor": "S2.SS4"
+    }
+  ],
+  "rows": [
+    [
+      "parse"
+    ],
+    [
+      "mm_graph",
+      "text_graph"
+    ],
+    [
+      "fusion",
+      "embed",
+      "query"
+    ],
+    [
+      "structural",
+      "semantic"
+    ],
+    [
+      "scoring",
+      "answer"
+    ]
+  ],
+  "nodes": {
+    "parse": {
+      "section": "1",
+      "codes": {
+        "A1": "passage",
+        "A2": "structure_aware",
+        "A7": "text"
+      }
+    },
+    "mm_graph": {
+      "section": "2",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "text_graph": {
+      "section": "2",
+      "codes": {
+        "A3": "extracted_triples"
+      }
+    },
+    "fusion": {
+      "section": "3",
+      "codes": {
+        "A4": "graph",
+        "A8": "extracted"
+      }
+    },
+    "embed": {
+      "section": "3",
+      "codes": {
+        "A5": "dense_single"
+      }
+    },
+    "query": {
+      "section": "4"
+    },
+    "structural": {
+      "section": "4",
+      "codes": {
+        "C1": "graph_traversal"
+      }
+    },
+    "semantic": {
+      "section": "4"
+    },
+    "scoring": {
+      "section": "4",
+      "codes": {
+        "C3": "score_normalization"
+      },
+      "residual": "modality_aware_ranking"
+    },
+    "answer": {
+      "section": "5"
+    }
+  },
+  "edges": [
+    [
+      "parse",
+      "mm_graph"
+    ],
+    [
+      "parse",
+      "text_graph"
+    ],
+    [
+      "mm_graph",
+      "fusion"
+    ],
+    [
+      "text_graph",
+      "fusion"
+    ],
+    [
+      "fusion",
+      "structural"
+    ],
+    [
+      "query",
+      "structural"
+    ],
+    [
+      "embed",
+      "semantic"
+    ],
+    [
+      "query",
+      "semantic"
+    ],
+    [
+      "structural",
+      "scoring"
+    ],
+    [
+      "semantic",
+      "scoring"
+    ]
+  ],
+  "loops": [],
+  "breaks": [
+    [
+      "mm_graph",
+      "text_graph"
+    ],
+    [
+      "embed",
+      "query"
+    ],
+    [
+      "structural",
+      "semantic"
+    ]
+  ],
+  "omitted": [
+    "F1"
+  ]
+}

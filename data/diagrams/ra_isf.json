@@ -1,0 +1,100 @@
+{
+  "technology_id": "ra_isf",
+  "source": {
+    "label": "arXiv:2403.06840v2",
+    "url": "https://arxiv.org/html/2403.06840v2"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "RA-ISF Inference",
+      "anchor": "S3.SS3"
+    },
+    {
+      "key": "2",
+      "title": "Overview",
+      "anchor": "S3.SS1"
+    }
+  ],
+  "rows": [
+    [
+      "know",
+      "retrieve",
+      "relevance"
+    ],
+    [
+      "own_answer",
+      "rel_answer",
+      "decompose"
+    ],
+    [
+      "combine"
+    ]
+  ],
+  "nodes": {
+    "know": {
+      "section": "1"
+    },
+    "retrieve": {
+      "section": "1"
+    },
+    "relevance": {
+      "section": "1",
+      "codes": {
+        "E2": "pre_gen_grounding"
+      }
+    },
+    "own_answer": {
+      "section": "1"
+    },
+    "rel_answer": {
+      "section": "1"
+    },
+    "decompose": {
+      "section": "1",
+      "codes": {
+        "B1": "subquestion_decomposition",
+        "C2": "iterative_stopping",
+        "E5": "mutual_loop"
+      }
+    },
+    "combine": {
+      "section": "2"
+    }
+  },
+  "edges": [
+    [
+      "know",
+      "own_answer"
+    ],
+    [
+      "relevance",
+      "rel_answer"
+    ],
+    [
+      "relevance",
+      "decompose"
+    ],
+    [
+      "decompose",
+      "combine"
+    ]
+  ],
+  "loops": [
+    [
+      "decompose",
+      "know"
+    ]
+  ],
+  "breaks": [
+    [
+      "own_answer",
+      "rel_answer"
+    ],
+    [
+      "rel_answer",
+      "decompose"
+    ]
+  ],
+  "omitted": []
+}

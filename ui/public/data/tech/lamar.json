@@ -46,6 +46,118 @@
     "configuration_variable": [],
     "description": "LAMAR занимается многоязычным извлечением, где поиск возвращает документы на разных языках. Переранжировщик расставляет их по смысловой относимости и языка при этом не учитывает, хотя язык найденного документа влияет на порождаемый ответ: модель, получившая источники на чужом языке, чаще отвечает неточно, а ссылка ведёт читателя к тексту, которого он не прочтёт.\n\nПрямое решение не годится. Если просто поднимать документы на языке запроса, теряется смысловая относимость, ради которой переранжировщик и заведён, и наверх выходит слабо относящийся документ на нужном языке. Складывать одно с другим тоже нельзя: оценки относимости, полученные для разных языков, лежат в несопоставимых шкалах.\n\nОбучение идёт поэтому в два захода. Сперва оценки учителя переносятся с английской пары «запрос, документ» на её смысловой двойник на другом языке, чем оценки и приводятся к общей шкале. Затем выравниванием предпочтений документ на языке запроса поднимается среди тех, что уже признаны равно относящимися, так что язык решает лишь при прочих равных и относимости не подменяет.",
     "description_en": "LAMAR takes up multilingual retrieval, where search returns documents in several languages. A reranker orders them by semantic relevance and disregards language, although the language of a retrieved document affects the answer produced: a model handed sources in a foreign language answers imprecisely more often, and a citation leads the reader to a text they will not read.\n\nThe direct fix will not do. Simply promoting documents in the query's language loses the semantic relevance the reranker exists for, and a barely relevant document in the right language rises to the top. Adding the two together will not do either: relevance scores obtained for different languages live on incommensurable scales.\n\nTraining therefore proceeds in two passes. First the teacher's scores are carried over from an English query and document pair to its semantic counterpart in another language, which brings the scores onto a common scale. Then, by preference alignment, a document in the query's language is raised among those already judged equally relevant, so that language decides only among equals and never substitutes for relevance.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "distill",
+          "align"
+        ],
+        [
+          "align",
+          "pair"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "align": {
+          "codes": {},
+          "note": "Из двух одинаково подходящих документов выше ставится тот, что написан на языке вопроса. Подходящие документы при этом остаются выше неподходящих.",
+          "note_en": "Of two equally relevant documents, the one written in the query's language is ranked higher. Relevant documents still stay above irrelevant ones.",
+          "residual": "language_coherence_ranking",
+          "section": "2",
+          "title": "Предпочтение языка вопроса",
+          "title_en": "Query-language preference"
+        },
+        "candidates": {
+          "codes": {},
+          "note": "Первый этап поиска возвращает набор документов, среди которых могут быть документы на разных языках.",
+          "note_en": "A first-stage search returns a set of candidate documents, which may be written in several languages.",
+          "section": "3",
+          "title": "Найденные документы",
+          "title_en": "First-stage candidates"
+        },
+        "distill": {
+          "codes": {
+            "G3": "trained_retriever"
+          },
+          "section": "1",
+          "sub": "на другие языки",
+          "sub_en": "to other languages",
+          "title": "Перенос оценки учителя",
+          "title_en": "Transferring teacher scores"
+        },
+        "pair": {
+          "codes": {
+            "D1": "cross_encoder"
+          },
+          "section": "4",
+          "sub": "вопрос и документ",
+          "sub_en": "query and document",
+          "title": "Совместная оценка пары",
+          "title_en": "Joint pair scoring"
+        },
+        "reranked": {
+          "codes": {},
+          "note": "Документы сортируются по новой оценке, и лучшие передаются языковой модели.",
+          "note_en": "Documents are sorted by the new score, and the best ones go to the language model.",
+          "section": "3",
+          "title": "Итоговый порядок",
+          "title_en": "Final order"
+        },
+        "teacher": {
+          "codes": {},
+          "note": "Более крупная обученная модель, учитель, оценивает, насколько английский документ отвечает на английский вопрос.",
+          "note_en": "A larger trained model, the teacher, scores how well an English document answers an English question.",
+          "section": "1",
+          "sub": "пары на английском",
+          "sub_en": "English pairs",
+          "title": "Оценка учителем",
+          "title_en": "Teacher scoring"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "teacher",
+          "distill"
+        ],
+        [
+          "align"
+        ],
+        [
+          "candidates",
+          "pair",
+          "reranked"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "English-Anchored Multilingual Relevance Distillation",
+          "url": "https://arxiv.org/html/2607.22042v2#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Preference Alignment for Language Coherence",
+          "url": "https://arxiv.org/html/2607.22042v2#S3.SS2"
+        },
+        {
+          "key": "3",
+          "title": "Introduction",
+          "url": "https://arxiv.org/html/2607.22042v2#S1"
+        },
+        {
+          "key": "4",
+          "title": "LAMAR",
+          "url": "https://arxiv.org/html/2607.22042v2#S3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2607.22042v2",
+        "url": "https://arxiv.org/html/2607.22042v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-12",

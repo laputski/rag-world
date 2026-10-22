@@ -1,0 +1,73 @@
+{
+  "technology_id": "hyde",
+  "source": {
+    "label": "arXiv:2212.10496v1",
+    "url": "https://arxiv.org/html/2212.10496v1"
+  },
+  "sections": [
+    {
+      "key": "1",
+      "title": "HyDE",
+      "anchor": "S3.SS2"
+    }
+  ],
+  "rows": [
+    [
+      "query",
+      "hypo",
+      "avg"
+    ],
+    [
+      "docs",
+      "doc_enc",
+      "search"
+    ],
+    [
+      "top"
+    ]
+  ],
+  "nodes": {
+    "query": {
+      "section": "1"
+    },
+    "hypo": {
+      "section": "1",
+      "codes": {
+        "B1": "hyde",
+        "E5": "generation_seeds"
+      }
+    },
+    "avg": {
+      "section": "1"
+    },
+    "docs": {
+      "section": "1"
+    },
+    "doc_enc": {
+      "section": "1"
+    },
+    "search": {
+      "section": "1"
+    },
+    "top": {
+      "section": "1",
+      "codes": {
+        "D1": "none",
+        "D2": "top_k"
+      }
+    }
+  },
+  "edges": [
+    [
+      "avg",
+      "search"
+    ],
+    [
+      "search",
+      "top"
+    ]
+  ],
+  "loops": [],
+  "breaks": [],
+  "omitted": []
+}

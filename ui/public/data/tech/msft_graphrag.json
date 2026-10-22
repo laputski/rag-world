@@ -47,6 +47,159 @@
     ],
     "description": "Microsoft GraphRAG строит по всему собранию документов единый граф знаний. Вершинами графа служат сущности, которые большая языковая модель извлекает из текста, а рёбрами служат отношения между этими сущностями. Затем алгоритм кластеризации разбивает граф на сообщества, то есть на группы плотно связанных вершин, и для каждого сообщества модель пишет отчёт с изложением того, о чём это сообщество говорит. Отчёты образуют иерархию: сообщества нижнего уровня объединяются в более крупные, а в корне стоит свод по всему собранию.\n\nСистема отвечает на вопрос одним из трёх способов. Локальный поиск применяется к вопросам об отдельных сущностях: система находит нужную вершину и обходит смежные с ней рёбра, собирая её окрестность. Глобальный поиск применяется к вопросам обо всём собрании сразу, на которые в отдельном документе ответа нет: модель отвечает по каждому отчёту сообщества независимо, после чего частные ответы сводятся в общий. Поиск DRIFT начинается как локальный и постепенно расширяет охват, переходя по рёбрам от найденной окрестности дальше.\n\nПлата за такое устройство вносится заранее. Построение графа требует обращения к языковой модели по каждому фрагменту текста при извлечении сущностей и по каждому сообществу при написании отчёта, поэтому индексация большого собрания обходится дорого и занимает часы. Последующие запросы дёшевы, но всякое изменение документов требует перестроить затронутую часть графа вместе с её отчётами.",
     "description_en": "Microsoft GraphRAG builds a single knowledge graph over the entire document collection. The nodes of the graph are entities that a large language model extracts from the text, and the edges are the relations between those entities. A clustering algorithm then partitions the graph into communities, that is, into groups of densely connected nodes, and for each community the model writes a report stating what that community is about. The reports form a hierarchy: lower-level communities are combined into larger ones, and a summary of the whole collection stands at the root.\n\nThe system answers a question in one of three ways. Local search applies to questions about individual entities: the system locates the relevant node and traverses the edges adjacent to it, gathering its neighbourhood. Global search applies to questions about the collection as a whole, the kind no single document answers: the model responds over each community report independently, and the partial responses are then combined into one. DRIFT search begins as a local search and widens its reach step by step, following edges outward from the neighbourhood it has found.\n\nThe price of this arrangement is paid in advance. Building the graph requires a call to the language model for every text fragment during entity extraction and for every community when its report is written, so indexing a large collection is expensive and takes hours. Subsequent queries are cheap, but any change to the documents requires rebuilding the affected part of the graph together with its reports.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "graph",
+          "communities"
+        ],
+        [
+          "summaries",
+          "prepare"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "chunks": {
+          "codes": {
+            "A2": "fixed"
+          },
+          "section": "1",
+          "title": "Разбиение на фрагменты",
+          "title_en": "Text chunking"
+        },
+        "communities": {
+          "codes": {
+            "A4": "community_hierarchy",
+            "A8": "computed"
+          },
+          "section": "4",
+          "sub": "группы вершин",
+          "sub_en": "groups of nodes",
+          "title": "Иерархия сообществ",
+          "title_en": "Community hierarchy"
+        },
+        "extraction": {
+          "codes": {},
+          "note": "Языковая модель находит в каждом фрагменте сущности, связи между ними и утверждения о них и кратко описывает каждую находку.",
+          "note_en": "A language model finds in every chunk the entities, the relations between them and the claims about them, and writes a short description of each.",
+          "section": "2",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Выделение сущностей и связей",
+          "title_en": "Entity and relation extraction"
+        },
+        "graph": {
+          "codes": {},
+          "note": "Повторные находки одной сущности или связи сводятся в одну вершину или одно ребро, а их описания объединяются.",
+          "note_en": "Repeated findings of one entity or relation are merged into one node or one edge, and their descriptions are combined.",
+          "section": "3",
+          "title": "Граф знаний",
+          "title_en": "Knowledge graph"
+        },
+        "map": {
+          "codes": {
+            "E1": "ensemble_fragments"
+          },
+          "residual": "llm_scored_partial_answers",
+          "section": "6",
+          "sub": "с оценкой пользы",
+          "sub_en": "scored by the model",
+          "title": "Частичные ответы",
+          "title_en": "Partial answers"
+        },
+        "prepare": {
+          "codes": {},
+          "note": "Отчёты выбранного уровня перемешиваются и делятся на порции заданного размера.",
+          "note_en": "The reports of the chosen level are shuffled and divided into portions of a set size.",
+          "section": "6",
+          "title": "Перемешивание отчётов",
+          "title_en": "Shuffling the reports"
+        },
+        "reduce": {
+          "codes": {
+            "D2": "budget_aware"
+          },
+          "section": "6",
+          "title": "Сводный ответ",
+          "title_en": "Global answer"
+        },
+        "summaries": {
+          "codes": {
+            "A1": "summary_node",
+            "A3": "summary"
+          },
+          "section": "5",
+          "title": "Отчёты по сообществам",
+          "title_en": "Community reports"
+        }
+      },
+      "omitted": [
+        {
+          "code": "A5",
+          "reason": "Статья описывает только глобальный режим, где векторные представления не используются; поиск по близости векторов есть в локальном режиме из документации.",
+          "reason_en": "The paper describes only the global mode, which uses no vector representations; search by vector closeness belongs to the local mode in the documentation."
+        },
+        {
+          "code": "C1",
+          "reason": "В глобальном режиме из статьи берутся все отчёты выбранного уровня без поиска; обход графа есть только в локальном режиме из документации.",
+          "reason_en": "In the global mode of the paper all reports of the chosen level are taken without search; graph traversal belongs only to the local mode in the documentation."
+        }
+      ],
+      "rows": [
+        [
+          "chunks",
+          "extraction",
+          "graph"
+        ],
+        [
+          "communities",
+          "summaries"
+        ],
+        [
+          "prepare",
+          "map",
+          "reduce"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Source Documents → Text Chunks",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS1"
+        },
+        {
+          "key": "2",
+          "title": "Text Chunks → Entities & Relationships",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "Entities & Relationships → Knowledge Graph",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS3"
+        },
+        {
+          "key": "4",
+          "title": "Knowledge Graph → Graph Communities",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS4"
+        },
+        {
+          "key": "5",
+          "title": "Graph Communities → Community Summaries",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS5"
+        },
+        {
+          "key": "6",
+          "title": "Community Summaries → Community Answers → Global Answer",
+          "url": "https://arxiv.org/html/2404.16130v2#S3.SS1.SSS6"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2404.16130v2",
+        "url": "https://arxiv.org/html/2404.16130v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-05",

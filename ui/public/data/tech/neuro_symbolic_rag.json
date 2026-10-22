@@ -43,6 +43,141 @@
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "enrichment",
+          "ranking"
+        ],
+        [
+          "topk",
+          "answer"
+        ]
+      ],
+      "loops": [],
+      "nodes": {
+        "answer": {
+          "codes": {
+            "E1": "single_pass"
+          },
+          "section": "1",
+          "title": "Ответ языковой модели",
+          "title_en": "Answer generation"
+        },
+        "docs": {
+          "codes": {
+            "A7": "text"
+          },
+          "section": "1",
+          "title": "Документы",
+          "title_en": "Documents"
+        },
+        "enrichment": {
+          "codes": {},
+          "note": "Языковая модель дополняет вопрос родственными понятиями, найденными в графе.",
+          "note_en": "A language model extends the question with related concepts found in the graph.",
+          "section": "3",
+          "title": "Обогащение вопроса",
+          "title_en": "Query enrichment"
+        },
+        "entry": {
+          "codes": {},
+          "note": "Вопрос сопоставляется с понятиями графа. Понятия, достаточно близкие к вопросу, становятся начальными вершинами.",
+          "note_en": "The question is matched against the concepts of the graph. Concepts close enough to it become the starting nodes.",
+          "section": "2",
+          "title": "Начальные вершины",
+          "title_en": "Entry nodes"
+        },
+        "kg": {
+          "codes": {
+            "A4": "graph",
+            "A8": "given"
+          },
+          "note": "Готовый граф о психическом здоровье из внешней работы связывает симптомы, состояния и опросники.",
+          "note_en": "A ready graph of mental health from an external work links symptoms, conditions and questionnaires.",
+          "section": "1",
+          "title": "Граф знаний",
+          "title_en": "Knowledge graph"
+        },
+        "ranking": {
+          "codes": {
+            "A5": "dense_single",
+            "D1": "graph_structural",
+            "G3": "trained_retriever"
+          },
+          "note": "Документ оценивается по косинусному сходству его вектора с вектором дополненного вопроса и по положению в графе.",
+          "note_en": "A document is scored by the cosine similarity of its vector to the vector of the enriched question, plus a term for its position in the graph.",
+          "section": "4",
+          "title": "Оценка с учётом графа",
+          "title_en": "Graph-aware scoring"
+        },
+        "topk": {
+          "codes": {},
+          "note": "Дальше идут несколько документов с наибольшей оценкой.",
+          "note_en": "The few documents with the highest score go on.",
+          "section": "5",
+          "title": "Отбор лучших документов",
+          "title_en": "Top-k selection"
+        },
+        "traversal": {
+          "codes": {
+            "C1": "graph_traversal"
+          },
+          "section": "2",
+          "title": "Обход графа",
+          "title_en": "Graph traversal"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "kg",
+          "entry",
+          "traversal",
+          "enrichment"
+        ],
+        [
+          "docs",
+          "ranking",
+          "topk"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "KG-Path RAG",
+          "url": "https://arxiv.org/html/2601.04568v2#Sx4"
+        },
+        {
+          "key": "2",
+          "title": "Query-to-Graph Mapping & Traversal",
+          "url": "https://arxiv.org/html/2601.04568v2#Sx4.SS0.SSS0.Px1"
+        },
+        {
+          "key": "3",
+          "title": "Query Enrichment",
+          "url": "https://arxiv.org/html/2601.04568v2#Sx4.SS0.SSS0.Px2"
+        },
+        {
+          "key": "4",
+          "title": "Graph-Based Ranking Function",
+          "url": "https://arxiv.org/html/2601.04568v2#Sx4.SS0.SSS0.Px3"
+        },
+        {
+          "key": "5",
+          "title": "Final Retrieval",
+          "url": "https://arxiv.org/html/2601.04568v2#Sx4.SS0.SSS0.Px5"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2601.04568v2",
+        "url": "https://arxiv.org/html/2601.04568v2"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-08",

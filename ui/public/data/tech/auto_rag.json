@@ -18,6 +18,133 @@
     "configuration_variable": [],
     "description": "Auto-RAG переносит управление извлечением внутрь языковой модели. В системах с несколькими шагами поиска решениями о том, искать ли дальше и что именно, обычно распоряжается внешняя часть: порог уверенности, отдельный классификатор, заданное число кругов. Такие правила настраиваются вручную и переносятся на другую предметную область плохо.\n\nМодель дообучается вести извлечение самостоятельно, порождая рассуждение о состоянии поиска наравне с обычным текстом. Она называет, чего недостаёт для ответа, формулирует следующий запрос, читает найденное, оценивает, приблизило ли оно к ответу, и решает, продолжать ли. Обучающие цепочки получены наблюдением: многошаговые вопросы прогоняются с поиском, удачные ходы сохраняются как образцы.\n\nЧисло шагов тем самым определяется вопросом, а не настройкой, и меняется от одного обращения на простом вопросе до нескольких на сложном. Плата состоит в необходимости дообучения и в том, что решение об остановке остаётся суждением модели о себе самой: при завышенной уверенности она останавливается рано и отвечает на неполном основании.",
     "description_en": "Auto-RAG moves control of retrieval inside the language model. In systems with several search steps, the decisions about whether to search again and for what are usually taken by an external part: a confidence threshold, a separate classifier, a fixed number of rounds. Such rules are tuned by hand and transfer to another field poorly.\n\nThe model is fine-tuned to conduct retrieval on its own, generating reasoning about the state of the search alongside ordinary text. It names what is missing for an answer, formulates the next query, reads what was retrieved, judges whether it brought the answer closer, and decides whether to continue. The training chains were obtained by observation: multi-step questions are run with search, and successful courses of action are kept as examples.\n\nThe number of steps is thereby settled by the question rather than by a setting, varying from a single consultation on an easy question to several on a hard one. The price is the need for fine-tuning, and the fact that the decision to stop remains the model's judgement about itself: when its confidence is too high it stops early and answers on incomplete grounds.",
+    "diagram": {
+      "breaks": [],
+      "edges": [
+        [
+          "finetune",
+          "planning"
+        ],
+        [
+          "extraction",
+          "answer"
+        ]
+      ],
+      "loops": [
+        [
+          "extraction",
+          "planning"
+        ]
+      ],
+      "nodes": {
+        "answer": {
+          "codes": {},
+          "note": "Когда модель решает, что сведений достаточно, она перестаёт писать запросы и выводит ответ.",
+          "note_en": "Once the model decides it knows enough, it stops writing queries and outputs the answer.",
+          "section": "4",
+          "title": "Ответ языковой модели",
+          "title_en": "Final answer"
+        },
+        "extraction": {
+          "codes": {
+            "E5": "mutual_loop"
+          },
+          "section": "4",
+          "title": "Извлечение сведений",
+          "title_en": "Information extraction"
+        },
+        "filtering": {
+          "codes": {},
+          "note": "На каждом шаге выбирается запрос, по которому найдены документы с частью ответа, если такой есть; пример остаётся, только если итоговый ответ совпадает с правильным.",
+          "note_en": "At each step a query whose documents contain part of the answer is preferred; an example is kept only if its final answer matches the reference.",
+          "section": "2",
+          "title": "Отбор примеров",
+          "title_en": "Data filtering"
+        },
+        "finetune": {
+          "codes": {
+            "G3": "trained_reader"
+          },
+          "section": "3",
+          "title": "Дообучение модели",
+          "title_en": "Fine-tuning"
+        },
+        "planning": {
+          "codes": {
+            "B1": "multi_reformulation",
+            "C2": "agentic_open_loop"
+          },
+          "section": "4",
+          "title": "Планирование поиска",
+          "title_en": "Retrieval planning"
+        },
+        "retrieval": {
+          "codes": {},
+          "note": "Запрос, написанный моделью, уходит в поиск, и найденные документы возвращаются модели.",
+          "note_en": "The query written by the model is sent to the retriever, and the retrieved documents go back to the model.",
+          "section": "5",
+          "title": "Поиск документов",
+          "title_en": "Document retrieval"
+        },
+        "synthesis": {
+          "codes": {},
+          "note": "Языковая модель по образцам в подсказке решает вопросы из готовых наборов, чередуя рассуждение и поиск. Её ходы записываются как обучающие примеры.",
+          "note_en": "A language model prompted with examples solves questions from existing datasets, alternating reasoning and retrieval. Its moves are recorded as training examples.",
+          "section": "1",
+          "sub": "языковой моделью",
+          "sub_en": "by a language model",
+          "title": "Сбор обучающих примеров",
+          "title_en": "Synthesizing training data"
+        }
+      },
+      "omitted": [],
+      "rows": [
+        [
+          "synthesis",
+          "filtering",
+          "finetune"
+        ],
+        [
+          "planning",
+          "retrieval",
+          "extraction"
+        ],
+        [
+          "answer"
+        ]
+      ],
+      "sections": [
+        {
+          "key": "1",
+          "title": "Reasoning-Based Iterative Retrieval",
+          "url": "https://arxiv.org/html/2411.19443v1#S3.SS1"
+        },
+        {
+          "key": "2",
+          "title": "Data Filtering and Formatting",
+          "url": "https://arxiv.org/html/2411.19443v1#S3.SS1.SSS2"
+        },
+        {
+          "key": "3",
+          "title": "Training",
+          "url": "https://arxiv.org/html/2411.19443v1#S3.SS2"
+        },
+        {
+          "key": "4",
+          "title": "Reasoning Based Planning and Query Refinement",
+          "url": "https://arxiv.org/html/2411.19443v1#S3.SS1.SSS1"
+        },
+        {
+          "key": "5",
+          "title": "Inference",
+          "url": "https://arxiv.org/html/2411.19443v1#S3.SS3"
+        }
+      ],
+      "source": {
+        "label": "arXiv:2411.19443v1",
+        "url": "https://arxiv.org/html/2411.19443v1"
+      }
+    },
     "evidence": [
       {
         "fetched_at": "2026-08-10",
