@@ -16,7 +16,7 @@
       "A5": "dense_single",
       "A6": "snapshot",
       "A7": "text",
-      "A8": "extracted",
+      "A8": "extracted_and_computed",
       "B1": "identity",
       "B2": "static",
       "C1": "graph_traversal",
@@ -364,6 +364,21 @@
         "technology_id": "rag_as_memory",
         "why": "Ранжируется одна структура, возвращается другая.",
         "why_en": "One structure is ranked and a different one is returned."
+      },
+      {
+        "code": "A8",
+        "did": "Тройки извлекает языковая модель, а связи синонимов вычисляются по сходству векторов выше порога.",
+        "did_en": "Triples are extracted by a language model, and synonym links are computed by vector similarity above a threshold.",
+        "instead": "«извлечена»: связи синонимов не извлекаются, а вычисляются.",
+        "instead_en": "«extracted»: synonym links are computed, not extracted.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.14802, метод",
+        "source_en": "arXiv:2502.14802, method",
+        "technology_id": "rag_as_memory",
+        "to": "extracted_and_computed",
+        "why": "Часть связей извлечена, часть вычислена.",
+        "why_en": "Part of the links is extracted and part computed."
       }
     ],
     "problem": "Извлечение в обычном виде состояния не имеет: каждый запрос читает неподвижный снимок собрания и ничего в нём не оставляет. Система не накапливает опыт, не пересматривает прежних заключений и не учится на своих ошибках.\n\nЭтим закрыты три применения сразу. Подстройка под пользователя невозможна, потому что предыдущие обращения нигде не сохраняются. Длительная работа исполнителя над задачей невозможна, потому что найденное на первом шаге к десятому уже потеряно. Непрерывное накопление знаний без переобучения модели невозможно по той же причине.",

@@ -19,7 +19,7 @@
       "C2": "single_shot",
       "C3": "rrf",
       "C4": "multiple_local",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "F1": "none",
@@ -307,6 +307,21 @@
         "to": "multiple_local",
         "why": "Продукт работает распределённо.",
         "why_en": "The product runs distributed."
+      },
+      {
+        "code": "D1",
+        "did": "Результаты нескольких видов поиска сливаются по обратным рангам, и возвращаются первые; дальнейшей оценки нет.",
+        "did_en": "Results of several query types are merged by reciprocal rank fusion and the top ones are returned; no further scoring step follows.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "opensearch.org, запись блога о слиянии по обратным рангам",
+        "source_en": "opensearch.org, blog post on reciprocal rank fusion",
+        "technology_id": "opensearch",
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
       }
     ],
     "prose_id": "opensearch",

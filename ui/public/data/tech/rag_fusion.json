@@ -38,7 +38,9 @@
     },
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
-    "configuration_variable": [],
+    "configuration_variable": [
+      "D1"
+    ],
     "description": "RAG-Fusion продолжает приём с несколькими формулировками запроса и решает то, что тот оставляет нерешённым: как соединить полученные списки. Простое объединение теряет сведения о порядке, а сравнивать оценки напрямую нельзя, потому что оценки разных поисков лежат в разных шкалах и не сопоставимы.\n\nСлияние выполняется по обратным рангам. Документу назначается вклад, обратный его месту в списке: первое место даёт наибольший вклад, десятое малый. Вклады, полученные документом во всех списках, складываются, и общий порядок определяется этой суммой. Существенно, что в расчёт идёт только место, а не оценка, поэтому сопоставлять шкалы не требуется вовсе.\n\nПравило устроено так, что документ, найденный несколькими формулировками на средних местах, обгоняет документ, найденный одной формулировкой на первом. Это и есть искомое поведение: согласие нескольких независимых взглядов на запрос служит признаком уместности. Приём не требует обучения и применим к любым источникам, дающим упорядоченный список, поэтому им же соединяют словарный и векторный поиск. Расход остаётся тем же, что у нескольких формулировок: один вызов модели и несколько обращений к индексу.",
     "description_en": "RAG-Fusion continues the multiple-formulation technique and settles what that technique leaves open: how to join the resulting lists. A plain merge loses the ordering, and the scores cannot be compared directly, because the scores of different searches live on different scales and are not commensurable.\n\nThe merge is by reciprocal rank. A document is assigned a contribution inversely proportional to its position in a list: first place gives the largest contribution, tenth a small one. The contributions a document receives across all lists are summed, and the overall ordering follows that sum. What matters is that only position enters the computation, not score, so no scales need be reconciled at all.\n\nThe rule is such that a document found by several formulations in middling positions overtakes a document found by one formulation in first place. That is precisely the wanted behaviour: agreement among several independent views of the query is evidence of relevance. The technique requires no training and applies to any source producing an ordered list, which is why it also serves to join lexical and vector search. The expense is that of multiple formulations: one model call and several consultations of the index.",
     "evidence": [
@@ -131,6 +133,20 @@
         "to": "rrf",
         "why": "Способ слияния и есть то, чем приём отличается от простого размножения запроса.",
         "why_en": "The manner of fusion is precisely what distinguishes the technique from a plain multiplication of the query."
+      },
+      {
+        "code": "D1",
+        "did": "В нынешней версии совместный кодировщик или модель решений пересчитывает слитый набор, и к модели, пишущей ответ, попадают только лучшие; в исходной версии переупорядочивания не было.",
+        "did_en": "In the current version a cross-encoder or a decision model rescores the fused pool and only the best results reach the answering model; the original version had no reranker.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "README репозитория rag-fusion",
+        "source_en": "README of the rag-fusion repository",
+        "technology_id": "rag_fusion",
+        "to": "cross_encoder",
+        "variable": true,
+        "why": "Записано значение самой полной ветви, а измерение помечено переменным.",
+        "why_en": "The value of the fullest branch is written, and the dimension is marked variable."
       }
     ],
     "prose_id": "rag_fusion",

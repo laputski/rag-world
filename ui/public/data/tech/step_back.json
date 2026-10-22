@@ -21,7 +21,7 @@
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -145,6 +145,21 @@
         "to": "step_back",
         "why": "Запрос заменяется его обобщением. У схемы есть значение с этим именем.",
         "why_en": "The query is replaced by its generalisation. The schema has a value under that name."
+      },
+      {
+        "code": "D1",
+        "did": "Отрывки, найденные по исходному и по обобщённому вопросу, вместе ставятся в итоговую подсказку как есть.",
+        "did_en": "Passages retrieved for the original and for the step-back question are both placed into the final prompt as they are.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2310.06117, метод",
+        "source_en": "arXiv:2310.06117, method",
+        "technology_id": "step_back",
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
       }
     ],
     "prose_id": "step_back",

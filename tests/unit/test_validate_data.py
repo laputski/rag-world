@@ -475,6 +475,46 @@ def test_the_absence_of_a_fusion_needs_no_justification(registry):
     assert not complains_about(FUSION_COMPLAINT, validate_data.check_registry())
 
 
+# ─── A reranking rests on a source ───────────────────────────────────────────
+#
+# The old default of the schema was a joint encoder, written into every record
+# of the first registry. Two blind readings found no reranker behind fourteen of
+# the twenty-five values that survived. A reranking value must therefore name
+# its source, as a fusion already must.
+
+RERANK_COMPLAINT = "asserts that the retrieved candidates are reordered"
+
+
+def test_a_reranking_nobody_justified_is_refused(registry):
+    """The bait: the inherited default, standing with nothing behind it."""
+    save(configuration={"D1": "cross_encoder"})
+    assert complains_about(RERANK_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_justified_reranking_passes(registry):
+    save(configuration={"D1": "set_cover"})
+    justify("alpha", "D1", "set_cover")
+    assert not complains_about(RERANK_COMPLAINT, validate_data.check_registry())
+
+
+def test_no_reranking_needs_no_justification(registry):
+    save(configuration={"D1": "none"})
+    assert not complains_about(RERANK_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_record_awaiting_a_decision_is_spared(registry, monkeypatch):
+    monkeypatch.setattr(validate_data, "RERANK_AWAITING_DECISION", frozenset({"alpha"}))
+    save(configuration={"D1": "cross_encoder"})
+    assert not complains_about(RERANK_COMPLAINT, validate_data.check_registry())
+
+
+def test_a_decided_record_must_leave_the_waiting_list(registry, monkeypatch):
+    """The list of exceptions may only shrink: a decided record cannot linger."""
+    monkeypatch.setattr(validate_data, "RERANK_AWAITING_DECISION", frozenset({"alpha"}))
+    save(configuration={"D1": "none"})
+    assert complains_about("no longer awaits a decision on D1", validate_data.check_registry())
+
+
 def test_a_justification_of_another_dimension_does_not_count(registry):
     """A justification is asked for this dimension, not for the record at large.
 

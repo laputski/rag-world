@@ -46,6 +46,15 @@ LEVELS = {"L0", "L1", "L2", "L3", "L4", "L5", "L6"}
 FUSION_CODE = "C3"
 FUSION_NONE = "none"
 
+RERANK_CODE = "D1"
+RERANK_NONE = "none"
+
+#: Records whose reranking still holds the old default and awaits the owner's
+#: decision. Four stood here on 2026-10-20 and all were decided on 2026-10-21.
+#: The list may only shrink: an entry that gains a justification or another
+#: value must leave it, which the check below demands.
+RERANK_AWAITING_DECISION: frozenset[str] = frozenset()
+
 
 def _justified_dimensions() -> set[tuple[str, str]]:
     """The pairs of record and dimension for which a justification is written.
@@ -250,6 +259,29 @@ def check_registry() -> list[str]:
                 f"{where}: {FUSION_CODE}={fusion!r} asserts that the results of "
                 "several sources are merged, and no justification says which "
                 "source that rests on"
+            )
+
+        # The same holds for reranking, and here the harm was observed at scale.
+        # The first registry wrote the default of the schema into every record,
+        # and that default was a joint encoder: forty-three of fifty-four records
+        # claimed one. When the default became "no reranking", twenty-five such
+        # claims survived as explicit values, and two independent blind readings
+        # of their sources (2026-10-20) found no reranker in fourteen of them.
+        # An inherited value looks exactly like a reading; a justification is what
+        # tells them apart.
+        rerank = tech.configuration.get(RERANK_CODE)
+        awaiting = tech.id in RERANK_AWAITING_DECISION
+        if rerank not in (None, RERANK_NONE) and (tech.id, RERANK_CODE) not in justified:
+            if not awaiting:
+                problems.append(
+                    f"{where}: {RERANK_CODE}={rerank!r} asserts that the retrieved "
+                    "candidates are reordered, and no justification says which "
+                    "source that rests on"
+                )
+        elif awaiting:
+            problems.append(
+                f"{where}: the record no longer awaits a decision on {RERANK_CODE}; "
+                "remove it from RERANK_AWAITING_DECISION"
             )
 
         # A residual refers to the vocabulary by code. Free text is refused: one

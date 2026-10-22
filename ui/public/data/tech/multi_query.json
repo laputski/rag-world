@@ -19,9 +19,9 @@
       "B2": "static",
       "C1": "ann",
       "C2": "single_shot",
-      "C3": "rrf",
+      "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -83,8 +83,8 @@
         "label": null,
         "label_en": null,
         "status": "verified",
-        "url": "https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever",
-        "verified_at": "2026-10-19"
+        "url": "https://web.archive.org/web/20240331003553/https://python.langchain.com/docs/modules/data_connection/retrievers/MultiQueryRetriever",
+        "verified_at": "2026-10-21"
       }
     ],
     "name": "Multi-Query Retrieval",
@@ -104,19 +104,34 @@
         "why_en": "The query is multiplied before the call to the index."
       },
       {
-        "code": "C3",
-        "did": "Найденное по разным переформулировкам сливается в один список.",
-        "did_en": "What is found by the different reformulations is merged into one list.",
-        "question": "Слияние по рангам — распространённая реализация приёма, но не единственная возможная; библиотеки допускают и простое объединение.",
-        "question_en": "Fusion by rank is a widespread implementation of the technique but not the only possible one; libraries also allow a plain union.",
+        "code": "D1",
+        "did": "Документы, найденные по всем вариантам вопроса, объединяются без повторов; ничто их не переупорядочивает.",
+        "did_en": "Documents retrieved for every version of the query are merged as a unique union; nothing reorders them.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
         "residual_term": null,
         "residual_term_en": null,
-        "source": "документация LangChain, MultiQueryRetriever",
-        "source_en": "LangChain documentation, MultiQueryRetriever",
+        "source": "документация LangChain, MultiQueryRetriever, архивная копия от 31.03.2024",
+        "source_en": "LangChain documentation, MultiQueryRetriever, archived copy of 2024-03-31",
         "technology_id": "multi_query",
-        "to": "rrf",
-        "why": "Результаты нескольких поисков надо свести, и слияние здесь по рангам.",
-        "why_en": "The results of several retrievals have to be brought together, and the fusion here is by rank."
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
+      },
+      {
+        "code": "C3",
+        "did": "Документы, найденные по всем вариантам вопроса, объединяются без повторов, без слияния по местам или оценкам.",
+        "did_en": "Documents retrieved for every version of the query are merged as a unique union, with no merging by rank or score.",
+        "instead": "«слияние по обратным рангам»: страница его не описывает.",
+        "instead_en": "«reciprocal rank fusion»: the page does not describe it.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "документация LangChain, MultiQueryRetriever, архивная копия от 31.03.2024",
+        "source_en": "LangChain documentation, MultiQueryRetriever, archived copy of 2024-03-31",
+        "technology_id": "multi_query",
+        "to": "none",
+        "why": "Объединение множеств не сливает списки по местам или оценкам.",
+        "why_en": "A union of sets does not merge the lists by rank or score."
       }
     ],
     "prose_id": "multi_query",

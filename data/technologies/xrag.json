@@ -15,7 +15,7 @@
     "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "latent_compression",
     "D3": "natural_order",
     "E1": "single_pass",

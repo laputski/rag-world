@@ -17,7 +17,7 @@
       "A8": "computed",
       "B1": "identity",
       "B2": "static",
-      "C1": "tree_navigation",
+      "C1": "ann",
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
@@ -226,21 +226,6 @@
         "why_en": "The retrieval unit is a node of generalisation."
       },
       {
-        "code": "C1",
-        "did": "Поиск идёт сверху вниз по уровням иерархии, чем работа и объясняет экономию обращений к модели.",
-        "did_en": "Search proceeds top down through the levels of the hierarchy, and the work explains its saving in model calls by that.",
-        "question": "Полный текст статьи получить не удалось; значения выведены из аннотации, где названы иерархический индекс сообществ и экономия при поиске. Разбор здесь беднее, чем у записей, прочитанных по разделу метода.",
-        "question_en": "The full text of the paper could not be obtained; the values are inferred from the abstract, which names a hierarchical community index and a saving during search. The parse here is poorer than for records read from a method section.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2502.09891, аннотация",
-        "source_en": "arXiv:2502.09891, abstract",
-        "technology_id": "archrag",
-        "to": "tree_navigation",
-        "why": "Отбор — движение по уровням.",
-        "why_en": "Selection is movement through the levels."
-      },
-      {
         "code": "A8",
         "did": "Иерархия сообществ строится кластеризацией с участием языковой модели.",
         "did_en": "The hierarchy of communities is built by clustering with a language model taking part.",
@@ -252,6 +237,34 @@
         "to": "computed",
         "why": "Структура вычислена алгоритмом.",
         "why_en": "The structure is computed by an algorithm."
+      },
+      {
+        "code": "D1",
+        "did": "Языковая модель получает вопрос вместе с найденным на каждом уровне, выставляет оценки уместности, и отчёты сортируются и обрезаются перед ответом.",
+        "did_en": "The language model receives the query with the content retrieved at each layer, assigns relevance scores, and the reports are sorted and cut before answering.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, метод",
+        "source_en": "arXiv:2502.09891, method",
+        "technology_id": "archrag",
+        "to": "cross_encoder",
+        "why": "Модель, которая читает вопрос и каждого кандидата вместе и оценивает пару, и есть совместный кодировщик.",
+        "why_en": "A model that reads the query and each candidate together and scores the pair is what a joint encoder means."
+      },
+      {
+        "code": "C1",
+        "did": "На каждом уровне многоуровневого указателя идёт жадный поиск ближайших по сходству векторов; спуск лишь выбирает, откуда начать поиск на следующем уровне.",
+        "did_en": "At every layer of the multi-layer index a greedy nearest-neighbour search by vector similarity runs; descent only chooses where the next layer's search starts.",
+        "instead": "«спуск по дереву»: поиск охватывает весь уровень, а не только детей выбранного узла.",
+        "instead_en": "«descent through a tree»: the search covers the whole layer, not only the children of a chosen node.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2502.09891, метод",
+        "source_en": "arXiv:2502.09891, method",
+        "technology_id": "archrag",
+        "to": "ann",
+        "why": "Поиск ближайших по сходству векторов и есть это значение.",
+        "why_en": "Search for the nearest by vector similarity is what this value names."
       }
     ],
     "prose_id": "archrag",

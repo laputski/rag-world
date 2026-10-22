@@ -17,7 +17,6 @@
     "C4": "single_store",
     "D1": "none",
     "D2": "top_k",
-    "D3": "hierarchical",
     "E1": "single_pass",
     "E2": "none",
     "E3": "none",

@@ -15,10 +15,10 @@
     "C2": "single_shot",
     "C3": "none",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "set_cover",
     "D2": "budget_aware",
     "D3": "natural_order",
-    "E1": "ensemble_fragments",
+    "E1": "draft_verify",
     "E2": "external_judge",
     "E3": "none",
     "E4": "no_refusal",
@@ -28,7 +28,7 @@
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "frozen"
+    "G3": "trained_reader"
   },
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",

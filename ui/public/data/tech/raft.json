@@ -21,7 +21,7 @@
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -165,6 +165,21 @@
         "to": "fragment_level",
         "why": "Утверждение связывается с фрагментом, а не с документом целиком.",
         "why_en": "A statement is tied to a fragment rather than to a whole document."
+      },
+      {
+        "code": "D1",
+        "did": "Модель дообучается не обращать внимания на отвлекающие документы, а при работе найденные документы сразу попадают в её контекст.",
+        "did_en": "The model is fine-tuned to ignore distracting documents, and at test time the retrieved documents go straight into its context.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2403.10131, метод",
+        "source_en": "arXiv:2403.10131, method",
+        "technology_id": "raft",
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
       }
     ],
     "prose_id": "raft",

@@ -14,7 +14,7 @@
       "A3": "extracted_triples",
       "A4": "graph",
       "A5": "vision_language",
-      "A6": "append_only",
+      "A6": "snapshot",
       "A7": "image",
       "A8": "extracted",
       "B1": "identity",
@@ -23,7 +23,6 @@
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -125,21 +124,6 @@
     "package": null,
     "parse_notes": [
       {
-        "code": "A6",
-        "did": "Граф сцены строится по потоку данных и растёт со временем, сохраняя временные отношения.",
-        "did_en": "A scene graph is built from a stream of data and grows over time, keeping temporal relations.",
-        "instead": "«снимок»: он описал бы неизменный после построения индекс.",
-        "instead_en": "«snapshot»: it would describe an index unchanged after construction.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2501.14101, метод",
-        "source_en": "arXiv:2501.14101, method",
-        "technology_id": "streaming_rag",
-        "to": "append_only",
-        "why": "Состояние знаний накапливается, а не заменяется снимком. У схемы есть значение с этим именем.",
-        "why_en": "The knowledge state accumulates rather than being replaced by a snapshot. The schema has a value under that name."
-      },
-      {
         "code": "A4",
         "did": "Отношения между сценой, объектами и сущностями хранятся графом.",
         "did_en": "Relations between scene, objects and entities are kept as a graph.",
@@ -218,6 +202,34 @@
         "to": "episodic",
         "why": "Состояние знаний меняется во время работы, а не только при построении.",
         "why_en": "The knowledge state changes while the system runs rather than only while it is built."
+      },
+      {
+        "code": "D1",
+        "did": "Статья говорит, что найденное упорядочивается и отсеивается «через модерацию», но не говорит, каким способом.",
+        "did_en": "The paper says that what was found is ranked and filtered «via moderation», but not by what means.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "unstated": true,
+        "why": "Значение не записано: базовое утверждало бы отсутствие шага, о котором статья говорит, а способ его не назван.",
+        "why_en": "No value is recorded: the base value would deny a step the paper mentions, and its means are not named."
+      },
+      {
+        "code": "A6",
+        "did": "Граф хранит текущее состояние сцены и сбрасывается после завершения события.",
+        "did_en": "The graph holds the current state of the scene and is reset when an event ends.",
+        "instead": "«только дописывание»: граф обновляется и сбрасывается.",
+        "instead_en": "«append only»: the graph is updated and reset.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2501.14101, метод",
+        "source_en": "arXiv:2501.14101, method",
+        "technology_id": "streaming_rag",
+        "to": "snapshot",
+        "why": "Хранение только текущего состояния и есть снимок.",
+        "why_en": "Holding only the current state is what a snapshot means."
       }
     ],
     "problem": "Указатель, построенный разом по всему собранию, слеп ко времени. Он не отвечает на вопрос о том, что было верно в определённый момент, и не поспевает за быстро меняющимся содержимым: новостями, биржевыми сведениями, показаниями приборов, видеопотоком.\n\nВсякое пополнение собрания при таком устройстве требует перестроения указателя, а перестроение занимает время, и применения, где ответ нужен немедленно, оказываются закрыты.",

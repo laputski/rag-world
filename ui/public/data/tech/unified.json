@@ -20,11 +20,10 @@
       "B1": "identity",
       "B2": "static",
       "C1": "boolean_query",
-      "C2": "agentic_open_loop",
+      "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
-      "D2": "budget_aware",
+      "D1": "none",
       "D3": "natural_order",
       "E1": "single_pass",
       "E2": "none",
@@ -38,7 +37,9 @@
       "G2": "server",
       "G3": "frozen"
     },
-    "configuration_inapplicable": [],
+    "configuration_inapplicable": [
+      "D2"
+    ],
     "configuration_reviewed": "2026-08-10",
     "configuration_variable": [],
     "evidence": [
@@ -158,19 +159,6 @@
         "why_en": "Selection is set by the conditions of the query. The schema has a value under that name, and it is more precise than traversal."
       },
       {
-        "code": "D2",
-        "did": "Число возвращаемых документов не задаётся заранее, а определяется запросом.",
-        "did_en": "The number of documents returned is not fixed in advance and is determined by the query.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2603.22340, метод",
-        "source_en": "arXiv:2603.22340, method",
-        "technology_id": "unified",
-        "to": "budget_aware",
-        "why": "Отбор идёт от достаточности, а не от числа лучших.",
-        "why_en": "Selection proceeds from sufficiency rather than from a count of the best."
-      },
-      {
         "code": "A8",
         "did": "Документы переводятся в тройки по ключам исходных данных.",
         "did_en": "Documents are turned into triples by the keys of the source data.",
@@ -182,13 +170,74 @@
         "to": "given",
         "why": "Структура задана исходными данными: ключи полуструктурированного документа переносятся в граф как есть.",
         "why_en": "The structure is given by the source data: the keys of a semi-structured document are carried into the graph as they are."
+      },
+      {
+        "code": "D1",
+        "did": "Образцовая работа прямо отказывается от переупорядочивания; переупорядочивающие модели работают только в сравнительной линии опытов.",
+        "did_en": "The exemplar work explicitly does away with reranking; rerankers run only in the baseline of the experiments.",
+        "instead": "«совместный кодировщик»: он есть только у базовой линии сравнения.",
+        "instead_en": "«joint encoder»: it belongs only to the baseline of the comparison.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2603.22340, метод",
+        "source_en": "arXiv:2603.22340, method",
+        "technology_id": "unified",
+        "to": "none",
+        "why": "Конфигурация парадигмы описывает её образцовую работу, а в ней такого шага нет.",
+        "why_en": "The configuration of a paradigm describes its exemplar work, which has no such step."
+      },
+      {
+        "code": "C2",
+        "did": "На каждый вопрос граф опрашивается один раз: одним обходом на языке SPARQL или одним порождённым запросом на языке Cypher. Переходы по нескольким связям происходят внутри этого запроса.",
+        "did_en": "For every question the graph is consulted once: by one SPARQL traversal or by one generated Cypher query. Moves across several links happen inside that query.",
+        "instead": "«открытый цикл, ведомый моделью»: выбор вершин и связей предшествует запросу, а сам граф опрашивается один раз.",
+        "instead_en": "«open loop driven by the model»: the choice of nodes and relations precedes the query, and the graph itself is consulted once.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2603.22340, метод",
+        "source_en": "arXiv:2603.22340, method",
+        "technology_id": "unified",
+        "to": "single_shot",
+        "why": "Повторных обращений к указателю и условия остановки работа не описывает.",
+        "why_en": "The work describes no repeated consultation of the index and no stopping condition."
+      },
+      {
+        "code": "D2",
+        "did": "Результат точного запроса передаётся модели целиком: число документов заранее не задаётся, бюджета контекста и сжатия нет.",
+        "did_en": "The result of the exact query is passed to the model whole: the number of documents is not set in advance, and there is neither a context budget nor compression.",
+        "inapplicable": true,
+        "instead": "«с учётом бюджета контекста»: о бюджете работа не говорит, она подчёркивает, что число документов не задаётся заранее.",
+        "instead_en": "«aware of the context budget»: the work says nothing of a budget; it stresses that the number of documents is not set in advance.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2603.22340, метод",
+        "source_en": "arXiv:2603.22340, method",
+        "technology_id": "unified",
+        "why": "Ни одно значение отбора и сжатия этого не выражает, поэтому измерение помечено неприменимым, а механизм записан остатком.",
+        "why_en": "No value of selection and compression expresses this, so the dimension is marked inapplicable and the mechanism is written as a residual."
+      },
+      {
+        "did": "Всё, что удовлетворяет условиям запроса к графовой базе, передаётся модели без отсечения.",
+        "did_en": "Everything that satisfies the conditions of the graph database query is passed to the model with no cut.",
+        "residual": "whole_query_result",
+        "residual_term": "весь результат точного запроса без отсечения",
+        "residual_term_en": "the whole result of an exact query, with no cut",
+        "source": "arXiv:2603.22340, метод",
+        "source_en": "arXiv:2603.22340, method",
+        "technology_id": "unified",
+        "why": "Отбор и сжатие называют способы уменьшить найденное, а значения для отказа от уменьшения у схемы нет.",
+        "why_en": "Selection and compression names ways of reducing what was found, and the schema has no value for not reducing it."
       }
     ],
     "problem": "Извлечение из текста, обращение к таблицам на языке запросов и обход графа знаний сегодня строятся раздельно и не отвечают на вопрос совместно.\n\nМежду тем вопросы, охватывающие всё сразу, обычны. Просьба найти договор с определённым условием, сумма по которому в учётной системе превышает заданную, и назвать связанные с ним стороны требует и текста договора, и записи в таблице, и отношения из графа. Ни одна из трёх систем такого запроса не обслуживает, а сшивать их ответы приходится вручную.",
     "problem_en": "Retrieval from text, querying tables in a query language, and traversing a knowledge graph are today built separately and do not answer a question jointly.\n\nYet questions spanning all three are commonplace. A request to find a contract with a given clause whose amount in the accounting system exceeds a threshold, and to name the parties connected to it, requires the text of the contract, a row in a table, and a relation from the graph. None of the three systems serves such a request, and their answers have to be stitched together by hand.",
     "prose_id": "unified",
-    "residual": [],
-    "residual_en": [],
+    "residual": [
+      "весь результат точного запроса без отсечения"
+    ],
+    "residual_en": [
+      "the whole result of an exact query, with no cut"
+    ],
     "solutions": "Один путь состоит в приведении всего к графу: средства SQL2Graph и Unstructured2Graph переводят таблицы и текст в единое графовое представление, после чего извлечение остаётся одно.\n\nДругой путь оставляет хранилища на месте и вводит над ними согласующий слой, который переводит запрос в обращения к каждому и сводит ответы. Теоретическое основание для такого сведения, где извлечение разложено на сочетаемые операции, изложено в трудах VLDB, том 18.",
     "solutions_en": "One route reduces everything to a graph: the SQL2Graph and Unstructured2Graph tools translate tables and text into a single graph representation, after which one retrieval suffices.\n\nAnother route leaves the stores in place and introduces a reconciling layer above them, which turns a query into requests to each and combines the answers. The theoretical basis for such reconciliation, where retrieval is decomposed into composable operators, is set out in the VLDB proceedings, volume 18.",
     "summary": "Один запрос сразу к документам, таблицам и графу, вместо трёх раздельных систем.",

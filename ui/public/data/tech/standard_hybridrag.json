@@ -24,7 +24,7 @@
       "C2": "single_shot",
       "C3": "rrf",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -207,8 +207,8 @@
         "label": "OpenSearch: смешанный поиск",
         "label_en": "OpenSearch: hybrid search",
         "status": "verified",
-        "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
-        "verified_at": "2026-10-19"
+        "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/",
+        "verified_at": "2026-10-21"
       },
       {
         "kind": "product",
@@ -237,16 +237,18 @@
       },
       {
         "code": "D1",
-        "did": "Поверх слитого списка работает отдельная модель переранжирования.",
-        "did_en": "A separate reranking model works over the merged list.",
+        "did": "В источниках записи результаты поиска по словам и по векторам сливаются по местам или по приведённым оценкам; пересчёт многовекторной моделью предложен лишь как возможность, совместного кодировщика нет.",
+        "did_en": "In the sources the record links, lexical and vector results are merged by rank or by normalised score; rescoring by a multi-vector model is offered only as an option, and no joint encoder appears.",
+        "instead": "«совместный кодировщик»: прежнее обоснование опиралось на обзор с atlan.com, которого нет среди ссылок записи.",
+        "instead_en": "«joint encoder»: the former justification rested on a survey at atlan.com, which is not among the links of the record.",
         "residual_term": null,
         "residual_term_en": null,
-        "source": "обзор гибридного RAG, atlan.com",
-        "source_en": "a survey of hybrid RAG, atlan.com",
+        "source": "документация OpenSearch и Qdrant о гибридном поиске",
+        "source_en": "OpenSearch and Qdrant documentation on hybrid search",
         "technology_id": "standard_hybridrag",
-        "to": "cross_encoder",
-        "why": "Ступень пересмотра порядка присутствует и выполняется другой моделью.",
-        "why_en": "A stage that revisits the order is present and is performed by another model."
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
       }
     ],
     "prose_id": "standard_hybridrag",

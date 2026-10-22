@@ -5,14 +5,16 @@
     "A4": "graph",
     "A8": "extracted",
     "C1": "graph_traversal",
-    "C3": "score_normalization",
+    "C3": "none",
     "D1": "none",
     "E5": "none",
-    "G3": "trained_reader"
+    "G3": "frozen"
   },
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
-  "configuration_variable": [],
+  "configuration_variable": [
+    "G3"
+  ],
   "family": null,
   "first_published": "2024",
   "groups": [

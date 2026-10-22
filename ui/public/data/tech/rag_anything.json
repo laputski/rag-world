@@ -15,7 +15,7 @@
       "A4": "graph",
       "A5": "dense_single",
       "A6": "snapshot",
-      "A7": "text",
+      "A7": "image",
       "A8": "extracted",
       "B1": "identity",
       "B2": "static",
@@ -295,20 +295,6 @@
         "why_en": "The value recorded is the one for text as the prevailing modality; the run-time mark is there because the kind of representation changes with the kind of element."
       },
       {
-        "code": "A7",
-        "did": "Принимаются текст, изображения, таблицы и формулы; набор родов расширяется своими обработчиками.",
-        "did_en": "Text, images, tables, and equations are accepted, and the set of kinds is extensible with custom processors.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2510.12323, поддерживаемые форматы",
-        "source_en": "arXiv:2510.12323, supported formats",
-        "technology_id": "rag_anything",
-        "to": "text",
-        "variable": true,
-        "why": "Записан текст как преобладающая модальность собрания; пометка переменного стоит потому, что в одном собрании присутствуют все перечисленные.",
-        "why_en": "Text is recorded as the prevailing modality of a collection; the run-time mark is there because all of the listed kinds occur within one collection."
-      },
-      {
         "code": "A8",
         "did": "Связи между единицами получены языковой моделью из содержания документов, а не заданы источником.",
         "did_en": "The links between units are obtained by a language model from the content of the documents rather than given by the source.",
@@ -373,6 +359,24 @@
         "technology_id": "rag_anything",
         "why": "Схема называет способ пересчёта порядка измерением D1, но признака, по которому сопоставляются единицы разных модальностей, в ней нет.",
         "why_en": "The schema names the manner of reordering in dimension D1, but it has no place for the criterion by which units of different modalities are compared."
+      },
+      {
+        "code": "A7",
+        "did": "Метод разбирает текст, изображения, таблицы и формулы как отдельные единицы и возвращает к ответу исходные изображения.",
+        "did_en": "The method parses text, images, tables and equations as separate units and brings the original images back for the answer.",
+        "instead": "«текст»: текст лишь одна из модальностей метода.",
+        "instead_en": "«text»: text is only one of the method's modalities.",
+        "question": "Измерение принимает одно значение, а метод работает с текстом, изображениями и таблицами в одном документе; пометка переменности передаёт это лишь приблизительно.",
+        "question_en": "The dimension takes one value, while the method handles text, images and tables within one document; the variable mark conveys this only approximately.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2510.12323, метод",
+        "source_en": "arXiv:2510.12323, method",
+        "technology_id": "rag_anything",
+        "to": "image",
+        "variable": true,
+        "why": "Записана модальность, наиболее отличающая метод; измерение помечено переменным, потому что метод принимает несколько модальностей.",
+        "why_en": "The modality most distinctive for the method is written; the dimension is marked variable because the method accepts several modalities."
       }
     ],
     "prose_id": "rag_anything",

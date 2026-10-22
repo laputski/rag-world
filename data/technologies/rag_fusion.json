@@ -32,7 +32,9 @@
   },
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-10",
-  "configuration_variable": [],
+  "configuration_variable": [
+    "D1"
+  ],
   "family": "G",
   "first_published": null,
   "groups": [

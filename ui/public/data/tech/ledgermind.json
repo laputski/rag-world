@@ -9,7 +9,7 @@
     "attention_raw": 0.0,
     "confidence": 1.0,
     "configuration": {
-      "A1": "proposition",
+      "A1": "passage",
       "A2": "none",
       "A3": "metadata",
       "A4": "graph",
@@ -18,10 +18,9 @@
       "A8": "computed",
       "B1": "multi_reformulation",
       "B2": "static",
-      "C1": "lexical",
       "C2": "iterative_stopping",
       "C3": "none",
-      "C4": "federation",
+      "C4": "single_store",
       "D1": "none",
       "D2": "budget_aware",
       "E1": "draft_verify",
@@ -100,19 +99,6 @@
     "name": "LedgerMind",
     "package": null,
     "parse_notes": [
-      {
-        "code": "A1",
-        "did": "Единицей служит запись реестра свидетельств: отдельное утверждение, полученное из вывода инструмента детерминированным правилом, а не пересказом модели.",
-        "did_en": "The unit is an entry of the evidence ledger: a single statement obtained from a tool output by a deterministic rule rather than by a model's paraphrase.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2607.28374, устройство",
-        "source_en": "arXiv:2607.28374, method",
-        "technology_id": "ledgermind",
-        "to": "proposition",
-        "why": "Записано самостоятельное утверждение, а не отрезок текста: запись несёт один нормированный факт.",
-        "why_en": "A self-contained statement is recorded rather than a stretch of text: an entry carries one normalised fact."
-      },
       {
         "code": "A2",
         "did": "Единицы не нарезаются из корпуса: каждая появляется как вывод инструмента, будь то распознанный текст, выдача поиска или описание вырезанной области.",
@@ -193,19 +179,6 @@
         "why_en": "The base value is recorded: the schema knows a trained classifier, a language model and a cost-aware policy, and knows no lexical rule. The authors call the classifier rule-based themselves, in the section on limitations. The mechanism is recorded as a residual."
       },
       {
-        "code": "C1",
-        "did": "Внешние знания добываются вызовом поисковой службы, а запрос к ней собирается из сущностей и слов вопроса.",
-        "did_en": "External knowledge is obtained by calling a search service, and the query to it is assembled from entities and the words of the question.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2607.28374, приложение D",
-        "source_en": "arXiv:2607.28374, appendix D",
-        "technology_id": "ledgermind",
-        "to": "lexical",
-        "why": "Оператором служит словарный поиск; приближённого поиска по представлениям в системе нет.",
-        "why_en": "The operator is lexical search; there is no approximate search over representations in the system."
-      },
-      {
         "code": "C3",
         "did": "Поисковых служб две, но вторая включается лишь при отказе или задержке первой.",
         "did_en": "There are two search services, but the second turns on only on a refusal or a timeout from the first.",
@@ -217,19 +190,6 @@
         "to": "none",
         "why": "Это запас на отказ, а не слияние выдач: одновременно отвечает одна служба.",
         "why_en": "This is a reserve against failure rather than a fusion of yields: one service answers at a time."
-      },
-      {
-        "code": "C4",
-        "did": "Знания берутся у внешних поисковых служб, Serper.dev как основной и SerpAPI как запасной.",
-        "did_en": "Knowledge is taken from external search services, Serper.dev as the primary and SerpAPI as the fallback.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2607.28374, приложение D",
-        "source_en": "arXiv:2607.28374, appendix D",
-        "technology_id": "ledgermind",
-        "to": "federation",
-        "why": "Хранилище принадлежит не системе и спрашивается по сети, что и означает федерацию.",
-        "why_en": "The store belongs to somebody else and is asked over the network, which is what federation means."
       },
       {
         "code": "C2",
@@ -384,6 +344,49 @@
         "technology_id": "ledgermind",
         "why": "Маршрутизация называет обученный классификатор, языковую модель и политику по стоимости, а словарного правила не называет.",
         "why_en": "Routing names a trained classifier, a language model and a cost-aware policy, and names no lexical rule."
+      },
+      {
+        "code": "A1",
+        "did": "Единицей найденного служат отрывки выдачи поиска в интернете длиной до 600 знаков.",
+        "did_en": "The unit of what is found is a web search snippet of up to 600 characters.",
+        "instead": "«утверждение»: запись журнала хранит выдачу инструмента, а не отдельное утверждение.",
+        "instead_en": "«proposition»: a ledger entry holds a tool output, not a single statement.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, метод",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "passage",
+        "why": "Отрывок текста и есть пассаж.",
+        "why_en": "A snippet of text is what a passage means."
+      },
+      {
+        "code": "C4",
+        "did": "Поиск идёт через один поисковый сервис; второй подключается только при сбое первого.",
+        "did_en": "Search goes through one search service; the second is used only when the first fails.",
+        "instead": "«федерация»: независимых владельцев данных, опрашиваемых вместе, нет.",
+        "instead_en": "«federation»: there are no independent owners of data consulted together.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, метод",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "to": "single_store",
+        "why": "Одно хранилище с запасным путём доступа остаётся одним хранилищем.",
+        "why_en": "One store with a fallback route of access remains one store."
+      },
+      {
+        "code": "C1",
+        "did": "Поиск идёт через коммерческий поисковый сервис, и работа не говорит, как он сопоставляет запрос с документами.",
+        "did_en": "Search goes through a commercial search service, and the work does not say how it matches the query to documents.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2607.28374, метод",
+        "source_en": "arXiv:2607.28374, method",
+        "technology_id": "ledgermind",
+        "unstated": true,
+        "why": "Значение не записано: способ поиска скрыт внутри чужого сервиса.",
+        "why_en": "No value is recorded: the search operator is hidden inside another party's service."
       }
     ],
     "prose_id": "ledgermind",

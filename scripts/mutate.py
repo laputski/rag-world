@@ -305,6 +305,10 @@ MUTATIONS: tuple[Mutation, ...] = (
              "if entry.level not in LEVELS:", "if False:"),
     Mutation("scripts/validate_data.py", "a claim of fusion rests on a source",
              "if fusion not in (None, FUSION_NONE) and", "if False and"),
+    Mutation("scripts/validate_data.py", "a reranking rests on a source",
+             "if rerank not in (None, RERANK_NONE) and", "if False and"),
+    Mutation("scripts/validate_data.py", "a decided record leaves the list awaiting a decision",
+             "        elif awaiting:\n", "        elif False:\n"),
 
     # The pattern stays inside one shell block. It used to reach forward to the
     # name of the step below, and a comment written between the steps broke it:

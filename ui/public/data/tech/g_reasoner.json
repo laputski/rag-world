@@ -23,7 +23,6 @@
       "C4": "single_store",
       "D1": "none",
       "D2": "top_k",
-      "D3": "hierarchical",
       "E1": "single_pass",
       "E2": "none",
       "E3": "none",
@@ -161,19 +160,6 @@
         "why_en": "No value is recorded: the origin of the structure depends on which graph was brought to this form."
       },
       {
-        "code": "D3",
-        "did": "Отобранное подаётся по слоям разной крупности: признак, сущность, документ, сообщество.",
-        "did_en": "What is selected is given by layers of differing grain: attribute, entity, document, community.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2509.24276, устройство",
-        "source_en": "arXiv:2509.24276, method",
-        "technology_id": "g_reasoner",
-        "to": "hierarchical",
-        "why": "Порядок подачи следует уровням указателя, а не порядку выдачи поиска.",
-        "why_en": "The order of presentation follows the levels of the index rather than the order the search returned."
-      },
-      {
         "code": "G3",
         "did": "Основанием служит обученная графовая модель, объединяющая топологию и смысл текста вершин и переносимая на графы иного устройства без дообучения.",
         "did_en": "The foundation is a trained graph model joining topology with the meaning of the text of nodes and carried over to graphs of another make without further training.",
@@ -209,6 +195,19 @@
         "technology_id": "g_reasoner",
         "why": "Оператор поиска называет обход, но не правило, по которому расходится вес.",
         "why_en": "The search operator names the walk but not the rule by which weight spreads."
+      },
+      {
+        "code": "D3",
+        "did": "Лучшие вершины каждого вида подаются в подсказку по шаблону, который показан только рисунком; порядок в тексте не назван.",
+        "did_en": "The top nodes of each type go into the prompt through a template shown only in a figure; the text names no order.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2509.24276, метод",
+        "source_en": "arXiv:2509.24276, method",
+        "technology_id": "g_reasoner",
+        "unstated": true,
+        "why": "Значение не записано: источник не называет порядка.",
+        "why_en": "No value is recorded: the source names no order."
       }
     ],
     "prose_id": "g_reasoner",

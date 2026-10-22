@@ -7,7 +7,7 @@
     "attention_raw": 6.212,
     "confidence": 1.0,
     "configuration": {
-      "C3": "score_normalization",
+      "C3": "none",
       "D1": "none",
       "E5": "none",
       "G3": "trained_retriever"
@@ -195,16 +195,18 @@
       },
       {
         "code": "C3",
-        "did": "Документы подаются модели по отдельности, а их вклады сводятся по вероятностям её ответа.",
-        "did_en": "Documents are handed to the model separately, and their contributions are combined by the probabilities of its answer.",
+        "did": "Поиск выполняется один раз; смешиваются предсказания модели по каждому документу, а не списки нескольких поисков.",
+        "did_en": "Search runs once; what is mixed are the model's predictions per document, not the lists of several searches.",
+        "instead": "«приведение оценок к одной шкале»: оценки одного поиска лишь переводятся в веса.",
+        "instead_en": "«scores brought to one scale»: the scores of one search are only turned into weights.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2301.12652, метод",
         "source_en": "arXiv:2301.12652, method",
         "technology_id": "replug",
-        "to": "score_normalization",
-        "why": "Результаты нескольких обращений сливаются по величинам оценок, а не по рангам.",
-        "why_en": "The results of several calls are fused by score magnitude rather than by rank."
+        "to": "none",
+        "why": "Слияние источников описывает объединение результатов нескольких поисков, а его нет.",
+        "why_en": "Source fusion describes merging the results of several searches, and there is none."
       }
     ],
     "prose_id": "replug",

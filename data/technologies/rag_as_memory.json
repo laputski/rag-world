@@ -8,7 +8,7 @@
     "A5": "dense_single",
     "A6": "snapshot",
     "A7": "text",
-    "A8": "extracted",
+    "A8": "extracted_and_computed",
     "B1": "identity",
     "B2": "static",
     "C1": "graph_traversal",

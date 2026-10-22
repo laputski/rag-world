@@ -11,14 +11,16 @@
       "A4": "graph",
       "A8": "extracted",
       "C1": "graph_traversal",
-      "C3": "score_normalization",
+      "C3": "none",
       "D1": "none",
       "E5": "none",
-      "G3": "trained_reader"
+      "G3": "frozen"
     },
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
-    "configuration_variable": [],
+    "configuration_variable": [
+      "G3"
+    ],
     "description": "KAG отвечает на затруднение, возникающее в областях со строгими правилами. Извлечение по сходству возвращает похожее, а в медицине, праве или расчёте льгот требуется вывод: заключение должно следовать из посылок по установленному правилу, и правдоподобие тут заменой не служит.\n\nСобрание раскладывается на две части. Одна часть образует граф знаний, где сущности и отношения приведены к общей схеме, а термины разных документов сведены к единым обозначениям. Другая часть остаётся исходным текстом, привязанным к вершинам графа, потому что не всё выражается тройками, а формулировка первоисточника нужна для проверки.\n\nВопрос разбирается на подзадачи, и каждая направляется тому средству, которое ей отвечает: обращение за фактом идёт к графу, вопрос о формулировке идёт к тексту, а шаг вывода выполняется по правилам предметной области. Промежуточные заключения проверяются на согласие с этими правилами, поэтому цепочка, где шаг правилам противоречит, отбрасывается до появления ответа. Плата состоит в подготовке: схему и правила пишет человек, знающий область, и в области, где правила не формализованы, подход неприменим.",
     "description_en": "KAG addresses a difficulty arising in fields governed by strict rules. Retrieval by similarity returns what resembles the query, whereas medicine, law, or the computation of entitlements require inference: a conclusion must follow from premises by an established rule, and plausibility is no substitute.\n\nThe collection is laid out in two parts. One part forms a knowledge graph, where entities and relations are brought to a common schema and the terms of different documents are reduced to uniform designations. The other part remains the original text, attached to the graph's nodes, because not everything is expressible in triples and the source wording is needed for verification.\n\nA question is decomposed into subtasks, and each is routed to the instrument that answers it: a request for a fact goes to the graph, a question about wording goes to the text, and an inference step is carried out by the rules of the field. Intermediate conclusions are checked for agreement with those rules, so a chain containing a step that contradicts them is discarded before any answer appears. The price is preparation: the schema and the rules are written by someone who knows the field, and where the rules are not formalised the approach does not apply.",
     "evidence": [
@@ -179,31 +181,34 @@
       },
       {
         "code": "C3",
-        "did": "Обход графа сочетается с векторным поиском, и результаты сводятся вместе.",
-        "did_en": "Graph traversal is combined with vector search, and the results are brought together.",
-        "question": "Правило слияния источник не раскрывает; выбрано сведение по величинам оценок как более общее, чем ранговое.",
-        "question_en": "The source does not disclose the fusion rule; fusion by score magnitude was chosen as more general than by rank.",
+        "did": "Сначала ищется граф; текстовый поиск подключается, только если граф не дал ответа, и результаты просто объединяются.",
+        "did_en": "The graph is searched first; text search joins only when the graph gives no answer, and the results are simply put together.",
+        "instead": "«нормализация оценок»: она встречается только в проверочном опыте ChunkRetri, а статья прямо противопоставляет себя слиянию оценок.",
+        "instead_en": "«score normalisation»: it appears only in the ChunkRetri ablation, and the paper explicitly sets itself against combining scores.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2409.13731, метод",
         "source_en": "arXiv:2409.13731, method",
         "technology_id": "kag",
-        "to": "score_normalization",
-        "why": "Два способа отбора работают одновременно и требуют слияния.",
-        "why_en": "Two means of selection work at once and require fusion."
+        "to": "none",
+        "why": "Ни оценки, ни места двух поисков не сливаются, значит, слияния нет.",
+        "why_en": "Neither the scores nor the ranks of the two searches are merged, so there is no fusion."
       },
       {
         "code": "G3",
-        "did": "Работа отдельно называет усиление модели под задачи этого подхода.",
-        "did_en": "The work separately names an enhancement of the model for the tasks of this approach.",
+        "did": "В основных опытах работает готовая модель через внешний сервис; дообучение модели ответа и совместное обучение предложены как варианты.",
+        "did_en": "In the main experiments a ready model runs through an external service; fine-tuning the answering model and joint training are offered as variants.",
+        "instead": "«обучается читатель»: это лишь один из предложенных вариантов.",
+        "instead_en": "«reader is trained»: it is only one of the variants offered.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2409.13731, метод",
         "source_en": "arXiv:2409.13731, method",
         "technology_id": "kag",
-        "to": "trained_reader",
-        "why": "Обучается порождающая сторона.",
-        "why_en": "The producing side is trained."
+        "to": "frozen",
+        "variable": true,
+        "why": "Записано значение основной ветви метода, а измерение помечено переменным.",
+        "why_en": "The value of the main branch of the method is written, and the dimension is marked variable."
       }
     ],
     "prose_id": "kag",

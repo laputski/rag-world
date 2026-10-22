@@ -23,7 +23,7 @@
       "C2": "iterative_stopping",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -120,6 +120,21 @@
         "to": "iterative_stopping",
         "why": "Число шагов определяется условием, а не задано.",
         "why_en": "The number of steps is set by a condition rather than fixed."
+      },
+      {
+        "code": "D1",
+        "did": "В единственном доступном источнике найденные документы сразу попадают на вход модели; переупорядочивание упоминается только среди чужих работ.",
+        "did_en": "In the only readable source the retrieved documents go straight into the model's input; reranking appears only in related work.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "Adaptive-RAG, NAACL 2024, метод",
+        "source_en": "Adaptive-RAG, NAACL 2024, method",
+        "technology_id": "self_evolving",
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
       }
     ],
     "problem": "Цепочки извлечения настраиваются вручную и после настройки остаются неподвижными. Между тем меняются и собрание, и вопросы, которые ему задают.\n\nНастройка, дававшая лучшую полноту месяц назад, сегодня даёт худшую, и обнаруживается это лишь тогда, когда кто-нибудь заметит и возьмётся перенастраивать. Портится качество непрерывно, а исправляется рывками.",

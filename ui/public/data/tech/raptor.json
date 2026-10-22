@@ -8,7 +8,7 @@
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
-      "A2": "semantic",
+      "A2": "fixed",
       "A3": "summary",
       "A4": "tree",
       "A5": "dense_single",
@@ -17,12 +17,12 @@
       "A8": "computed",
       "B1": "identity",
       "B2": "static",
-      "C1": "tree_navigation",
+      "C1": "ann",
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
       "D1": "none",
-      "D2": "top_k",
+      "D2": "budget_aware",
       "D3": "natural_order",
       "E1": "single_pass",
       "E2": "none",
@@ -38,7 +38,10 @@
     },
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
-    "configuration_variable": [],
+    "configuration_variable": [
+      "C1",
+      "D2"
+    ],
     "description": "RAPTOR отвечает на вопросы, ответ на которые не содержится ни в одном отдельном фрагменте. Поиск по фрагментам находит места, похожие на запрос, и хорошо служит вопросу о конкретном факте. Вопрос вида «о чём вообще говорит этот отчёт» такой поиск обслужить не может: искомого предложения в тексте нет, оно возникает только при взгляде на весь текст сразу.\n\nПостроение идёт снизу вверх и повторяется. Фрагменты превращаются в векторы и группируются алгоритмом кластеризации по близости. Для каждой группы большая языковая модель пишет свод её содержания, своды сами превращаются в векторы и снова группируются, и так до тех пор, пока на верхнем уровне не останется один узел, описывающий собрание целиком. Получается дерево, где листья суть исходные фрагменты, а каждый внутренний узел суть обобщение своих потомков.\n\nИндексируются все узлы дерева наравне, поэтому поиск возвращает как отдельные фрагменты, так и своды разной степени общности, и уровень подбирается запросом сам собой. Стоимость построения складывается из вызова модели на каждую группу каждого уровня и потому растёт вместе с собранием. Своды, кроме того, остаются пересказом: сведение, потерянное при обобщении на нижнем уровне, до верхних уровней не доходит.",
     "description_en": "RAPTOR addresses questions whose answer is contained in no single fragment. Search over fragments finds places resembling the query and serves a question about a specific fact well. A question of the form \"what is this report about at all\" cannot be served that way: the sentence being sought is not in the text and arises only when the whole text is taken together.\n\nConstruction proceeds from the bottom up and repeats. Fragments are turned into vectors and grouped by a clustering algorithm according to proximity. For each group a large language model writes a summary of its content, the summaries are themselves turned into vectors and grouped again, and so on until a single node describing the whole collection remains at the top. The result is a tree whose leaves are the original fragments and whose every internal node is a generalisation of its descendants.\n\nAll nodes of the tree are indexed alike, so search returns both individual fragments and summaries of varying generality, and the query itself settles which level applies. The cost of construction consists of a model call per group per level and therefore grows with the collection. Summaries, moreover, remain restatements: a fact lost in generalisation at a lower level never reaches the upper ones.",
     "evidence": [
@@ -204,19 +207,6 @@
         "why_en": "A unit of the index carries a retelling attached to it."
       },
       {
-        "code": "C1",
-        "did": "Извлечение работает по дереву, собирая сведения с разных уровней обобщения.",
-        "did_en": "Retrieval works over the tree, gathering material from different levels of generality.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2401.18059, метод",
-        "source_en": "arXiv:2401.18059, method",
-        "technology_id": "raptor",
-        "to": "tree_navigation",
-        "why": "Ответ отбирается движением по уровням, а не сравнением в плоском списке.",
-        "why_en": "The answer is selected by moving through levels rather than by comparison in a flat list."
-      },
-      {
         "code": "D1",
         "did": "Отдельной модели переранжирования в работе не описано.",
         "did_en": "No separate reranking model is described in the work.",
@@ -241,6 +231,49 @@
         "to": "computed",
         "why": "Структура вычислена алгоритмом: она зависит от модели представлений и может измениться при переиндексации. Тем и отличается от оглавления, при том же значении топологии.",
         "why_en": "The structure is computed by an algorithm: it depends on the representation model and may change on reindexing. That is what distinguishes it from a table of contents at the same topology value."
+      },
+      {
+        "code": "A2",
+        "did": "Корпус делится на короткие фрагменты длиной около 100 единиц текста; предложение, выходящее за предел, целиком переносится в следующий фрагмент.",
+        "did_en": "The corpus is cut into short fragments of about 100 tokens; a sentence crossing the limit moves whole to the next fragment.",
+        "instead": "«смысловое деление»: границы фрагментов задаёт длина, а группировка по смыслу происходит позже, при построении дерева.",
+        "instead_en": "«semantic segmentation»: fragment boundaries are set by length; grouping by meaning happens later, when the tree is built.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "fixed",
+        "why": "Деление по заданной длине и есть фиксированное деление.",
+        "why_en": "Cutting by a set length is what fixed segmentation means."
+      },
+      {
+        "code": "C1",
+        "did": "Основные результаты получены режимом «свёрнутого дерева»: поиск идёт сразу по всем узлам по косинусному сходству; спуск по дереву описан как второй режим.",
+        "did_en": "The main results use the «collapsed tree» mode, which searches all nodes at once by cosine similarity; descent through the tree is described as a second mode.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "ann",
+        "variable": true,
+        "why": "Записано значение основной ветви метода, а измерение помечено переменным.",
+        "why_en": "The value of the main branch of the method is written, and the dimension is marked variable."
+      },
+      {
+        "code": "D2",
+        "did": "В основном режиме узлы добавляются, пока не исчерпан предел в 2000 единиц текста; в режиме спуска на каждом уровне берутся первые k.",
+        "did_en": "In the main mode nodes are added until a limit of 2000 tokens is reached; in the descent mode the top k are taken at each level.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.18059, метод",
+        "source_en": "arXiv:2401.18059, method",
+        "technology_id": "raptor",
+        "to": "budget_aware",
+        "variable": true,
+        "why": "Записано значение основной ветви метода, а измерение помечено переменным.",
+        "why_en": "The value of the main branch of the method is written, and the dimension is marked variable."
       }
     ],
     "prose_id": "raptor",

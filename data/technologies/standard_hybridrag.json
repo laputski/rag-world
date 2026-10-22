@@ -18,7 +18,7 @@
     "C2": "single_shot",
     "C3": "rrf",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
     "E1": "single_pass",
@@ -59,8 +59,8 @@
       "label": "OpenSearch: смешанный поиск",
       "label_en": "OpenSearch: hybrid search",
       "status": "verified",
-      "url": "https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/",
-      "verified_at": "2026-10-19"
+      "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/",
+      "verified_at": "2026-10-21"
     },
     {
       "kind": "product",

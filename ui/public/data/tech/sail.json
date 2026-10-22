@@ -21,7 +21,7 @@
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -159,6 +159,21 @@
         "to": "pre_gen_grounding",
         "why": "Обоснованность обеспечивается отбором на входе, а не проверкой готового текста.",
         "why_en": "Groundedness is secured by selection at the input rather than by checking a finished text."
+      },
+      {
+        "code": "D1",
+        "did": "Найденные результаты не переупорядочиваются отдельным шагом: отвечающая модель сама в начале ответа называет полезные и отвлекающие.",
+        "did_en": "The retrieved results are not reordered by a separate step: the answering model itself names the informative and the distracting ones at the start of its answer.",
+        "instead": "«совместный кодировщик»: он посчитал бы то же действие отвечающей модели второй раз.",
+        "instead_en": "«joint encoder»: it would count the same action of the answering model a second time.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2305.15225, метод",
+        "source_en": "arXiv:2305.15225, method",
+        "technology_id": "sail",
+        "to": "none",
+        "why": "Измерение спрашивает о шаге, переупорядочивающем найденное; проверка опоры до ответа уже выражена в E2.",
+        "why_en": "The dimension asks about a step that reorders what was found; the check of support before answering is already expressed in E2."
       }
     ],
     "prose_id": "sail",

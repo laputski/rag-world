@@ -4,7 +4,7 @@
   ],
   "configuration": {
     "A1": "node_edge",
-    "A2": "semantic",
+    "A2": "structure_aware",
     "A3": "metadata",
     "A4": "graph",
     "A5": "dense_single",
@@ -21,7 +21,7 @@
     "D2": "budget_aware",
     "D3": "natural_order",
     "E1": "single_pass",
-    "E2": "pre_gen_grounding",
+    "E2": "none",
     "E3": "none",
     "E4": "no_refusal",
     "E5": "none",

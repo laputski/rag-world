@@ -20,7 +20,7 @@
       "B1": "identity",
       "B2": "static",
       "C1": "tree_navigation",
-      "C2": "iterative_stopping",
+      "C2": "agentic_open_loop",
       "C3": "none",
       "C4": "single_store",
       "D1": "none",
@@ -273,6 +273,21 @@
         "to": "given",
         "why": "Структура взята из источника как есть и верна по построению: её не вычисляли, и переиндексация её не изменит.",
         "why_en": "The structure is taken from the source as it is and is correct by construction: it was not computed, and reindexing will not change it."
+      },
+      {
+        "code": "C2",
+        "did": "Модель сама решает, по каким ветвям дерева спускаться и когда остановиться; правило остановки не названо.",
+        "did_en": "The model itself decides which branches of the tree to descend and when to stop; no stopping rule is named.",
+        "instead": "«повтор до условия остановки»: условие остановки в источнике не задано.",
+        "instead_en": "«repetition until a stopping condition»: the source sets no stopping condition.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "README репозитория PageIndex",
+        "source_en": "README of the PageIndex repository",
+        "technology_id": "vectorless",
+        "to": "agentic_open_loop",
+        "why": "Цикл, которым управляет модель, и есть открытый цикл агента.",
+        "why_en": "A loop driven by the model is what an open agentic loop means."
       }
     ],
     "prose_id": "vectorless",

@@ -1,7 +1,7 @@
 {
   "aliases": [],
   "configuration": {
-    "A3": "extracted_triples",
+    "A3": "summary",
     "A4": "graph",
     "A8": "extracted",
     "C1": "graph_traversal",

@@ -7,7 +7,7 @@
     "attention_raw": 0.364,
     "confidence": 1.0,
     "configuration": {
-      "A3": "extracted_triples",
+      "A3": "summary",
       "A4": "graph",
       "A8": "extracted",
       "C1": "graph_traversal",
@@ -183,6 +183,21 @@
         "to": "budget_aware",
         "why": "Отбор подчинён размеру окна, и в этом смысл работы.",
         "why_en": "Selection is subordinate to the window size, and that is the point of the work."
+      },
+      {
+        "code": "A3",
+        "did": "Каждый фрагмент языковая модель пересказывает краткими атомарными фактами, из которых затем берутся ключевые элементы графа.",
+        "did_en": "A language model restates each fragment as short atomic facts, from which the key elements of the graph are then taken.",
+        "instead": "«извлечённые тройки»: атомарные факты являются короткими утверждениями, а не тройками «субъект, связь, объект».",
+        "instead_en": "«extracted triples»: atomic facts are short statements, not subject, relation, object triples.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2406.14550, метод",
+        "source_en": "arXiv:2406.14550, method",
+        "technology_id": "graphreader",
+        "to": "summary",
+        "why": "Пересказ, приложенный к фрагменту, и есть сводка.",
+        "why_en": "A restatement attached to a fragment is what a summary means."
       }
     ],
     "prose_id": "graphreader",

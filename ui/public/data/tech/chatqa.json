@@ -23,7 +23,7 @@
       "C2": "single_shot",
       "C3": "none",
       "C4": "single_store",
-      "D1": "cross_encoder",
+      "D1": "none",
       "D2": "top_k",
       "D3": "natural_order",
       "E1": "single_pass",
@@ -36,7 +36,7 @@
       "F3": "none",
       "G1": "open",
       "G2": "server",
-      "G3": "joint_training"
+      "G3": "trained_separately"
     },
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-10",
@@ -148,19 +148,34 @@
     "package": null,
     "parse_notes": [
       {
-        "code": "G3",
-        "did": "Обучаются обе стороны: языковая модель проходит два захода настройки, а поисковик дообучается на парах «вопрос в диалоге и его контекст» вместо переписывания вопроса отдельной моделью.",
-        "did_en": "Both sides are trained: the language model goes through two passes of tuning, and the retriever is fine-tuned on pairs of a question in dialogue and its context, instead of a separate model rewriting the question.",
-        "instead": "«обучаемый читатель»: он потерял бы главное — что переписывание вопроса заменено дообучением поисковика.",
-        "instead_en": "«trainable reader»: it would lose the main point, that rewriting the question is replaced by fine-tuning the retriever.",
+        "code": "D1",
+        "did": "Пять лучших фрагментов дообученного извлекателя идут модели в том порядке, в каком найдены; другие порядки встречаются только в проверочных опытах.",
+        "did_en": "The top five fragments of the fine-tuned retriever go to the model in the order they were found; other orderings appear only in ablations.",
+        "instead": "«совместный кодировщик запроса и кандидата»: это прежнее умолчание схемы, записанное в запись, а не прочтение источника.",
+        "instead_en": "«joint encoder of query and candidate»: it was the former default of the schema written into the record, not a reading of the source.",
         "residual_term": null,
         "residual_term_en": null,
         "source": "arXiv:2401.10225, метод",
         "source_en": "arXiv:2401.10225, method",
         "technology_id": "chatqa",
-        "to": "joint_training",
-        "why": "Обучены и читатель, и поисковик, причём второй под задачу первого.",
-        "why_en": "Both the reader and the retriever are trained, the second for the task of the first."
+        "to": "none",
+        "why": "Измерение спрашивает, переупорядочивает ли найденное отдельная модель; источник такого шага не описывает.",
+        "why_en": "The dimension asks whether retrieved candidates are reordered by a further model; the source describes no such step."
+      },
+      {
+        "code": "G3",
+        "did": "Извлекатель дообучается на своих парах вопросов и контекстов, а модель ответа отдельно проходит два этапа обучения на инструкциях.",
+        "did_en": "The retriever is fine-tuned on its own query and context pairs, and the answering model separately goes through two stages of instruction tuning.",
+        "instead": "«совместное обучение»: части обучаются независимо.",
+        "instead_en": "«joint training»: the parts are trained independently.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2401.10225, метод",
+        "source_en": "arXiv:2401.10225, method",
+        "technology_id": "chatqa",
+        "to": "trained_separately",
+        "why": "Обучаются обе части, но раздельно.",
+        "why_en": "Both parts are trained, but separately."
       }
     ],
     "prose_id": "chatqa",

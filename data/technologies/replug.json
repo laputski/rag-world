@@ -1,7 +1,7 @@
 {
   "aliases": [],
   "configuration": {
-    "C3": "score_normalization",
+    "C3": "none",
     "D1": "none",
     "E5": "none",
     "G3": "trained_retriever"

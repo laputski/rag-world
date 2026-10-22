@@ -10,7 +10,7 @@
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
-      "A2": "semantic",
+      "A2": "structure_aware",
       "A3": "metadata",
       "A4": "graph",
       "A5": "dense_single",
@@ -27,7 +27,7 @@
       "D2": "budget_aware",
       "D3": "natural_order",
       "E1": "single_pass",
-      "E2": "pre_gen_grounding",
+      "E2": "none",
       "E3": "none",
       "E4": "no_refusal",
       "E5": "none",
@@ -228,19 +228,6 @@
         "why_en": "There is no separate source document to fetch after the search: the node is itself the stored unit."
       },
       {
-        "code": "A2",
-        "did": "Реплики беседы собираются в эпизоды по границам смысла, которые размечает языковая модель.",
-        "did_en": "Conversation turns are gathered into episodes at meaning boundaries detected by a language model.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "github.com/FredJiang0324/MAGMA, реализация",
-        "source_en": "github.com/FredJiang0324/MAGMA, implementation",
-        "technology_id": "magma",
-        "to": "semantic",
-        "why": "Ни постоянная длина, ни разметка исходного документа границы не задают; в реализации модуль сегментации так и назван обнаружением границ по смыслу.",
-        "why_en": "Neither a constant length nor the markup of a source document sets the boundaries; in the implementation the segmentation module is named as boundary detection by meaning."
-      },
-      {
         "code": "A3",
         "did": "К содержанию вершины добавляются поля: упомянутые сущности, тема, отношения, атомарные факты, временные выражения и односложное изложение.",
         "did_en": "Fields are added to a node's content: the entities mentioned, a topic, relationships, atomic facts, temporal expressions and a one-sentence summary.",
@@ -433,6 +420,38 @@
         "to": "rrf",
         "why": "Работа называет слияние обратными рангами и записывает его формулой суммы величин, обратных сумме постоянной и ранга сигнала.",
         "why_en": "The work names the fusion as reciprocal rank fusion and writes it as a sum of quantities inverse to a constant plus the rank in each signal."
+      },
+      {
+        "code": "E2",
+        "did": "Узлы подаются в подсказку с метками времени и происхождения, но опора ответа ничем не проверяется.",
+        "did_en": "Nodes go into the prompt with time and provenance tags, but the support of the answer is not checked.",
+        "instead": "«проверка до порождения»: проверки нет, модель-судья применяется только при оценке.",
+        "instead_en": "«check before generation»: there is no check; the judge model is used only in evaluation.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.03236, метод",
+        "source_en": "arXiv:2601.03236, method",
+        "technology_id": "magma",
+        "to": "none",
+        "why": "Оформление контекста без проверки не является контролем обоснованности.",
+        "why_en": "Formatting the context without a check is not groundedness control."
+      },
+      {
+        "code": "A2",
+        "did": "Каждая реплика или взаимодействие становится одним узлом события.",
+        "did_en": "Each utterance or interaction becomes one event node.",
+        "instead": "«смысловое деление»: правила границ по смыслу работа не описывает.",
+        "instead_en": "«semantic segmentation»: the work describes no rule of boundaries by meaning.",
+        "question": "Работа говорит лишь о делении на события; один узел на взаимодействие видно из алгоритма, а не из текста.",
+        "question_en": "The work speaks only of event segmentation; one node per interaction is seen in the algorithm, not stated in the text.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2601.03236, метод",
+        "source_en": "arXiv:2601.03236, method",
+        "technology_id": "magma",
+        "to": "structure_aware",
+        "why": "Деление по ходам разговора следует структуре самого разговора.",
+        "why_en": "Cutting by the turns of the conversation follows the conversation's own structure."
       }
     ],
     "prose_id": "magma",

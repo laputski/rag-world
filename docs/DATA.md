@@ -141,6 +141,10 @@ conclusion drawn from the text of a paper, and the only way to check it is the
 reasoning that led to it. This file holds that reasoning, and
 `scripts/build_review.py` renders it as a page.
 
+For a record of kind `paradigm` the configuration describes one exemplar
+work, the one its diagram is drawn from, and is checked against it; the
+reasons are in ADR-012.
+
 ### `candidates.jsonl` and `rejected.jsonl` — the discovery queue
 
 A work that has been found is not a technology but a supposition about one.

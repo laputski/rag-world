@@ -31,11 +31,13 @@
     "F3": "none",
     "G1": "open",
     "G2": "server",
-    "G3": "frozen"
+    "G3": "trained_retriever"
   },
   "configuration_inapplicable": [],
   "configuration_reviewed": "2026-08-13",
-  "configuration_variable": [],
+  "configuration_variable": [
+    "G3"
+  ],
   "family": null,
   "first_published": "2026-06",
   "groups": [

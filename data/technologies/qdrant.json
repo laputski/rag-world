@@ -11,9 +11,9 @@
     "A8": "none",
     "C1": "ann",
     "C2": "single_shot",
-    "C3": "none",
+    "C3": "rrf",
     "C4": "multiple_local",
-    "D1": "cross_encoder",
+    "D1": "set_cover",
     "D2": "top_k",
     "D3": "natural_order",
     "F1": "none",
@@ -32,7 +32,10 @@
     "B2"
   ],
   "configuration_reviewed": "2026-08-10",
-  "configuration_variable": [],
+  "configuration_variable": [
+    "C3",
+    "D1"
+  ],
   "family": null,
   "first_published": null,
   "groups": [

@@ -25,7 +25,6 @@
       "C4": "single_store",
       "D1": "none",
       "D2": "budget_aware",
-      "D3": "hierarchical",
       "E1": "ensemble_fragments",
       "E2": "none",
       "E3": "none",
@@ -494,19 +493,6 @@
         "why_en": "A unit of the index carries a retelling attached to it."
       },
       {
-        "code": "D3",
-        "did": "Материал в контекст складывается по уровням иерархии сообществ.",
-        "did_en": "Material is laid into the context by the levels of the community hierarchy.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2404.16130, обзорный поиск",
-        "source_en": "arXiv:2404.16130, global search",
-        "technology_id": "msft_graphrag",
-        "to": "hierarchical",
-        "why": "Порядок задан структурой индекса.",
-        "why_en": "The order is set by the structure of the index."
-      },
-      {
         "code": "G3",
         "did": "Ничего не обучается: языковая модель применяется подсказками на всех этапах, включая построение графа.",
         "did_en": "Nothing is trained: the language model is applied by prompting at every stage, including the construction of the graph.",
@@ -555,6 +541,19 @@
         "to": "computed",
         "why": "Структура вычислена, а не задана источником.",
         "why_en": "The structure is computed rather than given by the source."
+      },
+      {
+        "code": "D3",
+        "did": "Отчёты подаются в случайном порядке, а частичные ответы упорядочиваются по оценке пользы, которую выставляет модель.",
+        "did_en": "Reports are given in random order, and the partial answers are ordered by a usefulness score the model assigns.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2404.16130, метод",
+        "source_en": "arXiv:2404.16130, method",
+        "technology_id": "msft_graphrag",
+        "unstated": true,
+        "why": "Значение не записано: упорядочивания по оценке пользы в схеме нет, а механизм назван в остатке записи.",
+        "why_en": "No value is recorded: the schema has no ordering by usefulness score, and the mechanism is named in the record's residual."
       }
     ],
     "prose_id": "msft_graphrag",

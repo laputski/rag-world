@@ -37,11 +37,13 @@
       "F3": "none",
       "G1": "open",
       "G2": "server",
-      "G3": "frozen"
+      "G3": "trained_retriever"
     },
     "configuration_inapplicable": [],
     "configuration_reviewed": "2026-08-13",
-    "configuration_variable": [],
+    "configuration_variable": [
+      "G3"
+    ],
     "description": "PixelRAG доводит до конца мысль, начатую в поиске по изображениям страниц. Обычная работа с веб-страницей начинается с приведения её к тексту: разметка разворачивается в линейную последовательность, и вместе с ней теряются расположение элементов, вид таблицы, выделения, соседство подписи и рисунка. Потеря эта происходит до всякого поиска, поэтому восстановить утраченное дальнейшими шагами нельзя.\n\nСтраница здесь остаётся снимком и никогда не превращается в текст. Снимок режется на плитки, плитки и запрос кодируются зрительно-языковой моделью в общее пространство представлений, и найденные плитки подаются многомодальной модели изображениями. Ни на индексации, ни на чтении текстовой единицы не возникает, а различие с приёмами, кодирующими страницу целиком, состоит в масштабе: указатель собран по всей Википедии и содержит порядка тридцати миллионов снимков.\n\nОтдельное следствие касается расхода. Разрешение, с которым плитка подаётся модели, меняется независимо от числа плиток, и понижение его сокращает расход входа заявленно до трёх раз при сохранении точности. Это рычаг, которого у текстовой подачи нет вовсе: там сократить можно лишь число единиц. Заявленный выигрыш в точности достигает восемнадцати процентов относительно текстовых цепочек, причём в том числе на задачах, считавшихся чисто текстовыми.",
     "description_en": "PixelRAG carries to its conclusion an idea begun in retrieval over page images. Ordinary work with a web page starts by reducing it to text: the markup is unrolled into a linear sequence, and with it go the placement of elements, the shape of a table, emphasis, the adjacency of a caption to its figure. That loss occurs before any search takes place, so no later step can recover what was lost.\n\nHere the page stays a screenshot and never becomes text. The screenshot is cut into tiles, the tiles and the query are encoded by a vision-language model into a shared representation space, and the retrieved tiles are given to a multimodal model as images. No textual unit arises at indexing or at reading, and what sets this apart from techniques that encode a page as a whole is scale: the index was assembled over all of Wikipedia and holds on the order of thirty million screenshots.\n\nA separate consequence concerns cost. The resolution at which a tile is given to the model varies independently of the number of tiles, and lowering it reduces input spend by a reported factor of up to three at unchanged accuracy. This is a lever that textual presentation does not have at all: there, only the number of units can be cut. The reported accuracy gain reaches eighteen percent over text-based chains, including on tasks that had been taken for purely textual.",
     "evidence": [
@@ -183,19 +185,6 @@
         "why_en": "The composition of the context is settled by the spend allowed for it, not by a count of top candidates alone."
       },
       {
-        "code": "G3",
-        "did": "Используются готовая зрительно-языковая модель представлений и готовая многомодальная порождающая модель.",
-        "did_en": "A ready vision-language representation model and a ready multimodal generative model are used.",
-        "residual_term": null,
-        "residual_term_en": null,
-        "source": "arXiv:2606.28344, устройство",
-        "source_en": "arXiv:2606.28344, method",
-        "technology_id": "pixelrag",
-        "to": "frozen",
-        "why": "Своего обучения работа не вводит, и выигрыш приписан представлению материала, а не донастройке.",
-        "why_en": "The work introduces no training of its own, and the gain is attributed to the representation of the material rather than to fine-tuning."
-      },
-      {
         "did": "Разрешение подачи изменяется независимо от числа плиток и служит отдельным рычагом расхода.",
         "did_en": "The resolution of presentation varies independently of the number of tiles and serves as a separate lever on spend.",
         "residual": "resolution_as_cost_lever",
@@ -206,6 +195,22 @@
         "technology_id": "pixelrag",
         "why": "Схема выражает, сколько единиц войдёт в контекст, но не то, во сколько обойдётся каждая из них.",
         "why_en": "The schema expresses how many units enter the context but not what each of them costs."
+      },
+      {
+        "code": "G3",
+        "did": "В основной версии модель векторных представлений дообучается на снимках экрана; в базовой версии всё заморожено, в режиме сжатия дообучается модель ответа.",
+        "did_en": "In the main version the embedding model is fine-tuned on screenshots; in the base version everything is frozen, and in the compression mode the answering model is fine-tuned.",
+        "instead": "«заморожено»: это только базовая версия.",
+        "instead_en": "«frozen»: that holds only for the base version.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "arXiv:2606.28344, метод",
+        "source_en": "arXiv:2606.28344, method",
+        "technology_id": "pixelrag",
+        "to": "trained_retriever",
+        "variable": true,
+        "why": "Записано значение основной ветви метода, а измерение помечено переменным.",
+        "why_en": "The value of the main branch of the method is written, and the dimension is marked variable."
       }
     ],
     "prose_id": "pixelrag",

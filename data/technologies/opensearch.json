@@ -13,7 +13,7 @@
     "C2": "single_shot",
     "C3": "rrf",
     "C4": "multiple_local",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
     "F1": "none",

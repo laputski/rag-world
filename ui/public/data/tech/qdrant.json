@@ -17,9 +17,9 @@
       "A8": "none",
       "C1": "ann",
       "C2": "single_shot",
-      "C3": "none",
+      "C3": "rrf",
       "C4": "multiple_local",
-      "D1": "cross_encoder",
+      "D1": "set_cover",
       "D2": "top_k",
       "D3": "natural_order",
       "F1": "none",
@@ -38,7 +38,10 @@
       "B2"
     ],
     "configuration_reviewed": "2026-08-10",
-    "configuration_variable": [],
+    "configuration_variable": [
+      "C3",
+      "D1"
+    ],
     "description": "Qdrant представляет собой хранилище векторов с открытым исходным кодом. Оно решает одну задачу и потому устроено вокруг неё: хранить представления, искать ближайших соседей и отбирать по описательным полям.\n\nСущественная особенность состоит в том, как соединены поиск и отбор. Наивный способ отбирает после поиска, и тогда строгое условие оставляет от выдачи почти ничего: соседи нашлись, но условию не удовлетворяют. Другой наивный способ отбирает до поиска и вынуждает перебирать всё подходящее. Qdrant применяет условие во время обхода указателя, отбрасывая не подходящие под него вершины по ходу, поэтому строгий отбор не разрушает выдачу и не требует полного перебора.\n\nКроме того, поддерживается несколько представлений на одну запись, что нужно для схемы позднего взаимодействия, и разреженные векторы наравне с плотными, что позволяет вести смешанный поиск в одном хранилище. Отличие от поисковых систем, к которым векторы добавлены, состоит в предмете: здесь векторы первичны, а разбор текстового запроса и словарное оценивание развиты слабее.",
     "description_en": "Qdrant is an open-source vector store. It solves one task and is therefore built around it: hold representations, find nearest neighbours, and filter by descriptive fields.\n\nIts notable feature is how search and filtering are joined. The naive approach filters after the search, and then a strict condition leaves almost nothing of the results: neighbours were found but do not satisfy the condition. The other naive approach filters before the search and forces a scan of everything that qualifies. Qdrant applies the condition during the traversal of the index, discarding nodes that fail it as it goes, so strict filtering neither destroys the results nor demands an exhaustive scan.\n\nSeveral representations per record are supported besides, which is what late interaction requires, and sparse vectors alongside dense ones, which allows hybrid search within a single store. What distinguishes it from search engines with vectors bolted on is its subject: here vectors come first, while text query parsing and lexical scoring are less developed.",
     "evidence": [
@@ -308,6 +311,38 @@
         "technology_id": "qdrant",
         "why": "Ступени синтеза нет, как и преобразования запроса: и то и другое делает система, которая хранилище использует.",
         "why_en": "There is no synthesis stage, nor any query transformation: both are done by the system that uses the store."
+      },
+      {
+        "code": "D1",
+        "did": "Помимо слияния списков хранилище по желанию предлагает отбор с наибольшей предельной уместностью, который разнообразит выдачу.",
+        "did_en": "Besides fusing lists, the store offers maximal marginal relevance, which diversifies the results, as an option.",
+        "instead": "«совместный кодировщик»: документация хранилища его не описывает; пересчёт там выполняют многовекторные модели.",
+        "instead_en": "«joint encoder»: the store's documentation does not describe one; rescoring there is done by multi-vector models.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "README репозитория qdrant",
+        "source_en": "README of the qdrant repository",
+        "technology_id": "qdrant",
+        "to": "set_cover",
+        "variable": true,
+        "why": "Записано значение самой полной ветви, а измерение помечено переменным.",
+        "why_en": "The value of the fullest branch is written, and the dimension is marked variable."
+      },
+      {
+        "code": "C3",
+        "did": "Хранилище сливает результаты гибридного поиска по обратным рангам или распределительной нормализацией оценок, на выбор.",
+        "did_en": "The store fuses hybrid search results by reciprocal rank fusion or by distribution-based score fusion, as chosen.",
+        "instead": "«нет слияния»: README прямо называет способы слияния.",
+        "instead_en": "«no fusion»: the README names the fusion methods explicitly.",
+        "residual_term": null,
+        "residual_term_en": null,
+        "source": "README репозитория qdrant",
+        "source_en": "README of the qdrant repository",
+        "technology_id": "qdrant",
+        "to": "rrf",
+        "variable": true,
+        "why": "Записано значение основной ветви метода, а измерение помечено переменным.",
+        "why_en": "The value of the main branch of the method is written, and the dimension is marked variable."
       }
     ],
     "prose_id": "qdrant",

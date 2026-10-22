@@ -15,7 +15,7 @@
     "C2": "iterative_stopping",
     "C3": "none",
     "C4": "single_store",
-    "D1": "cross_encoder",
+    "D1": "none",
     "D2": "top_k",
     "D3": "natural_order",
     "E1": "single_pass",

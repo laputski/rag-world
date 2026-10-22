@@ -114,6 +114,22 @@
     {
       "candidate": false,
       "count": 1,
+      "id": "whole_query_result",
+      "note": "Запрос к графовой базе возвращает всё, что удовлетворяет его условиям, и это передаётся модели как есть. Отбор и сжатие (D2) называют способы уменьшить найденное: первые k, бюджет контекста, пересказ, сжатие в векторы. Значения для отказа от уменьшения нет.",
+      "note_en": "A query to the graph database returns everything that satisfies its conditions, and this is passed to the model as it is. Selection and compression (D2) names ways of reducing what was found: the first k, a context budget, a restatement, compression into vectors. There is no value for not reducing it.",
+      "technologies": [
+        {
+          "id": "unified",
+          "name": "Unified RAG over Structured and Unstructured Data"
+        }
+      ],
+      "term": "весь результат точного запроса без отсечения",
+      "term_en": "the whole result of an exact query, with no cut",
+      "verdict": null
+    },
+    {
+      "candidate": false,
+      "count": 1,
       "id": "intra_trajectory_state_lifecycle",
       "note": "Страта эволюции состояния (F1, F2, F3) определена для систем, хранящих память между запросами, и потому к разбору одного запроса не применяется. Здесь же состояние живёт именно внутри разбора: у записи есть срок годности, есть состояния «действующая», «устаревшая», «противоречивая» и «отброшенная», есть поле замещающей записи и есть проверки, переводящие запись из одного состояния в другое. Механизм тот же, что у памяти, а область действия иная, и схема этого различия не выражает.",
       "note_en": "The stratum of state evolution (F1, F2, F3) is defined for systems that keep memory between queries and therefore does not apply to the handling of a single query. Here the state lives inside that handling: an entry has a time to live, states of active, stale, conflicted and dropped, a superseding-entry field, and checks that move it from one state to another. The mechanism is the one memory has, the scope is different, and the schema does not express that difference.",
