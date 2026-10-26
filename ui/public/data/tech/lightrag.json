@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "technology": {
     "aliases": [
       "Light-RAG"
     ],
-    "attention": 26.277,
+    "attention": 26.944,
     "attention_cohort": "2025",
-    "attention_raw": 9.381,
+    "attention_raw": 9.619,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -497,10 +497,26 @@
         "type": "publication",
         "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=197; year=2025; citation_velocity=9.381",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-10-22, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034797",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=202; year=2025; citation_velocity=9.619",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 39,
+    "evidence_count": 41,
     "family": "B",
     "first_published": "2025",
     "groups": [

@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "technology": {
     "aliases": [
       "Corrective RAG"
     ],
-    "attention": 11.784,
+    "attention": 11.586,
     "attention_cohort": "2024",
-    "attention_raw": 8.143,
+    "attention_raw": 8.429,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -299,10 +299,18 @@
         "type": "publication",
         "value": "venue=SSRN Electronic Journal; peer_reviewed=false; cited_by=171; year=2025; citation_velocity=8.143",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410705984",
+        "type": "publication",
+        "value": "venue=SSRN Electronic Journal; peer_reviewed=false; cited_by=177; year=2025; citation_velocity=8.429",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 16,
+    "evidence_count": 17,
     "family": "A",
     "first_published": "2024",
     "groups": [

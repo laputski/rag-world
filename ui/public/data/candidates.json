@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -371,6 +371,58 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Reliable retrieval-augmented generation (RAG) requires recognizing when neither retrieved documents nor parametric knowledge supports an answer. We introduce DeclineCraft, a dynamic abstention benchmark whose unanswerable questions target Minecraft feature additions after a corpus cut-off, with audits of possible parametric exposure. Later cut-offs support evaluation of future models.",
+      "arxiv_id": "2610.28340",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 6
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.28340",
+      "tasks": [],
+      "title": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) can ground LLM outputs in domain-specific knowledge, but legal documents are hard: standard chunking fragments hierarchical argument structure, and generic embeddings struggle with both precise citation matching and semantic understanding. We propose StrucChunk (Structure Aware Chunking) with hybrid dense-sparse retrieval for hierarchically structured legal documents.",
+      "arxiv_id": "2610.26313",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 8
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.26313",
+      "tasks": [],
+      "title": "StrucChunk: Structure-Aware Retrieval for Legal Document RAG",
       "verdict": null
     },
     {
@@ -1005,6 +1057,162 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Multimodal retrieval-augmented generation over visually rich documents requires evidence at a finer granularity than entire pages. Existing visual retrievers typically index or return full pages, whereas training region-level retrievers often requires costly query-to-region annotations or noisy model-generated labels. We introduce GARRET, a region-retrieval framework trained from (page, question, answer) triplets through differentiable generative feedback.",
+      "arxiv_id": "2610.27829",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.27829",
+      "tasks": [],
+      "title": "GARRET: Generative Feedback for Region Retrieval in Visual Documents",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) has become the dominant paradigm for grounding the outputs of large language models (LLM) in external knowledge. However, practitioners are faced with a vast configuration space comprising chunking, embedding, retrieval, reranking, prompting and generation models, and there is limited guidance on how these components interact.",
+      "arxiv_id": "2610.27816",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.27816",
+      "tasks": [],
+      "title": "RAG-NIMBF: A Non-Invasive, Modular Benchmarking Framework for Automated RAG Configuration Analysis",
+      "verdict": null
+    },
+    {
+      "abstract": "Predicting protein functions from amino acid sequences is essential to understanding biological processes. Large language models (LLMs) offer flexible function descriptions to natural-language queries, yet their limited protein understanding motivates retrieval-augmented generation (RAG). Existing protein RAG methods primarily expand external retrieval signals while overlooking the rich knowledge encoded within a single protein language model (PLM).",
+      "arxiv_id": "2610.30180",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.30180",
+      "tasks": [],
+      "title": "QProtFuse: Query-Guided Layer Fusion for Retrieval-Augmented Protein Function Prediction",
+      "verdict": null
+    },
+    {
+      "abstract": "To prepare for future outbreaks, researchers need to know what studies have been done and what data they use. Mapping a large literature by hand is slow, while large language models alone can misstate or conflate sources. We present EpiLens, a lightweight, open-source retrieval-augmented generation package that applies a fixed retrieval template and output schema to every paper in a corpus and links outputs to source passages.",
+      "arxiv_id": "2610.26730",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.26730",
+      "tasks": [],
+      "title": "EpiLens: Lightweight RAG for Epidemiological Knowledge Acquisition",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) is increasingly served across geo-distributed cloud and edge infrastructures, where wide-area latency, cross-region egress cost, and data-residency rules compete with retrieval quality. Conventional pipelines rank by semantic similarity alone and ignore where content lives, inflating tail latency and cost.",
+      "arxiv_id": "2610.26938",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.26938",
+      "tasks": [],
+      "title": "GRaSP: Latency-Aware Optimization for Geo-Distributed Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Document preprocessing choices can substantially affect retrieval in Retrieval-Augmented Generation (RAG) pipelines, yet they are often selected heuristically and are difficult to compare under consistent conditions. We present RAGit, an open-source experimentation workbench for the systematic and reproducible evaluation of document preprocessing choices through downstream retrieval.",
+      "arxiv_id": "2610.24659",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.24659",
+      "tasks": [],
+      "title": "RAGit: Turning Document Preprocessing into an Experimental Variable for RAG",
       "verdict": null
     },
     {
@@ -1998,6 +2206,292 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "The Yangtze River Basin is a critical region for freshwater biodiversity conservation. The implementation of the Yangtze River Ten-Year Fishing Ban has increased the importance of effective aquatic biodiversity monitoring and species-level identification. However, fine-grained identification of closely related freshwater fish species remains challenging due to subtle morphological differences.",
+      "arxiv_id": "2610.31880",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-22",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.31880",
+      "tasks": [],
+      "title": "FSVL: Taxonomic Fast-Slow Vision-to-Language Collaborative Framework for Interpretable Confusable Fish Species Identification and Knowledge Generation in the Middle Yangtze River",
+      "verdict": null
+    },
+    {
+      "abstract": "Text embedding and text generation are two of the most useful capabilities of modern large language models, yet they are typically provided by separate specialized models (an embedder and a generator) trained with incompatible objectives and deployed side by side in retrieval-augmented generation and agent systems.",
+      "arxiv_id": "2610.30705",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-22",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.30705",
+      "tasks": [],
+      "title": "ULME: Predictive Coupling for Mutually Reinforcing Embedding and Language Modeling",
+      "verdict": null
+    },
+    {
+      "abstract": "Machine learning (ML) is increasingly used in astronomy, but choosing a suitable method for a scientific problem often requires expertise in both astronomy and ML. Large language models (LLMs) could help astronomers make such choices, yet this ability remains underexplored in existing benchmarks.",
+      "arxiv_id": "2610.30282",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.30282",
+      "tasks": [],
+      "title": "Astro2Method: Benchmarking LLMs on Machine Learning Method Selection in Astronomy",
+      "verdict": null
+    },
+    {
+      "abstract": "Agent memory systems such as Mem0 and Zep decide what to keep before any question arrives; coding agents keep the raw history and let the model search it with its own tools. We ask whether designed memory still helps once the model is strong enough to search for itself.",
+      "arxiv_id": "2610.29823",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.29823",
+      "tasks": [],
+      "title": "MemoryTax: The Bitter Lesson of Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) improves the performance of Large Language Models (LLMs) by retrieving external knowledge. Recently, some RAG methods interleave reasoning and retrieval, enabling LLMs to progressively generate sub-queries and retrieve external knowledge. However, these methods may suffer from redundant or ineffective sub-queries and insufficiently diverse query exploration.",
+      "arxiv_id": "2610.29792",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.29792",
+      "tasks": [],
+      "title": "MAPS: Macro-Adaptive Parallel Reasoning for Regulating Search Momentum in Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term agent memory is shifting from predefined workflows toward learnable policies for memory construction and retrieval. Existing learning-based methods either optimize construction alone or combine retrieval-side online reinforcement learning (RL) with offline construction supervision, limiting co-adaptation between the two stages. In this paper, we explore end-to-end online RL for a unified memory manager (Uni-Mem) that learns both capabilities under a shared policy.",
+      "arxiv_id": "2610.29671",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-21",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.29671",
+      "tasks": [],
+      "title": "Uni-Mem: Learning a Long-Horizon Agentic Memory Manager with Unified Online Policy Optimization",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language model (LLM) agents now autonomously complete long-horizon tasks, such as repository-level coding, through hundreds of think-act steps, yet the experience each run produces is rarely reused on the next. Prior memory systems concentrate on retrieval, finding the most relevant past trajectory. Retrieval cannot observe the running agent, so it cannot decide whether the agent needs an experience, at which point, or for how long.",
+      "arxiv_id": "2610.27377",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.27377",
+      "tasks": [],
+      "title": "REM: What to Store, When to Recall, What to Forget in Experience Memory for Coding Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Chain-of-thought (CoT) reasoning can improve problem solving, but models often keep generating after the correct answer is already reachable; the extra steps raise serving costs and may replace a correct intermediate result with an incorrect one. We propose GLOBE (Geometry-Led Online Behavioral Early Exit), an online, training-free algorithm that terminates the model's CoT process early.",
+      "arxiv_id": "2610.25970",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.25970",
+      "tasks": [],
+      "title": "GLOBE: Geometry-Led Online Behavioral Early Exit via Unit-Sphere Trajectories",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-running agents rely on memory of their past interactions for task state, such as what has been completed and which conditions still hold. Such state is usually a derived state. No record states it, and it must be computed by rules from multiple records of an evolving history. Existing memory benchmarks score only the final answer, with no reference for the intermediate states behind it.",
+      "arxiv_id": "2610.25373",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.25373",
+      "tasks": [],
+      "title": "MemDerive: A Diagnostic Benchmark for Agent Memory over Evolving Data",
+      "verdict": null
+    },
+    {
+      "abstract": "Memory serves as the core component of LLM-based agents, enabling personalized responses via extracting and using user preferences from past interactions. However, its use may reduce response diversity, thereby narrowing the range of information available to users. Existing evaluations rely largely on synthetic interactions and cover few memory systems, leaving the effects of memory on response diversity insufficiently evaluated in real-world scenarios.",
+      "arxiv_id": "2610.25127",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.25127",
+      "tasks": [],
+      "title": "MemBubble: Benchmarking How Agent Memory Shapes LLM Response Diversity",
+      "verdict": null
+    },
+    {
+      "abstract": "Enterprise documents such as financial reports are increasingly processed by automated systems, yet they are primarily designed for human reading and exhibit complex visual structure, combining dense text with tables, charts, diagrams, and rich layouts. These characteristics pose significant challenges for Retrieval-Augmented Generation (RAG) systems, which must retrieve relevant pages and leverage visual and structural information during answer generation.",
+      "arxiv_id": "2610.24822",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.24822",
+      "tasks": [],
+      "title": "VisR-RAG-Fin: Benchmarking Multimodal RAG over Visually Rich Financial Documents",
+      "verdict": null
+    },
+    {
+      "abstract": "In long-term interactions with large language model (LLM) agents, users reveal habits through their choices and actions. These habits capture implicit user information that agents must infer across conversations. However, individual observations may provide only partial evidence about a habit or when it applies. Retaining past interactions alone does not ensure that agents can infer habits and apply them appropriately.",
+      "arxiv_id": "2610.24520",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.24520",
+      "tasks": [],
+      "title": "HABIT-Bench: Evaluating Habit Induction from Longitudinal Weak Evidence in Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Optimizing Information Retrieval (IR) pipelines for Retrieval-Augmented Generation (RAG) requires jointly selecting structural components and numerical hyperparameters under limited evaluation budgets. We introduce the Information Retrieval Agentic Harness (IRAH), which combines Language Agent Tree Search for IR (LATS-IR) with offline meta-learned initialization.",
+      "arxiv_id": "2610.30167",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-10-26",
+      "found_by": "archive",
+      "published": "2026-10-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.30167",
+      "tasks": [],
+      "title": "IRAH: Hierarchical Agentic Tree Search for Retrieval Pipeline Optimization",
       "verdict": null
     },
     {

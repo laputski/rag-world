@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "technology": {
     "aliases": [
       "CBR-RAG"
     ],
-    "attention": 5.394,
+    "attention": 5.207,
     "attention_cohort": "2024",
-    "attention_raw": 3.727,
+    "attention_raw": 3.788,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -245,10 +245,18 @@
         "type": "publication",
         "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=123; year=2024; citation_velocity=3.727",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399932275",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=125; year=2024; citation_velocity=3.788",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2024-04",
     "groups": [

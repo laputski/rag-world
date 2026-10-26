@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "technology": {
     "aliases": [],
-    "attention": 5.082,
+    "attention": 5.216,
     "attention_cohort": "2023",
-    "attention_raw": 10.556,
+    "attention_raw": 10.911,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -314,10 +314,18 @@
         "type": "publication",
         "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=475; year=2023; citation_velocity=10.556",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4389519118",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=491; year=2023; citation_velocity=10.911",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 17,
+    "evidence_count": 18,
     "family": "A",
     "first_published": "2023",
     "groups": [

@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-19",
+  "built_at": "2026-10-26",
   "technology": {
     "aliases": [],
-    "attention": 4.767,
+    "attention": 4.609,
     "attention_cohort": "2024",
-    "attention_raw": 3.294,
+    "attention_raw": 3.353,
     "confidence": 1.0,
     "configuration": {
       "A3": "extracted_triples",
@@ -263,10 +263,18 @@
         "type": "publication",
         "value": "venue=ACM; peer_reviewed=true; cited_by=56; year=2025; citation_velocity=3.294",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-10-26",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410636953",
+        "type": "publication",
+        "value": "venue=ACM; peer_reviewed=true; cited_by=57; year=2025; citation_velocity=3.353",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": null,
     "first_published": "2024",
     "groups": [
