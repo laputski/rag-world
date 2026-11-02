@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "technology": {
     "aliases": [
       "HippoRAG 2"
     ],
-    "attention": 5.956,
+    "attention": 5.706,
     "attention_cohort": "2024",
-    "attention_raw": 4.333,
+    "attention_raw": 4.471,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -383,10 +383,18 @@
         "type": "publication",
         "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=143; year=2024; citation_velocity=4.333",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-02",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415797504",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=152; year=2024; citation_velocity=4.471",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 27,
+    "evidence_count": 28,
     "family": "B",
     "first_published": "2024",
     "groups": [

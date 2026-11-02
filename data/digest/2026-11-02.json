@@ -1,0 +1,37 @@
+{
+  "added": [],
+  "by_level": {
+    "L0": 4,
+    "L1": 26,
+    "L2": 15,
+    "L3": 23,
+    "L4": 3,
+    "L5": 3,
+    "unknown": 2
+  },
+  "demoted": [],
+  "evidence_added": 63,
+  "evidence_by_type": {
+    "package_downloads": 1,
+    "publication": 56,
+    "repository": 6
+  },
+  "evidence_seen": 868,
+  "issued_at": "2026-11-02",
+  "levels_seen": 124,
+  "links_broken": 0,
+  "links_checked": 4,
+  "promoted": [
+    {
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "UEmbed",
+      "technology_id": "uembed"
+    }
+  ],
+  "runs_seen": 24,
+  "since": "2026-10-26",
+  "text": "Поднялись в уровне UEmbed с L1 до L2. Собрано 63 свидетельства: 56 о публикациях, 6 о репозиториях, 1 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 26, L2 у 15, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+  "text_en": "Rose in level: UEmbed from L1 to L2. Collected 63 pieces of evidence: 56 about publications, 6 about repositories, 1 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 26, L2 in 15, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+  "total": 76
+}

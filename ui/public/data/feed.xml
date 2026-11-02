@@ -6,7 +6,14 @@
     <language>en</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 26 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Digest for 2026-11-02</title>
+      <description>Rose in level: UEmbed from L1 to L2. Collected 63 pieces of evidence: 56 about publications, 6 about repositories, 1 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 26, L2 in 15, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-11-02</guid>
+    </item>
     <item>
       <title>Digest for 2026-10-26</title>
       <description>Collected 34 pieces of evidence: 26 about publications, 6 about repositories, 2 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 27, L2 in 14, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>
@@ -118,6 +125,13 @@
       <link>https://ragworld.org/digest</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">digest-2026-08-09</guid>
+    </item>
+    <item>
+      <title>UEmbed: L1 &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2608.02583, publication https://openalex.org/W7172392400, publication https://openalex.org/W7172392400</description>
+      <link>https://ragworld.org/tech/uembed</link>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">uembed-2026-11-02-L2</guid>
     </item>
     <item>
       <title>LogicRAG: L2 &gt; L3</title>
@@ -461,13 +475,6 @@
       <link>https://ragworld.org/tech/kag</link>
       <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">kag-2026-08-10-L2</guid>
-    </item>
-    <item>
-      <title>GraphReader: none &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2406.14550, publication https://openalex.org/W4404781346</description>
-      <link>https://ragworld.org/tech/graphreader</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">graphreader-2026-08-10-L2</guid>
     </item>
   </channel>
 </rss>

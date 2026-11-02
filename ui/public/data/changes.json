@@ -1,6 +1,28 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "changes": [
+    {
+      "changed_at": "2026-11-02",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2608.02583",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7172392400",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7172392400",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "UEmbed",
+      "technology_id": "uembed"
+    },
     {
       "changed_at": "2026-09-01",
       "evidence": [

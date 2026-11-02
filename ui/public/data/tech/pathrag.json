@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "technology": {
     "aliases": [],
-    "attention": 6.003,
+    "attention": 5.151,
     "attention_cohort": "2025",
-    "attention_raw": 2.143,
+    "attention_raw": 1.875,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -359,10 +359,18 @@
         "type": "publication",
         "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=15; year=2026; citation_velocity=2.143",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-02",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7138333265",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=15; year=2026; citation_velocity=1.875",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 22,
+    "evidence_count": 23,
     "family": "B",
     "first_published": "2025",
     "groups": [

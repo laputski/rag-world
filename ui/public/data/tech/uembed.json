@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "technology": {
     "aliases": [
       "Unified Embedding"
@@ -214,10 +214,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-02",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7172392400",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=0; year=2026; citation_velocity=0.0",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 2,
+    "evidence_count": 3,
     "family": null,
     "first_published": "2026-08",
     "groups": [
@@ -225,12 +233,11 @@
     ],
     "id": "uembed",
     "kind": "tool",
-    "level": "L1",
+    "level": "L2",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L2",
         "L3",
         "L4",
         "L5",
@@ -238,7 +245,8 @@
       ],
       "satisfied": [
         "L0",
-        "L1"
+        "L1",
+        "L2"
       ]
     },
     "links": [

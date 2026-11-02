@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "technology": {
     "aliases": [
       "GraphRAG"
     ],
-    "attention": 7.148,
+    "attention": 6.587,
     "attention_cohort": "2024",
-    "attention_raw": 5.2,
+    "attention_raw": 5.161,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -456,10 +456,26 @@
         "type": "publication",
         "value": "venue=OASIcs : OpenAccess Series in Informatics; peer_reviewed=true; cited_by=156; year=2024; citation_velocity=5.2",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-02",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-11-02, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-02",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4395686609",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=160; year=2024; citation_velocity=5.161",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 32,
+    "evidence_count": 34,
     "family": "B",
     "first_published": "2024",
     "groups": [

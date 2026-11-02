@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "by_kind": {
     "architecture": 39,
     "attack": 2,
@@ -9,8 +9,8 @@
   },
   "by_level": {
     "L0": 4,
-    "L1": 27,
-    "L2": 14,
+    "L1": 26,
+    "L2": 15,
     "L3": 23,
     "L4": 3,
     "L5": 3,
@@ -26,8 +26,8 @@
     "F": 8,
     "G": 23
   },
-  "evidence_total": 805,
-  "freshest_evidence": "2026-10-26",
+  "evidence_total": 868,
+  "freshest_evidence": "2026-11-02",
   "stale": false,
   "total": 76,
   "with_attention": 66,

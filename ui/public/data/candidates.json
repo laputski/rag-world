@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-26",
+  "built_at": "2026-11-02",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -1057,6 +1057,217 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation commonly serves separate models for reranking and answering, duplicating model residency and passage processing. We introduce Glance, which equips the generator with a lightweight decision adapter and pointer head to score candidate passages from a shared prefill. Short relevance probes branch from the cached context, producing one score per passage without separately prefilling each query-passage pair.",
+      "arxiv_id": "2610.40454",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "catalogue",
+      "published": "2026-10-29",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2610.40454",
+      "tasks": [
+        "retrieval-augmented-generation",
+        "text-reranking"
+      ],
+      "title": "Glance: The Generator Is Its Own Reranker",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) lets a large language model (LLM) answer questions by retrieving relevant passages from a large corpus. However, RAG struggles with multi-hop questions, which require chaining facts spread across several documents through intermediate entities that the question never mentions. Graph-based RAG methods retrieve once from the entities a question names and so rarely recover the full evidence chain.",
+      "arxiv_id": "2610.37826",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.37826",
+      "tasks": [],
+      "title": "DeFT-RAG: Decomposing Multi-Hop Questions into Self-Contained Sub-Questions with Reusable Answers",
+      "verdict": null
+    },
+    {
+      "abstract": "Web retrieval-augmented generation (RAG) splits a page into fixed-size text chunks or, in recent visual pipelines, screenshot tiles, and the retrieved item serves at once as the unit of indexing, ranking, and reading.",
+      "arxiv_id": "2610.37080",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.37080",
+      "tasks": [],
+      "title": "Tessera: Structure-Completed Evidence Units for Web Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) systems ground large language models (LLMs) by retrieving external evidence and conditioning generation on the retrieved context. Although dense retrieval is effective for local semantic matching, independently ranked retrieval can return redundant passages, miss cross-chunk dependencies, and provide incomplete evidence for multi-hop reasoning.",
+      "arxiv_id": "2610.36991",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 5
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36991",
+      "tasks": [],
+      "title": "SpectRAG: Weighted Chunk Graphs for Token-Budgeted Context Selection in Multi-Hop Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Chunking is a fundamental preprocessing step in retrieval-augmented generation (RAG), yet most existing chunkers rely primarily on heuristics. We introduce the Question--Evidence-Supervised Chunker (QESChunker), to our knowledge the first method for constructing static chunk indices from question--evidence supervision.",
+      "arxiv_id": "2610.36557",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36557",
+      "tasks": [],
+      "title": "QESChunker: A Single Objective Unifies Overlapping and Non-Overlapping Chunking for RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Historical maps contain dense morphological and semantic information about past urban environments, but many digitization workflows focus primarily on extracting geometry, and do not capture cartographic semantics such as building use and construction materials. This study introduces ArchiveLens, a generative spatial knowledge framework that operationalizes historical maps as entity-centric, machine-queryable geospatial databases.",
+      "arxiv_id": "2610.35606",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.35606",
+      "tasks": [],
+      "title": "ArchiveLens: A Generative Spatial Knowledge Framework for Semantic Reconstruction of Historical Maps",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) lets large language models (LLMs) answer knowledge-intensive questions from retrieved evidence, but adapting a general-purpose RAG system to a specialized domain such as medicine is difficult when only an unlabeled corpus is available. Self-training approaches such as SimRAG address this by letting the LLM write its own question-answer pairs from domain passages and fine-tuning on the pairs that survive a round-trip consistency filter.",
+      "arxiv_id": "2610.33776",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-24",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.33776",
+      "tasks": [],
+      "title": "TriageRAG: Failure-Aware Self-Training for Adapting Retrieval-Augmented Language Models to Specialized Domains",
+      "verdict": null
+    },
+    {
+      "abstract": "Engineering standards are challenging knowledge sources for large language models (LLMs) because they are hierarchical, multimodal, and densely connected through figures, tables, cross-references, and normative rules. Existing retrieval-augmented generation (RAG) methods often rely on unstructured text retrieval and struggle with questions requiring joint reasoning over textual provisions, visual specifications, and document structure.",
+      "arxiv_id": "2610.33277",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-23",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.33277",
+      "tasks": [],
+      "title": "GEMS-RAG: Graph-grounded Engineering Multimodal Standards Retrieval-Augmented Generation",
       "verdict": null
     },
     {
@@ -2206,6 +2417,314 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Overly restrictive eligibility criteria contribute to widespread enrollment failure in clinical trials, yet published recommendations for how specific criteria should be broadened remain disconnected from trial design at scale. We introduce RECITE (Revising Eligibility Criteria Incorporating Textual Evidence), a framework for automated discovery, extraction, and implementation of evidence-based eligibility criteria revisions.",
+      "arxiv_id": "2610.41368",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.41368",
+      "tasks": [],
+      "title": "RECITE: Revising Eligibility Criteria Incorporating Textual Evidence",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) over visually rich documents must find both relevant content and the evidence that supports an answer. Screenshot retrieval preserves images and page structure, but written facts within screenshots also need to be searchable. Moreover, topical relevance alone does not identify which retrieved tile contains evidence for the answer.",
+      "arxiv_id": "2610.41335",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.41335",
+      "tasks": [],
+      "title": "Pix2Evidence: A Multimodal RAG System for Text and Visual Evidence",
+      "verdict": null
+    },
+    {
+      "abstract": "Memory has become central to self-evolving LLM agents, which store and retrieve experience from past rollouts to guide future decisions. Existing systems represent this experience as free-form natural language and maintain it by rewriting, which fits tasks whose experience is narratable. However, in scientific discovery and optimization, experience is often a quantity measured by an oracle under a specific context.",
+      "arxiv_id": "2610.41245",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.41245",
+      "tasks": [],
+      "title": "MEMIG: Self-evolving Memory Construction for Antibody Optimization",
+      "verdict": null
+    },
+    {
+      "abstract": "An effective agent memory system should adapt to a user's history and task requirements. Human-annotated supervision can guide this adaptation by providing feedback for evaluating and improving memory designs. Yet suitable labels are rarely available for new user histories, and manually constructing QA pairs and supporting evidence is costly.",
+      "arxiv_id": "2610.39276",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-29",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.39276",
+      "tasks": [],
+      "title": "MemSteer: Turning User Histories into Supervision for Agent Memory Optimization",
+      "verdict": null
+    },
+    {
+      "abstract": "Recent advances in large language models (LLMs) have spurred growing interest in temporal knowledge graph question answering (TKGQA). Most existing methods rely on semantic retrieval augmented generation (RAG), which suffers from fundamental limitations in complex temporal reasoning. On the one hand, semantic-based RAG methods struggle to capture the multi-hop causal knowledge required for complex temporal reasoning.",
+      "arxiv_id": "2610.38366",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-28",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.38366",
+      "tasks": [],
+      "title": "TCC-RAG: Temporal Causal Chain-Guided RAG for Temporal Knowledge Graph Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language model (LLM) agents rely on memory systems to leverage long-term interactions, yet existing systems typically retrieve memories based on their relevance to the current query and use them as contextual evidence.",
+      "arxiv_id": "2610.36918",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36918",
+      "tasks": [],
+      "title": "TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces",
+      "verdict": null
+    },
+    {
+      "abstract": "Web-based applications increasingly rely on understanding long multimodal documents, where answering questions often requires combining information across pages, tables, and figures. Agentic retrieval-augmented generation addresses these tasks through iterative retrieval and reasoning. However, Agentic execution is not always necessary, introducing additional computation and potentially incorrect answers.",
+      "arxiv_id": "2610.36444",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36444",
+      "tasks": [],
+      "title": "RouteDRAG: Learning to Route and Control Agentic Execution for Multimodal Document RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Construction safety management still struggles to produce daily safety bulletins (DSBs), structured daily communications that identify site-specific hazards, convey safety protocols, and set preventive measures for workers. Manual DSB creation takes 2-3 hours daily and yields inconsistent quality, with 25% of crews never conducting pretask planning (Olson et al., 2016), diverting safety personnel from field supervision.",
+      "arxiv_id": "2610.36433",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-27",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36433",
+      "tasks": [],
+      "title": "LM-DSB: A Lightweight Multi-agent System for Automated Daily Safety Bulletin Generation in Construction",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) perform well across many real-world tasks but remain prone to hallucination, limiting their reliability in domains such as biomedicine and healthcare, where answers must be grounded in established knowledge. Retrieval-augmented generation (RAG) mitigates this problem by incorporating external information, but often overlooks logical relationships and relies heavily on the LLM's own reasoning, which can compromise answer faithfulness.",
+      "arxiv_id": "2610.36335",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.36335",
+      "tasks": [],
+      "title": "OA-RAG: Ontology-based Agentic RAG for Faithful LLM Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) often produce plausible but incorrect answers, motivating reinforcement learning methods that reward correct answers, penalize incorrect answers, and allow abstention. However, fixed outcome-based rewards do not distinguish incorrect responses with different confidence levels or account for differences in answering reliability across queries.",
+      "arxiv_id": "2610.35142",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.35142",
+      "tasks": [],
+      "title": "CalibraRL: Confidence-Calibrated Reinforcement Learning for Mitigating Hallucinations in RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) have shown remarkable capabilities across tasks, but they still struggle with complex reasoning that requires integrating scattered knowledge. Graph Retrieval-Augmented Generation (GraphRAG) addresses this challenge by organizing fragment knowledge as graphs, while recent Graph Foundation Models (GFMs) further improve GraphRAG with graph-native retrieval and reasoning capabilities.",
+      "arxiv_id": "2610.34866",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.34866",
+      "tasks": [],
+      "title": "UniGFM-RAG: Unify Graph Foundation Models and Large Language Models for End-to-End Retrieval and Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "User memory helps personalized systems build on their understanding of users over time. In e-commerce, users convey their preferences and needs through both explicit language and implicit interactions with products.",
+      "arxiv_id": "2610.34790",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-26",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.34790",
+      "tasks": [],
+      "title": "BehaviorMem: Building and Evaluating User Memory from Real-World E-Commerce Behavior Streams",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models with retrieval-augmented generation systematically underutilize evidence in the middle of multi-document contexts, a phenomenon known as Lost in the Middle. Existing mitigation strategies, such as document reordering and attention steering, can reduce boundary bias but remain brittle in noisy settings, where inaccurate relevance estimation and spurious documents still obscure useful evidence in central positions.",
+      "arxiv_id": "2610.37701",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-25",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.37701",
+      "tasks": [],
+      "title": "DuQUAD: A Dual-View Framework with Quality-Aware Evidence Pruning for Multi-Document Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "\"Why is my period late?\" Sometimes, the most useful response begins with another question. Yet conversational AI systems may respond to incomplete health queries without seeking essential context or grounding their guidance in verifiable evidence. This paper introduces HerHealthGPT, an evidence-grounded conversational AI system designed to address these challenges in women's reproductive health.",
+      "arxiv_id": "2610.33931",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-02",
+      "found_by": "archive",
+      "published": "2026-10-24",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2610.33931",
+      "tasks": [],
+      "title": "HerHealthGPT: An Evidence-Grounded Conversational AI System for Women's Reproductive Health Copy title",
       "verdict": null
     },
     {
@@ -4584,6 +5103,27 @@
         "summarization"
       ],
       "title": "RAP: A Dataset for Paper-to-Poster Generation via Declarative Markup from Human-Crafted Exemplars",
+      "verdict": null
+    },
+    {
+      "abstract": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long time horizons, yet current evaluations largely assess individual task performance rather than improvement through accumulated experience.",
+      "arxiv_id": "2610.33956",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 0,
+        "signals": []
+      },
+      "found_at": "2026-11-02",
+      "found_by": "catalogue",
+      "published": "2026-10-25",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2610.33956",
+      "tasks": [
+        "continual-learning",
+        "long-horizon-agents"
+      ],
+      "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
       "verdict": null
     },
     {
