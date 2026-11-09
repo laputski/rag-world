@@ -6,7 +6,14 @@
     <language>en</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 02 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Digest for 2026-11-09</title>
+      <description>Collected 71 pieces of evidence: 66 about publications, 5 about repositories. The registry now holds 76 records. Level L0 in 4 records, L1 in 26, L2 in 15, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-11-09</guid>
+    </item>
     <item>
       <title>Digest for 2026-11-02</title>
       <description>Rose in level: UEmbed from L1 to L2. Collected 63 pieces of evidence: 56 about publications, 6 about repositories, 1 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 26, L2 in 15, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.</description>

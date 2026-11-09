@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 1.013,
+    "attention": 0.527,
     "attention_cohort": "2024",
-    "attention_raw": 0.794,
+    "attention_raw": 2.353,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -278,10 +278,18 @@
         "type": "publication",
         "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=27; year=2024; citation_velocity=0.794",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415795887",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=80; year=2024; citation_velocity=2.353",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 14,
+    "evidence_count": 15,
     "family": "F",
     "first_published": "2024",
     "groups": [
@@ -320,7 +328,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/Hannibal046/xRAG",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "xRAG",

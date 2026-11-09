@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 4.112,
+    "attention": 0.722,
     "attention_cohort": "2024",
     "attention_raw": 3.222,
     "confidence": 1.0,
@@ -279,10 +279,18 @@
         "type": "publication",
         "value": "venue=International World Wide Web Conference (WWW); peer_reviewed=true; cited_by=58; year=2025; citation_velocity=3.222",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403795280",
+        "type": "publication",
+        "value": "venue=International World Wide Web Conference (WWW); peer_reviewed=true; cited_by=76; year=2024; citation_velocity=2.923",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2024",
     "groups": [
@@ -323,7 +331,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/OpenSPG/KAG",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "KAG",

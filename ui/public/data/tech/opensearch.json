@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -399,10 +399,18 @@
         "type": "repository",
         "value": "opensearch-project/OpenSearch: license=apache-2.0, last_push=2026-11-02, releases=yes",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://github.com/opensearch-project/OpenSearch",
+        "type": "repository",
+        "value": "opensearch-project/OpenSearch: license=apache-2.0, last_push=2026-11-09, releases=yes",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 26,
+    "evidence_count": 27,
     "family": null,
     "first_published": null,
     "groups": [
@@ -442,7 +450,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/opensearch-project/OpenSearch",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "OpenSearch",

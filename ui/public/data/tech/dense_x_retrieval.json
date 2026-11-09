@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 1.069,
+    "attention": 0.361,
     "attention_cohort": "2023",
-    "attention_raw": 2.235,
+    "attention_raw": 5.265,
     "confidence": 1.0,
     "configuration": {
       "A1": "proposition",
@@ -269,10 +269,18 @@
         "type": "publication",
         "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=76; year=2024; citation_velocity=2.235",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4404783040",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=179; year=2024; citation_velocity=5.265",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 14,
     "family": "H",
     "first_published": "2023-12",
     "groups": [
@@ -311,7 +319,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/chentong0/factoid-wiki",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "Dense X",

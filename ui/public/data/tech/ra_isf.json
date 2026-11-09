@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 1.313,
+    "attention": 0.428,
     "attention_cohort": "2024",
-    "attention_raw": 1.029,
+    "attention_raw": 1.912,
     "confidence": 1.0,
     "configuration": {
       "B1": "subquestion_decomposition",
@@ -248,10 +248,18 @@
         "type": "publication",
         "value": "venue=Findings of the Association for Computational Linguistics: ACL (Findings of ACL); peer_reviewed=true; cited_by=35; year=2024; citation_velocity=1.029",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4402670862",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: ACL (Findings of ACL); peer_reviewed=true; cited_by=65; year=2024; citation_velocity=1.912",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2024",
     "groups": [
@@ -292,7 +300,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/OceannTwT/ra-isf",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "RA-ISF",

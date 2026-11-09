@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "Unified Embedding"
     ],
-    "attention": 0.0,
-    "attention_cohort": null,
-    "attention_raw": 0.0,
+    "attention": 0.909,
+    "attention_cohort": "2026",
+    "attention_raw": 0.5,
     "barriers": "Разреженное представление получают из словаря модели, а у порождающей модели с причинным вниманием каждая лексема видит только предшествующие. Прямое приписывание весов всему словарю с одной позиции даёт низкое качество.",
     "barriers_en": "A sparse representation is obtained from the model's vocabulary, and in a decoder-only model with causal attention every token sees only the past. Assigning weights over the whole vocabulary from a single position directly gives poor quality.",
     "confidence": 1.0,
@@ -222,10 +222,18 @@
         "type": "publication",
         "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=0; year=2026; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7172392400",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=5; year=2026; citation_velocity=0.5",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": null,
     "first_published": "2026-08",
     "groups": [

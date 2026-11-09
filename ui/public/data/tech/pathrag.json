@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 5.151,
+    "attention": 1.117,
     "attention_cohort": "2025",
-    "attention_raw": 1.875,
+    "attention_raw": 3.619,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -367,10 +367,18 @@
         "type": "publication",
         "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=15; year=2026; citation_velocity=1.875",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W6948434932",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=76; year=2025; citation_velocity=3.619",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 23,
+    "evidence_count": 24,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -411,7 +419,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/BUPT-GAMMA/PathRAG",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "PathRAG",

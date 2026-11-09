@@ -1,11 +1,11 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "Language-Aware Multilingual Alignment Reranker"
     ],
     "attention": 0.0,
-    "attention_cohort": null,
+    "attention_cohort": "2026",
     "attention_raw": 0.0,
     "barriers": "Просто предпочесть язык запроса нельзя: так теряется смысловая относимость, ради которой переранжировщик и нужен. Оценки относимости к тому же несопоставимы между языками.",
     "barriers_en": "Simply preferring the query's language will not do: the semantic relevance the reranker exists for is then lost. Relevance scores are moreover not comparable across languages.",

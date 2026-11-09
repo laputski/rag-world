@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "Light-RAG"
     ],
-    "attention": 26.099,
+    "attention": 11.388,
     "attention_cohort": "2025",
-    "attention_raw": 9.5,
+    "attention_raw": 36.909,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -529,10 +529,26 @@
         "type": "publication",
         "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=209; year=2025; citation_velocity=9.5",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-11-09, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034797",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=812; year=2025; citation_velocity=36.909",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 43,
+    "evidence_count": 45,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -544,7 +560,7 @@
     "kind": "architecture",
     "level": "L4",
     "level_reason": {
-      "confidence": 1.0,
+      "confidence": 0.769,
       "evidence_basis": "computed",
       "missing": [
         "L5",
@@ -573,7 +589,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2410.05779",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "LightRAG",

@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 7.913,
+    "attention": 15.804,
     "attention_cohort": null,
-    "attention_raw": 7.913,
+    "attention_raw": 15.804,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -292,10 +292,18 @@
         "type": "publication",
         "value": "venue=Proceedings of the conference - Association for Computational Linguistics. Meeting; peer_reviewed=true; cited_by=364; year=2023; citation_velocity=7.913",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385565351",
+        "type": "publication",
+        "value": "venue=Proceedings of the conference - Association for Computational Linguistics. Meeting; peer_reviewed=true; cited_by=727; year=2023; citation_velocity=15.804",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 19,
+    "evidence_count": 20,
     "family": "G",
     "first_published": "2022",
     "groups": [
@@ -334,7 +342,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/texttron/hyde",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "HyDE",

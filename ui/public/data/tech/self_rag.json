@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -249,7 +249,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/AkariAsai/self-rag",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "Self-RAG",

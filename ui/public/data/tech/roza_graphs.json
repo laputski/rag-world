@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "ROZA",
       "ROZA Graphs"
     ],
     "attention": 0.0,
-    "attention_cohort": null,
+    "attention_cohort": "2026",
     "attention_raw": 0.0,
     "confidence": 1.0,
     "configuration": {

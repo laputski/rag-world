@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "Relevance-Aware RipGrep Search Agent"
     ],
-    "attention": 0.0,
-    "attention_cohort": null,
-    "attention_raw": 0.0,
+    "attention": 1.364,
+    "attention_cohort": "2026",
+    "attention_raw": 0.75,
     "barriers": "Относимость документа не позволяет ни отыскать нужное место в нём, ни составить ответ из частей, ни проверить его. Внутри длинного документа полезный отрывок теряется среди прочего содержания и в векторном пространстве не выделяется.",
     "barriers_en": "The relevance of a document allows neither locating the right place in it, nor composing an answer from parts, nor verifying it. Inside a long document a useful excerpt is lost among the rest of the content and does not stand out in the vector space.",
     "confidence": 1.0,
@@ -205,10 +205,18 @@
         "type": "repository",
         "value": "LeqsNaN/RARG: license=mit, last_push=2026-10-11, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7171505919",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=3; year=2026; citation_velocity=0.75",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": null,
     "first_published": "2026-07",
     "groups": [

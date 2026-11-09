@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 3.091,
+    "attention": 1.928,
     "attention_cohort": "2025",
-    "attention_raw": 1.125,
+    "attention_raw": 6.25,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -291,10 +291,18 @@
         "type": "publication",
         "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=9; year=2026; citation_velocity=1.125",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407632367",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=50; year=2026; citation_velocity=6.25",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 14,
+    "evidence_count": 15,
     "family": "B",
     "first_published": "2025-02",
     "groups": [
@@ -334,7 +342,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/sam234990/ArchRAG",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "ArchRAG",

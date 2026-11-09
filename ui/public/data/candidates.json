@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -1057,6 +1057,136 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Existing multilingual retrieval-augmented generation relies heavily on learned retrievers and similarity-based ranking from multilingual collections, which are vulnerable to cross-lingual retrieval errors and indexing overhead. In this paper, we explore retriever-free multilingual search, where the model directly interacts with raw corpora through executable shell commands.",
+      "arxiv_id": "2611.09090",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-06",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.09090",
+      "tasks": [],
+      "title": "MARS: Training Multilingual Search Agents for Retriever-Free Evidence Acquisition",
+      "verdict": null
+    },
+    {
+      "abstract": "Recent work in machine learning has demonstrated that transformer-based language model agents can communicate state not only through text, but also directly in latent space via key-value (KV) caches. In this paper, we argue that such cache-to-cache translation can provide utility beyond the original motivating application of real-time agent communication and can instead be utilized for retrieval-augmented generation (RAG).",
+      "arxiv_id": "2611.07393",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-05",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.07393",
+      "tasks": [],
+      "title": "CacheGraft: Enhancing Retrieval-Augmented Generation via Latent-Space Document Enrichment",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based retrieval-augmented generation (GraphRAG) answers questions by retrieving over a knowledge graph built from a corpus. Yet retrieval strategies are designed around the structure their own construction pipeline produces, and whether they survive a change of construction is rarely tested.",
+      "arxiv_id": "2611.06481",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.06481",
+      "tasks": [],
+      "title": "ArcRAG: Agentic Compositional Retrieval over Knowledge Graphs",
+      "verdict": null
+    },
+    {
+      "abstract": "Different retrievers exist for retrieval-augmented generation, yet none performs best for all queries. Therefore, the key question is: given a query and retrieved passages from different retrievers, which one is most suited for that query? Existing routers usually make predictions from query-specific features and a fixed pool of retrievers; such routers have no output for an unseen retriever and are incapable by design on a new corpus.",
+      "arxiv_id": "2611.05596",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.05596",
+      "tasks": [],
+      "title": "RAGCompass: Generalizable Retriever Routing via Reranking",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) for multi-hop reasoning requires retrieval to adapt as intermediate evidence reveals new information needs. Existing approaches support such retrieval through explicit graph structures or iterative query reformulation, introducing graph-construction or query-time overhead.",
+      "arxiv_id": "2611.01910",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.01910",
+      "tasks": [],
+      "title": "EAGR: Evidence-Guided Adaptive Graph Retrieval",
       "verdict": null
     },
     {
@@ -2417,6 +2547,446 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "LLM agents benefit from using memory systems to improve performance on long-horizon, multi-session tasks. However, memory introduces a critical attack surface. Malicious instructions encountered in one session may be stored and propagated through memory before being retrieved and acted upon in later sessions. Because memory systems differ in how they process and retrieve information, the downstream effects of poisoning can vary significantly across systems.",
+      "arxiv_id": "2611.09721",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-06",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.09721",
+      "tasks": [],
+      "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Reliable dermatology AI requires access to verifiable evidence distributed across heterogeneous textual and visual sources. However, conventional retrieval-augmented generation (RAG) typically relies on one-shot retrieval from flat corpora, limiting its ability to adapt retrieval granularity, explore multi-hop relations, and integrate multimodal clinical evidence.",
+      "arxiv_id": "2611.08935",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-06",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.08935",
+      "tasks": [],
+      "title": "SkinMind: Equipping Agentic RAG with Human-Inspired Graph Probing for Reliable Dermatology AI",
+      "verdict": null
+    },
+    {
+      "abstract": "LLM agents do not learn from corrections across sessions. A user fixes the same mistake at the start of every conversation. Existing agent memory systems primarily handle facts, such as preferences, entities, and conversational history, rather than procedural knowledge.",
+      "arxiv_id": "2611.08644",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-05",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.08644",
+      "tasks": [],
+      "title": "Decision Context: Persistent Behavioral Learning for AI Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Diet is a major determinant of health, yet accurate dietary assessment from free-living meal images remains challenging. Existing retrieval-based Vision-Language Model (VLM) approaches to nutrient estimation typically rely on textual food representations, while, to our knowledge, direct grounding on visually similar annotated meals has not been investigated.",
+      "arxiv_id": "2611.08054",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-05",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.08054",
+      "tasks": [],
+      "title": "NutriVisRAG: Multimodal Exemplar Grounding for Nutrient Estimation with Vision-Language Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) is a standard approach to enhance the reliability of large language model (LLM) outputs by retrieving documents relevant to a query and supplying them in the LLM prompt. Today's RAG systems collect, index, and serve these documents from centralized stores.",
+      "arxiv_id": "2611.07928",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-05",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.07928",
+      "tasks": [],
+      "title": "ZeroRAG: Adaptive Semantic Peer Routing for Decentralized Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "While Large Language Models (LLMs) excel in high-resource languages, their performance often degrades in low-resource languages due to tokenization inefficiencies, generative instability, and linguistic interference. This paper presents AssameseLM-E2B and its instruction-tuned variant, AssameseLM-E2B-it, a 2-billion-parameter model adapted specifically for low resource Assamese language.",
+      "arxiv_id": "2611.06170",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.06170",
+      "tasks": [],
+      "title": "AssameseLM-E2B: An Open-Weight Assamese Language Model for Efficient Consumer-Grade Deployment",
+      "verdict": null
+    },
+    {
+      "abstract": "Personalized retrieval-augmented generation requires extracting and applying user preferences from extended interaction histories. This task is challenging because preference evidence is scattered across past conversations and remains bound to specific temporal and situational contexts. Consequently, isolated fragments rarely provide complete support for a response, while preferences expressed under different conditions are easily conflated.",
+      "arxiv_id": "2611.05900",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-04",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.05900",
+      "tasks": [],
+      "title": "Weaver: Weaving Preference Evidence through Incremental Reasoning for Personalized Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "OperAItor, an open-source framework for developing and evaluating large language model agents for supervisory fault management in chemical processes. The framework is demonstrated on a dynamic reactor-distillation process representing isopropanol dehydrogenation, with physically based thermodynamics and modified reaction kinetics to permit liquid-phase operation.",
+      "arxiv_id": "2611.05179",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.05179",
+      "tasks": [],
+      "title": "OperAItor: An Agentic Framework for Fault-Tolerant Operation of Chemical Processes",
+      "verdict": null
+    },
+    {
+      "abstract": "Historical archives are invaluable for multidisciplinary research but remain inaccessible globally due to severe language barriers. While manual translation is prohibitively expensive and time-consuming, simply applying existing machine translation models is inadequate due to unique linguistic nuances and the temporal bias inherent in scarce human-labeled corpora.",
+      "arxiv_id": "2611.04949",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.04949",
+      "tasks": [],
+      "title": "HERIT: Enabling Global Access to Hanja-to-English Historical Translation by Mitigating Temporal Bias",
+      "verdict": null
+    },
+    {
+      "abstract": "Identifying the primary diagnosis alone does not fully characterize a model's diagnosis-generation performance. We introduce CardioVascBench, a retrospective benchmark for prioritized diagnosis generation from real-world Chinese cardiovascular inpatient records. It contains 3,262 de-identified cases, with 2,174 for training and 1,088 for evaluation, linking clinical narratives and textual ECG reports to expert-verified, ordered discharge diagnoses standardized to ICD-10.",
+      "arxiv_id": "2611.04687",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.04687",
+      "tasks": [],
+      "title": "CardioVascBench:Prioritized Diagnosis Generation from Real-World Chinese Cardiovascular Records",
+      "verdict": null
+    },
+    {
+      "abstract": "Multi-hop retrieval-augmented generation (RAG) supports Web information seeking and fact verification by recovering complementary evidence across related pages within a limited retrieval budget. Scoring evidence independently against the original question can miss supporting units whose relevance emerges through intermediate facts. Iterative retrieval incorporates these facts into subsequent queries, while graph retrieval explicitly models relations among evidence units.",
+      "arxiv_id": "2611.04625",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-03",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.04625",
+      "tasks": [],
+      "title": "QueryFlow: Multi-Hop Graph Retrieval with Adaptive Query Evolution",
+      "verdict": null
+    },
+    {
+      "abstract": "With the rise of Group Agent such as Claude Tag, agents increasingly serve as digital workers for long-term team collaboration. These agents operate over shared contexts that continuously accumulate through multi-user interactions. However, existing agent memory systems are mainly designed for individual users and struggle to capture group-level knowledge in shared contexts, including group relationships and collaboratively formed knowledge.",
+      "arxiv_id": "2611.03868",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.03868",
+      "tasks": [],
+      "title": "EvoGroup: A Self-Evolving Harness for Group Agents in Shared Contexts",
+      "verdict": null
+    },
+    {
+      "abstract": "This paper studies retrieval-augmented generation (RAG), which leverages external knowledge to improve the performance of language models. Despite the remarkable progress, current RAG approaches are still far from satisfactory due to inadequate retrieval and potential hallucinations. Towards this end, we propose a novel approach named Task Refinement with Individual Optimization (TRIO) for RAG.",
+      "arxiv_id": "2611.02810",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.02810",
+      "tasks": [],
+      "title": "TRIO: Task Refinement with Individual Optimization for Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) extends large language models with external evidence, yet relevant evidence does not ensure that a generator can use it. Indiscriminate retrieval can degrade task performance while adding retrieval and long-context inference costs.",
+      "arxiv_id": "2611.02387",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-02",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.02387",
+      "tasks": [],
+      "title": "EviCast: Forecasting Retrieval Gains Through Shared Response Calibration",
+      "verdict": null
+    },
+    {
+      "abstract": "AI agents often rely on persistent memory to retain user preferences and operational rules across sessions. However, this capability introduces a new safety risk: malicious instructions from messages, documents, or Web content can be retained in memory and influence future tasks even after the original attack content is removed.",
+      "arxiv_id": "2611.01700",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.01700",
+      "tasks": [],
+      "title": "MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Purpose: Retrieval-augmented generation (RAG) can introduce electrocardiogram (ECG) criteria that lack patient-specific measurement support. This study evaluates the reliability of retrieved diagnostic criteria in AI-generated ECG reports. Methods: We analyzed 1,083 human-validated PTB-XL patient records using a library of 47 criteria cards, including 33 without numeric verification rules. Language models generated structured reports with and without retrieval.",
+      "arxiv_id": "2611.01409",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-11-01",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.01409",
+      "tasks": [],
+      "title": "RAG-TRACE: Tracing Measurement Evidence and Diagnostic Completeness in AI-Generated ECG Reports",
+      "verdict": null
+    },
+    {
+      "abstract": "An AI can find a safe action faster than any human, but it must never decide what counts as safe. We present GURU, a hierarchical neuro-symbolic multi-agent system for mission-critical digital engineering and operations, built on one partition of authority: learned models propose, rank, and accelerate; a symbolic rules engine checks every consequential action against hard limits before it executes; and validated physics confirms and decides.",
+      "arxiv_id": "2611.01001",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-10-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.01001",
+      "tasks": [],
+      "title": "GURU: A Hierarchical Neuro-Symbolic Multi-Agent System for Verification-Aware Automation of Mission-Critical Digital Engineering and Operations",
+      "verdict": null
+    },
+    {
+      "abstract": "Despite advances in retrieval-augmented generation (RAG), suppressing hallucinations during complex reasoning remains a persistent challenge. We identify that existing RAG pipelines suffer from a textual bottleneck: by passing only raw text to the generator, they discard discriminative signals of the retriever.",
+      "arxiv_id": "2611.00871",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-10-31",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.00871",
+      "tasks": [],
+      "title": "ShiftRAG: Bypassing the Textual Bottleneck via Decoupled Learning and Continuous Soft Tokens",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) systems have seen growing adoption in embodied settings as language-queryable memories of the environment. However, existing approaches often assume a reliable single-episode knowledge base (KB) or accumulate observations across episodes without correcting prior errors. Such errors can persist through incorrect semantic labels, inaccurate object positions, and inconsistent spatial relationships.",
+      "arxiv_id": "2611.00344",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-10-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.00344",
+      "tasks": [],
+      "title": "SPARK: Self-Correcting Embodied Memory via Physical Re-Observation",
+      "verdict": null
+    },
+    {
+      "abstract": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neural methods introduced encoder-decoder architectures, schema linking, and constrained decoding to handle increasingly complex queries.",
+      "arxiv_id": "2611.00171",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "archive",
+      "published": "2026-10-30",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.00171",
+      "tasks": [],
+      "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
       "verdict": null
     },
     {
@@ -5066,6 +5636,43 @@
       "source": "https://arxiv.org/abs/2403.08593",
       "tasks": [],
       "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term memory enables large language model (LLM) agents to provide continuous personalized assistance by retaining user information across interactions. Existing systems support this process through fact extraction, organization, updating, and retrieval, but largely maintain memories as independent facts.",
+      "arxiv_id": "2611.03743",
+      "citations": 0,
+      "curated_by": [],
+      "fit": {
+        "score": 1,
+        "signals": [
+          {
+            "code": "nearTask",
+            "tasks": [
+              "agents"
+            ]
+          },
+          {
+            "code": "named"
+          },
+          {
+            "code": "offTask",
+            "tasks": [
+              "reinforcement-learning"
+            ]
+          }
+        ]
+      },
+      "found_at": "2026-11-09",
+      "found_by": "catalogue",
+      "published": "2026-11-02",
+      "repositories": [],
+      "source": "https://paperswithcode.co/api/v1/papers/2611.03743",
+      "tasks": [
+        "agents",
+        "reinforcement-learning"
+      ],
+      "title": "EvoMemState: Evolving Memory State for Personal Agents",
       "verdict": null
     },
     {

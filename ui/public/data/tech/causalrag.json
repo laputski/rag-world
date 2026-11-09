@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 1.747,
+    "attention": 0.28,
     "attention_cohort": "2025",
-    "attention_raw": 0.636,
+    "attention_raw": 0.909,
     "barriers": "Общее препятствие состоит в построении причинного графа, и оно распадается на четыре части.\n\nИзвлекать причинные связи из текста ненадёжно: причинность спорна и для людей, читающих тот же текст. Рассуждение о том, что произошло бы при отсутствии обстоятельства, обходится вычислительно дорого. Общепринятого способа соединить исчисление вмешательств по Джуде Перлу с порождением ответа языковой моделью нет. Наконец, проверка причинного графа требует знания предметной области и потому не поддаётся полной передаче машине.",
     "barriers_en": "The common obstacle is constructing the causal graph, and it falls into four parts.\n\nExtracting causal links from text is unreliable: causality is disputed even among people reading the same text. Reasoning about what would have happened in the absence of a circumstance is computationally expensive. There is no accepted way to join Judea Pearl's calculus of interventions to answer generation by a language model. Finally, validating a causal graph requires knowledge of the field and therefore cannot be handed over to a machine in full.",
     "confidence": 1.0,
@@ -268,10 +268,18 @@
         "type": "publication",
         "value": "venue=Findings of the Association for Computational Linguistics: ACL (Findings of ACL); peer_reviewed=true; cited_by=14; year=2025; citation_velocity=0.636",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4412887679",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: ACL (Findings of ACL); peer_reviewed=true; cited_by=20; year=2025; citation_velocity=0.909",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2025",
     "groups": [

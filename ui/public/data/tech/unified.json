@@ -1,9 +1,9 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
     "attention": 0.0,
-    "attention_cohort": null,
+    "attention_cohort": "2026",
     "attention_raw": 0.0,
     "barriers": "Общее препятствие состоит в согласовании схем, и оно распадается на четыре части.\n\nПонятия, которыми описаны таблица, граф знаний и указатель представлений, надо свести к общим обозначениям, иначе одна и та же сущность окажется тремя разными. Порядок обращения к хранилищам надо планировать, потому что от того, какое опрашивается первым, зависит объём работы остальных. Упорядочить выдачу единым образом не удаётся напрямую: близость представлений, точное совпадение в таблице и число переходов по графу измеряются в несопоставимых величинах. Наконец, сведение всего к графу само по себе обходится дорого.",
     "barriers_en": "The common obstacle is reconciling schemas, and it falls into four parts.\n\nThe notions describing a table, a knowledge graph, and a representation index must be brought to common designations, or one and the same entity ends up as three different ones. The order in which stores are consulted must be planned, because which one is asked first decides how much work the others face. Results cannot be ordered uniformly in any direct way: closeness of representations, an exact match in a table, and a number of graph hops are measured in incommensurable quantities. Finally, reducing everything to a graph is itself expensive.",

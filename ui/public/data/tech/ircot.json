@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [],
-    "attention": 3.66,
+    "attention": 1.279,
     "attention_cohort": "2023",
-    "attention_raw": 7.652,
+    "attention_raw": 18.674,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -305,10 +305,18 @@
         "type": "publication",
         "value": "venue=Proceedings of the conference - Association for Computational Linguistics. Meeting; peer_reviewed=true; cited_by=352; year=2023; citation_velocity=7.652",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4385571271",
+        "type": "publication",
+        "value": "venue=Proceedings of the conference - Association for Computational Linguistics. Meeting; peer_reviewed=true; cited_by=859; year=2023; citation_velocity=18.674",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 18,
+    "evidence_count": 19,
     "family": "C",
     "first_published": "2023",
     "groups": [
@@ -349,7 +357,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/StonyBrookNLP/ircot",
-        "verified_at": "2026-10-05"
+        "verified_at": "2026-11-09"
       }
     ],
     "name": "IRCoT",

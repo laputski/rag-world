@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-02",
+  "built_at": "2026-11-09",
   "technology": {
     "aliases": [
       "QuadGraph"
     ],
-    "attention": 0.0,
+    "attention": 0.132,
     "attention_cohort": "2025",
-    "attention_raw": 0.0,
+    "attention_raw": 0.429,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -227,10 +227,18 @@
         "type": "publication",
         "value": "venue=ICLR 2026; peer_reviewed=true; citations_semantic_scholar=14; year=2026",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-09",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415336418",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2025; citation_velocity=0.429",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 6,
+    "evidence_count": 7,
     "family": null,
     "first_published": "2025-09",
     "groups": [
