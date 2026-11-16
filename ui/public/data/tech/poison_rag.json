@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [],
-    "attention": 0.463,
+    "attention": 0.58,
     "attention_cohort": "2025",
-    "attention_raw": 1.5,
+    "attention_raw": 1.947,
     "confidence": 1.0,
     "configuration": {},
     "configuration_inapplicable": [],
@@ -248,10 +248,18 @@
         "type": "publication",
         "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=33; year=2025; citation_velocity=1.5",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4409166754",
+        "type": "publication",
+        "value": "venue=Lecture notes in computer science; peer_reviewed=true; cited_by=37; year=2025; citation_velocity=1.947",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 13,
+    "evidence_count": 14,
     "family": null,
     "first_published": "2025",
     "groups": [],

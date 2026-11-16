@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [],
-    "attention": 0.226,
+    "attention": 0.238,
     "attention_cohort": "2025",
-    "attention_raw": 0.733,
+    "attention_raw": 0.8,
     "barriers": "Общее препятствие состоит в стоимости повторений, и оно распадается на четыре части.\n\nКаждый круг складывается из обращения к указателю и вызова языковой модели, поэтому время ответа растёт вместе с числом кругов. Момент остановки надо на чём-то основывать: ранняя остановка теряет часть ответа, поздняя тратит вычисления впустую. Рассуждение склонно замыкаться, возвращаясь к одному и тому же обстоятельству по кругу, и этот случай надо распознавать. Наконец, когда несколько исполнителей работают над вопросом вместе, их надо согласовывать между собой.",
     "barriers_en": "The common obstacle is the cost of repetition, and it falls into four parts.\n\nEvery round consists of a consultation of the index and a language model call, so response time grows with the number of rounds. The moment to stop must rest on something: stopping early loses part of the answer, stopping late spends computation for nothing. Reasoning tends to close on itself, returning to the same circumstance in a loop, and that case must be recognised. Finally, when several agents work on a question together, they have to be coordinated.",
     "confidence": 1.0,
@@ -233,10 +233,26 @@
         "type": "publication",
         "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=11; year=2025; citation_velocity=0.733",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7077909566",
+        "type": "publication",
+        "value": "venue=Proceedings of the AAAI Conference on Artificial Intelligence; peer_reviewed=true; cited_by=12; year=2025; citation_velocity=0.8",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2508.18260",
+        "type": "publication",
+        "value": "venue=AAAI 2026; peer_reviewed=true; citations_semantic_scholar=10; year=2025",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 8,
+    "evidence_count": 10,
     "family": null,
     "first_published": "2025-08",
     "groups": [

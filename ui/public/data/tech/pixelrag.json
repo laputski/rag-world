@@ -1,11 +1,11 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [
       "PIXELRAG",
       "Pixel RAG"
     ],
-    "attention": 2.545,
+    "attention": 2.333,
     "attention_cohort": "2026",
     "attention_raw": 1.4,
     "confidence": 1.0,

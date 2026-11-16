@@ -1,11 +1,11 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [
       "ACM",
       "Maximem Synap"
     ],
-    "attention": 0.909,
+    "attention": 0.833,
     "attention_cohort": "2026",
     "attention_raw": 0.5,
     "confidence": 1.0,
@@ -236,7 +236,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2607.21503",
-        "verified_at": "2026-10-12"
+        "verified_at": "2026-11-16"
       }
     ],
     "name": "Agentic Context Management",

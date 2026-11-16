@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [],
-    "attention": 0.348,
+    "attention": 0.331,
     "attention_cohort": "2024",
-    "attention_raw": 1.552,
+    "attention_raw": 1.621,
     "confidence": 1.0,
     "configuration": {
       "A3": "summary",
@@ -267,10 +267,18 @@
         "type": "publication",
         "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=45; year=2024; citation_velocity=1.552",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4399912954",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=47; year=2024; citation_velocity=1.621",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": null,
     "first_published": "2024",
     "groups": [

@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [
       "Corrective RAG"
     ],
-    "attention": 7.075,
+    "attention": 14.844,
     "attention_cohort": "2024",
-    "attention_raw": 31.591,
+    "attention_raw": 72.8,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -323,10 +323,18 @@
         "type": "publication",
         "value": "venue=SSRN Electronic Journal; peer_reviewed=false; cited_by=695; year=2025; citation_velocity=31.591",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4410705984",
+        "type": "publication",
+        "value": "venue=ACL Anthology; peer_reviewed=true; cited_by=728; year=2026; citation_velocity=72.8",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 19,
+    "evidence_count": 20,
     "family": "A",
     "first_published": "2024",
     "groups": [
@@ -337,12 +345,11 @@
     ],
     "id": "crag",
     "kind": "architecture",
-    "level": "L1",
+    "level": "L2",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L2",
         "L3",
         "L4",
         "L5",
@@ -350,7 +357,8 @@
       ],
       "satisfied": [
         "L0",
-        "L1"
+        "L1",
+        "L2"
       ]
     },
     "links": [

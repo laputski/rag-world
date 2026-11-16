@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [],
-    "attention": 3.636,
+    "attention": 3.333,
     "attention_cohort": "2026",
     "attention_raw": 2.0,
     "confidence": 1.0,
@@ -288,7 +288,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2608.26005",
-        "verified_at": "2026-10-12"
+        "verified_at": "2026-11-16"
       }
     ],
     "name": "VoiceMem",

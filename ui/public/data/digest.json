@@ -1,6 +1,43 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "issues": [
+    {
+      "added": [],
+      "by_level": {
+        "L0": 4,
+        "L1": 25,
+        "L2": 16,
+        "L3": 23,
+        "L4": 3,
+        "L5": 3,
+        "unknown": 2
+      },
+      "demoted": [],
+      "evidence_added": 80,
+      "evidence_by_type": {
+        "package_downloads": 7,
+        "publication": 67,
+        "repository": 6
+      },
+      "evidence_seen": 1019,
+      "issued_at": "2026-11-16",
+      "levels_seen": 125,
+      "links_broken": 0,
+      "links_checked": 10,
+      "promoted": [
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "CRAG",
+          "technology_id": "crag"
+        }
+      ],
+      "runs_seen": 26,
+      "since": "2026-11-09",
+      "text": "Поднялись в уровне CRAG с L1 до L2. Собрано 80 свидетельств: 67 о публикациях, 7 о загрузках пакетов, 6 о репозиториях. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 25, L2 у 16, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+      "text_en": "Rose in level: CRAG from L1 to L2. Collected 80 pieces of evidence: 67 about publications, 7 about package downloads, 6 about repositories. The registry now holds 76 records. Level L0 in 4 records, L1 in 25, L2 in 16, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+      "total": 76
+    },
     {
       "added": [],
       "by_level": {

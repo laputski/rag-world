@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -371,6 +371,32 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based retrieval-augmented generation (GraphRAG) improves multi-hop question answering, but deployed systems face two costs that research comparisons rarely measure: building the graph, and removing documents from it. We present Lightfoot, a GraphRAG system in which every entity, link, fact and synonym edge is a deterministic function of per-passage extractions carrying chunk-level provenance.",
+      "arxiv_id": "2611.11010",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 7
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-07",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.11010",
+      "tasks": [],
+      "title": "Lightfoot: Graph Retrieval-Augmented Generation with Exact, Model-Free Document Deletion",
       "verdict": null
     },
     {
@@ -1057,6 +1083,162 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Enterprise agents accumulate memory across dozens of sessions in which facts contradict, get superseded, and blur as similarly named entities collide in embedding space. The field treats this as a retrieval problem; we show it is not.",
+      "arxiv_id": "2611.15729",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.15729",
+      "tasks": [],
+      "title": "DISCERN: Preserve at Write, Resolve at Read for Persistent LLM-Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language model (LLM) agents increasingly operate over long Web interaction histories, making memory management critical for reliable and efficient decision making. Existing methods primarily optimize storage, retrieval, or compression, but the memories most semantically relevant to the current state are not necessarily those that most improve the agent's action.",
+      "arxiv_id": "2611.15600",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.15600",
+      "tasks": [],
+      "title": "MemCredit: From Relevance to Utility for Decision-Time Memory in Long-Horizon Web Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Graph-based retrieval-augmented generation depends on the quality of the knowledge graph (KG) it retrieves over, yet schema-free LLM-based extraction pipelines typically produce flat graphs: deduplicated entities and relations with no type hierarchy and no domain/range constraints.",
+      "arxiv_id": "2611.15467",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-11",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.15467",
+      "tasks": [],
+      "title": "AutoOntic: Automatic Ontology Induction from Text for Knowledge Graph Construction",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) is bottlenecked by the token budget of large language models: feeding long documents into the context window is expensive, while aggressive textual compression discards fine-grained information that is irreversibly lost in a one-dimensional token sequence. We argue that this bottleneck is not fundamental to information density but to the choice of compression \\emph{modality}.",
+      "arxiv_id": "2611.13675",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.13675",
+      "tasks": [],
+      "title": "OpticalRAG: Pixel-Space Compression for Token-Efficient Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Complex Web question answering requires retrieval-augmented generation (RAG) systems to identify target entities from multi-clue descriptions and connect evidence scattered across long Web pages. Individual pages often support only some of the required semantic constraints, while clues discovered on one page guide subsequent searches on others. However, premature reliance on partially supported entity hypotheses can divert retrieval from the original information need.",
+      "arxiv_id": "2611.11113",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.11113",
+      "tasks": [],
+      "title": "PCG-RAG: Progressive Compositional Grounding for Retrieval-Augmented Generation in Complex Web Question Answering",
+      "verdict": null
+    },
+    {
+      "abstract": "High-precision text reranking is a critical component in modern search, recommendation, and agentic retrieval-augmented generation (RAG) systems. We present Yuanbao-Reranker, a family of general-purpose dense rerankers spanning 0.6B, 4B, and 8B parameter scales built upon the Qwen3 backbone.",
+      "arxiv_id": "2611.10405",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-07",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.10405",
+      "tasks": [],
+      "title": "Yuanbao-Reranker: Document-Grounded Synthesis and Preference Distillation for Text Reranking",
       "verdict": null
     },
     {
@@ -2547,6 +2729,226 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "In retrieval-augmented generation (RAG), query rewriting serves as a core interface that aligns user intent with external knowledge bases, and its effectiveness directly determines overall system performance.",
+      "arxiv_id": "2611.17788",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-13",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.17788",
+      "tasks": [],
+      "title": "RAG-FGO: Dynamic Optimization of Query-Rewriting Agents for Generative RAG",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term spacecraft autonomy requires embodied agents to use operational history under communication delays, time-critical operations, environmental uncertainty, complex physical interactions, power and computational constraints, and safety and reliability requirements. We introduce AstroMemBench and a Scenario-Challenge-Capability design method that maps these requirements to executable memory tests.",
+      "arxiv_id": "2611.16590",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-12",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.16590",
+      "tasks": [],
+      "title": "AstroMemBench: A Benchmark for Memory Systems in Embodied Spacecraft Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) provides entire retrieved passages to the LLM, even though only a handful of spans within them contain the evidence pertaining to the question. While precise selection of these spans can improve context utilization, identifying them in isolation is challenging. A span may appear irrelevant by itself, and deciding whether to retain it may require examining other retrieved information.",
+      "arxiv_id": "2611.16366",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-12",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.16366",
+      "tasks": [],
+      "title": "CURATOR: Scalable Fine-grained Evidence Selection for Retrieval-Augmented Generation using Decision Models",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language models (LLMs) have demonstrated considerable potential in biomedical applications, while agentic memory systems have emerged as a promising approach to preserving and utilizing information across tasks and interactions. However, a fundamental question remains: how effectively and reliably do these systems retain, retrieve, update, and utilize biomedical information?",
+      "arxiv_id": "2611.13426",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-10",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.13426",
+      "tasks": [],
+      "title": "BioMem: Agentic Memory for Biomedical LLM Agents",
+      "verdict": null
+    },
+    {
+      "abstract": "Long-term memory lets LLM agents personalize, stay consistent, and reuse what worked before. Parametric memories need training, consolidation can lose details for good, and keeping every record leaves a growing store to search. We present MIRIX-2.0, a multi-agent memory system designed to be practical, accurate, and efficient at once. It is the most accurate of the compared systems on four of five QA benchmarks.",
+      "arxiv_id": "2611.12068",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-09",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.12068",
+      "tasks": [],
+      "title": "MIRIX-2.0: Multi-Agent Memory System",
+      "verdict": null
+    },
+    {
+      "abstract": "India's temples and other places of worship are among its richest repositories of cultural heritage, bringing together religious tradition, history, architecture, and art. Due to the widespread curiosity, people increasingly turn to Artificial Intelligence (AI) assistants for information about them. Current models are rarely trained or evaluated on this domain.",
+      "arxiv_id": "2611.11952",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-09",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.11952",
+      "tasks": [],
+      "title": "BharatSynthQA: A Context-Grounded Question Answering Dataset on Indian Temples and Religious Heritage",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-Augmented Generation (RAG) systems have demonstrated remarkable effectiveness in mitigating hallucinations by incorporating external knowledge. However, the retrieval process inevitably introduces noise, posing significant challenges to RAG robustness. Fundamentally, noise robustness is a composite competency encompassing noise identification, retrieval filtering, and robust reasoning.",
+      "arxiv_id": "2611.11771",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-09",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.11771",
+      "tasks": [],
+      "title": "ARMOR: Adaptive Curriculum Meta-Learning for Noise-Robust RAG Reasoning",
+      "verdict": null
+    },
+    {
+      "abstract": "The rapid growth of scientific literature and the high heterogeneity of biological terminology and mechanistic descriptions make it difficult for researchers to integrate scattered research evidence, identify connections among biological events, and construct mechanistic networks.",
+      "arxiv_id": "2611.11349",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-08",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.11349",
+      "tasks": [],
+      "title": "AOP-Smart-Finder: A High-Throughput Human-AI Hybrid Framework for AOP Discovery and Evidence Mapping from Large-Scale Literature",
+      "verdict": null
+    },
+    {
+      "abstract": "Driven by increasingly complex real-world applications, Retrieval-Augmented Generation (RAG) has evolved from textual pipelines to multimodal settings, comprising two complementary dimensions: knowledge organization and retrieval enhancement. However, existing methods still face challenges of high construction cost, context window limitations, and the lack of unified training across offline and online knowledge sources.",
+      "arxiv_id": "2611.10657",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-07",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.10657",
+      "tasks": [],
+      "title": "MMGraph-Agent: Agentic Multimodal RAG via Cache-Inspired Multimodal Knowledge HyperGraphs",
+      "verdict": null
+    },
+    {
+      "abstract": "Reinforcement-learning-trained agents for retrieval-augmented generation retrieve content (passages, knowledge-graph fragments, or hyperedges) and supervise training with outcome rewards on the final answer.",
+      "arxiv_id": "2611.10477",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-16",
+      "found_by": "archive",
+      "published": "2026-11-07",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.10477",
+      "tasks": [],
+      "title": "PatternBloom: Empowering Agentic RAG with Externalized RL-Distilled Graph Patterns",
       "verdict": null
     },
     {

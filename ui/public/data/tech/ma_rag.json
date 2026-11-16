@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [],
-    "attention": 1.268,
+    "attention": 1.274,
     "attention_cohort": "2025",
-    "attention_raw": 4.111,
+    "attention_raw": 4.278,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -195,10 +195,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=74; year=2025; citation_velocity=4.111",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4414588074",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=77; year=2025; citation_velocity=4.278",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 8,
     "family": "C",
     "first_published": "2025-05",
     "groups": [

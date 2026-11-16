@@ -1,6 +1,96 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "changes": [
+    {
+      "changed_at": "2026-11-16",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2401.15884",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4391418506",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4391418506",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4410705984",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "CRAG",
+      "technology_id": "crag"
+    },
     {
       "changed_at": "2026-11-02",
       "evidence": [

@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-09",
+  "built_at": "2026-11-16",
   "technology": {
     "aliases": [
       "QuadGraph"
     ],
-    "attention": 0.132,
+    "attention": 0.149,
     "attention_cohort": "2025",
-    "attention_raw": 0.429,
+    "attention_raw": 0.5,
     "confidence": 1.0,
     "configuration": {
       "A1": "node_edge",
@@ -235,10 +235,26 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=6; year=2025; citation_velocity=0.429",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415336418",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=7; year=2025; citation_velocity=0.5",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-16",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2509.24276",
+        "type": "publication",
+        "value": "venue=ICLR 2026; peer_reviewed=true; citations_semantic_scholar=16; year=2026",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 9,
     "family": null,
     "first_published": "2025-09",
     "groups": [
@@ -271,7 +287,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2509.24276",
-        "verified_at": "2026-10-12"
+        "verified_at": "2026-11-16"
       }
     ],
     "name": "G-reasoner",
