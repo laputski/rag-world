@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 0.722,
+    "attention": 0.577,
     "attention_cohort": "2024",
-    "attention_raw": 3.542,
+    "attention_raw": 4.75,
     "confidence": 1.0,
     "configuration": {
       "B1": "multi_reformulation",
@@ -217,10 +217,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=85; year=2024; citation_velocity=3.542",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4405030361",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=114; year=2024; citation_velocity=4.75",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": null,
     "first_published": "2024",
     "groups": [
@@ -254,7 +262,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2411.19443",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "Auto-RAG",

@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 0.252,
+    "attention": 0.247,
     "attention_cohort": "2023",
-    "attention_raw": 3.811,
+    "attention_raw": 7.2,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -229,10 +229,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=141; year=2023; citation_velocity=3.811",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4387322982",
+        "type": "publication",
+        "value": "venue=International Conference on Learning Representations; peer_reviewed=true; cited_by=216; year=2024; citation_velocity=7.2",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": "I",
     "first_published": "2023-10",
     "groups": [
@@ -240,12 +248,11 @@
     ],
     "id": "ra_dit",
     "kind": "technique",
-    "level": "L1",
+    "level": "L2",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L2",
         "L3",
         "L4",
         "L5",
@@ -253,7 +260,8 @@
       ],
       "satisfied": [
         "L0",
-        "L1"
+        "L1",
+        "L2"
       ]
     },
     "links": [
@@ -263,7 +271,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2310.01352",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "RA-DIT",

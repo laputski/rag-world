@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "Unified Embedding"
     ],
-    "attention": 1.0,
+    "attention": 0.824,
     "attention_cohort": "2026",
-    "attention_raw": 0.6,
+    "attention_raw": 0.7,
     "barriers": "Разреженное представление получают из словаря модели, а у порождающей модели с причинным вниманием каждая лексема видит только предшествующие. Прямое приписывание весов всему словарю с одной позиции даёт низкое качество.",
     "barriers_en": "A sparse representation is obtained from the model's vocabulary, and in a decoder-only model with causal attention every token sees only the past. Assigning weights over the whole vocabulary from a single position directly gives poor quality.",
     "confidence": 1.0,
@@ -238,10 +238,18 @@
         "type": "publication",
         "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=6; year=2026; citation_velocity=0.6",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7172392400",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=7; year=2026; citation_velocity=0.7",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 5,
+    "evidence_count": 6,
     "family": null,
     "first_published": "2026-08",
     "groups": [
@@ -272,7 +280,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2608.02583",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "product",
@@ -280,7 +288,7 @@
         "label_en": "Project page",
         "status": "verified",
         "url": "https://alibaba-nlp.github.io/UEmbed",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "UEmbed",

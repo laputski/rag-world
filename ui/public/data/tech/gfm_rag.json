@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "Graph Foundation Model for RAG"
     ],
-    "attention": 1.11,
+    "attention": 1.344,
     "attention_cohort": "2025",
-    "attention_raw": 3.727,
+    "attention_raw": 6.591,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -237,10 +237,18 @@
         "type": "publication",
         "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=82; year=2025; citation_velocity=3.727",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4407129024",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=145; year=2025; citation_velocity=6.591",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 7,
+    "evidence_count": 8,
     "family": null,
     "first_published": "2025-02",
     "groups": [

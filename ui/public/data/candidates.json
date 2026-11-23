@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "candidates": [
     {
       "abstract": "Rendering document text as images allows vision-language models to encode documents as visual tokens, which can reduce input sequence length compared with text input. This reduction in input length is particularly useful for reranking, where each query involves scoring multiple candidate documents and token savings apply to each candidate evaluation.",
@@ -371,6 +371,58 @@
       "source": "https://arxiv.org/abs/2409.15566",
       "tasks": [],
       "title": "GEM-RAG: Graphical Eigen Memories For Retrieval Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Dense retrieval is central to modern search, question answering, and retrieval-augmented generation, where high similarity is often treated as evidence of semantic relevance. We examine how far this assumption can be stressed. NONSENSE is a black-box sparse-edit probe that constructs visibly non-semantic strings while forbidding query-term copying, optimizing only the dense similarity between a query and the string.",
+      "arxiv_id": "2611.22353",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 6
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.22353",
+      "tasks": [],
+      "title": "NONSENSE: Non-Semantic Strings Expose Semanticity Gaps in Dense Retrieval",
+      "verdict": null
+    },
+    {
+      "abstract": "Dense retrieval is increasingly used for biomedical literature search and retrieval-augmented generation (RAG). Most biomedical bi-encoders are built on BERTBase-sized encoders pretrained with masked language modeling (MLM). These encoders are costly for corpus-scale indexing and latency-sensitive query encoding, and MLM does not explicitly train the [CLS] vector that a bi-encoder uses to represent a whole text.",
+      "arxiv_id": "2611.19862",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 4,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismStrong",
+            "count": 7
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.19862",
+      "tasks": [],
+      "title": "Bioformer-RetroMAE: retrieval-oriented pretraining of a compact biomedical language model for literature search",
       "verdict": null
     },
     {
@@ -1083,6 +1135,58 @@
       "source": "https://arxiv.org/abs/2405.16506",
       "tasks": [],
       "title": "GRAG: Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) improves factuality by grounding large language models (LLMs) in external evidence. However, long retrieved contexts incur computational overhead and can even hurt performance due to noisy or irrelevant content. We propose \\textsc{StitchRAG}, a framework for constructing compact context in RAG. \\textsc{StitchRAG} builds a faithful, information-dense context while dynamically compressing the retrieved passages.",
+      "arxiv_id": "2611.22766",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 4
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.22766",
+      "tasks": [],
+      "title": "StitchRAG: Constructing Compact and Evidence-Preserving Contexts for RAG with Diffusion-Based Stitching",
+      "verdict": null
+    },
+    {
+      "abstract": "Evaluating retrieval-augmented generation (RAG) systems in Persian law remains challenging because benchmarks lack realism, grounding, and coverage of legal reasoning. Existing resources are either synthetically generated from statutory texts, lacking natural information needs, or derived from informal legal question--answer sources without explicit linkage to authoritative legal documents, making them unsuitable for rigorous evaluation of grounded legal reasoning.",
+      "arxiv_id": "2611.21823",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 3,
+        "signals": [
+          {
+            "code": "named"
+          },
+          {
+            "code": "mechanismWeak",
+            "count": 3
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-16",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.21823",
+      "tasks": [],
+      "title": "TUSI: A Citation-Grounded Graph-Based Benchmark",
       "verdict": null
     },
     {
@@ -2729,6 +2833,182 @@
       "source": "https://arxiv.org/abs/2410.20724",
       "tasks": [],
       "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "We present ChildAI-Gov, an explainable AI system for assessing whether education-technology (EdTech) policies respect children's digital rights. Generative AI is reaching children's education faster than its governance can keep pace, yet checking a tool against children's rights remains manual, expert-dependent, and slow.",
+      "arxiv_id": "2611.27799",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-20",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.27799",
+      "tasks": [],
+      "title": "ChildAI-Gov: An Evidence-Linked AI System for Assessing EdTech Policies Against Children's Digital Rights",
+      "verdict": null
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) is a well-established paradigm for augmenting large language models (LLMs) with information retrieved from external corpora. However, developing effective RAG systems requires substantial engineering effort and iterative experimentation, as effective design choices vary across tasks and domains.",
+      "arxiv_id": "2611.25582",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-19",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.25582",
+      "tasks": [],
+      "title": "AutoRAGBench: A Benchmark for LLM Agents Automating RAG System Development",
+      "verdict": null
+    },
+    {
+      "abstract": "Large Language Models (LLMs) have demonstrated strong capabilities in open-domain question answering, but often struggle with factual accuracy and multi-hop reasoning due to the incompleteness of the training corpora. A promising solution is Knowledge Graph Retrieval-Augmented Generation (KG-RAG), which supplements LLMs with structured knowledge retrieved from external knowledge graphs (KGs).",
+      "arxiv_id": "2611.25229",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.25229",
+      "tasks": [],
+      "title": "LSP-RAG: Latent Scoring Perspectives for Knowledge Graph Retrieval-Augmented Generation",
+      "verdict": null
+    },
+    {
+      "abstract": "Knowledge engineering (KE) turns raw files into a reasoning-ready knowledge base, a task now within reach of LLM agents. KE has progressed from chunk and graph retrieval-augmented generation (RAG) to memory agents, agentic KE and multimodal KE. However, a live knowledge base needs omnimodality, a closed-loop lifecycle and multi-granular application at once, yet existing systems meet at most two and no benchmark measures all three.",
+      "arxiv_id": "2611.24294",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-18",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.24294",
+      "tasks": [],
+      "title": "KnowledgeClaw: Towards Agentic Knowledge Engineering via Omnimodal Hypergraphs",
+      "verdict": null
+    },
+    {
+      "abstract": "We present StringQFT as a textbook collection for string constructions of quantum field theory and as infrastructure for AI-assisted theoretical physics. The collection comprises 18 volumes, 190 chapters and 3,795 pages, covering brane probes, brane webs, geometric engineering, F-theory constructions, wrapped M5-branes and exact worldsheet constructions. Its open-book benchmark inventory contains 1,073 items, including 499 with automatic finite-answer checking.",
+      "arxiv_id": "2611.23225",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.23225",
+      "tasks": [],
+      "title": "StringQFT: A Multiuse Textbook Resource for AI-Assisted Theoretical Physics",
+      "verdict": null
+    },
+    {
+      "abstract": "Agentic systems using retrieval-augmented generation (RAG) must repair their own answers by gathering more evidence, testing alternative policies and deciding if, when, and what repairs are needed. Yet how do we know if a system's repairs are working when metrics like accuracy can be misleading?",
+      "arxiv_id": "2611.22991",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.22991",
+      "tasks": [],
+      "title": "RagHarnessDebugger: Jev-Guided Agentic RAG in Contract Inference Repair Auditing",
+      "verdict": null
+    },
+    {
+      "abstract": "Large language model agents accumulate experience in memory, and how that memory evolves during interaction is as important as what it stores. Recent methods update memory online, yet both the operators that transform memory and the rules that select them remain fixed by design.",
+      "arxiv_id": "2611.22102",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-17",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.22102",
+      "tasks": [],
+      "title": "EvoDisco: Strategy Discovery for Evolving Agent Memory",
+      "verdict": null
+    },
+    {
+      "abstract": "Memory systems allow AI agents to persist information across interactions, making them more personalized and more capable on long-horizon tasks. This persistence introduces new risks: stored information can be disclosed in inappropriate contexts, resist correction or deletion, be retained beyond what users desire, or be poisoned to influence later agent behaviour. Yet memory systems are typically evaluated on task performance and efficiency alone.",
+      "arxiv_id": "2611.20144",
+      "citations": null,
+      "curated_by": [],
+      "fit": {
+        "score": 2,
+        "signals": [
+          {
+            "code": "named"
+          }
+        ]
+      },
+      "found_at": "2026-11-23",
+      "found_by": "archive",
+      "published": "2026-11-15",
+      "repositories": [],
+      "source": "https://arxiv.org/abs/2611.20144",
+      "tasks": [],
+      "title": "HEAMS: Holistic Evaluation of Agent Memory Systems",
       "verdict": null
     },
     {

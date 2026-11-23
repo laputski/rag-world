@@ -6,7 +6,14 @@
     <language>ru</language>
     <link>https://ragworld.org/changes</link>
     <atom:link href="https://ragworld.org/data/feed.ru.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 16 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Дайджест за 2026-11-23</title>
+      <description>Поднялись в уровне DSPy с L1 до L2, RA-CM3 с L1 до L2, RA-DIT с L1 до L2, Step-Back Prompting с L1 до L2, Think-on-Graph с L1 до L2. Собрано 88 свидетельств: 73 о публикациях, 8 о репозиториях, 7 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 20, L2 у 21, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>
+      <link>https://ragworld.org/digest</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">digest-2026-11-23</guid>
+    </item>
     <item>
       <title>Дайджест за 2026-11-16</title>
       <description>Поднялись в уровне CRAG с L1 до L2. Собрано 80 свидетельств: 67 о публикациях, 7 о загрузках пакетов, 6 о репозиториях. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 25, L2 у 16, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.</description>
@@ -139,6 +146,41 @@
       <link>https://ragworld.org/digest</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">digest-2026-08-09</guid>
+    </item>
+    <item>
+      <title>Think-on-Graph: L1 &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2307.07697, publication https://openalex.org/W4384643740, publication https://openalex.org/W4384643740, publication https://openalex.org/W4384643740, publication https://openalex.org/W7094459024</description>
+      <link>https://ragworld.org/tech/think_on_graph</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">think_on_graph-2026-11-23-L2</guid>
+    </item>
+    <item>
+      <title>Step-Back Prompting: L1 &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2310.06117, publication https://openalex.org/W4387560733, publication https://openalex.org/W4387560733, publication https://openalex.org/W4387560733, publication https://openalex.org/W4387560733</description>
+      <link>https://ragworld.org/tech/step_back</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">step_back-2026-11-23-L2</guid>
+    </item>
+    <item>
+      <title>RA-DIT: L1 &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2310.01352, publication https://openalex.org/W4387322982, publication https://openalex.org/W4387322982, publication https://openalex.org/W4387322982, publication https://openalex.org/W4387322982</description>
+      <link>https://ragworld.org/tech/ra_dit</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">ra_dit-2026-11-23-L2</guid>
+    </item>
+    <item>
+      <title>RA-CM3: L1 &gt; L2</title>
+      <description>publication https://openalex.org/W4309953147, publication https://arxiv.org/abs/2211.12561, publication https://openalex.org/W4309953147, publication https://openalex.org/W4309953147, publication https://openalex.org/W4309953147</description>
+      <link>https://ragworld.org/tech/ra_cm3</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">ra_cm3-2026-11-23-L2</guid>
+    </item>
+    <item>
+      <title>DSPy: L1 &gt; L2</title>
+      <description>publication https://arxiv.org/abs/2310.03714, publication https://openalex.org/W4387430850, publication https://openalex.org/W4387430850, publication https://openalex.org/W4387430850, publication https://openalex.org/W4387430850</description>
+      <link>https://ragworld.org/tech/dspy</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">dspy-2026-11-23-L2</guid>
     </item>
     <item>
       <title>CRAG: L1 &gt; L2</title>
@@ -454,41 +496,6 @@
       <link>https://ragworld.org/tech/colpali</link>
       <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">colpali-2026-08-12-L2</guid>
-    </item>
-    <item>
-      <title>Think-on-Graph: нет &gt; L1</title>
-      <description>publication https://arxiv.org/abs/2307.07697, publication https://openalex.org/W4384643740</description>
-      <link>https://ragworld.org/tech/think_on_graph</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">think_on_graph-2026-08-10-L1</guid>
-    </item>
-    <item>
-      <title>SimRAG: нет &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2410.17952, publication https://openalex.org/W4411119264</description>
-      <link>https://ragworld.org/tech/simrag</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">simrag-2026-08-10-L2</guid>
-    </item>
-    <item>
-      <title>REPLUG: нет &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2301.12652, publication https://openalex.org/W4401042773</description>
-      <link>https://ragworld.org/tech/replug</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">replug-2026-08-10-L2</guid>
-    </item>
-    <item>
-      <title>RA-ISF: нет &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2403.06840, publication https://openalex.org/W4402670862</description>
-      <link>https://ragworld.org/tech/ra_isf</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">ra_isf-2026-08-10-L2</guid>
-    </item>
-    <item>
-      <title>Poison-RAG: нет &gt; L2</title>
-      <description>publication https://arxiv.org/abs/2501.11759, publication https://openalex.org/W4409166754</description>
-      <link>https://ragworld.org/tech/poison_rag</link>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">poison_rag-2026-08-10-L2</guid>
     </item>
   </channel>
 </rss>

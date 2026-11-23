@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "GraphRAG"
     ],
-    "attention": 18.14,
+    "attention": 14.507,
     "attention_cohort": "2024",
-    "attention_raw": 88.968,
+    "attention_raw": 119.452,
     "confidence": 1.0,
     "configuration": {
       "A1": "summary_node",
@@ -512,10 +512,34 @@
         "type": "package_downloads",
         "value": "package=graphrag; version=3.3.0; downloads_last_month=48670",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://github.com/microsoft/graphrag",
+        "type": "repository",
+        "value": "microsoft/graphrag: license=mit, last_push=2026-11-23, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4395686609",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=3703; year=2024; citation_velocity=119.452",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/graphrag/",
+        "type": "package_downloads",
+        "value": "package=graphrag; version=3.3.0; downloads_last_month=43664",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 39,
+    "evidence_count": 42,
     "family": "B",
     "first_published": "2024",
     "groups": [
@@ -549,7 +573,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/microsoft/graphrag",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "preprint",
@@ -557,7 +581,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2404.16130",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "Microsoft GraphRAG",

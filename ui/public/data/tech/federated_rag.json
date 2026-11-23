@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 0.407,
+    "attention": 0.322,
     "attention_cohort": "2025",
-    "attention_raw": 1.368,
+    "attention_raw": 1.579,
     "barriers": "Общее препятствие состоит в противоречии между сохранением тайны и полезностью ответа, и оно распадается на четыре части.\n\nДифференциальная приватность, то есть добавление рассчитанного шума ради невозможности восстановить отдельную запись, ухудшает векторные представления и тем самым снижает полноту выдачи. Совместное обучение представлений требует передачи между участниками больших объёмов, потому что модели представлений велики. Само обращение с запросом небезопасно: и текст запроса, и возвращённое содержимое способны раскрыть охраняемые сведения. Наконец, схемы данных у разных участников различны, и сопоставлять их приходится до всякого поиска.",
     "barriers_en": "The common obstacle is the tension between preserving confidentiality and producing a useful answer, and it falls into four parts.\n\nDifferential privacy, that is, the addition of calibrated noise so that an individual record cannot be recovered, degrades vector representations and thereby lowers recall. Training representations jointly requires transferring large volumes between participants, because representation models are large. Handling the query is itself unsafe: both the text of the query and the content returned can disclose protected information. Finally, data schemas differ across participants and have to be reconciled before any search can take place.",
     "confidence": 1.0,
@@ -297,10 +297,26 @@
         "type": "publication",
         "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=24; year=2025; citation_velocity=1.091",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416981893",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=30; year=2025; citation_velocity=1.579",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034993",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=29; year=2025; citation_velocity=1.318",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 16,
+    "evidence_count": 18,
     "family": null,
     "first_published": "2025-04",
     "groups": [
@@ -332,7 +348,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://aclanthology.org/2025.findings-emnlp.388.pdf",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "preprint",
@@ -340,7 +356,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2504.19101",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "github",
@@ -348,7 +364,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/DocAILab/FedE4RAG",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "preprint",
@@ -356,7 +372,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/pdf/2505.18906",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "other",
@@ -364,7 +380,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://openreview.net/forum?id=kOUMng3ynd",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "maturity_note": "Ранние работы и первые прототипы. Систематический обзор, сведший направление воедино, представлен на конференции EMNLP 2025.",

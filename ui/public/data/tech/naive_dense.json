@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 66.415,
+    "attention": 108.085,
     "attention_cohort": null,
-    "attention_raw": 66.415,
+    "attention_raw": 108.085,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -319,10 +319,26 @@
         "type": "publication",
         "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=7910; year=2020",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W3015883388",
+        "type": "publication",
+        "value": "venue=Conference on Empirical Methods in Natural Language Processing (EMNLP); peer_reviewed=true; cited_by=8863; year=2020; citation_velocity=108.085",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://paperswithcode.co/api/v1/papers/2004.04906",
+        "type": "publication",
+        "value": "venue=EMNLP 2020 11; peer_reviewed=true; citations_semantic_scholar=8014; year=2020",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 18,
+    "evidence_count": 20,
     "family": null,
     "first_published": null,
     "groups": [
@@ -354,7 +370,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2004.04906",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "Naive Dense",

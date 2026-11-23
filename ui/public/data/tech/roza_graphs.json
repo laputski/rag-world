@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "ROZA",
@@ -208,7 +208,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2604.07595",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "ROZA Graphs",

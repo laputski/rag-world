@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "ChatQA 2"
     ],
-    "attention": 0.576,
+    "attention": 0.593,
     "attention_cohort": "2024",
-    "attention_raw": 2.824,
+    "attention_raw": 4.882,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -251,10 +251,18 @@
         "type": "publication",
         "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=96; year=2024; citation_velocity=2.824",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415798682",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=166; year=2024; citation_velocity=4.882",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 12,
+    "evidence_count": 13,
     "family": null,
     "first_published": "2024-01",
     "groups": [
@@ -285,7 +293,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2401.10225",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "ChatQA",

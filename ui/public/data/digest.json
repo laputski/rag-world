@@ -1,6 +1,67 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "issues": [
+    {
+      "added": [],
+      "by_level": {
+        "L0": 4,
+        "L1": 20,
+        "L2": 21,
+        "L3": 23,
+        "L4": 3,
+        "L5": 3,
+        "unknown": 2
+      },
+      "demoted": [],
+      "evidence_added": 88,
+      "evidence_by_type": {
+        "package_downloads": 7,
+        "publication": 73,
+        "repository": 8
+      },
+      "evidence_seen": 1107,
+      "issued_at": "2026-11-23",
+      "levels_seen": 130,
+      "links_broken": 0,
+      "links_checked": 99,
+      "promoted": [
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "DSPy",
+          "technology_id": "dspy"
+        },
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "RA-CM3",
+          "technology_id": "ra_cm3"
+        },
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "RA-DIT",
+          "technology_id": "ra_dit"
+        },
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "Step-Back Prompting",
+          "technology_id": "step_back"
+        },
+        {
+          "level_after": "L2",
+          "level_before": "L1",
+          "name": "Think-on-Graph",
+          "technology_id": "think_on_graph"
+        }
+      ],
+      "runs_seen": 27,
+      "since": "2026-11-16",
+      "text": "Поднялись в уровне DSPy с L1 до L2, RA-CM3 с L1 до L2, RA-DIT с L1 до L2, Step-Back Prompting с L1 до L2, Think-on-Graph с L1 до L2. Собрано 88 свидетельств: 73 о публикациях, 8 о репозиториях, 7 о загрузках пакетов. Сейчас в реестре 76 записей. Уровень L0 у 4 записей, L1 у 20, L2 у 21, L3 у 23, L4 у 3, L5 у 3. У 2 записей уровень не вычислен, потому что свидетельств пока нет.",
+      "text_en": "Rose in level: DSPy from L1 to L2, RA-CM3 from L1 to L2, RA-DIT from L1 to L2, Step-Back Prompting from L1 to L2, Think-on-Graph from L1 to L2. Collected 88 pieces of evidence: 73 about publications, 8 about repositories, 7 about package downloads. The registry now holds 76 records. Level L0 in 4 records, L1 in 20, L2 in 21, L3 in 23, L4 in 3, L5 in 3. For 2 records no level is computed, because there is no evidence yet.",
+      "total": 76
+    },
     {
       "added": [],
       "by_level": {

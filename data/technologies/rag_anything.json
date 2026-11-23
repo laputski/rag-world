@@ -55,7 +55,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://arxiv.org/abs/2510.12323",
-      "verified_at": "2026-10-19"
+      "verified_at": "2026-11-23"
     },
     {
       "kind": "github",
@@ -63,7 +63,7 @@
       "label_en": null,
       "status": "verified",
       "url": "https://github.com/HKUDS/RAG-Anything",
-      "verified_at": "2026-10-19"
+      "verified_at": "2026-11-23"
     }
   ],
   "name": "RAG-Anything",

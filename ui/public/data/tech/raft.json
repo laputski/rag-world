@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 1.969,
+    "attention": 1.996,
     "attention_cohort": "2024",
-    "attention_raw": 9.656,
+    "attention_raw": 16.438,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -222,10 +222,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=309; year=2024; citation_velocity=9.656",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4392930030",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=526; year=2024; citation_velocity=16.438",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 10,
+    "evidence_count": 11,
     "family": "I",
     "first_published": "2024-03",
     "groups": [
@@ -257,7 +265,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2403.10131",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "RAFT",

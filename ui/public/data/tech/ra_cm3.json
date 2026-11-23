@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 3.0,
+    "attention": 4.729,
     "attention_cohort": null,
-    "attention_raw": 3.0,
+    "attention_raw": 4.729,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -228,10 +228,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=144; year=2022; citation_velocity=3.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4309953147",
+        "type": "publication",
+        "value": "venue=International Conference on Machine Learning; peer_reviewed=true; cited_by=227; year=2022; citation_velocity=4.729",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 8,
+    "evidence_count": 9,
     "family": null,
     "first_published": "2022-11",
     "groups": [
@@ -241,12 +249,11 @@
     ],
     "id": "ra_cm3",
     "kind": "architecture",
-    "level": "L1",
+    "level": "L2",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L2",
         "L3",
         "L4",
         "L5",
@@ -254,7 +261,8 @@
       ],
       "satisfied": [
         "L0",
-        "L1"
+        "L1",
+        "L2"
       ]
     },
     "links": [
@@ -264,7 +272,7 @@
         "label_en": "arXiv:2211.12561 (corrected: was 2204.05021, a data extraction paper)",
         "status": "verified",
         "url": "https://arxiv.org/abs/2211.12561",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "RA-CM3",

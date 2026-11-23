@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 1.704,
+    "attention": 1.479,
     "attention_cohort": "2023",
-    "attention_raw": 25.757,
+    "attention_raw": 43.1,
     "confidence": 1.0,
     "configuration": {
       "B1": "multi_reformulation",
@@ -278,10 +278,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=953; year=2023; citation_velocity=25.757",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4387430850",
+        "type": "publication",
+        "value": "venue=International Conference on Learning Representations; peer_reviewed=true; cited_by=1293; year=2024; citation_velocity=43.1",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 11,
+    "evidence_count": 12,
     "family": null,
     "first_published": "2023",
     "groups": [
@@ -290,12 +298,11 @@
     ],
     "id": "dspy",
     "kind": "tool",
-    "level": "L1",
+    "level": "L2",
     "level_reason": {
       "confidence": 1.0,
       "evidence_basis": "computed",
       "missing": [
-        "L2",
         "L3",
         "L4",
         "L5",
@@ -303,7 +310,8 @@
       ],
       "satisfied": [
         "L0",
-        "L1"
+        "L1",
+        "L2"
       ]
     },
     "links": [
@@ -313,7 +321,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2310.03714",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "DSPy",

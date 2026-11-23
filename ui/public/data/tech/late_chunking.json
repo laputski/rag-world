@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 0.847,
+    "attention": 0.729,
     "attention_cohort": "2024",
-    "attention_raw": 4.154,
+    "attention_raw": 6.0,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -242,10 +242,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=108; year=2024; citation_velocity=4.154",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4403882995",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=156; year=2024; citation_velocity=6.0",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 9,
+    "evidence_count": 10,
     "family": "H",
     "first_published": "2024",
     "groups": [
@@ -276,7 +284,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2409.04701",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "Late Chunking",

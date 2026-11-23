@@ -1,10 +1,10 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
-    "attention": 0.486,
+    "attention": 0.718,
     "attention_cohort": "2024",
-    "attention_raw": 2.382,
+    "attention_raw": 5.912,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -294,10 +294,18 @@
         "type": "publication",
         "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=81; year=2024; citation_velocity=2.382",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4415795887",
+        "type": "publication",
+        "value": "venue=neural information processing systems; peer_reviewed=true; cited_by=201; year=2024; citation_velocity=5.912",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 16,
+    "evidence_count": 17,
     "family": "F",
     "first_published": "2024",
     "groups": [
@@ -328,7 +336,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2405.13792",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "github",

@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -163,10 +163,18 @@
         "type": "repository",
         "value": "Raudaschl/rag-fusion: license=mit, last_push=2026-10-10, releases=no",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://github.com/Raudaschl/rag-fusion",
+        "type": "repository",
+        "value": "Raudaschl/rag-fusion: license=mit, last_push=2026-11-22, releases=no",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 3,
+    "evidence_count": 4,
     "family": "G",
     "first_published": null,
     "groups": [
@@ -198,7 +206,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/Raudaschl/rag-fusion",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "RAG-Fusion",

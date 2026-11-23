@@ -1,6 +1,264 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "changes": [
+    {
+      "changed_at": "2026-11-23",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2307.07697",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4384643740",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W7094459024",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Think-on-Graph",
+      "technology_id": "think_on_graph"
+    },
+    {
+      "changed_at": "2026-11-23",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.06117",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387560733",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "Step-Back Prompting",
+      "technology_id": "step_back"
+    },
+    {
+      "changed_at": "2026-11-23",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.01352",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387322982",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RA-DIT",
+      "technology_id": "ra_dit"
+    },
+    {
+      "changed_at": "2026-11-23",
+      "evidence": [
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://arxiv.org/abs/2211.12561",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4309953147",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "RA-CM3",
+      "technology_id": "ra_cm3"
+    },
+    {
+      "changed_at": "2026-11-23",
+      "evidence": [
+        {
+          "source": "https://arxiv.org/abs/2310.03714",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        },
+        {
+          "source": "https://openalex.org/W4387430850",
+          "type": "publication"
+        }
+      ],
+      "kind": "level_up",
+      "level_after": "L2",
+      "level_before": "L1",
+      "name": "DSPy",
+      "technology_id": "dspy"
+    },
     {
       "changed_at": "2026-11-16",
       "evidence": [

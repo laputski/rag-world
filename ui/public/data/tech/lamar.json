@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "Language-Aware Multilingual Alignment Reranker"
     ],
-    "attention": 0.0,
+    "attention": 0.588,
     "attention_cohort": "2026",
-    "attention_raw": 0.0,
+    "attention_raw": 0.5,
     "barriers": "Просто предпочесть язык запроса нельзя: так теряется смысловая относимость, ради которой переранжировщик и нужен. Оценки относимости к тому же несопоставимы между языками.",
     "barriers_en": "Simply preferring the query's language will not do: the semantic relevance the reranker exists for is then lost. Relevance scores are moreover not comparable across languages.",
     "confidence": 1.0,
@@ -174,10 +174,18 @@
         "type": "publication",
         "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=0; year=2026; citation_velocity=0.0",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W7171352433",
+        "type": "publication",
+        "value": "venue=arXiv (Cornell University); peer_reviewed=false; cited_by=2; year=2026; citation_velocity=0.5",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 2,
+    "evidence_count": 3,
     "family": null,
     "first_published": "2026-07",
     "groups": [
@@ -208,7 +216,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://arxiv.org/abs/2607.22042",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       }
     ],
     "name": "LAMAR",

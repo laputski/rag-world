@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [],
     "attention": null,
@@ -400,10 +400,26 @@
         "type": "package_downloads",
         "value": "package=qdrant-client; version=1.20.0; downloads_last_month=15269984",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://github.com/qdrant/qdrant",
+        "type": "repository",
+        "value": "qdrant/qdrant: license=apache-2.0, last_push=2026-11-23, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/qdrant-client/",
+        "type": "package_downloads",
+        "value": "package=qdrant-client; version=1.20.0; downloads_last_month=15790798",
+        "value_en": null
       }
     ],
     "evidence_basis": "manual",
-    "evidence_count": 28,
+    "evidence_count": 30,
     "family": null,
     "first_published": null,
     "groups": [
@@ -435,7 +451,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://qdrant.tech/",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "github",

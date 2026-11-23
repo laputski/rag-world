@@ -1,12 +1,12 @@
 {
-  "built_at": "2026-11-16",
+  "built_at": "2026-11-23",
   "technology": {
     "aliases": [
       "Light-RAG"
     ],
-    "attention": 11.396,
+    "attention": 10.185,
     "attention_cohort": "2025",
-    "attention_raw": 38.273,
+    "attention_raw": 49.955,
     "confidence": 1.0,
     "configuration": {
       "A1": "passage",
@@ -569,10 +569,34 @@
         "type": "package_downloads",
         "value": "package=lightrag-hku; version=1.5.7; downloads_last_month=146908",
         "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://github.com/HKUDS/LightRAG",
+        "type": "repository",
+        "value": "HKUDS/LightRAG: license=mit, last_push=2026-11-23, releases=yes",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://openalex.org/W4416034797",
+        "type": "publication",
+        "value": "venue=Findings of the Association for Computational Linguistics: EMNLP (Findings of EMNLP); peer_reviewed=true; cited_by=1099; year=2025; citation_velocity=49.955",
+        "value_en": null
+      },
+      {
+        "fetched_at": "2026-11-23",
+        "obtained_by": "auto",
+        "source": "https://pypi.org/project/lightrag-hku/",
+        "type": "package_downloads",
+        "value": "package=lightrag-hku; version=1.5.7; downloads_last_month=160071",
+        "value_en": null
       }
     ],
     "evidence_basis": "computed",
-    "evidence_count": 48,
+    "evidence_count": 51,
     "family": "B",
     "first_published": "2025",
     "groups": [
@@ -584,7 +608,7 @@
     "kind": "architecture",
     "level": "L4",
     "level_reason": {
-      "confidence": 0.643,
+      "confidence": 0.667,
       "evidence_basis": "computed",
       "missing": [
         "L5",
@@ -605,7 +629,7 @@
         "label_en": null,
         "status": "verified",
         "url": "https://github.com/HKUDS/LightRAG",
-        "verified_at": "2026-10-19"
+        "verified_at": "2026-11-23"
       },
       {
         "kind": "preprint",
